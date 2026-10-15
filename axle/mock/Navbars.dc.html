@@ -18,7 +18,7 @@ a{color:#0459F7}
 
   <header style="display: flex; flex-direction: column; gap: 10px; max-width: 1100px">
     <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">One AXLE, six products</h1>
-    <p style="margin: 0; font-size: 16px">Every product's AXLE has the same two modes and the same standard pages in the same places. What only one product has sits in its own box at the end, so the standard never moves.</p>
+    <p style="margin: 0; font-size: 16px">Every product's AXLE has the same Dashboard pages in the same places. Products that run machinery of their own also get R8, behind a mode switch that changes only the menu. What only one product has sits in its own box at the end, so the standard never moves.</p>
     <div style="display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 13px; margin-top: 4px">
       <span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 38px; height: 20px; border-radius: 6px; background: #0C1B47"></span>AXLE standard: every product, same names, same order</span>
       <span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 38px; height: 20px; border-radius: 6px; background: #0C1B47; box-shadow: inset 0 0 0 1px rgba(157,184,255,.6); outline: 1px dashed #8E9CC9; outline-offset: -4px"></span>Product only: in a dashed box under the product's mark</span>
@@ -47,13 +47,22 @@ a{color:#0459F7}
   </section>
 
   <section aria-labelledby="r8-h" style="display: flex; flex-direction: column; gap: 12px">
-    <h2 id="r8-h" style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">R8 mode: the machinery</h2>
+    <h2 id="r8-h" style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">R8 mode: the machinery (only where the product runs some)</h2>
     <div style="display: flex; gap: 40px; align-items: flex-start">
       <sc-for list="{{products}}" as="p" hint-placeholder-count="6">
         <div style="flex: none; width: 240px; display: flex; flex-direction: column; gap: 8px">
           <span style="color: #0B1B4F; font-weight: 600">{{p.name}}</span>
           <span style="font-size: 12px; color: #5B6488; min-height: 36px">{{p.r8Note}}</span>
-          <div style="border-radius: 16px; overflow: hidden; background: #0C1B47"><dc-import name="Sidebar" product="{{p.name}}" mode="r8" active="Overview" hint-size="240px,1000px"></dc-import></div>
+          <sc-if value="{{p.hasR8}}" hint-placeholder-val="{{true}}">
+            <div style="border-radius: 16px; overflow: hidden; background: #0C1B47"><dc-import name="Sidebar" product="{{p.name}}" mode="r8" active="Overview" hint-size="240px,1000px"></dc-import></div>
+          </sc-if>
+          <sc-if value="{{p.noR8}}" hint-placeholder-val="{{false}}">
+            <div style="border-radius: 16px; border: 1px dashed #B9C1D4; background: #FFFFFF; padding: 18px 16px; display: flex; flex-direction: column; gap: 8px">
+              <span style="align-self: flex-start; padding: 1px 8px; border-radius: 8px; background: #EEF1F6; color: #3B4469; font-weight: 600; font-size: 12px">No R8</span>
+              <span style="font-size: 13px; color: #0B1B4F">No mode switch. The menu is Dashboard only.</span>
+              <span style="font-size: 12px; color: #5B6488">{{p.noR8Why}}</span>
+            </div>
+          </sc-if>
         </div>
       </sc-for>
     </div>
@@ -65,13 +74,13 @@ class Component extends DCLogic {
   renderVals() {
     return {
       products: [
-        { name: 'Janka', dashNote: 'Forecast accuracy, the reference photo library and learning', r8Note: 'The nightly forecast run' },
-        { name: 'Yara', dashNote: 'Data integrity checks and paid modules', r8Note: 'Status API keys and deploys' },
-        { name: 'AX Frame', dashNote: 'AI connections, customer site health and the catalog', r8Note: 'Screenshots (Visual) and Troubleshoot' },
-        { name: 'Angka', dashNote: 'Lapis and the weekly brief', r8Note: 'Runs' },
-        { name: 'PLExyz Grid', dashNote: 'Nothing of its own today: the standard covers it', r8Note: 'Nothing of its own today' },
-        { name: 'Tinara', dashNote: 'Scoring, data sources and the intelligence ledger', r8Note: 'Nothing of its own today' }
-      ]
+        { name: 'Janka', hasR8: true, dashNote: 'Forecast accuracy, the reference photo library and learning', r8Note: 'R8: runs a nightly forecast and AI on two providers. Own page: Nightly forecast' },
+        { name: 'Yara', hasR8: false, dashNote: 'Data integrity, paid modules and Status API keys', r8Note: 'No R8: Health and Jobs stay in Dashboard Operations', noR8Why: 'Yara runs no machinery of its own beyond the database. Health and Jobs stay under Operations. Revisit if a scheduler or agents arrive.' },
+        { name: 'AX Frame', hasR8: true, dashNote: 'AI connections, customer site health and the catalog', r8Note: 'R8: daily site checks and screenshots. Observe shows Probes and network, and Visual' },
+        { name: 'Angka', hasR8: true, dashNote: 'Lapis and the weekly brief', r8Note: 'R8 proposed: scheduled runs and the brief. Own page: Runs' },
+        { name: 'PLExyz Grid', hasR8: false, dashNote: 'Nothing of its own today: the standard covers it', r8Note: 'No R8 today', noR8Why: 'No jobs, providers or agents of its own yet. The switch appears once a backend exists for an R8 page (M2).' },
+        { name: 'Tinara', hasR8: true, dashNote: 'Scoring, data sources and the intelligence ledger', r8Note: 'R8 proposed: ingestion pipelines. Own page: Data pipelines' }
+      ].map(function (p) { p.noR8 = !p.hasR8; p.noR8Why = p.noR8Why || ''; return p; })
     };
   }
 }

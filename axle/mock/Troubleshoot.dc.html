@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Troubleshoot · R8 · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Troubleshoot" mode="r8" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="R8 · Troubleshoot" hint-size="100%,80px"></dc-import>
+    <main style="padding: 18px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+
+      <div style="display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; font-size: 13px">
+        <a href="Main.dc.html">← Back to Dashboard · Needs a person</a>
+        <span style="color: #5B6488">Opened from the alert "Gemini key is failing"</span>
+      </div>
+
+      <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center">
+        <span style="display: flex; flex-direction: column; flex: 1 1 380px">
+          <span class="mono" style="font-size: 12px; color: #5B6488">INC-0412 · High · open, acknowledged by Aisyah Rahman at 13:58</span>
+          <h2 style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">AI provider rate limited</h2>
+          <span style="font-size: 13px">Scope: Google Gemini · all organisations · since 15 Oct, 13:52 MYT</span>
+        </span>
+        <span style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px">
+          <span style="padding: 3px 10px; border-radius: 999px; background: #EEF1F6">2 tasks affected</span>
+          <span style="padding: 3px 10px; border-radius: 999px; background: #EEF1F6">0 members saw a failure</span>
+        </span>
+      </section>
+
+      <div role="tablist" aria-label="Evidence layers" style="display: flex; gap: 4px; border-bottom: 1px solid #E5E8EE">
+        <sc-for list="{{layers}}" as="l" hint-placeholder-count="3">
+          <button type="button" role="tab" aria-selected="{{l.on}}" onClick="{{l.pick}}" style="{{l.style}}">{{l.label}} <span style="font-size: 12px; color: #5B6488">{{l.hint}}</span></button>
+        </sc-for>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+        <section aria-label="Evidence" style="flex: 3 1 520px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px"><h3 style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Evidence: {{layer.label}}</h3><span style="font-size: 12px; color: #5B6488">Facts, each with its source</span></div>
+          <sc-for list="{{layer.facts}}" as="f" hint-placeholder-count="4">
+            <div style="display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 9px 0; border-bottom: 1px solid #EEF1F6; font-size: 13px">
+              <span style="flex: 1 1 300px; color: #0B1B4F">{{f.fact}}</span>
+              <span class="mono" style="flex: 0 1 260px; font-size: 11px; color: #5B6488">{{f.source}}</span>
+            </div>
+          </sc-for>
+        </section>
+
+        <section aria-label="Timeline" style="flex: 2 1 320px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 6px">
+          <h3 style="margin: 0 0 4px; color: #0B1B4F; font-size: 16px; font-weight: 600">Timeline</h3>
+          <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+            <sc-for list="{{timeline}}" as="e" hint-placeholder-count="6">
+              <li style="display: flex; gap: 12px; padding: 6px 0; font-size: 13px"><span style="width: 10px; height: 10px; border-radius: 50%; flex: none; margin-top: 5px; background: {{e.dot}}"></span><span class="mono" style="flex: 0 0 44px; font-size: 12px; color: #5B6488">{{e.at}}</span><span>{{e.what}}</span></li>
+            </sc-for>
+          </ol>
+        </section>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+        <section aria-labelledby="dx-h" style="flex: 1 1 380px; min-width: 0; background: #F3F7FE; border: 1px solid #C9DBFE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #0459F7">AXLE's reading, derived from the evidence</span>
+          <h3 id="dx-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Consistent with Gemini's daily quota running out</h3>
+          <p style="margin: 0; font-size: 13px">Quota use reached 100% at 13:51 and every refusal since is a 429 with "quota exceeded". Members still get answers through the fallback, about 3 s slower. Not proven: whether the spike came from one organisation.</p>
+          <p style="margin: 0; font-size: 12px; color: #5B6488">A reading, not a fact. Stored apart from the evidence and from your conclusion.</p>
+        </section>
+        <section aria-labelledby="cc-h" style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+          <h3 id="cc-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Your conclusion</h3>
+          <label for="conclusion" style="font-size: 12px; color: #5B6488">What you found and what you did. Saved with your name; never presented as AXLE's reading.</label>
+          <textarea id="conclusion" rows="4" style="padding: 10px 12px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F"></textarea>
+          <button type="button" style="align-self: flex-start; min-height: 40px; padding: 0 16px; border-radius: 12px; border: 0; background: #FB9800; color: #071233; font-weight: 600; cursor: pointer">Save conclusion</button>
+        </section>
+      </div>
+
+      <section aria-labelledby="act-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap"><h3 id="act-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Safe actions for this problem</h3><span style="font-size: 12px; color: #5B6488">Each asks for a reason and goes to the operations audit</span></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <sc-for list="{{actions}}" as="a" hint-placeholder-count="4">
+            <button type="button" disabled="{{a.disabled}}" style="{{a.style}}"><span>{{a.label}}</span><span class="mono" style="font-size: 10px; letter-spacing: .06em; opacity: .8">{{a.level}}</span></button>
+          </sc-for>
+        </div>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">Level 2 actions (restart a worker, drain a queue) need Admin and apply only to REKA's own machinery. There are no Level 3 actions in AXLE: no shell, no restarting a customer's machines, no deploying.</p>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { layer: 'outside' }; }
+  renderVals() {
+    var self = this;
+    var L = {
+      outside: { label: 'Outside', hint: 'the provider', facts: [
+        { fact: 'Gemini answered 429 "quota exceeded" to 214 of 214 calls since 13:52', source: 'provider log · gemini · 13:52 to 14:30' },
+        { fact: 'Daily quota use: 100% at 13:51 (90% at 13:40)', source: 'provider usage API · read 14:30' },
+        { fact: 'Success rate, last 24 h: 61% (usual 99.6%)', source: 'AXLE provider stats' },
+        { fact: 'Gemini status page: no incident reported', source: 'checked 14:29' }
+      ] },
+      inside: { label: 'Inside', hint: 'Janka\'s machinery', facts: [
+        { fact: 'Workers: 4 of 4 running; no restarts since 12:28', source: 'worker heartbeat' },
+        { fact: 'AI gateway switched 2 tasks to the fallback at 13:52', source: 'gateway log · fallback_switch' },
+        { fact: 'Queue for AI tasks: 0 waiting', source: 'queue stats · 14:30' }
+      ] },
+      app: { label: 'Application', hint: 'what members saw', facts: [
+        { fact: 'Photo identify: 41 answered today, 0 failed, median 4.8 s (usual 1.9 s)', source: 'app metrics · photo_identify' },
+        { fact: 'Explain a forecast: 63 answered since 13:52, 0 failed', source: 'app metrics · explain_forecast' },
+        { fact: 'No member reported a problem', source: 'Feedback, Support notes' }
+      ] }
+    };
+    var layers = ['outside', 'inside', 'app'].map(function (k) {
+      var on = self.state.layer === k;
+      return { label: L[k].label, hint: L[k].hint, on: on ? 'true' : 'false',
+        style: 'min-height:44px;padding:0 14px;border:0;background:transparent;cursor:pointer;font-size:14px;margin-bottom:-1px;' + (on ? 'color:#0B1B4F;font-weight:600;border-bottom:3px solid #FB9800;' : 'color:#5B6488;border-bottom:3px solid transparent;'),
+        pick: function () { self.setState({ layer: k }); } };
+    });
+    var BTN = 'display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:12px;font-size:14px;cursor:pointer;';
+    function act(label, level, primary, disabled) {
+      return { label: label, level: level, disabled: !!disabled,
+        style: BTN + (disabled ? 'border:1px solid #E5E8EE;background:#F5F7FC;color:#8A93AE;cursor:not-allowed;' : (primary ? 'border:0;background:#FB9800;color:#071233;font-weight:600;' : 'border:1px solid #D5DBE7;background:#FFFFFF;color:#0B1B4F;')) };
+    }
+    return {
+      layers: layers, layer: L[this.state.layer],
+      timeline: [
+        { at: '13:40', what: 'Gemini quota use passes 90%', dot: '#F79009' },
+        { at: '13:51', what: 'Quota use reaches 100%', dot: '#F79009' },
+        { at: '13:52', what: 'First 429 from Gemini', dot: '#F04438' },
+        { at: '13:52', what: 'Gateway switches 2 tasks to Claude', dot: '#0459F7' },
+        { at: '13:55', what: 'Incident INC-0412 opened from 3 signals', dot: '#F04438' },
+        { at: '13:58', what: 'Aisyah Rahman acknowledged', dot: '#12B76A' }
+      ],
+      actions: [
+        act('Test provider', 'LEVEL 1', true),
+        act('Retry failed items (0)', 'LEVEL 1', false, true),
+        act('Suppress for 1 hour…', 'LEVEL 1', false),
+        act('Open Models & keys', 'DASHBOARD', false)
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

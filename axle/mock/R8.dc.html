@@ -22,37 +22,33 @@ button,input,select,textarea{font-family:inherit}
   <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
     <dc-import name="TopBar" page-title="R8 · Overview" hint-size="100%,80px"></dc-import>
     <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 18px; max-width: 1320px; width: 100%; box-sizing: border-box">
-      <div><p style="margin: 0; color: #0B1B4F; font-size: 16px">The machinery behind Janka: is every job running, every outside service answering, and the setup complete.</p>
-      <p class="mono" style="margin: 0; font-size: 12px; color: #5B6488">build 7cc4b93 · deployed 15 Oct, 12:28 · matches main · checked 14:30:12 MYT</p></div>
+
+      <section role="status" aria-label="Overall state" style="display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; padding: 18px 22px; border-radius: 20px; background: #FEF4E6; border: 1px solid #F8CD92">
+        <span style="display: flex; flex-direction: column; gap: 2px; flex: 1 1 360px">
+          <span style="font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #B54708">Degraded</span>
+          <span style="color: #0B1B4F; font-size: 20px; font-weight: 600">Janka works for members, on a fallback model and with one import stuck</span>
+          <span class="mono" style="font-size: 12px; color: #5B6488">build 7cc4b93 · deployed 15 Oct, 12:28 · matches main · checked 14:30:12 MYT</span>
+        </span>
+        <span style="display: flex; gap: 20px">
+          <span style="display: flex; flex-direction: column"><span class="mono" style="font-size: 26px; color: #0B1B4F">2</span><span style="font-size: 12px; color: #5B6488">open incidents</span></span>
+          <span style="display: flex; flex-direction: column"><span class="mono" style="font-size: 26px; color: #0B1B4F">1</span><span style="font-size: 12px; color: #5B6488">organisation affected</span></span>
+        </span>
+      </section>
 
       <section aria-labelledby="op-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px"><h2 id="op-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600; display: flex; align-items: center; gap: 10px"><span style="width: 9px; height: 9px; transform: rotate(45deg); background: #FB9800; border-radius: 1px"></span>Needs an operator</h2><span class="mono" style="font-size: 12px; color: #5B6488">3 open · worst first</span></div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px"><h2 id="op-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600; display: flex; align-items: center; gap: 10px"><span style="width: 9px; height: 9px; transform: rotate(45deg); background: #FB9800; border-radius: 1px"></span>Needs an operator</h2><span class="mono" style="font-size: 12px; color: #5B6488">3 open · each opens its diagnosis</span></div>
         <sc-for list="{{needs}}" as="n" hint-placeholder-count="3">
           <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 14px; background: #F5F7FC">
             <span style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: {{n.tint}}; color: {{n.ink}}">{{n.level}}</span>
             <span style="flex: 1 1 320px; display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 500">{{n.what}}</span><span class="mono" style="font-size: 12px; color: #5B6488">{{n.since}}</span></span>
-            <a href="{{n.href}}" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 10px; border: 1px solid #D5DBE7; color: #0B1B4F; font-size: 13px; font-weight: 500; text-decoration: none">{{n.fix}}</a>
+            <a href="Troubleshoot.dc.html" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 10px; border: 1px solid #D5DBE7; color: #0B1B4F; font-size: 13px; font-weight: 500; text-decoration: none">Troubleshoot</a>
           </div>
         </sc-for>
       </section>
 
-      <section aria-labelledby="jobs-h" style="display: flex; flex-direction: column; gap: 10px">
-        <div style="display: flex; justify-content: space-between; align-items: baseline"><h2 id="jobs-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600">Jobs</h2><a href="Health.dc.html" style="font-size: 13px">All jobs</a></div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px">
-          <sc-for list="{{jobs}}" as="j" hint-placeholder-count="6">
-            <div style="display: flex; flex-direction: column; gap: 3px; padding: 14px 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid {{j.border}}">
-              <span style="display: flex; align-items: center; gap: 8px; color: #0B1B4F; font-weight: 500"><span style="width: 9px; height: 9px; border-radius: 50%; background: {{j.dot}}"></span>{{j.name}}</span>
-              <sc-if value="{{j.custom}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .08em; padding: 1px 7px; border-radius: 999px; border: 1px dashed #8E9CC9; color: #3B4469">JANKA ONLY</span></sc-if>
-              <span style="font-size: 13px; font-weight: 600; color: {{j.fg}}">{{j.word}}</span>
-              <span class="mono" style="font-size: 11px; color: #5B6488">{{j.detail}}</span>
-            </div>
-          </sc-for>
-        </div>
-      </section>
-
       <section aria-labelledby="svc-h" style="display: flex; flex-direction: column; gap: 10px">
-        <h2 id="svc-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600">Outside services</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px">
+        <h2 id="svc-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600">Platform services</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px">
           <sc-for list="{{services}}" as="s" hint-placeholder-count="7">
             <div style="display: flex; flex-direction: column; gap: 3px; padding: 12px 14px; border-radius: 14px; background: {{s.bg}}; border: 1px solid {{s.border}}">
               <span style="display: flex; align-items: center; gap: 7px; color: #0B1B4F; font-weight: 500; font-size: 13px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{s.dot}}"></span>{{s.name}}</span>
@@ -63,16 +59,28 @@ button,input,select,textarea{font-family:inherit}
         </div>
       </section>
 
-      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
-        <section aria-labelledby="cfg-h" style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
-          <h2 id="cfg-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Setup: 1 thing missing</h2>
-          <sc-for list="{{config}}" as="c" hint-placeholder-count="5">
-            <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; padding: 4px 0">
-              <span aria-hidden="true" style="width: 20px; height: 20px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: {{c.bg}}; color: {{c.fg}}">{{c.mark}}</span>
-              <span style="display: flex; flex-direction: column"><span style="color: #0B1B4F">{{c.what}}</span><span style="font-size: 12px; color: #5B6488">{{c.why}}</span></span>
+      <section aria-labelledby="mc-h" style="display: flex; flex-direction: column; gap: 10px">
+        <h2 id="mc-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600; display: flex; align-items: center; gap: 10px">Janka's machinery <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .08em; padding: 1px 7px; border-radius: 999px; border: 1px dashed #8E9CC9; color: #3B4469">JANKA ONLY</span></h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px">
+          <sc-for list="{{machinery}}" as="m" hint-placeholder-count="4">
+            <div style="display: flex; flex-direction: column; gap: 3px; padding: 14px 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid {{m.border}}">
+              <span style="display: flex; align-items: center; gap: 8px; color: #0B1B4F; font-weight: 500"><span style="width: 9px; height: 9px; border-radius: 50%; background: {{m.dot}}"></span>{{m.name}}</span>
+              <span style="font-size: 13px; font-weight: 600; color: {{m.fg}}">{{m.word}}</span>
+              <span class="mono" style="font-size: 11px; color: #5B6488">{{m.detail}}</span>
             </div>
           </sc-for>
-          <p style="margin: 0; font-size: 12px; color: #5B6488">Shows whether each setting is set, never its value.</p>
+        </div>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+        <section aria-labelledby="inc-h" style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+          <h2 id="inc-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Incidents</h2>
+          <sc-for list="{{incidents}}" as="i" hint-placeholder-count="2">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; background: #F5F7FC; font-size: 13px">
+              <span style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap"><span style="font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{i.tint}}; color: {{i.ink}}">{{i.sev}}</span><span style="color: #0B1B4F; font-weight: 500">{{i.title}}</span></span>
+              <span style="color: #5B6488; font-size: 12px">{{i.state}} · {{i.signals}}</span>
+            </div>
+          </sc-for>
         </section>
         <section aria-labelledby="ops-h" style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 4px">
           <h2 id="ops-h" style="margin: 0 0 6px; color: #0B1B4F; font-size: 16px; font-weight: 600">Recent operations</h2>
@@ -85,7 +93,7 @@ button,input,select,textarea{font-family:inherit}
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
 class Component extends DCLogic {
   renderVals() {
     var OKc = { bg: '#FFFFFF', border: '#E5E8EE', dot: '#12B76A', fg: '#067647' };
@@ -94,39 +102,34 @@ class Component extends DCLogic {
     function t(st, o) { return Object.assign({}, st, o); }
     return {
       needs: [
-        { level: 'Failing', tint: '#FEECEB', ink: '#B42318', what: 'Gemini key answers 429, rate limited; two tasks are running on their fallback', since: 'since 13:52', fix: 'Open Models & keys', href: 'ModelsKeys.dc.html' },
-        { level: 'Stuck', tint: '#FEF4E6', ink: '#B54708', what: 'Google Sheets import for Contoh Logistik has run 2 h 30 min (usually 4 min)', since: 'started 12:00', fix: 'Open the job', href: 'Health.dc.html' },
-        { level: 'Failed', tint: '#FEF4E6', ink: '#B54708', what: 'Low-stock email digest: 3 addresses refused, 41 sent', since: '07:00', fix: 'Retry', href: 'Health.dc.html' }
-      ],
-      jobs: [
-        t(OKc, { name: 'Nightly forecast', custom: true, word: 'Done, 1 skipped', detail: '03:10 · next 16 Oct, 03:10' }),
-        t(OKc, { name: 'Forecast scoring', custom: true, word: 'Done', detail: '03:00 · next 16 Oct, 03:00' }),
-        t(WARN, { name: 'Sheets imports', custom: false, word: 'Running long', detail: '1 of 4 stuck · every 6 h' }),
-        t(WARN, { name: 'Low-stock digest', custom: false, word: 'Failed', detail: '07:00 · next 16 Oct, 07:00' }),
-        t(OKc, { name: 'Backups', custom: false, word: 'Done', detail: '03:00 · drill passed 1 Oct' }),
-        t(OKc, { name: 'Webhooks', custom: false, word: 'Done', detail: '0 failures in 7 days' })
+        { level: 'Failing', tint: '#FEECEB', ink: '#B42318', what: 'AI gateway: Gemini answers 429, rate limited; two tasks on their fallback', since: 'since 13:52 · incident INC-0412' },
+        { level: 'Stuck', tint: '#FEF4E6', ink: '#B54708', what: 'Sheets import worker for Contoh Logistik has run 2 h 30 min (usually 4 min)', since: 'started 12:00 · incident INC-0413' },
+        { level: 'Missing', tint: '#FEF4E6', ink: '#B54708', what: 'Configuration: one staff account has no two-step sign-in', since: 'since 2 Oct' }
       ],
       services: [
-        t(FAULT, { name: 'Google Gemini', word: 'Failing', detail: '429 since 13:52' }),
-        t(OKc, { name: 'Anthropic Claude', word: 'Up', detail: 'median 1.4 s' }),
-        t(WARN, { name: 'Email', word: 'Slow', detail: '3 bounced today' }),
+        t(OKc, { name: 'API', word: 'Up', detail: 'p95 180 ms' }),
         t(OKc, { name: 'Database', word: 'Up', detail: '41% of plan' }),
+        t(OKc, { name: 'Workers', word: 'Up', detail: '4 of 4 running' }),
+        t(WARN, { name: 'Queues', word: 'Slow', detail: '12 waiting, oldest 2 h' }),
         t(OKc, { name: 'Storage', word: 'Up', detail: '18.2 of 100 GB' }),
-        t(OKc, { name: 'Sign-in', word: 'Up', detail: '212 in 30 min' }),
-        t(OKc, { name: 'Google Sheets API', word: 'Up', detail: 'quota 12% today' })
+        t(FAULT, { name: 'AI gateway', word: 'Fallback', detail: 'Gemini 429 · Claude up' }),
+        t(WARN, { name: 'Email', word: 'Slow', detail: '3 bounced today' })
       ],
-      config: [
-        { mark: '✓', bg: '#E7F8EF', fg: '#067647', what: 'Database and storage', why: 'Set' },
-        { mark: '✓', bg: '#E7F8EF', fg: '#067647', what: 'Email sender and reply-to', why: 'Janka <janka@antarax.ai>, replies to support' },
-        { mark: '✓', bg: '#E7F8EF', fg: '#067647', what: 'Scheduled job secret', why: 'Set; Run now works' },
-        { mark: '✓', bg: '#E7F8EF', fg: '#067647', what: 'AI providers', why: '2 keys in the vault' },
-        { mark: '!', bg: '#FEF4E6', fg: '#B54708', what: 'Two-step sign-in for every staff account', why: '1 without it: Jason Lee (Viewer). Fix in Staff' }
+      machinery: [
+        t(OKc, { name: 'Nightly forecast', word: 'Done, 1 skipped', detail: '03:10 · 47 of 48 orgs · next 03:10' }),
+        t(OKc, { name: 'Forecast scoring', word: 'Done', detail: '03:00 · next 03:00' }),
+        t(WARN, { name: 'Sheets import workers', word: '1 stuck', detail: '3 of 4 imports on time' }),
+        t(OKc, { name: 'Photo identify', word: 'Up, on fallback', detail: '41 today · 0 failed for members' })
+      ],
+      incidents: [
+        { sev: 'High', tint: '#FEECEB', ink: '#B42318', title: 'INC-0412 · AI provider rate limited', state: 'Open, acknowledged by Aisyah at 13:58', signals: '3 signals: provider 429s, fallback switches, slower photo identify' },
+        { sev: 'Medium', tint: '#FEF4E6', ink: '#B54708', title: 'INC-0413 · Import stuck for Contoh Logistik', state: 'Open', signals: '2 signals: job over its usual time, queue growing' }
       ],
       ops: [
+        { when: '15 Oct, 13:58', what: 'Aisyah Rahman acknowledged INC-0412: watching the fallback' },
         { when: '15 Oct, 13:52', what: 'Automatic switch to the fallback model for 2 tasks' },
         { when: '15 Oct, 09:40', what: 'Aisyah Rahman ran the Sheets import for Contoh Logistik now: owner asked' },
-        { when: '14 Oct, 22:10', what: 'Mei Lin paused the low-stock digest for 1 hour: email provider maintenance' },
-        { when: '1 Oct, 10:00', what: 'Nadia Rahim recorded a restore drill: passed in 22 min' }
+        { when: '14 Oct, 22:10', what: 'Mei Lin paused the low-stock digest for 1 hour: email provider maintenance' }
       ]
     };
   }

@@ -1,10 +1,10 @@
 # AXLE standard
 
-**Version 0.4, draft, 15 Oct 2026.** This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`.
+**Version 0.5, draft, 15 Oct 2026.** This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`.
 
 It merges two sources:
 
-- **The REKA AXLE Admin Console Standard v0.1** ([reference copy](reference/axle-admin-console-standard-v0.1.md), cited as **std A1** to **std L7**). It says *what* AXLE must be able to do, in tiers, built from the owner's corrections across nine REKA projects.
+- **The REKA AXLE Admin Console Standard v0.2** ([reference copy](reference/axle-admin-console-standard-v0.2.md), cited as **std A1** to **std M17**; [v0.1](reference/axle-admin-console-standard-v0.1.md) kept for history). It says *what* AXLE must be able to do, in tiers, built from the owner's corrections across nine REKA projects. v0.2 adds section M, **AXLE R8**, from the AXLE R8 Operations Brief and the R8 mode built in AX Frame.
 - **The AXLE inventory.** These are the seven AXLE consoles in [the inventory](../inventory/README.md), the AXLE Central plan in antarax-api ([summary](../inventory/lapisan-console/axle-central-requirements.md)) and the brand kit (03, 12, 13 §1, §2, §6, §10). It says *how* AXLE looks, is organised and behaves, and which console already does each thing best.
 
 Every std item has a place here; the [coverage table](#appendix-a-coverage-of-the-reka-standard) proves it. Where the two sources disagree, this draft takes a side and lists the choice in [§20](#20-open-questions) for the owner. Once decided, decisions go into the brand kit's decisions log before products build them.
@@ -45,9 +45,10 @@ Every item carries a tier (std):
 | **Orgs** | When the product has more than one customer organisation (std "Tenants", Platform Core C1) |
 | **AI** | When the product uses AI |
 | **Billing** | When the product bills inside itself; otherwise AXLE shows the plan only |
+| **R8** | When the product runs machinery of its own: monitoring checks, probes, devices or sensors, agents on hosts, browser or screenshot workers, heavy background jobs, realtime pipelines (std v0.2). Without it, AXLE has Dashboard mode only |
 | **Later** | When a client, a regulation or scale needs it, recorded in the decisions log |
 
-**The minimum first release** for a new product is every Always item, plus Orgs if it has several organisations, plus AI if it uses AI (std). [§19](#19-how-to-prove-it) is the test.
+**The minimum first release** for a new product is every Always item, plus Orgs if it has several organisations, plus AI if it uses AI (std). **R8 v1**, for a product with machinery of its own, is std M1 to M5, M9 to M15 and M17, plus M6 and M7 when it has probes or screenshots. Agents (M8), Level 2 actions and logs come when their backend exists. [§19](#19-how-to-prove-it) is the test.
 
 ## 3 Principles
 
@@ -125,6 +126,17 @@ Rules:
 - **Nobody can lower their own role** or remove their own Security right.
 - **Two people** must approve anything irreversible: deletion, secret rotation (antarax-api docs/07).
 
+**R8 on the same ladder (std M14).** R8 has no roles of its own; std M14's four map onto the ladder and rights, so one person never holds two role systems.
+
+| std M14 | Here | May do in R8 |
+|---|---|---|
+| Support | **Support** rung | Read every R8 page; acknowledge an incident; add a note |
+| Engineering | **Operator** rung for Level 1; **Admin** rung for Level 2 | Level 1 actions (§14.1) from Operator; Level 2, when it exists, from Admin |
+| Finance | **Finance** right | Cost per organisation and subsystem (§8.1 block 6); nothing else extra |
+| Super Admin | **Owner** rung | Everything, including suppressions longer than a day |
+
+A Viewer reads R8 and acts on nothing. Level 3 is not a permission anyone holds (§14.1).
+
 ## 6 Shell (std L1, L5)
 
 AXLE keeps the **AntaraX top bar** every product already ships (adopted 12 Oct 2026 from the Angka dashboard; built in Yara `Topbar.tsx`, Janka `TopBar.tsx` and `BrandPill.tsx`, AX Frame `BrandPill.tsx` and `brandpill.css`, PLExyz Grid `App.tsx`). AXLE uses its dark variant, which Yara's AXLE already has. AXLE does not get its own bar.
@@ -159,7 +171,7 @@ AXLE keeps the **AntaraX top bar** every product already ships (adopted 12 Oct 2
 
 | Part | Standard | Tier |
 |---|---|---|
-| **Sidebar** | 240px, raised ground. Its own brand block (the products keep one too): the A, "AXLE" and "REKA STAFF CONSOLE" in mono; the Dashboard · R8 switch with a one-line description of the mode; the AXLE standard groups, then the dashed ‹Product› only box (§7); at the foot, initials, name, the role chip in orange, and the footer line | Always |
+| **Sidebar** | 240px, raised ground. Its own brand block (the products keep one too): the A, "AXLE" and "REKA STAFF CONSOLE" in mono; the Dashboard · R8 switch with a one-line description of the mode (R8 products only, §7.1); the AXLE standard groups, then the dashed ‹Product› only box (§7); at the foot, initials, name, the role chip in orange, and the footer line | Always |
 | **Active item** | Orange text, a 3px orange marker, an orange intan before the label, `aria-current="page"` | Always |
 | **State banner** | A rounded warn band under the top bar, in the same gutter, while a state staff must not forget holds (§13.2) | Always |
 | **Page header** | The title is in the top bar. Under it: one line saying what the page is for, the state line, the "How this page works" disclosure, and the page's range picker or primary action | Always |
@@ -175,19 +187,23 @@ One picker sets the organisation for every page that can be scoped. Its value is
 
 ## 7 Navigation
 
-### 7.1 Two modes: Dashboard and R8
+### 7.1 Two modes: Dashboard and R8 (std M1, M2, M17)
 
-AXLE has two modes, switched by a two-part control under the sidebar's brand block (AX Frame's AXLE, owner 7 Oct 2026: "full mode switch").
+AXLE is one product with two modes (std v0.2; AX Frame's AXLE, owner 7 Oct 2026: "full mode switch").
 
-| Mode | What it is | Who lives in it |
-|---|---|---|
-| **Dashboard** | The business: organisations, people, plans, money, content, the trail of staff actions | Support, account and finance work |
-| **R8** | The machinery: health, jobs, errors, AI providers and runs, setup, the operations trail | Operators and engineers |
+| Mode | Question it answers | What it holds | Who lives in it | Tier |
+|---|---|---|---|---|
+| **Dashboard** | How is the product doing, and who needs us? | Organisations, people, plans, money, AI configuration, content, the trail of staff actions (std A to L) | Support, account and finance work | Always |
+| **R8** | Is the platform okay, and why did this fail? | Incidents, troubleshooting, probes, agents, screenshots, jobs, providers, services (std M) | Operators and engineers | R8 |
 
-- The switch remembers the last mode per staff member; AXLE opens where they last worked (AX Frame).
-- Each mode has its own Overview: §8 for Dashboard, §8.1 for R8.
-- The top bar, Find and the organisation picker are the same in both modes. Find searches both.
-- The health button in the top bar always opens R8 → Health.
+- **Only products with machinery of their own get R8** (§2). The others have Dashboard mode only: no switch, and Health, Jobs and Configuration sit in Dashboard's Operations group (§7.3). A product gains R8 when it gains machinery, never to look complete.
+- **The switch changes the menu, not the app (M1).** A two-part control under the sidebar's brand block, with one line saying what the mode is for. Same sign-in, same people, same top bar, same audit log. It is remembered per staff member; AXLE opens where they last worked (AX Frame). Members can open no R8 address.
+- **A page appears only once its backend exists (M2).** Never an empty or "coming soon" page. A group with no pages is not shown (Observe, in most products).
+- **Each mode has its own Overview:** §8 for Dashboard, §8.1 for R8.
+- **Find and the organisation picker** are the same in both modes. Find searches both.
+- **The health button** in the top bar opens R8 → Overview where there is R8, and Dashboard → Health where there is not.
+- **R8 words stay in R8 (M17).** The Dashboard says "AI provider failing" and links to Troubleshoot; it never says probe, queue depth or p95. A founder never needs R8 to run the business.
+- **R8 is not** a Grafana clone, a remote shell, a copy of the customer's own health screens, a second sign-in or a second data model for organisations (std M).
 
 ### 7.2 AXLE standard and product-only
 
@@ -210,6 +226,10 @@ Product-only items sit at the end so that adding one never moves a standard item
 | | **Invitations** | Always | Single-use expiring links (D3) | Support |
 | | **Requests** | Orgs | Access requests, data export and deletion requests, pilot requests (C5, J3) | Admin, Security right |
 | | **Support** | Orgs | Notes and tickets per organisation, never shown to it (H4) | Support |
+| **AI** | **Models & keys** | AI | Providers, keys (masked, test, rotate), model per task with default and fallback chain, automatic switch on outage (F1, F2). Provider *health* is R8 → Providers; this page is the configuration | AI right |
+| | **AI usage** | AI | Usage, performance and cost per organisation, task and model; budgets and alerts (F4) | Viewer; cost needs Finance |
+| | **Live trace** | AI | One run, diagnosis first, AXLE only (F5, §10.6) | Viewer; bodies need AI |
+| | **Prompts & quality** | AI | Prompt and configuration versions with a change log; feedback, evaluation scores, learning (F6) | AI right |
 | **Money** | **Plans & features** | Always | Plans or editions; features classified as core, configurable, module or flag; per-organisation switches; "why does it have this?"; quotas with logged overrides (E1–E4, §10.5) | Admin |
 | | **Billing** | Billing | Revenue, invoices, failed payments, by currency (I3) | Finance |
 | | **Costs** | Later | What the product costs to run, against revenue | Finance |
@@ -217,42 +237,50 @@ Product-only items sit at the end so that adding one never moves a standard item
 | | **Help content** | Later | The product's `/help` answers | Admin |
 | | **Demo** | Always | Demo data switch, demo organisations per prospect (K1, K2) | Admin |
 | | **Settings** | Always | Platform switches, email templates and sender, legal texts, regions and time zones, maintenance mode (G2, E5) | Operator for switches, Admin, Owner for secrets |
+| | **API** | when the product has one | Lapisan's section: Keys, Switches, Calls, Lookup, Connect apps (antarax-api docs/07) | Operator |
+| **Operations** | **Health** | no R8 | App, database, sign-in, storage, email, each outside service, deployed version (B3). With R8 it is R8 → Services | Operator |
+| | **Jobs** | no R8 | Every background job and webhook: last and next run, safe error message, retry, cancel, run now, pause (H1). With R8 it is R8 → Jobs (M4) | Operator |
+| | **Errors** | Always | Unknown errors grouped, each with a request id. Stays here with R8: an error is usually a customer's problem first | Viewer |
+| | **Configuration** | no R8 | Whether each setting the product needs is set, never its value. With R8 it is R8 → Configuration | Admin |
+| | **Alerts** | Always | Thresholds and who is told, by email and in AXLE (H2). Each alert links to Troubleshoot where there is R8 (M10) | Admin |
+| | **Backups** | Always | Last backup, last restore drill and its result, where backups are kept (H3) | Owner records drills |
+| | **Access** | Always | Links to every surface per environment, with the test account to use; never passwords (K3) | Viewer |
 | **Trail** | **Audit** | Always | Every staff action (J1, §10.8) | Viewer |
 | | **Security** | Later | Sign-in activity, failed sign-ins, sessions, MFA status (J2) | Security right |
 | | **Staff** | Always | Staff, rungs, rights, MFA status (D1) | Admin |
 | | **AXLE guide** | Later | The staff guide in REKA's user-guide format | |
 
-### 7.4 R8 mode, standard
+### 7.4 R8 mode, standard (std M, AXLE-04)
 
-| Group | Item | Tier | What it is (std) | Change needs |
+Tier R8 for the whole mode. Within it, Observe pages appear only when their backend exists (M2).
+
+| Group | Item | Shown when | What it is (std) | Change needs |
 |---|---|---|---|---|
-| **Operations** | **Overview** | Always | §8.1 | Viewer |
-| | **Health** | Always | App, database, sign-in, storage, email, each outside service, deployed version (B3) | Operator |
-| | **Jobs** | Always | Every background job and webhook: last and next run, safe error message, retry, cancel, run now, pause (H1) | Operator |
-| | **Errors** | Always | Unknown errors grouped, each with a request id | Viewer |
-| **AI** | **Models & keys** | AI | Providers, keys (masked, test, rotate), model per task with default and fallback chain, automatic switch on outage (F1, F2) | AI right |
-| | **AI usage** | AI | Usage, performance and cost per organisation, task and model; budgets and alerts (F4) | Viewer; cost needs Finance |
-| | **Live trace** | AI | One run, diagnosis first, AXLE only (F5, §10.6) | Viewer; bodies need AI |
-| | **Prompts & quality** | AI | Prompt and configuration versions with a change log; feedback, evaluation scores, learning (F6) | AI right |
-| **Setup** | **Configuration** | Always | Whether each setting the product needs is set (never its value): database, email, job secret, AI keys, two-step sign-in for staff (AX Frame R8 Configuration) | Admin |
-| | **API** | when the product has one | Lapisan's section: Keys, Switches, Calls, Lookup, Connect apps (antarax-api docs/07) | Operator |
-| | **Alerts** | Always | Thresholds and who is told, by email and in AXLE (H2) | Admin |
-| | **Backups** | Always | Last backup, last restore drill and its result, where backups are kept (H3) | Owner records drills |
-| | **Access** | Always | Links to every surface per environment, with the test account to use; never passwords (K3) | Viewer |
-| **Trail** | **Operations audit** | Always | Run now, pause, cancel, retry, automatic switches: the operations side of Audit (AX Frame R8 Audit) | Viewer |
+| **Command** | **Overview** | Always in R8 | Is it okay now (§8.1, M3) | Viewer |
+| | **Incidents** | Always in R8 | Correlated signals with a lifecycle: open, acknowledged, recovered, closed or suppressed; severity, affected organisations and assets, source signals, notes, recovery evidence (M9). A failed check is a signal, not an incident | Support acknowledges; Operator suppresses |
+| | **Troubleshoot** | Always in R8 | One problem, all its evidence (§10.11, M10, M11) | Operator for Level 1 actions |
+| **Observe** | **Probes and network** | The product checks things from outside | Probes online, checks per minute, success and timeout rates, latency, per region. Never calls a worldwide outage from one probe (M6) | Operator |
+| | **Agents** | An agent on customer or REKA hosts exists | Enrolled, connected, offline, outdated; per agent version, last heartbeat, telemetry flowing or stopped; ping, rotate credentials, push config, revoke. Telemetry only at first (M8; agents come last, 6 Oct 2026) | Operator; revoke needs Admin |
+| | **Visual** | The product takes screenshots or renders pages | Captures, success rate, changes found, failures, queue, storage, provider quota; capture now, retry, pause (M7) | Operator |
+| **System** | **Jobs** | Always in R8 | Last run, result, duration, next run; per run eligible, processed, failed, skipped and the top failure reasons; run now, retry failures, pause, resume. Schedules in plain words, raw cron only in an advanced drawer (M4, H1) | Operator |
+| | **Providers** | Always in R8 | Every outside dependency (AI providers, email, storage, payments, any product API): state, calls in 24 hours, success rate, latency, quota exposure, latest error and latest success; Test provider. Credentials never shown (M5) | Operator tests; keys stay in Dashboard → Models & keys |
+| | **Services** | Always in R8 | REKA's own platform: API, database, workers, queues, storage, AI gateway, email, deployed version (B3) | Viewer |
+| **Control and diagnostics** | **Configuration** | Always in R8 | Schedules, limits, and whether each setting the product needs is set, never its value (AX Frame R8 Configuration) | Admin |
+| | **Operations audit** | Always in R8 | Every R8 action with who, what, target and reason (M13): the operations side of Audit, same log | Viewer |
+| | **Logs and traces** | Later | When a log backend exists | Viewer |
 
 ### 7.5 Product-only pages today
 
-What each product's box holds, taken from its AXLE today. Anything here that a second product needs becomes standard.
+Whether each product has R8, and what each product's box holds. Anything here that a second product needs becomes standard (Visual and Troubleshoot, AX Frame's until v0.2, now are).
 
-| Product | Dashboard: ‹Product› only | R8: ‹Product› only |
-|---|---|---|
-| Janka | Forecast accuracy, Reference library, Learning | Nightly forecast |
-| Yara | Data integrity (`tenant_integrity`), Modules | Status API, Deploys |
-| AX Frame | AI connections, Customer health, Catalog | Visual (screenshots), Troubleshoot |
-| Angka | Lapis, Weekly brief | Runs |
-| PLExyz Grid | None: its AXLE is covered by the standard | None |
-| Tinara | Scoring & metrics, Data sources, Intelligence ledger | None |
+| Product | R8 | Observe shows | Dashboard: ‹Product› only | R8: ‹Product› only |
+|---|---|---|---|---|
+| Janka | Yes: nightly forecast, AI on two providers | Nothing yet | Forecast accuracy, Reference library, Learning | Nightly forecast |
+| AX Frame | Yes: daily site checks, screenshots, the R8 it built | Probes and network, Visual | AI connections, Customer health, Catalog | None: Visual and Troubleshoot are standard now |
+| Angka | Proposed: scheduled runs and the weekly brief | Nothing yet | Lapis, Weekly brief | Runs |
+| Tinara | Proposed: ingestion pipelines | Nothing yet | Scoring & metrics, Data sources, Intelligence ledger | Data pipelines |
+| Yara | No: Dashboard only | n/a | Data integrity (`tenant_integrity`), Modules, Status API | n/a |
+| PLExyz Grid | No, today: no jobs, providers or agents of its own | n/a | None: its AXLE is covered by the standard | n/a |
 
 AXLE Central adds a **Products** group at the top of each mode, one item per product with its health dot, and keeps no product-only box of its own.
 
@@ -266,7 +294,7 @@ The same page in every product, top to bottom. Every block is visual, every figu
 |---|---|---|---|
 | 1 | **Header** | Title, one line, a state line ("Live database · last 7 days"), a range picker: 7 days (default), 30, 90, 12 months, All time, Choose days | The range is in the address |
 | 2 | **Health strip** | App, database, sign-in, storage, email, each AI provider, deployed version, last backup, last scheduled job (B3) | Tint plus a word, never colour alone; each tile opens Health |
-| 3 | **Needs a person** | Failing jobs and webhooks, failing keys, budgets past 80%, suspended organisations, open requests, stuck runs; each with which organisation, since when, and a link to the fix | Empty: "Nothing needs a person. Every job ran and every service answered." Respects rights |
+| 3 | **Needs a person** | Failing jobs and webhooks, failing keys, budgets past 80%, suspended organisations, open requests, stuck runs; each with which organisation, since when, and a link to the fix. A technical problem's link is **Troubleshoot in R8** where there is R8 (M10) | Empty: "Nothing needs a person. Every job ran and every service answered." Respects rights |
 | 4 | **Platform figures** | Organisations **by status** (a stacked bar: trial, active, restricted, suspended, cancelled, pending deletion), active members, sign-ups, AI usage and cost this month, failed jobs, open alerts (B1) | Mono numbers; money by currency (RM1,200 + US$45); a dash with a reason when hidden; each opens its list |
 | 5 | **Organisations at a glance** | Organisations with plan, status, readiness ("4 of 6 ready"), open problems, members, this month's cost | Problems first; opens the organisation page |
 | 6 | **Trend** | The product's core activity and AI cost over the range | Latest value ends in a pad; flagged points are an intan (kit 12) |
@@ -283,18 +311,19 @@ Each step links to its page.
 
 No figure may be hard-coded (Tinara today).
 
-### 8.1 R8 Overview
+### 8.1 R8 Overview (std M3)
 
-The same rules, for the machinery (AX Frame R8 Overview). Top to bottom:
+The same rules as §8, for the machinery. Dense, technical and calm: status colours only on real signals, detail one click away (M17). Top to bottom:
 
 | # | Block | Holds |
 |---|---|---|
-| 1 | **Header** | One line, then the build: commit, when it was deployed, whether it matches the main branch (Yara's `/api/version` check), last check time |
-| 2 | **Needs an operator** | Failing providers, stuck or failed jobs, missing setup, worst first, each with a link to the fix. Empty: "Nothing. Every job ran and every service answered." |
-| 3 | **Jobs** | One tile per job: state in a word, last and next run. A product-only job carries a dashed "‹PRODUCT› ONLY" tag |
-| 4 | **Outside services** | One tile per service the product calls (AI providers, email, storage, database, sign-in, any product-specific API), with state, reason and median time |
-| 5 | **Setup** | The Configuration checklist: what is set and what is missing, never the values |
-| 6 | **Recent operations** | The last run-now, pause, cancel, retry and automatic switch, from the operations audit |
+| 1 | **Overall state** | One word for the whole platform (Working, Degraded, Down) with the reason and since when, then the build: commit, when it was deployed, whether it matches the main branch (Yara's `/api/version` check), last check time |
+| 2 | **Needs an operator** | The technical attention list, worst first: open incidents, failing providers, stuck or failed jobs, missing setup. Every item opens its Troubleshoot (M3). Empty: "Nothing. Every job ran and every service answered." |
+| 3 | **Platform services** | One tile per REKA service: API, database, workers, queues, storage, AI gateway, email. State in a word, reason, median time |
+| 4 | **‹Product›'s machinery** | One tile per thing the product runs: probes, workers, agents, ingestion, pending jobs. Each tile carries a dashed "‹PRODUCT› ONLY" tag when it is not standard |
+| 5 | **Incidents** | Open and recently recovered incidents with severity, affected organisations and state |
+| 6 | **Cost per organisation and subsystem** | An internal estimate (checks, screenshots, samples, AI) for pricing, abuse and retention decisions; needs the Finance right, otherwise dashes (M15) |
+| 7 | **Recent operations** | The last run-now, pause, retry, suppression and automatic switch, from the operations audit |
 
 ## 9 Every list (std C1, L3)
 
@@ -408,6 +437,8 @@ Templates, catalogues and device types the platform owns. Each has versions and 
 
 ### 10.9 Jobs, alerts and backups (std H1–H3)
 
+Where there is R8, Jobs is R8 → Jobs with std M4's depth; Alerts and Backups stay in Dashboard → Operations.
+
 | Page | Must show |
 |---|---|
 | Jobs | Every background job and webhook: last run, next run, failures with a safe error message, retry, cancel |
@@ -419,6 +450,19 @@ Templates, catalogues and device types the platform owns. Each has versions and 
 - **Demo data** has a switch. It is clearly labelled, and off by default for real organisations; switching it off leaves no demo rows.
 - **Demo organisations per prospect** are rich enough to test with: at least one realistic record on every screen (Yara's Showcase).
 - **The Access page** lists the address of every surface per environment (AXLE, product, client portal) and which test account to use. It never shows passwords.
+
+### 10.11 Troubleshoot (std M10, M11, AXLE-03)
+
+One problem, all its evidence. Opened in one click from any Dashboard alert or Needs-a-person row, from an R8 incident, or from R8 → Troubleshoot. It opens scoped to that organisation and asset, with the scope in the address.
+
+| Part | Holds |
+|---|---|
+| **Header** | The incident or signal in words, its severity and state, affected organisations, since when; a link back to where it was opened from |
+| **Evidence, in layers** | **Outside** (probes, DNS, TLS, what a customer would see), **Inside** (host, agent, workers, queues), **Application** (errors, job runs, provider answers), **Visual** (the screenshot, where the product takes them). Each fact names its source and when it was read. A layer with no backend is not shown (M2) |
+| **Timeline** | Every signal, automatic switch and staff action on this problem, in order, mono times |
+| **AXLE's reading** | A plain-words diagnosis derived from the evidence, labelled as derived, naming the facts it rests on. Never a root cause the evidence does not show |
+| **Your conclusion** | The operator's own words, stored apart from the evidence and the reading (M11). An AI guess is never stored as a fact |
+| **Safe actions** | Only the actions that apply to this problem, each labelled with its level (§14.1): for example Test provider, Retry failed items, Suppress for 1 hour. Actions that live in the Dashboard (rotating a key) are links, not buttons |
 
 ## 11 Support sessions (std H7)
 
@@ -482,6 +526,18 @@ Each banner says what is on, since when, and links to Settings.
 - **Destructive actions** name the thing and the consequence, ask for a reason, and their button names the action ("Suspend Acme Plastics").
 - **Irreversible actions:** typed confirmation plus a second person.
 - **After any action:** a past-tense toast, with Undo where possible.
+
+### 14.1 R8 safety levels (std M12, M13)
+
+| Level | Actions | Who | When |
+|---|---|---|---|
+| **1** | Run a check, refresh, capture, retry a job or its failed items, pause or resume monitoring, test a provider, ping or rotate an agent, acknowledge or suppress an incident | Operator (acknowledge: Support) | At launch |
+| **2** | Drain, restart a worker, rebalance, scale, retention, sampling. REKA-owned machinery only | Admin | Later, when the backend exists |
+| **3** | Shell, restarting a customer's machines or containers, deploying | Nobody | Never without a separate recorded decision. No Level 3 button exists |
+
+- Every action shows its level next to its name.
+- Every R8 action asks for a reason when it changes anything, and lands in the operations audit with who, what, target and reason (M13).
+- A suppression always has an end time.
 
 ## 15 Words and formats
 
@@ -549,6 +605,12 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **Support session** | (If built) the banner shows, writes are refused by the server, the session ends on time, and the organisation sees it in its log |
 | **Links** | Copying the address on any filtered, scoped page and opening it in a new window shows the same view |
 | **Phone** | Every page opens from the drawer at 390px with nothing hidden or overlapping |
+| **R8 switch** | (R8 products) The switch changes only the menu, is remembered, needs no new sign-in; a member cannot open any R8 address; a product without R8 shows no switch |
+| **R8 jobs** | Run a job now: it appears with eligible, processed and failed counts; retry failures runs only the failed items |
+| **R8 providers** | Test provider gives a result and a latency; no key or secret appears on the page or in its network responses |
+| **R8 troubleshoot** | From a Dashboard alert, Troubleshoot opens R8 on that organisation and asset with outside evidence, a timeline and only safe actions; the reading and the conclusion are stored apart |
+| **R8 safety** | No Level 3 action exists; every R8 action appears in the audit log with a reason |
+| **Backend exists** | No R8 page or Observe item is empty or "coming soon" |
 | **Look** | Dark sidebar and top bar, light page, the orange `AXLE` tag and accent, the AntaraX A, "AXLE · Product" in the page title; the focus ring is visible on every control in both; axe passes |
 
 ## 20 Open questions
@@ -563,8 +625,12 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 8. **Scope.** The std draws on YARA One, Entangled Particles and KITAR AI, which the inventory has not covered, and ISO Generator, which the brand kit doesn't list. Which products must meet this standard?
 9. **Lifecycle words.** std C3's statuses (trial, active, restricted, suspended, cancelled, pending deletion) alongside a rollout stage (sandbox, pilot, live): confirm both are wanted.
 10. **Cooling-off and invitation expiry defaults** (30 days, 7 days).
-11. **R8 for every product.** This draft makes AX Frame's Dashboard · R8 switch standard, under the name R8. Confirm the name, and that Settings (platform switches) stays in Dashboard while Configuration (what is set) lives in R8.
+11. ~~**R8 for every product.**~~ Settled by std v0.2: R8 is a tier, only for products that run machinery of their own (§2, §7.1).
 12. **Where the product-only box sits.** At the end of each mode's list (this draft), so the standard never moves; or first, because product pages may be the ones staff open most.
+13. **Which products get R8.** This draft: AX Frame and Janka yes; Angka (scheduled runs, the weekly brief) and Tinara (ingestion pipelines) proposed; Yara and PLExyz Grid no (§7.5). Confirm, and whether Yara's status API counts as machinery.
+14. **Where Errors lives.** This draft keeps Errors in Dashboard → Operations in every product, because an error usually lands on a customer first, and links each one to Troubleshoot. The alternative is R8 → System for R8 products.
+15. **R8 roles on the ladder.** std M14's Support, Engineering, Finance and Super Admin mapped onto Support, Operator (Level 1) and Admin (Level 2), the Finance right, and Owner (§5.2). Confirm, especially Level 2 at Admin rather than Operator.
+16. **AI split.** AI configuration (Models & keys, AI usage, Live trace, Prompts) stays in Dashboard (std F); provider health and Test provider are R8 → Providers (M5). Confirm Live trace belongs in Dashboard rather than R8.
 
 ## 21 What each console changes
 
@@ -572,7 +638,7 @@ Scores from the AXLE scorecard in the [gallery](../inventory/gallery.html), out 
 
 | Console | Score | Biggest changes |
 |---|---|---|
-| AX Frame | 6 | Keep Dashboard and R8; move Health, Errors and Configuration into R8's standard groups and put Visual and Troubleshoot in the product-only box; add the staff menu, Find, the organisation picker; fix the phone header; Workspaces → Organisations; lists to §9 |
+| AX Frame | 6 | Keep Dashboard and R8; regroup R8 into Command, Observe, System, Control and diagnostics (§7.4); Visual and Troubleshoot are standard now; move AI configuration and Errors into Dashboard; add the staff menu, Find, the organisation picker; fix the phone header; Workspaces → Organisations; lists to §9 |
 | Angka | 6 | Dark sidebar and top bar around its light page; a phone drawer; US$; the organisation create flow and lifecycle |
 | Yara | 4 | Rename; bars from `#0B0E14` to `#071233`; the `AXLE` tag; the ladder (only `reka_admin` today); the state banner; Organizations → Organisations; Demo and Access pages (Showcase already exists) |
 | Janka | 4 | Rename; the AntaraX top bar in its dark variant over the light page; rail `#0B0E14` → `#071233`; the AntaraX A; the ladder; JetBrains Mono; Members management (std D2 correction) |
@@ -583,7 +649,7 @@ Scores from the AXLE scorecard in the [gallery](../inventory/gallery.html), out 
 
 ## Appendix A: coverage of the REKA standard
 
-Every item in [the REKA standard](reference/axle-admin-console-standard-v0.1.md), and where it lives here.
+Every item in [the REKA standard](reference/axle-admin-console-standard-v0.2.md), and where it lives here.
 
 | std | Here | | std | Here | | std | Here |
 |---|---|---|---|---|---|---|---|
@@ -605,6 +671,12 @@ Every item in [the REKA standard](reference/axle-admin-console-standard-v0.1.md)
 | K1–K3 | §10.10 | | L1 | §6, §17 | | L2 | §3, §6 |
 | L3 | §9 | | L4 | §3, §8 | | L5 | §4, §20 |
 | L6 | §14 | | L7 | §3, §6.1 | | QA | §19 |
+| M1 | §7.1 | | M7 | §7.4 Visual | | M13 | §14.1, §7.4 Operations audit |
+| M2 | §7.1, §7.4, §10.11 | | M8 | §7.4 Agents | | M14 | §5.2 |
+| M3 | §8.1 | | M9 | §7.4 Incidents | | M15 | §8.1 block 6 |
+| M4 | §7.4 Jobs | | M10 | §10.11, §8 block 3 | | M16 | §6.2 (Later) |
+| M5 | §7.4 Providers | | M11 | §10.11 | | M17 | §7.1, §8.1 |
+| M6 | §7.4 Probes and network | | M12 | §14.1 | | R8 v1 | §2 |
 
 ## Appendix B: where each pattern comes from
 
@@ -616,4 +688,5 @@ Every item in [the REKA standard](reference/axle-admin-console-standard-v0.1.md)
 | Needs a person | Janka, AX Frame, Angka, ISO Generator |
 | Data health per organisation, staff and members kept apart, Showcase demo organisation | Yara |
 | Dark look and name, state banner, "How this page works" | AX Frame |
+| R8 mode, Jobs, Providers, Visual, Troubleshoot | AX Frame |
 | Phone drawer with focus trap | Yara |

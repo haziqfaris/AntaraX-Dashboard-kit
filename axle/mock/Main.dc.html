@@ -56,7 +56,7 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
 
       <section aria-label="Health" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px">
         <sc-for list="{{health}}" as="h" hint-placeholder-count="8">
-          <a href="Health.dc.html" style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: 14px; background: {{h.tint}}; border: 1px solid {{h.border}}; text-decoration: none; min-width: 0">
+          <a href="R8.dc.html" style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: 14px; background: {{h.tint}}; border: 1px solid {{h.border}}; text-decoration: none; min-width: 0">
             <span style="display: flex; align-items: center; gap: 7px; color: #0B1B4F; font-weight: 500; font-size: 13px"><span style="width: 8px; height: 8px; border-radius: 50%; flex: none; background: {{h.dot}}"></span>{{h.name}}</span>
             <span style="font-size: 12px; font-weight: 600; color: {{h.wordColor}}">{{h.word}}</span>
             <span class="mono" style="font-size: 11px; color: #5B6488; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{h.detail}}</span>
@@ -280,9 +280,9 @@ class Component extends DCLogic {
       warn: { level: 'Due', tint: '#FEF4E6', ink: '#B54708' },
       info: { level: 'Check', tint: '#E7EEFE', ink: '#0459F7' }
     };
-    function need(t, what, who, since, fix) { return Object.assign({ what: what, who: who, since: since, fix: fix, href: ({ 'Check key': 'ModelsKeys.dc.html', 'Open budget': 'PlansFeatures.dc.html', 'See the run': 'LiveTrace.dc.html', 'Open request': 'Organisations.dc.html' })[fix] || '#' }, T[t]); }
+    function need(t, what, who, since, fix) { return Object.assign({ what: what, who: who, since: since, fix: fix, href: ({ 'Troubleshoot in R8': 'Troubleshoot.dc.html', 'Check key': 'ModelsKeys.dc.html', 'Open budget': 'PlansFeatures.dc.html', 'See the run': 'LiveTrace.dc.html', 'Open request': 'Organisations.dc.html' })[fix] || '#' }, T[t]); }
     var needs = [
-      need('fault', 'Gemini key is failing: 429, rate limited', 'Forecasts fall back to the second model', 'since 13:52', 'Check key'),
+      need('fault', 'Gemini key is failing: 429, rate limited', 'Forecasts fall back to the second model', 'since 13:52', 'Troubleshoot in R8'),
       need('warn', fin ? 'Acme Plastics has used 86% of its AI budget' : 'Acme Plastics is close to its AI budget', 'Acme Plastics Sdn Bhd', 'since 09:10', 'Open budget'),
       need('warn', '5 reference photos are waiting for review', '3 organisations', 'oldest 2 days', 'Review photos'),
       need('warn', 'Deletion request: cooling-off ends in 3 days', 'Kedai Runcit Maju', 'requested 8 Oct 2026', 'Open request'),

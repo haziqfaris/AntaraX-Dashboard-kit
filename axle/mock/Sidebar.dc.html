@@ -20,11 +20,13 @@
     </span>
   </a>
 
-  <div role="tablist" aria-label="AXLE mode" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10)">
-    <a href="Main.dc.html" role="tab" aria-selected="{{dashSel}}" style="{{dashTab}}">Dashboard</a>
-    <a href="R8.dc.html" role="tab" aria-selected="{{r8Sel}}" style="{{r8Tab}}">R8</a>
-  </div>
-  <div style="font-size: 11px; color: #8E9CC9; padding: 4px 8px 0">{{modeLine}}</div>
+  <sc-if value="{{hasR8}}" hint-placeholder-val="{{true}}">
+    <div role="tablist" aria-label="AXLE mode" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10)">
+      <a href="Main.dc.html" role="tab" aria-selected="{{dashSel}}" style="{{dashTab}}">Dashboard</a>
+      <a href="R8.dc.html" role="tab" aria-selected="{{r8Sel}}" style="{{r8Tab}}">R8</a>
+    </div>
+    <div style="font-size: 11px; color: #8E9CC9; padding: 4px 8px 0">{{modeLine}}</div>
+  </sc-if>
 
   <div style="display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 0 8px">
     <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .12em; color: #8E9CC9">AXLE STANDARD</span>
@@ -80,33 +82,41 @@
 class Component extends DCLogic {
   renderVals() {
     var active = this.props.active ?? 'Overview';
-    var mode = this.props.mode ?? 'dashboard';
     var product = this.props.product ?? 'Janka';
-    var r8 = mode === 'r8';
-    var PAGES = r8
-      ? { 'Overview': 'R8.dc.html', 'Health': 'Health.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html' }
-      : { 'Overview': 'Main.dc.html', 'Organisations': 'Organisations.dc.html', 'Plans & features': 'PlansFeatures.dc.html', 'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html' };
-    var STD = r8 ? [
-      ['Operations', [['Overview', 2, 'loud'], ['Health', 1, 'loud'], ['Jobs', 1, 'loud'], ['Errors', 3, 'loud']]],
-      ['AI', [['Models & keys', 1, 'loud'], ['AI usage'], ['Live trace'], ['Prompts & quality']]],
-      ['Setup', [['Configuration'], ['Alerts'], ['Backups'], ['Access']]],
-      ['Trail', [['Operations audit']]]
-    ] : [
-      ['Watch', [['Overview', 5, 'loud'], ['Adoption'], ['Feedback', 2, 'loud']]],
-      ['Organisations', [['Organisations', 48, 'quiet'], ['Members'], ['Invitations'], ['Requests', 1, 'loud'], ['Support']]],
-      ['Money', [['Plans & features'], ['Billing'], ['Costs']]],
-      ['Platform', [['Announcements'], ['Help content'], ['Demo'], ['Settings']]],
-      ['Trail', [['Audit'], ['Staff'], ['AXLE guide']]]
-    ];
+    // hasR8: the product runs machinery of its own (standard v0.2, tier R8). observe: its Observe pages.
     var P = {
-      'Janka': { mark: '/_blob/8757545247be33f643590d3dcfee0bb8', d: [['Forecast accuracy'], ['Reference library', 5, 'loud'], ['Learning']], r: [['Nightly forecast']] },
-      'Yara': { mark: '/_blob/b5ffef229482a50345391de29cbfee0f', d: [['Data integrity', 2, 'loud'], ['Modules']], r: [['Status API'], ['Deploys']] },
-      'AX Frame': { mark: '/_blob/14ea05d2ed6655f1a0c7e460cb8fce0f', d: [['AI connections'], ['Customer health', 4, 'loud'], ['Catalog']], r: [['Visual'], ['Troubleshoot']] },
-      'Angka': { mark: '/_blob/74ac0d107d262dbf7252396ab8eb230b', d: [['Lapis'], ['Weekly brief']], r: [['Runs']] },
-      'PLExyz Grid': { mark: '/_blob/39777292a881530041e7c4ac04e939a8', d: [], r: [] },
-      'Tinara': { mark: '/_blob/cdaa47e69d5d2a13a1fb2a99e7572df9', d: [['Scoring & metrics'], ['Data sources'], ['Intelligence ledger']], r: [] }
+      'Janka': { mark: '/_blob/8757545247be33f643590d3dcfee0bb8', r8: true, observe: [], d: [['Forecast accuracy'], ['Reference library', 5, 'loud'], ['Learning']], r: [['Nightly forecast']] },
+      'Yara': { mark: '/_blob/b5ffef229482a50345391de29cbfee0f', r8: false, observe: [], d: [['Data integrity', 2, 'loud'], ['Modules'], ['Status API']], r: [] },
+      'AX Frame': { mark: '/_blob/14ea05d2ed6655f1a0c7e460cb8fce0f', r8: true, observe: [['Probes and network'], ['Visual']], d: [['AI connections'], ['Customer health', 4, 'loud'], ['Catalog']], r: [] },
+      'Angka': { mark: '/_blob/74ac0d107d262dbf7252396ab8eb230b', r8: true, observe: [], d: [['Lapis'], ['Weekly brief']], r: [['Runs']] },
+      'PLExyz Grid': { mark: '/_blob/39777292a881530041e7c4ac04e939a8', r8: false, observe: [], d: [], r: [] },
+      'Tinara': { mark: '/_blob/cdaa47e69d5d2a13a1fb2a99e7572df9', r8: true, observe: [], d: [['Scoring & metrics'], ['Data sources'], ['Intelligence ledger']], r: [['Data pipelines']] }
     };
     var p = P[product] || P['Janka'];
+    var r8 = p.r8 && (this.props.mode ?? 'dashboard') === 'r8';
+    var PAGES = r8
+      ? { 'Overview': 'R8.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Services': 'Health.dc.html' }
+      : { 'Overview': 'Main.dc.html', 'Organisations': 'Organisations.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html', 'Plans & features': 'PlansFeatures.dc.html', 'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html', 'Health': 'Health.dc.html' };
+    var STD;
+    if (r8) {
+      STD = [
+        ['Command', [['Overview'], ['Incidents', 2, 'loud'], ['Troubleshoot']]],
+        ['Observe', p.observe],
+        ['System', [['Jobs', 1, 'loud'], ['Providers', 1, 'loud'], ['Services']]],
+        ['Control and diagnostics', [['Configuration', 1, 'loud'], ['Operations audit']]]
+      ];
+    } else {
+      var ops = p.r8 ? [['Errors', 3, 'loud'], ['Alerts'], ['Backups'], ['Access']] : [['Health', 1, 'loud'], ['Jobs', 1, 'loud'], ['Errors', 3, 'loud'], ['Configuration'], ['Alerts'], ['Backups'], ['Access']];
+      STD = [
+        ['Watch', [['Overview', 5, 'loud'], ['Adoption'], ['Feedback', 2, 'loud']]],
+        ['Organisations', [['Organisations', 48, 'quiet'], ['Members'], ['Invitations'], ['Requests', 1, 'loud'], ['Support']]],
+        ['AI', [['Models & keys'], ['AI usage'], ['Live trace'], ['Prompts & quality']]],
+        ['Money', [['Plans & features'], ['Billing'], ['Costs']]],
+        ['Platform', [['Announcements'], ['Help content'], ['Demo'], ['Settings']]],
+        ['Operations', ops],
+        ['Trail', [['Audit'], ['Staff'], ['AXLE guide']]]
+      ];
+    }
     function item(it) {
       var on = active === it[0];
       var loud = it[2] === 'loud';
@@ -122,17 +132,17 @@ class Component extends DCLogic {
         countStyle: loud ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;'
       };
     }
-    var groups = STD.map(function (g) { return { label: g[0], items: g[1].map(item) }; });
+    var groups = STD.filter(function (g) { return g[1].length > 0; }).map(function (g) { return { label: g[0], items: g[1].map(item) }; });
     var custom = (r8 ? p.r : p.d).map(item);
     var TAB = 'display:flex;align-items:center;justify-content:center;min-height:36px;border-radius:9px;font-size:13px;text-decoration:none;';
     return {
-      groups: groups, custom: custom, noCustom: custom.length === 0, product: product, markUrl: p.mark,
+      hasR8: p.r8, groups: groups, custom: custom, noCustom: custom.length === 0, product: product, markUrl: p.mark,
       customLabel: product + ' only',
       emptyLine: 'No ' + product + '-only pages ' + (r8 ? 'in R8' : 'here') + '. Everything above is the standard.',
       dashSel: r8 ? 'false' : 'true', r8Sel: r8 ? 'true' : 'false',
       dashTab: TAB + (r8 ? 'color:#B6C3EA;' : 'background:#FB9800;color:#071233;font-weight:600;'),
       r8Tab: TAB + (r8 ? 'background:#FB9800;color:#071233;font-weight:600;' : 'color:#B6C3EA;'),
-      modeLine: r8 ? 'The machinery: jobs, services, AI, setup' : 'The business: organisations, people, money',
+      modeLine: r8 ? 'Is the platform okay, and why did this fail?' : 'How is the product doing, and who needs us?',
       staffName: this.props.staffName ?? 'Aisyah Rahman', staffRung: this.props.staffRung ?? 'OPERATOR', initials: this.props.initials ?? 'AR'
     };
   }
