@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Incidents · R8 · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Incidents" mode="r8" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="R8 · Incidents" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <p style="margin: 0; color: #0B1B4F; font-size: 16px">Problems that need an operator, each built from the signals that belong together.</p>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">A failed check is a signal. An incident is signals AXLE has grouped, with a life of its own: open, acknowledged, recovered, closed, or suppressed until a set time. <span class="mono">Checked 14:30:12 MYT</span></p>
+      </div>
+
+      <section aria-label="Incidents by state" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px">
+        <sc-for list="{{stats}}" as="s" hint-placeholder-count="5">
+          <button type="button" onClick="{{s.pick}}" aria-pressed="{{s.pressed}}" style="{{s.style}}">
+            <span style="font-size: 12px; color: #5B6488">{{s.label}}</span>
+            <span class="mono" style="font-size: 26px; color: #0B1B4F; line-height: 1.2">{{s.n}}</span>
+            <span style="font-size: 11px; color: #5B6488">{{s.hint}}</span>
+          </button>
+        </sc-for>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+
+        <section aria-labelledby="list-h" style="flex: 1 1 440px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 16px 16px 10px; display: flex; flex-direction: column; gap: 6px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 0 6px 4px">
+            <h2 id="list-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">{{listTitle}}</h2>
+            <span class="mono" style="font-size: 12px; color: #5B6488">worst first</span>
+          </div>
+          <sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+            <button type="button" onClick="{{r.pick}}" aria-current="{{r.current}}" style="{{r.style}}">
+              <span style="display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center">
+                <span style="font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{r.sevTint}}; color: {{r.sevInk}}">{{r.sev}}</span>
+                <span class="mono" style="font-size: 12px; color: #5B6488">{{r.id}}</span>
+                <span style="margin-left: auto; font-size: 12px; font-weight: 600; color: {{r.stateInk}}">{{r.stateWord}}</span>
+              </span>
+              <span style="color: #0B1B4F; font-weight: 500; text-align: left">{{r.title}}</span>
+              <span style="font-size: 12px; color: #5B6488; text-align: left">{{r.affected}} · <span class="mono">{{r.age}}</span></span>
+            </button>
+          </sc-for>
+          <sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+            <p style="margin: 6px; padding: 18px; border-radius: 14px; background: #F5F7FC; font-size: 13px">Nothing in this state.</p>
+          </sc-if>
+        </section>
+
+        <section aria-labelledby="inc-h" style="flex: 1.4 1 520px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 16px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+              <span style="font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{inc.sevTint}}; color: {{inc.sevInk}}">{{inc.sev}}</span>
+              <span class="mono" style="font-size: 12px; color: #5B6488">{{inc.id}} · opened {{inc.opened}}</span>
+            </span>
+            <h2 id="inc-h" style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">{{inc.title}}</h2>
+            <span style="font-size: 13px">{{inc.summary}}</span>
+          </div>
+
+          <ol aria-label="Where this incident is" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+            <sc-for list="{{steps}}" as="st" hint-placeholder-count="4">
+              <li aria-current="{{st.current}}" style="display: flex; flex-direction: column; gap: 4px">
+                <span style="height: 6px; border-radius: 999px; background: {{st.bar}}"></span>
+                <span style="font-size: 12px; font-weight: {{st.weight}}; color: {{st.ink}}">{{st.label}}</span>
+                <span class="mono" style="font-size: 11px; color: #5B6488">{{st.at}}</span>
+              </li>
+            </sc-for>
+          </ol>
+          <sc-if value="{{inc.suppressed}}" hint-placeholder-val="{{false}}">
+            <p role="status" style="margin: 0; padding: 10px 12px; border-radius: 12px; background: #FEF4E6; border: 1px solid #F8CD92; color: #B54708; font-size: 13px">{{inc.suppressLine}}</p>
+          </sc-if>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Affected</h3>
+              <sc-for list="{{inc.affectedList}}" as="a" hint-placeholder-count="2">
+                <span style="display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; background: #F5F7FC; font-size: 13px"><span style="color: #0B1B4F">{{a.name}}</span><span style="font-size: 12px; color: #5B6488">{{a.how}}</span></span>
+              </sc-for>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Source signals <span class="mono" style="font-weight: 400; color: #5B6488">{{inc.signalCount}}</span></h3>
+              <sc-for list="{{inc.signals}}" as="g" hint-placeholder-count="3">
+                <span style="display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; border: 1px solid #E5E8EE; font-size: 13px"><span style="color: #0B1B4F">{{g.what}}</span><span class="mono" style="font-size: 11px; color: #5B6488">{{g.source}}</span></span>
+              </sc-for>
+            </div>
+          </div>
+
+          <sc-if value="{{inc.hasRecovery}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 14px; background: #E7F8EF; border: 1px solid #A6E4C6">
+              <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #067647">Recovery evidence</h3>
+              <sc-for list="{{inc.recovery}}" as="e" hint-placeholder-count="2">
+                <span style="font-size: 13px; color: #0B1B4F">{{e.what}} <span class="mono" style="font-size: 11px; color: #5B6488">· {{e.source}}</span></span>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Notes</h3>
+            <sc-for list="{{inc.notes}}" as="n" hint-placeholder-count="1">
+              <div style="display: flex; flex-wrap: wrap; gap: 2px 12px; padding: 8px 0; border-bottom: 1px solid #EEF1F6; font-size: 13px"><span class="mono" style="flex: 0 0 104px; font-size: 12px; color: #5B6488">{{n.when}}</span><span style="flex: 1 1 280px"><strong style="font-weight: 600; color: #0B1B4F">{{n.who}}</strong> {{n.what}}</span></div>
+            </sc-for>
+            <sc-if value="{{inc.noNotes}}" hint-placeholder-val="{{false}}">
+              <span style="font-size: 13px; color: #5B6488">No notes yet. Notes stay in AXLE; organisations never see them.</span>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{suppressOpen}}" hint-placeholder-val="{{false}}">
+            <div role="group" aria-labelledby="sup-h" style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 14px; border: 1px solid #D5DBE7; background: #F5F7FC">
+              <h3 id="sup-h" style="margin: 0; font-size: 14px; font-weight: 600; color: #0B1B4F">Suppress {{inc.id}}</h3>
+              <span style="font-size: 12px; color: #5B6488">New signals still join it, but nobody is told until it ends. A suppression always has an end.</span>
+              <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #5B6488">Until
+                <select style="height: 44px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; padding: 0 12px; font-size: 14px"><option>1 hour (15:30)</option><option>4 hours (18:30)</option><option>Tomorrow, 09:00</option></select></label>
+              <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #5B6488">Reason (recorded in the operations audit)
+                <textarea rows="2" style="padding: 10px 12px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F">The owner is re-sharing the sheet; the import will be retried after.</textarea></label>
+              <span style="display: flex; gap: 8px; flex-wrap: wrap">
+                <button type="button" onClick="{{confirmSuppress}}" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #FB9800; color: #071233; font-weight: 600; cursor: pointer">Suppress {{inc.id}} until 15:30</button>
+                <button type="button" onClick="{{cancelSuppress}}" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Keep it open</button>
+              </span>
+            </div>
+          </sc-if>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-top: 4px; border-top: 1px solid #EEF1F6">
+            <sc-for list="{{actions}}" as="a" hint-placeholder-count="4">
+              <sc-if value="{{a.isLink}}" hint-placeholder-val="{{false}}">
+                <a href="{{a.href}}" style="{{a.style}}"><span>{{a.label}}</span></a>
+              </sc-if>
+              <sc-if value="{{a.isButton}}" hint-placeholder-val="{{true}}">
+                <button type="button" onClick="{{a.run}}" disabled="{{a.disabled}}" title="{{a.why}}" style="{{a.style}}"><span>{{a.label}}</span><span class="mono" style="font-size: 10px; letter-spacing: .06em; opacity: .8">{{a.level}}</span></button>
+              </sc-if>
+            </sc-for>
+          </div>
+          <span style="font-size: 12px; color: #5B6488">Support may acknowledge and add notes. Suppress and close need Operator. Every action asks for a reason and lands in the operations audit.</span>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { filter: 'open', sel: 'INC-0413', acked: {}, suppressed: {}, closed: {}, suppressOpen: false };
+  }
+  renderVals() {
+    var self = this, st = this.state;
+    var SEV = { High: ['#FEECEB', '#B42318'], Medium: ['#FEF4E6', '#B54708'], Low: ['#EEF1F6', '#3B4469'] };
+    var base = [
+      { id: 'INC-0412', sev: 'High', title: 'AI provider rate limited', opened: '15 Oct, 13:55', age: 'open 35 min', state: 'acknowledged', ackAt: '13:58',
+        summary: 'Gemini answers 429 to every call. The gateway moved two tasks to Claude, so members are served, more slowly.',
+        affected: 'All organisations · AI gateway', affectedList: [{ name: 'All 48 organisations', how: 'AI tasks on the fallback model, 0 failed for members' }, { name: 'AI gateway · Google Gemini', how: 'Daily quota used up at 13:51' }],
+        signals: [{ what: 'Gemini answered 429 to 214 of 214 calls', source: 'provider log · 13:52 to 14:30' }, { what: 'Gateway switched 2 tasks to the fallback', source: 'gateway log · 13:52' }, { what: 'Photo identify median 4.8 s (usual 1.9 s)', source: 'app metrics · 14:30' }],
+        notes: [{ when: '15 Oct, 13:58', who: 'Aisyah Rahman', what: 'acknowledged: watching the fallback; quota resets at 15:00.' }], recovery: [] },
+      { id: 'INC-0413', sev: 'Medium', title: 'Sheets import stuck for Contoh Logistik', opened: '15 Oct, 12:40', age: 'open 1 h 50 min', state: 'open',
+        summary: 'One import worker has been on the same sheet since 12:00. Usually it takes 4 minutes. Other organisations\' imports run on time.',
+        affected: 'Contoh Logistik · Sheets import', affectedList: [{ name: 'Contoh Logistik Sdn Bhd', how: 'Stock counts not updated since 06:00' }, { name: 'Sheets import, worker 2', how: 'Busy 2 h 30 min on one job' }],
+        signals: [{ what: 'Job over 10 times its usual time', source: 'job monitor · 12:40' }, { what: 'Import queue growing: 12 waiting, oldest 2 h', source: 'queue stats · 14:30' }],
+        notes: [], recovery: [] },
+      { id: 'INC-0410', sev: 'Medium', title: 'Nightly forecast late for 6 organisations', opened: '13 Oct, 03:40', age: 'recovered 13 Oct, 04:02', state: 'recovered', ackAt: '03:44', recAt: '04:02',
+        summary: 'The forecast run timed out on 6 organisations after a database upgrade slowed one query. A re-run finished them.',
+        affected: '6 organisations · Nightly forecast', affectedList: [{ name: '6 organisations', how: 'Forecasts 50 minutes late, none missing' }, { name: 'Nightly forecast', how: 'Timed out on 6 of 48' }],
+        signals: [{ what: 'Run finished with 6 timeouts', source: 'job runs · 03:38' }, { what: 'Query time 12 s (usual 0.8 s)', source: 'database stats · 03:39' }],
+        notes: [{ when: '13 Oct, 03:44', who: 'Jason Lee', what: 'acknowledged and re-ran the 6 that failed.' }],
+        recovery: [{ what: 'Re-run: 6 of 6 processed, 0 failed', source: 'job runs · 04:02' }, { what: 'Runs on 14 and 15 Oct: 48 of 48 on time', source: 'job runs' }] },
+      { id: 'INC-0411', sev: 'Low', title: 'Email sending delayed', opened: '14 Oct, 22:05', age: 'closed 14 Oct, 23:20', state: 'closed', ackAt: '22:08', recAt: '23:12', closeAt: '23:20',
+        summary: 'The email provider\'s planned maintenance delayed sending for an hour. Suppressed for its window, then closed.',
+        affected: 'Email · 41 messages delayed', affectedList: [{ name: 'Email provider', how: 'Planned maintenance 22:00 to 23:00' }],
+        signals: [{ what: 'Email send latency over 10 min', source: 'email stats · 22:05' }],
+        notes: [{ when: '14 Oct, 22:10', who: 'Mei Lin', what: 'suppressed for 1 hour: provider maintenance, notice received.' }],
+        recovery: [{ what: 'All 41 delayed messages delivered', source: 'email stats · 23:12' }] }
+    ];
+    var incs = base.map(function (i) {
+      var s = i.state;
+      if (st.closed[i.id]) s = 'closed';
+      else if (st.suppressed[i.id]) s = 'suppressed';
+      else if (st.acked[i.id] && s === 'open') s = 'acknowledged';
+      return Object.assign({}, i, { now: s, ackAt: i.ackAt || (st.acked[i.id] ? '14:31' : '') });
+    });
+    var WORD = { open: ['Open', '#B42318'], acknowledged: ['Acknowledged', '#B54708'], recovered: ['Recovered', '#067647'], suppressed: ['Suppressed', '#5B6488'], closed: ['Closed', '#5B6488'] };
+    function inFilter(i, f) { return f === 'open' ? (i.now === 'open' || i.now === 'acknowledged') : i.now === f; }
+    var FILTERS = [
+      ['open', 'Open', 'needs an operator'], ['recovered', 'Recovered', 'waiting to be closed'],
+      ['suppressed', 'Suppressed', 'quiet until a set time'], ['closed', 'Closed', 'last 30 days']
+    ];
+    var stats = FILTERS.map(function (f) {
+      var n = incs.filter(function (i) { return inFilter(i, f[0]); }).length + (f[0] === 'closed' ? 6 : 0);
+      var on = st.filter === f[0];
+      var loud = f[0] === 'open' && n > 0;
+      return { label: f[1], n: n, hint: f[2], pressed: on ? 'true' : 'false',
+        pick: function () { var first = incs.filter(function (i) { return inFilter(i, f[0]); })[0]; self.setState({ filter: f[0], sel: first ? first.id : st.sel, suppressOpen: false }); },
+        style: 'display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:12px 14px;border-radius:16px;cursor:pointer;text-align:left;background:#FFFFFF;' +
+          (on ? 'border:2px solid #FB9800;padding:11px 13px;' : (loud ? 'border:1px solid #F6B5AF;' : 'border:1px solid #E5E8EE;')) };
+    });
+    var rows = incs.filter(function (i) { return inFilter(i, st.filter); }).map(function (i) {
+      var on = i.id === st.sel;
+      return { id: i.id, sev: i.sev, sevTint: SEV[i.sev][0], sevInk: SEV[i.sev][1], title: i.title, affected: i.affected, age: i.age,
+        stateWord: WORD[i.now][0], stateInk: WORD[i.now][1], current: on ? 'true' : undefined,
+        pick: function () { self.setState({ sel: i.id, suppressOpen: false }); },
+        style: 'display:flex;flex-direction:column;gap:3px;width:100%;padding:12px 14px;border-radius:14px;cursor:pointer;font-size:14px;' +
+          (on ? 'background:#FFF6E8;border:1px solid #FB9800;box-shadow:inset 3px 0 0 #FB9800;' : 'background:#FFFFFF;border:1px solid #EEF1F6;') };
+    });
+    var inc = incs.filter(function (i) { return i.id === st.sel; })[0] || incs[0];
+    var order = ['open', 'acknowledged', 'recovered', 'closed'];
+    var idx = inc.now === 'suppressed' ? 1 : order.indexOf(inc.now);
+    var at = { open: inc.opened.split(', ')[1], acknowledged: inc.ackAt, recovered: inc.recAt || '', closed: inc.closeAt || (st.closed[inc.id] ? '14:32' : '') };
+    var steps = order.map(function (k, n) {
+      var done = n <= idx;
+      return { label: WORD[k][0], at: done ? at[k] : '', current: n === idx ? 'step' : undefined,
+        bar: done ? (n === idx ? '#FB9800' : '#0B1B4F') : '#E5E8EE', ink: done ? '#0B1B4F' : '#8A93AE', weight: n === idx ? '600' : '400' };
+    });
+    var BTN = 'display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:12px;font-size:14px;cursor:pointer;text-decoration:none;';
+    function btn(label, level, primary, run, disabled, why) {
+      return { isButton: true, isLink: false, label: label, level: level, run: run, disabled: !!disabled, why: why || '',
+        style: BTN + (disabled ? 'border:1px solid #E5E8EE;background:#F5F7FC;color:#8A93AE;cursor:not-allowed;' : (primary ? 'border:0;background:#FB9800;color:#071233;font-weight:600;' : 'border:1px solid #D5DBE7;background:#FFFFFF;color:#0B1B4F;')) };
+    }
+    function link(label, href) { return { isButton: false, isLink: true, label: label, href: href, style: BTN + 'border:1px solid #D5DBE7;background:#FFFFFF;color:#0B1B4F;font-weight:500;' }; }
+    var set = function (key) { return function () { var o = {}; o[key] = Object.assign({}, st[key]); o[key][inc.id] = true; o.suppressOpen = false; self.setState(o); }; };
+    var live = inc.now === 'open' || inc.now === 'acknowledged';
+    var actions = [];
+    if (inc.now === 'open') actions.push(btn('Acknowledge', 'LEVEL 1', true, set('acked')));
+    if (live || inc.now === 'suppressed') actions.push(link('Troubleshoot', 'Troubleshoot.dc.html'));
+    if (live) actions.push(btn('Suppress…', 'LEVEL 1', false, function () { self.setState({ suppressOpen: true }); }));
+    if (inc.now === 'recovered') actions.push(btn('Close with this evidence', 'LEVEL 1', true, set('closed')));
+    if (live) actions.push(btn('Close', 'LEVEL 1', false, null, true, 'Closes once it has recovered, with the evidence'));
+    if (inc.now !== 'closed') actions.push(btn('Add a note', '', false, null));
+    return {
+      stats: stats, rows: rows, empty: rows.length === 0,
+      listTitle: ({ open: 'Open incidents', recovered: 'Recovered', suppressed: 'Suppressed', closed: 'Closed, last 30 days' })[st.filter],
+      inc: Object.assign({}, inc, { sevTint: SEV[inc.sev][0], sevInk: SEV[inc.sev][1], signalCount: inc.signals.length,
+        hasRecovery: inc.recovery.length > 0, noNotes: inc.notes.length === 0,
+        suppressed: inc.now === 'suppressed', suppressLine: 'Suppressed by Aisyah Rahman until 15:30: the owner is re-sharing the sheet. New signals still join it.' }),
+      steps: steps, actions: actions, suppressOpen: st.suppressOpen,
+      confirmSuppress: set('suppressed'),
+      cancelSuppress: function () { self.setState({ suppressOpen: false }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

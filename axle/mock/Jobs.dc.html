@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Jobs · R8 · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+summary{cursor:pointer}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Jobs" mode="r8" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="R8 · Jobs" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <p style="margin: 0; color: #0B1B4F; font-size: 16px">Everything Janka runs on its own: when it last ran, what it did, and when it runs next.</p>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">Times in MYT. Run now, retry, pause and cancel ask for a reason and are recorded in the operations audit. <span class="mono">Checked 14:30:12</span></p>
+      </div>
+
+      <section aria-label="Jobs at a glance" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px">
+        <sc-for list="{{stats}}" as="s" hint-placeholder-count="5">
+          <div style="display: flex; flex-direction: column; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 1px solid {{s.border}}">
+            <span style="font-size: 12px; color: #5B6488">{{s.label}}</span>
+            <span class="mono" style="font-size: 26px; color: #0B1B4F; line-height: 1.2">{{s.n}}</span>
+            <span style="font-size: 11px; color: #5B6488">{{s.hint}}</span>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="jobs-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px">
+        <h2 id="jobs-h" style="margin: 0 4px; color: #0B1B4F; font-size: 16px; font-weight: 600">Jobs and webhooks</h2>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 860px; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #5B6488; font-size: 12px">
+              <th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Job</th>
+              <th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Runs</th>
+              <th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Last run</th>
+              <th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Result</th>
+              <th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Next run</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{jobs}}" as="j" hint-placeholder-count="7">
+                <tr onClick="{{j.pick}}" style="cursor: pointer; background: {{j.rowBg}}; box-shadow: {{j.rowMark}}">
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6"><button type="button" onClick="{{j.pick}}" aria-current="{{j.current}}" style="border: 0; background: transparent; padding: 0; cursor: pointer; text-align: left; color: #0B1B4F; font-weight: 500; font-size: 13px">{{j.name}}</button>
+                    <sc-if value="{{j.own}}" hint-placeholder-val="{{false}}"><span class="mono" style="margin-left: 6px; font-size: 10px; font-weight: 600; letter-spacing: .1em; padding: 1px 6px; border-radius: 6px; border: 1px dashed #8E9CC9; color: #3B4469">JANKA ONLY</span></sc-if></td>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6">{{j.schedule}}</td>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6"><span class="mono" style="font-size: 12px">{{j.last}}</span><span class="mono" style="font-size: 11px; color: #5B6488; display: block">{{j.took}}</span></td>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6"><span style="font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: {{j.tint}}; color: {{j.ink}}">{{j.result}}</span></td>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6"><span class="mono" style="font-size: 12px; color: {{j.nextInk}}">{{j.next}}</span></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="job-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; flex-wrap: wrap; gap: 10px 20px; justify-content: space-between; align-items: flex-start">
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <h2 id="job-h" style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">{{job.name}}</h2>
+            <span style="font-size: 13px">{{job.what}}</span>
+            <span style="font-size: 13px; color: #0B1B4F"><strong style="font-weight: 600">{{job.schedule}}</strong> · next <span class="mono">{{job.next}}</span></span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <sc-for list="{{actions}}" as="a" hint-placeholder-count="3">
+              <button type="button" onClick="{{a.run}}" disabled="{{a.disabled}}" title="{{a.why}}" style="{{a.style}}"><span>{{a.label}}</span><span class="mono" style="font-size: 10px; letter-spacing: .06em; opacity: .8">{{a.level}}</span></button>
+            </sc-for>
+          </div>
+        </div>
+
+        <sc-if value="{{job.hasBanner}}" hint-placeholder-val="{{false}}">
+          <p role="status" style="margin: 0; padding: 10px 12px; border-radius: 12px; background: {{job.bannerBg}}; border: 1px solid {{job.bannerBorder}}; color: {{job.bannerInk}}; font-size: 13px">{{job.banner}} <sc-if value="{{job.hasIncident}}" hint-placeholder-val="{{false}}"><a href="Incidents.dc.html" style="color: inherit; text-decoration: underline">{{job.incident}}</a></sc-if></p>
+        </sc-if>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 16px">
+          <div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+            <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Latest run · <span class="mono" style="font-weight: 400">{{job.last}}</span></h3>
+            <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+              <sc-for list="{{counts}}" as="c" hint-placeholder-count="4">
+                <div style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 12px; background: {{c.bg}}">
+                  <span style="font-size: 12px; color: #5B6488">{{c.label}}</span>
+                  <span class="mono" style="font-size: 22px; color: {{c.ink}}">{{c.n}}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div role="img" aria-label="{{barLabel}}" style="display: flex; height: 12px; border-radius: 999px; overflow: hidden; gap: 2px; background: #EEF1F6">
+              <sc-for list="{{bar}}" as="b" hint-placeholder-count="3"><span style="flex: {{b.n}} 1 0; background: {{b.color}}"></span></sc-for>
+            </div>
+            <h3 style="margin: 4px 0 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Why items failed or were skipped</h3>
+            <sc-for list="{{job.reasons}}" as="r" hint-placeholder-count="2">
+              <div style="display: flex; gap: 10px; align-items: baseline; padding: 8px 10px; border-radius: 12px; background: #F5F7FC; font-size: 13px"><span class="mono" style="flex: none; min-width: 28px; color: #0B1B4F; font-weight: 600">{{r.n}}</span><span style="flex: 1">{{r.why}}</span><span style="font-size: 12px; color: #5B6488">{{r.kind}}</span></div>
+            </sc-for>
+            <sc-if value="{{job.noReasons}}" hint-placeholder-val="{{false}}">
+              <span style="font-size: 13px; color: #5B6488">Nothing failed or was skipped.</span>
+            </sc-if>
+          </div>
+
+          <div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+            <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Last 14 runs: how long each took</h3>
+            <div role="img" aria-label="{{histLabel}}" style="display: flex; align-items: flex-end; gap: 4px; height: 96px; padding: 0 2px; border-bottom: 1px solid #D5DBE7">
+              <sc-for list="{{hist}}" as="h" hint-placeholder-count="14">
+                <span title="{{h.tip}}" style="flex: 1 1 0; height: {{h.h}}; min-height: 3px; border-radius: 4px 4px 0 0; background: {{h.color}}"></span>
+              </sc-for>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: #5B6488"><span class="mono">{{histFrom}}</span><span>usual <span class="mono">{{job.usual}}</span></span><span class="mono">{{histTo}}</span></div>
+            <div style="display: flex; gap: 14px; font-size: 12px"><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #2a78d6"></span>Done</span><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #F79009"></span>Done with failures</span><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #F04438"></span>Failed</span></div>
+            <h3 style="margin: 8px 0 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Recent changes</h3>
+            <sc-for list="{{job.log}}" as="l" hint-placeholder-count="2">
+              <div style="display: flex; flex-wrap: wrap; gap: 2px 12px; padding: 6px 0; border-bottom: 1px solid #EEF1F6; font-size: 13px"><span class="mono" style="flex: 0 0 96px; font-size: 12px; color: #5B6488">{{l.when}}</span><span style="flex: 1 1 220px">{{l.what}}</span></div>
+            </sc-for>
+          </div>
+        </div>
+
+        <details style="border-top: 1px solid #EEF1F6; padding-top: 10px; font-size: 13px">
+          <summary style="color: #0B1B4F; font-weight: 500">Advanced: schedule as written</summary>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 24px; margin-top: 8px; color: #5B6488">
+            <span>Cron <span class="mono" style="color: #0B1B4F">{{job.cron}}</span></span>
+            <span>Time zone <span class="mono" style="color: #0B1B4F">Asia/Kuala_Lumpur</span></span>
+            <span>Handler <span class="mono" style="color: #0B1B4F">{{job.handler}}</span></span>
+            <span>Time limit <span class="mono" style="color: #0B1B4F">{{job.limit}}</span></span>
+          </div>
+          <p style="margin: 8px 0 0; font-size: 12px; color: #5B6488">Changing a schedule or limit is R8 → Configuration, and needs Admin.</p>
+        </details>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: 'digest', retried: false, paused: {}, cancelled: false, ranNow: {} };
+  }
+  renderVals() {
+    var self = this, st = this.state;
+    var R = {
+      done: ['Done', '#E7F8EF', '#067647'], partial: ['Done, some failed', '#FEF4E6', '#B54708'], failed: ['Failed', '#FEECEB', '#B42318'],
+      running: ['Running', '#E7EEFE', '#0B1B4F'], queued: ['Queued', '#E7EEFE', '#0B1B4F'], scheduled: ['Scheduled', '#EEF1F6', '#3B4469'],
+      paused: ['Paused', '#EEF1F6', '#3B4469'], cancelled: ['Cancelled', '#EEF1F6', '#3B4469'], skipped: ['Done, 1 skipped', '#E7F8EF', '#067647']
+    };
+    var J = {
+      digest: { name: 'Low-stock email digest', what: 'Emails each organisation\'s buyers the items running low.', schedule: 'Every day at 07:00', cron: '0 7 * * *', handler: 'jobs/lowStockDigest', limit: '10 min', usual: '1 min 10 s',
+        last: '15 Oct, 07:00', took: '1 min 12 s', next: '16 Oct, 07:00', result: st.retried ? 'done' : 'partial',
+        counts: st.retried ? [44, 44, 0, 0] : [44, 41, 3, 0],
+        reasons: st.retried ? [] : [{ n: 3, why: 'The email service refused the address (mailbox does not exist)', kind: 'failed' }],
+        banner: st.retried ? 'Retried the 3 failed items at 14:31: 3 of 3 sent. Aisyah Rahman, reason "two addresses corrected by the owners".' : '3 emails failed at 07:00. Retry failures sends only those 3.',
+        bannerKind: st.retried ? 'ok' : 'warn',
+        runs: [70, 68, 72, 75, 69, 71, 70, 74, 66, 70, 73, 69, 71, 72], kinds: ['d', 'd', 'd', 'p', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'p'],
+        log: [{ when: '14 Oct, 22:10', what: 'Mei Lin paused it for 1 hour: email provider maintenance' }, { when: '3 Oct, 10:02', what: 'Mei Lin moved it from 06:30 to 07:00: buyers start at 07:30' }] },
+      sheets: { name: 'Google Sheets import', what: 'Reads each connected sheet and updates stock counts. One run per organisation.', schedule: 'Every 6 hours', cron: '0 */6 * * *', handler: 'jobs/sheetsImport', limit: '30 min (not enforced)', usual: '4 min',
+        last: '15 Oct, 12:00', took: st.cancelled ? 'cancelled after 2 h 31 min' : '2 h 30 min so far', next: '15 Oct, 18:00', result: st.cancelled ? 'cancelled' : 'running',
+        counts: [31, 30, 0, 0],
+        reasons: st.cancelled ? [{ n: 1, why: 'Contoh Logistik: cancelled by Aisyah Rahman, stuck on one sheet', kind: 'cancelled' }] : [{ n: 1, why: 'Contoh Logistik: still on one sheet after 2 h 30 min', kind: 'in progress' }],
+        banner: st.cancelled ? 'Cancelled the Contoh Logistik item at 14:31. The other 30 finished. It will be tried again at 18:00.' : 'One item has run 2 h 30 min against a usual 4 min. Part of incident',
+        incident: 'INC-0413', bannerKind: st.cancelled ? 'ok' : 'warn',
+        runs: [240, 230, 250, 260, 245, 238, 252, 240, 248, 236, 255, 242, 246, 9000], kinds: ['d', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', st.cancelled ? 'f' : 'r'],
+        log: [{ when: '15 Oct, 09:40', what: 'Aisyah Rahman ran it now for Contoh Logistik: owner asked' }] },
+      forecast: { own: true, name: 'Nightly forecast', what: 'Forecasts demand for every organisation\'s items for the next 8 weeks.', schedule: 'Every night at 03:10', cron: '10 3 * * *', handler: 'jobs/nightlyForecast', limit: '60 min', usual: '22 min',
+        last: '15 Oct, 03:10', took: '21 min 40 s', next: '16 Oct, 03:10', result: 'skipped', counts: [48, 47, 0, 1],
+        reasons: [{ n: 1, why: 'Kedai Runcit Maju: pending deletion, so not forecast', kind: 'skipped, expected' }],
+        banner: '', runs: [1300, 1320, 1290, 1340, 1310, 1280, 4200, 1330, 1300, 1310, 1290, 1320, 1305, 1300], kinds: ['d', 'd', 'd', 'd', 'd', 'd', 'p', 'd', 'd', 'd', 'd', 'd', 'd', 'd'],
+        log: [{ when: '13 Oct, 03:44', what: 'Jason Lee re-ran the 6 that timed out (INC-0410)' }] },
+      scoring: { own: true, name: 'Forecast scoring', what: 'Scores last week\'s forecasts against what was actually used.', schedule: 'Every night at 03:00', cron: '0 3 * * *', handler: 'jobs/forecastScoring', limit: '15 min', usual: '3 min',
+        last: '15 Oct, 03:00', took: '2 min 50 s', next: '16 Oct, 03:00', result: 'done', counts: [48, 48, 0, 0], reasons: [], banner: '',
+        runs: [170, 175, 168, 180, 172, 169, 171, 176, 174, 170, 173, 171, 168, 170], kinds: ['d', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd'], log: [] },
+      webhook: { name: 'Payment webhook', what: 'Receives payment events from the billing provider.', schedule: 'When the billing provider sends an event', cron: 'none (event)', handler: 'webhooks/billing', limit: '30 s', usual: '0.4 s',
+        last: '15 Oct, 11:20', took: '0.4 s', next: 'on the next event', result: 'done', counts: [1, 1, 0, 0], reasons: [], banner: '',
+        runs: [0.4, 0.5, 0.4, 0.4, 0.6, 0.4, 0.4, 0.5, 0.4, 0.4, 0.4, 0.5, 0.4, 0.4], kinds: ['d', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd'], log: [] },
+      deletion: { name: 'Deletion: Kedai Runcit Maju', what: 'Deletes the organisation and its data after the cooling-off. Its export was sent on 8 Oct.', schedule: 'Once, 18 Oct at 02:00', cron: '0 2 18 10 *', handler: 'jobs/deleteOrganisation', limit: '60 min', usual: 'n/a',
+        last: 'never', took: '', next: '18 Oct, 02:00', result: 'scheduled', counts: null, reasons: [], banner: 'Runs once. Cancelling it is Dashboard → Organisations → Kedai Runcit Maju, and needs Owner.', bannerKind: 'info',
+        runs: [], kinds: [], log: [{ when: '8 Oct, 09:00', what: 'Owner Nur Aina scheduled it after the organisation asked to leave' }] }
+    };
+    var ORDER = ['sheets', 'digest', 'forecast', 'scoring', 'webhook', 'deletion'];
+    function resultOf(k) { var j = J[k]; if (st.paused[k]) return 'paused'; if (st.ranNow[k] && j.result !== 'running') return 'queued'; return j.result; }
+    var jobs = ORDER.map(function (k) {
+      var j = J[k], r = R[resultOf(k)], on = st.sel === k;
+      return { name: j.name, own: !!j.own, schedule: j.schedule, last: j.last, took: j.took, result: r[0], tint: r[1], ink: r[2],
+        next: st.paused[k] ? 'paused' : j.next, nextInk: st.paused[k] ? '#B54708' : '#3B4469',
+        current: on ? 'true' : undefined, rowBg: on ? '#FFF6E8' : 'transparent', rowMark: on ? 'inset 3px 0 0 #FB9800' : 'none',
+        pick: function () { self.setState({ sel: k }); } };
+    });
+    var j = J[st.sel], res = resultOf(st.sel);
+    var c = j.counts;
+    var counts = c ? [
+      { label: 'Eligible', n: c[0], bg: '#F5F7FC', ink: '#0B1B4F' },
+      { label: 'Processed', n: c[1], bg: '#F5F7FC', ink: '#0B1B4F' },
+      { label: 'Failed', n: c[2], bg: c[2] ? '#FEECEB' : '#F5F7FC', ink: c[2] ? '#B42318' : '#0B1B4F' },
+      { label: 'Skipped', n: c[3], bg: '#F5F7FC', ink: '#0B1B4F' }
+    ] : [
+      { label: 'Eligible', n: '–', bg: '#F5F7FC', ink: '#5B6488' }, { label: 'Processed', n: '–', bg: '#F5F7FC', ink: '#5B6488' },
+      { label: 'Failed', n: '–', bg: '#F5F7FC', ink: '#5B6488' }, { label: 'Skipped', n: '–', bg: '#F5F7FC', ink: '#5B6488' }
+    ];
+    var waiting = c ? c[0] - c[1] - c[2] - c[3] : 0;
+    var bar = c ? [{ n: c[1], color: '#2a78d6' }, { n: c[2], color: '#F04438' }, { n: c[3], color: '#B9C1D4' }, { n: waiting, color: '#F79009' }].filter(function (b) { return b.n > 0; }) : [];
+    var max = Math.max.apply(null, j.runs.concat([1]));
+    var COL = { d: '#2a78d6', p: '#F79009', f: '#F04438', r: '#F79009' };
+    var hist = j.runs.map(function (v, i) { var k = j.kinds[i]; return { h: Math.max(4, Math.round(v / max * 100)) + '%', color: COL[k], tip: (k === 'r' ? 'running, ' : '') + (v >= 60 ? Math.round(v / 60) + ' min' : v + ' s') }; });
+    var BTN = 'display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:12px;font-size:14px;cursor:pointer;';
+    function btn(label, level, primary, run, disabled, why) {
+      return { label: label, level: level, run: run, disabled: !!disabled, why: why || '',
+        style: BTN + (disabled ? 'border:1px solid #E5E8EE;background:#F5F7FC;color:#8A93AE;cursor:not-allowed;' : (primary ? 'border:0;background:#FB9800;color:#071233;font-weight:600;' : 'border:1px solid #D5DBE7;background:#FFFFFF;color:#0B1B4F;')) };
+    }
+    var k = st.sel, failed = c ? c[2] : 0;
+    var flip = function (key) { return function () { var o = {}; o[key] = Object.assign({}, st[key]); o[key][k] = !st[key][k]; self.setState(o); }; };
+    var actions = [];
+    if (k === 'deletion') {
+      actions.push(btn('Run now', 'LEVEL 1', false, null, true, 'A deletion runs only on its date'));
+    } else if (res === 'running') {
+      actions.push(btn('Cancel the stuck item…', 'LEVEL 1', true, function () { self.setState({ cancelled: true }); }));
+      actions.push(btn('Run now', 'LEVEL 1', false, null, true, 'Already running'));
+    } else {
+      actions.push(btn('Retry failures (' + failed + ')', 'LEVEL 1', failed > 0, function () { self.setState({ retried: true }); }, failed === 0, failed === 0 ? 'Nothing failed in the latest run' : ''));
+      actions.push(btn(st.ranNow[k] ? 'Queued' : 'Run now…', 'LEVEL 1', false, function () { var o = Object.assign({}, st.ranNow); o[k] = true; self.setState({ ranNow: o }); }, !!st.ranNow[k] || k === 'webhook', k === 'webhook' ? 'Runs when an event arrives' : ''));
+    }
+    if (k !== 'webhook' && k !== 'deletion') actions.push(btn(st.paused[k] ? 'Resume' : 'Pause…', 'LEVEL 1', false, flip('paused')));
+    var BK = { warn: ['#FEF4E6', '#F8CD92', '#B54708'], ok: ['#E7F8EF', '#A6E4C6', '#067647'], info: ['#F5F7FC', '#E5E8EE', '#3B4469'] }[j.bannerKind || 'info'];
+    var running = jobs.filter(function (x) { return x.result === 'Running'; }).length;
+    return {
+      stats: [
+        { label: 'Jobs and webhooks', n: ORDER.length, hint: '2 are Janka only', border: '#E5E8EE' },
+        { label: 'Running now', n: running, hint: running ? 'one past its usual time' : 'none', border: running ? '#F8CD92' : '#E5E8EE' },
+        { label: 'Items failed, 24 h', n: st.retried ? 0 : 3, hint: st.retried ? 'all retried' : 'low-stock digest', border: st.retried ? '#E5E8EE' : '#F6B5AF' },
+        { label: 'Paused', n: Object.keys(st.paused).filter(function (x) { return st.paused[x]; }).length, hint: 'each with an end time', border: '#E5E8EE' },
+        { label: 'Next run', n: '18:00', hint: 'Google Sheets import', border: '#E5E8EE' }
+      ],
+      jobs: jobs, counts: counts, bar: bar,
+      barLabel: c ? (c[1] + ' processed, ' + c[2] + ' failed, ' + c[3] + ' skipped of ' + c[0]) : 'Not run yet',
+      hist: hist, histLabel: j.runs.length ? 'Durations of the last 14 runs; usual ' + j.usual : 'No runs yet',
+      histFrom: j.runs.length ? '14 runs ago' : 'no runs yet', histTo: j.runs.length ? 'latest' : '',
+      job: Object.assign({}, j, { next: st.paused[k] ? 'paused, resumes at 15:30 unless resumed sooner' : j.next, noReasons: j.reasons.length === 0, hasBanner: !!j.banner, hasIncident: !!j.incident && !st.cancelled,
+        bannerBg: BK[0], bannerBorder: BK[1], bannerInk: BK[2] }),
+      actions: actions
+    };
+  }
+}
+</script>
+</body>
+</html>

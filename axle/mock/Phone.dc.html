@@ -182,7 +182,7 @@ class Component extends DCLogic {
     ];
     var customDef = r8 ? [['Nightly forecast']] : [['Forecast accuracy'], ['Reference library', 5, 'loud'], ['Learning']];
     var PAGES = r8
-      ? { 'Overview': 'R8.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Services': 'Health.dc.html' }
+      ? { 'Overview': 'R8.dc.html', 'Incidents': 'Incidents.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Jobs': 'Jobs.dc.html', 'Services': 'Health.dc.html' }
       : { 'Organisations': 'Organisations.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html', 'Plans & features': 'PlansFeatures.dc.html', 'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html' };
     function item(it) {
       var on = !r8 && it[0] === 'Overview';
