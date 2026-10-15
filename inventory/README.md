@@ -25,6 +25,7 @@ No production or staging system was signed in to.
 | Angka (with Lapis) | `haziqfaris/angka` @ `58f3adf` | Customer app (light and dark) · AXLE · Lapis shell (from source) | 28 | [angka/](angka/README.md) |
 | Tinara | `haziqfaris/tinara` @ `02d53b7` | Partner app · Tinara Admin | 23 | [tinara/](tinara/README.md) |
 | Lapisan Console | `haziqfaris/antarax-api` @ `05ea388` | Developer console · AXLE Central (planned, not built) | 14 | [lapisan-console/](lapisan-console/README.md) |
+| ISO Generator (REKA, added 15 Oct) | `haziqfaris/iso-generator` @ `8dbf32e` | Workspace app · REKA Admin (its AXLE) | 34 | [iso-generator/](iso-generator/README.md) |
 
 Each folder has:
 
@@ -37,6 +38,7 @@ The full AXLE Central requirements from the antarax-api docs are in [lapisan-con
 Not covered:
 
 - **AX Loom and AX Motion:** no repository yet.
+- **ISO Generator** is a REKA product for its client NexusTAC, on `*.nexustac.reka.tech`. It is not in the brand kit's product list or the Lapisan registry, and was added for its AXLE. Decide whether it joins the AntaraX standard.
 - **YARA One:** antarax-api lists it with its own AXLE at `axle.yo.antarax.ai`, but it is not in the brand kit's product list. Add it if it should be in scope.
 
 ## Customer app: navigation matrix
@@ -70,20 +72,20 @@ Not covered:
 
 ## AXLE: console matrix
 
-| | Yara | Janka | PLExyz Grid | AX Frame | Angka | Tinara | AXLE Central |
-|---|---|---|---|---|---|---|---|
-| **Name on screen** | Yara AXLE | Janka AXLE | PLExyz Grid AXLE — Platform Admin | AXLE · AX Frame | AXLE · the console for Angka | Tinara Admin | (planned) |
-| **Where it lives** | same app `/axle`, own host | separate entry `axle.html` | separate app `apps/axle` | same app `/admin`, own host | same app `/axle`, own host | in-app `/#/admin` | `axle.antarax.ai` |
-| **Look** | dark sidebar `#0B0E14`, light page, orange | dark rail `#0B0E14`, light page, orange | light, violet | dark only `#071233`, orange (closest to kit 13 §6) | light plum, theme toggle | light, plum | dark `#071233`, REKA orange (kit 13 §6) |
-| **Nav items** | 12 | 11 | 5 | 15 + 6 (two modes) | 28 | 12 | (see requirements) |
-| **Groups** | Tenants · Platform · Monitoring | Platform · AI · System | Tenants · Platform | Pulse · Customers · Commerce · Console / Operations · Setup | Watch · Products · Run · Trail | Control Tower · Business Logic · Intelligence & Data · Oversight | Overview · Organisations · Keys · Switches · Calls · Lookup · Health · Audit · Access · Staff |
-| **Landing page** | Overview: counts, readiness table, data health, audit | Overview: 7 KPIs, needs a human, staff actions, forecast run | Organisations table (no dashboard) | Overview: 4 KPIs, recent signups | Overview: status strip, range, 5 tiles, cost, needs an operator, funnel, growth | Dashboard: hard-coded MRR, plans, tokens | every product on one screen |
-| **Staff roles** | reka_admin only | admin, manager | one admin role | viewer < support < admin | viewer < support < operator < admin < owner | one admin role | viewer < support < operator < admin < owner |
-| **Search** | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | Lookup by request id |
-| **Per-page explainer** | ✓ page guide | ✓ About this page | ✗ | ✓ How this page works | ◐ lead line | ✗ | |
-| **Environment or state banner** | ✗ | ✗ | ✗ | ✓ OPEN ACCESS | ✓ read-only | ✓ STRIPE MOCK chips | |
-| **Support view into an organisation** | drill-down only | ✗ | slide-over panel | drill-down | ✓ starts support view | ✗ | |
-| **Phone** | drawer | drawer | top bar toggle | drawer | sideways chip row | ✗ none | |
+| | Yara | Janka | PLExyz Grid | AX Frame | Angka | Tinara | AXLE Central | ISO Generator |
+|---|---|---|---|---|---|---|---|---|
+| **Name on screen** | Yara AXLE | Janka AXLE | PLExyz Grid AXLE — Platform Admin | AXLE · AX Frame | AXLE · the console for Angka | Tinara Admin | (planned) | REKA Admin |
+| **Where it lives** | same app `/axle`, own host | separate entry `axle.html` | separate app `apps/axle` | same app `/admin`, own host | same app `/axle`, own host | in-app `/#/admin` | `axle.antarax.ai` | same build, own host `axle.nexustac.reka.tech` |
+| **Look** | dark sidebar `#0B0E14`, light page, orange | dark rail `#0B0E14`, light page, orange | light, violet | dark only `#071233`, orange (closest to kit 13 §6) | light plum, theme toggle | light, plum | dark `#071233`, REKA orange (kit 13 §6) | light `#F7F6F3`, navy, DM Sans |
+| **Nav items** | 12 | 11 | 5 | 15 + 6 (two modes) | 28 | 12 | (see requirements) | 13 |
+| **Groups** | Tenants · Platform · Monitoring | Platform · AI · System | Tenants · Platform | Pulse · Customers · Commerce · Console / Operations · Setup | Watch · Products · Run · Trail | Control Tower · Business Logic · Intelligence & Data · Oversight | Overview · Organisations · Keys · Switches · Calls · Lookup · Health · Audit · Access · Staff | Service · Workspaces & people · AI · Library · System |
+| **Landing page** | Overview: counts, readiness table, data health, audit | Overview: 7 KPIs, needs a human, staff actions, forecast run | Organisations table (no dashboard) | Overview: 4 KPIs, recent signups | Overview: status strip, range, 5 tiles, cost, needs an operator, funnel, growth | Dashboard: hard-coded MRR, plans, tokens | every product on one screen | Overview: 4 KPIs, attention strip, 14-day charts, rollout table, audit |
+| **Staff roles** | reka_admin only | admin, manager | one admin role | viewer < support < admin | viewer < support < operator < admin < owner | one admin role | viewer < support < operator < admin < owner | 8 independent rights, no ladder |
+| **Search** | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | Lookup by request id | ◐ top bar search, not over AXLE pages |
+| **Per-page explainer** | ✓ page guide | ✓ About this page | ✗ | ✓ How this page works | ◐ lead line | ✗ | | ✓ one line under every heading |
+| **Environment or state banner** | ✗ | ✗ | ✗ | ✓ OPEN ACCESS | ✓ read-only | ✓ STRIPE MOCK chips | | ◐ in page text only |
+| **Support view into an organisation** | drill-down only | ✗ | slide-over panel | drill-down | ✓ starts support view | ✗ | | ◐ audited view-as, no banner |
+| **Phone** | drawer | drawer | top bar toggle | drawer | sideways chip row | ✗ none | | sideways pill strip |
 
 ## What the inventory says
 
@@ -114,7 +116,7 @@ Not covered:
 
 ### AXLE
 
-1. **Six consoles, six looks.** Only AX Frame matches kit 13 §6 (dark `#071233`, orange accent). Yara and Janka are close: a dark `#0B0E14` sidebar with a light content area. Grid and Tinara are light. Angka is plum with a theme toggle.
+1. **Seven consoles, seven looks.** (ISO Generator's REKA Admin, added later, is light navy.) Only AX Frame matches kit 13 §6 (dark `#071233`, orange accent). Yara and Janka are close: a dark `#0B0E14` sidebar with a light content area. Grid and Tinara are light. Angka is plum with a theme toggle.
 2. **Six names.** Only AX Frame and Angka use the "AXLE · Product" form. Grid still says "Platform Admin" with an em dash, and Tinara says "Tinara Admin".
 3. **The sections recur across consoles:**
    - Organisations (all)
@@ -137,6 +139,27 @@ Not covered:
    Grid has no landing page; its console opens on a table. Tinara's figures are hard-coded.
 5. **Staff roles:** Angka's five rungs (viewer < support < operator < admin < owner) match the antarax-api AXLE Central ladder, and AX Frame uses three of them. The other consoles have one admin role. Kit 13 reserves "REKA support" as a customer-facing phrase, so the staff role "support" may need another name.
 6. **No console has global search.** AXLE Central plans "Lookup" by request id. Cross-product search for organisations and people would be new.
+
+### ISO Generator's AXLE (added 15 Oct)
+
+It scores 4 of 8 on the AXLE scorecard (Angka and AX Frame score 6). It falls short on what the brand kit asks for:
+
+- It is named "REKA Admin".
+- It is light navy, not dark with REKA orange, and has no AntaraX A.
+- Staff have 8 separate rights rather than a role ladder.
+- On phones the nav is a strip of 13 pills.
+- It has no AXLE Link.
+
+It has the best operator behaviour of any console, and the standard AXLE should take these patterns from it:
+
+- A gate that names the missing right and who can grant it.
+- A dash with "needs the Usage & cost right" instead of a false "$0.00".
+- Workspace scope kept in the address.
+- A workspace page that opens with a readiness checklist.
+- A live trace that leads with what to fix.
+- An attention strip on the overview that links to each fix.
+
+Fix first: "View workspace as" shows no banner and still offers "New project", even though the right is called read-only (`capabilities.ts:36-39`, screenshot 23).
 
 ### Issues found along the way (not fixed: each belongs to its own repo)
 

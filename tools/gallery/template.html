@@ -135,7 +135,7 @@ section.prod[hidden]{display:none}
   <header class="top">
     <div class="eyebrow"><span class="intan"></span>AntaraX Dashboard kit · step 1 inventory</div>
     <h1>Every AntaraX dashboard, navbar and AXLE console, as they ship today</h1>
-    <p class="lede">Screens from all eight product repositories, captured on 15 Oct 2026 with fictional data from each app's own demo mode or a local fake backend. No production or staging system was signed in to. Click any screen to see it full size with how it was made.</p>
+    <p class="lede">Screens from nine product repositories, captured on 15 Oct 2026 with fictional data from each app's own demo mode or a local fake backend. No production or staging system was signed in to. Click any screen to see it full size with how it was made.</p>
     <div class="stats" id="stats"></div>
   </header>
 
@@ -178,6 +178,7 @@ section.prod[hidden]{display:none}
           <li>Angka: 28 places in Watch, Products, Run and Trail; five staff rungs that match AXLE Central's ladder; status strip, range picker, "needs an operator"; support view; announcements and the help editor</li>
           <li>AX Frame: dark #071233 ground, REKA orange signal, the "AXLE · Product" name, an open-access banner, a "How this page works" explainer on every page</li>
           <li>Yara and Janka: their overview tables (organisation readiness, data health, needs a human) are worth keeping</li>
+          <li>ISO Generator: the best operator behaviour of any console. A gate that names the missing right and who grants it, "unknown" instead of a false zero, workspace scope kept in the address, a readiness checklist, and a live trace that leads with what to fix</li>
         </ul>
         <p class="avoid">Don't copy: Angka's light plum theme; AX Frame's phone header bug and two-mode switch.</p>
         <button class="jump" type="button" data-jump="ax-frame">See AX Frame screens</button>
@@ -186,7 +187,7 @@ section.prod[hidden]{display:none}
 
     <div class="score-title"><h3>Customer app scorecard</h3><span class="score-note">✓ 1 · ◐ ½ · – 0. A count of features found in the code, not a judgement of quality.</span></div>
     <div class="score-wrap"><table class="score" id="score-c"></table></div>
-    <div class="score-title"><h3>AXLE scorecard</h3><span class="score-note">Same scoring. PLExyz Crowd has no internal console; AXLE Central is not built.</span></div>
+    <div class="score-title"><h3>AXLE scorecard</h3><span class="score-note">Same scoring. PLExyz Crowd has no internal console; AXLE Central is not built. ISO Generator's console is called REKA Admin.</span></div>
     <div class="score-wrap"><table class="score" id="score-a"></table></div>
     <p class="score-note">Least ready to learn from: Tinara (no phone layout, no focus styles, hard-coded admin figures), PLExyz Crowd (shows AXLE to customers) and Grid's AXLE (no landing page, light violet, "Platform Admin").</p>
   </section>
@@ -227,7 +228,7 @@ try { const s = JSON.parse(localStorage.getItem('axinv-filters')||'null'); if (s
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 // stats
-const surfaces = 15;
+const surfaces = 17;
 document.getElementById('stats').innerHTML = [
   [DATA.products.length,'products'],[surfaces,'product surfaces'],[DATA.items.length,'screenshots'],
   [DATA.items.filter(i=>i.vp==='phone').length,'at phone width'],[DATA.items.filter(i=>i.cat==='axle').length,'of admin consoles']
@@ -241,11 +242,11 @@ const C_ROWS = [
   ['User guide',[1,1,.5,0,0,.5,0,.5]],['Page intro or tour',[1,1,0,0,1,1,0,0]],['Organisation switcher',[.5,1,0,0,.5,1,0,.5]],
   ['Plan gating in nav',[0,1,1,0,0,0,.5,0]],['Nav counters',[0,0,1,0,1,1,0,0]],['Demo or environment badge',[0,1,1,1,.5,1,0,0]],
   ['Support view',[0,0,0,0,0,1,0,0]]];
-const A_ORDER = ['Yara','Janka','PLExyz Grid','AX Frame','Angka','Tinara'];
+const A_ORDER = ['Yara','Janka','PLExyz Grid','AX Frame','Angka','Tinara','ISO Generator'];
 const A_ROWS = [
-  ['Landing dashboard',[1,1,0,.5,1,0]],['Staff role ladder',[0,.5,0,.5,1,0]],['Per-page explainer',[1,1,0,1,.5,0]],
-  ['Environment or state banner',[0,0,0,1,1,1]],['Support view into an organisation',[.5,0,.5,.5,1,0]],
-  ['Works on phones',[1,1,.5,.5,.5,0]],['Kit 13 §6 dark look',[.5,.5,0,1,0,0]],['"AXLE · Product" name',[0,0,0,1,1,0]]];
+  ['Landing dashboard',[1,1,0,.5,1,0,1]],['Staff role ladder',[0,.5,0,.5,1,0,0.5]],['Per-page explainer',[1,1,0,1,.5,0,1]],
+  ['Environment or state banner',[0,0,0,1,1,1,0.5]],['Support view into an organisation',[.5,0,.5,.5,1,0,0.5]],
+  ['Works on phones',[1,1,.5,.5,.5,0,0.5]],['Kit 13 §6 dark look',[.5,.5,0,1,0,0,0]],['"AXLE · Product" name',[0,0,0,1,1,0,0]]];
 function score(el, order, rows){
   const tot = order.map((_,i)=>rows.reduce((a,r)=>a+r[1][i],0));
   const best = Math.max(...tot);

@@ -1,0 +1,862 @@
+{
+  "product": "ISO Document Generator (ISO Generator)",
+  "repo": "haziqfaris/iso-generator",
+  "commit": "8dbf32e",
+  "stack": "React 19 + TypeScript + Vite 6 + Tailwind 3 + react-router 7, lucide-react; Supabase (Postgres/RLS, Auth, Edge Functions); Cloudflare Worker static assets (wrangler); local preview backend in browser storage (VITE_BACKEND=local)",
+  "surfaces": [
+    {
+      "surface": "axle",
+      "name": "REKA Admin (AXLE in docs and copy only)",
+      "host_or_route": "axle.nexustac.reka.tech /admin/* (same build; src/app/hosts.ts:10); on other hosts /admin on the same origin",
+      "entry_files": [
+        "src/app/App.tsx:93-101 (AdminGate: isPlatformAdmin)",
+        "src/app/App.tsx:114-123 (/admin/* route, CrossHost redirect from iso.*)",
+        "src/features/admin/AdminApp.tsx:54-97 (GROUPS nav config)",
+        "src/features/admin/AdminApp.tsx:131-162 (desktop sidebar)",
+        "src/features/admin/AdminApp.tsx:164-177 (phone chip strip)",
+        "src/features/admin/AdminApp.tsx:102-118 (capability Gate)",
+        "src/features/admin/TenantPicker.tsx:23-50",
+        "src/app/Shell.tsx:85-157 (shared header)",
+        "src/app/UserMenu.tsx:34-267",
+        "src/lib/platform/capabilities.ts:11-48",
+        "src/app/hosts.ts:9-43"
+      ],
+      "layout": "Shared 48px top bar (h-12) from the workspace app, plus a 208px (w-52) white left sidebar from md (768px) up with grouped items; below md the sidebar is replaced by a horizontally scrolling row of pill links. Content max-w-7xl, p-4/sm:p-6. Tenant-scoped pages get a workspace picker bar above the page.",
+      "brand": {
+        "logo": "Navy rounded square with lucide FileCheck2 icon (src/app/Shell.tsx:94-96); no AntaraX A",
+        "name_text": "ISO Document Generator (header, visible from xl only, src/app/Shell.tsx:97); sidebar eyebrow 'REKA Admin' (AdminApp.tsx:136); breadcrumb 'REKA Admin' (Shell.tsx:125)",
+        "eyebrow": "REKA ADMIN",
+        "credit_line": "none in AXLE; sign-in says 'by REKA · for NexusTAC' (src/app/SignIn.tsx:98)",
+        "other": "Name 'AXLE' appears only in helper text (AdminApp.tsx:114) and docs"
+      },
+      "nav_groups": [
+        {
+          "label": "(no label)",
+          "items": [
+            {
+              "label": "Overview",
+              "route": "/admin",
+              "icon": "lucide-react Activity",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "none: every REKA admin; cost tiles show a dash without usage.read",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Service",
+          "items": [
+            {
+              "label": "Scorecard",
+              "route": "/admin/scorecard",
+              "icon": "lucide-react Gauge",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "cap usage.read; tenant-scoped (picker)",
+              "badge": "",
+              "children": [
+                "Scorecard",
+                "Support log",
+                "Word-file checks",
+                "Targets"
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Workspaces & people",
+          "items": [
+            {
+              "label": "Workspaces",
+              "route": "/admin/tenants",
+              "icon": "lucide-react Building2",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "cap tenants.manage",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "People",
+              "route": "/admin/users",
+              "icon": "lucide-react Users",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "cap users.manage; tenant-scoped",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "AI",
+          "items": [
+            {
+              "label": "Models & keys",
+              "route": "/admin/models",
+              "icon": "lucide-react Cpu",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "cap models.route",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Analytics",
+              "route": "/admin/usage",
+              "icon": "lucide-react BarChart3",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "cap usage.read; tenant-scoped; server analytics in supabase mode, local Usage & cost fallback",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Live trace",
+              "route": "/admin/trace",
+              "icon": "lucide-react ScrollText",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "cap usage.read; tenant-scoped",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Library",
+          "items": [
+            {
+              "label": "Library",
+              "route": "/admin/library",
+              "icon": "lucide-react BookOpen",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "cap library.publish",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Learning",
+              "route": "/admin/learning",
+              "icon": "lucide-react GraduationCap",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "cap tuning.run",
+              "badge": "",
+              "children": [
+                "What people changed",
+                "Signals",
+                "Drafts & review queue",
+                "Test runs",
+                "Export",
+                "Workspace requests"
+              ]
+            }
+          ]
+        },
+        {
+          "label": "System",
+          "items": [
+            {
+              "label": "Operations",
+              "route": "/admin/operations",
+              "icon": "lucide-react SlidersHorizontal",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "cap settings.manage; tenant-scoped; live database only",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Issues",
+              "route": "/admin/issues",
+              "icon": "lucide-react ListChecks",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "none; tenant-scoped",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Audit trail",
+              "route": "/admin/audit",
+              "icon": "lucide-react ShieldCheck",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "none; tenant-scoped",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Settings",
+              "route": "/admin/settings",
+              "icon": "lucide-react Settings2",
+              "roles": [
+                "REKA admin (platform_admins)"
+              ],
+              "gating": "cap settings.manage",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "Global search button with Ctrl/Cmd+K (src/app/GlobalSearch.tsx:57); finds projects, documents and a few actions; only AXLE entry is 'REKA Admin' (GlobalSearch.tsx:82); does not search AXLE pages",
+        "command_palette": "Same as search: Ctrl/Cmd+K dialog (src/app/GlobalSearch.tsx:57)",
+        "notifications": "Bell with unread count, mark all read, clear all (src/app/NotificationsMenu.tsx:36-48); health problems reach REKA admins here from the iso-health cron",
+        "help": "'?' help drawer: Guide, Tours, How the AI works, Shortcuts tabs, guide PDF (src/app/HelpPanel.tsx:59-94); same panel as the workspace app",
+        "guide": "/help/guide route (src/app/App.tsx:157) for the workspace user guide; no AXLE-specific guide",
+        "org_switcher": "Tenant scope picker above tenant-scoped pages, kept in ?tenant= (src/features/admin/TenantPicker.tsx:11-46)",
+        "product_switcher": "ShieldCheck toggle in header between workspace app and AXLE (src/app/Shell.tsx:145-155); on split domains jumps between iso.* and axle.*",
+        "create_button": "none in the shell; per page (New workspace, Invite someone, Invite a REKA admin)",
+        "ai_entry": "none",
+        "theme_toggle": "none (light only)",
+        "language": "EN / BM segmented control in the account menu (src/app/UserMenu.tsx:190-210)",
+        "user_menu": [
+          "Name, e-mail, current workspace · platform admin",
+          "View workspace as (select, needs impersonate.readonly)",
+          "Back to workspace / REKA Admin console",
+          "Activity",
+          "Issues",
+          "Workspace settings",
+          "Language EN/BM",
+          "Density comfortable/compact",
+          "Change password (supabase mode)",
+          "Sign out"
+        ],
+        "sign_out": "Account menu, red item (src/app/UserMenu.tsx:246-259)",
+        "plan_badge": "none",
+        "env_badge": "none persistent; Overview subtitle says 'Preview build' or 'shared database' (src/features/admin/pages/Overview.tsx:91); sandbox flask on the workspace crumb (src/app/Shell.tsx:106)",
+        "impersonation": "'View workspace as' select in account menu (src/app/UserMenu.tsx:109-135), audited as impersonate.view_as (src/lib/auth.tsx:343-356); no banner while viewing, only the workspace name in the breadcrumb",
+        "other": [
+          "Breadcrumb: <workspace> > REKA Admin (src/app/Shell.tsx:99-128)",
+          "Background generation pill 'Generating n/m' (src/app/Shell.tsx:131-141)",
+          "Density toggle (src/app/UserMenu.tsx:211-230)",
+          "Capability gate card naming the missing right and who can grant it (src/features/admin/AdminApp.tsx:102-118)"
+        ]
+      },
+      "responsive": "md (768px): sidebar hidden, replaced by an overflow-x pill strip with all permitted items and no group labels (AdminApp.tsx:164-177). Header product name hidden below xl; workspace crumb truncates ('REKA Sa...'). Account and notification menus become full-width sheets under the header on phones (src/app/header-menu.ts:5-6). No drawer or hamburger.",
+      "active_state": "Sidebar: navy-50 background, navy text, semibold, 2px navy right border (AdminApp.tsx:153). Phone strip: filled navy pill with white text (AdminApp.tsx:171).",
+      "colours": {
+        "ground": "--bg #F7F6F3",
+        "surface": "--surf #FFFFFF",
+        "primary/navy": "--navy #0C1F30, --navy2 #162E47",
+        "active bg": "--navy-50 #F0F4F8",
+        "border": "--bdr #ECEAE4, --bdr-md #D8D5CE",
+        "text": "--t1 #1A1916, --t2 #6B6760, --t3 #A8A49D",
+        "accent": "--amber-500 #EA580C (sandbox flask), --teal #1A9B6E",
+        "note": "Tailwind orange scale remapped to navy (tailwind.config.js:15-26); no REKA orange #FB9800, no dark ground"
+      },
+      "fonts": "DM Sans (body), Bricolage Grotesque (display headings), DM Mono (numbers, ids); Google Fonts in index.html:11; tailwind.config.js:9-12",
+      "a11y": "Global :focus-visible 2px navy outline (src/styles/index.css:558-562); prefers-reduced-motion block (src/styles/index.css:735-740); nav aria-label 'REKA Admin'; icons 15px; aria-labels on header buttons; Escape closes menus",
+      "role_variants": "Any REKA admin (platform_admins row) gets AXLE. Eight independent rights (capabilities.ts:11-40): Workspaces, People, Models & keys, Usage & cost, Library, Learning, Settings & operations, View as a workspace. Nav hides pages whose right is missing (AdminApp.tsx:127,138); a read-only admin sees only Overview, Issues, Audit trail. Direct URL shows a gate card naming the right. Overview cost tiles and charts show a dash without Usage & cost. Rights edited on People > person > REKA rights; you cannot remove your own People right (src/features/people/PeopleDirectory.tsx:1018).",
+      "dashboard": {
+        "route": "/admin",
+        "file": "src/features/admin/pages/Overview.tsx:34-231",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "Platform overview",
+            "detail": "Heading plus state line: 'Preview build, every figure comes from this browser' or 'shared database, last 90 days' (Overview.tsx:89-92)"
+          },
+          {
+            "order": 2,
+            "kind": "kpi",
+            "title": "AI cost this month",
+            "detail": "Dollars, calls, last 7 d and 30 d; dash without Usage & cost right"
+          },
+          {
+            "order": 3,
+            "kind": "kpi",
+            "title": "Call errors",
+            "detail": "Count and % of calls, warn tone when > 0"
+          },
+          {
+            "order": 4,
+            "kind": "kpi",
+            "title": "Tenants",
+            "detail": "Real firm workspaces, active sandboxes"
+          },
+          {
+            "order": 5,
+            "kind": "kpi",
+            "title": "Library",
+            "detail": "Templates authored / total"
+          },
+          {
+            "order": 6,
+            "kind": "alert",
+            "title": "Needs attention strip",
+            "detail": "Generation running in this browser; no provider key or routes without a credential (link to Models & keys); key last failed (Check key); workspace at 80%+ of monthly AI budget, hard stop note (Overview.tsx:108-154)"
+          },
+          {
+            "order": 7,
+            "kind": "alert",
+            "title": "Health card (live only)",
+            "detail": "health_snapshot()/health_problems(): failed or stuck runs and deliveries, purge backlog, model errors, cron, database size vs cap; refresh button (HealthCard.tsx)"
+          },
+          {
+            "order": 8,
+            "kind": "chart",
+            "title": "AI cost, last 14 days",
+            "detail": "Mini daily bar chart, hover per day"
+          },
+          {
+            "order": 9,
+            "kind": "chart",
+            "title": "Layer-1 findings per call, last 14 days",
+            "detail": "Mini daily bar chart in warning orange, 'lower is better'"
+          },
+          {
+            "order": 10,
+            "kind": "table",
+            "title": "Tenant rollout",
+            "detail": "Tenant (+ practice workspace), stage badge, generation, Drive mode, month cost incl. practice"
+          },
+          {
+            "order": 11,
+            "kind": "feed",
+            "title": "Recent activity",
+            "detail": "Last 10 audit entries in words, link to Audit log"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "customer",
+      "name": "ISO Document Generator workspace app",
+      "host_or_route": "iso.nexustac.reka.tech /iso-documents (src/app/hosts.ts:9)",
+      "entry_files": [
+        "src/app/App.tsx:103-181",
+        "src/app/Shell.tsx:26-169",
+        "src/app/UserMenu.tsx:34-267",
+        "src/app/GlobalSearch.tsx",
+        "src/app/NotificationsMenu.tsx",
+        "src/app/HelpPanel.tsx",
+        "src/features/iso/IsoDocumentsPage.tsx",
+        "src/features/iso/ProjectsHome.tsx:74"
+      ],
+      "layout": "Top bar only (48px), no sidebar; everything else lives in the account menu. Projects page content max-w-7xl.",
+      "brand": {
+        "logo": "Navy square with FileCheck2 icon",
+        "name_text": "ISO Document Generator (from xl)",
+        "eyebrow": "",
+        "credit_line": "Sign-in: 'by REKA · for NexusTAC' (src/app/SignIn.tsx:98)",
+        "other": "No AntaraX mark or credit anywhere in src/app"
+      },
+      "nav_groups": [
+        {
+          "label": "Header (no sidebar)",
+          "items": [
+            {
+              "label": "Projects (logo / brand button)",
+              "route": "/iso-documents",
+              "icon": "lucide-react FileCheck2",
+              "roles": [
+                "all"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": [
+                "Setup",
+                "Intake",
+                "Scope Review",
+                "Generation",
+                "QC Review",
+                "Delivery (steps inside a project, ?project=&step=)"
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Account menu",
+          "items": [
+            {
+              "label": "Team",
+              "route": "/team",
+              "icon": "lucide-react Users",
+              "roles": [
+                "tenant_admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Activity",
+              "route": "/activity",
+              "icon": "lucide-react BarChart3",
+              "roles": [
+                "tenant_admin",
+                "platform admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Issues",
+              "route": "/issues",
+              "icon": "lucide-react ListChecks",
+              "roles": [
+                "all"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Library",
+              "route": "/library",
+              "icon": "lucide-react BookOpen",
+              "roles": [
+                "workspace members (not REKA admins)"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Workspace settings",
+              "route": "/settings",
+              "icon": "lucide-react Settings",
+              "roles": [
+                "tenant_admin",
+                "platform admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Help (drawer) and user guide",
+              "route": "/help/guide",
+              "icon": "lucide-react HelpCircle",
+              "roles": [
+                "all"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "Ctrl/Cmd+K search over projects, documents, actions (src/app/GlobalSearch.tsx:57-84)",
+        "command_palette": "Same as search: Ctrl/Cmd+K dialog (src/app/GlobalSearch.tsx:57)",
+        "notifications": "Bell with unread count, mark all read, clear all (src/app/NotificationsMenu.tsx:36-48); health problems reach REKA admins here from the iso-health cron",
+        "help": "'?' help drawer: Guide, Tours, How the AI works, Shortcuts tabs, guide PDF (src/app/HelpPanel.tsx:59-94); same panel as the workspace app",
+        "guide": "/help/guide (src/features/help/GuidePage) and the Help drawer",
+        "org_switcher": "Workspace name crumb (read-only); platform admins switch via account menu 'View workspace as'",
+        "product_switcher": "ShieldCheck link to AXLE for platform admins only (src/app/Shell.tsx:145-155)",
+        "create_button": "New project on the projects page (src/features/iso/ProjectsHome.tsx:238-243); Seed sample projects in sandboxes",
+        "ai_entry": "none",
+        "theme_toggle": "none (light only)",
+        "language": "EN / BM segmented control in the account menu (src/app/UserMenu.tsx:190-210)",
+        "user_menu": [
+          "Name, e-mail, workspace · role",
+          "Team (workspace admin)",
+          "Activity (workspace admin)",
+          "Issues",
+          "Library (non-REKA)",
+          "Workspace settings (workspace admin)",
+          "Language EN/BM",
+          "Density",
+          "Change password (supabase mode)",
+          "Sign out"
+        ],
+        "sign_out": "Account menu, red item (src/app/UserMenu.tsx:246-259)",
+        "plan_badge": "none",
+        "env_badge": "Sandbox flask icon + tooltip on the workspace crumb (src/app/Shell.tsx:99-110); amber 'Generation is paused' banner (src/app/Shell.tsx:159-163)",
+        "impersonation": "No banner when a REKA admin views a workspace",
+        "other": [
+          "Breadcrumb: <workspace> > REKA Admin (src/app/Shell.tsx:99-128)",
+          "Background generation pill 'Generating n/m' (src/app/Shell.tsx:131-141)",
+          "Density toggle (src/app/UserMenu.tsx:211-230)",
+          "Capability gate card naming the missing right and who can grant it (src/features/admin/AdminApp.tsx:102-118)"
+        ]
+      },
+      "responsive": "Header icons stay; product name hidden below xl; menus become full-width sheets under the header on phones. Dashboard stacks to one column.",
+      "active_state": "No nav highlighting (no sidebar); breadcrumb shows the current place in bold",
+      "colours": {
+        "ground": "--bg #F7F6F3",
+        "surface": "--surf #FFFFFF",
+        "primary/navy": "--navy #0C1F30, --navy2 #162E47",
+        "active bg": "--navy-50 #F0F4F8",
+        "border": "--bdr #ECEAE4, --bdr-md #D8D5CE",
+        "text": "--t1 #1A1916, --t2 #6B6760, --t3 #A8A49D",
+        "accent": "--amber-500 #EA580C (sandbox flask), --teal #1A9B6E",
+        "note": "Tailwind orange scale remapped to navy (tailwind.config.js:15-26); no REKA orange #FB9800, no dark ground"
+      },
+      "fonts": "DM Sans, Bricolage Grotesque, DM Mono",
+      "a11y": "As AXLE (shared shell)",
+      "role_variants": "tenant_admin: Team, Activity, Workspace settings, Library; consultant: own projects, Issues, Library; reviewer/viewer: read-only, 'View only' note replaces New project (ProjectsHome.tsx:238-243); shared_sandbox: Seed sample projects; platform admin: AXLE link, View workspace as",
+      "dashboard": {
+        "route": "/iso-documents",
+        "file": "src/features/iso/ProjectsHome.tsx:74-485",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "Projects",
+            "detail": "Heading with 'n active · n need attention · 1 generating'"
+          },
+          {
+            "order": 2,
+            "kind": "quick-actions",
+            "title": "New project / Seed sample projects",
+            "detail": "Seed only in sandboxes; read-only roles see a 'View only' note"
+          },
+          {
+            "order": 3,
+            "kind": "greeting",
+            "title": "Welcome card",
+            "detail": "Three-step explainer, New project, Show me around (tour), How the AI works (src/features/onboarding/WelcomeCard.tsx)"
+          },
+          {
+            "order": 4,
+            "kind": "alert",
+            "title": "Needs attention",
+            "detail": "Projects with reasons, link to filter blocking (ProjectsHome.tsx:250-283)"
+          },
+          {
+            "order": 5,
+            "kind": "other",
+            "title": "In progress",
+            "detail": "Running generation, step count chips"
+          },
+          {
+            "order": 6,
+            "kind": "feed",
+            "title": "Recent",
+            "detail": "Five most recently changed projects"
+          },
+          {
+            "order": 7,
+            "kind": "filter",
+            "title": "Search and filters",
+            "detail": "Search; step, standard, industry, owner, health, sort, direction, group by, show archived; grid/table toggle; saved views"
+          },
+          {
+            "order": 8,
+            "kind": "table",
+            "title": "Project cards or table",
+            "detail": "Name, company, standards, step badge, owner, last activity, delete"
+          },
+          {
+            "order": 9,
+            "kind": "empty-state",
+            "title": "No ISO projects yet",
+            "detail": "Create your first project"
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "screenshots/01-customer-dashboard-desktop.png",
+      "surface": "customer",
+      "what": "Projects home with five seeded sample projects (NexusTAC Sandbox shared login)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "local preview, projects seeded with the app's own Seed sample projects button"
+    },
+    {
+      "file": "screenshots/01-customer-dashboard-empty-desktop.png",
+      "surface": "customer",
+      "what": "Projects home before seeding, empty state",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/01-customer-user-menu-desktop.png",
+      "surface": "customer",
+      "what": "Account menu open (shared sandbox role)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/02-customer-dashboard-mobile.png",
+      "surface": "customer",
+      "what": "Projects home on a phone",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/02-customer-nav-open-mobile.png",
+      "surface": "customer",
+      "what": "Account menu open on a phone (the only menu; no drawer)",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-desktop.png",
+      "surface": "axle",
+      "what": "Platform overview with KPI tiles, attention alerts, trends",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "fictional events, keys, audit in localStorage"
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-desktop-full.png",
+      "surface": "axle",
+      "what": "Platform overview, whole page",
+      "viewport": "1440x1500",
+      "method": "mocked",
+      "notes": "tall viewport because the page scrolls inside main"
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-mobile.png",
+      "surface": "axle",
+      "what": "Platform overview on a phone with the pill strip nav",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03-axle-nav-chips-scrolled-mobile.png",
+      "surface": "axle",
+      "what": "Phone pill strip scrolled to later items",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03-axle-nav-open-account-menu-mobile.png",
+      "surface": "axle",
+      "what": "Account menu open on a phone (View workspace as)",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/05-signin-local-preview-desktop.png",
+      "surface": "other",
+      "what": "Sign-in, local preview with persona list (same screen serves AXLE)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/05-signin-local-preview-mobile.png",
+      "surface": "other",
+      "what": "Sign-in, local preview, phone",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/10-axle-scorecard-desktop.png",
+      "surface": "axle",
+      "what": "Scorecard scoped to Demo Consulting Sdn Bhd",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "sample figures in preview"
+    },
+    {
+      "file": "screenshots/11-axle-workspaces-desktop.png",
+      "surface": "axle",
+      "what": "Workspaces list with detail panel",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/11-axle-workspace-detail-desktop.png",
+      "surface": "axle",
+      "what": "Workspace detail: readiness checklist and rollout stepper",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/11-axle-workspaces-mobile.png",
+      "surface": "axle",
+      "what": "Workspaces on a phone",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/12-axle-people-desktop.png",
+      "surface": "axle",
+      "what": "People directory (workspace people and REKA admins)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/13-axle-models-keys-desktop.png",
+      "surface": "axle",
+      "what": "Models & keys (browser-key preview variant)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "vault keys are not listed in the local variant"
+    },
+    {
+      "file": "screenshots/14-axle-analytics-desktop.png",
+      "surface": "axle",
+      "what": "Analytics (local Usage & cost fallback)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/15-axle-live-trace-desktop.png",
+      "surface": "axle",
+      "what": "Live trace for one fictional run",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/15-axle-live-trace-mobile.png",
+      "surface": "axle",
+      "what": "Live trace on a phone",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/16-axle-library-desktop.png",
+      "surface": "axle",
+      "what": "Library browser (read-only canon)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/17-axle-learning-desktop.png",
+      "surface": "axle",
+      "what": "Learning & updates, What people changed tab",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "empty states"
+    },
+    {
+      "file": "screenshots/18-axle-operations-desktop.png",
+      "surface": "axle",
+      "what": "Operations (live database only notice)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "not available in preview"
+    },
+    {
+      "file": "screenshots/19-axle-issues-desktop.png",
+      "surface": "axle",
+      "what": "Issues across workspaces",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/20-axle-audit-trail-desktop.png",
+      "surface": "axle",
+      "what": "Audit log (local fallback)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/21-axle-settings-desktop.png",
+      "surface": "axle",
+      "what": "Settings",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/22-axle-account-menu-desktop.png",
+      "surface": "axle",
+      "what": "Account menu with View workspace as",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/23-axle-view-as-workspace-desktop.png",
+      "surface": "axle",
+      "what": "Viewing Demo Consulting Sdn Bhd as a REKA admin: no banner",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/24-axle-readonly-admin-overview-desktop.png",
+      "surface": "axle",
+      "what": "REKA admin with no rights: three nav items, cost hidden",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/25-axle-gate-no-right-desktop.png",
+      "surface": "axle",
+      "what": "Gate card on Models & keys for an admin without the right",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/26-axle-support-rights-overview-desktop.png",
+      "surface": "axle",
+      "what": "REKA admin with Usage & cost + View as rights",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/repo-guide-01-signin.jpg",
+      "surface": "other",
+      "what": "Live-mode sign-in from the user guide (iso.nexustac.reka.tech)",
+      "viewport": "1440x720",
+      "method": "repo-existing",
+      "notes": "docs/user-guide/src/shots/01-signin.jpg, last commit 2026-10-05"
+    },
+    {
+      "file": "screenshots/repo-guide-03-customer-home.jpg",
+      "surface": "customer",
+      "what": "Projects home from the user guide",
+      "viewport": "unknown",
+      "method": "repo-existing",
+      "notes": "docs/user-guide/src/shots/03-home.jpg, last commit 2026-10-05"
+    }
+  ],
+  "brand_gaps": [
+    "AXLE is labelled 'REKA Admin' on screen (AdminApp.tsx:136, Shell.tsx:125, UserMenu.tsx:145, GlobalSearch.tsx:82); kit 13 §6 wants 'AXLE · ISO Generator' and bans 'REKA Admin'",
+    "AXLE is light (#F7F6F3 ground, white sidebar, navy accent); kit 13 §6 wants dark #071233 / raised #0C1B47 with REKA orange #FB9800; Tailwind orange is even remapped to navy (tailwind.config.js:15-26)",
+    "Fonts are DM Sans / Bricolage Grotesque / DM Mono, not Poppins + JetBrains Mono (tailwind.config.js:9-12)",
+    "No AntaraX A or any AntaraX naming in either surface; credit is 'by REKA · for NexusTAC' (SignIn.tsx:98)",
+    "Host is axle.nexustac.reka.tech, not axle.antarax.ai; customer host iso.nexustac.reka.tech (hosts.ts:9-10)",
+    "No AXLE Link endpoints (/internal/axle/v1/tenants|usage|health|switches); ISO Generator is not in antarax-api registry/registry.json",
+    "Staff rights are eight independent capabilities, not the viewer<support<operator<admin<owner ladder of antarax-api docs/07 §7.4",
+    "No separate AXLE sign-in; same SignIn component as the workspace app with the product name",
+    "Focus ring is navy, not AntaraX blue; no dark mode (kit 13 §10: AXLE dark-only)",
+    "Bahasa Malaysia toggle is live in the account menu, while kit 13 §7 parks BM",
+    "Not covered by any product sheet in AntaraX-brand-kit/guide/products/"
+  ],
+  "notes": "Captured from the repo's own local preview mode (npm run dev equivalent, VITE_BACKEND=local, port 3109) with fictional data written to browser localStorage (isogen:platform:v1). Health card, Operations and server Analytics/Audit only render against the live Supabase backend, so the local fallbacks are shown. Live public sign-in capture was blocked by the session's permission classifier; the repo's own guide shot of the live sign-in is included instead."
+}
