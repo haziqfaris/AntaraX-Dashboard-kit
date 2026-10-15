@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>AXLE navbar variations</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7}
+button{font-family:inherit}
+:focus-visible{outline:2px solid #4D84FE;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="width: 1840px; box-sizing: border-box; padding: 48px 50px 60px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 30px">
+
+  <header style="display: flex; flex-direction: column; gap: 10px; max-width: 1200px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">Five ways to organise the AXLE menu</h1>
+    <p style="margin: 0; font-size: 16px">The same 29 Dashboard pages for AXLE · Janka, the same counters, sorted five ways. Each one is clickable: groups open and close, and E's rail switches its panel. R8 mode would follow whichever is chosen.</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px">
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span class="mono" style="font-size: 11px; padding: 1px 7px; border-radius: 999px; background: #FB9800; color: #071233; font-weight: 600">5</span> needs a person</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span class="mono" style="font-size: 11px; padding: 1px 7px; border-radius: 999px; background: #13255C; color: #B6C3EA">48</span> a count only</span>
+      <span style="display: inline-flex; align-items: center; gap: 6px"><span class="mono" style="font-size: 9px; font-weight: 600; letter-spacing: .1em; padding: 0 5px; border-radius: 5px; border: 1px dashed #8E9CC9; color: #3B4469">JANKA</span> a page only Janka has</span>
+    </div>
+  </header>
+
+  <div style="display: flex; gap: 56px; align-items: flex-start">
+    <sc-for list="{{variants}}" as="v" hint-placeholder-count="5">
+      <section aria-labelledby="{{v.hid}}" style="flex: none; width: {{v.width}}; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 4px; min-height: 118px">
+          <span style="display: flex; align-items: center; gap: 10px">
+            <span class="mono" style="width: 30px; height: 30px; border-radius: 9px; background: #0C1B47; color: #FB9800; font-weight: 600; display: flex; align-items: center; justify-content: center">{{v.letter}}</span>
+            <h2 id="{{v.hid}}" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">{{v.name}}</h2>
+          </span>
+          <span style="font-size: 13px">{{v.idea}}</span>
+          <sc-if value="{{v.isCurrent}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: #E7EEFE; color: #0B1B4F">The spec today</span></sc-if>
+        </div>
+
+        <div style="height: 1180px; overflow: hidden; border-radius: 18px; background: #0C1B47; display: flex">
+
+          <sc-if value="{{v.isImport}}" hint-placeholder-val="{{false}}">
+            <dc-import name="Sidebar" product="Janka" mode="dashboard" active="Overview" hint-size="240px,1180px"></dc-import>
+          </sc-if>
+
+          <sc-if value="{{v.isList}}" hint-placeholder-val="{{true}}">
+            <nav aria-label="{{v.name}}" style="width: 100%; box-sizing: border-box; padding: 18px 12px; display: flex; flex-direction: column; gap: 3px; color: #B6C3EA">
+              <div style="display: flex; align-items: center; gap: 10px; padding: 2px 8px 10px">
+                <img src="/_blob/24b37b892fd904da55a18f908e874613" alt="AntaraX" style="width: 28px; height: 28px">
+                <span style="display: flex; flex-direction: column; line-height: 1.15"><span style="color: #EAF0FF; font-weight: 700; font-size: 16px; letter-spacing: .04em">AXLE</span><span class="mono" style="color: #8E9CC9; font-size: 9px; letter-spacing: .12em; margin-top: 3px">REKA STAFF CONSOLE</span></span>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10)">
+                <span style="display: flex; align-items: center; justify-content: center; min-height: 34px; border-radius: 9px; background: #FB9800; color: #071233; font-weight: 600; font-size: 13px">Dashboard</span>
+                <span style="display: flex; align-items: center; justify-content: center; min-height: 34px; border-radius: 9px; color: #B6C3EA; font-size: 13px">R8</span>
+              </div>
+              <sc-if value="{{v.hasFind}}" hint-placeholder-val="{{false}}">
+                <span style="display: flex; align-items: center; gap: 8px; margin-top: 8px; height: 38px; padding: 0 10px; border-radius: 10px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10); color: #8E9CC9; font-size: 13px">
+                  <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8E9CC9" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+                  <span style="flex: 1">Find a page</span><span class="mono" style="font-size: 10px; border: 1px solid rgba(157,184,255,.28); border-radius: 5px; padding: 0 5px">/</span>
+                </span>
+              </sc-if>
+              <sc-for list="{{v.sections}}" as="s" hint-placeholder-count="5">
+                <div style="{{s.wrap}}">
+                  <sc-if value="{{s.hasMark}}" hint-placeholder-val="{{false}}">
+                    <div style="display: flex; align-items: center; gap: 8px; padding: 0 6px 6px">
+                      <span style="width: 22px; height: 22px; border-radius: 6px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><img src="/_blob/8757545247be33f643590d3dcfee0bb8" alt="" style="max-width: 16px; max-height: 16px"></span>
+                      <span class="mono" style="font-size: 10px; font-weight: 600; letter-spacing: .1em; color: #EAF0FF">{{s.label}}</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{s.hasHeader}}" hint-placeholder-val="{{true}}">
+                    <button type="button" onClick="{{s.toggle}}" aria-expanded="{{s.expanded}}" style="display: flex; align-items: center; gap: 6px; width: 100%; min-height: 28px; padding: 0 8px; border: 0; background: transparent; cursor: pointer; color: {{s.headInk}}; font-size: {{s.headSize}}; font-weight: 600; letter-spacing: {{s.headTrack}}; text-transform: {{s.headCase}}; text-align: left">
+                      <sc-if value="{{s.collapsible}}" hint-placeholder-val="{{true}}"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8E9CC9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none; transform: {{s.chevron}}"><path d="M6 9l6 6 6-6"></path></svg></sc-if>
+                      <span style="flex: 1">{{s.label}}</span>
+                      <sc-if value="{{s.showRoll}}" hint-placeholder-val="{{false}}"><span class="mono" style="font-size: 11px; letter-spacing: 0; padding: 1px 6px; border-radius: 999px; background: #FB9800; color: #071233">{{s.roll}}</span></sc-if>
+                    </button>
+                  </sc-if>
+                  <sc-if value="{{s.open}}" hint-placeholder-val="{{true}}">
+                    <sc-for list="{{s.items}}" as="it" hint-placeholder-count="4">
+                      <span style="{{it.style}}">
+                        <span style="width: 8px; height: 8px; transform: rotate(45deg); border-radius: 1px; flex: none; background: {{it.intan}}"></span>
+                        <span style="flex: 1">{{it.label}}</span>
+                        <sc-if value="{{it.hasTag}}" hint-placeholder-val="{{false}}"><span class="mono" style="font-size: 9px; font-weight: 600; letter-spacing: .1em; padding: 0 5px; border-radius: 5px; border: 1px dashed rgba(157,184,255,.55); color: #B6C3EA">JANKA</span></sc-if>
+                        <sc-if value="{{it.hasCount}}" hint-placeholder-val="{{false}}"><span class="mono" style="font-size: 11px; min-width: 18px; text-align: center; padding: 1px 6px; border-radius: 999px; {{it.countStyle}}">{{it.count}}</span></sc-if>
+                      </span>
+                    </sc-for>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </nav>
+          </sc-if>
+
+          <sc-if value="{{v.isRail}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; width: 100%">
+              <nav aria-label="AXLE sections" style="width: 68px; flex: none; box-sizing: border-box; padding: 16px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; background: #071233; border-right: 1px solid rgba(157,184,255,.16)">
+                <img src="/_blob/24b37b892fd904da55a18f908e874613" alt="AntaraX" style="width: 28px; height: 28px; margin-bottom: 10px">
+                <sc-for list="{{rail}}" as="r" hint-placeholder-count="8">
+                  <button type="button" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}" aria-label="{{r.label}}" title="{{r.label}}" style="{{r.style}}">
+                    <sc-if value="{{r.isMark}}" hint-placeholder-val="{{false}}"><span style="width: 24px; height: 24px; border-radius: 6px; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><img src="/_blob/8757545247be33f643590d3dcfee0bb8" alt="" style="max-width: 17px; max-height: 17px"></span></sc-if>
+                    <sc-if value="{{r.isIcon}}" hint-placeholder-val="{{true}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{r.ink}}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{r.path}}"></path></svg></sc-if>
+                    <span style="font-size: 9px; color: {{r.ink}}; line-height: 1">{{r.short}}</span>
+                    <sc-if value="{{r.hasDot}}" hint-placeholder-val="{{false}}"><span class="mono" style="position: absolute; top: 2px; right: 2px; min-width: 16px; height: 16px; border-radius: 999px; background: #FB9800; color: #071233; font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{r.dot}}</span></sc-if>
+                  </button>
+                </sc-for>
+                <span style="margin-top: auto; width: 34px; height: 34px; border-radius: 50%; background: #13255C; color: #EAF0FF; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">AR</span>
+              </nav>
+              <nav aria-label="{{panel.label}}" style="flex: 1; min-width: 0; box-sizing: border-box; padding: 18px 10px; display: flex; flex-direction: column; gap: 3px">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; margin-bottom: 12px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10)">
+                  <span style="display: flex; align-items: center; justify-content: center; min-height: 32px; border-radius: 9px; background: #FB9800; color: #071233; font-weight: 600; font-size: 12px">Dashboard</span>
+                  <span style="display: flex; align-items: center; justify-content: center; min-height: 32px; border-radius: 9px; color: #B6C3EA; font-size: 12px">R8</span>
+                </div>
+                <span style="color: #EAF0FF; font-size: 16px; font-weight: 600; padding: 0 8px">{{panel.label}}</span>
+                <span style="font-size: 11px; color: #8E9CC9; padding: 0 8px 8px">{{panel.line}}</span>
+                <sc-for list="{{panel.items}}" as="it" hint-placeholder-count="5">
+                  <span style="{{it.style}}">
+                    <span style="width: 8px; height: 8px; transform: rotate(45deg); border-radius: 1px; flex: none; background: {{it.intan}}"></span>
+                    <span style="flex: 1">{{it.label}}</span>
+                    <sc-if value="{{it.hasCount}}" hint-placeholder-val="{{false}}"><span class="mono" style="font-size: 11px; min-width: 18px; text-align: center; padding: 1px 6px; border-radius: 999px; {{it.countStyle}}">{{it.count}}</span></sc-if>
+                  </span>
+                </sc-for>
+              </nav>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #067647">Good for</span>
+            <sc-for list="{{v.pros}}" as="p" hint-placeholder-count="3"><span style="display: flex; gap: 8px"><span aria-hidden="true" style="color: #12B76A">+</span><span>{{p.t}}</span></span></sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #B54708">Costs</span>
+            <sc-for list="{{v.cons}}" as="c" hint-placeholder-count="2"><span style="display: flex; gap: 8px"><span aria-hidden="true" style="color: #F79009">–</span><span>{{c.t}}</span></span></sc-for>
+          </div>
+          <span style="padding: 10px 12px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E5E8EE"><strong style="font-weight: 600; color: #0B1B4F">Best when</strong> {{v.best}}</span>
+        </div>
+      </section>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1840,"height":2100}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { t: {}, rail: 'Watch' }; }
+  renderVals() {
+    var self = this, T = this.state.t;
+    // Counters as on the Overview: [count, loud?]
+    var C = { 'Overview': [5, 1], 'Feedback': [2, 1], 'Requests': [1, 1], 'Errors': [3, 1], 'Reference library': [5, 1], 'Organisations': [48, 0] };
+    var JANKA = ['Forecast accuracy', 'Reference library', 'Learning'];
+    function item(label, opts) {
+      opts = opts || {};
+      var on = label === 'Overview';
+      var c = C[label];
+      var h = opts.compact ? '32px' : '36px';
+      return { label: label, intan: on ? '#FB9800' : 'transparent', hasTag: !!opts.tag && JANKA.indexOf(label) >= 0,
+        hasCount: !!c, count: c ? c[0] : '', countStyle: c && c[1] ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;',
+        style: 'display:flex;align-items:center;gap:9px;min-height:' + h + ';padding:0 9px;border-radius:9px;font-size:' + (opts.compact ? '13px' : '14px') + ';' +
+          (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;box-shadow:inset 3px 0 0 #FB9800;' : 'color:#EAF0FF;') };
+    }
+    function sec(vid, label, labels, o) {
+      o = o || {};
+      var key = vid + ':' + label;
+      var collapsible = o.collapsible !== false && !o.box;
+      var hasActive = labels.indexOf('Overview') >= 0;
+      var closed = collapsible && (T[key] !== undefined ? T[key] : (!!o.closed && !hasActive));
+      var roll = labels.reduce(function (n, l) { var c = C[l]; return n + (c && c[1] ? c[0] : 0); }, 0);
+      var big = o.big;
+      return { label: label, items: labels.map(function (l) { return item(l, o); }), open: !closed, expanded: closed ? 'false' : 'true',
+        collapsible: collapsible, chevron: closed ? 'rotate(-90deg)' : 'none', showRoll: closed && roll > 0, roll: roll,
+        hasHeader: !o.box && !o.noHeader, hasMark: !!o.box,
+        headInk: big ? '#EAF0FF' : '#8E9CC9', headSize: big ? '13px' : '11px', headTrack: big ? '0' : '.1em', headCase: big ? 'none' : 'uppercase',
+        wrap: o.box ? 'margin-top:12px;padding:10px 6px 8px;border-radius:14px;background:rgba(255,255,255,.04);border:1px dashed rgba(157,184,255,.30);display:flex;flex-direction:column;gap:1px;'
+                    : 'margin-top:' + (big ? '12px' : '6px') + ';display:flex;flex-direction:column;gap:1px;' + (o.divider ? 'border-top:1px solid rgba(157,184,255,.16);padding-top:10px;' : ''),
+        toggle: function () { var t = Object.assign({}, self.state.t); t[key] = !closed; self.setState({ t: t }); } };
+    }
+    var STD = [
+      ['Watch', ['Overview', 'Adoption', 'Feedback']],
+      ['Organisations', ['Organisations', 'Members', 'Invitations', 'Requests', 'Support']],
+      ['AI', ['Models & keys', 'AI usage', 'Live trace', 'Prompts & quality']],
+      ['Money', ['Plans & features', 'Billing', 'Costs']],
+      ['Platform', ['Announcements', 'Help content', 'Demo', 'Settings']],
+      ['Operations', ['Errors', 'Alerts', 'Backups', 'Access']],
+      ['Trail', ['Audit', 'Staff', 'AXLE guide']]
+    ];
+    var closedC = ['Organisations', 'Money', 'Platform', 'Trail'];
+
+    var B = [
+      sec('B', 'Today', ['Overview', 'Requests', 'Errors', 'Feedback', 'Support'], { big: true }),
+      sec('B', 'Customers', ['Organisations', 'Members', 'Invitations', 'Adoption'], { big: true }),
+      sec('B', 'The product', ['Plans & features', 'Forecast accuracy', 'Reference library', 'Learning', 'Models & keys', 'AI usage', 'Live trace', 'Prompts & quality'], { big: true, tag: true }),
+      sec('B', 'Money', ['Billing', 'Costs'], { big: true }),
+      sec('B', 'Running REKA', ['Settings', 'Announcements', 'Help content', 'Demo', 'Alerts', 'Backups', 'Access', 'Audit', 'Staff', 'AXLE guide'], { big: true, closed: true })
+    ];
+    var Cv = [sec('C', 'JANKA', JANKA, { box: true })].concat(STD.map(function (g) { return sec('C', g[0], g[1], { closed: closedC.indexOf(g[0]) >= 0 }); }));
+    var D = [
+      sec('D', '', ['Overview'], { compact: true, noHeader: true }),
+      sec('D', 'Pinned by you', ['Organisations', 'Reference library', 'Live trace', 'Audit', 'Costs'], { compact: true, collapsible: false, tag: true }),
+      sec('D', 'Customers', ['Adoption', 'Feedback', 'Invitations', 'Members', 'Organisations', 'Requests', 'Support'], { compact: true, divider: true }),
+      sec('D', 'Product and AI', ['AI usage', 'Forecast accuracy', 'Learning', 'Live trace', 'Models & keys', 'Plans & features', 'Prompts & quality', 'Reference library'], { compact: true, tag: true }),
+      sec('D', 'REKA', ['Access', 'Alerts', 'Announcements', 'Audit', 'AXLE guide', 'Backups', 'Billing', 'Costs', 'Demo', 'Errors', 'Help content', 'Settings', 'Staff'], { compact: true, closed: true })
+    ];
+
+    // E: rail and panel
+    var ICON = {
+      'Watch': 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 100 6 3 3 0 000-6z',
+      'Organisations': 'M4 21V5l8-3 8 3v16M9 21v-4h6v4M8 8h.01M12 8h.01M16 8h.01M8 12h.01M12 12h.01M16 12h.01',
+      'AI': 'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z',
+      'Money': 'M12 2a10 10 0 100 20 10 10 0 000-20zM15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2',
+      'Platform': 'M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0M16 4v4M10 10v4M18 16v4',
+      'Operations': 'M3 12h4l3-7 4 14 3-7h4',
+      'Trail': 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'
+    };
+    var railDef = STD.map(function (g) { return { label: g[0], items: g[1] }; }).concat([{ label: 'Janka only', items: JANKA, mark: true }]);
+    var LINES = { 'Watch': 'How Janka is doing', 'Organisations': 'Customers and their people', 'AI': 'Providers, models, runs', 'Money': 'Plans, billing, costs',
+      'Platform': 'Content and switches', 'Operations': 'Errors, alerts, backups', 'Trail': 'Who did what', 'Janka only': 'Pages only Janka has' };
+    var SHORT = { 'Watch': 'Watch', 'Organisations': 'Orgs', 'AI': 'AI', 'Money': 'Money', 'Platform': 'Platform', 'Operations': 'Ops', 'Trail': 'Trail', 'Janka only': 'Janka' };
+    var rail = railDef.map(function (r) {
+      var on = self.state.rail === r.label;
+      var dot = r.items.reduce(function (n, l) { var c = C[l]; return n + (c && c[1] ? c[0] : 0); }, 0);
+      return { label: r.label, short: SHORT[r.label], isMark: !!r.mark, isIcon: !r.mark, path: ICON[r.label] || '', pressed: on ? 'true' : 'false',
+        ink: on ? '#FB9800' : '#B6C3EA', hasDot: dot > 0, dot: dot,
+        pick: function () { self.setState({ rail: r.label }); },
+        style: 'position:relative;width:52px;height:52px;border-radius:12px;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;' +
+          (on ? 'background:rgba(251,152,0,.14);box-shadow:inset 3px 0 0 #FB9800;' : 'background:transparent;') + (r.mark ? 'margin-top:8px;border:1px dashed rgba(157,184,255,.35);' : '') };
+    });
+    var cur = railDef.filter(function (r) { return r.label === self.state.rail; })[0];
+    var panel = { label: cur.label, line: LINES[cur.label], items: cur.items.map(function (l) { return item(l); }) };
+
+    function L(a) { return a.map(function (t) { return { t: t }; }); }
+    var variants = [
+      { letter: 'A', name: 'By area, standard first', width: '240px', isImport: true, isList: false, isRail: false, isCurrent: true,
+        idea: 'Seven groups by area of work, the same in every product. Janka-only pages in a dashed box at the end.',
+        pros: L(['Identical in every product, so staff moving between AXLEs never hunt', 'Adding a product page never moves a standard one', 'Collapsing with roll-ups keeps it short']),
+        cons: L(['Product pages, often the busiest, sit at the bottom', 'Seven groups to scan on a first visit']),
+        best: 'staff work across several products and consistency matters most.' },
+      { letter: 'B', name: 'By what you are doing', width: '240px', isImport: false, isList: true, isRail: false,
+        idea: 'Five groups by task: today\'s work first, then customers, the product, money, and running REKA last and closed.',
+        sections: B, pros: L(['Everything that needs a person is in the first group', 'Reads like a support person\'s day', 'Janka\'s own pages sit next to the AI and plan pages they relate to']),
+        cons: L(['Product pages are mixed in, so each product\'s menu differs', 'A big catch-all group at the end', 'Breaks the "standard never moves" rule']),
+        best: 'one product has a dedicated support team who rarely open another AXLE.' },
+      { letter: 'C', name: 'Product first', width: '240px', isImport: false, isList: true, isRail: false,
+        idea: 'A with the Janka-only box moved to the top, under the mode switch.',
+        sections: Cv, pros: L(['The pages only this product has are the first thing staff see', 'Still the same standard groups, in the same order, below', 'Small change from A']),
+        cons: L(['The standard starts at a different height in each product', 'A product with no own pages starts with an empty box, or none']),
+        best: 'product pages are where staff spend most of their time.' },
+      { letter: 'D', name: 'Pinned, then everything', width: '240px', isImport: false, isList: true, isRail: false,
+        idea: 'Each person pins their five pages. A page finder, then three broad sections in A to Z order, compact rows.',
+        sections: D, pros: L(['Each person shapes the top to their own job', 'Three sections are easy to learn; A to Z needs no learning', 'The finder (press /) gets anywhere in two keystrokes']),
+        cons: L(['A new staff member starts with an empty pin list', 'A to Z hides relationships, for example Billing next to Backups', 'Compact rows are 32px: fine with a mouse, not on touch']),
+        best: 'a few power users live in AXLE all day.' },
+      { letter: 'E', name: 'Rail and panel', width: '268px', isImport: false, isList: false, isRail: true,
+        idea: 'A narrow rail of the same seven areas plus Janka, each with its own count; the panel shows one area\'s pages.',
+        pros: L(['Every area and its count is visible at once, without scrolling', 'Scales to many pages and to AXLE Central\'s Products', 'The panel can fold away for wide tables']),
+        cons: L(['Two clicks to reach a page in another area', 'Icons need learning; labels under them help', 'Wider: 268px against 240px']),
+        best: 'pages keep growing, or for AXLE Central across every product.' }
+    ];
+    variants.forEach(function (v) { v.hid = 'var-' + v.letter; v.hasFind = v.letter === 'D'; v.sections = v.sections || []; });
+    return { variants: variants, rail: rail, panel: panel };
+  }
+}
+</script>
+</body>
+</html>
