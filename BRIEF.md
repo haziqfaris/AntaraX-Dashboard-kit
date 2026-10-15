@@ -25,6 +25,7 @@ The product chat builds in the product's own repository. If it needs something t
 | Colour rules | Orange means "needs a person" and "you are here", nothing else. Group colours mark an area, never a status. Status colours only on a real signal, always with a word | §3, §13 |
 | Staff | A ladder (Viewer, Support, Operator, Admin, Owner) plus rights (Finance, Security, AI, Library). Every rung sees every page; what they cannot do is disabled, with "Needs ‹rung›" | §5.2 |
 | R8 actions | Level 1 (run, retry, pause, test, acknowledge, suppress) from Operator. Level 2 (drain, restart, scale) from Admin, later. Level 3 (shell, deploy, restart a customer's machine) never. Each asks for a reason and is audited | §14.1 |
+| R8 → AI flow | Every product with AI features has it, after Providers: the product's AI drawn from its AI manifest, through the five steps (Asked, Allowed, Answered, Checked, Decided) and the five outcomes. Read only; never prompts or answers. The rules for the AI itself are the [AntaraX AI framework](https://github.com/haziqfaris/ai-framework-heuristiks) | §7.4, §10.6.1 |
 | Figures | Real and clickable. Money is grouped by currency. A hidden or unknown figure is a dash with the reason, never `0` | §3, §13.1 |
 | Values | Every colour and size comes from [`axle/tokens.css`](axle/tokens.css), generated from the brand kit (tokens 1.9.0) | [README](README.md#connected-to-the-brand-kit) |
 
@@ -37,6 +38,7 @@ The product chat builds in the product's own repository. If it needs something t
 | The final design of every page (AXLE · Janka) | [axle/mock/](axle/mock/README.md), and the private canvas https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr |
 | Tokens to copy into the product | [axle/tokens.css](axle/tokens.css) |
 | What each product's AXLE looks like today, with screenshots | [inventory/](inventory/README.md), [inventory/gallery.html](inventory/gallery.html) |
+| How a product's AI must work, its manifest and its AI document | [AntaraX AI framework](https://github.com/haziqfaris/ai-framework-heuristiks): `BRIEF.md` for a product chat |
 | Brand decisions, names, colours | [AntaraX brand kit](https://github.com/haziqfaris/AntaraX-brand-kit): `guide/10-decisions-log.md`, `guide/13-shared-product-standards.md` §6 |
 
 ## Each product's starting point

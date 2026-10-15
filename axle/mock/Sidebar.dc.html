@@ -103,25 +103,26 @@ class Component extends DCLogic {
     var active = this.props.active ?? 'Overview';
     var product = this.props.product ?? 'Janka';
     // Every product has R8 (owner, 15 Oct 2026). full: it runs machinery of its own, so R8 adds Incidents. observe: its Observe pages, once their backend exists.
+    // ai: the product calls an AI model, so R8 → System shows AI flow, drawn from its AI manifest (AntaraX AI framework).
     var P = {
-      'Janka': { mark: '/_blob/8757545247be33f643590d3dcfee0bb8', full: true, observe: [], d: [['Forecast accuracy'], ['Reference library', 5, 'loud'], ['Learning']], r: [['Nightly forecast']] },
-      'Yara': { mark: '/_blob/b5ffef229482a50345391de29cbfee0f', full: false, observe: [], d: [['Data integrity', 2, 'loud'], ['Modules'], ['Status API']], r: [] },
-      'AX Frame': { mark: '/_blob/14ea05d2ed6655f1a0c7e460cb8fce0f', full: true, observe: [['Probes and network'], ['Visual']], d: [['AI connections'], ['Customer health', 4, 'loud'], ['Catalog']], r: [] },
-      'Angka': { mark: '/_blob/74ac0d107d262dbf7252396ab8eb230b', full: true, observe: [], d: [['Lapis'], ['Weekly brief']], r: [['Runs']] },
-      'PLExyz Grid': { mark: '/_blob/39777292a881530041e7c4ac04e939a8', full: false, observe: [], d: [], r: [] },
-      'Tinara': { mark: '/_blob/cdaa47e69d5d2a13a1fb2a99e7572df9', full: true, observe: [], d: [['Scoring & metrics'], ['Data sources'], ['Intelligence ledger']], r: [['Data pipelines']] }
+      'Janka': { mark: '/_blob/8757545247be33f643590d3dcfee0bb8', ai: true, full: true, observe: [], d: [['Forecast accuracy'], ['Reference library', 5, 'loud'], ['Learning']], r: [['Nightly forecast']] },
+      'Yara': { mark: '/_blob/b5ffef229482a50345391de29cbfee0f', ai: false, full: false, observe: [], d: [['Data integrity', 2, 'loud'], ['Modules'], ['Status API']], r: [] },
+      'AX Frame': { mark: '/_blob/14ea05d2ed6655f1a0c7e460cb8fce0f', ai: true, full: true, observe: [['Probes and network'], ['Visual']], d: [['AI connections'], ['Customer health', 4, 'loud'], ['Catalog']], r: [] },
+      'Angka': { mark: '/_blob/74ac0d107d262dbf7252396ab8eb230b', ai: true, full: true, observe: [], d: [['Lapis'], ['Weekly brief']], r: [['Runs']] },
+      'PLExyz Grid': { mark: '/_blob/39777292a881530041e7c4ac04e939a8', ai: true, full: false, observe: [], d: [], r: [] },
+      'Tinara': { mark: '/_blob/cdaa47e69d5d2a13a1fb2a99e7572df9', ai: true, full: true, observe: [], d: [['Scoring & metrics'], ['Data sources'], ['Intelligence ledger']], r: [['Data pipelines']] }
     };
     var p = P[product] || P['Janka'];
     var r8 = (this.props.mode ?? 'dashboard') === 'r8';
     var PAGES = r8
-      ? { 'Overview': 'R8.dc.html', 'Incidents': 'Incidents.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Jobs': 'Jobs.dc.html', 'Providers': 'Providers.dc.html', 'Services': 'Health.dc.html', 'Configuration': 'Configuration.dc.html' }
+      ? { 'Overview': 'R8.dc.html', 'Incidents': 'Incidents.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Jobs': 'Jobs.dc.html', 'Providers': 'Providers.dc.html', 'AI flow': 'AIFlow.dc.html', 'Services': 'Health.dc.html', 'Configuration': 'Configuration.dc.html' }
       : { 'Overview': 'Main.dc.html', 'Organisations': 'Organisations.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html', 'Plans & features': 'PlansFeatures.dc.html', 'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html', 'Health': 'Health.dc.html' };
     var STD;
     if (r8) {
       STD = [
         ['Command', p.full ? [['Overview'], ['Incidents', 2, 'loud'], ['Troubleshoot']] : [['Overview'], ['Troubleshoot']]],
         ['Observe', p.observe],
-        ['System', [['Jobs', 1, 'loud'], ['Providers', 1, 'loud'], ['Services']]],
+        ['System', [['Jobs', 1, 'loud'], ['Providers', 1, 'loud']].concat(p.ai ? [['AI flow', 1, 'loud']] : []).concat([['Services']])],
         ['Control and diagnostics', [['Configuration', 1, 'loud'], ['Operations audit']]]
       ];
     } else {
