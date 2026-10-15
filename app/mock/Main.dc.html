@@ -44,7 +44,7 @@ a{color:#0459F7}a:hover{color:#002EB2}
       <div style="position: relative; min-height: 400px; border-radius: 24px; background: #F7FBFC; border: 1px solid #E2E9ED; overflow: hidden">
         <dc-import name="AppBar" product="Janka" mode="medium" open="help" hint-size="100%,80px"></dc-import>
       </div>
-      <p style="margin: 0; font-size: 13px; color: #5B6488">The same four items in every product: User guide (<span class="mono">/guide</span>), Help centre (<span class="mono">/help</span>), What's new where the product keeps one, and Contact support (support@go.antarax.ai). The product slot here is Janka's own: Scan, and Assist with the AntaraX sparkle.</p>
+      <p style="margin: 0; font-size: 13px; color: #5B6488">The same items in every product: User guide (<span class="mono">/guide</span>), Help centre (<span class="mono">/help</span>), What's new where the product keeps one, Send feedback (it reaches AXLE), and Contact support (support@go.antarax.ai). The product slot here is Janka's own: Scan, and Assist with the AntaraX sparkle.</p>
     </div>
     <div style="flex: none; width: 390px; display: flex; flex-direction: column; gap: 14px">
       <h2 style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">On a phone, in Angka's</h2>
@@ -107,7 +107,7 @@ class Component extends DCLogic {
         { n: '4', name: 'Product slot', rule: 'The product\'s own controls, in its own style: Add, Assist, a date range, a site picker. It never pushes 5 to 8 out of view.' },
         { n: '5', name: 'Search', rule: 'Only if the product has it; a button on narrow screens.' },
         { n: '6', name: 'Notifications', rule: 'Only if the product has them; a bell with a count.' },
-        { n: '7', name: 'Help', rule: 'Always: User guide, Help centre, What\'s new, Contact support.' },
+        { n: '7', name: 'Help', rule: 'Always its own button: User guide, Help centre, What\'s new, Send feedback, Contact support.' },
         { n: '8', name: 'Account', rule: 'Always last, always at the far right, never at the foot of a sidebar. Its menu: you, the organisation, Your account, Settings, Plan and billing for Owners, Appearance and Language where offered, Sign out, then "by AntaraX", the version, Privacy and Terms.' }
       ],
       pages: [
@@ -120,7 +120,8 @@ class Component extends DCLogic {
         { path: '/legal/privacy · /legal/terms', page: 'Privacy and Terms', holds: 'The legal texts, with privacy@go.antarax.ai' }
       ],
       shell: L([
-        'The top bar\'s anatomy and order; Help and the account always in it',
+        'The top bar\'s anatomy and order; Help and the account always in it, the account at the far right',
+        'Getting in, banners, notifications, Assist, Send feedback, dialogs, toasts, errors and empty states: what they say and how they behave',
         'The account menu\'s contents and order',
         'The standard pages, their addresses and what each holds first',
         'The words: organisation, member, Owner, Admin, Member, Viewer, Invite, Plan and Billing, Sign in, Sign out, Settings, Assist',

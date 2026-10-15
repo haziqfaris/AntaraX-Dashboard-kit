@@ -2,7 +2,7 @@
 
 **Read this first in any chat that builds or changes a product's AXLE.** It sums up what was decided on 15 Oct 2026, where everything is, and how a product chat should work. The detail lives in the files it links; when they disagree with this page, the files win. Last updated 15 Oct 2026.
 
-**Customer apps are different:** each product's own, apart from the AntaraX shell. See [app/SPEC.md](app/SPEC.md), draft 0.1.
+**Customer apps are different:** each product's own, apart from the AntaraX shell. See [app/SPEC.md](app/SPEC.md), draft 0.2.
 
 ## How to use it in another chat
 

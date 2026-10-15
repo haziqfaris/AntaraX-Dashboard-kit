@@ -12,7 +12,7 @@ Any work on a product's AXLE uses the template in `axle/`; that includes a new p
 
 ## When working in another repository on a customer app
 
-A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. `app/SPEC.md` is a draft (0.1); follow it where the owner has confirmed it, and raise anything it leaves open rather than inventing a shared rule in one product.
+A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. `app/SPEC.md` is a draft (0.2); follow it where the owner has confirmed it, and raise anything it leaves open rather than inventing a shared rule in one product.
 
 ## When working in this repository
 
