@@ -1,0 +1,37 @@
+name: Brand kit sync
+
+# Fails when the Dashboard kit has drifted from the AntaraX brand kit:
+# axle/tokens.css edited by hand, a mock using a colour that is not a brand token,
+# or the brand kit's tokens changed without a re-sync here.
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "17 1 * * 1" # weekly, so a brand kit change is noticed even when nothing here changes
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The brand kit's default branch. If the brand kit is private, add a read-only token
+      # as the BRAND_KIT_TOKEN secret; without one this step is skipped and the check
+      # runs against the pinned snapshot in brand/ only.
+      - name: Fetch the brand kit
+        id: kit
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          repository: haziqfaris/AntaraX-brand-kit
+          path: brand-kit
+          token: ${{ secrets.BRAND_KIT_TOKEN || github.token }}
+
+      - name: Check against the brand kit
+        if: steps.kit.outcome == 'success'
+        run: python3 tools/sync-brand-kit.py --check --brand-kit brand-kit
+
+      - name: Check against the pinned snapshot
+        if: steps.kit.outcome != 'success'
+        run: python3 tools/sync-brand-kit.py --check

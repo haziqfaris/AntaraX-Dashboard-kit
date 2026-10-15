@@ -16,5 +16,6 @@ Any work on a product's AXLE uses the template in `axle/`; that includes a new p
 - **Decisions need the owner.** Change the standard only for a decision the owner has made. Record it with its date in the brand kit's `guide/10-decisions-log.md` in the same piece of work. Put anything unresolved in `axle/SPEC.md` §20.
 - **The canvas holds only the final design.** Comparisons and explorations go in `axle/mock/explorations/`, never on the canvas.
 - **Mock data is fictional.** Staff use `@reka.example` addresses. Organisations are invented, and no real client's data appears. Names and roles stay consistent across pages: check `mock/Staff.dc.html`.
-- **Keep `axle/tokens.css` in step with the spec.** A new value goes in both.
+- **Colours and sizes come from the brand kit.** `axle/tokens.css` is generated from the brand kit's `tokens/tokens.json` (`axle` section) by `python3 tools/sync-brand-kit.py`, which also pins the brand kit version in `brand/`. Never edit `axle/tokens.css` or `brand/` by hand. A new value goes into the brand kit first (with an owner decision), then sync here.
+- **Run `python3 tools/sync-brand-kit.py --check` before committing.** It fails on a hand-edited token file, a mock colour that is not a brand token, or a brand kit that has moved on. CI runs it on every push and weekly.
 - Write in plain British English, sentence case, no em dashes.

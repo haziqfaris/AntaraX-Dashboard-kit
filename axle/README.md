@@ -6,7 +6,7 @@ Every product's AXLE, REKA's staff console, is built from this folder. That appl
 |---|---|---|
 | [SPEC.md](SPEC.md) | The standard, v1.0 | What AXLE must have, how it is organised and how it behaves |
 | [mock/](mock/README.md) | The final design of every standard page, for AXLE · Janka | What each page looks like; copy the closest page |
-| [tokens.css](tokens.css) | Every AXLE colour, font and size | The only values an AXLE screen may use |
+| [tokens.css](tokens.css) | Every AXLE colour, font and size, generated from the brand kit | The only values an AXLE screen may use. Copy it into the product; never edit it |
 | [reference/](reference/) | The REKA AXLE Admin Console Standard, v0.1 and v0.2 | Where the "std" citations in the spec come from |
 
 The live mock is a private claude.ai canvas (https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr), shared by the owner. The files in `mock/` are the same pages.
@@ -29,6 +29,7 @@ The live mock is a private claude.ai canvas (https://claude.ai/artifact/NbWWVFko
 ## When the template doesn't cover it
 
 - **A page only this product needs:** put it in the product box, built the same way as the standard pages.
+- **A new colour or size:** add it to the brand kit's `tokens/tokens.json` (`axle` section) and `tokens.css`, then run `python3 tools/sync-brand-kit.py` here. The mocks may only use brand kit colours; the check enforces it.
 - **A new kind of page, pattern, group, colour or behaviour:** mock it first beside the standard pages, and get the owner's decision. Then update `SPEC.md` and `mock/` together in this repo, and record the decision in the brand kit's `guide/10-decisions-log.md`. Do not invent it inside a product.
 - **Something that turns out useful to a second product:** promote it into the standard, with a tier, and take it out of the product box.
 

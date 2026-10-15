@@ -73,7 +73,7 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
           </div>
           <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
             <sc-for list="{{needs}}" as="n" hint-placeholder-count="5">
-              <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: #F1F4FA">
+              <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: #EEF1F6">
                 <span style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: {{n.tint}}; color: {{n.ink}}; flex: none">{{n.level}}</span>
                 <span style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column">
                   <span style="color: #0B1B4F; font-weight: 500">{{n.what}}</span>
@@ -150,7 +150,7 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
                   <td style="padding: 10px; border-bottom: 1px solid #EEF1F6"><a href="Organisation.dc.html" style="color: #0B1B4F; font-weight: 500">{{o.name}}</a><div class="mono" style="font-size: 11px; color: #5B6488">{{o.slug}}</div></td>
                   <td style="padding: 10px; border-bottom: 1px solid #EEF1F6">{{o.plan}}</td>
                   <td style="padding: 10px; border-bottom: 1px solid #EEF1F6"><span style="font-size: 12px; padding: 2px 9px; border-radius: 999px; border: 1px solid {{o.statusColor}}; color: #0B1B4F; display: inline-flex; align-items: center; gap: 6px"><span style="width: 7px; height: 7px; border-radius: 2px; background: {{o.statusColor}}"></span>{{o.status}}</span></td>
-                  <td style="padding: 10px; border-bottom: 1px solid #EEF1F6"><span style="display: flex; align-items: center; gap: 8px"><span style="width: 72px; height: 6px; border-radius: 3px; background: #F1F4FA; display: flex"><span style="width: {{o.readyPct}}; background: #0459F7; border-radius: 3px"></span></span><span class="mono" style="font-size: 12px">{{o.ready}}</span></span></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #EEF1F6"><span style="display: flex; align-items: center; gap: 8px"><span style="width: 72px; height: 6px; border-radius: 3px; background: #EEF1F6; display: flex"><span style="width: {{o.readyPct}}; background: #0459F7; border-radius: 3px"></span></span><span class="mono" style="font-size: 12px">{{o.ready}}</span></span></td>
                   <td style="padding: 10px; border-bottom: 1px solid #EEF1F6; color: {{o.problemColor}}">{{o.problems}}</td>
                   <td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; text-align: right">{{o.members}}</td>
                   <td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; text-align: right; color: {{o.costColor}}">{{o.cost}}</td>
@@ -260,7 +260,7 @@ class Component extends DCLogic {
     });
     var rangeText = { '7': 'last 7 days', '30': 'last 30 days', '90': 'last 90 days', '365': 'last 12 months', 'all': 'all time' }[range];
 
-    var OK = { tint: '#E7F8EF', border: '#A9E2C7', dot: '#12B76A', wordColor: '#067647' };
+    var OK = { tint: '#E7F8EF', border: '#A6E4C6', dot: '#12B76A', wordColor: '#067647' };
     var WARN = { tint: '#FEF4E6', border: '#F8CD92', dot: '#F79009', wordColor: '#B54708' };
     var FAULT = { tint: '#FEECEB', border: '#F6B5AF', dot: '#F04438', wordColor: '#B42318' };
     function tile(name, s, word, detail) { return Object.assign({ name: name, word: word, detail: detail }, s); }
