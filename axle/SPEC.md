@@ -1,415 +1,546 @@
 # AXLE standard
 
-**Version 0.1, draft, 15 Oct 2026.** This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. It is built from the seven AXLE consoles in [the inventory](../inventory/README.md), the AXLE Central plan in antarax-api ([summary](../inventory/lapisan-console/axle-central-requirements.md)) and the brand kit (13 §6, §1, §2, §10). Where it settles something the brand kit does not, the decision goes into the brand kit's decisions log before products build it. Open choices are in [§17](#17-open-questions).
+**Version 0.2, draft, 15 Oct 2026.** This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`.
+
+It merges two sources:
+
+- **The REKA AXLE Admin Console Standard v0.1** ([reference copy](reference/axle-admin-console-standard-v0.1.md), cited as **std A1** to **std L7**). It says *what* AXLE must be able to do, in tiers, built from the owner's corrections across nine REKA projects.
+- **The AXLE inventory.** These are the seven AXLE consoles in [the inventory](../inventory/README.md), the AXLE Central plan in antarax-api ([summary](../inventory/lapisan-console/axle-central-requirements.md)) and the brand kit (03, 12, 13 §1, §2, §6, §10). It says *how* AXLE looks, is organised and behaves, and which console already does each thing best.
+
+Every std item has a place here; the [coverage table](#appendix-a-coverage-of-the-reka-standard) proves it. Where the two sources disagree, this draft takes a side and lists the choice in [§20](#20-open-questions) for the owner. Once decided, decisions go into the brand kit's decisions log before products build them.
 
 **Words used here.**
-- **Must:** required to call a console AXLE.
-- **Should:** expected unless the product has a reason, written down.
-- **May:** optional.
-- **Organisation:** the customer's account.
+- **Organisation:** the customer's account (on screen; `tenant` stays in code).
 - **Member:** a customer's person.
 - **Staff:** a REKA person using AXLE.
-
-**Where each rule comes from.** The section headings below name the console each rule is taken from (see [the source map](#appendix-source-map)).
+- **Must, should, may:** as usual.
 
 ---
 
 ## 1 What AXLE is
 
-AXLE is REKA's internal console for running a product: who is on it, whether it works, what it costs, and what needs a person. Customers never see its name, its address or any of its screens (brand kit 03, 13 §6).
+AXLE is REKA's console for running a product. REKA is the **operator**, never a tenant. REKA's own demo organisations are ordinary organisations (std A3).
 
-There are two levels:
+The product has two planes:
 
-| Level | What it is | Address |
+| Plane | Who | What | Rule |
+|---|---|---|---|
+| **AXLE (platform plane)** | REKA staff only | Overview and health, organisations and people, features and plans, AI, operations, audit | Customers never see its name, address or any screen (brand kit 03) |
+| **Organisation plane** | Each customer sees only its own | Organisation admin, the product, client portal | Never sees what is listed in §3 |
+
+There are two levels of AXLE:
+
+| Level | Address | Notes |
 |---|---|---|
-| **Product AXLE** | One per product, with the depth that only the product knows (forecast runs, generation traces, job cards) | `axle.<product>.antarax.ai` until Central exists |
-| **AXLE Central** | One screen across every product. It reads each product AXLE through AXLE Link, and links back into it for depth. It never replaces a product AXLE | `axle.antarax.ai` |
+| **Product AXLE**, one per product | `axle.<product>.antarax.ai` | Has the depth only that product knows |
+| **AXLE Central** | `axle.antarax.ai` | One screen across every product. It reads each product AXLE through AXLE Link (§18) and links back for depth. It never replaces a product AXLE |
 
-Both use this standard. A product AXLE built to it can be lifted into Central without a redesign.
+## 2 Tiers
 
-## 2 Principles
+Every item carries a tier (std):
 
-1. **Attention first.** The first thing on every overview is what needs a person, with a link to the fix. Counts come after. (Janka "Needs a human", Angka and AX Frame "Needs an operator", ISO Generator's attention strip.)
-2. **Never a false zero.** If staff cannot see a figure, or it is not measured yet, show a dash and say why ("Needs the Costs right", "No run recorded yet"). Never `$0.00` or `0`. (ISO Generator)
-3. **Explain every page.** Each page says in one line what it is for, with a fuller "How this page works" that can be opened. (AX Frame, Janka, ISO Generator)
-4. **Every change has a reason and a trail.** Switches, stops, plan changes and support views ask for a reason, record who, when, before, after and why, and show it in Audit. (Angka, antarax-api docs/07)
-5. **Read is wide, change is narrow.** Every staff role can read almost everything. Changing things needs the role or right for it, and the screen says which one. (Angka rungs, ISO Generator gates)
-6. **Say what state the data is in.** Preview data, a missing database, open access or a paused service is shown as a banner, not left for staff to guess. (AX Frame, Angka, Tinara)
-7. **One console, many products.** The same names, the same places and the same look in every product, so staff moving from Yara's AXLE to Janka's find Organisations, Audit and Staff in the same spot.
+| Tier | Applies |
+|---|---|
+| **Always** | Every AXLE, from its first release |
+| **Orgs** | When the product has more than one customer organisation (std "Tenants", Platform Core C1) |
+| **AI** | When the product uses AI |
+| **Billing** | When the product bills inside itself; otherwise AXLE shows the plan only |
+| **Later** | When a client, a regulation or scale needs it, recorded in the decisions log |
 
-## 3 Identity
+**The minimum first release** for a new product is every Always item, plus Orgs if it has several organisations, plus AI if it uses AI (std). [§19](#19-how-to-prove-it) is the test.
 
-| Element | Standard | Notes |
+## 3 Principles
+
+1. **Two planes, nothing crosses.** The following never reach the organisation plane: model names, prompts, traces, AI cost, sandbox notices, internal notes, other organisations' names or data, and staff names unless REKA support is acting (std A4). This is tested on every release (§19).
+2. **Real numbers, clickable.** Every figure is computed from the database, matches a count taken there, and opens the filtered list behind it (std B2).
+3. **Visual first.** Numbers are tiles and charts, not paragraphs. This was the owner's most repeated correction ("too plain, too many words, too little visual") (std B1, L4).
+4. **Attention first.** The first block on every overview is what needs a person, with a link to the fix (Janka, AX Frame, Angka, ISO Generator).
+5. **Never a false zero.** A hidden or unmeasured figure shows a dash and why, never `0` or `$0.00` (ISO Generator).
+6. **Explain every page.** A title, one line saying what it is for, a short "How this page works" guide, and an empty state that says what to do first (std B4, L2; AX Frame, Janka).
+7. **Every change has a reason and a trail.** Switches, suspensions, overrides, plan changes and support sessions ask for a reason and are audited with before and after (std C4, E4, J1).
+8. **Read wide, change narrow.** Staff can read almost everything; changing needs the right role or right, and the screen says which (Angka, ISO Generator).
+9. **Every state has a link.** Pages, filters, the selected organisation, the date range and open panels live in the address, so any view can be shared and opened again (std L7).
+10. **One console, many products.** The same names, places and look in every product.
+
+## 4 Identity
+
+| Element | Standard | Tier |
 |---|---|---|
-| **Name** | `AXLE` in the sidebar; the product as context: `AXLE · Janka`. Page titles: `<Page> · AXLE · Janka`. Central: `AXLE` alone | Never "REKA Admin", "Platform Admin", "Tinara Admin", "Yara AXLE", "Janka AXLE" |
-| **Mark** | The AntaraX A in the sidebar corner, with the product's own mark as a small context chip beside the product name | Brand kit 13 §6. One mark per lockup; the product mark is a chip, not a second logo |
-| **Theme** | Dark only (13 §10) | No theme toggle |
-| **Ground** | `--axle-bg #071233`; raised `--axle-raised #0C1B47`; raised 2 `#13255C` | AX Frame already ships these |
+| **Name** | `AXLE` in the sidebar, with the product as context: `AXLE · Janka`. Page titles: `<Page> · AXLE · Janka`. Central: `AXLE` | Always |
+| **Never** | "REKA Admin", "Platform Admin", "Tinara Admin", "Yara AXLE", "Janka AXLE" | |
+| **Mark** | The AntaraX A in the sidebar corner. The product's own mark appears as a small chip beside the product name | Always |
+| **Theme** | Dark only (brand kit 13 §6, §10), no toggle | Always |
+| **Ground** | Ground `#071233`; raised `#0C1B47`; raised 2 `#13255C` (as AX Frame ships) | |
 | **Ink** | Headings `#EAF0FF`; body `#B6C3EA`; muted `#8E9CC9` (6.1:1 on raised) | |
 | **Lines** | `rgba(157,184,255,.16)` | |
-| **Accent** | REKA orange `#FB9800` (8.4:1 on ground): the active nav marker, the role chip, the one primary action on a page (navy `#071233` text on orange) | It is REKA's tool. Orange never appears in a customer app |
+| **Accent** | REKA orange `#FB9800` (8.4:1): the active nav marker, the role chip, the one primary action per page (navy text on orange) | |
 | **Links** | `#4D84FE` | |
-| **Focus ring** | 2px, offset 2px, `#4D84FE` | AntaraX blue `#0459F7` reaches only 2.99:1 on raised navy, under the 3:1 minimum. See [§17](#17-open-questions) |
-| **Status** | ok `#12B76A`, warn `#F79009`, fault `#F04438`, with dark tints. For small text on dark use fault `#F7877F` and ok `#5FD39B` | Only for real signal |
-| **Type** | Poppins for UI; JetBrains Mono for every number, id, time and email (tabular figures) | No third face (ISO Generator uses DM Sans, Bricolage and DM Mono) |
-| **Background** | Dots, never ruled lines, if a blueprint ground is used at all | AX Frame |
-| **Credit** | No "by AntaraX" inside AXLE. Footer: "Authorised REKA staff · every action is recorded" | Yara's "authorized staff · audit-logged", in British spelling |
+| **Focus ring** | 2px `#4D84FE`, offset 2px. AntaraX blue `#0459F7` reaches only 2.99:1 on raised navy; see §20 | |
+| **Status** | ok `#12B76A`, warn `#F79009`, fault `#F04438`, real signal only. Small text on dark uses `#5FD39B` and `#F7877F` | |
+| **Type** | Poppins for UI; JetBrains Mono for every number, id, time and email | |
+| **Components** | The same component set as the AntaraX product core: tables, buttons, inputs, search, dialogs, toasts. Only the dark tokens differ, so AXLE is unmistakable and still familiar (std L5; see §20) | Always |
+| **Footer** | "Authorised REKA staff · every action is recorded" | |
 
-## 4 Access
+## 5 Access and separation
 
-### 4.1 Signing in
+### 5.1 Addresses and sign-in (std A1, A5, A6)
 
-- AXLE **must** live on its own host, with its own cookies, separate from the customer app (Yara, AX Frame, Angka, ISO Generator already do this).
-- Staff sign in on an AXLE sign-in page titled "Sign in to AXLE", not the customer sign-in.
-- Two-step sign-in **should** be required for every staff account (Angka's `/axle/verify`).
-- A signed-in person who is not staff sees a plain page: "This account isn't on the REKA staff list. Sign out". Any other AXLE address returns 404, so the console is not advertised (AX Frame DeniedGate, Angka).
-- When AXLE Central exists, one REKA staff sign-in covers every product AXLE (13 §6).
-
-### 4.2 Staff roles
-
-One ladder, each rung including the one below it (antarax-api docs/07, already built in Angka):
-
-| Role | Can |
+| Rule | Tier |
 |---|---|
-| **Viewer** | Read everything except secrets and, unless granted, money (see §4.3) |
-| **Support** | Plus: open a support view, look up calls, see an organisation's keys, add notes, resend invitations |
-| **Operator** | Plus: switches, stop keys, suspend organisations, limit overrides, run or pause jobs |
-| **Admin** | Plus: plans and features, switching organisations on, staff roles, help content, announcements |
-| **Owner** | Plus: platform secrets, deleting data, the two-person approvals below |
+| AXLE is on its own host, with its own cookies and its own "Sign in to AXLE" page. Members of an organisation can never reach it; any AXLE address returns 404 to them. `/axle` on one host is allowed only in local development | Always |
+| Staff need two-step sign-in (MFA) | Always |
+| At least two staff can sign in as Owner on company accounts, never personal ones, so access is never lost (std A5) | Always |
+| A signed-in person who is not staff sees: "This account isn't on the REKA staff list. Sign out" | Always |
+| One staff sign-in for every product AXLE, once AXLE Central exists | Later |
+| On the organisation plane, sign-in is company-first: the organisation's own name and logo, never another client's (std A6). This is a product rule, listed here because AXLE configures it | Orgs |
 
-- **Every role sees the same navigation.** A control the person cannot use stays visible but disabled, with "Needs Operator" beside it (Angka `NeedsRole`). Do not hide pages from people who may read them (the ISO Generator dead-end).
-- **Rights on top of the ladder** **may** be added for narrow powers that do not fit a rung: Costs (`usage.read`), Models and keys, Library publish. A right is shown and granted on the staff member's page (ISO Generator).
-- **A page someone cannot open** shows a gate card instead of a 404 or a blank page. The card says:
-  - which role or right is missing,
-  - what it covers,
-  - who can grant it ("An Admin can add it in AXLE → Staff → your name").
+### 5.2 Staff roles and rights (std A2, D1)
 
-  (ISO Generator)
-- **Nobody can remove their own Staff right** or lower their own role (ISO Generator).
-- **Two people** for anything irreversible (deleting an organisation's data, rotating a platform secret) once there are more than two operators. The second person approves in AXLE; both names go in Audit (antarax-api docs/07).
+Two axes:
 
-### 4.3 Money visibility
+- **A ladder** for how much a person may change (antarax-api docs/07; built in Angka). Each rung includes the one below.
+- **Rights** for which sensitive areas a person may see or run (ISO Generator; std A2's functional roles). One person may hold several rights.
 
-Money (MRR, invoices, AI cost) is readable by Admin and Owner, and by anyone given the Costs right. Others see a dash with "Needs the Costs right" (ISO Generator). Budget alerts follow the same rule, so a spend figure never leaks through an alert.
-
-## 5 Shell
-
-```
-┌──────────────┬──────────────────────────────────────────────────────────────┐
-│ A  AXLE      │ [Janka ▾]  Organisation: [All ▾]   [Find… ⌘K]    [●] [AR ▾] │  top bar 56px
-│    · Janka   ├──────────────────────────────────────────────────────────────┤
-│              │ ▲ Open access is on: every organisation has paid limits.     │  state banner
-│ WATCH        ├──────────────────────────────────────────────────────────────┤
-│ ◆ Overview   │ Overview                                     [Last 7 days ▾] │
-│   Health     │ What needs a person, and how the platform is doing.  ⓘ       │
-│   …          │                                                              │
-│              │                                                              │
-│ ──────────── │                                                              │
-│ AR · OPERATOR│                                                              │
-│ Authorised   │                                                              │
-│ REKA staff   │                                                              │
-└──────────────┴──────────────────────────────────────────────────────────────┘
-```
-
-| Part | Must have | Taken from |
+| Rung | Can | std A2 role |
 |---|---|---|
-| **Sidebar** (240px, raised ground, full height, own scroll) | The AntaraX A + "AXLE" + product chip; the grouped nav (§6) with counters; at the foot: initials, name, role chip in orange (VIEWER … OWNER), "Authorised REKA staff · every action is recorded" | Yara, Janka, AX Frame |
-| **Active item** | Orange text, a 3px orange marker on the left and an orange intan before the label; `aria-current="page"` | Kit 12 (intan), Angka (aria-current) |
-| **Top bar** (56px, sticky) | The product switcher (only in Central, or where staff run several products); the **organisation scope picker** (§5.1); **Find** with ⌘K (§5.2); a health dot that opens the status strip; the staff menu | ISO Generator (scope), Angka (⌘K) |
-| **Staff menu** | Your account, Two-step sign-in, AXLE guide, Sign out (asks first) | Yara, Janka |
-| **State banner** (full width, under the top bar) | Shown while the platform is in a state staff must not forget (§10.2). Never dismissible while the state holds | AX Frame OPEN ACCESS, Angka read-only |
-| **Page header** | Title; one plain line saying what the page is for; "How this page works" disclosure; the page's range picker or primary action on the right | AX Frame, Janka, ISO Generator |
-| **Content** | Max 1280px, 24px gutters, cards on raised ground, tables full width | |
+| **Viewer** | Read everything except secrets and the areas behind a right | Read-only auditor |
+| **Support** | Plus: support sessions, look up calls, resend invitations, add notes | Support |
+| **Operator** | Plus: suspend and restore, switches, quota overrides, retry and cancel jobs, stop keys | Operations |
+| **Admin** | Plus: create organisations, plans and features, staff roles, settings, help content, announcements | |
+| **Owner** | Plus: secrets, deletion, two-person approvals | Super Admin |
 
-### 5.1 Organisation scope
+| Right | Covers | std A2 role |
+|---|---|---|
+| **Finance** | MRR, invoices, AI and infrastructure cost, budgets | Finance |
+| **Security** | Sign-in activity, sessions, staff access reviews, exports and deletion approvals | Security |
+| **AI** | Providers, keys, routes, prompts and their versions | |
+| **Library** | Publishing platform libraries (§10.7) | |
 
-One picker in the top bar sets the organisation for every page that can be scoped (Members, Usage, Trace, Audit…). Its value lives in the address (`?org=acme-plastics`), so a link opens the same view for the next person. "All organisations" is the default. Pages that cannot be scoped show the picker disabled with "Not scoped" (ISO Generator `TenantPicker`).
+Rules:
 
-### 5.2 Find
+- **Every rung sees the same navigation.** A control the person can't use stays visible, disabled, with "Needs Operator" or "Needs the Finance right" (Angka).
+- **A page behind a right someone lacks** shows a gate card. It names the right, what it covers, and who can grant it (ISO Generator). Pages are never hidden from people who may read them.
+- **A hidden figure** shows "–" and "Needs the Finance right". Alerts follow the same rule, so a cost never leaks through a budget warning.
+- **The Staff page is separate from Members** and lists only REKA staff. It has no casual "create" button: staff are added deliberately, with a reason (std D1; Yara).
+- **Nobody can lower their own role** or remove their own Security right.
+- **Two people** must approve anything irreversible: deletion, secret rotation (antarax-api docs/07).
 
-⌘K (Ctrl K) opens one search over:
+## 6 Shell (std L1, L5)
 
-- organisations,
-- members (by name or email),
-- staff,
-- AXLE pages,
-- a request id (`req_…`), which jumps to Lookup.
+```
+┌──────────────┬───────────────────────────────────────────────────────────────┐
+│ A  AXLE      │ Organisation: [All ▾]        [Find… ⌘K]      [● Healthy] [AR ▾]│  top bar 56px
+│    · Janka   ├───────────────────────────────────────────────────────────────┤
+│              │ ▲ Maintenance is on: members see the maintenance page.        │  state banner
+│ WATCH        ├───────────────────────────────────────────────────────────────┤
+│ ◆ Overview 3 │ Overview                                      [Last 7 days ▾] │
+│   Health     │ What needs a person, and how Janka is doing.  How this works ▾│
+│   …          │                                                               │
+│ ──────────── │                                                               │
+│ AR · OPERATOR│                                                               │
+└──────────────┴───────────────────────────────────────────────────────────────┘
+```
 
-No AXLE has this today. ISO Generator's search stops at customer pages, and AXLE Central plans Lookup by request id.
+| Part | Standard | Tier |
+|---|---|---|
+| **Sidebar** | 240px, raised ground. The A, "AXLE" and the product chip; grouped navigation (§7) with counters; at the foot, initials, name, role chip in orange, and the footer line | Always |
+| **Active item** | Orange text, a 3px orange marker, an orange intan before the label, `aria-current="page"` | Always |
+| **Top bar** | The organisation scope picker (§6.1); Find (§6.2); a health dot that opens Health; the staff menu (Your account, Two-step sign-in, AXLE guide, Sign out, which asks first) | Always (Find: Later) |
+| **State banner** | Under the top bar while a state staff must not forget holds (§13.2) | Always |
+| **Page header** | Title; one line saying what the page is for; "How this page works" disclosure; the page's range picker or primary action | Always |
+| **Phones** | Below 1024px the sidebar becomes a drawer with its groups and counters (Yara), not a chip strip. AXLE on a phone shows AXLE, never the customer app (std L1). The title is never covered | Always |
 
-## 6 Navigation
+### 6.1 Organisation scope
 
-Groups and order are fixed. A product **must** keep the core items in these places, under these names. It **may** leave out an item it has nothing for, and **may** add its own items only inside the **Product** group. Every page has its own address, so the browser's back button works (Grid's AXLE has none).
+One picker sets the organisation for every page that can be scoped. Its value is in the address (`?org=acme-plastics`), and "All organisations" is the default. Staff see no organisation's data on scoped pages until they pick one, or choose "All", which shows only platform-level rows (std QA "Separation"; ISO Generator).
 
-| Group | Item | Core? | What it is | Change needs | Seen today in |
-|---|---|---|---|---|---|
-| **Watch** | **Overview** | Core | §7 | Viewer | all but Grid |
-| | **Health** | Core | Status of every job, backup, webhook and outside service; the "machinery" (AX Frame R8 becomes this page, not a mode) | Operator (run, pause, test) | Angka, AX Frame R8, ISO Generator, Yara Data health |
-| | **Errors** | Core | Unknown errors grouped, newest first, each with a request id | Viewer | Angka |
-| | **Growth** | Should | Sign-ups, activation funnel, where people stop, stalled organisations | Viewer | Angka, AX Frame Analytics, Yara Analytics |
-| | **Feedback** | May | What members sent from the product | Support | Angka |
-| **Organisations** | **Organisations** | Core | §8.1 list and §8.2 detail | Operator (suspend), Admin (switch on, plan) | all |
-| | **Members** | Core | Every customer member, across organisations. Never lists staff | Support (resend, reset), Operator (suspend) | Yara Tenant users, Janka, AX Frame, Angka People, ISO Generator |
-| | **Invitations** | Should | Open invitation links, and links that start a new organisation | Support | Yara |
-| | **Requests** | Should | Access requests, data-protection (PDPA) requests, pilot requests | Admin | Angka Requests, ISO Generator Workspace requests, Grid approvals |
-| **‹Product›** (the product's name) | Product items | May | Whatever only this product has: Janka Forecast accuracy; ISO Generator Library, Learning, Scorecard; Yara Workflows templates | as the product sets, on the ladder | Janka, ISO Generator, AX Frame |
-| **AI** | **Models & keys** | Core if the product uses AI | Providers, routes, keys (stored as pointers, shown masked), last success or failure | Admin, or the Models right | Janka, Grid, ISO Generator, Angka AI |
-| | **AI calls** | Core if AI | Calls, errors, latency and cost per organisation; **Live trace** for one run, diagnosis first (§8.4) | Viewer (cost needs the Costs right) | Angka, Janka Usage & cost, ISO Generator Analytics and Live trace |
-| | **Learning** | May | How the AI is learning: references, scoring, tuning | Admin | Janka, ISO Generator |
-| **Money** | **Plans & features** | Core | Plan ladder (Seed · Terra · Nova · Galaxy · Quantum), features per plan, per-organisation overrides | Admin | Janka, Angka, AX Frame Catalog, Tinara |
-| | **Billing** | Should | Subscriptions, invoices, discounts and comps, by currency | Admin | Yara, Grid, AX Frame, Angka |
-| | **Costs** | Should | What the product costs to run: AI, infrastructure, email; share of revenue against target | Costs right | Angka, Janka |
-| **Platform** | **API** | Core once the product has an API | The Lapisan section: Keys, Switches, Calls, Lookup, Connect apps (antarax-api docs/07). Angka's is the pattern | Operator (switches, stop keys), Admin (plans) | Angka |
-| | **Email** | Should | What the product sent, bounces, the template preview | Support | Angka |
-| | **Announcements** | Should | Banners and emails to members, scheduled, with audience | Admin | Angka, AX Frame Broadcast |
-| | **Help content** | Should | The `/help` answers the product shows, edited here | Admin | Yara, AX Frame FAQ, Angka Help centre |
-| | **Settings** | Core | Platform switches (open access, maintenance, pause generation), each with a reason | Admin, Owner for secrets | all |
-| **Trail** | **Audit** | Core | Every staff action, filterable by staff, organisation, action and date; before and after | Viewer | all |
-| | **Staff** | Core | Staff, their roles and rights, two-step status. Never lists customer members; no "create" button, staff are added deliberately (Yara) | Admin | Yara AXLE admins, Janka, AX Frame Team, Angka |
-| | **AXLE guide** | Should | The staff guide, in REKA's user-guide format | n/a | Yara |
+### 6.2 Find (std H5)
 
-**Counters** sit on the right of an item. They count only things that need a person:
-- new errors in 24 hours,
-- unread feedback,
-- open requests (Admin and above),
-- failing keys.
+⌘K searches organisations, members, staff, AXLE pages and records, filtered by the person's rights. A request id (`req_…`) jumps to Lookup. Tier: Later as global search across records; page search is Always.
 
-A counter is loud (orange) when action is due, grey when it is only a count (Angka).
+## 7 Navigation
 
-**AXLE Central** uses the same groups. It adds a **Products** group at the top of Watch, with one item per product showing its health dot. Every list gets a product filter.
+Groups and order are fixed. A product keeps the items its tiers require, in these places and under these names, and adds its own items only inside the **‹Product›** group. AXLE Central adds a **Products** group at the top of Watch, with one item per product and its health dot.
 
-## 7 Overview
-
-The same page in every product, top to bottom. Products fill in their own figures; the order and the kinds of block do not change.
-
-| # | Block | What it holds | Rules | Taken from |
+| Group | Item | Tier | What it is (std) | Change needs |
 |---|---|---|---|---|
-| 1 | **Header** | "Overview" · one line ("What needs a person, and how {product} is doing") · state line ("Live database · last 7 days" or "Preview: figures come from this browser") · range picker: 7 days (default), 30, 90, 12 months, All time, Choose days | Range lives in the address | Angka, ISO Generator |
-| 2 | **Status strip** | Five to eight tiles: each scheduled job, backups, new errors in 24 hours, webhook failures, each outside service, sign-in ("Ways in") | ok, warn or fault tint plus a word, never colour alone; each tile opens Health | Angka UptimeStrip, AX Frame R8 tiles |
-| 3 | **Needs a person** | A list of what needs action, worst first. Each row: what, which organisation, since when, and a link to the fix ("Check key", "Review 5 photos"). Includes failing keys, budgets past 80%, stuck runs, suspended organisations, unread requests | Empty state: "Nothing needs a person. Every job ran and every service answered." The list respects §4.3 | Janka, AX Frame, Angka, ISO Generator |
-| 4 | **Platform figures** | Four tiles: **Organisations** (hint: by plan), **Active members** in range, **MRR** by currency, **AI cost** in range (hint: calls, failures) | Numbers in mono; money grouped by currency, never converted (RM1,200 + US$45); a dash with a reason when hidden or unmeasured | Yara, Janka, AX Frame, ISO Generator |
-| 5 | **Organisations at a glance** | Table of organisations with: name, plan, stage (sandbox, pilot, live, suspended), readiness ("4 of 6 ready"), open problems, members, this month's cost | Sorted by problems first; links to §8.2 | Yara readiness table, ISO Generator rollout table |
-| 6 | **Trend** | One or two small charts over the range: the product's core activity (forecasts run, documents generated, work orders) and AI cost | Latest value ends in a pad; flagged points are an intan (kit 12, Charts) | ISO Generator, Angka |
-| 7 | **Recent staff actions** | Last 10 audit entries in words: "Aisyah suspended Acme Plastics: unpaid since 1 Oct" | Link to Audit | Yara, Janka, Angka, ISO Generator |
-| 8 | **Product block** | May: one product-specific card (Janka's nightly forecast, Angka's funnel) | At most one; below everything above | Janka, Angka |
+| **Watch** | **Overview** | Always | §8 (B1–B4) | Viewer |
+| | **Health** | Always | Status of the app, database, sign-in, storage, email, AI providers, deployed version, backups, scheduled jobs and webhooks (B3, H1, H3); AX Frame's R8 lives here | Operator |
+| | **Alerts** | Always | Operator alerts and their thresholds, by email and in AXLE (H2) | Admin |
+| | **Errors** | Always | Unknown errors grouped, each with a request id | Viewer |
+| | **Adoption** | Always | Active organisations and members over time, feature use per organisation, who stopped using it (I1) | Viewer |
+| | **Service** | Later | Response times, errors and uptime against promised targets (I2) | Viewer |
+| **Organisations** | **Organisations** | Orgs | List, create, lifecycle and the organisation page (C1–C6, §10.1–10.3) | Operator, Admin |
+| | **Members** | Orgs | Members across organisations (D2) | Support, Operator |
+| | **Invitations** | Always | Single-use expiring links (D3) | Support |
+| | **Requests** | Orgs | Access requests, data export and deletion requests, pilot requests (C5, J3) | Admin, Security right |
+| | **Support** | Orgs | Notes and tickets per organisation, never shown to it (H4) | Support |
+| **‹Product›** | Product items | as needed | What only this product has: libraries, catalogues, device types (G1), forecast accuracy, scorecards | on the ladder |
+| **AI** | **Models & keys** | AI | Providers, keys (masked, test, rotate), model per task with default and fallback chain, automatic switch on outage (F1, F2) | AI right |
+| | **AI usage** | AI | Usage, performance and cost per organisation, task and model; monthly budgets and alerts (F4) | Viewer; cost needs Finance |
+| | **Live trace** | AI | One run, diagnosis first, AXLE only (F5, §10.6) | Viewer; bodies need AI |
+| | **Prompts & quality** | AI | Prompt and configuration versions with a change log; feedback, evaluation scores, learning (F6) | AI right |
+| **Money** | **Plans & features** | Always | Plans or editions and what each includes; features classified as core, configurable, module or flag; per-organisation switches; "why does it have this?"; quotas with logged overrides (E1–E4, §10.5) | Admin |
+| | **Billing** | Billing | Revenue, invoices, failed payments, by currency (I3) | Finance |
+| | **Costs** | Later | What the product costs to run, against revenue | Finance |
+| **Platform** | **API** | when the product has one | Lapisan's section: Keys, Switches, Calls, Lookup, Connect apps (antarax-api docs/07) | Operator |
+| | **Announcements** | Later | Draft, audience, schedule, delivery status (H6) | Admin |
+| | **Help content** | Later | The product's `/help` answers | Admin |
+| | **Demo** | Always | Demo data switch, demo organisations per prospect (K1, K2) | Admin |
+| | **Access** | Always | Links to every surface per environment, with the test account to use; never passwords (K3) | Viewer |
+| | **Settings** | Always | Email templates and sender, legal texts, regions and time zones, module off switches, maintenance mode (G2, E5) | Admin, Owner for secrets |
+| **Trail** | **Audit** | Always | Every staff action (J1, §10.8) | Viewer |
+| | **Security** | Later | Sign-in activity, failed sign-ins, sessions, MFA status (J2) | Security right |
+| | **Staff** | Always | Staff, rungs, rights, MFA status (D1) | Admin |
+| | **AXLE guide** | Later | The staff guide in REKA's user-guide format | |
 
-No hard-coded figure may ever appear on the Overview. Tinara's admin dashboard does this today.
+**Counters** count only what needs a person: new errors, open requests, failing keys, unread feedback. They are loud (orange) when action is due and grey when they are only a count.
 
-## 8 Standard pages
+## 8 Overview (std B1–B4)
 
-### 8.1 Organisations list
+The same page in every product, top to bottom. Every block is visual, every figure is real, and every figure opens its filtered list.
 
+| # | Block | Holds | Rules |
+|---|---|---|---|
+| 1 | **Header** | Title, one line, a state line ("Live database · last 7 days"), a range picker: 7 days (default), 30, 90, 12 months, All time, Choose days | The range is in the address |
+| 2 | **Health strip** | App, database, sign-in, storage, email, each AI provider, deployed version, last backup, last scheduled job (B3) | Tint plus a word, never colour alone; each tile opens Health |
+| 3 | **Needs a person** | Failing jobs and webhooks, failing keys, budgets past 80%, suspended organisations, open requests, stuck runs; each with which organisation, since when, and a link to the fix | Empty: "Nothing needs a person. Every job ran and every service answered." Respects rights |
+| 4 | **Platform figures** | Organisations **by status** (a stacked bar: trial, active, restricted, suspended, cancelled, pending deletion), active members, sign-ups, AI usage and cost this month, failed jobs, open alerts (B1) | Mono numbers; money by currency (RM1,200 + US$45); a dash with a reason when hidden; each opens its list |
+| 5 | **Organisations at a glance** | Organisations with plan, status, readiness ("4 of 6 ready"), open problems, members, this month's cost | Problems first; opens the organisation page |
+| 6 | **Trend** | The product's core activity and AI cost over the range | Latest value ends in a pad; flagged points are an intan (kit 12) |
+| 7 | **Recent sensitive actions** | The last 10 staff actions in words: suspensions, overrides, deletions, support sessions (B1) | Opens Audit |
+| 8 | **Product block** | May: one product card | At most one |
+
+**When the platform is new (B4),** blocks 3 to 7 are replaced by a first-steps list:
+1. Add a second Owner.
+2. Connect an AI provider.
+3. Create the first organisation.
+4. Switch on backups.
+
+Each step links to its page.
+
+No figure may be hard-coded (Tinara today).
+
+## 9 Every list (std C1, L3)
+
+Organisations, Members, Invitations, Requests, AI usage, Audit, Errors and every product list behave the same way:
+
+- A **stats strip** above the list, showing counts by status. It updates with the filters.
+- **Search, filter, sort and group.** All of them are kept in the address.
+- **Bulk actions** on selected rows. Each one needs a reason where the single action does, and is audited per row.
+- **CSV export** named `axle-<product>-<list>-<YYYY-MM-DD>.csv`: UTF-8, ISO dates, plain numbers, currency in its own column.
 - **Columns:**
-  - name and slug (mono);
-  - stage chip;
-  - plan;
-  - members;
-  - readiness;
-  - open problems;
-  - this month's cost (Costs right);
-  - created (11 Oct 2026).
-- **Filters:** stage, plan, has problems, product (Central), plus search.
-- **Actions:** row actions open the detail page. They never act straight from the list with a browser `confirm()`, as Grid does.
-- **Export:** CSV named `axle-<product>-organisations-<YYYY-MM-DD>.csv`.
+  - names in Poppins;
+  - ids, emails, times and numbers in mono;
+  - status as a chip with a word.
+- **No dead or duplicate buttons** (std L6).
 
-### 8.2 Organisation page
+## 10 Standard pages
 
-Opens on **what is missing**: a readiness checklist ("Before Acme Plastics can go live: 2 things left"), each item linking to its fix. Then tabs:
+### 10.1 Create an organisation (std C2)
+
+One guided flow, in order:
+
+1. Name and address.
+2. Plan or edition.
+3. Modules.
+4. First Owner's email (required).
+5. Demo data, yes or no.
+
+The last screen says what happens next ("Aisyah gets an invitation; the organisation is a trial until she accepts").
+
+### 10.2 Lifecycle (std C3, C4, C5)
+
+Statuses: **trial → active → restricted → suspended → cancelled → pending deletion**. Separately, for products that roll out in stages, a **stage**: sandbox → pilot → live (ISO Generator, Yara).
+
+| Change | Rule |
+|---|---|
+| Suspend | Operator; a reason the members will read; reversible; audited. Suspended members can't sign in and see a clear message naming REKA support |
+| Restore | Operator; reason; audited |
+| Delete | Never instant. Request → export offered → cooling-off (default 30 days) → scheduled deletion → completion record. Owner plus a second person (§5.2) |
+
+### 10.3 Organisation page, "Organisation 360" (std C6)
+
+The page opens on **what is missing**: a readiness checklist ("Before Acme Plastics can go live: 2 things left") (ISO Generator, Yara). Then tabs:
 
 | Tab | Holds |
 |---|---|
-| **Summary** | Stage stepper (sandbox → pilot → live), with each step change logged in Audit; owner and contacts; notes from staff |
-| **Members** | The organisation's members and roles (Owner · Admin · Member · Viewer); resend, reset, suspend |
-| **Plan & limits** | Plan, feature overrides, limits (per minute, day, month), comps and discounts |
-| **Usage & cost** | Activity and AI cost in range, by currency |
-| **Health** | This organisation's data checks: "3 fix now · 2 to check" (Yara `tenant_integrity`) |
-| **API** | Keys, switches, recent calls (if the product has an API) |
+| **Summary** | Status and stage, owners and contacts, plan, one **timeline** of everything that happened to it |
+| **Members** | Members, roles (Owner · Admin · Member · Viewer), last sign-in; lock and unlock, revoke sessions, resend sign-in. An organisation always keeps at least one Owner; transferring ownership is a logged action (D2, D4) |
+| **Plan & features** | Plan, modules, flags, quotas and overrides, with "why" (§10.5) |
+| **Usage & AI** | Activity, AI usage and cost (Finance) |
+| **Integrations** | Connected services and their state |
+| **Errors & health** | Recent errors; data checks: "3 fix now · 2 to check" (Yara `tenant_integrity`) |
+| **Notes** | Internal notes and tickets; never visible to the organisation (H4) |
+| **Branding** | Logo, colours, sender name, where the product supports it (C7, Later) |
 | **Audit** | Staff actions on this organisation |
 
-Primary actions at the top right:
-- **Open support view** (§9);
-- **Suspend**, which needs Operator and asks for a reason the members will read.
+### 10.4 Members and invitations (std D2, D3)
 
-### 8.3 Members and Staff
+- **Members** lists customers across organisations, with:
+  - status;
+  - last sign-in;
+  - their role in each organisation;
+  - lock, unlock, revoke sessions and resend sign-in.
+- **Members never lists staff.**
+- **Invitations:**
+  - the email is required;
+  - each link works once and expires (default 7 days);
+  - each can be resent or revoked, and shows its status;
+  - the person lands in the right organisation and role.
 
-Two different pages that never mix:
+### 10.5 Plans and features (std E1–E5)
 
-- **Members** lists only customers.
-- **Staff** lists only REKA people.
+- **Every feature driven by a client** is classified as one of:
+  - **core:** everyone has it;
+  - **configurable:** everyone has it, set per organisation;
+  - **module:** entitled by plan;
+  - **flag:** a temporary switch.
 
-A staff account must never appear as, or be edited as, a customer member (Yara).
+  Each is switched per organisation.
+- **"Why does Acme have this?"** is answered on screen. The checks run in this order:
+  1. global off;
+  2. organisation off;
+  3. organisation on;
+  4. plan;
+  5. default.
 
-### 8.4 Live trace (AI products)
+  The page names the step that decided (E2).
+- **Plans use the brand kit's ladder:** Seed · Terra · Nova · Galaxy · Quantum; Angka keeps its own names. Where billing happens outside the product, AXLE shows the edition only (E3).
+- **Quotas and limits** are set per organisation. An override needs a reason and is logged (E4).
+- **A global off switch** for any module, and **maintenance mode** with a notice to members (E5, Later). Either one raises the state banner.
 
-One run of the product's AI, in this order:
+### 10.6 AI (std F1–F6)
 
-1. **Verdict:** finished, failed or still running, and what that means.
-2. **What to fix:** worst first.
-3. **The run step by step:** one row per step, with status, model, time, cost and findings.
-4. **Raw events, last.**
+| Page | Must show |
+|---|---|
+| Models & keys | Providers; keys kept in the vault, shown masked, test and rotate; the model per task with a default and a fallback chain; automatic switch on outage, with a toggle and a log of switches (F1, F2) |
+| Per organisation | AI on or off; model override (F3) |
+| AI usage | Calls, errors, latency, cost by organisation, task and model; monthly budgets with alerts at 80% and 100% (F4) |
+| Live trace | One run: verdict → what to fix, worst first → steps (status, model, time, cost, findings) → raw events last. AXLE only (F5; ISO Generator) |
+| Prompts & quality | Versions of prompts and configuration, with a change log and who changed what; feedback captured; evaluation scores over time (F6) |
 
-Diagnosis first, data after (ISO Generator `Trace.tsx`). The prompt and reply bodies are shown only to Admin and above, and never contain secrets.
+### 10.7 Libraries (std G1, Later)
 
-### 8.5 Audit
+Templates, catalogues and device types the platform owns. Each has versions and a release step: draft → review → published. Organisations see only published versions (ISO Generator Library; PLExyz Crowd device catalogue).
 
-- One row per action: when (mono, MYT), who, role, what, which organisation, reason, before and after.
-- Filters by staff, organisation, action and date range, kept in the address.
-- Never editable, never deletable from AXLE.
-- AXLE Link calls from Central appear here as the service ("AXLE Central switched Lapis off: paused while we fix a problem").
+### 10.8 Audit (std J1)
 
-### 8.6 Settings and switches
+- **Each row:** when (mono, MYT), who, rung, what, which organisation, reason, before and after.
+- **Filters and export:** by staff, organisation, action and date range.
+- **Never editable** from AXLE.
+- **Central's calls** through AXLE Link appear as the service.
 
-- **Every switch has:**
-  - the current state in words;
-  - who changed it, when;
-  - a reason, written for the customer where callers will see it (antarax-api docs/07);
-  - "Change", which asks for the reason before applying.
-- **Platform-wide switches** (open access, maintenance, pause generation) raise the state banner (§10.2) on every AXLE page while they are on.
+### 10.9 Jobs, alerts and backups (std H1–H3)
 
-## 9 Support view
+| Page | Must show |
+|---|---|
+| Jobs | Every background job and webhook: last run, next run, failures with a safe error message, retry, cancel |
+| Alerts | Thresholds (job failures, budget, health, error rate) and who is told, by email and in AXLE |
+| Backups | Last backup, the last restore drill and its result, where backups are kept |
 
-How REKA support sees what a customer sees. This is the most sensitive thing AXLE does. Angka's support view is the reference; ISO Generator's must change.
+### 10.10 Demo and access (std K1–K3)
+
+- **Demo data** has a switch. It is clearly labelled, and off by default for real organisations; switching it off leaves no demo rows.
+- **Demo organisations per prospect** are rich enough to test with: at least one realistic record on every screen (Yara's Showcase).
+- **The Access page** lists the address of every surface per environment (AXLE, product, client portal) and which test account to use. It never shows passwords.
+
+## 11 Support sessions (std H7)
+
+How REKA support sees what a member sees. **Later** (std H7): build it only when the product needs it. When it is built, these rules hold (Angka is the reference; ISO Generator's must change):
 
 | Rule | Standard |
 |---|---|
-| Who | Support and above |
-| How it starts | "Open support view" on the organisation page. AXLE asks for a reason ("Member reported a missing forecast") and a length: 30 minutes (default), 1 hour, 4 hours |
-| What it is | **Read only.** Every control that changes data is disabled or hidden in the customer app while it runs. A write is refused by the server, not only hidden |
-| What the staff member sees | A fixed banner at the very top of the customer app, on every page: "REKA support view of Acme Plastics · read only · ends at 14:30 · End now" |
-| What the organisation sees | The session in its own activity log as "REKA support viewed your organisation, 13:30 to 14:30, reason: …" |
-| When it ends | At the time shown, or "End now". Both are recorded in Audit |
-| Writing on a customer's behalf | Not part of the support view. If it is ever needed, it is a separate Operator action, with its own reason and a red banner. It is listed as an open question, not built |
+| Who | Support rung and above |
+| How it starts | "Start support session" on the organisation page; a reason; a length of 30 minutes (default), 1 hour or 4 hours |
+| Default mode | **Read only.** The server refuses writes, not only the interface |
+| Acting as a member | Only if the product needs it (std H7): Operator, a second reason, sensitive actions blocked (billing, members, deletion, exports) |
+| Banner | Fixed at the top of every page in the product: "REKA support view of Acme Plastics · read only · ends at 14:30 · End now" |
+| The organisation sees | The session in its own activity log, with the time and reason |
+| Ending | At the time shown or "End now"; every action in the session is audited |
 
-## 10 States and honesty
+## 12 Never crosses to organisations (std A4)
 
-### 10.1 Figures
+| Never shown on the organisation plane | Shown instead |
+|---|---|
+| Model and provider names, prompts, traces | "AI" with the sparkle; the result |
+| AI cost and REKA's margins | The plan and its quota |
+| Sandbox, preview and environment notices meant for staff | Nothing, or the organisation's own trial status |
+| Internal notes and tickets | Nothing |
+| Other organisations' names or data | Nothing |
+| The word AXLE, its address, staff rungs | "REKA support" |
+
+## 13 States and honesty
+
+### 13.1 Figures
 
 | Situation | Show |
 |---|---|
-| Hidden by role or right | "–" and "Needs the Costs right" |
+| Hidden by a rung or right | "–" and "Needs the Finance right" |
 | Not measured yet | "–" and "No run recorded yet" |
-| The product's AXLE Link is not set up (Central) | "Not connected" in grey, not an error |
-| A product refuses central switches (Central) | "Takes switches: no" on its row |
-| Live-only data in a preview | A note in place of the block: "Only on the live database" |
+| AXLE Link not set up (Central) | "Not connected", grey |
+| Product refuses central switches (Central) | "Takes switches: no" |
+| Live-only data in a preview | "Only on the live database" |
 | Truly zero | 0 |
 
-### 10.2 State banner
+### 13.2 State banner
 
-These states put a banner under the top bar, in warn tint, on every page, until the state ends:
+These states show a warn banner on every AXLE page until they end:
+- open access;
+- maintenance;
+- a module or AI switched off globally;
+- jobs paused;
+- preview or no database;
+- read-only console.
 
-| State | Banner |
-|---|---|
-| Open access | "Open access is on: every organisation has paid limits. Settings" |
-| Maintenance | "Maintenance is on: members see the maintenance page. Settings" |
-| Generation or jobs paused | "AI generation is paused for every organisation since 14:05. Settings" |
-| No database (preview) | "Preview: figures come from this browser, and nothing here changes the live platform." |
-| Read-only console | "Read only here: AXLE has no live database." |
+Each banner says what is on, since when, and links to Settings.
 
-### 10.3 Loading, empty and error
+### 13.3 Loading, empty and error
 
-- **Loading:** a skeleton in the dark neutrals; nothing spins (kit 12).
-- **Empty:** says what will appear and how it gets there ("No organisations yet. They appear here when someone signs up or you send an invitation").
-- **Error:** says what failed and what to try ("Couldn't load AI calls: the provider log didn't answer. Try again"), never "Oops".
+- **Loading:** a dark skeleton; nothing spins.
+- **Empty:** says what will appear and how to get the first one.
+- **Error:** says what failed and what to try, never "Oops".
 
-## 11 Actions and confirmations
+## 14 Actions and confirmations (std L6)
 
-- No browser `alert()`, `confirm()` or `prompt()`. Confirmations are in-page and name the thing and the consequence. The button names the action: "Suspend Acme Plastics? Its 12 members can't sign in until you switch it back. *Suspend Acme Plastics*" (kit 13 §5).
-- Irreversible actions are typed to confirm (the organisation's slug) and need a second person once the two-person rule applies (§4.2).
-- After an action: a short toast in the past tense, with Undo where it can be undone ("Plan changed to Nova. *Undo*").
+- **No browser pop-ups.** In-app dialogs only, never `alert()`, `confirm()` or `prompt()`.
+- **Destructive actions** name the thing and the consequence, ask for a reason, and their button names the action ("Suspend Acme Plastics").
+- **Irreversible actions:** typed confirmation plus a second person.
+- **After any action:** a past-tense toast, with Undo where possible.
 
-## 12 Words and formats
+## 15 Words and formats
 
 | Thing | Write | Never |
 |---|---|---|
-| The customer's account | organisation | tenant, company, client, workspace (unless the product has workspaces inside an organisation), organization |
-| A customer's person | member | user, seat |
-| A REKA person | staff | admin, superadmin, AXLE admin |
-| REKA helping a customer (customer-facing) | REKA support | AXLE, REKA admin |
-| Staff roles | Viewer · Support · Operator · Admin · Owner | ADMIN MODE, AXLE ADMIN |
-| Getting in and out | Sign in · Sign out | Log in, Log out |
-| Money | RM1,200 · US$45 · grouped by currency | RM 1,200 · $45 · USD 45 · converted totals |
-| Dates and times | 11 Oct 2026 · 14:30 MYT (the organisation's time zone on its own pages) | 10/11/2026 · 2:30 PM |
-| Spelling | British: organisation, authorised, cancelled, optimise | US |
-| Code words | `tenant`, `org_id` stay in code and in the API, never on screen | |
+| Customer account | organisation | tenant (on screen), company, client, organization |
+| Customer's person | member | user, seat |
+| REKA person | staff | admin, superadmin, AXLE admin |
+| REKA helping a customer, as the customer reads it | REKA support | AXLE, REKA admin |
+| Staff rungs | Viewer · Support · Operator · Admin · Owner | Super Admin, ADMIN MODE |
+| In and out | Sign in · Sign out | Log in, Log out |
+| Money | RM1,200 · US$45, grouped by currency | RM 1,200 · $45 · USD · converted totals |
+| Dates | 11 Oct 2026 · 14:30 MYT | 10/11/2026 · 2:30 PM |
+| Spelling | British | US |
 
-## 13 Phones
+## 16 Accessibility
 
-AXLE is a desk tool, but on-call staff use phones. It **must** work at 390px:
+- **WCAG 2.2 AA** on the dark palette.
+- **The focus ring** from §4, on every control.
+- **Skip link** and `aria-current` on the active item.
+- **Counters** with spoken labels.
+- **Targets** of at least 44px.
+- **Reduced motion** stops all motion.
+- **An axe check** runs in CI on Overview, Organisations, the organisation page and Audit.
 
-- Below 1024px the sidebar becomes a left drawer with its groups and counters, opened by a 44px menu button, with a focus trap and Escape (Yara). Not a strip of sideways chips (Angka, ISO Generator).
-- The page title is never covered by the menu button (the AX Frame bug).
-- Overview blocks stack in the order of §7. Tables scroll sideways inside their own container. Figure tiles go two across.
-- Every target is at least 44px.
+## 17 Phones (std L1)
 
-## 14 Accessibility
+- Every AXLE page opens from the drawer at 390px with nothing hidden or overlapping.
+- Overview blocks stack in order; figure tiles go two across.
+- Tables scroll inside their own container.
 
-- WCAG 2.2 AA on the dark palette (checked: body 10.5:1, muted 6.1:1, orange 8.4:1).
-- The focus ring as in §3, on every control.
-- A skip link; `aria-current` on the active item; counters with spoken labels ("3 open requests").
-- Reduced motion stops all motion; the health dot does not pulse.
-- An automated check (axe) runs on Overview, Organisations, an organisation page and Audit in each product's CI (13 §10).
+## 18 AXLE Link and AXLE Central
 
-## 15 AXLE Link and AXLE Central
-
-Each product AXLE **must** serve the four AXLE Link endpoints from `@lapisan/core` (antarax-api docs/07) before it joins Central:
+Before a product joins Central, its AXLE serves AXLE Link's four endpoints from `@lapisan/core`:
 
 | Endpoint | Feeds in Central |
 |---|---|
-| `GET /internal/axle/v1/tenants` | Organisations list, plans, stage, API on or off |
-| `GET /internal/axle/v1/usage` | Figures and trends, by day, organisation, route |
-| `GET /internal/axle/v1/health` | The product's health dot and the status strip |
-| `POST /internal/axle/v1/switches` | Central switches, each with a reason |
+| `GET /internal/axle/v1/tenants` | Organisations list and plans |
+| `GET /internal/axle/v1/usage` | Figures and trends |
+| `GET /internal/axle/v1/health` | Health dot and strip |
+| `POST /internal/axle/v1/switches` | Switches, each with a reason |
 
-Central's Overview is §7 with one row per product in block 5. Every block gets a product filter. Every row deep-links into the product AXLE at the same place: the same organisation, the same range.
+- Central's Overview is §8 with one row per product.
+- Every list gets a product filter.
+- Every row deep-links into the product AXLE at the same organisation and range.
 
-Status today:
-- Angka and Lapis have AXLE Link.
-- Yara has a status API.
-- Janka, AX Frame, Grid, Tinara and ISO Generator have none.
+Angka and Lapis have AXLE Link today; no other product does.
 
-## 16 What each console changes
+## 19 How to prove it
 
-Scores are from the AXLE scorecard in the [gallery](../inventory/gallery.html) (of 8).
+The std QA checks, plus the ones this spec adds. Every product AXLE passes these before release.
 
-| Console | Score | Biggest changes to meet this standard |
+| Check | Passes when |
+|---|---|
+| **Separation** | A member opens every AXLE address and gets 404; staff see no organisation's data on a scoped page until they pick one |
+| **Nothing leaks** | Signed in as a member, searching the screens and the network responses finds no model name, trace, cost, AXLE, staff rung or other organisation |
+| **Real numbers** | Every Overview figure matches a database count, and clicking it opens a list of that many rows |
+| **Organisation life** | Create, suspend (member refused with a message), restore, request deletion: each step audited with a reason |
+| **Invitation** | The email arrives; the link works once, expires, and lands the person in the right organisation and role |
+| **Feature switch** | A module turned off for one organisation disappears from its menu and pages only; "why" names the deciding step |
+| **AI** | Switch provider, run one AI action, see usage and cost recorded; with AI off the member sees a clear message |
+| **Lists** | On every list: search, filter, sort, group, a bulk action on 2 rows, export; the stats strip updates |
+| **Audit** | Three staff changes each appear with who, what, when, reason, before and after |
+| **Rights** | A Viewer sees every page, disabled controls say what they need, and a missing right shows its gate card and dashes, never zeros |
+| **Support session** | (If built) the banner shows, writes are refused by the server, the session ends on time, and the organisation sees it in its log |
+| **Links** | Copying the address on any filtered, scoped page and opening it in a new window shows the same view |
+| **Phone** | Every page opens from the drawer at 390px with nothing hidden or overlapping |
+| **Look** | Dark ground, orange accent, the AntaraX A, "AXLE · Product" in the title; the focus ring is visible on every control; axe passes |
+
+## 20 Open questions
+
+1. **The look (std L5 against brand kit 13 §6).**
+   - std L5 says AXLE uses the same design system as the product, with a clear AXLE mark.
+   - The brand kit says every AXLE uses one dark look with REKA orange.
+
+   This draft does both: the same components and type as the product core, in the shared dark AXLE tokens. Confirm, or say that each AXLE should take its product's colours.
+2. **Roles (std A2 against antarax-api docs/07).** std A2 lists functional roles that one person may combine; antarax-api and Angka use a ladder. This draft maps them onto one model: a ladder for how much, rights for which area. Confirm the rungs and the four rights.
+3. **Support sessions (std H7 Later against Angka, which has one).** Keep them Later for new products, with the §11 rules binding wherever one exists?
+4. **Acting as a member.** Allowed at all (§11)?
+5. **Focus ring on dark.** `#4D84FE` in place of `#0459F7`, which fails 3:1 on raised navy?
+6. **The primary action colour.** Orange (this draft) or the product's colour (AX Frame)?
+7. **The "Support" rung name.** The brand kit reserves "REKA support" for customers. The rung is never shown to them, so is it fine to keep?
+8. **Scope.** The std draws on YARA One, Entangled Particles and KITAR AI, which the inventory has not covered, and ISO Generator, which the brand kit doesn't list. Which products must meet this standard?
+9. **Lifecycle words.** std C3's statuses (trial, active, restricted, suspended, cancelled, pending deletion) alongside a rollout stage (sandbox, pilot, live): confirm both are wanted.
+10. **Cooling-off and invitation expiry defaults** (30 days, 7 days).
+
+## 21 What each console changes
+
+Scores from the AXLE scorecard in the [gallery](../inventory/gallery.html), out of 8. The minimum first release (§2) adds lists, lifecycle, features, demo and access to every row.
+
+| Console | Score | Biggest changes |
 |---|---|---|
-| **AX Frame** | 6 | Fold the R8 mode into Health and drop the mode switch; add a staff menu with Sign out, Find and the organisation picker; fix the phone header overlap; "Workspaces" → Organisations in AXLE |
-| **Angka** | 6 | Move to the dark look (§3); a drawer on phones; "USD" → US$; keep everything else: it is the content reference |
-| **Yara** | 4 | Rename "Yara AXLE" → "AXLE · Yara"; ground `#0B0E14` → `#071233` throughout, not only the sidebar; adopt the five-rung ladder (only `reka_admin` today); add Find and the state banner; "Organizations" → Organisations |
-| **Janka** | 4 | Rename; dark content area, not only the rail; add the AntaraX A; ladder from admin and manager to five rungs; add JetBrains Mono |
-| **ISO Generator** | 4 | Rename from "REKA Admin"; dark look and fonts; put its eight rights on the ladder (§4.2); support view to §9 (banner, read only); a drawer on phones; stop hiding readable pages; AXLE Link. Decide first whether it joins the AntaraX standard |
-| **PLExyz Grid** | 1 | Rebuild on this standard: an Overview, addresses for every page, the dark look, the ladder, no `confirm()` |
-| **Tinara** | 1 | Rebuild on this standard as `AXLE · Tinara` on its own host, out of the customer app; remove every hard-coded figure |
-| **PLExyz Crowd** | n/a | Has no internal console. First remove AXLE from the customer app; build AXLE only when needed |
+| AX Frame | 6 | Fold R8 into Health; add the staff menu, Find, the organisation picker; fix the phone header; Workspaces → Organisations; lists to §9 |
+| Angka | 6 | Dark look; a phone drawer; US$; the organisation create flow and lifecycle |
+| Yara | 4 | Rename; `#071233` throughout; the ladder (only `reka_admin` today); the state banner; Organizations → Organisations; Demo and Access pages (Showcase already exists) |
+| Janka | 4 | Rename; dark content area; the AntaraX A; the ladder; JetBrains Mono; Members management (std D2 correction) |
+| ISO Generator | 4 | Rename from REKA Admin; dark look; rights onto the ladder; support session to §11; phone drawer; stop hiding readable pages; AXLE Link |
+| PLExyz Grid | 1 | Rebuild: Overview, addresses for every page, dark look, ladder, no `confirm()`, a create flow |
+| Tinara | 1 | Rebuild as `AXLE · Tinara` on its own host; remove hard-coded figures |
+| PLExyz Crowd | n/a | No internal console; remove AXLE from the customer app first |
 
-## 17 Open questions
+## Appendix A: coverage of the REKA standard
 
-To record in the brand kit's `11-open-questions.md` and decide with the owner:
+Every item in [the REKA standard](reference/axle-admin-console-standard-v0.1.md), and where it lives here.
 
-1. **Focus ring on dark.** Kit 05 and 12 say AntaraX blue `#0459F7` everywhere, but it reaches only 2.99:1 on AXLE's raised navy. Proposed: `#4D84FE`, the dark-mode AntaraX blue, as AX Frame already uses, as the dark-mode focus colour for every product.
-2. **The "Support" staff role.** Kit 13 reserves "REKA support" for customer-facing words. The staff role name comes from antarax-api docs/07. Keep it (it is never shown to customers), or rename it (for example "Helper")?
-3. **The primary action colour.** This spec uses orange with navy text for the one primary action. AX Frame uses Frame blue for actions and orange only as signal. Which?
-4. **Writing on a customer's behalf** from a support view: never, or a separate Operator action (§9)?
-5. **ISO Generator:** does it adopt the AntaraX AXLE standard (and host `axle.<product>.antarax.ai`), or stay a REKA-only console?
-6. **The organisation's view of support sessions** (§9): shown in their activity log by default?
-7. **The staff guide:** one AXLE guide for every product, with product chapters, or one per product?
+| std | Here | | std | Here | | std | Here |
+|---|---|---|---|---|---|---|---|
+| A1 | §5.1 | | D1 | §5.2, §7 Staff | | G1 | §10.7 |
+| A2 | §5.2 | | D2 | §10.3, §10.4 | | G2 | §7 Settings |
+| A3 | §1 | | D3 | §10.4 | | H1 | §10.9 |
+| A4 | §3, §12, §19 | | D4 | §10.3 | | H2 | §7 Alerts, §10.9 |
+| A5 | §5.1 | | E1 | §10.5 | | H3 | §10.9 |
+| A6 | §5.1 | | E2 | §10.5 | | H4 | §7 Support, §10.3 |
+| B1 | §8 | | E3 | §10.5 | | H5 | §6.2 |
+| B2 | §3, §8, §19 | | E4 | §10.5 | | H6 | §7 Announcements |
+| B3 | §8 block 2, §7 Health | | E5 | §10.5, §13.2 | | H7 | §11 |
+| B4 | §8 | | F1–F6 | §10.6 | | I1 | §7 Adoption |
+| C1 | §9 | | | | | I2 | §7 Service |
+| C2 | §10.1 | | | | | I3 | §7 Billing |
+| C3–C5 | §10.2 | | | | | J1 | §10.8 |
+| C6 | §10.3 | | | | | J2 | §7 Security |
+| C7 | §10.3 Branding | | | | | J3 | §7 Requests |
+| K1–K3 | §10.10 | | L1 | §6, §17 | | L2 | §3, §6 |
+| L3 | §9 | | L4 | §3, §8 | | L5 | §4, §20 |
+| L6 | §14 | | L7 | §3, §6.1 | | QA | §19 |
 
-## Appendix: source map
+## Appendix B: where each pattern comes from
 
-| Idea | Best example today | Where |
-|---|---|---|
-| Five-rung staff ladder, "needs {role}" | Angka | `inventory/angka/` (AXLE section) |
-| Rights gate that explains itself | ISO Generator | `AdminApp.tsx:102-127`, screenshot `25-axle-gate-no-right` |
-| Unknown, not zero | ISO Generator | `Overview.tsx:36-38, 94-103` |
-| Organisation scope in the address | ISO Generator | `TenantPicker.tsx:11-46` |
-| Readiness checklist on the organisation page | ISO Generator, Yara | `Tenants.tsx:330-349`; Yara readiness table |
-| Live trace, diagnosis first | ISO Generator | `Trace.tsx`, screenshot `15-axle-live-trace` |
-| Status strip | Angka | screenshot `03-axle-dashboard` |
-| Needs a person | Janka, AX Frame R8, Angka | screenshots `03-axle-*` |
-| Data health per organisation | Yara | `tenant_integrity`, screenshot `03-axle-dashboard` |
-| Dark look and name | AX Frame | `admin.css`, screenshot `03-axle-dashboard` |
-| Always-on state banner | AX Frame | OPEN ACCESS banner |
-| Support view banner | Angka | "Support view of {business}, read only, ends at {time} · End now" |
-| Members and staff never mixed | Yara | AXLE Tenant users and AXLE admins |
-| "How this page works" | AX Frame, Janka | `AdmGuide`, `axle/intros.ts` |
-| AXLE Link and the API section | Angka, antarax-api | `lib/axle/link`, `packages/lapisan-core/src/link/` |
+| Pattern | Best example today |
+|---|---|
+| Ladder with "Needs {role}" | Angka |
+| Gate card, unknown not zero, organisation scope in the address, readiness checklist, diagnosis-first trace, health card | ISO Generator |
+| Status strip, support banner, range picker, AXLE Link | Angka |
+| Needs a person | Janka, AX Frame, Angka, ISO Generator |
+| Data health per organisation, staff and members kept apart, Showcase demo organisation | Yara |
+| Dark look and name, state banner, "How this page works" | AX Frame |
+| Phone drawer with focus trap | Yara |
