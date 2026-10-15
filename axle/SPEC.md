@@ -291,6 +291,7 @@ Every product has these pages at **Base**; **Full** adds Incidents. Observe page
 | | **Visual** | Full, and the product takes screenshots or renders pages | Captures, success rate, changes found, failures, queue, storage, provider quota; capture now, retry, pause (M7) | Operator |
 | **System** | **Jobs** | Base | Last run, result, duration, next run; per run eligible, processed, failed, skipped and the top failure reasons; run now, retry failures, pause, resume. Schedules in plain words, raw cron only in an advanced drawer (M4, H1) | Operator |
 | | **Providers** | Base | Every outside dependency (AI providers, email, storage, payments, any product API): state, calls in 24 hours, success rate, latency, quota exposure, latest error and latest success; Test provider. Credentials never shown (M5) | Operator tests; keys stay in Dashboard → Models & keys |
+| | **AI flow** | Base, and the product calls an AI model | How the product's AI is wired and what happened on each path, drawn from its AI manifest (§10.6.1) | Viewer: read only |
 | | **Services** | Base | REKA's own platform: API, database, workers, queues, storage, AI gateway, email, deployed version (B3) | Viewer |
 | **Control and diagnostics** | **Configuration** | Base | Schedules, limits, and whether each setting the product needs is set, never its value (AX Frame R8 Configuration) | Admin |
 | | **Operations audit** | Base | Every R8 action with who, what, target and reason (M13): the operations side of Audit, same log | Viewer |
@@ -450,6 +451,18 @@ The page opens on **what is missing**: a readiness checklist ("Before Acme Plast
 | AI usage | Calls, errors, latency, cost by organisation, task and model; monthly budgets with alerts at 80% and 100% (F4) |
 | Live trace | One run: verdict → what to fix, worst first → steps (status, model, time, cost, findings) → raw events last. AXLE only (F5; ISO Generator) |
 | Prompts & quality | Versions of prompts and configuration, with a change log and who changed what; feedback captured; evaluation scores over time (F6) |
+
+### 10.6.1 R8 → AI flow (owner, 15 Oct 2026)
+
+Every product that calls an AI model has this page in R8 → System, after Providers. It answers "how does this product's AI work, and what actually happened?" without reading code.
+
+- **Drawn from the product's AI manifest**, never by hand. The manifest is the machine-readable list of the product's AI features, in the form the AntaraX AI framework sets (`haziqfaris/ai-framework-heuristiks`). The page says which manifest version it shows and whether it matches the deployed prompts; a mismatch is a Needs-a-person row.
+- **The five steps**, the same in every product: **Asked** (a person or a job asked for AI) → **Allowed** (membership, suspension, plan, REKA switch, organisation switch, monthly cap) → **Answered** (a model replied, after failover if needed) → **Checked** (the answer passed the server's checks) → **Decided** (a guardrail or a person decided). Each step shows how many calls reached it and how many left it, and why.
+- **Where every call ended**, in the framework's five outcome words: Used as is · Corrected by a person · Not used · Waiting · ‹Product›'s own logic.
+- **A row per AI feature** with its outcomes and its own measure of being right over 8 weeks.
+- **The feature's card**: the manifest's fields for the chosen feature (where people meet it, what it sends and never sends, models, what happens without AI, checks, who decides, switches, what is logged).
+- **Never shown:** prompts, photos, answers or personal data. One run, step by step, is Dashboard → Live trace; cost is Dashboard → AI usage; changes are Dashboard → Models & keys.
+- Read only. A failing provider links to Troubleshoot.
 
 ### 10.7 Libraries (std G1, Later)
 
@@ -639,6 +652,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **R8 switch** | The switch changes only the menu, is remembered, needs no new sign-in, and says Base or Full; a member cannot open any R8 address |
 | **R8 jobs** | Run a job now: it appears with eligible, processed and failed counts; retry failures runs only the failed items |
 | **R8 providers** | Test provider gives a result and a latency; no key or secret appears on the page or in its network responses |
+| **R8 AI flow** | Every AI feature in the code appears in the manifest and on the page; the five steps add up (asked = every outcome together); no prompt, photo or answer appears on the page or in its network responses |
 | **R8 troubleshoot** | From a Dashboard alert, Troubleshoot opens R8 on that organisation and asset with outside evidence, a timeline and only safe actions; the reading and the conclusion are stored apart |
 | **R8 safety** | No Level 3 action exists; every R8 action appears in the audit log with a reason |
 | **Backend exists** | No R8 page or Observe item is empty or "coming soon"; a Base product shows no Incidents or Observe |
