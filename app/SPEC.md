@@ -1,6 +1,6 @@
 # The AntaraX shell for customer apps
 
-**Version 0.2, draft for the owner, 15 Oct 2026.** Decided by the owner so far: the principle, the account at the top right, Help as its own button, and that the shell reaches beyond the top bar (§6 to §11). This is what every AntaraX product's customer app shares, and what it is free to make its own.
+**Version 1.0, the standard (owner, 15 Oct 2026).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product.
 
 **The rule (owner, 15 Oct 2026).** AXLE is the same in every product ([axle/](../axle/README.md)). A customer app is the opposite: each product has its own identity, shape, theme and UI. A small shell is the exception. It stays the same in every product so that a customer who uses two AntaraX products, or moves from one to another, always finds the same things in the same places:
 
@@ -41,7 +41,7 @@ Left to right, always in this order. An item shown "if" appears only when the pr
 | 4 | **Product slot** | The product's own controls: Add, Assist, a date range, a site picker, a mode switch. Anything, in the product's style. It never pushes items 5 to 8 out of view |
 | 5 | **Search** (if) | A field, or a 44px button on narrow screens. `⌘K` or `/` opens it, if the product has a palette |
 | 6 | **Notifications** (if) | A 44px bell with a count, opening a panel; "See all" goes to the product's own page |
-| 7 | **Help** | A 44px button with a question mark, its own button in every product (owner, 15 Oct 2026). It opens a small menu: **User guide** (`/guide`), **Help centre** (`/help`), **What's new** (if the product keeps one), **Send feedback** (§10), **Contact support** (`support@go.antarax.ai`, brand kit 13 §2) |
+| 7 | **Help** | A 44px button with a question mark, its own button in every product (owner, 15 Oct 2026). It opens a small menu: **User guide** (`/guide`), **Help centre** (`/help`), **What's new** (optional: a short list of recent changes; a product that keeps one puts it here), **Send feedback** (§10), **Contact support** (`support@go.antarax.ai`, brand kit 13 §2) |
 | 8 | **Account** | A 44px round button with the person's photo or initials, always last, always at the far right (§3) |
 
 ### 2.2 Size and shape
@@ -111,14 +111,35 @@ Every product has these pages at these addresses. What each holds first is fixed
 | Address | Page | Holds first, in this order | Who |
 |---|---|---|---|
 | `/account` | Your account | Name and photo · Email and sign-in (password or Google; two-step sign-in) · Notifications (what is emailed) · Sessions (signed-in devices, "Sign out everywhere") | Everyone |
-| `/settings` | Settings | Organisation (name, logo, time zone, currency) · Members (`/settings/members`: list, roles, Invite, pending invitations) · Plan and billing (`/settings/billing`) · then the product's own sections (integrations, sites, units…) · Danger zone last (leave or delete the organisation) | Admins and Owners change; Members and Viewers read what applies to them |
+| `/settings` | Settings | Organisation (name, logo, time zone, currency) · Members (`/settings/members`) · Plan and billing (`/settings/billing`) · then the product's own sections · API (`/settings/api`, if the product has one) · Your data (download, leave or delete the organisation) last | Admins and Owners change; Members and Viewers read what applies to them |
 | `/settings/members` | Members | Who is in the organisation, their role, last active; Invite; pending invitations with resend and cancel | Admins and Owners |
 | `/settings/billing` | Plan and billing | Current plan and what it includes · usage against limits · invoices · payment method · change plan | Owners |
+| `/settings/api` | API | Keys (created, last used, revoke), named **Lapisan by AntaraX** (brand kit 12), with a link to the developer docs at `lapisan.antarax.ai` | Admins and Owners, products with an API |
+| `/settings/data` | Your data | **Download your data:** everything the organisation holds, as files, emailed when ready · **Leave the organisation** (a member) · **Delete the organisation** (Owners): typed confirmation, then 30 days in which an Owner can undo it, then gone | As noted |
 | `/guide` | User guide | REKA's user-guide format: task IDs, steps, a screenshot, "You should see" (brand kit 13 §8) | Everyone |
 | `/help` | Help centre | Answers to common questions; public before sign-in where not private; Contact support at the foot | Everyone |
 | `/legal/privacy`, `/legal/terms` | Privacy and Terms | The legal texts; `privacy@go.antarax.ai` as the contact | Everyone, signed in or not |
 
-- **Settings has one home** (proposed; the owner is not yet sure). Every setting lives under `/settings`, with the product's own sections after the standard ones. A product may also show a setting next to the thing it affects, as a shortcut (Yara's workflow stages beside its board), but the same setting is always in `/settings` too, so a customer can always find it there.
+- **Settings has one home** (owner, 15 Oct 2026). Every setting that changes how the organisation works lives under `/settings`: the standard sections first, then the product's own, then API and Your data. A product may also show a setting next to the thing it affects, as a shortcut (Yara's workflow stages beside its board), but the same setting is always in `/settings` too.
+- **View choices are not settings.** Filters, columns, sort order and density stay on their page, remembered per person.
+- **Each product's own sections**, today:
+
+  | Product | Its own settings |
+  |---|---|
+  | Yara | Workflow stages, rates, working calendar, machines and resources |
+  | Janka | Sites, suppliers, units, reorder rules |
+  | AX Frame | Workspaces, connected AI |
+  | Angka | Business details, tax, bank accounts, Lapis |
+  | Tinara | Data sources, scoring |
+  | PLExyz Grid | Yard layout, bays, devices |
+
+- **Roles mean the same in every product** (brand kit 13 §1):
+  - **Owner:** everything, plus billing and deleting the organisation.
+  - **Admin:** settings and members.
+  - **Member:** does the work.
+  - **Viewer:** reads only.
+
+  A product may add roles named for a job (Supervisor and Worker in Yara). It never changes what Owner, Admin, Member and Viewer mean.
 - **The sign-in page** carries the product mark, "by AntaraX", a Help link and the product's own look.
 
 ## 5 The AntaraX layer, as it applies to the shell
@@ -222,13 +243,20 @@ What they say and how they behave are shared; how they look is the product's own
   - `?` lists the product's shortcuts where it has any;
   - a "Skip to content" link is the first thing on every page.
 
-## 12 How to prove it
+## 12 Public pages, and what comes later
+
+- **Public share pages.** A page a customer shares with people outside their organisation (an AX Frame share, a Janka report) carries a small footer: "Made with ‹Product› by AntaraX", linking to the product's page on antarax.ai. Everything else on it is the product's own.
+- **Later: moving between AntaraX products.** When one AntaraX account spans products, a customer who uses two will switch between them from the AntaraX A in the brand pill. The A is reserved for that; no product puts anything else there.
+- **Later: System status.** When a status page exists, Help gains "System status".
+- **Stays custom:** first-run setup, page tours, dashboards, charts, tables, forms, loading styles, search results and every page this spec does not name.
+
+## 13 How to prove it
 
 | Check | Passes when |
 |---|---|
 | **Same places** | On three random pages of any two products: the brand pill is at the top left, Help is second from the right, the account is at the far right |
 | **Account menu** | Its items appear in §3's order; Sign out asks first; the foot carries "by AntaraX", Privacy and Terms |
-| **Standard pages** | `/account`, `/settings`, `/settings/members`, `/settings/billing`, `/guide`, `/help`, `/legal/privacy` and `/legal/terms` all open, and each holds §4's first items in order |
+| **Standard pages** | `/account`, `/settings`, `/settings/members`, `/settings/billing`, `/settings/data`, `/settings/api` (with an API), `/guide`, `/help`, `/legal/privacy` and `/legal/terms` all open, and each holds §4's first items in order |
 | **Words** | No "Log out", "Organization", "user" on screen, "Preferences" or "Admin panel" (brand kit 13 §1) |
 | **Phones** | At 390px, Help and the account are one tap away on every page, and nothing in the bar overlaps |
 | **Own palette** | Every colour in the shell comes from the product's palette in the brand kit, or the shared status and focus colours |
@@ -236,9 +264,11 @@ What they say and how they behave are shared; how they look is the product's own
 | **Banners** | With two states at once (sample data and a trial ending), both show, in §7's order |
 | **Feedback** | Send feedback from Help arrives in AXLE → Feedback for that product, with the page filled in |
 | **Assist** | No model, provider, prompt or cost appears in the panel or its network responses |
+| **Settings** | Every setting the product has can be found under `/settings`; `/settings/data` downloads the data and deletes with a 30-day undo |
+| **Share pages** | A public share page carries "Made with ‹Product› by AntaraX" |
 | **Accessibility** | The brand kit 13 §10 baseline; every shell control has a name; the account menu traps focus and closes on Escape |
 
-## 13 What each product changes
+## 14 What each product changes
 
 From the [inventory](../inventory/README.md). Everything else in each app stays as it is.
 
@@ -253,11 +283,17 @@ From the [inventory](../inventory/README.md). Everything else in each app stays 
 | PLExyz Crowd | Add a top bar; remove AXLE from the customer app | Move from the sidebar foot | Add all |
 | Lapisan Console | Has the pill and the account in the top bar already | Already right | Add `/guide` and `/help` |
 
-## 14 Open questions
+## 15 Decisions
 
-1. ~~**The list itself.**~~ Decided 15 Oct 2026: right, and extended to getting in, banners, notifications, Assist, feedback, dialogs, toasts, errors and empty states (§6 to §11). Anything else that should be shared is added here first.
-2. ~~**Account at the top right.**~~ Decided 15 Oct 2026 (§3).
-3. ~~**Help as its own button.**~~ Decided 15 Oct 2026 (§2.1).
-4. **Settings in one home.** Proposed in §4: everything under `/settings`, with shortcuts beside the work allowed. The owner is not yet sure.
-5. **What's new.** Should every product keep one, under Help?
-6. ~~**Sign-in methods.**~~ Decided 15 Oct 2026: Google and email in every product (§6).
+All decided by the owner on 15 Oct 2026:
+
+- **The principle:** each customer app is the product's own, apart from this shell. Navigation is fully the product's own.
+- **The top bar:** the account at the far right; Help is its own button.
+- **What else is shared:** getting in, banners, notifications, Assist, feedback, dialogs, toasts, errors and empty states.
+- **Settings:** one home under `/settings`, with shortcuts beside the work.
+- **What's new:** optional.
+- **Sign-in:** Google and email in every product.
+- **Roles, Your data, API keys and public share footers** are shared.
+- **Later:** a product switcher on the A, and System status.
+
+New questions go here.

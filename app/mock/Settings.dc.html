@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Settings in Yara</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+.st a{text-decoration:none}
+.st .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.st :focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+</style>
+</helmet>
+<div class="st" style="width: 1440px; box-sizing: border-box; padding: 48px 56px 64px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 24px">
+  <header style="display: flex; flex-direction: column; gap: 8px; max-width: 1100px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">Settings: one home</h1>
+    <p style="margin: 0; font-size: 16px">Every product's settings live under <span class="mono">/settings</span>, in the same order: the standard sections, then the product's own, then API and Your data. Here in Yara's colours, on Members. A product may also put a shortcut to one of its settings beside the work it affects.</p>
+  </header>
+
+  <div style="border-radius: 20px; overflow: hidden; border: 1px solid #E1EAEA; background: #F7FBFB">
+    <dc-import name="AppBar" product="Yara" mode="medium" open="none" hint-size="100%,80px"></dc-import>
+    <div style="display: flex; gap: 20px; padding: 18px 20px 24px; align-items: flex-start">
+      <nav aria-label="Settings" style="flex: none; width: 240px; background: #FFFFFF; border: 1px solid #E1EAEA; border-radius: 18px; padding: 12px 8px; display: flex; flex-direction: column; gap: 2px; font-size: 14px">
+        <span style="padding: 2px 10px 8px; color: #0B1B4F; font-size: 17px; font-weight: 600">Settings</span>
+        <sc-for list="{{sections}}" as="g" hint-placeholder-count="3">
+          <span style="font-size: 11px; color: #657575; padding: 8px 10px 2px">{{g.label}}</span>
+          <sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+            <a href="#" aria-current="{{i.current}}" style="display: flex; align-items: center; min-height: 38px; padding: 0 10px; border-radius: 10px; background: {{i.bg}}; color: {{i.ink}}; font-weight: {{i.weight}}">{{i.label}}</a>
+          </sc-for>
+        </sc-for>
+      </nav>
+
+      <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+        <section aria-labelledby="mem-h" style="background: #FFFFFF; border: 1px solid #E1EAEA; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px">
+            <span style="display: flex; flex-direction: column"><h2 id="mem-h" style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">Members</h2><span class="mono" style="font-size: 12px; color: #657575">/settings/members</span></span>
+            <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #098284; color: #FFFFFF; font-family: inherit; font-weight: 600; cursor: pointer">Invite</button>
+          </div>
+          <table style="width: 100%; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #657575; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E1EAEA">Member</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E1EAEA">Role</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E1EAEA">Last active</th></tr></thead>
+            <tbody>
+              <sc-for list="{{members}}" as="m" hint-placeholder-count="5">
+                <tr>
+                  <td style="padding: 9px 8px; border-bottom: 1px solid #EFF5F5"><span style="display: flex; flex-direction: column"><span style="color: #0B1B4F">{{m.name}}</span><span style="font-size: 12px; color: #657575">{{m.email}}</span></span></td>
+                  <td style="padding: 9px 8px; border-bottom: 1px solid #EFF5F5"><span style="font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; background: {{m.tint}}; color: {{m.ink}}">{{m.role}}</span></td>
+                  <td class="mono" style="padding: 9px 8px; border-bottom: 1px solid #EFF5F5; font-size: 12px">{{m.last}}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+          <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; font-size: 12px">
+            <sc-for list="{{roles}}" as="r" hint-placeholder-count="5">
+              <div style="padding: 10px 12px; border-radius: 12px; background: {{r.bg}}; display: flex; flex-direction: column; gap: 2px">
+                <span style="color: #0B1B4F; font-weight: 600">{{r.name}}</span>
+                <span>{{r.can}}</span>
+                <span style="color: #657575">{{r.note}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+          <section aria-labelledby="api-h" style="background: #FFFFFF; border: 1px solid #E1EAEA; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+            <span style="display: flex; flex-direction: column"><h2 id="api-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600">API</h2><span style="font-size: 12px; color: #657575">Lapisan by AntaraX · <span class="mono">/settings/api</span></span></span>
+            <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid #E1EAEA; font-size: 13px">
+              <span style="flex: 1; display: flex; flex-direction: column"><span style="color: #0B1B4F">Status board on the shop floor</span><span class="mono" style="font-size: 12px; color: #657575">key ••••4f2a · last used 14:02</span></span>
+              <button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #E1EAEA; background: #FFFFFF; color: #0B1B4F; font-family: inherit; cursor: pointer">Revoke</button>
+            </div>
+            <a href="#" style="font-size: 13px; color: #098284; font-weight: 500">Developer docs at lapisan.antarax.ai</a>
+          </section>
+          <section aria-labelledby="data-h" style="background: #FFFFFF; border: 1px solid #E1EAEA; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+            <span style="display: flex; flex-direction: column"><h2 id="data-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600">Your data</h2><span class="mono" style="font-size: 12px; color: #657575">/settings/data</span></span>
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 13px">
+              <span style="flex: 1">Everything Tegap Fabrication holds in Yara, as files, emailed when ready.</span>
+              <button type="button" style="min-height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid #E1EAEA; background: #FFFFFF; color: #0B1B4F; font-family: inherit; cursor: pointer">Download your data</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; padding-top: 10px; border-top: 1px solid #EFF5F5">
+              <span style="flex: 1">Delete the organisation. You have 30 days to undo it.</span>
+              <button type="button" style="min-height: 40px; padding: 0 12px; border-radius: 10px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-family: inherit; cursor: pointer">Delete…</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    function it(label, on) { return { label: label, current: on ? 'page' : undefined, bg: on ? '#DAF3F3' : 'transparent', ink: on ? '#05686A' : '#0B1B4F', weight: on ? '600' : '400' }; }
+    var ROLE = { Owner: ['#DAF3F3', '#05686A'], Admin: ['#E6EDFC', '#3B4469'], Member: ['#EFF5F5', '#3B4469'], Viewer: ['#EFF5F5', '#657575'], Supervisor: ['#EEF9F9', '#05686A'] };
+    function m(name, email, role, last) { return { name: name, email: email, role: role, last: last, tint: ROLE[role][0], ink: ROLE[role][1] }; }
+    return {
+      sections: [
+        { label: 'Every product', items: [it('Organisation'), it('Members', true), it('Plan and billing')] },
+        { label: 'Yara', items: [it('Workflow stages'), it('Rates'), it('Working calendar'), it('Machines and resources')] },
+        { label: 'Last', items: [it('API'), it('Your data')] }
+      ],
+      members: [
+        m('Hafiz Roslan', 'hafiz@tegap-fab.example', 'Owner', '14:20'),
+        m('Lim Mei Xin', 'meixin@tegap-fab.example', 'Admin', '13:58'),
+        m('Ahmad Fauzi', 'ahmad@tegap-fab.example', 'Supervisor', '14:05'),
+        m('Ravi Kumar', 'ravi@tegap-fab.example', 'Member', 'Yesterday'),
+        m('Nadia Iskandar', 'nadia@tegap-fab.example', 'Viewer', '12 Oct')
+      ],
+      roles: [
+        { name: 'Owner', can: 'Everything, plus billing and deleting', note: 'Every product', bg: '#F7FBFB' },
+        { name: 'Admin', can: 'Settings and members', note: 'Every product', bg: '#F7FBFB' },
+        { name: 'Member', can: 'Does the work', note: 'Every product', bg: '#F7FBFB' },
+        { name: 'Viewer', can: 'Reads only', note: 'Every product', bg: '#F7FBFB' },
+        { name: 'Supervisor', can: 'Assigns and approves job cards', note: 'Yara\'s own role', bg: '#EEF9F9' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

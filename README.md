@@ -7,7 +7,7 @@ The standard dashboard and AXLE console design for every AntaraX product. It sit
 | Step | What | State |
 |---|---|---|
 | 1 | Inventory of every product's navigation and dashboards, with screenshots | Done: [inventory/](inventory/README.md), browsable in [inventory/gallery.html](inventory/gallery.html) |
-| 2 | The AntaraX shell for customer apps | **Draft 0.2 (15 Oct 2026):** [app/SPEC.md](app/SPEC.md) and [app/mock/](app/mock/README.md). Each product's app is its own; only the shell is shared: names, the top bar (account at the far right, Help its own button), the account menu, standard pages, getting in, banners, notifications, Assist, feedback, dialogs and errors |
+| 2 | The AntaraX shell for customer apps | **The standard, v1.0 (15 Oct 2026).** Start with [app/README.md](app/README.md); spec [app/SPEC.md](app/SPEC.md), mock [app/mock/](app/mock/README.md). Each product's app is its own; only the shell is shared: names, the top bar (account at the far right, Help its own button), the account menu, standard pages, getting in, banners, notifications, Assist, feedback, dialogs and errors |
 | 3 | Standard AXLE console and AXLE Central | **The standard, v1.0 (15 Oct 2026).** Build every AXLE from [axle/README.md](axle/README.md): the spec, the final mock of every page, and the tokens |
 
 **Building or changing any product's AXLE? Start with [BRIEF.md](BRIEF.md)**, then [axle/README.md](axle/README.md). Agents: see [AGENTS.md](AGENTS.md).
