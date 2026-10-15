@@ -1,0 +1,742 @@
+{
+  "product": "Tinara",
+  "repo": "haziqfaris/tinara",
+  "commit": "02d53b7",
+  "stack": "Vite 6 + React 19 SPA (HashRouter, react-router-dom 7), Tailwind CSS 4, Recharts 3, Supabase (auth + PostgREST + edge functions), Cloudflare Workers static assets",
+  "surfaces": [
+    {
+      "surface": "customer",
+      "name": "Tinara partner app",
+      "host_or_route": "HashRouter: /#/dashboard (staging tinara-web-staging.haziqfaris-44e.workers.dev)",
+      "entry_files": [
+        "App.tsx:595",
+        "App.tsx:624",
+        "App.tsx:77",
+        "components/Layout.tsx:43",
+        "components/Layout.tsx:58",
+        "components/Layout.tsx:94",
+        "components/Layout.tsx:154",
+        "components/Layout.tsx:234",
+        "components/SplashScreen.tsx:12",
+        "components/AuthScreen.tsx:170",
+        "auth/AuthProvider.tsx:238"
+      ],
+      "layout": "Fixed left sidebar, w-64 (256px), dark navy #0f172a, full height; main area ml-64 p-8, h-screen with its own inner scroll. Slim in-page header (page title in uppercase + long date), no top bar. The wizard (/wizard) uses a separate immersive layout with no sidebar: a top row with wordmark, credits pill, optional +250 button and 'Return to Dashboard' (App.tsx:77-169). Demo mode adds a full-screen splash and launcher before the shell (SplashScreen.tsx).",
+      "brand": {
+        "logo": "No logo file. Placeholder 'T' letter tile: 32px rounded-lg bg-plum with a plum glow (Layout.tsx:63-65)",
+        "name_text": "Tinara (Poppins 600, 24px, white)",
+        "eyebrow": "Sidebar section labels: INTELLIGENCE, KNOWLEDGE BASE, ACCOUNT (10px bold uppercase tracking-widest gray-500)",
+        "credit_line": "'by REKA' with REKA in orange #fb9800, 10px uppercase, superscript beside the name (Layout.tsx:66). Wizard header: 'Tinara BY REKA' (App.tsx:103). Sign-in: 'Tinara by REKA' and eyebrow 'REKA Intelligence' (AuthScreen.tsx:73, 176). Splash: 'by REKA' and pill 'Strategic Intelligence Platform v2.0' (SplashScreen.tsx:44, 82-85)",
+        "other": "Browser title 'Tinara by REKA | Strategic Intelligence' (index.html:8); metadata.json name 'Remix: Remix: Remix: Tinara by REKA v1.5'. No version/build text in the shell."
+      },
+      "nav_groups": [
+        {
+          "label": "(primary action, above groups)",
+          "items": [
+            {
+              "label": "Start New Campaign",
+              "route": "/wizard (via onStartNewCampaign; opens CampaignResetModal first if a campaign has results)",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): plus",
+              "roles": [
+                "USER",
+                "ADMIN"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Intelligence",
+          "items": [
+            {
+              "label": "Overview",
+              "route": "/dashboard",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): view-grid (squares-2x2)",
+              "roles": [
+                "USER",
+                "ADMIN"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Campaigns",
+              "route": "/campaigns",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): collection (stacked trays)",
+              "roles": [
+                "USER",
+                "ADMIN"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Watchlist",
+              "route": "/watchlist",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): bookmark",
+              "roles": [
+                "USER",
+                "ADMIN"
+              ],
+              "gating": "Item always visible. Feature flags 'watchlist' (blocks adding) and 'signalFeed' (hides signal feed on the page) live in Tinara Admin > System Health and per-user overrides; they do not hide the nav item",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Knowledge Base",
+          "items": [
+            {
+              "label": "Profiles",
+              "route": "/profiles",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): user",
+              "roles": [
+                "USER",
+                "ADMIN"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Saved Reports",
+              "route": "/saved",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): bookmark (same icon as Watchlist)",
+              "roles": [
+                "USER",
+                "ADMIN"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Account",
+          "items": [
+            {
+              "label": "Subscription",
+              "route": "/subscription",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): credit-card",
+              "roles": [
+                "USER",
+                "ADMIN"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none",
+        "command_palette": "none",
+        "notifications": "none (only transient toasts, fixed top-right, components/Notification.tsx:38)",
+        "help": "none",
+        "guide": "none (/onboarding route exists, App.tsx:677, auto-opened on first run, not in nav)",
+        "org_switcher": "none (pilot assumes one organisation: memberships[0], App.tsx:283-286); organisation name is not shown anywhere in the shell",
+        "product_switcher": "none",
+        "create_button": "'Start New Campaign' gradient button (plum to amethyst) at top of sidebar nav (Layout.tsx:97-104); also 'Start First Campaign' / 'New Campaign' on the dashboard",
+        "ai_entry": "none (no sparkle or assistant; AI runs inside the wizard and brief generation)",
+        "theme_toggle": "none (light content area, dark sidebar, fixed)",
+        "language": "none (English only)",
+        "user_menu": [
+          "Avatar (initials, plum-amethyst gradient), name, job title; opens upward popover (Layout.tsx:154-226)",
+          "'Switch Identity' list of other demo users (demo mode). In pilot mode the heading still shows with an empty list",
+          "Admin Console (link to /admin, role ADMIN only)",
+          "Change Password (pilot mode only, opens ChangePasswordModal)",
+          "Log Out (red)"
+        ],
+        "sign_out": "'Log Out' in the user popover. Demo: returns to splash. Pilot: supabase.auth.signOut (App.tsx:843-849)",
+        "plan_badge": "none in the shell. Sidebar 'Intelligence Credits' card shows the balance (Layout.tsx:72-91) with 'Top up' link to /subscription, or a '+250' demo top-up button for ADMIN when the creditTopUp flag is on",
+        "env_badge": "none in the customer shell",
+        "impersonation": "Demo-only 'Switch Identity' in the user menu and on the splash; no banner",
+        "other": [
+          "Page title + long date in the in-page header (Layout.tsx:234-242), e.g. 'DASHBOARD | Thursday, October 15'",
+          "Wizard header credits pill turns amber at 20 or fewer and red at 5 or fewer (App.tsx:107-118)",
+          "Demo splash launcher: 'Start Intelligence' and 'My Dashboard' (or 'Admin Console' for ADMIN) cards with 'Authenticated as' identity chip"
+        ]
+      },
+      "responsive": "None. No breakpoint classes in Layout.tsx; the 256px sidebar stays fixed at every width and main keeps ml-64, so at 390px the content is squeezed into a ~134px column. No hamburger, drawer or bottom bar. Only the dashboard grid has md/lg column changes. Sign-in collapses correctly: the 70% showcase panel is hidden below lg and the form goes full width.",
+      "active_state": "Active item: bg-plum (#5B2B4A) fill, white text, shadow-lg shadow-plum/20, and a 4px gold (#D6A84F) bar on the left edge. Inactive: gray-400 text, hover bg-white/5 and translate-x-1. Active match is exact pathname equality.",
+      "colours": {
+        "sidebar_bg": "#0f172a",
+        "user_block_bg": "#0B1120",
+        "content_bg": "#F5F2F7",
+        "plum": "#5b2b4a",
+        "amethyst": "#8b4e87",
+        "gold": "#d6a84f",
+        "card": "#ffffff",
+        "border": "#e6e0eb",
+        "REKA_orange_credit": "#fb9800",
+        "sign_in_panel": "plum #5b2b4a with amethyst and gold blur orbs",
+        "splash_bg": "#1a0515",
+        "status": "Tailwind defaults (green-100/700, blue-100/700, red-50/600, amber)"
+      },
+      "fonts": "Inter (body, --font-sans) and Poppins (display, --font-display) from Google Fonts (index.html:11, index.css:4-5). No JetBrains Mono; numbers in KPI tiles use Poppins.",
+      "a11y": "No aria attributes in Layout.tsx. No focus-visible or focus ring styles on nav links or the user menu. User popover has no Escape or outside-click close. No prefers-reduced-motion handling anywhere; fade-in-up, scale-in, pulse, bounce and spin-slow always run. Nav icons are unlabelled SVGs inside labelled links. Route fallback spinners have role=status and sr-only text (App.tsx:44-49).",
+      "role_variants": "Roles are USER and ADMIN (profileFromUser maps is_platform_admin to ADMIN, AuthProvider.tsx:60). Nav items are identical for both. ADMIN gets 'Admin Console' in the user menu and, when the creditTopUp flag is on, a '+250' button in place of 'Top up'. Organisation roles owner/admin/member/viewer are loaded (AuthProvider.tsx:13) but not used in the UI.",
+      "dashboard": {
+        "route": "/dashboard (Overview)",
+        "file": "components/Dashboard.tsx",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "Intelligence Overview",
+            "detail": "H2 with a subline: 'Run your first campaign...' (empty) or 'Showing results from your latest campaign: N Tier A, N Tier B targets identified.'"
+          },
+          {
+            "order": 2,
+            "kind": "quick-actions",
+            "title": "Start First Campaign / New Campaign",
+            "detail": "Plum button, top right of the header"
+          },
+          {
+            "order": 3,
+            "kind": "kpi",
+            "title": "Candidates Scored",
+            "detail": "Count from latest campaign, or indexed companies (demo: 200; pilot: 0)"
+          },
+          {
+            "order": 4,
+            "kind": "kpi",
+            "title": "Tier A Targets",
+            "detail": "score >= 85; card highlights plum when > 0"
+          },
+          {
+            "order": 5,
+            "kind": "kpi",
+            "title": "Tier B Targets",
+            "detail": "score 70-84"
+          },
+          {
+            "order": 6,
+            "kind": "kpi",
+            "title": "Reports Saved",
+            "detail": "all time"
+          },
+          {
+            "order": 7,
+            "kind": "chart",
+            "title": "Score Distribution (- N candidates)",
+            "detail": "Recharts monotone area chart, 5 score buckets 50-100, amethyst #8B4E87 stroke and gradient, plum tooltip; spans 2 of 3 columns"
+          },
+          {
+            "order": 8,
+            "kind": "empty-state",
+            "title": "No campaign data yet",
+            "detail": "Replaces the chart before any campaign: bar-chart icon in plum circle, 'Run a campaign to see your score distribution here'"
+          },
+          {
+            "order": 9,
+            "kind": "table",
+            "title": "Top Targets",
+            "detail": "Top 3 companies by composite score with tier and score chip; demo-data fallback shown faded with 'Demo data'; pilot empty text 'Run a campaign to see recommendations'"
+          },
+          {
+            "order": 10,
+            "kind": "quick-actions",
+            "title": "Start Campaign / New Campaign",
+            "detail": "Grey uppercase button at the foot of the Top Targets card"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "axle",
+      "name": "Tinara Admin (in-app platform admin console, target name AXLE · Tinara)",
+      "host_or_route": "/#/admin inside the same app (no separate host)",
+      "entry_files": [
+        "App.tsx:550-583",
+        "components/AdminLayout.tsx:44",
+        "components/AdminLayout.tsx:51",
+        "components/AdminLayout.tsx:74",
+        "components/AdminLayout.tsx:145",
+        "components/AdminOverview.tsx:41",
+        "components/PilotPlaceholder.tsx:13"
+      ],
+      "layout": "Fixed left sidebar, w-60 (240px), white with gray-200 right border; main ml-60 p-8 scrolls. No top bar. Light theme (#F8F9FA content).",
+      "brand": {
+        "logo": "Placeholder 'T' tile, 24px bg-plum rounded (AdminLayout.tsx:54)",
+        "name_text": "'Tinara Admin' (Admin in gray-400), 14px Poppins bold",
+        "eyebrow": "Section labels CONTROL TOWER, BUSINESS LOGIC, INTELLIGENCE & DATA, OVERSIGHT (10px bold uppercase)",
+        "credit_line": "none",
+        "other": "Status dot + mono label OPERATIONAL / MAINTENANCE from settings.maintenanceMode (AdminLayout.tsx:59-64); 'Back to App' link to /dashboard (65-71); user block subtitle 'ADMIN MODE'"
+      },
+      "nav_groups": [
+        {
+          "label": "Control Tower",
+          "items": [
+            {
+              "label": "Dashboard",
+              "route": "/admin",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): view-grid",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Environment Control",
+              "route": "/admin/environment",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): adjustments (sliders)",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "Pilot mode renders PilotPlaceholder",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Business Logic",
+          "items": [
+            {
+              "label": "Plans & Discounts",
+              "route": "/admin/plans",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): tag",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "Pilot mode renders PilotPlaceholder",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Revenue & Billing",
+              "route": "/admin/finance",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): currency-dollar",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "Pilot mode renders PilotPlaceholder",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Users & Access",
+              "route": "/admin/users",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): users",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "Live in both modes",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Intelligence & Data",
+          "items": [
+            {
+              "label": "Scoring & Metrics",
+              "route": "/admin/scoring",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): chart-bar",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "Pilot mode renders PilotPlaceholder",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "AI Engine",
+              "route": "/admin/ai",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): light-bulb",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "Pilot mode renders PilotPlaceholder",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Data Sources",
+              "route": "/admin/data",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): database",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "Live in both modes",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Oversight",
+          "items": [
+            {
+              "label": "Intelligence Ledger",
+              "route": "/admin/ledger",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): document-text",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "Live in both modes",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "System Health",
+              "route": "/admin/system",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): check-circle",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "Pilot mode renders PilotPlaceholder; demo holds feature flags and maintenance mode",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Audit Logs",
+              "route": "/admin/audit",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): clipboard-list",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "Pilot mode renders PilotPlaceholder",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "System Changelog",
+              "route": "/admin/changelog",
+              "icon": "Heroicons v1 outline paths, inlined SVG (no icon library): collection (same as customer Campaigns)",
+              "roles": [
+                "ADMIN"
+              ],
+              "gating": "Pilot mode renders PilotPlaceholder",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none",
+        "command_palette": "none",
+        "notifications": "none",
+        "help": "none",
+        "guide": "none",
+        "org_switcher": "none",
+        "product_switcher": "'Back to App' link only",
+        "create_button": "none",
+        "ai_entry": "none",
+        "theme_toggle": "none",
+        "language": "none",
+        "user_menu": [
+          "Avatar (initials, bg-plum), name, 'ADMIN MODE'",
+          "'Switch Identity' to non-admin demo users",
+          "Change Password (pilot only)",
+          "Log Out"
+        ],
+        "sign_out": "'Log Out' in the user popover",
+        "plan_badge": "none",
+        "env_badge": "Dashboard header chips 'STRIPE: MOCK' and 'DB: SYNTHETIC' (AdminOverview.tsx:51-58); sidebar OPERATIONAL/MAINTENANCE dot",
+        "impersonation": "Demo-only identity switch; no banner",
+        "other": [
+          "'Back to App' link at top of sidebar"
+        ]
+      },
+      "responsive": "None. 240px sidebar fixed at every width; at 390px the dashboard is squeezed into a ~150px column. No drawer.",
+      "active_state": "NavLink active: bg-plum/10, plum text and icon, 2px plum left border. Inactive gray-500, hover bg-gray-50.",
+      "colours": {
+        "sidebar_bg": "#ffffff",
+        "content_bg": "#F8F9FA",
+        "accent": "plum #5B2B4A",
+        "chart": "amethyst #8B4E87 area, plum #5B2B4A bars",
+        "status": "Tailwind green/yellow/red/blue defaults"
+      },
+      "fonts": "Inter body, Poppins headings, browser default mono (font-mono) for figures and env chips",
+      "a11y": "No aria, no focus styles, no reduced motion (animate-fade-in-up on the dashboard). Labels are 10px uppercase gray-400 on white, likely below AA.",
+      "role_variants": "Only role ADMIN (platform admin) reaches /admin; others are redirected to /dashboard (App.tsx:550-553). No sub-roles inside the console.",
+      "dashboard": {
+        "route": "/admin",
+        "file": "components/AdminOverview.tsx",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "Dashboard",
+            "detail": "'Operational oversight for Tinara Intelligence Engine.'"
+          },
+          {
+            "order": 2,
+            "kind": "other",
+            "title": "Environment chips",
+            "detail": "STRIPE: MOCK/LIVE and DB: SYNTHETIC/SUPABASE"
+          },
+          {
+            "order": 3,
+            "kind": "kpi",
+            "title": "MRR",
+            "detail": "$42,500 +12% (hard-coded)"
+          },
+          {
+            "order": 4,
+            "kind": "kpi",
+            "title": "Active Subs",
+            "detail": "342 +8 (hard-coded)"
+          },
+          {
+            "order": 5,
+            "kind": "kpi",
+            "title": "Trial Users",
+            "detail": "115 -2% (hard-coded)"
+          },
+          {
+            "order": 6,
+            "kind": "kpi",
+            "title": "Churn Rate",
+            "detail": "2.4% -0.1% (hard-coded)"
+          },
+          {
+            "order": 7,
+            "kind": "chart",
+            "title": "Revenue distribution by plan",
+            "detail": "Recharts horizontal bar chart (Starter/Pro/Ent) with a legend list Enterprise $26k, Professional $12k, Starter $4k; only two of the three bars are visible in the capture"
+          },
+          {
+            "order": 8,
+            "kind": "chart",
+            "title": "Token consumption (7 days)",
+            "detail": "Recharts area chart Mon-Sun, total 395k tokens chip"
+          },
+          {
+            "order": 9,
+            "kind": "kpi",
+            "title": "Avg cost / report, AI failure rate, Model dist.",
+            "detail": "$0.042, 0.8%, '85% Flash / 15% Pro' stacked tiles"
+          },
+          {
+            "order": 10,
+            "kind": "table",
+            "title": "Data pipeline status",
+            "detail": "Source / Status / Freshness / Rows: Synthetic (MY), Supabase (Prod), External CRM"
+          },
+          {
+            "order": 11,
+            "kind": "kpi",
+            "title": "System health",
+            "detail": "2x2 tiles: Uptime 99.98%, Avg latency 145ms, DB response 24ms, Err rate 0.02%"
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "screenshots/01-customer-dashboard-desktop.png",
+      "surface": "customer",
+      "what": "Overview dashboard after a demo campaign, sidebar nav",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode (VITE_ENABLE_DEMO_MODE=true), campaign run through the wizard with the built-in synthetic data"
+    },
+    {
+      "file": "screenshots/01-customer-dashboard-empty-desktop.png",
+      "surface": "customer",
+      "what": "Overview dashboard before any campaign (empty chart state, faded demo Top Targets)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode"
+    },
+    {
+      "file": "screenshots/01-customer-user-menu-open-desktop.png",
+      "surface": "customer",
+      "what": "User popover open (Switch Identity, Log Out) as USER",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode"
+    },
+    {
+      "file": "screenshots/01-customer-dashboard-admin-role-desktop.png",
+      "surface": "customer",
+      "what": "Overview as ADMIN: '+250' demo top-up replaces 'Top up'",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode"
+    },
+    {
+      "file": "screenshots/01-customer-user-menu-admin-role-desktop.png",
+      "surface": "customer",
+      "what": "User popover as ADMIN with Admin Console link",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode"
+    },
+    {
+      "file": "screenshots/02-customer-dashboard-mobile.png",
+      "surface": "customer",
+      "what": "Overview at phone width: sidebar does not collapse",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": "There is no mobile nav to open, so no 'nav open' capture exists"
+    },
+    {
+      "file": "screenshots/02-customer-dashboard-empty-mobile.png",
+      "surface": "customer",
+      "what": "Empty Overview at phone width",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": "Demo mode"
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-desktop.png",
+      "surface": "axle",
+      "what": "Tinara Admin dashboard and sidebar",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode, identity switched to the demo ADMIN"
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-desktop-full.png",
+      "surface": "axle",
+      "what": "Tinara Admin dashboard, full page",
+      "viewport": "1440 wide, full page",
+      "method": "local-run",
+      "notes": "Demo mode"
+    },
+    {
+      "file": "screenshots/03-axle-user-menu-open-desktop.png",
+      "surface": "axle",
+      "what": "Tinara Admin user popover",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode"
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-mobile.png",
+      "surface": "axle",
+      "what": "Tinara Admin at phone width: sidebar does not collapse",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": "Demo mode"
+    },
+    {
+      "file": "screenshots/03-axle-users-desktop.png",
+      "surface": "axle",
+      "what": "Users & Access page (active nav state on a second item)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode"
+    },
+    {
+      "file": "screenshots/04-customer-wizard-step1-desktop.png",
+      "surface": "customer",
+      "what": "Campaign wizard immersive layout, step 1 (no sidebar)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode"
+    },
+    {
+      "file": "screenshots/04-customer-wizard-results-desktop.png",
+      "surface": "customer",
+      "what": "Campaign wizard step 5 results header",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode, synthetic results"
+    },
+    {
+      "file": "screenshots/05-signin-desktop.png",
+      "surface": "customer",
+      "what": "Sign-in screen (form + rotating showcase panel)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Demo mode off, VITE_SUPABASE_URL pointed at an unused local port with page.route stubs; no session"
+    },
+    {
+      "file": "screenshots/05-signin-mobile.png",
+      "surface": "customer",
+      "what": "Sign-in at phone width",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": "Showcase panel hidden below lg"
+    },
+    {
+      "file": "screenshots/06-customer-splash-intro-desktop.png",
+      "surface": "customer",
+      "what": "Demo splash intro animation (T tile, 'by REKA')",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode only; 3 s hold"
+    },
+    {
+      "file": "screenshots/06-customer-splash-launcher-desktop.png",
+      "surface": "customer",
+      "what": "Demo launcher: Start Intelligence / My Dashboard cards and identity chip",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode only"
+    },
+    {
+      "file": "screenshots/07-customer-pilot-dashboard-desktop.png",
+      "surface": "customer",
+      "what": "Overview in pilot (production) mode, empty organisation",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Fake Supabase session in localStorage; page.route stubs current_user_context (fictional 'Demo Sdn Bhd'), credit_accounts (480) and returns [] for other REST calls"
+    },
+    {
+      "file": "screenshots/07-customer-pilot-user-menu-desktop.png",
+      "surface": "customer",
+      "what": "Pilot user menu as a partner: empty 'Switch Identity' heading, Change Password, Log Out",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Shows the empty heading bug"
+    },
+    {
+      "file": "screenshots/07-customer-pilot-user-menu-admin-desktop.png",
+      "surface": "customer",
+      "what": "Pilot user menu as platform admin: Admin Console, Change Password, Log Out",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/08-axle-pilot-dashboard-desktop.png",
+      "surface": "axle",
+      "what": "Tinara Admin dashboard in pilot mode",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Same hard-coded figures as demo: AdminOverview is not gated"
+    },
+    {
+      "file": "screenshots/08-axle-pilot-placeholder-desktop.png",
+      "surface": "axle",
+      "what": "Pilot placeholder panel (Plans & Discounts)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "8 of 12 admin items show this in pilot mode"
+    }
+  ],
+  "brand_gaps": [
+    "Credit line is 'by REKA' with REKA in orange #fb9800 in the sidebar, wizard header, sign-in and splash; brand kit wants 'Tinara · by AntaraX' in chrome and 'Tinara by AntaraX, from REKA.' on sign-in, and REKA orange removed.",
+    "No logo: a plum 'T' letter tile everywhere (sidebar, admin, sign-in, splash). Brand kit logo is 'the signal' (assets/products/tinara/tinara-logo.svg, -small, -light).",
+    "Colour: plum #5B2B4A leads with amethyst #8B4E87 gradients and charts; brand kit moves to garnet #7A1E3C (hover #511A2A, tint #FEF4F6) with gold #D6A84F, and retires amethyst.",
+    "Dark surfaces #0f172a (sidebar), #0B1120 and #1a0515 (splash) should move to the dark product ground #071233.",
+    "Type: Inter for body plus Poppins display; brand kit wants Poppins only and JetBrains Mono tabular figures for scores, credits and counts.",
+    "Admin console is called 'Tinara Admin', light and plum, with 'Admin Mode' and 'Control Tower' wording; AXLE standard is 'AXLE · Tinara', dark ground #071233 / raised #0C1B47, REKA orange accent, AntaraX A in the corner, at axle.antarax.ai (until then axle.tinara.antarax.ai), not a route inside the customer app.",
+    "Admin dashboard shows fabricated USD figures ($42,500 MRR, $26k Enterprise) and old plan names Starter/Pro/Enterprise even in pilot mode; money should be RM or US$ and plans Seed, Nova, Galaxy.",
+    "No Help item in the menu, no /guide or /help, and no help link on sign-in; sign-in says 'Contact your REKA administrator' rather than the support line support@go.antarax.ai.",
+    "Words: 'Log Out' should be 'Sign out'; 'Subscription' should be 'Plan' or 'Billing'; 'Users & Access' should use members; roles show as USER and ADMIN in capitals; 'organization' (US) in copy; Title Case and uppercase labels throughout instead of sentence case.",
+    "No AntaraX layer: no AI sparkle beside rankings or briefs, no kerawang motif in empty states (the empty chart uses a generic bar icon), no Swell on the sign-in panel (blur orbs instead), no app tile, no legal footer.",
+    "Accessibility: no visible focus ring (AntaraX blue #0459F7 required), no reduced-motion handling, no aria on the nav, small 10px gray labels, and no responsive layout at all on either shell.",
+    "Prototype naming: 'Strategic Intelligence Platform v2.0', 'REKA Intelligence', 'Tinara Intelligence Engine', 'Initializing Intelligence Core' and metadata 'Remix: Remix: Remix: Tinara by REKA v1.5'.",
+    "The org name is never shown and there is no organisation switcher, although memberships are loaded."
+  ],
+  "notes": "Branch build/production-foundation at 02d53b7 (24 Jul 2026). Two runtime modes: demo (VITE_ENABLE_DEMO_MODE, default in dev; bypasses auth, synthetic data, splash and identity switcher) and pilot/production (Supabase auth, AuthScreen, org-scoped credits). All demo captures used the repo's own demo mode; pilot captures used a fake session plus page.route stubs with fictional data, no real backend. Customer shell and admin console share one SPA and one bundle. No existing screenshots in the repo. Recharts is the chart library; icons are inline Heroicons v1 outline paths (stroke 2) at w-5 (customer) and w-4 (admin)."
+}

@@ -1,0 +1,578 @@
+{
+  "product": "Lapisan Console (Lapisan by AntaraX) and AXLE Central (planned)",
+  "repo": "haziqfaris/antarax-api",
+  "commit": "05ea388",
+  "stack": "Next.js 16.3.8 (App Router, Turbopack), React 19.2.8, server actions, plain CSS with custom properties (no Tailwind, no icon library), Supabase via @lapisan/postgres or in-memory demo stores, Resend email, Vercel sin1",
+  "surfaces": [
+    {
+      "surface": "developer",
+      "name": "Lapisan Console (signed-in team console)",
+      "host_or_route": "lapisan.antarax.ai /t/[team]/... (not yet deployed; demo mode at localhost)",
+      "entry_files": [
+        "apps/console/app/t/[team]/layout.tsx:7-52",
+        "apps/console/components/bar.tsx:4-43",
+        "apps/console/components/bar.tsx:45-55",
+        "apps/console/components/nav.tsx:6-15",
+        "apps/console/app/layout.tsx:15-33",
+        "apps/console/app/globals.css:48-56",
+        "apps/console/app/globals.css:145-162",
+        "apps/console/lib/products.ts:20-34",
+        "apps/console/lib/session.ts:67-72"
+      ],
+      "layout": "Sticky full-width top bar (min-height 56px, max content 1200px, translucent #fbfcfe with blur, bottom border) plus a left text sidebar in a 2-column grid (220px sidebar, sticky top 72px; content minmax(0,1fr); gap 24px). No icons, no collapse/rail. Under 860px the sidebar becomes horizontally scrolling rows of bordered chips above the content (one row per group). No footer on team pages (the Footer component is used only on /teams).",
+      "brand": {
+        "logo": "apps/console/public/brand/antarax-mark.svg (the AntaraX A, 28x28)",
+        "name_text": "Lapisan",
+        "eyebrow": "",
+        "credit_line": "by AntaraX (small, ink-3, beside the name)",
+        "other": "Team name chip after the brand (mono chip, title = team id). Brand links to /teams when signed in, / when not (bar.tsx:9). Page crumb above each H1 = team name (and product)."
+      },
+      "nav_groups": [
+        {
+          "label": "Lapis API (product name; one group per live product)",
+          "items": [
+            {
+              "label": "Overview",
+              "route": "/t/[team]/lapis",
+              "icon": "none (text only)",
+              "roles": [
+                "viewer",
+                "developer",
+                "owner"
+              ],
+              "gating": "Rendered once per LIVE product (lib/products.ts:34, status 'live'); today only Lapis API; exact match for active; source layout.tsx:25",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Keys",
+              "route": "/t/[team]/lapis/keys",
+              "icon": "none (text only)",
+              "roles": [
+                "viewer",
+                "developer",
+                "owner"
+              ],
+              "gating": "Rendered once per LIVE product (lib/products.ts:34, status 'live'); today only Lapis API; making keys needs developer, live keys need approval; source layout.tsx:28",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Apps",
+              "route": "/t/[team]/lapis/apps",
+              "icon": "none (text only)",
+              "roles": [
+                "viewer",
+                "developer",
+                "owner"
+              ],
+              "gating": "Rendered once per LIVE product (lib/products.ts:34, status 'live'); today only Lapis API; register/change apps needs developer; source layout.tsx:29",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Webhooks",
+              "route": "/t/[team]/lapis/webhooks",
+              "icon": "none (text only)",
+              "roles": [
+                "viewer",
+                "developer",
+                "owner"
+              ],
+              "gating": "Rendered once per LIVE product (lib/products.ts:34, status 'live'); today only Lapis API; endpoints need developer; source layout.tsx:30",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Usage",
+              "route": "/t/[team]/lapis/usage",
+              "icon": "none (text only)",
+              "roles": [
+                "viewer",
+                "developer",
+                "owner"
+              ],
+              "gating": "Rendered once per LIVE product (lib/products.ts:34, status 'live'); today only Lapis API; source layout.tsx:31",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Logs",
+              "route": "/t/[team]/lapis/logs",
+              "icon": "none (text only)",
+              "roles": [
+                "viewer",
+                "developer",
+                "owner"
+              ],
+              "gating": "Rendered once per LIVE product (lib/products.ts:34, status 'live'); today only Lapis API; source layout.tsx:32",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Go live",
+              "route": "/t/[team]/lapis/live",
+              "icon": "none (text only)",
+              "roles": [
+                "viewer",
+                "developer",
+                "owner"
+              ],
+              "gating": "Rendered once per LIVE product (lib/products.ts:34, status 'live'); today only Lapis API; asking and linking accounts need owner; source layout.tsx:33",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Team",
+          "items": [
+            {
+              "label": "People",
+              "route": "/t/[team]/team",
+              "icon": "none (text only)",
+              "roles": [
+                "viewer",
+                "developer",
+                "owner"
+              ],
+              "gating": "invite, change role, remove need owner; source layout.tsx:38",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Settings",
+              "route": "/t/[team]/settings",
+              "icon": "none (text only)",
+              "roles": [
+                "viewer",
+                "developer",
+                "owner"
+              ],
+              "gating": "rename team needs owner; Sign out everywhere and Leave the team for everyone; source layout.tsx:39",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Docs",
+              "route": "https://antarax.ai/angka/lapis-api/docs (external, LIVE_PRODUCTS[0].docs)",
+              "icon": "none (text only)",
+              "roles": [
+                "viewer",
+                "developer",
+                "owner"
+              ],
+              "gating": "external link, no new-tab marker; source layout.tsx:40",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "(footnote, not links)",
+          "items": [
+            {
+              "label": "Coming soon: Yara API, Janka API, Frame API.",
+              "route": "",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "developer",
+                "owner"
+              ],
+              "gating": "plain text from PRODUCTS with status 'soon' (lib/products.ts:29-31); source layout.tsx:44",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none",
+        "command_palette": "none",
+        "notifications": "none",
+        "help": "none (no Help item, no /help, no support address)",
+        "guide": "none (only the external Docs link in the Team group)",
+        "org_switcher": "none in the bar; team name is a static chip (layout.tsx:16-18). Switching teams = brand link to /teams, which auto-redirects when the person has one team (app/teams/page.tsx:21); /teams?all=1 lists all",
+        "product_switcher": "none; products are sidebar groups (only Lapis API is live)",
+        "create_button": "none global",
+        "ai_entry": "none",
+        "theme_toggle": "none (light only, color-scheme: light)",
+        "language": "none (English only)",
+        "user_menu": [],
+        "sign_out": "'Sign out' ghost button in the bar (bar.tsx:23-27); 'Sign out everywhere' lives on Settings (app/t/[team]/settings/page.tsx:56)",
+        "plan_badge": "none",
+        "env_badge": "none in the bar; tenant chips on Overview ('Sandbox: Demo Sdn Bhd (sandbox)'); test/live mode chips in tables",
+        "impersonation": "none",
+        "other": [
+          "Signed-in email shown as plain text, ellipsised at 22ch (bar.tsx:20-22, globals.css:56)",
+          "Skip link 'Skip to the page' (app/layout.tsx:26-28)",
+          "Whole-app 'Lapisan is not set up yet' page replaces every screen when production settings are missing (app/layout.tsx:29,36-51)",
+          "Demo mode only: 'Demo mode: decide it as AXLE would' Approve/Decline panel on Go live (app/t/[team]/[product]/live/page.tsx:47-55)"
+        ]
+      },
+      "responsive": "One breakpoint for the shell, max-width 860px (globals.css:156-162): grid becomes one column, sidebar goes static above content, each group becomes a horizontal overflow-x scroll row of bordered pill links (white, 1px line), group titles hidden; 'Coming soon' text stays. No hamburger, drawer or bottom bar. The top bar does not adapt: at 390px the brand text wraps to three lines and the email and Sign out button overflow (document scrollWidth 421px at 390px viewport, measured). Tables with class 'stacked' turn into label/value rows under 720px. Grids use auto-fit minmax(320px) so Overview cards stack.",
+      "active_state": "NavLink sets aria-current='page' (nav.tsx:8-10); styled background var(--blue-soft) #e5eeff, text var(--blue-ink) #0047c2, weight 500, radius 8px (globals.css:152). Hover: #f3f7ff background. Overview uses exact match, others prefix match.",
+      "colours": {
+        "--blue (primary action)": "#0062fb",
+        "--blue-hover": "#0052d6",
+        "--blue-ink": "#0047c2",
+        "--blue-soft": "#e5eeff",
+        "--blue-wash": "#f3f7ff",
+        "--orange (signal only)": "#fb9800",
+        "--orange-ink": "#8a5200",
+        "--orange-soft": "#fff4e0",
+        "--ink": "#0e1420",
+        "--ink-2": "#4a5568",
+        "--ink-3": "#6b7588",
+        "--line": "#e4e9f0",
+        "--line-2": "#eef1f5",
+        "--page": "#fbfcfe",
+        "--card": "#ffffff",
+        "--ok": "#0b7d4b",
+        "--ok-soft": "#e8f8f0",
+        "--fault": "#c0261b",
+        "--fault-soft": "#fdecec",
+        "source": "apps/console/app/globals.css:3-29"
+      },
+      "fonts": "Poppins 400/500/600 for words, JetBrains Mono 400/500/600 for keys, ids, chips, figures and code (Google Fonts, app/layout.tsx:23). Body 15px/1.6; H1 26px/600; H2 19px; H3 15.5px. Nav links 14px; group titles 11.5px uppercase 600 letter-spacing .06em.",
+      "a11y": "Focus ring 2px solid #0062fb, offset 2px (globals.css:41). Skip link. aria-current on active link; nav has aria-label 'Console'. Reduced motion: only button transitions disabled (globals.css:88). Nav links ~38px tall and btn-sm 32px (below the brand kit's 44px target). No icons, so nothing to label.",
+      "role_variants": "Team roles viewer < developer < owner (docs/13-console.md:25-29). The sidebar is identical for every role; gating happens inside pages (forms hidden or a line like 'Try it needs the developer role.'). Non-members get a 404 (lib/session.ts:67-72).",
+      "dashboard": {
+        "route": "/t/[team]/[product] (Overview, e.g. /t/team_x/lapis). /t/[team] redirects here, or to /welcome when the team has no sandbox yet (app/t/[team]/page.tsx:13)",
+        "file": "apps/console/app/t/[team]/[product]/page.tsx",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "Page head",
+            "detail": "Crumb = team name; H1 = product name ('Lapis API'); tenant chips 'Sandbox: <label>' / 'Your account' / 'Partner account' (page.tsx:24-34)"
+          },
+          {
+            "order": 2,
+            "kind": "quick-actions",
+            "title": "Your way to live",
+            "detail": "Five-step checklist with ticks (Make your account, Get a test key, Make your first test call, Ask for live access, Go live) and one primary button 'Next: <step>' linking to Keys, Welcome or Go live (page.tsx:36-59)"
+          },
+          {
+            "order": 3,
+            "kind": "kpi",
+            "title": "Today",
+            "detail": "Two figures in mono 26px: calls by your keys; errors (red when >0). Note 'Days are Malaysia time. More in Usage.' (page.tsx:61-76)"
+          },
+          {
+            "order": 4,
+            "kind": "table",
+            "title": "Latest calls",
+            "detail": "CallsTable: When, Call (method + path), Status chip, Mode chip (test/live), Time (ms), Request id; header link 'All calls' to Logs; empty state 'No calls yet. Run the quickstart's curl, or Try it below.' (page.tsx:79-85)"
+          },
+          {
+            "order": 5,
+            "kind": "other",
+            "title": "Try it",
+            "detail": "Select of safe calls (List documents, List customers, draft invoice dry run) + 'Run it'; shows status and request id chips and the JSON answer; disabled below developer role (page.tsx:87-90, components/product-panels.tsx)"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "other",
+      "name": "Lapisan public frame (landing, sign-up, sign-in, invite, not found)",
+      "host_or_route": "lapisan.antarax.ai /, /signup, /signin, /signin/sent, /signin/open, /invite/[token]",
+      "entry_files": [
+        "apps/console/components/site-frame.tsx:21-67",
+        "apps/console/components/site-frame.tsx:72-157",
+        "apps/console/components/site-frame.css:1-75",
+        "apps/console/app/page.tsx:12-131",
+        "apps/console/app/signin/page.tsx:11-33"
+      ],
+      "layout": "antarax.ai top bar: a floating white card (height 64px, radius 24px, max 1520px) sticky at the top with the brand pill on the left and Lapisan's own items on the right; antarax.ai navy footer (#0B1B4F) on the landing page only.",
+      "brand": {
+        "logo": "apps/console/public/brand/antarax-mark.svg twice: the AntaraX A alone (link to antarax.ai) and the A + 'Lapisan' in a raised white chip (link to /)",
+        "name_text": "Lapisan",
+        "eyebrow": "Landing: 'Lapisan · the AntaraX developer platform' (mono chip, app/page.tsx:22)",
+        "credit_line": "Footer: '© 2026 AntaraX, a product line of REKA Inisiatif Sdn Bhd' and 'Lapisan by AntaraX' row",
+        "other": "aria-label 'Lapisan by AntaraX, home'"
+      },
+      "nav_groups": [
+        {
+          "label": "Bar (right)",
+          "items": [
+            {
+              "label": "Docs",
+              "route": "https://antarax.ai/angka/lapis-api/docs",
+              "icon": "none",
+              "roles": [
+                "public"
+              ],
+              "gating": "hidden under 560px",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Sign in",
+              "route": "/signin",
+              "icon": "none",
+              "roles": [
+                "signed out"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Sign up",
+              "route": "/signup",
+              "icon": "none",
+              "roles": [
+                "signed out"
+              ],
+              "gating": "primary button",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "<email> + Sign out",
+              "route": "(server action)",
+              "icon": "none",
+              "roles": [
+                "signed in"
+              ],
+              "gating": "replaces Sign in/Sign up",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Footer: Products / Solutions / Company",
+          "items": [
+            {
+              "label": "Yara, Janka, PLExyz Grid, Closed pilots, Request pilot access, Pricing, Yara log in; By problem, By industry, Technology, Product families; Book a demo, Our story, About REKA, Careers, Lapisan for developers; Privacy, Terms; Lapis API docs",
+              "route": "antarax.ai and reka.re links",
+              "icon": "none",
+              "roles": [
+                "public"
+              ],
+              "gating": "landing page only",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none",
+        "command_palette": "none",
+        "notifications": "none",
+        "help": "none",
+        "guide": "Docs link",
+        "org_switcher": "none",
+        "product_switcher": "none (AntaraX A goes back to antarax.ai)",
+        "create_button": "Sign up",
+        "ai_entry": "none",
+        "theme_toggle": "none",
+        "language": "none",
+        "user_menu": [],
+        "sign_out": "Sign out button when signed in",
+        "plan_badge": "none",
+        "env_badge": "Demo mode notices on /signin/sent",
+        "impersonation": "none",
+        "other": []
+      },
+      "responsive": "Under 560px: bar height 58px, radius 20px, Docs link hidden, email max 12ch; footer columns 3 → 2 under 600px.",
+      "active_state": "Brand chip carries aria-current='page' on the landing page",
+      "colours": {
+        "--ax-blue-core": "#0459F7",
+        "--navy (footer)": "#0B1B4F",
+        "bar border": "#E3E8F4",
+        "pill ground": "#EEF2FA",
+        "buttons": "Console #0062fb"
+      },
+      "fonts": "Poppins",
+      "a11y": "3px #0459F7 focus ring inside .axf; all motion off for reduced motion (site-frame.css:73-75)",
+      "role_variants": "signed in vs signed out only",
+      "dashboard": null
+    },
+    {
+      "surface": "axle",
+      "name": "AXLE Central (planned, not built in this repo)",
+      "host_or_route": "axle.antarax.ai (planned, Stage 2)",
+      "entry_files": [
+        "docs/07-operations-and-axle.md:5-99",
+        "docs/08-infrastructure.md:100",
+        "docs/08-infrastructure.md:110",
+        "docs/12-roadmap.md:39",
+        "docs/12-roadmap.md:59-61",
+        "docs/decisions/0009-lapisan-platform-name.md:10",
+        "registry/registry.json:22-24",
+        "packages/lapisan-core/src/link/contract.ts:11-91",
+        "packages/lapisan-core/src/link/handlers.ts:40-122"
+      ],
+      "layout": null,
+      "brand": {
+        "logo": null,
+        "name_text": "AXLE Central",
+        "eyebrow": null,
+        "credit_line": null,
+        "other": "No UI exists. Only the internal AXLE Link contract (four signed endpoints every product serves) and audit wording ('AXLE Central read health: ...') are built."
+      },
+      "nav_groups": [],
+      "global_controls": {
+        "search": null,
+        "command_palette": null,
+        "notifications": null,
+        "help": null,
+        "guide": null,
+        "org_switcher": null,
+        "product_switcher": null,
+        "create_button": null,
+        "ai_entry": null,
+        "theme_toggle": null,
+        "language": null,
+        "user_menu": [],
+        "sign_out": null,
+        "plan_badge": null,
+        "env_badge": null,
+        "impersonation": null,
+        "other": [
+          "The only AXLE-like UI in the repo is the demo-only 'Demo mode: decide it as AXLE would' Approve/Decline panel inside the developer Go live page (apps/console/app/t/[team]/[product]/live/page.tsx:47-55; action lib/actions/product.ts:80-99). Real decisions happen in Angka's AXLE (axle.angka.antarax.ai) via decideAccessRequest (docs/13-console.md:57)."
+        ]
+      },
+      "responsive": null,
+      "active_state": null,
+      "colours": {},
+      "fonts": null,
+      "a11y": null,
+      "role_variants": "Planned staff ladder viewer < support < operator < admin < owner, two-person rule for irreversible actions (docs/07-operations-and-axle.md:54-66)",
+      "dashboard": null
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "screenshots/01-developer-dashboard-desktop.png",
+      "surface": "developer",
+      "what": "Overview (dashboard) with top bar and sidebar",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode (no Supabase, in-memory stores); fictional team Demo Sdn Bhd; six test calls made with the sandbox test key against the demo stand-in Lapis API"
+    },
+    {
+      "file": "screenshots/01-developer-dashboard-desktop-full.png",
+      "surface": "developer",
+      "what": "Overview, full page (includes Try it)",
+      "viewport": "1440x900 full page",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/02-developer-dashboard-mobile.png",
+      "surface": "developer",
+      "what": "Overview on a phone: nav as chip rows above content",
+      "viewport": "390x844 @2x",
+      "method": "local-run",
+      "notes": "Taken after the access request, so step 4 is ticked. The top bar overflows (email and Sign out clipped). There is no drawer to open."
+    },
+    {
+      "file": "screenshots/02-developer-dashboard-mobile-full.png",
+      "surface": "developer",
+      "what": "Overview on a phone, full page",
+      "viewport": "390x844 @2x full page",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/02-developer-nav-scrolled-mobile.png",
+      "surface": "developer",
+      "what": "Mobile nav: product row scrolled sideways (the nearest thing to an open menu)",
+      "viewport": "390x844 @2x",
+      "method": "local-run",
+      "notes": "No hamburger or drawer exists"
+    },
+    {
+      "file": "screenshots/05-developer-signin-desktop.png",
+      "surface": "developer",
+      "what": "Sign in (public frame bar)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/05-developer-signin-mobile.png",
+      "surface": "developer",
+      "what": "Sign in on a phone",
+      "viewport": "390x844 @2x",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/07-public-landing-desktop.png",
+      "surface": "other",
+      "what": "Public landing page with the antarax.ai floating bar",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/08-developer-welcome-desktop.png",
+      "surface": "developer",
+      "what": "Welcome (first visit): sandbox set up, first test key shown once, quickstart",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Key shown is a demo in-memory key, worthless outside the stopped demo server"
+    },
+    {
+      "file": "screenshots/09-developer-usage-desktop.png",
+      "surface": "developer",
+      "what": "Usage: 4 KPI tiles, calls-by-day bar chart, day-by-day table",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/09-developer-logs-desktop.png",
+      "surface": "developer",
+      "what": "Logs",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/09-developer-keys-desktop.png",
+      "surface": "developer",
+      "what": "Keys",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/09-developer-team-people-desktop.png",
+      "surface": "developer",
+      "what": "Team · People",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/10-developer-golive-demo-axle-decision-desktop.png",
+      "surface": "developer",
+      "what": "Go live with a pending request and the demo-only 'decide it as AXLE would' panel",
+      "viewport": "1440x900 full page",
+      "method": "local-run",
+      "notes": "Not a real AXLE screen"
+    }
+  ],
+  "brand_gaps": [
+    "Two different bars: public pages use the antarax.ai floating card with brand pill (site-frame.tsx), signed-in pages use a flat sticky bar with 'Lapisan by AntaraX' (bar.tsx). Two blues as well: #0459F7 (public frame) and #0062fb (console tokens).",
+    "Signed-in bar breaks on phones: at 390px the brand wraps to three lines and the email and Sign out overflow the viewport (scrollWidth 421px). No hamburger or drawer; sidebar becomes chip rows.",
+    "No Help item, /help or /guide and no support line (brand kit 13 §8 and §2: one Help item in every menu, support@go.antarax.ai).",
+    "Words: 'team' for the customer account and roles viewer/developer/owner, where brand kit 13 §1 asks for 'organisation' and Owner/Admin/Member/Viewer (a developer role may be a product role named for the job).",
+    "Times on screen are 12-hour ('15 Oct 2026, 1:04 pm', lib/page.ts:19); brand kit 13 §3 asks for 24-hour on screen ('14:30').",
+    "Targets below 44px: nav links about 38px, btn-sm 32px (brand kit 13 §10). Reduced motion only switches off button transitions in the console (the public frame handles it fully).",
+    "No icons anywhere in the nav, no user/avatar menu, no org/team switcher in the bar, no product switcher or app tile.",
+    "Brand kit products/README.md:24 and 05-colour-and-type.md:38 say Lapisan uses the dark blueprint for developer material; the console is light only (acceptable for an app, but worth a decision).",
+    "AXLE Central does not exist yet. Brand kit 13 §6 fixes its look (dark #071233, raised #0C1B47, REKA orange #FB9800, Poppins + JetBrains Mono, AntaraX A, 'AXLE · <product>'), while docs/07 uses 'tenant' throughout; on screen the brand kit word is 'organisation'. The staff role 'support' should not clash with the customer-facing phrase 'REKA support'.",
+    "Demo-only 'decide it as AXLE would' panel shows the internal name AXLE on a customer-facing screen; harmless in demo, but the brand kit says AXLE is never shown to customers (13 §6), so keep it demo-only."
+  ],
+  "notes": "AXLE Central requirements, from docs/07-operations-and-axle.md (full write-up with file:line refs in axle-central-requirements.md). WHAT IT IS: one operator view across every AntaraX product at axle.antarax.ai, its own host, never under api.antarax.ai (07:17; decision 0009:10); Stage 2, same app as the AntaraX Hub (08:100; roadmap 12:39). It does NOT replace product AXLEs: each product keeps its own AXLE (axle.angka/yara/yo/janka, frame-axle) for depth and AXLE Central deep-links into them (07:7-17). DATA: reads each product only through AXLE Link, four signed internal endpoints: tenants (id, label, owner email, plan, API on, stopped), usage totals by tenant/route/unit/day (max 92 days), health (ok/degraded/down + problems), and POST switches (07:31-52). A product may refuse central switches (403 switches_refused) and every call is audited on the product side (07:49-50). SECTIONS each product's AXLE API section has, which Central should summarise across products: Tenants (API on/off, plan, limit overrides, stop with reason, notes), Keys (every key: prefix, mode, scopes, made by, last used; stop one / all of a tenant), Switches (all / product / tenant / key, each with a reason callers see), Calls (calls, errors, p50/p95 by day, route, tenant; latest failed calls with request ids), Lookup (one call by request id) (07:19-29). Also access requests for Lapisan Console (approve with plan / decline with reason, email owners) and sandbox/partner tenants shown as such (13:57, 13:173). OPERATOR TASKS: incident playbook (flooding key: switch off key; bad release: switch off product; leaked key: stop it, search usage by key id; everything: switch off all) with typed customer-facing reasons (07:80-90); watch signals: calls/errors/latency, one failed call by request id, unknown errors, operator audit, tenants near cap (07:68-76); alerts to build: error rate >5% for 5 min, tenant >80% of daily cap, door p95 >300 ms, usage writes failing, email first (07:78). CROSS-PRODUCT NEEDS: one staff role ladder viewer < support < operator < admin < owner, two people for irreversible actions once >2 operators (07:54-66); link tenants of different products into one AntaraX account by owner email or company registration number (08:110); cross-product usage statements and one invoice later (12:42); one sign-in for REKA staff (brand kit 13 §6); data protection rules (no bodies, 13-month usage retention, Singapore region) (07:92-99). In this repo there is no AXLE UI: only the AXLE Link contract/handlers in packages/lapisan-core/src/link and a demo-only Approve/Decline stand-in on the console's Go live page."
+}

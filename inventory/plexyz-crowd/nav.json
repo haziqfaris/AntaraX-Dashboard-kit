@@ -1,0 +1,198 @@
+{
+  "product": "PLExyz Crowd",
+  "repo": "haziqfaris/plexyz-crowd",
+  "commit": "ed08e96",
+  "stack": "Next.js 16.2 (App Router, Turbopack) + React 19, Tailwind CSS v4 (@theme tokens in globals.css), Recharts, three.js; Postgres via pg; HMAC-signed cookie sessions (no Supabase); Node ingest worker fed by RuView simulator containers (docker-compose)",
+  "surfaces": [
+    {
+      "surface": "customer",
+      "name": "Main app, branded \"AXLE · REKA Operations Console\" (the facilities team's console; the brand kit treats this as the customer app)",
+      "host_or_route": "plexyz-crowd.vercel.app (per brand kit 13) · routes /, /devices, /alerts, /analytics, /visitor-analytics, /reports, /settings/*, /zones/[id]",
+      "entry_files": [
+        "app/app/layout.tsx:17-20 (metadata title \"AXLE · REKA Operations Console\")",
+        "app/app/(dashboard)/layout.tsx:9-22 (server session gate, renders AppShell)",
+        "app/components/AppShell.tsx:104-185 (shell: sidebar, mobile drawer, mobile top bar, SimBadge)",
+        "app/components/AppShell.tsx:31-102 (NavLinks with collapsible groups)",
+        "app/lib/nav.ts:26-48 (NAV_SECTIONS config)",
+        "app/components/Logo.tsx:4-61 (AxleMark + AxleLogo lockup)",
+        "app/components/SimBadge.tsx:3-10 (simulated-data banner)",
+        "app/components/SettingsNav.tsx:6-12 (settings sub-tabs)",
+        "app/components/Icons.tsx (custom inline 20x20 line icons)",
+        "app/proxy.ts:7-29 (auth redirect to /login)",
+        "app/app/globals.css:3-26 (colour and font tokens)"
+      ],
+      "layout": "Left sidebar 224px (Tailwind w-56) on lg (>=1024px), full height, not sticky (sidebar footer sits at the bottom of the page, scrolls with content). No desktop top bar. A full-width amber 'SIMULATED DATA' banner sits at the top of the content column on every page. Below lg: slim top bar (hamburger + AXLE wordmark) and a 256px (w-64) left drawer with a 60% black scrim. Content max width 1220px on the dashboard.",
+      "brand": {
+        "logo": "AxleMark: inline SVG hub-and-spokes glyph (\"an axle, end-on\"), 28px, amber accent #fb9800 (app/components/Logo.tsx:4-37). Favicon is the stock Next.js favicon.ico",
+        "name_text": "AXLE (bold, tracking 0.06em, the L in amber)",
+        "eyebrow": "REKA · OPERATIONS (JetBrains Mono 9px uppercase, green #4f9d76)",
+        "credit_line": "none (no 'by AntaraX')",
+        "other": "Page subtitles hard-code the site name 'REKA HQ' (Dashboard.tsx:122). Login subtitle 'REKA Operations Console' (login/page.tsx:44). OnboardingChecklist heading 'Get AXLE ready'. Device catalog copy 'Every sensor type AXLE supports'. localStorage key axle_nav_collapsed. No version or build text."
+      },
+      "nav_groups": [
+        {
+          "label": "Operate",
+          "items": [
+            {"label": "Live", "route": "/", "icon": "custom inline SVG IconLive (target: ring + dot)", "roles": ["admin", "viewer"], "gating": "none", "badge": "", "children": []},
+            {"label": "Devices", "route": "/devices", "icon": "custom inline SVG IconAdapters (plug)", "roles": ["admin", "viewer"], "gating": "none; add/edit/delete controls admin-only in-page", "badge": "", "children": ["/devices/catalog (Device catalog, linked in-page)", "/devices/catalog/[type] (device profile)", "/devices/[sourceId] (device instance)"]},
+            {"label": "Alerts", "route": "/alerts", "icon": "custom inline SVG IconAlerts (bell)", "roles": ["admin", "viewer"], "gating": "none; alert-rule editing admin-only in-page", "badge": "none (no unread count in nav)", "children": []}
+          ]
+        },
+        {
+          "label": "Analyze",
+          "items": [
+            {"label": "Analytics", "route": "/analytics", "icon": "custom inline SVG IconAnalytics (three bars)", "roles": ["admin", "viewer"], "gating": "none", "badge": "", "children": []},
+            {"label": "Visitor Analytics", "route": "/visitor-analytics", "icon": "custom inline SVG IconPeople (two people)", "roles": ["admin", "viewer"], "gating": "none in nav; dataset upload and visitor-zone APIs require admin", "badge": "", "children": []},
+            {"label": "Reports", "route": "/reports", "icon": "custom inline SVG IconReports (document)", "roles": ["admin", "viewer"], "gating": "none", "badge": "", "children": ["/print/monthly (print-ready monthly report, opens in a new tab)"]}
+          ]
+        },
+        {
+          "label": "Configure",
+          "items": [
+            {"label": "Settings", "route": "/settings", "icon": "custom inline SVG IconSettings (gear)", "roles": ["admin", "viewer"], "gating": "visible to all; most writes admin-only in-page and in the API", "badge": "", "children": ["Setup /settings/setup", "Zones /settings", "Floor Plan /settings/floor-plan", "Users /settings/users", "Audit /settings/audit"]}
+          ]
+        },
+        {
+          "label": "Sidebar footer",
+          "items": [
+            {"label": "Client view →", "route": "/client", "icon": "text arrow", "roles": ["admin", "viewer"], "gating": "none", "badge": "", "children": []}
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none",
+        "command_palette": "none",
+        "notifications": "none (alerts only as a nav item and a dashboard panel)",
+        "help": "none",
+        "guide": "none",
+        "org_switcher": "none (single org; session carries orgId)",
+        "product_switcher": "none",
+        "create_button": "none global (Add device lives on /devices)",
+        "ai_entry": "none",
+        "theme_toggle": "none (dark only)",
+        "language": "none (English only)",
+        "user_menu": ["signed-in email (text)", "role in mono uppercase (ADMIN / VIEWER)", "Client view → link", "Sign out button"],
+        "sign_out": "Button in sidebar footer (POST /api/auth/logout, then /login)",
+        "plan_badge": "none",
+        "env_badge": "SimBadge banner: 'SIMULATED DATA · RuView Docker simulator, not live customer sensors' on every (dashboard) page, amber on amber tint",
+        "impersonation": "none",
+        "other": ["Nav group headers are buttons that collapse/expand the group, state saved to localStorage key axle_nav_collapsed", "Dashboard header has a floor selector (All floors / per floor) and a 'Linked: <adapter> ×N' status pill with green/red dot"]
+      },
+      "responsive": "Breakpoint lg (1024px). >=lg: fixed 224px sidebar. <lg: sidebar hidden; slim top bar with hamburger (aria-label 'Open menu') and the AXLE wordmark; tapping opens a 256px left drawer with scrim, close button (aria-label 'Close menu'), the same nav groups and the same footer; tapping a link closes it. Dashboard KPIs go 4 columns to 2; panels go 3 columns to 1.",
+      "active_state": "Active item: bg panel2 #202a22, text ink #eef2ec, font-medium, icon turns amber #fb9800; inactive text dim #a9b6ac with faint icon #6f7d73; hover bg panel2/60. Live is active only on exact '/'; Devices and Settings use prefix match. No aria-current.",
+      "colours": {
+        "bg": "#0e1310", "raised (sidebar)": "#161d18", "panel": "#1a221c", "panel2": "#202a22",
+        "line": "#2b362e", "linesoft": "#212b23", "ink": "#eef2ec", "dim": "#a9b6ac", "faint": "#6f7d73",
+        "accent (primary action, active icon)": "#fb9800", "accent-dim": "#8a5b1c",
+        "green": "#2d6a4f", "green-bright (eyebrow, ok, focus)": "#4f9d76", "green-glow": "#7fd9ab",
+        "red": "#e2574c", "blue": "#5aa7d6",
+        "body glows": "radial green rgba(45,106,79,.22) top-left, amber rgba(251,152,0,.07) top-right"
+      },
+      "fonts": "Poppins 400-800 (UI, --font-poppins) and JetBrains Mono 400-600 (numbers, eyebrows, tags) via next/font/google. Nav items 13px, group labels mono 9.5px uppercase 0.12em tracking. Nav icons 18px.",
+      "a11y": "Focus ring only on input/select/textarea (green #4f9d76 border + 2px 25% halo, globals.css:70-77); no focus style on links/buttons, and no AntaraX blue ring. No prefers-reduced-motion handling; skeleton shimmer loops forever (globals.css:51-60) and panels animate in (axle-rise). Drawer buttons have aria-labels; nav has no aria-current. Dark only. html lang='en'.",
+      "role_variants": "Two roles: admin and viewer (session.role). The nav is identical for both. Differences are in-page: viewers lose 'Edit layout' on the live map, device add/edit/toggle/delete, alert-rule editing, user management, zone calibration; admin-only APIs return 403. Any signed-in user can open the client view.",
+      "dashboard": {
+        "route": "/",
+        "file": "app/components/Dashboard.tsx (via app/app/(dashboard)/page.tsx)",
+        "widgets": [
+          {"order": 1, "kind": "greeting", "title": "Live", "detail": "Page title with subtitle 'REKA HQ, real-time occupancy from every connected adapter.' (hard-coded site)"},
+          {"order": 2, "kind": "filter", "title": "Floor selector", "detail": "Select: All floors / Floor 2 / Floor 3 · Mezzanine; shown only when more than one floor"},
+          {"order": 3, "kind": "other", "title": "Hardware status pill", "detail": "'Linked: simulator ×4' with green dot, or 'No live sources' with red dot"},
+          {"order": 4, "kind": "kpi", "title": "Zones live", "detail": "count of zones with fresh data, sub 'of N zones'"},
+          {"order": 5, "kind": "kpi", "title": "Occupancy index", "detail": "sum of zone occupancy, amber, sub 'estimated' or 'incl. measured · CSI'"},
+          {"order": 6, "kind": "kpi", "title": "Alerts today", "detail": "count, amber when >0 else green, sub 'occupancy rules'"},
+          {"order": 7, "kind": "kpi", "title": "Data sources", "detail": "count of sources, sub 'N events / min'"},
+          {"order": 8, "kind": "chart", "title": "Floor 2 · live map", "detail": "Floor-plan schematic (2 of 3 columns): zone rectangles shaded amber when busy, dashed green for through-wall crowd-node zones, label with occupancy; optional floor-plan image and shapes; plan switcher; admin-only 'Edit layout' drag/resize; tag 'ZONE SHADING' / 'INCL. THROUGH-WALL'. Title hard-codes 'Floor 2'"},
+          {"order": 9, "kind": "table", "title": "Zones", "detail": "List of zones with source id, EST / MEAS / NO SOURCE chip and occupancy to 1 decimal; each links to /zones/[id]; tag LIVE"},
+          {"order": 10, "kind": "empty-state", "title": "Presence · no-AP rooms (locked)", "detail": "Blurred preview behind lock overlay: 'Presence for rooms without an AP · UNLOCKED AT TIER 1 · RSSI SOFTWARE AGENT', CTA 'Install agent on any Linux box'"},
+          {"order": 11, "kind": "empty-state", "title": "Safety events (locked)", "detail": "Lock overlay 'Fall alerts & measured headcounts · UNLOCKED AT TIER 2 · CROWD NODE MESH', CTA 'Link Crowd Nodes · from RM 350/zone' (a price on screen)"},
+          {"order": 12, "kind": "feed", "title": "Alerts · occupancy rules", "detail": "Up to 6 recent alerts (kind · zone, time MYT, active/resolved, message); empty text 'no alerts triggered yet, rules armed'; tag IN-APP"},
+          {"order": 13, "kind": "empty-state", "title": "Full sensing · live 3D detection (locked)", "detail": "When unlocked: three.js 3D pose skeletons + VitalsWidget (heart-rate and vitals). Lock overlay 'Live 3D pose & wellness views · TIER 4 · FULL SENSING · R&D PROGRAM', CTA 'By engagement only'"},
+          {"order": 14, "kind": "empty-state", "title": "Industrial safety modules (locked)", "detail": "Wide panel, blurred preview of forklift proximity, restricted zone, queue; lock 'UNLOCKED AT TIER 3 · SAFETY MODULE PACK', CTA 'Enable on existing nodes · +RM 30–50/zone/mo' (a price on screen)"}
+        ]
+      }
+    },
+    {
+      "surface": "other",
+      "name": "Client view (a second, trimmed customer surface, also branded AXLE with eyebrow 'REKA · CLIENT')",
+      "host_or_route": "/client, /client/reports (same app, same login)",
+      "entry_files": [
+        "app/app/(client)/layout.tsx:8-17 (session gate, renders ClientShell)",
+        "app/components/ClientShell.tsx:10-68 (top bar shell and CLIENT_NAV)",
+        "app/app/(client)/client/page.tsx:3 (title 'Your space · AXLE')",
+        "app/app/(client)/client/reports/page.tsx:1 (title 'Reports · AXLE')",
+        "app/components/ClientOverview.tsx:44-171 (dashboard)"
+      ],
+      "layout": "Top bar only (no sidebar), full width, border-bottom, raised background, padding 14px 16-24px. Content centred, max 960px (overview) or 760px (reports). No SimBadge banner on this surface.",
+      "brand": {
+        "logo": "AxleMark (same as main app)",
+        "name_text": "AXLE",
+        "eyebrow": "REKA · CLIENT",
+        "credit_line": "none",
+        "other": "Overview subtitle 'Live occupancy across REKA HQ' (hard-coded site). Footnote 'Figures are estimates from occupancy sensing. Individuals are never identified.'"
+      },
+      "nav_groups": [
+        {
+          "label": "",
+          "items": [
+            {"label": "Overview", "route": "/client", "icon": "none (text tab)", "roles": ["admin", "viewer"], "gating": "any signed-in user", "badge": "", "children": []},
+            {"label": "Reports", "route": "/client/reports", "icon": "none (text tab)", "roles": ["admin", "viewer"], "gating": "any signed-in user", "badge": "", "children": ["/print/monthly (Monthly space report, new tab)", "/api/reports/csv/occupancy?days=30 (CSV download)"]}
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none", "command_palette": "none", "notifications": "none", "help": "none", "guide": "none",
+        "org_switcher": "none", "product_switcher": "none", "create_button": "none", "ai_entry": "none",
+        "theme_toggle": "none", "language": "none",
+        "user_menu": ["signed-in email (mono, hidden below sm)", "'admin →' link to the main console (hidden below sm, shown to every role)", "Sign out button"],
+        "sign_out": "Bordered button at the right of the top bar",
+        "plan_badge": "none", "env_badge": "none (the simulated-data banner is missing here)", "impersonation": "none", "other": []
+      },
+      "responsive": "Breakpoint sm (640px). Below sm the email and 'admin →' link are hidden; logo, two tabs and Sign out stay in one row (Sign out wraps to two lines at 390px). No drawer. Stats go 3 columns to 2; the area bars are hidden below sm.",
+      "active_state": "Active tab bg panel2 #202a22, ink text, font-medium; inactive dim with hover ink.",
+      "colours": {"same tokens as main app": "bg #0e1310, raised #161d18, panel #1a221c, accent #fb9800, green-bright #4f9d76"},
+      "fonts": "Poppins and JetBrains Mono (same as main app)",
+      "a11y": "Same as main app; no aria-current on tabs; no focus style on links.",
+      "role_variants": "None: identical for admin and viewer, including the 'admin →' link.",
+      "dashboard": {
+        "route": "/client",
+        "file": "app/components/ClientOverview.tsx",
+        "widgets": [
+          {"order": 1, "kind": "greeting", "title": "Your space, right now", "detail": "Subtitle 'Live occupancy across REKA HQ, refreshed every few seconds.' Polls every 5 s"},
+          {"order": 2, "kind": "kpi", "title": "People on site", "detail": "'~N' rounded occupancy index, sub 'estimated, site-wide'"},
+          {"order": 3, "kind": "kpi", "title": "Areas active", "detail": "count reporting, sub 'reporting right now'"},
+          {"order": 4, "kind": "kpi", "title": "Busiest area", "detail": "zone name, sub busy label (busy / moderate / quiet) or 'all quiet'"},
+          {"order": 5, "kind": "table", "title": "Areas", "detail": "Rows: area name, 'about N of M seats', capacity-relative bar (amber busy, green moderate, faint quiet), label; stale rows say 'no recent data'; header shows 'updated HH:MM' (Asia/Kuala_Lumpur); empty state 'No areas are reporting occupancy yet.'"},
+          {"order": 6, "kind": "other", "title": "Privacy footnote", "detail": "'Figures are estimates from occupancy sensing. Individuals are never identified.'"}
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {"file": "screenshots/01-customer-dashboard-desktop.png", "surface": "customer", "what": "Live dashboard + sidebar, admin role", "viewport": "1440x900", "method": "mocked", "notes": "next dev on :3104 with a dummy SESSION_SECRET; a session cookie minted locally with that secret; every /api/* call fulfilled by Playwright page.route with fictional data (5 zones, simulator adapter only, 2 alerts). Higher-tier panels therefore render locked, which is the real state with the simulator; heart-rate panel stays locked. Next.js dev indicator hidden with CSS."},
+    {"file": "screenshots/01-customer-dashboard-desktop-full.png", "surface": "customer", "what": "Live dashboard, full page (shows the sidebar footer: Client view, email, role, Sign out)", "viewport": "1440x900 full page", "method": "mocked", "notes": "Same as above"},
+    {"file": "screenshots/01-customer-dashboard-viewer-desktop.png", "surface": "customer", "what": "Live dashboard as viewer role", "viewport": "1440x900", "method": "mocked", "notes": "Only visible difference: no 'Edit layout' button on the map"},
+    {"file": "screenshots/02-customer-dashboard-mobile.png", "surface": "customer", "what": "Live dashboard with mobile top bar", "viewport": "390x844", "method": "mocked", "notes": ""},
+    {"file": "screenshots/02-customer-nav-open-mobile.png", "surface": "customer", "what": "Mobile drawer open", "viewport": "390x844", "method": "mocked", "notes": "Clicked 'Open menu'"},
+    {"file": "screenshots/04-client-view-overview-desktop.png", "surface": "other", "what": "Client view overview + top bar", "viewport": "1440x900", "method": "mocked", "notes": ""},
+    {"file": "screenshots/05-client-view-overview-mobile.png", "surface": "other", "what": "Client view overview + top bar", "viewport": "390x844", "method": "mocked", "notes": "No drawer exists on this surface; the top bar is the whole nav"},
+    {"file": "screenshots/06-signin-desktop.png", "surface": "customer", "what": "Sign-in screen", "viewport": "1440x900", "method": "local-run", "notes": "Public page, no mocking needed"}
+  ],
+  "brand_gaps": [
+    "The whole customer app is branded AXLE: tab title 'AXLE · REKA Operations Console' (app/app/layout.tsx:18-19), AxleMark + 'AXLE' wordmark + 'REKA · OPERATIONS' eyebrow in the sidebar, drawer and mobile bar (AppShell.tsx:148,160,176-178), sign-in 'REKA Operations Console' (login/page.tsx:44), client view 'REKA · CLIENT' eyebrow and titles 'Your space · AXLE' / 'Reports · AXLE', print report 'AXLE Monthly Space Report' and 'REKA Inisiatif · AXLE' (print/monthly/page.tsx:7,119,211), 'Get AXLE ready' onboarding, 'Every sensor type AXLE supports'. Brand kit: AXLE is internal and must never be shown to customers; most urgent fix in the portfolio.",
+    "No PLExyz Crowd mark (plexyz-crowd-mark.svg) and no 'by AntaraX' credit anywhere; stock Next.js favicon.",
+    "Colours are the old concept mock (amber #fb9800 on green-black #0e1310) instead of the PLExyz line violet #2C09B2 / Crowd accent #6040CC; status colours are local (#e2574c, #4f9d76) not the shared ok #12B76A / warn #F79009 / fault #F04438.",
+    "Dark only; brand kit 13 §10 requires light first for customer products (only AXLE is dark-only).",
+    "Focus ring is green and limited to form fields; brand kit wants AntaraX blue #0459F7 as the focus ring everywhere. No reduced-motion handling; infinite shimmer and entrance animations.",
+    "Uppercase mono eyebrows with tight tracking (REKA · OPERATIONS) instead of intan eyebrows in violet; tag chips in caps.",
+    "No help, guide, support contact or app tile (13 §8).",
+    "Hard-coded 'REKA HQ' site name on Live and the client view, and 'Floor 2' in the map title, instead of the organisation and the selected floor.",
+    "Words: 'Client view' and 'Users' should be organisation and members (13 §1); US spelling 'Analyze' as a nav group label and 'summarized' (British: Analyse, summarised).",
+    "Locked panels say 'UNLOCKED AT TIER N' and show prices ('from RM 350/zone', '+RM 30–50/zone/mo'); the brief says pricing is not published and 'unlock' is a banned upsell word in 03.",
+    "Dashboard shows panels for falls, safety alerts, through-wall sensing and 3D pose with vitals (heart rate): the brief lists these under 'Never say' and asks for heart-rate screens to be kept out of every demo. They render locked with the simulator, but still name the capabilities.",
+    "Simulated-data banner text names the vendor stack ('RuView Docker simulator'), and the client view has no simulated-data disclosure at all, though the brief makes 'the demo is simulated' a required disclosure.",
+    "Client view shows an 'admin →' link to every role, so customers can reach the operations console from it.",
+    "Error copy is lower-case API text ('login failed', 'API unreachable. Is the stack running?') rather than the error pattern."
+  ],
+  "notes": "No separate internal AXLE console exists in this repo. The (dashboard) route group calls itself the 'admin/operational surface' in code comments (lib/nav.ts:24, ClientShell.tsx:7), but it is single-organisation, gated only by admin/viewer roles, has no cross-organisation controls, and is what customers sign in to; so it is inventoried as the customer surface, per the brand kit. The (client) group is a second, read-only customer surface. The worker (worker/) has no UI. /print/monthly is a server-rendered report that queries Postgres directly, so it was not captured. The repo's last commit is 21 July 2026 and the brand kit marks the product 'not in active development'."
+}

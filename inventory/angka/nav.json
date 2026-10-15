@@ -1,0 +1,1425 @@
+{
+  "product": "Angka (includes Lapis)",
+  "repo": "haziqfaris/angka",
+  "commit": "58f3adf",
+  "stack": "Next.js 16.3.8 (App Router, proxy.ts instead of middleware, Cache Components), React 19.2, Tailwind v4, shadcn on Radix, lucide-react, cmdk; Supabase (auth + Postgres); deployed on Cloudflare via @opennextjs/cloudflare and wrangler; built-in in-memory demo mode when Supabase env is empty",
+  "surfaces": [
+    {
+      "surface": "customer",
+      "name": "Angka (customer app)",
+      "host_or_route": "angka.antarax.ai, routes under app/(app) e.g. / , /inbox, /ledger",
+      "entry_files": [
+        "app/(app)/layout.tsx:47",
+        "components/shell/app-shell.tsx:121",
+        "components/shell/app-shell.tsx:208",
+        "components/shell/app-shell.tsx:235",
+        "components/shell/app-shell.tsx:283",
+        "components/shell/nav-items.ts:58",
+        "components/shell/sidebar-nav.tsx:31",
+        "components/shell/bottom-nav.tsx:129",
+        "components/shell/more-sheet.tsx:20",
+        "components/shell/profile-menu.tsx:53",
+        "components/shell/org-switcher.tsx:13",
+        "components/shell/business-card.tsx:14",
+        "components/shell/product-toggle.tsx:19",
+        "components/shell/command-palette.tsx:46",
+        "components/shell/command-palette.tsx:267",
+        "components/shell/pilot-mark.tsx:21",
+        "components/shell/invite-button.tsx:22",
+        "components/shell/support-banner.tsx:11",
+        "components/shell/sample-banner.tsx:5",
+        "components/shell/announcement-banner.tsx:24",
+        "components/brand/angka-mark.tsx:121"
+      ],
+      "layout": "Floating left sidebar (264px, rounded-3xl white sheet, sticky at viewport height minus 24px, own scroll with fade) plus a floating top bar (64px, rounded-3xl) on a paper ground, 12px gutter (md:p-3). Page content max-w-6xl. Below 768px: phone top bar (64px on Home, 56px elsewhere), left drawer (18rem) and a fixed bottom tab bar (60px cells) with a raised Add button.",
+      "brand": {
+        "logo": "components/brand/angka-mark.tsx (inline SVG sheet-stack mascot, 42px in the Wordmark); public/brand/angka-mark.png; app/icon.svg",
+        "name_text": "Angka",
+        "eyebrow": "",
+        "credit_line": "none in the app chrome (no 'by AntaraX' or 'by REKA')",
+        "other": "Tagline under the wordmark: 'Simpler together.' Angka | Lapis product toggle in the top bar. Hero carries a Caveat handwritten 'Less busywork. More forward.'"
+      },
+      "nav_groups": [
+        {
+          "label": "(unlabelled, daily)",
+          "items": [
+            {
+              "label": "Home",
+              "route": "/",
+              "icon": "AngkaMark mascot (product='angka'); lucide House in the bottom bar",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "attention count (peach)",
+              "children": []
+            },
+            {
+              "label": "Inbox",
+              "route": "/inbox",
+              "icon": "lucide Inbox, tone orange",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "inbox count: arrivals + unmatched + proposals (peach)",
+              "children": []
+            },
+            {
+              "label": "To pay",
+              "route": "/to-pay",
+              "icon": "lucide HandCoins, tone orange",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "always shown; approvals and stages inside are feature flags angka.to_pay_approvals / angka.to_pay_stages",
+              "badge": "to_pay: overdue + waiting for this person's approval (peach)",
+              "children": []
+            },
+            {
+              "label": "Ledger",
+              "route": "/ledger",
+              "icon": "lucide BookOpen, tone plum (drawn bold as the main working surface)",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Your business",
+          "items": [
+            {
+              "label": "Activities",
+              "route": "/activities",
+              "icon": "lucide Layers, tone green",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "People",
+              "route": "/people",
+              "icon": "lucide Users, tone rose",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Documents",
+              "route": "/documents",
+              "icon": "lucide FileText, tone amber",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "How it's going",
+          "items": [
+            {
+              "label": "Figures",
+              "route": "/management (also /flow, /map, /review)",
+              "icon": "lucide ChartColumn, tone teal",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Ahead",
+              "route": "/commitments",
+              "icon": "lucide CalendarClock, tone amber",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Reports",
+              "route": "/reports (also /handoff)",
+              "icon": "lucide FileSpreadsheet, tone neutral",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Profile menu (foot of sidebar, not in the list)",
+          "items": [
+            {
+              "label": "Your account",
+              "route": "/account",
+              "icon": "lucide UserRound",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Emails and notifications",
+              "route": "/account#email",
+              "icon": "lucide Mail",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Settings",
+              "route": "/settings",
+              "icon": "lucide Settings",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Plan & billing",
+              "route": "/billing",
+              "icon": "lucide CreditCard",
+              "roles": [
+                "owner",
+                "member",
+                "viewer"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "Top bar 'Search, ask or calculate' field (320px, 384px at xl) from 1024px; search icon below 1024px and in the phone top bar. Opens the command palette.",
+        "command_palette": "Cmd+K / Ctrl+K (cmdk CommandDialog). Groups: Calculate, Try, Do (New activity, What needs my attention?), Go to, then results by kind (activity, document, line, person, note, page). A question goes to Ask; a sum is calculated and copied on Enter.",
+        "notifications": "No bell. Signals are the nav badges (Home attention, Inbox, To pay) and a dismissible announcement banner at the top of the page (from AXLE).",
+        "help": "Profile menu: 'Show me around' (/?tour=1) and 'Help and guides' (/help). Pilot chip popover also has 'Show me around again'.",
+        "guide": "Guided tour (components/guide/tour.tsx) and /help help centre; no /guide route.",
+        "org_switcher": "Business card under the wordmark: initial avatar, business name, 'MYR · MY'. Menu: list of businesses with role and a check on the current one, Settings, 'Add another business' (/onboarding?another=1).",
+        "product_switcher": "Angka | Lapis segmented toggle with the two mascots (top bar left on desktop, top-left of Home on phones). Lapis goes through /lapis/enter. No AntaraX app tiles.",
+        "create_button": "'Add' plum button with Plus (top bar, h-44px); raised 56px round plum button in the middle of the phone bottom bar. Opens the Add sheet (Add paper: Files, Note, Voice, Bank; Start an activity). Hidden for viewers.",
+        "ai_entry": "Ask: typed into the search box or palette ('Ask about...' row with lucide Sparkles), opens a right-hand Ask panel (sheet on phones) titled 'Ask · {business}' with a Sparkles icon. No standalone AI button in the chrome.",
+        "theme_toggle": "In the profile menu: Appearance radio group Light / Dark / Same as the device (cookie angka_theme). Default light.",
+        "language": "none (English only)",
+        "user_menu": [
+          "Header: name and email",
+          "Your account",
+          "Emails and notifications",
+          "Settings",
+          "Plan & billing",
+          "Appearance: Light / Dark / Same as the device",
+          "Show me around",
+          "Help and guides",
+          "About Angka (external antarax.ai/angka)",
+          "Privacy",
+          "Terms",
+          "Sign out"
+        ],
+        "sign_out": "Last item of the profile menu",
+        "plan_badge": "'PILOT' chip (lucide FlaskConical) in the top bar: popover with the closed-pilot note, a feedback box that goes to AXLE, a referral panel and 'Show me around again'. Plan & billing link in the profile menu.",
+        "env_badge": "Sample banner across the top of the page when the workspace holds the sample business ('You are looking at Reka Studio, a sample business...'). No dev/staging badge.",
+        "impersonation": "Support banner fixed at the top (36px, ink on paper reversed): 'Support view of {business}, read only, ends at {time} · End now', when REKA staff open a workspace from AXLE.",
+        "other": [
+          "Invite: outline 'Invite' button in the top bar and a peach 'Invite a business' card above the profile card (referral dialog)",
+          "Skip to content link",
+          "Navigation progress bar (NavProgress)",
+          "Product switch curtain animation between Angka and Lapis",
+          "Add to phone (PWA install) card on Home",
+          "Suspended workspace gate replaces the shell",
+          "Announcement banner (from AXLE Announcements)"
+        ]
+      },
+      "responsive": "md (768px) shows the sidebar and the top bar. Below md: phone top bar (on Home: product toggle, round search button, initials button that opens the left drawer; elsewhere: back chevron, centred page title, search), left drawer 18rem holding the same sidebar body plus the Pilot chip, bottom tab bar Home / Inbox / [Add] / To pay / More with badges and safe-area padding, and a More bottom sheet (Ledger row, 3-column tile grids for Your business and How it's going, Settings and Your account buttons). lg (1024px) swaps the search icon for the wide field; xl widens it to 384px. Sidebar nav scrolls with a fade on short screens (Reports hidden below the fold at 900px tall).",
+      "active_state": "Sidebar: bg-brand-soft #F3EAF7, text plum #6B3F6B, semibold, rounded-2xl, aria-current=page (Lapis items would use peach lapis-soft). Inactive text foreground/85, hover sidebar-accent #F6F2EC. Bottom bar: plum icon and label, icon stroke 2.4, semibold. More sheet: active tile bg-secondary.",
+      "colours": {
+        "brand/primary (plum)": "#6B3F6B",
+        "brand-soft (active wash)": "#F3EAF7",
+        "ring (focus)": "#9B6F9B",
+        "background (paper)": "#FAF7F2",
+        "card": "#FFFFFF",
+        "sidebar": "#FFFFFF",
+        "sidebar-accent (hover)": "#F6F2EC",
+        "foreground": "#2D2A26",
+        "muted-foreground": "#716A63",
+        "border": "#EBE5DC",
+        "secondary": "#F5F1EB",
+        "badge (tint-peach / lapis-ink)": "#FFE9DC / #A24A1E",
+        "lapis": "#FFB493",
+        "dark background": "#1D191C",
+        "dark sidebar": "#262125",
+        "dark brand": "#D2A6D2",
+        "dark brand-soft": "#3B2B3B"
+      },
+      "fonts": "Poppins (next/font, --font-sans) for all UI; Caveat (--font-hand) for handwritten asides in the hero and Lapis card; Geist Mono for mono. Nav items 14px medium/semibold, group labels 11px uppercase tracking 0.08em, tab labels 11px, wordmark 24px bold plum.",
+      "a11y": "Skip to content link; aria-current on active links; badges carry aria-labels ('15 need attention'); focus-visible:ring-2 in plum ring #9B6F9B; touch targets 40px round buttons, 60px tab cells, 56px Add; prefers-reduced-motion switches off rise/lift/ring/mark animations in app/globals.css (several @media blocks); decorative icons aria-hidden; drawer and sheets have sr-only titles.",
+      "role_variants": "Workspace roles owner / member / viewer: a viewer gets no Add (top bar and bottom bar); everything else is the same. A platformAdminOnly flag exists on nav items but no item uses it now. Staff in support view see the support banner and cannot dismiss announcements. A suspended workspace sees only the suspended gate. There is no link from the app to AXLE; /admin redirects to /axle.",
+      "dashboard": {
+        "route": "/",
+        "file": "app/(app)/page.tsx:50",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "{Month} is N% understood",
+            "detail": "BriefingHero: completeness ring (donut, no number), headline sentence, 'Still short: ...' line, 'What does understood mean?' popover, mascot with Caveat 'Less busywork. More forward.' on a lavender wash"
+          },
+          {
+            "order": 2,
+            "kind": "other",
+            "title": "Add to phone",
+            "detail": "PWA install card, shown until installed or dismissed"
+          },
+          {
+            "order": 3,
+            "kind": "alert",
+            "title": "Needs you (count)",
+            "detail": "AttentionList of cards with tinted icon tiles: transfer to confirm, bank movements to explain, choices about how things count, questions, activities missing papers; collapsible groups with counts; heading links to /inbox"
+          },
+          {
+            "order": 4,
+            "kind": "quick-actions",
+            "title": "Turn your work into the right documents.",
+            "detail": "LapisCard promo with 'Create a document' button (/lapis/enter?next=/lapis/new) and three fanned sheets"
+          },
+          {
+            "order": 5,
+            "kind": "kpi",
+            "title": "What you have",
+            "detail": "Collapsible panel (aside): total across accounts, one row per bank/cash account with balance and source ('Bank's balance · 8 Sept' or 'Angka's sum'), runway line with a disclosure mark"
+          },
+          {
+            "order": 6,
+            "kind": "kpi",
+            "title": "{Month} at a glance",
+            "detail": "Collapsible panel: 2x2 HeadlineTiles Invoiced, Owed to you, Fixed monthly costs, Everyday costs (each links, has an info disclosure); line 'Most of September went on ...'"
+          },
+          {
+            "order": 7,
+            "kind": "other",
+            "title": "Your activities",
+            "detail": "First four ActivityCards (icon tile, title, in/out totals, trace status) in a 4-column grid, 'All' link"
+          },
+          {
+            "order": 8,
+            "kind": "table",
+            "title": "Coming up",
+            "detail": "UpcomingDates list: receivables, payables and projected commitments with dates and signed amounts"
+          },
+          {
+            "order": 9,
+            "kind": "empty-state",
+            "title": "Start here",
+            "detail": "When there are no bank lines or nothing homed: StartHere three steps (with the inbox address) instead of the dashboard"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "axle",
+      "name": "AXLE, the console for Angka",
+      "host_or_route": "axle.angka.antarax.ai (AXLE_HOST, clean paths like /tenants); locally /axle on the app host",
+      "entry_files": [
+        "app/(axle)/layout.tsx:36",
+        "app/(axle)/layout.tsx:74",
+        "app/(axle)/layout.tsx:90",
+        "app/(axle)/layout.tsx:116",
+        "app/(axle)/layout.tsx:121",
+        "app/(axle)/layout.tsx:129",
+        "components/axle/axle-nav.tsx:64",
+        "components/axle/axle-nav.tsx:131",
+        "components/axle/axle-nav.tsx:180",
+        "components/axle/axle-nav.tsx:210",
+        "lib/axle/staff.ts",
+        "lib/axle/roles.ts",
+        "lib/axle/host.ts",
+        "proxy.ts"
+      ],
+      "layout": "The app's shell reused: floating left sidebar 248px (rounded-3xl, sticky, own scroll) and a floating top bar (64px; 56px on phones); page title and one-line lead come from the nav item (AxleTitle); main max-w-6xl; footer line. Phones: no drawer or bottom bar; the nav becomes a horizontally scrolling chip row above the title.",
+      "brand": {
+        "logo": "AngkaMark (Angka sheet-stack mascot), 40px",
+        "name_text": "AXLE",
+        "eyebrow": "'Operator console' chip with lucide ShieldCheck in the top bar",
+        "credit_line": "Footer: 'Run by REKA Inisiatif Sdn Bhd'",
+        "other": "Subtitle 'The console for Angka'; page title metadata 'AXLE · the console for Angka'"
+      },
+      "nav_groups": [
+        {
+          "label": "Watch",
+          "items": [
+            {
+              "label": "Overview",
+              "route": "/",
+              "icon": "lucide Gauge, tone brand",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "alarms (loud, peach)",
+              "children": []
+            },
+            {
+              "label": "Health",
+              "route": "/health",
+              "icon": "lucide HeartPulse, tone rose",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Errors",
+              "route": "/errors",
+              "icon": "lucide Bug, tone rose",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "errors in last 24h (loud)",
+              "children": []
+            },
+            {
+              "label": "Runs",
+              "route": "/runs",
+              "icon": "lucide History, tone blue",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Jobs",
+              "route": "/jobs",
+              "icon": "lucide ListChecks, tone teal",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Weekly brief",
+              "route": "/brief",
+              "icon": "lucide Newspaper, tone plum",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Growth",
+              "route": "/growth",
+              "icon": "lucide TrendingUp, tone green",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Workspaces",
+              "route": "/tenants",
+              "icon": "lucide Building2, tone blue",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "workspaces count (grey)",
+              "children": []
+            },
+            {
+              "label": "People",
+              "route": "/people",
+              "icon": "lucide UsersRound, tone teal",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Feedback",
+              "route": "/feedback",
+              "icon": "lucide MessageSquareText, tone amber",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "unseen feedback (loud)",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Products",
+          "items": [
+            {
+              "label": "Angka",
+              "route": "/angka",
+              "icon": "lucide BookOpenCheck, tone brand",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Lapis",
+              "route": "/lapis",
+              "icon": "lucide FileText, tone lapis",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "API",
+              "route": "/api",
+              "icon": "lucide Plug, tone teal",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Run",
+          "items": [
+            {
+              "label": "AI",
+              "route": "/ai",
+              "icon": "lucide Cpu, tone plum",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "AI calls",
+              "route": "/model-calls",
+              "icon": "lucide ListTree, tone plum",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Costs",
+              "route": "/costs",
+              "icon": "lucide Coins, tone amber",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Plans",
+              "route": "/plans",
+              "icon": "lucide Layers, tone teal",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Features",
+              "route": "/features",
+              "icon": "lucide ToggleRight, tone blue",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Billing",
+              "route": "/billing",
+              "icon": "lucide Wallet, tone green",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Requests",
+              "route": "/requests",
+              "icon": "lucide FileLock2, tone rose",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "page open to viewer+; count and handling admin+",
+              "badge": "open PDPA requests (loud, admins only)",
+              "children": []
+            },
+            {
+              "label": "Email",
+              "route": "/email",
+              "icon": "lucide Mail, tone plum",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Access",
+              "route": "/access",
+              "icon": "lucide KeyRound, tone orange",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Staff",
+              "route": "/staff",
+              "icon": "lucide ShieldCheck, tone neutral",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Security",
+              "route": "/security",
+              "icon": "lucide LockKeyhole, tone rose",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Announcements",
+              "route": "/announcements",
+              "icon": "lucide Megaphone, tone amber",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Help centre",
+              "route": "/help-centre",
+              "icon": "lucide LifeBuoy, tone teal",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Settings",
+              "route": "/settings",
+              "icon": "lucide Settings2, tone neutral",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Trail",
+          "items": [
+            {
+              "label": "Audit",
+              "route": "/audit",
+              "icon": "lucide ScrollText, tone rose",
+              "roles": [
+                "viewer",
+                "support",
+                "operator",
+                "admin",
+                "owner"
+              ],
+              "gating": "staff rung viewer or above (requireStaff('viewer')); non-staff get 404",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none",
+        "command_palette": "none",
+        "notifications": "none (counts on Overview, Errors, Feedback, Requests; alarms are also mailed to admins)",
+        "help": "none for operators (Help centre is the editor for customer help)",
+        "guide": "none",
+        "org_switcher": "none (operators are not in a workspace)",
+        "product_switcher": "none (Angka, Lapis and API are pages in the Products group)",
+        "create_button": "none",
+        "ai_entry": "none",
+        "theme_toggle": "Icon button that cycles Light, Dark, Same as the device, in the operator card and in the phone header",
+        "language": "none",
+        "user_menu": [
+          "Operator card (not a menu): initials, name, '{Role} · {email}', theme toggle, sign-out icon"
+        ],
+        "sign_out": "LogOut icon button in the operator card (and phone header); only shown when a database is configured",
+        "plan_badge": "none",
+        "env_badge": "'Read-only here: AXLE acts on the live database.' in the top bar when running without a database",
+        "impersonation": "Support view is started from a workspace's page in AXLE; the banner shows in the customer app",
+        "other": [
+          "Date range picker on Overview and other pages (in the address)",
+          "Two-step sign-in gate (/axle/verify) when required",
+          "Navigation progress bar"
+        ]
+      },
+      "responsive": "Below 768px: the sidebar is hidden; the header shows the mark + 'AXLE', the theme toggle and sign-out; all 28 places become one horizontally scrolling chip row (icon + label + count) above the page title, without group labels. No drawer, no bottom bar.",
+      "active_state": "bg-brand-soft #F3EAF7, plum text, semibold, rounded-2xl, aria-current=page; phone chips: brand-soft fill, no border. Loud counts peach #FFE9DC/#A24A1E, other counts grey secondary.",
+      "colours": {
+        "same tokens as the customer app": "plum #6B3F6B, brand-soft #F3EAF7, paper #FAF7F2, white sidebar and cards, ring #9B6F9B; dark mode #1D191C ground"
+      },
+      "fonts": "Poppins; page title 28px bold; nav 14px; group labels 11px uppercase",
+      "a11y": "aria-current, focus-visible ring (plum), aria-labels on icon buttons, reduced motion as the app",
+      "role_variants": "Five staff rungs (viewer < support < operator < admin < owner). The nav is the same for every rung; controls inside pages are hidden or disabled with 'needs {role}' (NeedsRole). The Requests count only shows to admins and owners. Not staff: 404. Two-step sign-in may be required before any page.",
+      "dashboard": {
+        "route": "/axle (/ on the console host)",
+        "file": "app/(axle)/axle/page.tsx:53",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "alert",
+            "title": "Status strip",
+            "detail": "UptimeStrip: six status tiles (Ten-minute run, Monday run, Nightly backup, New errors 24 h, Webhook failures, Ways in) tinted ok/warn/fault, each linking to its page"
+          },
+          {
+            "order": 2,
+            "kind": "filter",
+            "title": "Range picker",
+            "detail": "Last 7 days (default), 30 days, 90 days, 12 months, All time, Choose days; label 'by day/week/month'"
+          },
+          {
+            "order": 3,
+            "kind": "kpi",
+            "title": "Five tiles",
+            "detail": "Workspaces, Opened this week, Active this week, Lapis (documents issued), AI this week (USD cost, calls and provider); icon tile, label, big figure, basis line"
+          },
+          {
+            "order": 4,
+            "kind": "kpi",
+            "title": "Cost strip",
+            "detail": "MRR charged, MRR at list price, AI this month, Infrastructure this month, Cost share against a 20% target, link to Costs"
+          },
+          {
+            "order": 5,
+            "kind": "alert",
+            "title": "Needs an operator",
+            "detail": "Alarms list (failing jobs, budgets near cap, errors, notes) plus links: Lapis Business requests, unread feedback, errors in the last day; 'Nothing needs an operator' state"
+          },
+          {
+            "order": 6,
+            "kind": "chart",
+            "title": "Where people stop",
+            "detail": "Funnel (stepped horizontal bars) from link opened to statement in; empty state 'Nothing to count yet'; link Growth in full"
+          },
+          {
+            "order": 7,
+            "kind": "chart",
+            "title": "By day",
+            "detail": "GrowthBars: bars of accounts made and workspaces opened per bucket"
+          },
+          {
+            "order": 8,
+            "kind": "table",
+            "title": "Stalled workspaces",
+            "detail": "Journeys list (only when any): empty, quiet or dormant workspaces with stage chips"
+          },
+          {
+            "order": 9,
+            "kind": "table",
+            "title": "Workspaces",
+            "detail": "Six newest: name, people, lines, documents, sample/suspended flags, stage chip; 'All N' link"
+          },
+          {
+            "order": 10,
+            "kind": "feed",
+            "title": "Recent operator actions",
+            "detail": "Audit events in the range: date, summary, actor; empty state; link The full audit"
+          },
+          {
+            "order": 11,
+            "kind": "other",
+            "title": "Planned",
+            "detail": "Roadmap list of what is not built and what each needs (Google sign-in, Drive folders, bank feed, WhatsApp, R2/S3, weekly digest, Google verification)"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "other",
+      "name": "Lapis by Angka (document layer, signed-in shell)",
+      "host_or_route": "/lapis/* on the app host, or lapis.angka.antarax.ai when LAPIS_HOST is set",
+      "entry_files": [
+        "app/(lapis)/layout.tsx:34",
+        "app/(lapis)/layout.tsx:93",
+        "components/lapis/lapis-shell.tsx:49",
+        "components/lapis/lapis-shell.tsx:99",
+        "components/lapis/lapis-shell.tsx:241",
+        "components/lapis/lapis-shell.tsx:274",
+        "components/lapis/lapis-shell.tsx:313",
+        "components/lapis/lapis-shell.tsx:342",
+        "components/lapis/lapis-shell.tsx:347",
+        "components/shell/bottom-nav.tsx:157"
+      ],
+      "layout": "Same shell as Angka (264px floating sidebar, 64px floating top bar, phone top bar, left drawer, bottom tab bar with a raised peach New document button). Signed out: a quiet top bar only (wordmark, What is Angka?, Sign in, theme toggle) and the footer.",
+      "brand": {
+        "logo": "AngkaMark product='lapis' (peach middle sheet slid out)",
+        "name_text": "Lapis",
+        "eyebrow": "",
+        "credit_line": "Footer: 'Lapis is part of Angka, and Angka is part of AntaraX, the AI studio from REKA · Terms · Privacy'",
+        "other": "Wordmark tagline 'by Angka'"
+      },
+      "nav_groups": [
+        {
+          "label": "(unlabelled)",
+          "items": [
+            {
+              "label": "Documents",
+              "route": "/lapis/home",
+              "icon": "lucide FileText, tone lapis (main)",
+              "roles": [],
+              "gating": "Lapis account (magic link)",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Customers",
+              "route": "/lapis/people",
+              "icon": "lucide Users, tone rose",
+              "roles": [],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "To chase",
+              "route": "/lapis/chase",
+              "icon": "lucide BellRing, tone amber",
+              "roles": [],
+              "gating": "",
+              "badge": "chase count (peach)",
+              "children": []
+            },
+            {
+              "label": "Quick sale",
+              "route": "/lapis/sale",
+              "icon": "lucide Store, tone green",
+              "roles": [],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Your paper",
+          "items": [
+            {
+              "label": "Branding",
+              "route": "/lapis/branding",
+              "icon": "lucide Palette, tone plum",
+              "roles": [],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "Top bar form 'Find a document or a customer' (288px, lg+); phone search jumps to #find",
+        "command_palette": "none",
+        "notifications": "none",
+        "help": "Profile menu: Show me around (/lapis/home?welcome=1), Help and guides (/help#lapis)",
+        "guide": "LapisGuide checklist on the Documents page",
+        "org_switcher": "Business card: Branding, Settings (one business per Lapis account)",
+        "product_switcher": "Angka | Lapis toggle",
+        "create_button": "'New document' plum button (peach raised button on phones) opening a kind picker drawer",
+        "ai_entry": "AI fill inside the builder (components/lapis/ai-fill.tsx); none in the chrome",
+        "theme_toggle": "Profile menu Appearance (signed in); icon toggle in the public top bar",
+        "language": "none",
+        "user_menu": [
+          "Settings",
+          "Plan & billing",
+          "Appearance: Light / Dark / Same as the device",
+          "Show me around",
+          "Help and guides",
+          "About Lapis (external)",
+          "Privacy",
+          "Terms",
+          "Sign out"
+        ],
+        "sign_out": "Profile menu",
+        "plan_badge": "ProChip next to the toggle (Lapis Business)",
+        "env_badge": "",
+        "impersonation": "",
+        "other": [
+          "Invite button in the top bar and sidebar"
+        ]
+      },
+      "responsive": "As Angka. Bottom bar: Documents, Customers, [New document], Sale, More (More opens the drawer). The builder (/lapis/new) hides the bottom bar.",
+      "active_state": "bg-lapis-soft #FFE9DC, foreground text, semibold; bottom bar active in lapis-ink #A24A1E",
+      "colours": {
+        "lapis": "#FFB493",
+        "lapis-soft": "#FFE9DC",
+        "lapis-ink": "#A24A1E",
+        "primary": "#6B3F6B"
+      },
+      "fonts": "Poppins",
+      "a11y": "as the Angka shell",
+      "role_variants": "Approver vs maker inside pages (drafts for approval); no nav difference",
+      "dashboard": {
+        "route": "/lapis/home",
+        "file": "app/(lapis)/lapis/home/page.tsx",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "other",
+            "title": "Documents",
+            "detail": "PageHeader with New document action"
+          },
+          {
+            "order": 2,
+            "kind": "greeting",
+            "title": "Welcome",
+            "detail": "Welcome card on first use"
+          },
+          {
+            "order": 3,
+            "kind": "other",
+            "title": "Add to phone",
+            "detail": "PWA card"
+          },
+          {
+            "order": 4,
+            "kind": "quick-actions",
+            "title": "Lapis guide",
+            "detail": "Checklist: branded, first document made, sent, in Angka"
+          },
+          {
+            "order": 5,
+            "kind": "kpi",
+            "title": "Today",
+            "detail": "TodayCard takings, when there are counter sales"
+          },
+          {
+            "order": 6,
+            "kind": "alert",
+            "title": "N to chase today",
+            "detail": "Link row with late count"
+          },
+          {
+            "order": 7,
+            "kind": "table",
+            "title": "Drafts",
+            "detail": "For your approval, then your drafts"
+          },
+          {
+            "order": 8,
+            "kind": "table",
+            "title": "Documents table",
+            "detail": "Search, project and tag filters"
+          },
+          {
+            "order": 9,
+            "kind": "other",
+            "title": "Invite card",
+            "detail": "Referral"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "other",
+      "name": "Sign-in (auth shell)",
+      "host_or_route": "/login, /forgot, /reset, /onboarding, /join/[code]",
+      "entry_files": [
+        "app/(auth)/layout.tsx:14",
+        "app/(auth)/login/page.tsx",
+        "components/auth/sign-in-form.tsx"
+      ],
+      "layout": "Wordmark top-left, centred card (max-w-md, rounded-3xl) with the mascot, footer links.",
+      "brand": {
+        "logo": "Wordmark size sm + AngkaMark 56px in the card",
+        "name_text": "Angka",
+        "eyebrow": "",
+        "credit_line": "Footer: 'Terms · Privacy · REKA Inisiatif Sdn Bhd'",
+        "other": "Tagline 'Simpler together.'"
+      },
+      "nav_groups": [],
+      "global_controls": {
+        "search": "",
+        "command_palette": "",
+        "notifications": "",
+        "help": "No help link on sign-in (only 'See what Angka does' and 'Sign in to Lapis')",
+        "guide": "",
+        "org_switcher": "",
+        "product_switcher": "'Here for your invoices? Sign in to Lapis'",
+        "create_button": "",
+        "ai_entry": "",
+        "theme_toggle": "",
+        "language": "",
+        "user_menu": [],
+        "sign_out": "",
+        "plan_badge": "",
+        "env_badge": "Without a database the card says the build has no database and offers 'Open the demo business'",
+        "impersonation": "",
+        "other": [
+          "Email and password, 'Forgotten it?', 'Create an account' toggle"
+        ]
+      },
+      "responsive": "Card fills the width with 16px gutters on phones",
+      "active_state": "",
+      "colours": {},
+      "fonts": "Poppins",
+      "a11y": "",
+      "role_variants": "",
+      "dashboard": {
+        "route": "",
+        "file": "",
+        "widgets": []
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "screenshots/01-customer-dashboard-desktop.png",
+      "surface": "customer",
+      "what": "Home dashboard with sidebar and top bar",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/01b-customer-dashboard-desktop-full.png",
+      "surface": "customer",
+      "what": "Home dashboard, full page",
+      "viewport": "1440x900 full page",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/01c-customer-dashboard-dark-desktop.png",
+      "surface": "customer",
+      "what": "Home dashboard in dark mode",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS. Theme cookie angka_theme=dark."
+    },
+    {
+      "file": "screenshots/01d-customer-profile-menu-open-desktop.png",
+      "surface": "customer",
+      "what": "Profile menu open",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/01e-customer-org-switcher-open-desktop.png",
+      "surface": "customer",
+      "what": "Business switcher open",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/01f-customer-command-palette-desktop.png",
+      "surface": "customer",
+      "what": "Command palette (Ctrl+K)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/01g-customer-add-sheet-desktop.png",
+      "surface": "customer",
+      "what": "Add sheet (primary action)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/01h-customer-ask-panel-desktop.png",
+      "surface": "customer",
+      "what": "Ask panel (AI entry) after a question",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS. No AI provider, so the rules-based reply shows."
+    },
+    {
+      "file": "screenshots/01i-customer-sidebar-full-desktop.png",
+      "surface": "customer",
+      "what": "Whole sidebar (element capture, tall viewport)",
+      "viewport": "1440x1200",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/02-customer-dashboard-mobile.png",
+      "surface": "customer",
+      "what": "Home on a phone with bottom tab bar",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/02b-customer-nav-drawer-open-mobile.png",
+      "surface": "customer",
+      "what": "Left drawer open (initials button)",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/02c-customer-more-sheet-open-mobile.png",
+      "surface": "customer",
+      "what": "More sheet open",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/02d-customer-inner-page-topbar-mobile.png",
+      "surface": "customer",
+      "what": "Inner page phone top bar (Ledger)",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/02e-customer-dashboard-mobile-full.png",
+      "surface": "customer",
+      "what": "Home on a phone, full page",
+      "viewport": "390x844 full page",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS. The fixed bottom bar lands mid-page in a full-page capture; it is fixed to the viewport in use."
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-desktop.png",
+      "surface": "axle",
+      "what": "AXLE Overview with sidebar and top bar",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS. Demo person is a staff owner; AXLE served at /axle. Most figures are zero because there is no database."
+    },
+    {
+      "file": "screenshots/03b-axle-dashboard-desktop-full.png",
+      "surface": "axle",
+      "what": "AXLE Overview, full page",
+      "viewport": "1440x900 full page",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/03c-axle-dashboard-dark-desktop.png",
+      "surface": "axle",
+      "what": "AXLE Overview in dark mode",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/03d-axle-dashboard-mobile.png",
+      "surface": "axle",
+      "what": "AXLE on a phone: header and chip-row nav",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/03e-axle-sidebar-full-desktop.png",
+      "surface": "axle",
+      "what": "Whole AXLE sidebar, all four groups",
+      "viewport": "1440x1800",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/04-lapis-public-landing-desktop.png",
+      "surface": "other",
+      "what": "Lapis signed-out page (public top bar)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS. The signed-in Lapis shell needs a Supabase-backed Lapis account and was not captured."
+    },
+    {
+      "file": "screenshots/05-signin-desktop.png",
+      "surface": "other",
+      "what": "Sign-in in demo mode (Open the demo business)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/05b-signin-mobile.png",
+      "surface": "other",
+      "what": "Sign-in in demo mode",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": "Local dev server in the repo's built-in demo mode (no Supabase env: in-memory fixture store, fictional 'Reka Studio Sdn Bhd', date pinned to 8 Sept 2026). Next dev overlay hidden with CSS."
+    },
+    {
+      "file": "screenshots/05c-signin-configured-desktop.png",
+      "surface": "other",
+      "what": "Real sign-in form (email and password)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Dev server with dummy Supabase URL/keys pointing at a local mock on port 3206 that answered the one platform_settings read with an empty list."
+    },
+    {
+      "file": "screenshots/05d-signin-configured-mobile.png",
+      "surface": "other",
+      "what": "Real sign-in form",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": "As 05c."
+    },
+    {
+      "file": "screenshots/06-lapis-signin-desktop.png",
+      "surface": "other",
+      "what": "Lapis sign-in (magic link)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Dummy Supabase config, no backend calls needed."
+    },
+    {
+      "file": "screenshots/repo-reference-dashboard-concept-desktop.png",
+      "surface": "customer",
+      "what": "Design concept image of the Home dashboard (not the live app)",
+      "viewport": "1448x1086",
+      "method": "repo-existing",
+      "notes": "Copied from docs/reference/ChatGPT Image Sep 23, 2026, 11_57_10 AM.png (AI-generated reference, dated 23 Sept 2026 by its filename). Shows an older nav (Products group with Angka and Lapis, Insights group with Ask and Hand-off)."
+    },
+    {
+      "file": "screenshots/repo-reference-brand-sheet.png",
+      "surface": "other",
+      "what": "Angka/Lapis brand sheet concept incl. UI header example",
+      "viewport": "1448x1086",
+      "method": "repo-existing",
+      "notes": "Copied from docs/reference/ChatGPT Image Sep 23, 2026, 11_57_27 AM.png, recompressed to 256 colours."
+    },
+    {
+      "file": "screenshots/repo-reference-mobile-concepts.png",
+      "surface": "customer",
+      "what": "Four phone screen concepts (Home, Activity, Lapis, Insights)",
+      "viewport": "1448x1086",
+      "method": "repo-existing",
+      "notes": "Copied from docs/reference/ChatGPT Image Sep 23, 2026, 12_59_38 PM.png, recompressed to 256 colours. Bottom bar concept: Home, Documents, Ask, Insights, More."
+    }
+  ],
+  "brand_gaps": [
+    "Credit line: no 'Angka · by AntaraX' anywhere in the app chrome; sign-in footer says 'REKA Inisiatif Sdn Bhd' and the AXLE footer 'Run by REKA Inisiatif Sdn Bhd' (13 and the Angka sheet want the credit plus legal line). The Lapis footer ('Lapis is part of Angka, and Angka is part of AntaraX, the AI studio from REKA') is the nearest to the target.",
+    "AXLE look (13 §6): today it is the app's light paper and plum shell with a light/dark/system toggle and the Angka mascot, named 'AXLE / The console for Angka', on axle.angka.antarax.ai. Target: dark-only #071233 / #0C1B47, REKA orange #FB9800 accent, AntaraX A in the corner, 'AXLE · Angka', axle.antarax.ai, one staff sign-in across products.",
+    "Focus ring is plum #9B6F9B (app and AXLE); the shared rule is AntaraX blue #0459F7 in every product (09, 13 §10).",
+    "Type: Caveat handwriting in the Home hero and Lapis card, Geist Mono for mono; target Poppins plus JetBrains Mono, drop Caveat. Headline figures are Poppins, not mono.",
+    "Several taglines live in the chrome at once: 'Simpler together.' (wordmark), 'Less busywork. More forward.' (hero), 'Business clarity for what's next' (Home nav about line).",
+    "Dark mode ground is #1D191C (warm); the kit asks to move it towards #071233. Text #2D2A26 should move to the shared core navy over time.",
+    "AntaraX layer touchpoints missing in the shell: no AntaraX app tiles or product switcher beyond Angka|Lapis, no intan eyebrow, no congkak motif in empty states (the mascot is used in AXLE empty states), AI sparkle only on Ask, not beside AI matches in the nav or Inbox chrome.",
+    "Help (13 §8): Help is in the profile menu and /help exists, but there is no /guide in REKA user-guide format and no help link on the sign-in screen; AXLE has no Help item.",
+    "AXLE shows money as 'USD 0.000'; the standard is US$.",
+    "Error page copy 'This page tripped over itself' (seen while capturing) breaks the error pattern in 03/13.",
+    "Uppercase micro labels: 'PILOT' chip and uppercase group labels ('YOUR BUSINESS', 'WATCH'); check against the kit's sentence-case and intan eyebrow rule.",
+    "AXLE nav is 28 items in one sidebar (needs inner scroll even at 900px tall) and a 28-chip sideways row on phones with no group labels.",
+    "DESIGN.md is stale against the code: it says a 248px sidebar (customer is 264px), Geist Sans (Poppins), groups Overview/Records/Insight/Workspace (code: unlabelled, Your business, How it's going), counts on Home, Inbox and Documents (code: Home, Inbox, To pay), 'no toggle is exposed yet' for dark mode (it is in the profile menu), a mode toggle in the header (now the Angka|Lapis toggle) and a ⌘K trigger in the sidebar (CommandPaletteTrigger exists but is unused)."
+  ],
+  "notes": "Everything captured from a local dev server (port 3106) in the repo's own demo mode (npm run dev:demo equivalent): no secrets, no remote backend, fictional data. The demo person is a staff owner, so AXLE renders at /axle read-only. The signed-in Lapis shell and a live sign-in page were not captured (Lapis needs a Supabase-backed account; the live host is blocked by the sandbox proxy, 403). The shell's nav config is components/shell/nav-items.ts and components/axle/axle-nav.tsx; both are single sources for sidebar, phone sheet and titles."
+}

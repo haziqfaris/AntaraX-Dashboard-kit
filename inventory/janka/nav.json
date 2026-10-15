@@ -1,0 +1,241 @@
+{
+  "product": "Janka",
+  "repo": "haziqfaris/janka-inventory-intelligence",
+  "commit": "7cc4b93",
+  "stack": "Vite 8 + React 19 + TypeScript, react-router-dom 7, lucide-react icons, inline-style TOKENS (src/styles/tokens.ts) + global.css, Appwrite (auth, TablesDB, Functions) with a local IndexedDB mode when no Appwrite env is set; PWA via vite-plugin-pwa; two entries: index.html (Janka) and axle.html (Janka AXLE)",
+  "surfaces": [
+    {
+      "surface": "customer",
+      "name": "Janka web app (desktop shell)",
+      "host_or_route": "janka.antarax.ai, routes under / (BrowserRouter)",
+      "entry_files": [
+        "src/routes.tsx:36",
+        "src/layout/AppLayout.tsx:9",
+        "src/layout/navConfig.ts:61",
+        "src/layout/Sidebar.tsx:57",
+        "src/layout/TopBar.tsx:14",
+        "src/layout/BrandPill.tsx:12",
+        "src/layout/ProfileMenu.tsx:23",
+        "src/layout/OrgSwitcher.tsx:11",
+        "src/layout/SiteSelector.tsx:12",
+        "src/layout/SyncIndicator.tsx:12",
+        "src/layout/RoleGuard.tsx",
+        "src/components/ui/PageHeader.tsx:12",
+        "src/styles/global.css:270-670"
+      ],
+      "layout": "Left sidebar (248px, light #F7F7F8, scrolls, profile row pinned at bottom) + floating top bar card (64px tall, 24px radius, inside a 12px/32px gutter, max width 1440px). Content max width 1440px, 32px padding. Below 1024px the sidebar becomes an off-canvas drawer with scrim and a round hamburger button appears in the top bar.",
+      "brand": {
+        "logo": "Sidebar: JankaWordmark (src/brand/JankaMark.tsx, drawn J-A-N-K-A with signal ticks), 22px. Top bar: BrandPill = AntaraX 'A' (src/brand/antarax-mark.svg, links to https://antarax.ai) + raised white chip with JankaIcon + text 'Janka' (links to /)",
+        "name_text": "Janka",
+        "eyebrow": "TRACK · FORECAST · UNLOCK (JetBrains Mono 10px, uppercase, letter-spacing 0.08em, under the wordmark)",
+        "credit_line": null,
+        "other": "No version/build text. Page <title> is 'Janka — Track. Forecast. Unlock.' (index.html:7)."
+      },
+      "nav_groups": [
+        {"label": "(untitled home group)", "items": [
+          {"label": "Dashboard", "route": "/", "icon": "lucide LayoutDashboard", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Getting started", "route": "/start", "icon": "lucide Rocket", "roles": [], "gating": "hidden once the checklist is complete (hideWhenDone)", "badge": "progress counter n/m in mono (e.g. 4/8 admin, 2/3 worker)", "children": []}
+        ]},
+        {"label": "Stock", "items": [
+          {"label": "Operations", "route": "/inventory/operations", "icon": "lucide Package", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Stock Movements", "route": "/inventory/movements", "icon": "lucide ArrowLeftRight", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Receiving", "route": "/fulfilment/receiving", "icon": "lucide Truck", "roles": [], "gating": "feature receiving (Enterprise default)", "badge": "plan badge 'Enterprise' when off", "children": []},
+          {"label": "Orders", "route": "/fulfilment/orders", "icon": "lucide ShoppingCart", "roles": [], "gating": "feature fulfilment (Enterprise default)", "badge": "plan badge 'Enterprise' when off", "children": []},
+          {"label": "Kits", "route": "/fulfilment/kits", "icon": "lucide PackageOpen", "roles": ["admin", "manager"], "gating": "feature fulfilment (Enterprise default)", "badge": "plan badge 'Enterprise' when off", "children": []},
+          {"label": "Lots & expiry", "route": "/inventory/lots", "icon": "lucide CalendarClock", "roles": [], "gating": "feature lots (Growth default)", "badge": "plan badge 'Growth' when off", "children": []},
+          {"label": "Stock Counts", "route": "/inventory/counts", "icon": "lucide ClipboardCheck", "roles": [], "gating": "feature stockCounts (Free default)", "badge": "'Off' badge if REKA switched it off", "children": []},
+          {"label": "Locations", "route": "/inventory/locations", "icon": "lucide MapPin", "roles": ["admin", "manager"], "gating": "", "badge": "", "children": []}
+        ]},
+        {"label": "Scan & tag", "items": [
+          {"label": "Labels & Scan", "route": "/tagging/qr", "icon": "lucide QrCode", "roles": [], "gating": "feature labels (Free default)", "badge": "'Off' if switched off", "children": []},
+          {"label": "Mobile scanner", "route": "/m/scan", "icon": "lucide Smartphone", "roles": [], "gating": "feature mobile (Free default)", "badge": "'Off' if switched off", "children": []},
+          {"label": "RFID", "route": "/tagging/rfid", "icon": "lucide Radio", "roles": ["admin", "manager"], "gating": "feature trace (Free default) + organisation setting traceEnabled (page shows 'PLExyz Trace is disabled' until enabled in Settings)", "badge": "'Off' if switched off", "children": []}
+        ]},
+        {"label": "Plan", "items": [
+          {"label": "Forecasting", "route": "/intelligence/forecasting", "icon": "lucide TrendingUp", "roles": ["admin", "manager"], "gating": "", "badge": "", "children": []},
+          {"label": "Replenishment", "route": "/inventory/replenishment", "icon": "lucide RefreshCw", "roles": ["admin", "manager"], "gating": "feature replenishment (Growth default)", "badge": "plan badge 'Growth' when off", "children": []},
+          {"label": "PO Drafts", "route": "/intelligence/po-drafts", "icon": "lucide ClipboardList", "roles": ["admin", "manager"], "gating": "feature poDrafts (Enterprise default)", "badge": "plan badge 'Enterprise' when off", "children": []},
+          {"label": "Simulation", "route": "/intelligence/simulation", "icon": "lucide FlaskConical", "roles": ["admin", "manager"], "gating": "feature simulation (Free default)", "badge": "'Off' if switched off", "children": []}
+        ]},
+        {"label": "Watch", "items": [
+          {"label": "Alerts", "route": "/intelligence/alerts", "icon": "lucide Bell", "roles": [], "gating": "feature alerts (Growth default)", "badge": "plan badge 'Growth' when off (no unread counter)", "children": []},
+          {"label": "Risk & Exposure", "route": "/intelligence/risk", "icon": "lucide ShieldAlert", "roles": ["admin", "manager"], "gating": "feature risk (Growth default)", "badge": "plan badge 'Growth' when off", "children": []},
+          {"label": "Capital", "route": "/intelligence/capital", "icon": "lucide Wallet", "roles": ["admin", "manager"], "gating": "", "badge": "", "children": []}
+        ]},
+        {"label": "Organisation", "items": [
+          {"label": "Reports", "route": "/reports", "icon": "lucide BarChart3", "roles": ["admin", "manager"], "gating": "feature reports (Free default)", "badge": "'Off' if switched off", "children": []},
+          {"label": "User guide", "route": "/guide", "icon": "lucide BookOpen", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Settings", "route": "/settings", "icon": "lucide Settings", "roles": [], "gating": "admin-only sections gated inside the page", "badge": "", "children": []}
+        ]}
+      ],
+      "global_controls": {
+        "search": "none in the shell (per-page search on lists only)",
+        "command_palette": "none",
+        "notifications": "none (no bell; Alerts is a nav page without a counter)",
+        "help": "no /help and no Help item; per-page 'About this page' disclosure (what it is / how to use it / before you start) beside every page title",
+        "guide": "'User guide' nav item (/guide) and profile menu item; per-page 'Tutorial' button starts a guided tour (src/tour/TourProvider)",
+        "org_switcher": "Sidebar box under the wordmark (OrgSwitcher.tsx): org logo or Building2 icon + name; becomes a native select with ChevronDown only when the person belongs to more than one organisation. Org name also shown read-only as a mono pill at the right of the top bar (folds to a Building2 icon below 1180px)",
+        "product_switcher": "none (the AntaraX 'A' in the brand pill links out to antarax.ai)",
+        "create_button": "none in the shell",
+        "ai_entry": "none in the shell (AI lives inside Forecasting, PO Drafts and photo identify; no sparkle or assistant)",
+        "theme_toggle": "none (light only)",
+        "language": "none (English only)",
+        "user_menu": ["header: name, email, role · organisation", "Change password (signed-in only)", "User guide", "Settings", "Sign out… (signed-in only; inline confirm 'Sign out of Janka on this device?' with Cancel / Sign out)"],
+        "sign_out": "Profile menu, bottom of sidebar, with inline confirmation; warns if unsynced changes are queued",
+        "plan_badge": "Per-item plan badges in the sidebar (Growth blue #1D4ED8 on #EFF6FF, Enterprise violet #6D28D9 on #F5F3FF, Off grey); gated pages render an UpgradeOverlay ('Upgrade your organisation to unlock it')",
+        "env_badge": "Sync indicator in the top bar: Local only / Syncing… (n) / Synced / Offline / Sync error; plus a 'Demo' badge (Presentation icon) for demo organisations",
+        "impersonation": "none; a suspension banner (PauseCircle) shows above content when REKA suspends the organisation (RoleGuard.tsx:39)",
+        "other": ["Site selector pill in the top bar (MapPin + native select 'All sites' / each site), hidden when only one site", "Page title h1 in the top bar (from navConfig titleForPath)", "PWA update prompt (src/pwa/UpdatePrompt.tsx)", "Toaster", "Phone-sized touch devices are redirected to the /m scanner shell unless 'Use the desktop site' was chosen"]
+      },
+      "responsive": "≥1181px: full top bar (site field, sync label, org name pill). ≤1180px: site field narrows to 160px, org pill folds to a 44px Building2 icon. <1024px: sidebar becomes a fixed off-canvas drawer (translateX, 0.2s, scrim rgba(20,32,40,.4)), hamburger 'Open navigation' 44px round button appears, top bar gutter 16px, main padding 16px; navigating closes the drawer. ≤760px: top bar card 58px, site and sync fold to 44px round icon buttons, labels visually hidden. ≤560px: page title hidden visually (kept for screen readers). Pointer-coarse ≤720px redirects to /m/scan.",
+      "active_state": "Active nav item: background primarySubtle #FFF4E0, text #0B0E14 semibold, icon in primary orange #FB9800 at stroke 2.2; inactive text and icon #6B7280, stroke 1.8, 8px radius, 120ms background/colour transition",
+      "colours": {"primary": "#FB9800 (REKA orange)", "primaryHover": "#E28900", "primarySubtle": "#FFF4E0", "accent": "#06B6D4", "accentHover": "#0597B0", "accentSubtle": "#E0F7FB", "sidebar": "#F7F7F8", "background": "#FFFFFF", "surfaceMuted": "#F3F4F6", "textPrimary": "#0B0E14", "textMuted": "#6B7280", "border": "#E5E7EB", "success": "#12B76A", "warning": "#F79009", "critical": "#F04438", "gatingGrowth": "#1D4ED8 on #EFF6FF", "gatingEnterprise": "#6D28D9 on #F5F3FF"},
+      "fonts": "Poppins 400/500/600/700 for UI (@fontsource), JetBrains Mono 400/500 for numbers, SKU codes, eyebrow, org pill. Nav items 14px, group labels 11px uppercase 0.06em, nav icons 17px, top bar title 18px semibold",
+      "a11y": "Focus rings in the shell are ink #0B0E14 2px (top bar controls, profile menu); form controls focus in orange with an orange tint halo. Profile menu is a proper role=menu with arrow keys, Home/End, Esc. Top bar targets are 44px. prefers-reduced-motion stops drawer transitions, splash/thinking marks, tour pulse and spinners. Drawer scrim is aria-hidden; the hamburger has no aria-expanded.",
+      "role_variants": "Roles: admin, manager, worker. Admin and manager see the full nav. Worker loses Kits, Locations, RFID, Forecasting, Replenishment, PO Drafts, Simulation, Risk & Exposure, Capital and Reports; the Plan group disappears entirely, Watch keeps only Alerts. Role restrictions hide items; plan gating shows them with a badge. RoleGuard blocks URL entry to hidden routes. Local mode (no Appwrite) has no sign-in and lets you simulate role and plan in Settings.",
+      "dashboard": {
+        "route": "/",
+        "file": "src/pages/DashboardPage.tsx",
+        "widgets": [
+          {"order": 1, "kind": "greeting", "title": "Page header", "detail": "'<Org name>: capital position, risk and recent activity.' + About this page disclosure (open on first visit) + Tutorial link"},
+          {"order": 2, "kind": "kpi", "title": "Inventory capital", "detail": "RM value of all stock at unit cost; hint 'n SKUs valued at unit cost'"},
+          {"order": 3, "kind": "kpi", "title": "Stock value at risk", "detail": "RM in critical + watch SKUs, red; share bar under the value; hint 'n critical · n watch'"},
+          {"order": 4, "kind": "kpi", "title": "Needs attention", "detail": "count of non-safe SKUs, warning tone"},
+          {"order": 5, "kind": "kpi", "title": "Out of stock", "detail": "SKUs at or below zero, critical or success tone"},
+          {"order": 6, "kind": "kpi", "title": "Counts due (conditional)", "detail": "when countGovernance is on and counts are due; links /inventory/counts"},
+          {"order": 7, "kind": "kpi", "title": "Deliveries (conditional)", "detail": "when receiving is on and receipts are open; links /fulfilment/receiving"},
+          {"order": 8, "kind": "kpi", "title": "Open orders (conditional)", "detail": "when fulfilment is on and orders are open; links /fulfilment/orders"},
+          {"order": 9, "kind": "kpi", "title": "Expiry exposure (conditional)", "detail": "when lots are on; RM expiring before demand uses it; links /inventory/lots"},
+          {"order": 10, "kind": "chart", "title": "Capital by category", "detail": "horizontal bar chart (custom SVG, cyan bars, RM values in mono); link 'Capital →'"},
+          {"order": 11, "kind": "chart", "title": "Risk mix", "detail": "donut chart Critical/Watch/Safe with centre SKU count and legend with percentages; hint when one site is selected"},
+          {"order": 12, "kind": "chart", "title": "Consumed value, last 30 days", "detail": "column chart of RM issued per day; link 'Reports →'"},
+          {"order": 13, "kind": "chart", "title": "Coverage vs lead time", "detail": "horizontal bars by coverage band (< lead time red, 1–2× amber, 2–4× and > 4× green, no demand grey); link 'Replenishment →'"},
+          {"order": 14, "kind": "table", "title": "Act on these first", "detail": "8 most urgent SKUs: risk pill, SKU code (mono), name, coverage days; 'Showing the 8 most urgent of n'; link 'Risk & Exposure →' (hidden for workers)"},
+          {"order": 15, "kind": "feed", "title": "Recent movements", "detail": "last 8 ledger entries: type (IN/OUT/ADJUST in mono, coloured), SKU code, name, quantity, date; link 'All movements →'"},
+          {"order": 16, "kind": "empty-state", "title": "Nothing to show yet", "detail": "shown instead of everything when there are no SKUs; Boxes icon; 'Go to Operations →'"},
+          {"order": 17, "kind": "filter", "title": "Site selector (top bar)", "detail": "scopes every figure to one site; no date-range picker"}
+        ]
+      }
+    },
+    {
+      "surface": "worker",
+      "name": "Janka phone scanner (/m)",
+      "host_or_route": "janka.antarax.ai/m/* (scan, find, check, count, me, guide)",
+      "entry_files": ["src/mobile/MobileApp.tsx:35", "src/mobile/MobileApp.tsx:163", "src/mobile/MobileApp.tsx:184", "src/mobile/ScanScreen.tsx", "src/layout/BrandPill.tsx:12"],
+      "layout": "Top bar card (jx-bar--scanner, 58px, 20px radius, safe-area aware) + fixed bottom tab bar with 5 equal tabs; content padding 16px, 96px bottom clearance",
+      "brand": {"logo": "BrandPill (AntaraX A + Janka chip, home /m)", "name_text": "Janka", "eyebrow": null, "credit_line": null, "other": null},
+      "nav_groups": [
+        {"label": "Bottom tabs", "items": [
+          {"label": "Scan", "route": "/m/scan", "icon": "lucide ScanLine", "roles": [], "gating": "", "badge": "", "children": ["mode picker: Receiving, Picking, Moving, Counting, Look something up, Photo run"]},
+          {"label": "Find", "route": "/m/find", "icon": "lucide Search", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Check", "route": "/m/check", "icon": "lucide ClipboardList", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Count", "route": "/m/count", "icon": "lucide ClipboardCheck", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Me", "route": "/m/me", "icon": "lucide UserRound", "roles": [], "gating": "", "badge": "", "children": ["Tutorial", "User guide (/m/guide)", "Use the desktop site", "Sign out"]}
+        ]}
+      ],
+      "global_controls": {"search": "Find tab", "command_palette": "none", "notifications": "none", "help": "Me tab text", "guide": "Me > User guide, Me > Tutorial", "org_switcher": "org name pill (Building2 icon) in top bar, read-only", "product_switcher": "none", "create_button": "none", "ai_entry": "Photo run / identify from a photo (Sparkles icon inside ScanScreen)", "theme_toggle": "none", "language": "none", "user_menu": ["Me tab: name, email, org · role", "Tutorial", "User guide", "Use the desktop site", "Sign out"], "sign_out": "Me tab button (no confirmation)", "plan_badge": "none", "env_badge": "none (no sync indicator on the scanner)", "impersonation": "none", "other": ["Site selector kept open as a pill in the top bar"]},
+      "responsive": "Phone-first; same layout at any width. Reached automatically on pointer-coarse ≤720px screens.",
+      "active_state": "Active tab: primary orange #FB9800 icon and label, semibold; inactive #6B7280; icons 22px, labels 11px",
+      "colours": {"active": "#FB9800", "inactive": "#6B7280", "check-critical-border": "#F04438 family (STATUS_TEXT.critical)"},
+      "fonts": "Poppins; SKU codes and quantities in JetBrains Mono",
+      "a11y": "nav aria-label 'Mobile'; tabs ~56px tall full-width targets; no aria-current styling beyond NavLink default",
+      "role_variants": "Same five tabs for every role",
+      "dashboard": {"route": "/m/scan (index redirects here)", "file": "src/mobile/ScanScreen.tsx", "widgets": [
+        {"order": 1, "kind": "quick-actions", "title": "What are you doing?", "detail": "4 mode cards: Receiving, Picking, Moving, Counting"},
+        {"order": 2, "kind": "quick-actions", "title": "Look something up", "detail": "row link"},
+        {"order": 3, "kind": "quick-actions", "title": "Photo run", "detail": "cyan outlined row with 'n items still need a photo'"}
+      ]}
+    },
+    {
+      "surface": "axle",
+      "name": "Janka AXLE (REKA staff console)",
+      "host_or_route": "separate entry axle.html (own host in production), HashRouter routes #/ …",
+      "entry_files": ["axle.html:7", "src/axle/main.tsx:12", "src/axle/AxleApp.tsx:43", "src/axle/AxleShell.tsx:27", "src/axle/AxleShell.tsx:68", "src/axle/AxleWordmark.tsx", "src/axle/axle.css:142-230", "design-system/tokens.css:92-100"],
+      "layout": "Dark left rail (232px, sticky full height, #0B0E14) + light content area with a 56px sticky white header (hamburger below 1024px, page title, note). Content max width 1200px, 32px padding. Below 1024px the rail becomes a drawer with scrim; Esc closes it.",
+      "brand": {"logo": "No image mark. Text wordmark 'Janka' (Poppins) + 'AXLE' (JetBrains Mono, orange #FB9800)", "name_text": "Janka AXLE", "eyebrow": "REKA STAFF CONSOLE (mono 10px, 0.12em, dim)", "credit_line": null, "other": "Header note 'multi-tenant control plane' with a cyan Brain icon. Sign-in card footer 'Authorized staff only · audit-logged' (green, pulsing dot). <title> 'Janka AXLE'."},
+      "nav_groups": [
+        {"label": "Platform", "items": [
+          {"label": "Overview", "route": "#/", "icon": "lucide LayoutDashboard", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Organisations", "route": "#/organisations", "icon": "lucide Building2", "roles": [], "gating": "", "badge": "", "children": ["#/organisations/:orgId"]},
+          {"label": "Users", "route": "#/users", "icon": "lucide Users", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Staff", "route": "#/staff", "icon": "lucide UserCog", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Features & plans", "route": "#/features", "icon": "lucide ToggleLeft", "roles": [], "gating": "", "badge": "", "children": []}
+        ]},
+        {"label": "AI", "items": [
+          {"label": "Models & keys", "route": "#/ai/models", "icon": "lucide Cpu", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Usage & cost", "route": "#/ai/usage", "icon": "lucide Gauge", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Library", "route": "#/ai/library", "icon": "lucide BookOpen", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Forecast accuracy", "route": "#/ai/accuracy", "icon": "lucide Activity", "roles": [], "gating": "", "badge": "", "children": []},
+          {"label": "Learning", "route": "#/ai/learning", "icon": "lucide GraduationCap", "roles": [], "gating": "", "badge": "", "children": []}
+        ]},
+        {"label": "System", "items": [
+          {"label": "Audit log", "route": "#/audit", "icon": "lucide ScrollText", "roles": [], "gating": "", "badge": "", "children": []}
+        ]}
+      ],
+      "global_controls": {"search": "none in the shell", "command_palette": "none", "notifications": "none", "help": "per-page 'About this page' disclosure (axle/intros.ts)", "guide": "none", "org_switcher": "none (organisations are a page)", "product_switcher": "none", "create_button": "none in the shell", "ai_entry": "none", "theme_toggle": "none (dark rail, light content)", "language": "none", "user_menu": ["staff email", "role label AXLE ADMIN / AXLE MANAGER (mono, orange)", "Sign out… (inline confirm 'Sign out of Janka AXLE?')"], "sign_out": "rail footer with inline confirmation", "plan_badge": "none", "env_badge": "none", "impersonation": "none", "other": ["'multi-tenant control plane' note in header", "Sign-in, 'Checking access', 'Not authorised' and 'cannot reach its server' states on the cockpit ground (blueprint grid, slow sweep, glass card)"]},
+      "responsive": "<1024px: rail becomes fixed drawer (translateX, scrim rgba(11,14,20,.45)), 40px square hamburger with aria-expanded; header note hides below 1024px and main padding drops to 16px. Reduced motion stops the cockpit sweep and drawer transitions.",
+      "active_state": "Active rail item: background --axle-surface2 #171B27, text #F4F5F7 semibold, 3px left border in --axle-accent #FB9800; inactive text rgba(244,245,247,.62); icons 16px",
+      "colours": {"axle-bg": "#0B0E14", "axle-surface": "#12151E", "axle-surface2": "#171B27", "axle-border": "rgba(255,255,255,.12)", "axle-text": "#F4F5F7", "axle-text-dim": "rgba(244,245,247,.62)", "axle-accent": "#FB9800", "axle-authorized": "#12B76A", "content": "Janka light TOKENS (white, #E5E7EB borders, cyan links #0597B0)"},
+      "fonts": "Poppins (UI, wordmark) and JetBrains Mono (AXLE, eyebrow, group labels, figures); both loaded in src/axle/main.tsx:3-8",
+      "a11y": "Rail focus ring 2px orange inset; aside aria-label 'Janka AXLE navigation', nav aria-label 'AXLE'; hamburger has aria-expanded; Esc closes drawer; reduced motion honoured",
+      "role_variants": "Staff roles axle_admin and axle_manager. The nav is identical for both (NavItem.adminOnly is declared but unused); write actions are gated inside pages via StaffRoleContext.",
+      "dashboard": {"route": "#/ (Overview)", "file": "src/axle/OverviewView.tsx", "widgets": [
+        {"order": 1, "kind": "greeting", "title": "Page header", "detail": "'The platform at a glance: who is on it, what AI is costing, what needs a human' + About this page"},
+        {"order": 2, "kind": "kpi", "title": "Organisations", "detail": "count; hint 'n free · n growth · n enterprise · n demo'; links organisations"},
+        {"order": 3, "kind": "kpi", "title": "Members", "detail": "count; hint accounts on the platform"},
+        {"order": 4, "kind": "kpi", "title": "REKA staff", "detail": "count"},
+        {"order": 5, "kind": "kpi", "title": "AI calls · <period>", "detail": "calls; hint US$ cost · failed; warning tone when failures"},
+        {"order": 6, "kind": "kpi", "title": "Pending references", "detail": "reference photos waiting for review"},
+        {"order": 7, "kind": "kpi", "title": "Last forecast scoring", "detail": "date; nightly at 03:00 MYT"},
+        {"order": 8, "kind": "kpi", "title": "Last nightly forecast", "detail": "date; orgs · SKUs · failed; critical tone when failed"},
+        {"order": 9, "kind": "alert", "title": "Needs a human", "detail": "to-do list: pending library, suspended orgs, failed AI calls, stale scoring or nightly run; each links to its page"},
+        {"order": 10, "kind": "feed", "title": "Recent staff actions", "detail": "last 8 audit entries (time, action, orgId in mono); link 'Audit log'"},
+        {"order": 11, "kind": "table", "title": "Nightly forecast · <datetime>", "detail": "summary line + one row per organisation (SKUs, new alerts, or skipped/failed note)"},
+        {"order": 12, "kind": "quick-actions", "title": "Shortcut cards", "detail": "Provision or manage an organisation · Find a person · AI providers · How the AI learns"}
+      ]}
+    }
+  ],
+  "screenshots": [
+    {"file": "screenshots/01-customer-dashboard-desktop.png", "surface": "customer", "what": "Dashboard + sidebar + top bar, Enterprise plan, admin, intro dismissed", "viewport": "1440x900", "method": "local-run", "notes": "Local IndexedDB mode (no Appwrite env), built-in 'Load sample data' (Demo Manufacturing Sdn Bhd), plan and Trace set in Settings"},
+    {"file": "screenshots/01b-customer-dashboard-desktop-full.png", "surface": "customer", "what": "Dashboard full length", "viewport": "1440x1077", "method": "local-run", "notes": "main scrolls internally, so captured with a viewport as tall as the content"},
+    {"file": "screenshots/01c-customer-dashboard-freeplan-firstvisit-desktop.png", "surface": "customer", "what": "Free plan: Growth/Enterprise badges in the nav, About this page panel open on first visit", "viewport": "1440x900", "method": "local-run", "notes": ""},
+    {"file": "screenshots/01d-customer-sidebar-full-desktop.png", "surface": "customer", "what": "Whole sidebar, admin, Enterprise", "viewport": "260x1400 clip", "method": "local-run", "notes": ""},
+    {"file": "screenshots/01e-customer-profile-menu-open-desktop.png", "surface": "customer", "what": "Profile menu open", "viewport": "1440x900", "method": "local-run", "notes": "Local mode has no session, so Change password and Sign out are absent here"},
+    {"file": "screenshots/01f-customer-dashboard-1024.png", "surface": "customer", "what": "Dashboard at the drawer breakpoint (sidebar still shown), org pill folded to icon", "viewport": "1024x768", "method": "local-run", "notes": "profile row shows the ink focus ring after closing the menu with Esc"},
+    {"file": "screenshots/01g-customer-dashboard-1000-drawer-closed.png", "surface": "customer", "what": "Below 1024px: sidebar hidden, hamburger in top bar", "viewport": "1000x768", "method": "local-run", "notes": ""},
+    {"file": "screenshots/01h-customer-dashboard-worker-role-desktop.png", "surface": "customer", "what": "Worker role nav variant", "viewport": "1440x900", "method": "local-run", "notes": "role simulated in Settings (local mode)"},
+    {"file": "screenshots/02-customer-dashboard-mobile.png", "surface": "customer", "what": "Desktop shell at phone width", "viewport": "390x844", "method": "local-run", "notes": "fine pointer, so no redirect to /m"},
+    {"file": "screenshots/02b-customer-nav-open-mobile.png", "surface": "customer", "what": "Sidebar drawer open", "viewport": "390x844", "method": "local-run", "notes": ""},
+    {"file": "screenshots/02c-customer-dashboard-mobile-full.png", "surface": "customer", "what": "Dashboard full length at phone width", "viewport": "390x2066", "method": "local-run", "notes": ""},
+    {"file": "screenshots/03-axle-dashboard-desktop.png", "surface": "axle", "what": "AXLE Overview + rail", "viewport": "1440x900", "method": "mocked", "notes": "Dev server with dummy VITE_APPWRITE_ENDPOINT; Playwright page.route answered /v1/account and the admin-api Function (whoami, overview, listAudit) with fictional data"},
+    {"file": "screenshots/03b-axle-dashboard-desktop-tall.png", "surface": "axle", "what": "AXLE Overview full length", "viewport": "1440x1250", "method": "mocked", "notes": ""},
+    {"file": "screenshots/03c-axle-dashboard-mobile.png", "surface": "axle", "what": "AXLE Overview at phone width", "viewport": "390x844", "method": "mocked", "notes": ""},
+    {"file": "screenshots/03d-axle-nav-open-mobile.png", "surface": "axle", "what": "AXLE rail drawer open", "viewport": "390x844", "method": "mocked", "notes": ""},
+    {"file": "screenshots/04-scanner-check-mobile.png", "surface": "worker", "what": "Phone scanner, Check tab, bottom tab bar", "viewport": "390x844", "method": "local-run", "notes": "worker role"},
+    {"file": "screenshots/04b-scanner-scan-mobile.png", "surface": "worker", "what": "Phone scanner home (Scan mode picker)", "viewport": "390x844", "method": "local-run", "notes": ""},
+    {"file": "screenshots/04c-scanner-me-mobile.png", "surface": "worker", "what": "Phone scanner Me tab (account menu equivalent)", "viewport": "390x844", "method": "local-run", "notes": "local mode: 'Local user', no Sign out"},
+    {"file": "screenshots/05-customer-signin-desktop.png", "surface": "customer", "what": "Sign-in, split brand panel", "viewport": "1440x900", "method": "mocked", "notes": "/v1/account answered 401"},
+    {"file": "screenshots/05b-axle-signin-desktop.png", "surface": "axle", "what": "AXLE staff sign-in (cockpit ground)", "viewport": "1440x900", "method": "mocked", "notes": ""},
+    {"file": "screenshots/05c-customer-signin-mobile.png", "surface": "customer", "what": "Sign-in at phone width (brand panel dropped)", "viewport": "390x844", "method": "mocked", "notes": ""},
+    {"file": "screenshots/06-trace-rfid-desktop.png", "surface": "customer", "what": "PLExyz Trace (RFID page) empty state inside the Janka shell", "viewport": "1440x900", "method": "local-run", "notes": "Trace has no nav of its own; it is the RFID item under Scan & tag"}
+  ],
+  "brand_gaps": [
+    "No AntaraX credit line anywhere in the chrome (target 'Janka · by AntaraX'); sign-in has no 'Janka by AntaraX, from REKA.'",
+    "Primary is still REKA orange #FB9800 (active nav, links, buttons, scanner tabs); target Janka action #077DA1 and accent #0CC4FB (tokens.ts:18-27)",
+    "Tagline 'TRACK · FORECAST · UNLOCK' in uppercase mono under the sidebar wordmark (Sidebar.tsx:93), on sign-in (LoginScreen.tsx:58, BrandPanel.tsx:67) and in the <title> (index.html:7); 'unlock' is banned and uppercase mono eyebrows are forbidden",
+    "Sign-in brand panel is a dark brown-green gradient, not navy or the Tide Swell",
+    "'Upgrade your organisation to unlock it' in UpgradeOverlay.tsx:71 (banned word); plan names Free/Growth/Enterprise not Seed/Galaxy/Quantum, also in sidebar badges",
+    "hello@reka.re on sign-in (LoginScreen.tsx:105) and suspension/switched-off screens (RoleGuard.tsx:39, 49) instead of support@go.antarax.ai",
+    "No /help and no Help item in the menu (13 §8); guide exists",
+    "Shell focus rings are ink #0B0E14 and form focus is orange; standard is AntaraX blue #0459F7",
+    "No AI sparkle entry point in the shell; no 'Assist'",
+    "Roles Admin/Manager/Worker; no Owner (13 §1)",
+    "Money shown 'RM 330,679' with a space; standard is RM330,679",
+    "AXLE is named 'Janka AXLE' (wordmark, title, copy) instead of 'AXLE · Janka'; brand kit's audit still quotes the old title 'AXLE — REKA Admin', which the repo no longer uses",
+    "AXLE ground is ink #0B0E14 / #12151E, not the dark product ground #071233 / #0C1B47; no AntaraX A in the corner; content area is light, not dark-only",
+    "AXLE shows uppercase mono labels (REKA STAFF CONSOLE, AXLE ADMIN, group labels) and US spelling 'Authorized staff only'",
+    "Sidebar group labels are uppercase (STOCK, SCAN & TAG …); nav labels mix Title Case ('Stock Movements', 'PO Drafts', 'Labels & Scan') with sentence case",
+    "Org name shown twice on desktop (sidebar switcher and top bar pill)"
+  ],
+  "notes": "PLExyz Trace is not a separate surface: it is the RFID page (/tagging/rfid) inside Scan & tag, admin/manager only, and switched on by the 'PLExyz Trace' setting. Repo guide screenshots exist in docs/guide/images (140 JPEGs, last touched 2026-10-15 per git log) but were not needed because live capture worked. All screenshot data is fictional (built-in sample dataset and invented AXLE figures)."
+}

@@ -1,0 +1,1035 @@
+{
+  "product": "PLExyz Grid",
+  "repo": "haziqfaris/plexyz-grid",
+  "commit": "6a2b570",
+  "stack": "npm workspaces monorepo; Vite 6 + React 19 SPAs (apps/grid, apps/axle), Tailwind CSS 4, lucide-react 0.546, motion 12, recharts 3 (grid only), Supabase (auth, Postgres with RLS, edge functions ai-proxy / axle-admin / signup-org), packages/shared (types, entitlements, design-tokens.css); Cloudflare Pages",
+  "surfaces": [
+    {
+      "surface": "customer",
+      "name": "PLExyz Grid (staff app)",
+      "host_or_route": "apps/grid, SPA with no URL routing (state.activePage); deployed at plexyz-grid.pages.dev (brand kit target grid.antarax.ai)",
+      "entry_files": [
+        "apps/grid/src/main.tsx:8",
+        "apps/grid/src/components/Auth/AuthGateShell.tsx:14",
+        "apps/grid/src/App.tsx:80 (NAV_GROUPS)",
+        "apps/grid/src/App.tsx:134 (NavButton)",
+        "apps/grid/src/App.tsx:331 (aside sidebar)",
+        "apps/grid/src/App.tsx:390 (sidebar footer + user menu)",
+        "apps/grid/src/App.tsx:572 (floating top bar)",
+        "apps/grid/src/components/Shared/Logo.tsx",
+        "packages/shared/src/entitlements.ts:62 (FEATURE_REQUIREMENTS)",
+        "packages/shared/design-tokens.css:27"
+      ],
+      "layout": "Left sidebar 240px (full height, white card, right border) + floating rounded top bar (58px mobile / 64px desktop, radius 20/24px, inside a 16/24px page gutter). Main content scrolls; Warehouse Floor, Site Layout and Measurement Rounds pages use p-0, others p-6. Below md the sidebar becomes a slide-over drawer (fixed, translate-x) with a black/40 backdrop.",
+      "brand": {
+        "logo": "Inline SVG DeviceMark (hexagon + 4-zone grid + shard, original zone colours #CBB6FA/#4FD7D1/#FD9001/#FD4F85) in sidebar (30px) and top-bar brand pill (26px); AntaraX mark /brand/antarax-mark.svg (22px) links to https://antarax.ai",
+        "name_text": "Sidebar: Wordmark 'PLExyz Grid' (Poppins 700, 'Grid' letters in zone colours). Top bar pill: 'PLExyz Grid' text (sr-only below lg)",
+        "eyebrow": "'WAREHOUSE INTELLIGENCE' in JetBrains Mono 9px uppercase under the sidebar wordmark",
+        "credit_line": "none in the app chrome (no 'by AntaraX'); the user guide cover says 'by REKA'",
+        "other": "Facility chip under the brand: pulsing green dot + first facility name (mono 10px) or 'No facility yet'. Browser title 'PLExyz Grid — Warehouse Intelligence'"
+      },
+      "nav_groups": [
+        {
+          "label": "Operations",
+          "items": [
+            {
+              "label": "Site Layout",
+              "route": "activePage=site",
+              "icon": "lucide-react Map",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "ungated (all plans) ; desktopOnly: Monitor icon shown on mobile (<md) and an amber 'designed for a larger screen' advisory on the page",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Warehouse Floor",
+              "route": "activePage=canvas (default home)",
+              "icon": "lucide-react LayoutDashboard",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "ungated (all plans) ; desktopOnly: Monitor icon shown on mobile (<md) and an amber 'designed for a larger screen' advisory on the page",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Calendar",
+              "route": "activePage=calendar",
+              "icon": "lucide-react Calendar",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "minTier advanced (lock icon when below)",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Cargo",
+              "route": "activePage=cargo",
+              "icon": "lucide-react Package",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "ungated",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Movements",
+              "route": "activePage=movements",
+              "icon": "lucide-react ArrowLeftRight",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "minTier advanced",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Operations Flow",
+              "route": "activePage=flow",
+              "icon": "lucide-react Workflow",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "minTier advanced ; desktopOnly: Monitor icon shown on mobile (<md) and an amber 'designed for a larger screen' advisory on the page",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Measurement Rounds",
+              "route": "activePage=rounds",
+              "icon": "lucide-react ClipboardCheck",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "ungated",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Commercial",
+          "items": [
+            {
+              "label": "Bookings",
+              "route": "activePage=bookings",
+              "icon": "lucide-react ClipboardList",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "minTier standard",
+              "badge": "orange pill: count of booking requests with status 'submitted'",
+              "children": []
+            },
+            {
+              "label": "Tenants",
+              "route": "activePage=tenants",
+              "icon": "lucide-react Users",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "minTier standard",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Monitoring",
+          "items": [
+            {
+              "label": "Incidents",
+              "route": "activePage=incidents",
+              "icon": "lucide-react AlertTriangle",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "ungated",
+              "badge": "red pill: count of incidents open or in review",
+              "children": []
+            },
+            {
+              "label": "Analytics",
+              "route": "activePage=analytics",
+              "icon": "lucide-react BarChart3",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "minTier advanced",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Reports",
+              "route": "activePage=reports",
+              "icon": "lucide-react FileText",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "minTier standard",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "System",
+          "items": [
+            {
+              "label": "Policies",
+              "route": "activePage=policies",
+              "icon": "lucide-react Shield",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "minTier standard",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Simulation",
+              "route": "activePage=simulation",
+              "icon": "lucide-react FlaskConical",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "minTier intelligent ; desktopOnly: Monitor icon shown on mobile (<md) and an amber 'designed for a larger screen' advisory on the page",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Team",
+              "route": "activePage=team",
+              "icon": "lucide-react UserCog",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "ungated",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Settings",
+              "route": "activePage=settings",
+              "icon": "lucide-react Settings",
+              "roles": [
+                "superadmin",
+                "admin",
+                "operations_manager",
+                "supervisor",
+                "operator",
+                "customs_officer",
+                "viewer"
+              ],
+              "gating": "ungated",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "Top bar input 'Search (not available yet)', disabled (notAvailable), visible only at xl (>=1280px), 256px wide",
+        "command_palette": "none",
+        "notifications": "Bell button (44px round) with navy count badge (9+ cap) = active flags + live due reminders; dropdown 320px lists reminders (click goes to Tenants) then flags. On the Warehouse Floor the dropdown is drawn under the canvas floating panels (z-index clash seen during capture)",
+        "help": "No Help item or /help route",
+        "guide": "BookOpen round button in the top bar and 'User Guide' in the user menu; opens UserGuideModal (iframe of /guide/user-guide.html, Download PDF, Open in new tab). Served by a dev-only Vite route; in production from a private Storage bucket",
+        "org_switcher": "none (session uses the first active org membership)",
+        "product_switcher": "AntaraX mark in the top-bar brand pill links out to https://antarax.ai; no app tiles",
+        "create_button": "none global (create tools live in the Warehouse Floor toolbar: Zone, Building, Section, Bay)",
+        "ai_entry": "none in the shell (Sparkles imported but unused); AI lives per page: 'Optimise' (AI Placement Optimiser panel) on Warehouse Floor, 'AI Insights' and per-section 'Insight' buttons on Analytics, gated by ai_features (intelligent tier or ai_pack addon)",
+        "theme_toggle": "none (light only)",
+        "language": "none (English only)",
+        "user_menu": [
+          "Header: avatar initials, name, email ('Contact your admin' when no profile)",
+          "Switch Profile list of every team member (demo/local mode only, data-demo-only)",
+          "Account Settings (goes to Settings)",
+          "User Guide",
+          "Sign Out"
+        ],
+        "sign_out": "User menu 'Sign Out' (supabase.auth.signOut); in demo mode it is a no-op",
+        "plan_badge": "none; locked nav items show a Lock icon and land on UpgradeRequired ('<Page> needs the <Tier> plan. Contact your REKA account team to upgrade...')",
+        "env_badge": "Amber 'MOCK DATA' pill in the top bar when mockDataOn (demo/local mode only, label sr-only below lg)",
+        "impersonation": "none (AXLE has no impersonate; demo profile switcher only in local mode)",
+        "other": [
+          "Live 24h clock HH:MM:SS in mono (hidden below sm)",
+          "Breadcrumb: facility name / page label (facility hidden below lg, whole breadcrumb hidden below sm)",
+          "Persistence notice toast (top centre) on seed fallback or save failure",
+          "Facility chip with pulsing status dot in the sidebar"
+        ]
+      },
+      "responsive": "md (768px): sidebar becomes a slide-over drawer opened by a 44px Menu button in the top bar, closed by backdrop tap or choosing an item. sm (640px): clock and breadcrumb hidden. lg (1024px): facility in breadcrumb, product name in brand pill and 'MOCK DATA' label shown. xl (1280px): search shown. Desktop-first pages (Site Layout, Warehouse Floor, Operations Flow, Simulation) show a Monitor icon in the mobile nav and an amber advisory banner. No bottom tab bar. KPI grids on Analytics do not reflow on phones (fixed grid-cols-4).",
+      "active_state": "Active item: bg --navy-light #F1ECFF, text and icon --navy #2C09B2, 1px border --navy-mid #CBB6FA, icon stroke 2.5; inactive text --text-2, icon --text-3, hover bg --bg-hover. Locked: text-3 at 70% opacity. No aria-current on staff nav buttons.",
+      "colours": {
+        "primary": "--navy #2C09B2 (hover #3A14D6)",
+        "navy_light": "#F1ECFF",
+        "navy_mid": "#CBB6FA",
+        "bg": "#F7F7FA",
+        "card": "#FFFFFF",
+        "border": "#E7E7EE",
+        "text": "#1C1B2E",
+        "text_2": "#5C5C74",
+        "text_3": "#6B6B80",
+        "zones": "#CBB6FA #4FD7D1 #FD9001 #FD4F85 (pre-AntaraX originals)",
+        "status": "green #1A7A4A, amber #B8720A, red #C0392B, blue #1A5FB4 (not the shared core set)",
+        "shadow": "violet-tinted rgba(44,9,178,...)"
+      },
+      "fonts": "Poppins (UI) and JetBrains Mono (labels, eyebrows, clock), loaded from Google Fonts in index.html; group labels mono 9px uppercase tracking 0.14em; nav labels 13px medium",
+      "a11y": "Header round buttons are 44px with focus-visible ring 2px --navy (violet, not AntaraX blue #0459F7). Nav buttons have no visible focus style beyond browser default and no aria-current. .input-field removes the outline (index.css:81) and uses a navy box-shadow. No prefers-reduced-motion handling anywhere (motion/react page transitions, popovers, pulsing dots). Muted text tokens tuned to WCAG AA.",
+      "role_variants": "Staff nav is identical for every staff role (superadmin, admin, operations_manager, supervisor, operator, customs_officer, viewer); role limits are applied per action inside pages (roleDenied tooltips). Plan tier changes the nav only by adding lock icons. Role tenant_portal gets a completely separate shell (TenantPortalShell). In org mode the role comes from org_members.role; in demo mode from the selected profile.",
+      "dashboard": {
+        "route": "activePage=canvas 'Warehouse Floor' (default; a new org with no facility lands on 'site')",
+        "file": "apps/grid/src/components/Canvas/CanvasPage.tsx:2444",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "other",
+            "title": "Page header 'Canvas'",
+            "detail": "Title + mono uppercase description 'Spatial layout, space management and cargo tracking'; actions: '← Site' back button and facility select (CanvasPage.tsx:2447)"
+          },
+          {
+            "order": 2,
+            "kind": "filter",
+            "title": "Toolbar",
+            "detail": "View toggle Canvas / Table / Elevation; Select/Drag mode; Create: Zone, Building, Section, Bay; Optimise (AI Placement Optimiser); panel toggles Stats, Legend, Movements, Inventory (Toolbar.tsx)"
+          },
+          {
+            "order": 3,
+            "kind": "filter",
+            "title": "Floating filter bar",
+            "detail": "Tenants select ('All Tenants'), 'Search cargo...', Layers, Filters and panel-hide buttons (CanvasPage.tsx:2830)"
+          },
+          {
+            "order": 4,
+            "kind": "other",
+            "title": "Floor canvas",
+            "detail": "Pan/zoom grid of zones, buildings, sections and bays coloured by bay status; movement plan overlays"
+          },
+          {
+            "order": 5,
+            "kind": "kpi",
+            "title": "Live Operations Stats (draggable window, top right)",
+            "detail": "Occupancy %, Active Cargo, Open Flags, SLA Breaches; Revenue Potential (RM) with progress bar; Space allocation stacked bar (allocated / unallocated / locked m2, usable total) (StatsPanel.tsx)"
+          },
+          {
+            "order": 6,
+            "kind": "other",
+            "title": "Legend (draggable, collapsible, left)",
+            "detail": "Bay status swatches: Occupied (full), Reserved, Restricted, Maintenance, Transit only, Available, Occupied (partial fill), Locked"
+          },
+          {
+            "order": 7,
+            "kind": "feed",
+            "title": "Active Movements (draggable, bottom left)",
+            "detail": "Count of plans and a list of active movement plans with stage status"
+          },
+          {
+            "order": 8,
+            "kind": "other",
+            "title": "Minimap (bottom right)",
+            "detail": "Overview of the floor with the viewport rectangle; click to jump (CanvasPage.tsx:4167)"
+          },
+          {
+            "order": 9,
+            "kind": "other",
+            "title": "Zoom controls (bottom centre)",
+            "detail": "Reset pan/zoom, zoom out, zoom %, zoom in, fullscreen"
+          },
+          {
+            "order": 10,
+            "kind": "other",
+            "title": "Optional panels",
+            "detail": "Inventory drawer (right, 300px), Canvas Layers, Filters, AI Placement Optimiser (380px)"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "other",
+      "name": "Tenant Portal (tenant_portal role, same app)",
+      "host_or_route": "apps/grid, replaces the staff shell when the session role is tenant_portal (addon tenant_portal)",
+      "entry_files": [
+        "apps/grid/src/App.tsx:247",
+        "apps/grid/src/components/Tenants/TenantPortalShell.tsx:80 (NAV)",
+        "apps/grid/src/components/Tenants/TenantPortalShell.tsx:95 (aside)",
+        "apps/grid/src/components/Tenants/TenantPortalShell.tsx:138 (mobile top bar)",
+        "apps/grid/src/components/Tenants/TenantPortalShell.tsx:171 (OverviewTab)"
+      ],
+      "layout": "Left sidebar 220px, no top bar on desktop; below md a 48px sticky top bar with Menu button and a slide-over drawer",
+      "brand": {
+        "logo": "No product mark: a navy 32px tile with the tenant's code (e.g. 'MF')",
+        "name_text": "Tenant name",
+        "eyebrow": "'TENANT PORTAL' mono 9px uppercase in navy",
+        "credit_line": "none",
+        "other": "No PLExyz Grid or AntaraX branding anywhere in this shell"
+      },
+      "nav_groups": [
+        {
+          "label": "",
+          "items": [
+            {
+              "label": "Overview",
+              "route": "tab=overview",
+              "icon": "lucide-react ShieldCheck",
+              "roles": [
+                "tenant_portal"
+              ],
+              "gating": "addon tenant_portal",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "My Cargo",
+              "route": "tab=cargo",
+              "icon": "lucide-react Package",
+              "roles": [
+                "tenant_portal"
+              ],
+              "gating": "addon tenant_portal",
+              "badge": "grey count of cargo not departed",
+              "children": []
+            },
+            {
+              "label": "My Bays",
+              "route": "tab=bays",
+              "icon": "lucide-react Warehouse",
+              "roles": [
+                "tenant_portal"
+              ],
+              "gating": "addon tenant_portal",
+              "badge": "grey count of assignments",
+              "children": []
+            },
+            {
+              "label": "Bookings",
+              "route": "tab=bookings",
+              "icon": "lucide-react ClipboardList",
+              "roles": [
+                "tenant_portal"
+              ],
+              "gating": "addon tenant_portal",
+              "badge": "grey count of submitted / under review bookings",
+              "children": []
+            },
+            {
+              "label": "Billing",
+              "route": "tab=billing",
+              "icon": "lucide-react Receipt",
+              "roles": [
+                "tenant_portal"
+              ],
+              "gating": "addon tenant_portal",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Reminders",
+              "route": "tab=reminders",
+              "icon": "lucide-react Bell",
+              "roles": [
+                "tenant_portal"
+              ],
+              "gating": "addon tenant_portal",
+              "badge": "grey count of reminders",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none",
+        "command_palette": "none",
+        "notifications": "none (Reminders tab instead)",
+        "help": "none",
+        "guide": "'User Guide' button in sidebar footer",
+        "org_switcher": "none",
+        "product_switcher": "none",
+        "create_button": "none (new booking inside Bookings tab)",
+        "ai_entry": "none",
+        "theme_toggle": "none",
+        "language": "none",
+        "user_menu": [
+          "'Signed in as <name>' text",
+          "User Guide",
+          "Sign Out (org mode) / Exit to Staff View (demo mode)"
+        ],
+        "sign_out": "Sidebar footer button",
+        "plan_badge": "none",
+        "env_badge": "none",
+        "impersonation": "none",
+        "other": []
+      },
+      "responsive": "md: sidebar becomes drawer with backdrop; KPI row stays grid-cols-4 on phones and overflows (RM figure clipped at 390px)",
+      "active_state": "bg navy at 10% opacity, text --navy; icons 15px",
+      "colours": {
+        "primary": "--navy #2C09B2",
+        "tile": "navy tile with white mono code"
+      },
+      "fonts": "Poppins, JetBrains Mono for eyebrow",
+      "a11y": "No focus styles beyond defaults; no aria-current; no reduced motion",
+      "role_variants": "Only tenant_portal; a tenant user without a tenants link sees a 'not linked to a tenant record' state",
+      "dashboard": {
+        "route": "tab=overview",
+        "file": "apps/grid/src/components/Tenants/TenantPortalShell.tsx:171",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "Welcome back, <contact name>",
+            "detail": "Subtitle '<tenant name> · <code>'"
+          },
+          {
+            "order": 2,
+            "kind": "kpi",
+            "title": "Active Cargo",
+            "detail": "count"
+          },
+          {
+            "order": 3,
+            "kind": "kpi",
+            "title": "Bays Leased",
+            "detail": "count"
+          },
+          {
+            "order": 4,
+            "kind": "kpi",
+            "title": "Monthly Charges",
+            "detail": "'RM 139,227' format (space after RM)"
+          },
+          {
+            "order": 5,
+            "kind": "kpi",
+            "title": "Compliance Score",
+            "detail": "% green >=90, amber below"
+          },
+          {
+            "order": 6,
+            "kind": "feed",
+            "title": "Recent Reminders",
+            "detail": "Up to 3 reminders with 'View all' link; only when reminders exist"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "axle",
+      "name": "PLExyz Grid AXLE (Platform Admin)",
+      "host_or_route": "apps/axle, separate Vite SPA; deployed at plexyz-grid-axle.pages.dev; no URL routing (useState activePage, default 'organizations')",
+      "entry_files": [
+        "apps/axle/src/App.tsx:53",
+        "apps/axle/src/hooks/useAdminAuth.ts:18",
+        "apps/axle/src/components/Layout/AdminShell.tsx:19 (NAV_SECTIONS)",
+        "apps/axle/src/components/Layout/AdminShell.tsx:60 (aside)",
+        "apps/axle/src/components/Layout/AdminShell.tsx:104 (footer: email + sign out)",
+        "apps/axle/src/components/Organizations/OrganizationsPage.tsx:30",
+        "apps/axle/src/components/Shared/Logo.tsx",
+        "apps/axle/index.html:6"
+      ],
+      "layout": "Left sidebar 240px (md:w-60) with brand block, grouped nav and footer; no top bar. Below md the sidebar collapses to a top bar (brand + Menu/X toggle) and the nav and footer stack underneath it when open (pushes content down, no overlay). Main content p-4/p-6.",
+      "brand": {
+        "logo": "Inline SVG DeviceMark 28px (same as Grid, original zone colours)",
+        "name_text": "Wordmark 'PLExyz Grid'",
+        "eyebrow": "'AXLE' mono 9px uppercase",
+        "credit_line": "none",
+        "other": "Browser title 'PLExyz Grid AXLE — Platform Admin'; sign-in footer 'PLEXYZ GRID AXLE — PLATFORM ADMIN'; light violet look shared with the customer app via packages/shared/design-tokens.css"
+      },
+      "nav_groups": [
+        {
+          "label": "Tenants",
+          "items": [
+            {
+              "label": "Organizations",
+              "route": "activePage=organizations (default)",
+              "icon": "lucide-react Building2",
+              "roles": [
+                "platform_admin"
+              ],
+              "gating": "platform_admins row (RLS)",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Platform",
+          "items": [
+            {
+              "label": "Usage",
+              "route": "activePage=usage",
+              "icon": "lucide-react TrendingUp",
+              "roles": [
+                "platform_admin"
+              ],
+              "gating": "platform_admins",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "AI Configuration",
+              "route": "activePage=ai",
+              "icon": "lucide-react Cpu",
+              "roles": [
+                "platform_admin"
+              ],
+              "gating": "platform_admins",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Billing",
+              "route": "activePage=billing",
+              "icon": "lucide-react Receipt",
+              "roles": [
+                "platform_admin"
+              ],
+              "gating": "platform_admins",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Audit Log",
+              "route": "activePage=audit",
+              "icon": "lucide-react ClipboardList",
+              "roles": [
+                "platform_admin"
+              ],
+              "gating": "platform_admins",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none",
+        "command_palette": "none",
+        "notifications": "none",
+        "help": "none",
+        "guide": "none",
+        "org_switcher": "none (orgs are rows in the Organizations table; 'Manage' opens a slide-over OrgDetailPanel)",
+        "product_switcher": "none",
+        "create_button": "none global ('New record' on Billing, 'Invite' in org panel)",
+        "ai_entry": "none (AI Configuration is an admin page)",
+        "theme_toggle": "none (light only)",
+        "language": "none",
+        "user_menu": [],
+        "sign_out": "LogOut icon button next to the admin's email in the sidebar footer",
+        "plan_badge": "none",
+        "env_badge": "none",
+        "impersonation": "none",
+        "other": [
+          "Password reset banner (fixed top centre, one-time password shown once)"
+        ]
+      },
+      "responsive": "md: sidebar becomes a top bar; nav list and footer toggle open below it (aria-expanded, aria-controls='axle-nav'); tables scroll horizontally on phones",
+      "active_state": "bg --navy-light #F1ECFF, text and icon --navy #2C09B2, aria-current='page'; icons 16px; group labels 10px bold uppercase (Poppins, not mono)",
+      "colours": {
+        "primary": "--navy #2C09B2",
+        "ground": "--bg-body #FBFBFD",
+        "card": "#FFFFFF",
+        "status_pills": "Tailwind emerald/amber/red at 10% bg + 30% border"
+      },
+      "fonts": "Poppins (font-poppins for headings), JetBrains Mono for slugs and codes",
+      "a11y": ".input:focus removes the outline (index.css:58); no focus-visible rings in the shell; aria-current on nav; aria-label on sign-out and menu toggle; no reduced motion",
+      "role_variants": "Single role: platform admin (row in platform_admins). Signed-in non-admins get NotAdminPage; unconfigured deploy shows 'AXLE isn't configured yet'",
+      "dashboard": {
+        "route": "activePage=organizations (no dedicated dashboard)",
+        "file": "apps/axle/src/components/Organizations/OrganizationsPage.tsx:82",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "other",
+            "title": "Organizations header",
+            "detail": "'Approve new signups, suspend, and manage each org's plan tier.'"
+          },
+          {
+            "order": 2,
+            "kind": "alert",
+            "title": "Error banner",
+            "detail": "red, only on fetch/action failure"
+          },
+          {
+            "order": 3,
+            "kind": "table",
+            "title": "Organizations table",
+            "detail": "Columns Organization (name + mono slug), Status pill (pending/active/suspended), Tier select (free/trial/standard/advanced/intelligent, confirm() on change), Created (locale date), Actions: Manage, Approve (pending), Suspend, Reactivate (suspended)"
+          },
+          {
+            "order": 4,
+            "kind": "empty-state",
+            "title": "No organizations yet.",
+            "detail": "plain card text"
+          },
+          {
+            "order": 5,
+            "kind": "other",
+            "title": "OrgDetailPanel slide-over",
+            "detail": "Members (role select, reset password, remove, Invite), Limits (facility, seat), Subscription (Stripe price MYR + interval), One-off invoice, Addons checkboxes (tenant portal, AI pack, extra facility/seats, integrations, port add-ons)"
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "screenshots/01-customer-dashboard-desktop.png",
+      "surface": "customer",
+      "what": "Warehouse Floor (default home) with sidebar and top bar",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode: no Supabase env, built-in seed data ('Closed Sheds'), MOCK DATA badge visible"
+    },
+    {
+      "file": "screenshots/01b-customer-usermenu-open-desktop.png",
+      "surface": "customer",
+      "what": "User menu open (demo profile switcher, Account Settings, User Guide, Sign Out)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Switch Profile section is demo-only"
+    },
+    {
+      "file": "screenshots/01c-customer-notifications-open-desktop.png",
+      "surface": "customer",
+      "what": "Notifications dropdown open (on Analytics)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Captured on Analytics because on the Warehouse Floor the canvas panels draw over the dropdown"
+    },
+    {
+      "file": "screenshots/01d-customer-analytics-desktop.png",
+      "surface": "customer",
+      "what": "Analytics page, first screen (closest thing to a KPI dashboard)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/01e-customer-analytics-fullpage-desktop.png",
+      "surface": "customer",
+      "what": "Analytics page, whole length",
+      "viewport": "1440x4367",
+      "method": "local-run",
+      "notes": "Viewport stretched to the inner scroller height"
+    },
+    {
+      "file": "screenshots/01f-customer-site-layout-desktop.png",
+      "surface": "customer",
+      "what": "Site Layout (compound overview)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/01g-customer-user-guide-modal-desktop.png",
+      "surface": "customer",
+      "what": "User guide modal (cover says 'by REKA')",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/02-customer-dashboard-mobile.png",
+      "surface": "customer",
+      "what": "Warehouse Floor on a phone with desktop-first advisory",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/02b-customer-nav-open-mobile.png",
+      "surface": "customer",
+      "what": "Mobile sidebar drawer open",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": "Monitor icons mark desktop-first pages"
+    },
+    {
+      "file": "screenshots/02c-customer-analytics-mobile.png",
+      "surface": "customer",
+      "what": "Analytics on a phone (4-column KPI grid does not reflow)",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/02d-customer-dashboard-tablet.png",
+      "surface": "customer",
+      "what": "Warehouse Floor at tablet width (search hidden below xl)",
+      "viewport": "1024x768",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-organizations-desktop.png",
+      "surface": "axle",
+      "what": "AXLE landing page (Organizations) with sidebar",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Dummy Supabase URL + page.route stubs; fake session in localStorage; fictional orgs"
+    },
+    {
+      "file": "screenshots/03b-axle-org-detail-panel-desktop.png",
+      "surface": "axle",
+      "what": "Org detail slide-over (members, limits, Stripe, addons)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03c-axle-usage-desktop.png",
+      "surface": "axle",
+      "what": "Usage (AI gateway KPIs and tables)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Figures come from the fake rows"
+    },
+    {
+      "file": "screenshots/03d-axle-ai-configuration-desktop.png",
+      "surface": "axle",
+      "what": "AI Configuration",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03e-axle-billing-desktop.png",
+      "surface": "axle",
+      "what": "Billing",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03f-axle-audit-log-desktop.png",
+      "surface": "axle",
+      "what": "Audit Log",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03g-axle-dashboard-mobile.png",
+      "surface": "axle",
+      "what": "AXLE on a phone, nav collapsed to a top bar",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03h-axle-nav-open-mobile.png",
+      "surface": "axle",
+      "what": "AXLE on a phone, nav open (stacks above content)",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/04-tenant-portal-overview-desktop.png",
+      "surface": "other",
+      "what": "Tenant Portal overview (tenant_portal profile)",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Demo mode, switched to the seed tenant_portal member"
+    },
+    {
+      "file": "screenshots/04b-tenant-portal-overview-mobile.png",
+      "surface": "other",
+      "what": "Tenant Portal overview on a phone",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": "KPI row overflows"
+    },
+    {
+      "file": "screenshots/04c-tenant-portal-nav-open-mobile.png",
+      "surface": "other",
+      "what": "Tenant Portal mobile drawer open",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/05-customer-signin-desktop.png",
+      "surface": "customer",
+      "what": "Sign-in",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Dummy Supabase env, no session"
+    },
+    {
+      "file": "screenshots/05b-customer-signin-mobile.png",
+      "surface": "customer",
+      "what": "Sign-in on a phone",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/05c-customer-signup-desktop.png",
+      "surface": "customer",
+      "what": "Create a workspace (sign-up)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/05d-customer-pending-approval-desktop.png",
+      "surface": "customer",
+      "what": "Pending approval screen",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Fake org 'Demo Sdn Bhd' with status pending"
+    },
+    {
+      "file": "screenshots/05e-axle-signin-desktop.png",
+      "surface": "axle",
+      "what": "AXLE sign-in",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/06-customer-org-free-plan-desktop.png",
+      "surface": "customer",
+      "what": "Signed-in org on the free plan: first-run Site Layout, locked nav items",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Fake session + org_members/org_entitlements stubs; every data table empty"
+    },
+    {
+      "file": "screenshots/06b-customer-org-free-plan-locked-page-desktop.png",
+      "surface": "customer",
+      "what": "Locked page (Analytics needs the Advanced plan)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/06c-customer-org-usermenu-desktop.png",
+      "surface": "customer",
+      "what": "User menu in org mode (no profile switcher)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/repo-guide-tour-warehouse-floor.jpg",
+      "surface": "customer",
+      "what": "Existing user-guide screenshot of the Warehouse Floor",
+      "viewport": "1080x675 @1x",
+      "method": "repo-existing",
+      "notes": "Copied from apps/grid/guide/images/tour.jpg (guide v1.1, 15 Oct 2026; git date unknown, shallow clone). Matches the current UI including the 12 Oct top bar. A 2x copy is at docs/delivery/D1-user-guide/images/tour.jpg. 52 guide shots exist in each folder; none show AXLE"
+    }
+  ],
+  "brand_gaps": [
+    "No 'PLExyz Grid · by AntaraX' credit anywhere in the chrome, sign-in or AXLE; the user guide cover reads 'PLExyz Grid by REKA' (12, 09).",
+    "Uppercase eyebrow with an em dash still ships: 'PLEXYZ GRID — WAREHOUSE INTELLIGENCE' (apps/grid/src/components/Auth/LoginPage.tsx:42) and 'PLEXYZ GRID AXLE — PLATFORM ADMIN' (apps/axle/src/components/Auth/AdminLoginPage.tsx:37); sidebar eyebrow 'WAREHOUSE INTELLIGENCE' is mono uppercase, not an intan eyebrow in violet.",
+    "Logo and wordmark still use the original zone colours (#CBB6FA, #4FD7D1, #FD9001, #FD4F85), not the approved AntaraX versions (#B9B8F5, #0CC4FB, #F47B3D, #E9579D); the same old values are the --zone-* tokens.",
+    "Status colours are app-specific (#1A7A4A, #B8720A, #C0392B) rather than the shared core (#12B76A, #F79009, #F04438); Tailwind green/blue/gray are used for the allocation bar.",
+    "Focus ring is violet --navy and only on header buttons; inputs remove the outline (apps/grid/src/index.css:81, apps/axle/src/index.css:58); 13 §10 asks for a visible AntaraX-blue #0459F7 ring everywhere.",
+    "No prefers-reduced-motion handling in either app (motion/react transitions, pulsing dots).",
+    "No Help item or /help route; guide is a modal, not /guide (13 §8).",
+    "AXLE is named 'PLExyz Grid AXLE — Platform Admin', light and violet with the Grid mark; 13 §6 asks for 'AXLE · PLExyz Grid', dark ground #071233, REKA orange #FB9800 and the AntaraX A, at axle.antarax.ai.",
+    "Words: 'Organization'/'organization' (US spelling) on sign-in, AXLE and upgrade copy; 'workspace' also used for the account; 'Sign Out' in title case; roles shown as Superadmin/Admin/Operations Manager etc. (13 §1).",
+    "Plans shown as free/trial/standard/advanced/intelligent (AXLE tier select, UpgradeRequired) instead of Seed, Nova, Galaxy, Quantum with descriptors (13 §3).",
+    "Money written 'RM 656,379.00' and 'RM 139,227' with a space; 13 §3 wants 'RM656,379.00'. Dates shown as US locale '9/2/2026' and '10/14/2026, 3:00:00 AM' in AXLE.",
+    "'Contact your REKA account manager/team' on sign-in and the upgrade screen instead of the support line support@go.antarax.ai.",
+    "Tenant Portal shell carries no PLExyz Grid or AntaraX branding at all (only the tenant's code tile).",
+    "No app tile or manifest; AI entry points use the Sparkles icon but are not the AntaraX AI sparkle, and the optimiser panel uses a text glyph '✦'.",
+    "The top-bordered stat card rule (07) is now only dead CSS: .kpi-card with border-top-width 3px is defined (apps/grid/src/index.css:418) but no component uses it; Analytics KPI cards use coloured values instead."
+  ],
+  "notes": "Grid has no dedicated dashboard: the home is the Warehouse Floor canvas with a floating 'Live Operations Stats' window; the KPI-and-chart page is Analytics (Occupancy & Utilisation, Facility Breakdown, Cargo & Dwell Time, Movements & Operations, Revenue & Commercial, Incidents & Compliance; recharts horizontal bars and a donut; over-time charts are 'No history recorded yet' placeholders; date-range chips and exports are disabled). Neither app has URL routing; pages are React state, so routes above are activePage values. AXLE's landing page is the Organizations table. Customer captures used the repo's own no-backend demo mode; sign-in, pending approval, free-plan and all AXLE captures used a dummy Supabase URL with Playwright page.route stubs and fictional data; no real backend was contacted. Live pages (grid.antarax.ai, plexyz-grid-axle.pages.dev) could not be reached through the sandbox proxy."
+}

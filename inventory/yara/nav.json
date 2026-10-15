@@ -1,0 +1,1100 @@
+{
+  "product": "Yara",
+  "repo": "haziqfaris/yara",
+  "commit": "e70cb3b",
+  "stack": "Next.js 15.5 App Router, React, TypeScript, Tailwind 3, Supabase (Auth, Postgres + RLS, Storage) via @supabase/ssr, Recharts, Vercel; PWA for workers",
+  "surfaces": [
+    {
+      "surface": "customer",
+      "name": "Management shell (owner, Operation Manager, supervisor)",
+      "host_or_route": "yara.antarax.ai, route group src/app/(app) (home /dashboard)",
+      "entry_files": [
+        "src/app/(app)/layout.tsx:9",
+        "src/components/shared/AppShell.tsx:9",
+        "src/components/shared/Sidebar.tsx:26 (CLIENT_SECTIONS)",
+        "src/components/shared/Sidebar.tsx:132 (Sidebar component)",
+        "src/components/shared/Topbar.tsx:30 (BrandPill)",
+        "src/components/shared/Topbar.tsx:75 (Topbar)",
+        "src/components/shared/ProfileMenu.tsx:43",
+        "src/components/shared/NotificationBell.tsx:9",
+        "src/components/shared/NavIcon.tsx:2",
+        "src/components/shared/PageGuide.tsx:48 (floating ? button)",
+        "src/lib/brand.ts:1"
+      ],
+      "layout": "Fixed left sidebar (w-60 = 240px, full height, white, right border) from lg (1024px) up; below lg the sidebar becomes a left drawer opened by a hamburger. Content column has a sticky floating top bar card (58px high on phone, 64px from sm, rounded 20/24px, inside a 16-24px gutter) and a scrolling main area (p-4, lg:p-6). Profile menu sits in the sidebar footer, not the top bar.",
+      "brand": {
+        "logo": "public/brand/antarax-ax-ripple-centered.svg (BrandMark, 32px) in the sidebar head; top bar BrandPill = public/brand/antarax-mark.svg (22px, links to https://antarax.ai) + public/brand/ripple-icon.svg (24px) on a white chip",
+        "name_text": "Yara (brand.productName, env NEXT_PUBLIC_APP_NAME); top bar chip text in teal #067A7C",
+        "eyebrow": "",
+        "credit_line": "Powered by AntaraX Ripple (sidebar head, 11px muted, from brand.poweredBy / NEXT_PUBLIC_PLATFORM_ENGINE)",
+        "other": "Tenant identity chip in the top bar: company logo (signed URL) or 2-letter initials tile + company name, hidden below sm. No version or build text in the customer shell."
+      },
+      "nav_groups": [
+        {
+          "label": "(no label)",
+          "items": [
+            {
+              "label": "Dashboard",
+              "route": "/dashboard",
+              "icon": "custom inline SVG NavIcon 'dashboard' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om",
+                "supervisor"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Operations",
+          "items": [
+            {
+              "label": "Work Orders",
+              "route": "/work-orders",
+              "icon": "custom inline SVG NavIcon 'workOrders' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om",
+                "supervisor"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Projects",
+              "route": "/projects",
+              "icon": "custom inline SVG NavIcon 'workOrders' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om"
+              ],
+              "gating": "role only (carries order value)",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Job Cards",
+              "route": "/job-cards",
+              "icon": "custom inline SVG NavIcon 'jobCards' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om",
+                "supervisor"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Customers",
+              "route": "/customers",
+              "icon": "custom inline SVG NavIcon 'customers' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om"
+              ],
+              "gating": "role only",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Team",
+          "items": [
+            {
+              "label": "Team Tasks",
+              "route": "/team",
+              "icon": "custom inline SVG NavIcon 'team' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om",
+                "supervisor"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Invite people",
+              "route": "/users/invite",
+              "icon": "custom inline SVG NavIcon 'invite' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om"
+              ],
+              "gating": "role only",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Users",
+              "route": "/users",
+              "icon": "custom inline SVG NavIcon 'users' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om"
+              ],
+              "gating": "role only",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Activity Log",
+              "route": "/activity",
+              "icon": "custom inline SVG NavIcon 'activity' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om"
+              ],
+              "gating": "role only",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Setup",
+          "items": [
+            {
+              "label": "Workflows",
+              "route": "/settings/workflows",
+              "icon": "custom inline SVG NavIcon 'workflows' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om"
+              ],
+              "gating": "section is owner/om only",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Production setup",
+              "route": "/settings/production",
+              "icon": "custom inline SVG NavIcon 'settings' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om"
+              ],
+              "gating": "role only; page has tabs: standards and rates, calendar, resources (equipment), thresholds",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Priorities & reasons",
+              "route": "/settings/lookups",
+              "icon": "custom inline SVG NavIcon 'settings' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om"
+              ],
+              "gating": "role only",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Teams",
+              "route": "/settings/teams",
+              "icon": "custom inline SVG NavIcon 'teams' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om"
+              ],
+              "gating": "role only",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Settings",
+              "route": "/settings/features",
+              "icon": "custom inline SVG NavIcon 'settings' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om"
+              ],
+              "gating": "section is owner/om only",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Organization",
+              "route": "/settings/organization",
+              "icon": "custom inline SVG NavIcon 'organization' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om"
+              ],
+              "gating": "role only",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "(no label, footer group)",
+          "items": [
+            {
+              "label": "Help",
+              "route": "/help",
+              "icon": "custom inline SVG NavIcon 'faq' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om",
+                "supervisor"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "User guide",
+              "route": "/guide",
+              "icon": "custom inline SVG NavIcon 'guide' (18px, stroke 1.7)",
+              "roles": [
+                "owner",
+                "om",
+                "supervisor"
+              ],
+              "gating": "leaves the shell: /guide and /help render as standalone pages without the sidebar",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "Top bar search field 'Search Work Orders, Job Cards, users…' (max-w-sm, 44px high, grey #EFF2F6 fill, teal focus) submits to /search?q=; below sm it collapses to a round search button that expands the field over the bar with a close (X) button",
+        "command_palette": "none",
+        "notifications": "Bell (44px round) in the top bar linking to /notifications; red count badge (#F04438, '9+' cap); count polled every 60s from /api/notifications/unread-count and refreshed on tab focus",
+        "help": "Help item in the sidebar footer group (/help); 'FAQ & Support' in the user menu; floating '?' button bottom right re-opens the per-page guide card",
+        "guide": "User guide item in the sidebar (/guide) and in the user menu",
+        "org_switcher": "none; read-only tenant chip (logo/initials + name) in the top bar",
+        "product_switcher": "none; AntaraX 'A' in the brand pill links out to https://antarax.ai",
+        "create_button": "Not global. '+ New Work Order' primary button on the dashboard header (hidden for supervisors without supervisor_can_create_work_order)",
+        "ai_entry": "none (ai_intake_enabled flag exists, off by default, no UI entry)",
+        "theme_toggle": "none (light only)",
+        "language": "none in the management shell (English only)",
+        "user_menu": [
+          "header: full name + role label",
+          "My Profile (/profile)",
+          "FAQ & Support (/help)",
+          "User guide (/guide)",
+          "Log out (red, confirm dialog)"
+        ],
+        "sign_out": "'Log out' in the sidebar-footer user menu, with a confirm dialog ('Log out?'), then redirect to /login",
+        "plan_badge": "none",
+        "env_badge": "none",
+        "impersonation": "none",
+        "other": [
+          "Skip to content link (root layout)",
+          "Per-page guide card (PageGuide) with 'Take the tour' link and 'Got it' dismiss, stored in localStorage",
+          "Guided tours anchored on data-tour attributes (Tour.tsx)",
+          "ModuleSlot 'dashboard.panel' for add-on modules"
+        ]
+      },
+      "responsive": "lg (1024px) and up: fixed 240px sidebar. Below lg: sidebar hidden, hamburger (44px round) at the left of the top bar opens the same Sidebar as a left drawer over a 30% black scrim (focus trap, Escape closes, closes on navigate). Below sm (640px): search collapses to an icon, tenant chip hidden, top bar 58px instead of 64px. No bottom bar.",
+      "active_state": "Longest matching route prefix wins. Active item: teal tint background #E1F6F6 (ripple-tealTint) with teal-dark text and icon #078F92, radius 8px; inactive: muted grey #6B7280 text, icon at 70% opacity, hover bg gray-50",
+      "colours": {
+        "accent": "#08B0B3 Ripple teal (primary buttons, focus border)",
+        "accent_dark": "#078F92",
+        "accent_tint": "#E1F6F6",
+        "brand_chip_text": "#067A7C",
+        "antarax_blue": "#0459F7 (focus ring on top-bar controls, range picker active)",
+        "app_bg": "#F7FAFC",
+        "border": "#E5E7EB",
+        "text": "#111827",
+        "muted": "#6B7280",
+        "search_fill": "#EFF2F6",
+        "ok": "#12B76A",
+        "warn": "#F79009",
+        "fault": "#F04438"
+      },
+      "fonts": "Poppins 400/500/600/700 (next/font, --font-poppins) for all UI; JetBrains Mono (--font-mono) only in a few places in the customer app (running timer). KPI values are Poppins, not mono.",
+      "a11y": "Skip to content link; drawer has role=dialog, aria-modal, focus trap and Escape; icon buttons have aria-labels; bell aria-label includes unread count; focus-visible ring on top-bar controls only (blue #0459F7, offset 2px); nav links have no explicit focus ring; nav icons aria-hidden; 44px targets in the top bar. Reduced motion handled only in Tour.tsx (motion-reduce); the PageGuide and modal animations are not guarded.",
+      "role_variants": "owner and om see all 4 groups (17 items). supervisor sees Dashboard, Work Orders, Job Cards, Team Tasks, Help, User guide only (Setup group hidden; Projects, Customers, Invite, Users, Activity Log hidden) and no money panel on the dashboard. reka_admin is redirected from /dashboard to /axle and gets the AXLE variant of the same shell. worker never reaches this shell (redirected to /worker).",
+      "dashboard": {
+        "route": "/dashboard",
+        "file": "src/app/(app)/dashboard/page.tsx:22 (plus src/components/dashboard/DashboardView.tsx, MoneyPanel.tsx, AlertsPanel.tsx, StatCard.tsx)",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "Dashboard",
+            "detail": "H1 + subtitle 'Live view of <company> operations' (supervisor: 'Your assigned Work Orders and Job Cards'); '+ New Work Order' primary button on the right"
+          },
+          {
+            "order": 2,
+            "kind": "other",
+            "title": "Your operations at a glance (page guide)",
+            "detail": "Dismissable teal-tint card with 3 tips and 'Take the tour' link; bottom sheet on phones; becomes a floating ? button once dismissed. A 7-step guided tour runs on first visit."
+          },
+          {
+            "order": 3,
+            "kind": "alert",
+            "title": "Needs attention",
+            "detail": "Live alert list from company_alerts RPC (stalled between stages, worker red, resource idle, forecast miss, step overridden); left border coloured by severity (danger red, warning orange, info blue); each links to the job card, work order or /team; hidden entirely when there are no alerts"
+          },
+          {
+            "order": 4,
+            "kind": "kpi",
+            "title": "Money tiles (owner, om only)",
+            "detail": "5 StatCards: Total order value, Completed value (green), In-progress value (teal), On-hold value (orange), Overdue value at risk (red when > 0); formatted 'RM 550,634.00'. Not affected by the range picker."
+          },
+          {
+            "order": 5,
+            "kind": "chart",
+            "title": "Order value by month (owner, om only)",
+            "detail": "Recharts area chart, blue line with gradient fill"
+          },
+          {
+            "order": 6,
+            "kind": "chart",
+            "title": "Top customers by value (owner, om only)",
+            "detail": "Recharts horizontal bar chart, top 5, teal bars"
+          },
+          {
+            "order": 7,
+            "kind": "filter",
+            "title": "Range picker",
+            "detail": "Segmented buttons 7 days / 30 days (default) / 90 days / All time; active = blue tint. Applies to the operational section below only."
+          },
+          {
+            "order": 8,
+            "kind": "kpi",
+            "title": "Operational tiles",
+            "detail": "6 StatCards: Work Orders, In progress (teal), Active Job Cards (teal), On hold (orange), Overdue WOs (red when > 0), Completed today (green)"
+          },
+          {
+            "order": 9,
+            "kind": "chart",
+            "title": "Job Cards completed per day",
+            "detail": "Recharts area chart (teal), spans 2 of 3 columns, subtitle 'Last N days'"
+          },
+          {
+            "order": 10,
+            "kind": "other",
+            "title": "Time summary",
+            "detail": "Definition list (Avg Work Order time, Avg Job Card time, Bottleneck stage) plus two small donut charts (Work Orders by status, Job Cards by status)"
+          },
+          {
+            "order": 11,
+            "kind": "chart",
+            "title": "Avg hours per stage",
+            "detail": "Recharts vertical bar chart (blue); empty text 'No completed Job Cards in this period.'"
+          },
+          {
+            "order": 12,
+            "kind": "chart",
+            "title": "Jobs completed per worker",
+            "detail": "Recharts vertical bar chart (teal)"
+          },
+          {
+            "order": 13,
+            "kind": "other",
+            "title": "Module slot dashboard.panel",
+            "detail": "Renders add-on module panels when a module is enabled for the tenant; nothing otherwise"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "axle",
+      "name": "Yara AXLE (REKA platform console)",
+      "host_or_route": "axle.yara.antarax.ai in production (middleware rewrites / to /axle); /axle on one host when NEXT_PUBLIC_AXLE_HOST/APP_HOST are unset",
+      "entry_files": [
+        "src/app/(app)/layout.tsx:9 (same layout as the customer shell)",
+        "src/components/shared/AppShell.tsx:30 (dark = role === 'reka_admin')",
+        "src/components/shared/Sidebar.tsx:99 (AXLE_SECTIONS)",
+        "src/components/shared/Sidebar.tsx:183 (AXLE wordmark), :250 (authorized-staff footer)",
+        "src/components/shared/Topbar.tsx:94 (canSearch false for reka_admin)",
+        "src/app/(app)/axle/page.tsx:20 (overview)",
+        "src/app/axle/login/page.tsx (staff sign-in)",
+        "src/middleware.ts:17 (AXLE host routing)",
+        "src/app/globals.css:101 (.ink-grid, .panel-axle, .axle-authorized-dot, .eyebrow-axle)",
+        "design-system/tokens.css:92 (--axle-* tokens)"
+      ],
+      "layout": "Same AppShell as the customer app, switched to dark nav: 240px ink sidebar (#0B0E14) with a 24px blueprint grid, dark floating top bar card (#12151E). The content area stays light (#F7FAFC) with white 'panel-axle' cards.",
+      "brand": {
+        "logo": "public/brand/antarax-ax-ripple-centered.svg (32px) in the sidebar head; same A + Ripple brand pill in the top bar on a dark chip",
+        "name_text": "'Yara' (Poppins) + 'AXLE' (JetBrains Mono, tracking 0.16em, orange #FB9800); page H1 repeats 'Yara AXLE' with a 36px BrandMark; page title metadata 'Yara AXLE'",
+        "eyebrow": "'platform control' (mono, uppercase, 50% white) under the wordmark",
+        "credit_line": "none in the shell; AXLE sign-in reads 'platform control · AntaraX Ripple'",
+        "other": "Sidebar footer above the profile: pulsing green dot + 'authorized staff · audit-logged' (mono 10px uppercase). Build sha shown on the overview Data health card ('build local' or the Vercel commit)."
+      },
+      "nav_groups": [
+        {
+          "label": "(no label)",
+          "items": [
+            {
+              "label": "Overview",
+              "route": "/axle",
+              "icon": "custom inline SVG NavIcon 'admin' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Tenants",
+          "items": [
+            {
+              "label": "Organizations",
+              "route": "/axle/companies",
+              "icon": "custom inline SVG NavIcon 'organization' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": [
+                "/axle/companies/[id] drill-down with tabs (settings, flags, health, ...)"
+              ]
+            },
+            {
+              "label": "Tenant users",
+              "route": "/axle/users",
+              "icon": "custom inline SVG NavIcon 'users' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "never lists reka_admin",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Invitations",
+              "route": "/axle/invitations",
+              "icon": "custom inline SVG NavIcon 'invite' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Billing",
+              "route": "/axle/billing",
+              "icon": "custom inline SVG NavIcon 'billing' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "in-product payments are off; packages and invoices",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Platform",
+          "items": [
+            {
+              "label": "AXLE admins",
+              "route": "/axle/admins",
+              "icon": "custom inline SVG NavIcon 'shield' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "lists reka_admin only; no create button",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Help content",
+              "route": "/axle/faqs",
+              "icon": "custom inline SVG NavIcon 'faq' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Help pages",
+              "route": "/help",
+              "icon": "custom inline SVG NavIcon 'faq' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "leaves the AXLE shell (public help pages)",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "AXLE guide",
+              "route": "/axle/guide",
+              "icon": "custom inline SVG NavIcon 'guide' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "leaves the shell (standalone guide page)",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Monitoring",
+          "items": [
+            {
+              "label": "Data health",
+              "route": "/axle/health",
+              "icon": "custom inline SVG NavIcon 'pulse' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Analytics",
+              "route": "/axle/analytics",
+              "icon": "custom inline SVG NavIcon 'analytics' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Audit search",
+              "route": "/axle/audit",
+              "icon": "custom inline SVG NavIcon 'activity' (18px, stroke 1.7)",
+              "roles": [
+                "reka_admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none (Topbar canSearch is false for reka_admin)",
+        "command_palette": "none",
+        "notifications": "Bell in the dark top bar linking to /notifications, with unread badge",
+        "help": "'Help content' (AXLE editor) and 'Help pages' (/help) in the Platform group; 'FAQ & Support' in the user menu",
+        "guide": "'AXLE guide' (/axle/guide) in the Platform group and in the user menu",
+        "org_switcher": "none; tenants are reached through Organizations and the overview table",
+        "product_switcher": "none; AntaraX 'A' links to antarax.ai",
+        "create_button": "'Invite someone' primary (teal) button on the overview header, links to /axle/invitations",
+        "ai_entry": "none",
+        "theme_toggle": "none (dark nav, light content, fixed)",
+        "language": "none",
+        "user_menu": [
+          "header: full name + 'REKA staff'",
+          "My Profile (/profile)",
+          "FAQ & Support (/help)",
+          "AXLE guide (/axle/guide)",
+          "Log out (red, confirm dialog)"
+        ],
+        "sign_out": "Log out in the sidebar-footer user menu; note it redirects to /login (loginPath is hard-coded '/login' in Sidebar.tsx:260), which the AXLE host rewrites to /axle/login",
+        "plan_badge": "none",
+        "env_badge": "none in the nav (build sha only on the overview Data health card)",
+        "impersonation": "none; tenant data is viewed through the /axle/companies/[id] drill-down, not by acting as a tenant",
+        "other": [
+          "'authorized staff · audit-logged' footer with pulsing green dot",
+          "Per-page guide + 3-step guided tour on the overview"
+        ]
+      },
+      "responsive": "Identical to the customer shell: sidebar from lg (1024px), dark drawer with hamburger below lg. Overview stat grid 2 columns on phone, 4 from lg; the tenants table scrolls sideways on phones.",
+      "active_state": "2px left border in AXLE orange #FB9800, background white at 6%, white text, orange icon; inactive text 60% white, icons 40% white, hover background white 4%",
+      "colours": {
+        "ground": "#0B0E14 (--axle-bg)",
+        "surface": "#12151E (top bar)",
+        "surface2": "#171B27",
+        "grid_line": "rgba(255,255,255,.05)",
+        "text": "#F4F5F7",
+        "accent": "#FB9800 signal orange",
+        "authorized_dot": "#12B76A",
+        "content_bg": "#F7FAFC (light)",
+        "primary_button": "#08B0B3 teal (btn-primary, not orange)",
+        "link": "#0459F7"
+      },
+      "fonts": "Poppins for labels and body; JetBrains Mono for the AXLE wordmark, group labels, eyebrows, stat values (tabular-nums), table numbers and slugs",
+      "a11y": "As the customer shell. Top-bar focus ring uses teal offset on the dark surface. The pulsing authorized dot animates forever with no reduced-motion guard.",
+      "role_variants": "reka_admin only. Any other role requesting /axle is redirected to /dashboard without a hint that it exists (requireRekaAdmin).",
+      "dashboard": {
+        "route": "/axle",
+        "file": "src/app/(app)/axle/page.tsx:20",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "Yara AXLE",
+            "detail": "BrandMark + H1 'Yara AXLE' + 'Every tenant on the platform, and whether each is ready to run.'; 'Invite someone' button right"
+          },
+          {
+            "order": 2,
+            "kind": "other",
+            "title": "Every tenant, and whether it is ready (page guide)",
+            "detail": "Dismissable guide card with 3 tips and a 3-step tour"
+          },
+          {
+            "order": 3,
+            "kind": "kpi",
+            "title": "Platform counts",
+            "detail": "4 axle StatCards: Organizations (hint 'N active · N inactive'), Users, Work Orders, Job Cards; mono eyebrow + mono value"
+          },
+          {
+            "order": 4,
+            "kind": "table",
+            "title": "Tenants",
+            "detail": "TenantReadinessTable: Organization (link + /slug + Deactivated badge), Users, Work Orders, Open alerts (orange when > 0), Modules (badges, 'none'), Readiness (progress bar + done/total, orange until complete, green when complete); 'Manage organizations →' link"
+          },
+          {
+            "order": 5,
+            "kind": "alert",
+            "title": "Data health",
+            "detail": "One row per tenant from tenant_integrity: 'N fix now' (red), 'N to check' (orange), 'N notes', or 'All clear' (green), linking to the org Health tab; header note 'N people joined by invitation · build <sha>'"
+          },
+          {
+            "order": 6,
+            "kind": "feed",
+            "title": "Recent audit log",
+            "detail": "Last 15 audit_logs rows: action · entity type · actor, timestamp right"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "worker",
+      "name": "Worker PWA (My Jobs)",
+      "host_or_route": "yara.antarax.ai/worker (installable PWA, sign-in at /worker-login/<org>)",
+      "entry_files": [
+        "src/app/worker/layout.tsx:10",
+        "src/components/worker/WorkerShell.tsx:8",
+        "src/components/shared/ProfileMenu.tsx:156 (worker-only items)",
+        "src/components/shared/NotificationBell.tsx:9",
+        "src/lib/i18n/dictionaries/en.ts:21, ms.ts:27 (shell and menu strings)",
+        "src/app/worker/page.tsx:19 (home)"
+      ],
+      "layout": "Single column, max-w-lg (512px) centred, min-h-screen. Sticky white header bar (px-4 py-3, bottom border) with brand on the left and bell + avatar menu on the right. No sidebar, no bottom tabs; other screens (history, settings, notifications) are reached from the header menu and the bell.",
+      "brand": {
+        "logo": "Tenant company logo (28px) when set, otherwise BrandMark (antarax-ax-ripple-centered.svg, 28px)",
+        "name_text": "'My Jobs' / 'Kerja Saya' (shell.title, translated), with the tenant company name beneath (10px muted)",
+        "eyebrow": "",
+        "credit_line": "none in the shell; worker sign-in shows 'Yara' + 'powered by AntaraX Ripple'",
+        "other": "The product name 'Yara' does not appear in the signed-in worker shell"
+      },
+      "nav_groups": [
+        {
+          "label": "Header (links)",
+          "items": [
+            {
+              "label": "My Jobs (brand link)",
+              "route": "/worker",
+              "icon": "custom inline SVG NavIcon 'brand mark' (18px, stroke 1.7)",
+              "roles": [
+                "worker"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Notifications (bell)",
+              "route": "/worker/notifications",
+              "icon": "inline SVG bell, 36px square button",
+              "roles": [
+                "worker"
+              ],
+              "gating": "",
+              "badge": "unread count, red, 9+ cap, polled every 60s",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Avatar menu",
+          "items": [
+            {
+              "label": "My Profile / Profil Saya",
+              "route": "/profile",
+              "icon": "",
+              "roles": [
+                "worker"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Job History / Sejarah Kerja",
+              "route": "/worker/history",
+              "icon": "",
+              "roles": [
+                "worker"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Language / Bahasa",
+              "route": "/worker/settings",
+              "icon": "",
+              "roles": [
+                "worker"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "FAQ & Support / Soal Jawab & Bantuan",
+              "route": "/help",
+              "icon": "",
+              "roles": [
+                "worker"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "User guide / Panduan pengguna",
+              "route": "/guide",
+              "icon": "",
+              "roles": [
+                "worker"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Log out / Log keluar",
+              "route": "(action) -> /worker-login",
+              "icon": "",
+              "roles": [
+                "worker"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none",
+        "command_palette": "none",
+        "notifications": "Bell (36px rounded square) linking to /worker/notifications with unread badge; translated aria-label",
+        "help": "'FAQ & Support' in the avatar menu",
+        "guide": "'User guide' in the avatar menu; floating '?' re-opens the page guide",
+        "org_switcher": "none (company name shown under the title)",
+        "product_switcher": "none",
+        "create_button": "none",
+        "ai_entry": "none",
+        "theme_toggle": "none",
+        "language": "Language page (/worker/settings) from the avatar menu: English or Bahasa Malaysia",
+        "user_menu": [
+          "header: full name + 'Worker'",
+          "My Profile",
+          "Job History",
+          "Language",
+          "FAQ & Support",
+          "User guide",
+          "Log out"
+        ],
+        "sign_out": "'Log out' in the avatar menu with a translated confirm dialog, then /worker-login",
+        "plan_badge": "none",
+        "env_badge": "none",
+        "impersonation": "none",
+        "other": [
+          "Ask for a password change button at the bottom of the home page (WorkerPasswordRequestButton)",
+          "Service worker registered for PWA install (offline page only, no offline sync)"
+        ]
+      },
+      "responsive": "Phone first; on desktop the same 512px column sits centred on the grey page, header shows the name and role beside the avatar from sm.",
+      "active_state": "No nav active state. Filter chips: active = solid teal #08B0B3 with white text, inactive = white with border and muted text.",
+      "colours": {
+        "accent": "#08B0B3",
+        "app_bg": "#F7FAFC",
+        "done_today": "#12B76A",
+        "done_week": "#08B0B3",
+        "in_progress": "#0459F7",
+        "warning_text": "#F79009",
+        "badge": "#F04438"
+      },
+      "fonts": "Poppins; running timer in JetBrains Mono",
+      "a11y": "lang attribute set on the shell root (en or ms); bell aria-label translated; large touch targets (.btn-worker py-4); filter chips scroll sideways.",
+      "role_variants": "worker only. Management roles requesting /worker are sent to their own home.",
+      "dashboard": {
+        "route": "/worker",
+        "file": "src/app/worker/page.tsx:19",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "other",
+            "title": "Welcome to My Jobs (page guide)",
+            "detail": "Dismissable guide with 3 tips and a 3-step tour (translated)"
+          },
+          {
+            "order": 2,
+            "kind": "kpi",
+            "title": "Stats strip",
+            "detail": "4 small tiles, counts only, never money: Done today (green), Done this week (teal, links to /worker/history), In progress (blue), Avg time"
+          },
+          {
+            "order": 3,
+            "kind": "filter",
+            "title": "Status chips",
+            "detail": "All, Standby, WIP, On Hold, Complete (horizontal scroll)"
+          },
+          {
+            "order": 4,
+            "kind": "table",
+            "title": "Job list",
+            "detail": "Cards in queue order from the job_card_queue view: operation name + status badge, WO number · customer, running timer (mono, pauses outside shift hours), due date, 'Waiting for <stage>', task progress bar, 'Photo needed before complete'; empty state text when no jobs"
+          },
+          {
+            "order": 5,
+            "kind": "other",
+            "title": "Module slot worker.currentTask",
+            "detail": "Add-on module panel when enabled"
+          },
+          {
+            "order": 6,
+            "kind": "quick-actions",
+            "title": "Password request button",
+            "detail": "Ask the office for a password change"
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "screenshots/01-customer-dashboard-desktop.png",
+      "surface": "customer",
+      "what": "Dashboard + sidebar + top bar, owner",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/01-customer-dashboard-desktop-full.png",
+      "surface": "customer",
+      "what": "Whole dashboard, owner (all widgets)",
+      "viewport": "1440x1674 full page",
+      "method": "mocked",
+      "notes": "Scroll container unlocked with injected CSS so the full page renders"
+    },
+    {
+      "file": "screenshots/01-customer-dashboard-first-visit-desktop.png",
+      "surface": "customer",
+      "what": "Dashboard with the page guide card showing (first visit)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/01-customer-user-menu-desktop.png",
+      "surface": "customer",
+      "what": "Sidebar-footer user menu open",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/01-customer-dashboard-supervisor-desktop.png",
+      "surface": "customer",
+      "what": "Supervisor role variant: reduced nav, no money panel",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/02-customer-dashboard-mobile.png",
+      "surface": "customer",
+      "what": "Dashboard at phone width with hamburger",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": "Money tile values overflow their cards at this width"
+    },
+    {
+      "file": "screenshots/02-customer-nav-open-mobile.png",
+      "surface": "customer",
+      "what": "Mobile drawer open",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/02-customer-dashboard-tablet.png",
+      "surface": "customer",
+      "what": "Dashboard at 1024 (sidebar still shown)",
+      "viewport": "1024x768",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-desktop.png",
+      "surface": "axle",
+      "what": "AXLE overview + dark nav",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-desktop-full.png",
+      "surface": "axle",
+      "what": "Whole AXLE overview",
+      "viewport": "1440x1168 full page",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-mobile.png",
+      "surface": "axle",
+      "what": "AXLE overview at phone width",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/03-axle-nav-open-mobile.png",
+      "surface": "axle",
+      "what": "AXLE drawer open",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/04-worker-home-mobile.png",
+      "surface": "worker",
+      "what": "Worker My Jobs home",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/04-worker-home-mobile-full.png",
+      "surface": "worker",
+      "what": "Worker home, full list",
+      "viewport": "390x4145 full page",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/04-worker-user-menu-mobile.png",
+      "surface": "worker",
+      "what": "Worker avatar menu open",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/04-worker-home-desktop.png",
+      "surface": "worker",
+      "what": "Worker shell on a wide screen (centred 512px column)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/05-signin-customer-desktop.png",
+      "surface": "customer",
+      "what": "Management sign-in /login",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": "Public page, no backend needed"
+    },
+    {
+      "file": "screenshots/05-signin-customer-mobile.png",
+      "surface": "customer",
+      "what": "Management sign-in /login",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/05-signin-worker-mobile.png",
+      "surface": "worker",
+      "what": "Worker sign-in step 1 (organisation code)",
+      "viewport": "390x844",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/05-signin-axle-desktop.png",
+      "surface": "axle",
+      "what": "AXLE staff sign-in /axle/login",
+      "viewport": "1440x900",
+      "method": "local-run",
+      "notes": ""
+    },
+    {
+      "file": "screenshots/repo-guide-customer-dashboard-om-1366.jpg",
+      "surface": "customer",
+      "what": "Dashboard as Operation Manager on the Showcase tenant",
+      "viewport": "1366x860",
+      "method": "repo-existing",
+      "notes": "Source public/guide/tour-dashboard.jpg, committed 2026-10-15 (e70cb3b); matches current nav code"
+    },
+    {
+      "file": "screenshots/repo-guide-worker-home-390.jpg",
+      "surface": "worker",
+      "what": "Worker home on the Showcase tenant",
+      "viewport": "390x844",
+      "method": "repo-existing",
+      "notes": "Source public/guide/wrk-home.jpg, 2026-10-15; current"
+    },
+    {
+      "file": "screenshots/repo-guide-signin-showcase-1366.jpg",
+      "surface": "customer",
+      "what": "Tenant sign-in /login/showcase (org-branded heading)",
+      "viewport": "1366x760",
+      "method": "repo-existing",
+      "notes": "Source public/guide/acc-login.jpg, 2026-10-15; current"
+    },
+    {
+      "file": "screenshots/repo-guide-signin-worker-390.jpg",
+      "surface": "worker",
+      "what": "Worker sign-in /worker-login/showcase",
+      "viewport": "390x844",
+      "method": "repo-existing",
+      "notes": "Source public/guide/wrk-login.jpg, 2026-10-15"
+    },
+    {
+      "file": "screenshots/repo-tour-management-dashboard-step1-OUTDATED.png",
+      "surface": "customer",
+      "what": "Dashboard tour step 1 (old chrome)",
+      "viewport": "1280x800",
+      "method": "repo-existing",
+      "notes": "Source docs/screenshots/tours/management-dashboard/step-1.png (date unknown, shallow clone; content dated about 18 Sep). OUT OF DATE: old plain top bar without the brand pill, nav lacks Invite people, Help and User guide. Kept only to show the drift."
+    }
+  ],
+  "brand_gaps": [
+    "Credit line reads 'Powered by AntaraX Ripple' in the sidebar head, sign-in panels, worker sign-in, splash and AXLE sign-in; the kit wants 'Yara · by AntaraX' in chrome and 'Yara by AntaraX, from REKA.' on sign-in (src/lib/brand.ts:3, Sidebar.tsx:198, LoginCard.tsx:51 and :63, SplashScreen.tsx:11, BrandLockup.tsx:30, axle/login/page.tsx:47).",
+    "AXLE is named 'Yara AXLE' (wordmark, page H1, page title via brand.adminLayerName); kit 13 §6 wants 'AXLE · Yara'.",
+    "AXLE look uses ink #0B0E14 / #12151E; kit 13 §6 specifies the dark product ground #071233, raised #0C1B47. Orange #FB9800 accent matches. AXLE primary button 'Invite someone' is teal, not orange.",
+    "AXLE lives at axle.yara.antarax.ai; kit target is axle.antarax.ai (one console for every product).",
+    "US spelling 'Organization' in the nav (Sidebar.tsx:73 and AXLE 'Organizations'), sign-in copy 'Every organization runs its own process' and worker sign-in 'Organization code'; kit wants organisation.",
+    "Role labels 'Owner / CEO / MD', 'Operation Manager', 'REKA staff' (constants.ts:11-17); kit wants Owner, Admin, REKA support (Supervisor and Worker stay).",
+    "'Log out' / 'Log in' everywhere; kit 13 §1 wants Sign in / Sign out.",
+    "'Users', 'Tenant users', 'Invite people' on screen; kit prefers member(s) and Invite.",
+    "Primary action colour is Ripple teal #08B0B3 (btn-primary); the Yara sheet sets primary action teal #098284 hover #05686A and accent dark #0B6E72 (app uses #078F92) and tint #D9F3F2 (app uses #E1F6F6).",
+    "Money shows 'RM 550,634.00' with a space; kit 13 §3 wants 'RM550,634.00', in JetBrains Mono tabular figures. Customer KPI values are Poppins, not mono.",
+    "Focus ring: AntaraX blue ring only on top-bar controls; sidebar links, filter chips and range buttons have no visible focus style. Reduced motion is honoured only in the guided tour; the authorized-staff pulse, worker running dot (animate-pulse) and page-guide animations ignore it.",
+    "No AI sparkle and no AntaraX app tile/product switcher (the A in the brand pill links to antarax.ai, which partly serves as the family touchpoint). Sign-in lacks the 'from REKA' trust line and the Ripple Rings composition; empty states do not use the awan larat motif.",
+    "Help: kit wants one Help item in every menu; the customer nav has both 'Help' and 'User guide', the user menu repeats them as 'FAQ & Support' and 'User guide', and the AXLE menu has 'Help content', 'Help pages' and 'AXLE guide'.",
+    "The worker shell never shows the product name or any AntaraX credit once signed in (only the tenant name and 'My Jobs').",
+    "Worker sign-in placeholder 'e.g. bric' names the first client's org code (src/components/auth/OrgCodeForm.tsx); the kit says not to name the customer without permission."
+  ],
+  "notes": "Three shells share src/components/shared: the management AppShell (Sidebar + Topbar) serves both tenant roles and AXLE (dark when role is reka_admin), and a separate minimal WorkerShell serves the PWA. Nav is defined as two static arrays in Sidebar.tsx (CLIENT_SECTIONS filtered by role, AXLE_SECTIONS); no feature-flag or plan gating on nav items today. Screenshots were taken from a local dev server (port 3101) pointed at a throwaway mock Supabase on port 3201 that answered auth and PostgREST calls with fictional data (Demo Fabrication Sdn Bhd); no real backend was contacted. The live sign-in page could not be fetched (egress proxy refused yara.antarax.ai). Crawler screenshots in docs/screenshots/<role>/ are gitignored and absent from the clone; only docs/screenshots/tours/ is committed and it predates the current top bar. public/guide/*.jpg was retaken on 15 Oct 2026 and matches the current nav; public/guide/axl-overview.jpg also matches but shows the first client's name and live counts, so it was not copied."
+}
