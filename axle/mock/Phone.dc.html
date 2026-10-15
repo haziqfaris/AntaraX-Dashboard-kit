@@ -11,17 +11,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
 <style>
-body{margin:0;background:#071233}
-a{color:#4D84FE;text-decoration:none}a:hover{color:#8AB0FF}
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2}
 button{font-family:inherit}
-button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid #4D84FE;outline-offset:2px}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
 .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
 </style>
 </helmet>
-<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #071233; color: #B6C3EA; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
 
   <div style="height: 100%; overflow-y: auto; display: flex; flex-direction: column">
-    <div style="position: sticky; top: 0; z-index: 2; padding: 8px 12px 0; background: #071233">
+    <div style="position: sticky; top: 0; z-index: 2; padding: 8px 12px 0; background: #F5F7FC">
     <header style="display: flex; align-items: center; gap: 8px; height: 58px; padding: 0 7px 0 6px; box-sizing: border-box; background: #0C1B47; border: 1px solid rgba(157,184,255,.22); border-radius: 20px; box-shadow: 0 10px 28px -18px rgba(0,0,0,.6)">
       <button type="button" onClick="{{openDrawer}}" aria-label="Open the AXLE menu" aria-expanded="{{drawerAria}}" style="width: 44px; height: 44px; flex: none; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.05); display: flex; align-items: center; justify-content: center; cursor: pointer">
         <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EAF0FF" stroke-width="1.75" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h14"></path></svg>
@@ -41,29 +42,29 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid #4D8
     </header>
     </div>
 
-    <div role="status" style="display: flex; gap: 8px; align-items: flex-start; margin: 10px 12px 0; padding: 10px 12px; border-radius: 14px; background: rgba(247,144,9,.14); border: 1px solid rgba(247,144,9,.35); color: #F8B862; font-size: 12px">
+    <div role="status" style="display: flex; gap: 8px; align-items: flex-start; margin: 10px 12px 0; padding: 10px 12px; border-radius: 14px; background: #FEF4E6; border: 1px solid #F8CD92; color: #B54708; font-size: 12px">
       <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F79009" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><path d="M12 3l10 18H2z"></path><path d="M12 10v5"></path></svg>
-      <span><strong style="font-weight: 600">Open access is on</strong> since 1 Oct 2026. <a href="#" style="color: #F8B862; text-decoration: underline">Settings</a></span>
+      <span><strong style="font-weight: 600">Open access is on</strong> since 1 Oct 2026. <a href="#" style="color: #B54708; text-decoration: underline">Settings</a></span>
     </div>
 
     <main style="padding: 18px 16px 28px; display: flex; flex-direction: column; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <h1 style="margin: 0; color: #EAF0FF; font-size: 22px; font-weight: 600">Overview</h1>
+        <h1 style="margin: 0; color: #0B1B4F; font-size: 22px; font-weight: 600">Overview</h1>
         <p style="margin: 0; font-size: 13px">What needs a person, and how Janka is doing.</p>
-        <label for="phone-range" style="font-size: 12px; color: #8E9CC9; margin-top: 4px">Date range</label>
-        <select id="phone-range" style="height: 44px; border-radius: 12px; border: 1px solid rgba(157,184,255,.28); background: #0C1B47; color: #EAF0FF; padding: 0 12px; font-family: inherit; font-size: 14px">
+        <label for="phone-range" style="font-size: 12px; color: #5B6488; margin-top: 4px">Date range</label>
+        <select id="phone-range" style="height: 44px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; padding: 0 12px; font-family: inherit; font-size: 14px">
           <option>Last 7 days</option><option>Last 30 days</option><option>Last 90 days</option><option>Last 12 months</option><option>All time</option>
         </select>
       </div>
 
       <section aria-labelledby="p-needs" style="display: flex; flex-direction: column; gap: 8px">
-        <h2 id="p-needs" style="margin: 0; color: #EAF0FF; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 9px"><span style="width: 9px; height: 9px; transform: rotate(45deg); background: #FB9800; border-radius: 1px"></span>Needs a person <span class="mono" style="font-size: 12px; color: #8E9CC9; font-weight: 400">5</span></h2>
+        <h2 id="p-needs" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 9px"><span style="width: 9px; height: 9px; transform: rotate(45deg); background: #FB9800; border-radius: 1px"></span>Needs a person <span class="mono" style="font-size: 12px; color: #5B6488; font-weight: 400">5</span></h2>
         <sc-for list="{{needs}}" as="n" hint-placeholder-count="3">
-          <a href="#" style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: 14px; background: #0C1B47; border: 1px solid rgba(157,184,255,.16); text-decoration: none">
+          <a href="#" style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E5E8EE; text-decoration: none">
             <span style="align-self: flex-start; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{n.tint}}; color: {{n.ink}}">{{n.level}}</span>
-            <span style="color: #EAF0FF; font-weight: 500">{{n.what}}</span>
-            <span style="font-size: 12px; color: #8E9CC9">{{n.who}} · <span class="mono">{{n.since}}</span></span>
-            <span style="font-size: 13px; color: #4D84FE; font-weight: 500">{{n.fix}}</span>
+            <span style="color: #0B1B4F; font-weight: 500">{{n.what}}</span>
+            <span style="font-size: 12px; color: #5B6488">{{n.who}} · <span class="mono">{{n.since}}</span></span>
+            <span style="font-size: 13px; color: #0459F7; font-weight: 500">{{n.fix}}</span>
           </a>
         </sc-for>
         <a href="#" style="font-size: 13px; padding: 6px 0">See all 5</a>
@@ -71,32 +72,32 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid #4D8
 
       <section aria-label="Platform figures" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
         <sc-for list="{{figures}}" as="f" hint-placeholder-count="4">
-          <a href="#" style="display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: 14px; background: #0C1B47; border: 1px solid rgba(157,184,255,.16); text-decoration: none; min-width: 0">
-            <span style="font-size: 12px; color: #8E9CC9">{{f.label}}</span>
-            <span class="mono" style="color: #EAF0FF; font-size: 22px; font-weight: 500">{{f.value}}</span>
-            <span style="font-size: 11px; color: #8E9CC9">{{f.hint}}</span>
+          <a href="#" style="display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E5E8EE; text-decoration: none; min-width: 0">
+            <span style="font-size: 12px; color: #5B6488">{{f.label}}</span>
+            <span class="mono" style="color: #0B1B4F; font-size: 22px; font-weight: 500">{{f.value}}</span>
+            <span style="font-size: 11px; color: #5B6488">{{f.hint}}</span>
           </a>
         </sc-for>
       </section>
 
-      <section aria-labelledby="p-status" style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 14px; background: #0C1B47; border: 1px solid rgba(157,184,255,.16)">
-        <h2 id="p-status" style="margin: 0; color: #EAF0FF; font-size: 15px; font-weight: 600">Organisations by status</h2>
+      <section aria-labelledby="p-status" style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E5E8EE">
+        <h2 id="p-status" style="margin: 0; color: #0B1B4F; font-size: 15px; font-weight: 600">Organisations by status</h2>
         <div role="img" aria-label="Trial 9, active 34, suspended 2, pending deletion 1" style="display: flex; gap: 2px; height: 16px">
-          <span style="flex: 9 1 0; background: #199e70; border-radius: 4px"></span>
-          <span style="flex: 34 1 0; background: #3987e5; border-radius: 4px"></span>
-          <span style="flex: 2 1 0; min-width: 6px; background: #d95926; border-radius: 4px"></span>
-          <span style="flex: 1 1 0; min-width: 6px; background: #9085e9; border-radius: 4px"></span>
+          <span style="flex: 9 1 0; background: #1baf7a; border-radius: 4px"></span>
+          <span style="flex: 34 1 0; background: #2a78d6; border-radius: 4px"></span>
+          <span style="flex: 2 1 0; min-width: 6px; background: #eb6834; border-radius: 4px"></span>
+          <span style="flex: 1 1 0; min-width: 6px; background: #6250d6; border-radius: 4px"></span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; font-size: 12px">
-          <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #199e70"></span>Trial <span class="mono" style="color: #EAF0FF">9</span></span>
-          <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #3987e5"></span>Active <span class="mono" style="color: #EAF0FF">34</span></span>
-          <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #d95926"></span>Suspended <span class="mono" style="color: #EAF0FF">2</span></span>
-          <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #9085e9"></span>Pending deletion <span class="mono" style="color: #EAF0FF">1</span></span>
+          <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #1baf7a"></span>Trial <span class="mono" style="color: #0B1B4F">9</span></span>
+          <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #2a78d6"></span>Active <span class="mono" style="color: #0B1B4F">34</span></span>
+          <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #eb6834"></span>Suspended <span class="mono" style="color: #0B1B4F">2</span></span>
+          <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #6250d6"></span>Pending deletion <span class="mono" style="color: #0B1B4F">1</span></span>
         </div>
       </section>
 
-      <a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; border: 1px solid rgba(157,184,255,.28); color: #EAF0FF; font-weight: 500">Organisations at a glance</a>
-      <a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; border: 1px solid rgba(157,184,255,.28); color: #EAF0FF; font-weight: 500">Recent sensitive actions</a>
+      <a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; border: 1px solid #D5DBE7; color: #0B1B4F; font-weight: 500">Organisations at a glance</a>
+      <a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; border: 1px solid #D5DBE7; color: #0B1B4F; font-weight: 500">Recent sensitive actions</a>
     </main>
   </div>
 
@@ -163,9 +164,9 @@ class Component extends DCLogic {
       }) };
     });
     var needs = [
-      { level: 'Failing', tint: 'rgba(240,68,56,.18)', ink: '#F7877F', what: 'Gemini key is failing: 429, rate limited', who: 'All organisations', since: 'since 13:52', fix: 'Check key' },
-      { level: 'Due', tint: 'rgba(247,144,9,.18)', ink: '#F8B862', what: 'Acme Plastics has used 86% of its AI budget', who: 'Acme Plastics Sdn Bhd', since: 'since 09:10', fix: 'Open budget' },
-      { level: 'Due', tint: 'rgba(247,144,9,.18)', ink: '#F8B862', what: '5 reference photos are waiting for review', who: '3 organisations', since: 'oldest 2 days', fix: 'Review photos' }
+      { level: 'Failing', tint: '#FEECEB', ink: '#B42318', what: 'Gemini key is failing: 429, rate limited', who: 'All organisations', since: 'since 13:52', fix: 'Check key' },
+      { level: 'Due', tint: '#FEF4E6', ink: '#B54708', what: 'Acme Plastics has used 86% of its AI budget', who: 'Acme Plastics Sdn Bhd', since: 'since 09:10', fix: 'Open budget' },
+      { level: 'Due', tint: '#FEF4E6', ink: '#B54708', what: '5 reference photos are waiting for review', who: '3 organisations', since: 'oldest 2 days', fix: 'Review photos' }
     ];
     var figures = [
       { label: 'Organisations', value: '48', hint: '+3 this week' },

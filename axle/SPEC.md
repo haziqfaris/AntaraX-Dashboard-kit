@@ -1,6 +1,6 @@
 # AXLE standard
 
-**Version 0.2, draft, 15 Oct 2026.** This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`.
+**Version 0.3, draft, 15 Oct 2026.** This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`.
 
 It merges two sources:
 
@@ -69,16 +69,16 @@ Every item carries a tier (std):
 | **Name** | `AXLE` in the sidebar, with the product as context: `AXLE · Janka`. Page titles: `<Page> · AXLE · Janka`. Central: `AXLE` | Always |
 | **Never** | "REKA Admin", "Platform Admin", "Tinara Admin", "Yara AXLE", "Janka AXLE" | |
 | **Mark** | The AntaraX A in the sidebar corner. The product's own mark appears as a small chip beside the product name | Always |
-| **Theme** | Dark only (brand kit 13 §6, §10), no toggle | Always |
-| **Ground** | Ground `#071233`; raised `#0C1B47`; raised 2 `#13255C` (as AX Frame ships) | |
-| **Ink** | Headings `#EAF0FF`; body `#B6C3EA`; muted `#8E9CC9` (6.1:1 on raised) | |
-| **Lines** | `rgba(157,184,255,.16)` | |
-| **Accent** | REKA orange `#FB9800` (8.4:1): the active nav marker, the role chip, the one primary action per page (navy text on orange) | |
-| **Links** | `#4D84FE` | |
-| **Focus ring** | 2px `#4D84FE`, offset 2px. AntaraX blue `#0459F7` reaches only 2.99:1 on raised navy; see §20 | |
-| **Status** | ok `#12B76A`, warn `#F79009`, fault `#F04438`, real signal only. Small text on dark uses `#5FD39B` and `#F7877F` | |
+| **Theme** | **Dark bars, light page** (owner, 15 Oct 2026). The sidebar and the top bar are dark; the page between them is light. No theme toggle. This is what Yara's and Janka's AXLE already do | Always |
+| **Bars (sidebar, top bar, drawer)** | Ground `#071233`; raised `#0C1B47`; raised 2 `#13255C`. Ink `#EAF0FF`, body `#B6C3EA`, muted `#8E9CC9`. Lines `rgba(157,184,255,.16)` | |
+| **Page** | Ground `#F5F7FC` (the kit's sunken surface, so white cards stand out); cards `#FFFFFF`, radius 20px, 1px `#E5E8EE` border. Ink `#0B1B4F`, body `#3B4469`, muted `#5B6488` (5.4:1 on the ground) | |
+| **Accent** | REKA orange `#FB9800`: the active nav item, the role chip, the `AXLE` tag, the selected range and the one primary action (navy `#071233` text on orange, 8.4:1). Never orange text on the light page (2:1); there, text in orange's family is `#B54708` | |
+| **Links** | On the page `#0459F7` (5.6:1 on white); on the bars `#4D84FE` | |
+| **Focus ring** | 2px, offset 2px: AntaraX blue `#0459F7` on the page; `#4D84FE` on the bars, where `#0459F7` reaches only 2.99:1 | |
+| **Status** | ok `#12B76A`, warn `#F79009`, fault `#F04438`, real signal only. On the page: tints `#E7F8EF` / `#FEF4E6` / `#FEECEB` with text `#067647` / `#B54708` / `#B42318`. On the bars: `#5FD39B` / `#F8B862` / `#F7877F` | |
+| **Charts** | On the page: `#2A78D6`, `#1BAF7A`, `#EB6834`, `#6250D6`, in that order, checked for colour-blind separation on white. Every series is labelled, because `#1BAF7A` is under 3:1 on white | |
 | **Type** | Poppins for UI; JetBrains Mono for every number, id, time and email | |
-| **Components** | The same component set as the AntaraX product core: tables, buttons, inputs, search, dialogs, toasts. Only the dark tokens differ, so AXLE is unmistakable and still familiar (std L5; see §20) | Always |
+| **Components** | The same component set as the AntaraX product core: tables, buttons, inputs, search, dialogs, toasts, on the same light page. The dark bars, the orange accent and the `AXLE` tag make it unmistakable (std L5) | Always |
 | **Footer** | "Authorised REKA staff · every action is recorded" | |
 
 ## 5 Access and separation
@@ -412,7 +412,7 @@ Each banner says what is on, since when, and links to Settings.
 
 ### 13.3 Loading, empty and error
 
-- **Loading:** a dark skeleton; nothing spins.
+- **Loading:** a skeleton in the page's light neutrals; nothing spins.
 - **Empty:** says what will appear and how to get the first one.
 - **Error:** says what failed and what to try, never "Oops".
 
@@ -439,7 +439,7 @@ Each banner says what is on, since when, and links to Settings.
 
 ## 16 Accessibility
 
-- **WCAG 2.2 AA** on the dark palette.
+- **WCAG 2.2 AA** on both the dark bars and the light page.
 - **The focus ring** from §4, on every control.
 - **Skip link** and `aria-current` on the active item.
 - **Counters** with spoken labels.
@@ -489,19 +489,15 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **Support session** | (If built) the banner shows, writes are refused by the server, the session ends on time, and the organisation sees it in its log |
 | **Links** | Copying the address on any filtered, scoped page and opening it in a new window shows the same view |
 | **Phone** | Every page opens from the drawer at 390px with nothing hidden or overlapping |
-| **Look** | Dark ground, orange accent, the AntaraX A, "AXLE · Product" in the title; the focus ring is visible on every control; axe passes |
+| **Look** | Dark sidebar and top bar, light page, the orange `AXLE` tag and accent, the AntaraX A, "AXLE · Product" in the page title; the focus ring is visible on every control in both; axe passes |
 
 ## 20 Open questions
 
-1. **The look (std L5 against brand kit 13 §6).**
-   - std L5 says AXLE uses the same design system as the product, with a clear AXLE mark.
-   - The brand kit says every AXLE uses one dark look with REKA orange.
-
-   This draft does both: the same components and type as the product core, in the shared dark AXLE tokens. Confirm, or say that each AXLE should take its product's colours.
+1. ~~**The look.**~~ Decided 15 Oct 2026: dark bars, light page (§4). Recorded in the brand kit (10, 13 §6).
 2. **Roles (std A2 against antarax-api docs/07).** std A2 lists functional roles that one person may combine; antarax-api and Angka use a ladder. This draft maps them onto one model: a ladder for how much, rights for which area. Confirm the rungs and the four rights.
 3. **Support sessions (std H7 Later against Angka, which has one).** Keep them Later for new products, with the §11 rules binding wherever one exists?
 4. **Acting as a member.** Allowed at all (§11)?
-5. **Focus ring on dark.** `#4D84FE` in place of `#0459F7`, which fails 3:1 on raised navy?
+5. **Focus ring on the dark bars.** `#4D84FE` there, AntaraX blue `#0459F7` on the light page (§4). Confirm for the brand kit.
 6. **The primary action colour.** Orange (this draft) or the product's colour (AX Frame)?
 7. **The "Support" rung name.** The brand kit reserves "REKA support" for customers. The rung is never shown to them, so is it fine to keep?
 8. **Scope.** The std draws on YARA One, Entangled Particles and KITAR AI, which the inventory has not covered, and ISO Generator, which the brand kit doesn't list. Which products must meet this standard?
@@ -515,11 +511,11 @@ Scores from the AXLE scorecard in the [gallery](../inventory/gallery.html), out 
 | Console | Score | Biggest changes |
 |---|---|---|
 | AX Frame | 6 | Fold R8 into Health; add the staff menu, Find, the organisation picker; fix the phone header; Workspaces → Organisations; lists to §9 |
-| Angka | 6 | Dark look; a phone drawer; US$; the organisation create flow and lifecycle |
-| Yara | 4 | Rename; `#071233` throughout; the ladder (only `reka_admin` today); the state banner; Organizations → Organisations; Demo and Access pages (Showcase already exists) |
-| Janka | 4 | Rename; dark content area; the AntaraX A; the ladder; JetBrains Mono; Members management (std D2 correction) |
-| ISO Generator | 4 | Rename from REKA Admin; dark look; rights onto the ladder; support session to §11; phone drawer; stop hiding readable pages; AXLE Link |
-| PLExyz Grid | 1 | Rebuild: Overview, addresses for every page, dark look, ladder, no `confirm()`, a create flow |
+| Angka | 6 | Dark sidebar and top bar around its light page; a phone drawer; US$; the organisation create flow and lifecycle |
+| Yara | 4 | Rename; bars from `#0B0E14` to `#071233`; the `AXLE` tag; the ladder (only `reka_admin` today); the state banner; Organizations → Organisations; Demo and Access pages (Showcase already exists) |
+| Janka | 4 | Rename; the AntaraX top bar in its dark variant over the light page; rail `#0B0E14` → `#071233`; the AntaraX A; the ladder; JetBrains Mono; Members management (std D2 correction) |
+| ISO Generator | 4 | Rename from REKA Admin; dark bars (its page is already light); rights onto the ladder; support session to §11; phone drawer; stop hiding readable pages; AXLE Link |
+| PLExyz Grid | 1 | Rebuild: Overview, addresses for every page, dark bars around its light page, ladder, no `confirm()`, a create flow |
 | Tinara | 1 | Rebuild as `AXLE · Tinara` on its own host; remove hard-coded figures |
 | PLExyz Crowd | n/a | No internal console; remove AXLE from the customer app first |
 
