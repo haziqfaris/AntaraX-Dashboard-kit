@@ -21,23 +21,34 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid #4D8
 <div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #071233; color: #B6C3EA; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
 
   <div style="height: 100%; overflow-y: auto; display: flex; flex-direction: column">
-    <header style="position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: #0C1B47; border-bottom: 1px solid rgba(157,184,255,.16)">
-      <button type="button" onClick="{{openDrawer}}" aria-label="Open the AXLE menu" aria-expanded="{{drawerAria}}" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid rgba(157,184,255,.28); background: #13255C; display: flex; align-items: center; justify-content: center; cursor: pointer">
-        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EAF0FF" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+    <div style="position: sticky; top: 0; z-index: 2; padding: 8px 12px 0; background: #071233">
+    <header style="display: flex; align-items: center; gap: 8px; height: 58px; padding: 0 7px 0 6px; box-sizing: border-box; background: #0C1B47; border: 1px solid rgba(157,184,255,.22); border-radius: 20px; box-shadow: 0 10px 28px -18px rgba(0,0,0,.6)">
+      <button type="button" onClick="{{openDrawer}}" aria-label="Open the AXLE menu" aria-expanded="{{drawerAria}}" style="width: 44px; height: 44px; flex: none; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.05); display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EAF0FF" stroke-width="1.75" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h14"></path></svg>
       </button>
-      <img src="/_blob/24b37b892fd904da55a18f908e874613" alt="AntaraX" style="width: 26px; height: 26px">
-      <span style="flex: 1; color: #EAF0FF; font-weight: 600">AXLE <span style="color: #8E9CC9; font-weight: 400">· Janka</span></span>
-      <a href="#" aria-label="1 service failing" style="width: 44px; height: 44px; border-radius: 12px; background: rgba(240,68,56,.14); display: flex; align-items: center; justify-content: center"><span style="width: 10px; height: 10px; border-radius: 50%; background: #F04438"></span></a>
+      <div style="display: flex; align-items: center; gap: 2px; padding: 3px; flex: none; border-radius: 15px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10)">
+        <a href="https://antarax.ai" aria-label="AntaraX" style="display: flex; align-items: center; justify-content: center; width: 30px; height: 38px; border-radius: 12px"><img src="/_blob/0371bde7c6755085b0a2bc82707aecb3" alt="" style="width: 20px; height: 20px; display: block"></a>
+        <a href="#" aria-label="Janka AXLE home" style="display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 12px 0 7px; border-radius: 12px; background: rgba(255,255,255,.10); color: #FFFFFF; font-size: 15px; font-weight: 600; letter-spacing: -.02em; text-decoration: none">
+          <span style="width: 22px; height: 22px; border-radius: 6px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><img src="/_blob/8757545247be33f643590d3dcfee0bb8" alt="" style="height: 14px; display: block"></span>Janka
+        </a>
+      </div>
+      <span class="mono" style="flex: none; font-size: 10px; font-weight: 600; letter-spacing: .12em; color: #071233; background: #FB9800; border-radius: 999px; padding: 2px 8px">AXLE</span>
+      <span style="flex: 1"></span>
+      <a href="#" aria-label="Health: 1 service failing" style="width: 44px; height: 44px; flex: none; border-radius: 999px; border: 1px solid rgba(240,68,56,.45); background: rgba(240,68,56,.14); display: flex; align-items: center; justify-content: center; position: relative">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F7877F" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-7 4 14 3-7h4"></path></svg>
+        <span class="mono" style="position: absolute; top: -2px; right: -2px; min-width: 18px; height: 18px; border-radius: 999px; background: #F04438; color: #FFFFFF; font-size: 11px; display: flex; align-items: center; justify-content: center">1</span>
+      </a>
     </header>
+    </div>
 
-    <div role="status" style="display: flex; gap: 8px; align-items: flex-start; padding: 10px 16px; background: rgba(247,144,9,.14); border-bottom: 1px solid rgba(247,144,9,.35); color: #F8B862; font-size: 12px">
+    <div role="status" style="display: flex; gap: 8px; align-items: flex-start; margin: 10px 12px 0; padding: 10px 12px; border-radius: 14px; background: rgba(247,144,9,.14); border: 1px solid rgba(247,144,9,.35); color: #F8B862; font-size: 12px">
       <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F79009" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><path d="M12 3l10 18H2z"></path><path d="M12 10v5"></path></svg>
       <span><strong style="font-weight: 600">Open access is on</strong> since 1 Oct 2026. <a href="#" style="color: #F8B862; text-decoration: underline">Settings</a></span>
     </div>
 
     <main style="padding: 18px 16px 28px; display: flex; flex-direction: column; gap: 16px">
       <div style="display: flex; flex-direction: column; gap: 6px">
-        <h1 style="margin: 0; color: #EAF0FF; font-size: 24px; font-weight: 600">Overview</h1>
+        <h1 style="margin: 0; color: #EAF0FF; font-size: 22px; font-weight: 600">Overview</h1>
         <p style="margin: 0; font-size: 13px">What needs a person, and how Janka is doing.</p>
         <label for="phone-range" style="font-size: 12px; color: #8E9CC9; margin-top: 4px">Date range</label>
         <select id="phone-range" style="height: 44px; border-radius: 12px; border: 1px solid rgba(157,184,255,.28); background: #0C1B47; color: #EAF0FF; padding: 0 12px; font-family: inherit; font-size: 14px">

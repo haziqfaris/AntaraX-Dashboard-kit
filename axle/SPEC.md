@@ -127,27 +127,42 @@ Rules:
 
 ## 6 Shell (std L1, L5)
 
+AXLE keeps the **AntaraX top bar** every product already ships (adopted 12 Oct 2026 from the Angka dashboard; built in Yara `Topbar.tsx`, Janka `TopBar.tsx` and `BrandPill.tsx`, AX Frame `BrandPill.tsx` and `brandpill.css`, PLExyz Grid `App.tsx`). AXLE uses its dark variant, which Yara's AXLE already has. AXLE does not get its own bar.
+
 ```
-┌──────────────┬───────────────────────────────────────────────────────────────┐
-│ A  AXLE      │ Organisation: [All ▾]        [Find… ⌘K]      [● Healthy] [AR ▾]│  top bar 56px
-│    · Janka   ├───────────────────────────────────────────────────────────────┤
-│              │ ▲ Maintenance is on: members see the maintenance page.        │  state banner
-│ WATCH        ├───────────────────────────────────────────────────────────────┤
-│ ◆ Overview 3 │ Overview                                      [Last 7 days ▾] │
-│   Health     │ What needs a person, and how Janka is doing.  How this works ▾│
-│   …          │                                                               │
-│ ──────────── │                                                               │
-│ AR · OPERATOR│                                                               │
-└──────────────┴───────────────────────────────────────────────────────────────┘
+  ╭──────────────────────────────────────────────────────────────────────────────────╮
+  │ ╭──┬─────────────╮                                                               │
+  │ │A │ ▣ Janka     │ AXLE │ Overview     [Organisation: All ▾] [Find… ⌘K] (♥1) (AR) │  64px card
+  │ ╰──┴─────────────╯                                                               │
+  ╰──────────────────────────────────────────────────────────────────────────────────╯
+    ▲ Open access is on since 1 Oct 2026: every organisation has paid limits. Settings     state banner
+┌────────────┐
+│ AXLE       │  What needs a person, and how Janka is doing.            [7 days|30|90|…]
+│ REKA STAFF │  How this page works ▾
+│ WATCH      │
+│ ◆ Overview │
+└────────────┘
 ```
+
+### The AntaraX top bar, dark variant
+
+| Part | Standard (light value → AXLE dark value) |
+|---|---|
+| **Card** | A floating card in the page gutter (16px above, 24 to 32px each side), 64px tall, radius 24px, 1px border, soft shadow. Light: white, `#E5E7EB` border. AXLE: raised `#0C1B47`, border `rgba(157,184,255,.22)`, shadow `0 10px 28px -18px rgba(0,0,0,.6)`. On phones: 58px tall, radius 20px, 8px gutter above and 12px at the sides |
+| **Brand pill** | A well (4px padding, radius 16px, 1px border) holding two parts, each 40px tall with radius 12px. First, the AntaraX A (22px, link to antarax.ai, "AntaraX" as its name). Second, the product chip (product mark plus product name, 17px, weight 600, link to this console's home). Light: grey well `#F3F4F6`, raised white chip in the product's colour. AXLE: well `rgba(255,255,255,.05)` with border `rgba(255,255,255,.10)`; chip `rgba(255,255,255,.10)` with white text; the A in AntaraX blue, not dimmed. A product mark that needs a light ground sits on a small white tile (kit 12, app tile) |
+| **AXLE tag** | AXLE only: an orange `#FB9800` capsule reading `AXLE` in JetBrains Mono, navy text, right after the pill. It is what tells staff, at a glance, that this is not the customer app (std L5) |
+| **Page title** | The page's `h1`, after a 1px divider, 18px weight 600, cut with an ellipsis (Janka, AX Frame) |
+| **Right side** | Controls 44px tall: the organisation scope picker as a rounded field (§6.1; Janka's site field), Find as a rounded field with ⌘K (§6.2; Yara's search), the health button (44px round, a count when anything fails), the staff menu (44px round initials: Your account, Two-step sign-in, AXLE guide, Sign out, which asks first). Below 1024px a 44px round menu button sits before the pill and opens the drawer |
+| **Focus** | The ring from §4 on every part of the bar |
+
+### The rest of the shell
 
 | Part | Standard | Tier |
 |---|---|---|
-| **Sidebar** | 240px, raised ground. The A, "AXLE" and the product chip; grouped navigation (§7) with counters; at the foot, initials, name, role chip in orange, and the footer line | Always |
+| **Sidebar** | 240px, raised ground. Its own brand block (the products keep one too): the A, "AXLE" and "REKA STAFF CONSOLE" in mono; grouped navigation (§7) with counters; at the foot, initials, name, the role chip in orange, and the footer line | Always |
 | **Active item** | Orange text, a 3px orange marker, an orange intan before the label, `aria-current="page"` | Always |
-| **Top bar** | The organisation scope picker (§6.1); Find (§6.2); a health dot that opens Health; the staff menu (Your account, Two-step sign-in, AXLE guide, Sign out, which asks first) | Always (Find: Later) |
-| **State banner** | Under the top bar while a state staff must not forget holds (§13.2) | Always |
-| **Page header** | Title; one line saying what the page is for; "How this page works" disclosure; the page's range picker or primary action | Always |
+| **State banner** | A rounded warn band under the top bar, in the same gutter, while a state staff must not forget holds (§13.2) | Always |
+| **Page header** | The title is in the top bar. Under it: one line saying what the page is for, the state line, the "How this page works" disclosure, and the page's range picker or primary action | Always |
 | **Phones** | Below 1024px the sidebar becomes a drawer with its groups and counters (Yara), not a chip strip. AXLE on a phone shows AXLE, never the customer app (std L1). The title is never covered | Always |
 
 ### 6.1 Organisation scope
