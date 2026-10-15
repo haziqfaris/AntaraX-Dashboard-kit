@@ -83,30 +83,30 @@ class Component extends DCLogic {
   renderVals() {
     var active = this.props.active ?? 'Overview';
     var product = this.props.product ?? 'Janka';
-    // hasR8: the product runs machinery of its own (standard v0.2, tier R8). observe: its Observe pages.
+    // Every product has R8 (owner, 15 Oct 2026). full: it runs machinery of its own, so R8 adds Incidents. observe: its Observe pages, once their backend exists.
     var P = {
-      'Janka': { mark: '/_blob/8757545247be33f643590d3dcfee0bb8', r8: true, observe: [], d: [['Forecast accuracy'], ['Reference library', 5, 'loud'], ['Learning']], r: [['Nightly forecast']] },
-      'Yara': { mark: '/_blob/b5ffef229482a50345391de29cbfee0f', r8: false, observe: [], d: [['Data integrity', 2, 'loud'], ['Modules'], ['Status API']], r: [] },
-      'AX Frame': { mark: '/_blob/14ea05d2ed6655f1a0c7e460cb8fce0f', r8: true, observe: [['Probes and network'], ['Visual']], d: [['AI connections'], ['Customer health', 4, 'loud'], ['Catalog']], r: [] },
-      'Angka': { mark: '/_blob/74ac0d107d262dbf7252396ab8eb230b', r8: true, observe: [], d: [['Lapis'], ['Weekly brief']], r: [['Runs']] },
-      'PLExyz Grid': { mark: '/_blob/39777292a881530041e7c4ac04e939a8', r8: false, observe: [], d: [], r: [] },
-      'Tinara': { mark: '/_blob/cdaa47e69d5d2a13a1fb2a99e7572df9', r8: true, observe: [], d: [['Scoring & metrics'], ['Data sources'], ['Intelligence ledger']], r: [['Data pipelines']] }
+      'Janka': { mark: '/_blob/8757545247be33f643590d3dcfee0bb8', full: true, observe: [], d: [['Forecast accuracy'], ['Reference library', 5, 'loud'], ['Learning']], r: [['Nightly forecast']] },
+      'Yara': { mark: '/_blob/b5ffef229482a50345391de29cbfee0f', full: false, observe: [], d: [['Data integrity', 2, 'loud'], ['Modules'], ['Status API']], r: [] },
+      'AX Frame': { mark: '/_blob/14ea05d2ed6655f1a0c7e460cb8fce0f', full: true, observe: [['Probes and network'], ['Visual']], d: [['AI connections'], ['Customer health', 4, 'loud'], ['Catalog']], r: [] },
+      'Angka': { mark: '/_blob/74ac0d107d262dbf7252396ab8eb230b', full: true, observe: [], d: [['Lapis'], ['Weekly brief']], r: [['Runs']] },
+      'PLExyz Grid': { mark: '/_blob/39777292a881530041e7c4ac04e939a8', full: false, observe: [], d: [], r: [] },
+      'Tinara': { mark: '/_blob/cdaa47e69d5d2a13a1fb2a99e7572df9', full: true, observe: [], d: [['Scoring & metrics'], ['Data sources'], ['Intelligence ledger']], r: [['Data pipelines']] }
     };
     var p = P[product] || P['Janka'];
-    var r8 = p.r8 && (this.props.mode ?? 'dashboard') === 'r8';
+    var r8 = (this.props.mode ?? 'dashboard') === 'r8';
     var PAGES = r8
       ? { 'Overview': 'R8.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Services': 'Health.dc.html' }
       : { 'Overview': 'Main.dc.html', 'Organisations': 'Organisations.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html', 'Plans & features': 'PlansFeatures.dc.html', 'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html', 'Health': 'Health.dc.html' };
     var STD;
     if (r8) {
       STD = [
-        ['Command', [['Overview'], ['Incidents', 2, 'loud'], ['Troubleshoot']]],
+        ['Command', p.full ? [['Overview'], ['Incidents', 2, 'loud'], ['Troubleshoot']] : [['Overview'], ['Troubleshoot']]],
         ['Observe', p.observe],
         ['System', [['Jobs', 1, 'loud'], ['Providers', 1, 'loud'], ['Services']]],
         ['Control and diagnostics', [['Configuration', 1, 'loud'], ['Operations audit']]]
       ];
     } else {
-      var ops = p.r8 ? [['Errors', 3, 'loud'], ['Alerts'], ['Backups'], ['Access']] : [['Health', 1, 'loud'], ['Jobs', 1, 'loud'], ['Errors', 3, 'loud'], ['Configuration'], ['Alerts'], ['Backups'], ['Access']];
+      var ops = [['Errors', 3, 'loud'], ['Alerts'], ['Backups'], ['Access']];
       STD = [
         ['Watch', [['Overview', 5, 'loud'], ['Adoption'], ['Feedback', 2, 'loud']]],
         ['Organisations', [['Organisations', 48, 'quiet'], ['Members'], ['Invitations'], ['Requests', 1, 'loud'], ['Support']]],
@@ -136,13 +136,13 @@ class Component extends DCLogic {
     var custom = (r8 ? p.r : p.d).map(item);
     var TAB = 'display:flex;align-items:center;justify-content:center;min-height:36px;border-radius:9px;font-size:13px;text-decoration:none;';
     return {
-      hasR8: p.r8, groups: groups, custom: custom, noCustom: custom.length === 0, product: product, markUrl: p.mark,
+      hasR8: true, groups: groups, custom: custom, noCustom: custom.length === 0, product: product, markUrl: p.mark,
       customLabel: product + ' only',
       emptyLine: 'No ' + product + '-only pages ' + (r8 ? 'in R8' : 'here') + '. Everything above is the standard.',
       dashSel: r8 ? 'false' : 'true', r8Sel: r8 ? 'true' : 'false',
       dashTab: TAB + (r8 ? 'color:#B6C3EA;' : 'background:#FB9800;color:#071233;font-weight:600;'),
       r8Tab: TAB + (r8 ? 'background:#FB9800;color:#071233;font-weight:600;' : 'color:#B6C3EA;'),
-      modeLine: r8 ? 'Is the platform okay, and why did this fail?' : 'How is the product doing, and who needs us?',
+      modeLine: r8 ? (p.full ? 'R8 Full · is the platform okay, and why did this fail?' : 'R8 Base · is the platform okay, and why did this fail?') : 'How is the product doing, and who needs us?',
       staffName: this.props.staffName ?? 'Aisyah Rahman', staffRung: this.props.staffRung ?? 'OPERATOR', initials: this.props.initials ?? 'AR'
     };
   }

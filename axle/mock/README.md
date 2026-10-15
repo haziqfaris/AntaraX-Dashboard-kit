@@ -1,6 +1,6 @@
 # AXLE mock
 
-Every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v0.5 (REKA standard v0.2, with R8) with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
+Every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v0.6 (REKA standard v0.2, with R8 Base for every product and R8 Full where there is machinery) with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
 
 - Live canvas (private until shared): https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr. Press Play on any page; the sidebar links move between pages.
 - The logos load from the canvas's asset store, so open the pages there rather than from disk.
@@ -15,12 +15,12 @@ Every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v0.5 (REKA standard v0.
 | `PlansFeatures.dc.html` | Plans & features | Plans, feature kinds, "why does this organisation have it?", quota overrides with a reason (§10.5) |
 | `ModelsKeys.dc.html` | Models & keys | Masked keys, test and rotate, model per task with fallbacks, automatic switching and its log (§10.6) |
 | `LiveTrace.dc.html` | Live trace | Verdict, what to fix, steps, raw events last (§10.6) |
-| `Health.dc.html` | R8 · Services | Services, jobs with retry and cancel, backups and restore drills, alert rules (§7.4, §10.9). In a product without R8 the same page is Dashboard → Health |
+| `Health.dc.html` | R8 · Services | Services, jobs with retry and cancel, backups and restore drills, alert rules (§7.4, §10.9). Every product has it, Base or Full |
 | `Audit.dc.html` | Audit | Filters, export, before and after on every row (§10.8) |
 | `Staff.dc.html` | Staff | The ladder, rights, two-step sign-in, controls disabled with "Needs Admin" (§5.2) |
 | `Settings.dc.html` | Settings | Platform switches, each asking for a reason first (§8.6, §13.2) |
 | `R8.dc.html` | R8 Overview | One overall state, needs an operator (each opens Troubleshoot), platform services, Janka's machinery, incidents, recent operations (§8.1, std M3) |
 | `Troubleshoot.dc.html` | R8 · Troubleshoot | INC-0412: evidence in layers (outside, inside, application), timeline, AXLE's reading kept apart from your conclusion, Level 1 safe actions only (§10.11, §14.1, std M10–M12) |
-| `Navbars.dc.html` | Navbars per product | The top bar and both sidebar modes for Janka, Yara, AX Frame, Angka, PLExyz Grid and Tinara: AXLE standard above, the dashed product-only box below. Yara and PLExyz Grid have no R8, so no switch (§7, §7.5) |
+| `Navbars.dc.html` | Navbars per product | The top bar and both sidebar modes for Janka, Yara, AX Frame, Angka, PLExyz Grid and Tinara: AXLE standard above, the dashed product-only box below. Yara and PLExyz Grid are R8 Base (no Incidents, no Observe); the others are R8 Full (§7, §7.5) |
 | `Costs.dc.html` | Costs, without the Finance right | The gate card and dashes instead of zeros (§5.2, §13.1) |
 | `Sidebar.dc.html`, `TopBar.dc.html` | Shared | The sidebar and the AntaraX top bar every page imports; both take the product, and the sidebar takes the mode (Dashboard or R8) |
