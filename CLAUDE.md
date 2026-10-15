@@ -1,3 +1,3 @@
 # Claude Code instructions
 
-Read and follow **AGENTS.md**. For any AXLE work, start with **axle/README.md**.
+Read and follow **AGENTS.md**. For any AXLE work, start with **BRIEF.md**, then **axle/README.md**.

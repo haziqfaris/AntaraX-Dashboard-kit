@@ -6,7 +6,7 @@ This repository holds the **standard design for every AntaraX product's dashboar
 
 Any work on a product's AXLE uses the template in `axle/`; that includes a new product, a new page, or a change. This was decided by the owner on 15 Oct 2026.
 
-- Follow `axle/README.md` step by step.
+- Read `BRIEF.md` first: what is decided, where everything is, and each product's starting point. Then follow `axle/README.md` step by step.
 - `axle/SPEC.md` decides what to build. `axle/mock/` shows what it looks like. `axle/tokens.css` is the only source of values.
 - If the template does not cover what you need, stop and raise it with the owner. Do not invent a menu group, colour, active-item style or page pattern in the product.
 
