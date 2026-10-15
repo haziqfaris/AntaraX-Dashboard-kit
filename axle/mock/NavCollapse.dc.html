@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>AXLE group collapse styles</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+button{font-family:inherit}
+:focus-visible{outline:2px solid #4D84FE;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.gh:hover{background:rgba(255,255,255,.06)!important}
+</style>
+</helmet>
+<div style="width: 1760px; box-sizing: border-box; padding: 48px 50px 60px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 30px">
+
+  <header style="display: flex; flex-direction: column; gap: 10px; max-width: 1200px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">Five ways to collapse A's groups</h1>
+    <p style="margin: 0; font-size: 16px">Layout A, Janka's Dashboard, the same groups and counters. Only the way a group opens and closes changes. Click any group heading to try it. In every style the current page's group opens on arrival, and a closed group still shows the orange total of what needs a person.</p>
+  </header>
+
+  <div style="display: flex; gap: 52px; align-items: flex-start">
+    <sc-for list="{{variants}}" as="v" hint-placeholder-count="5">
+      <section aria-labelledby="{{v.hid}}" style="flex: none; width: 260px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 4px; min-height: 112px">
+          <span style="display: flex; align-items: center; gap: 10px">
+            <span class="mono" style="width: 34px; height: 30px; border-radius: 9px; background: #0C1B47; color: #FB9800; font-weight: 600; font-size: 13px; display: flex; align-items: center; justify-content: center">{{v.letter}}</span>
+            <h2 id="{{v.hid}}" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">{{v.name}}</h2>
+          </span>
+          <span style="font-size: 13px">{{v.idea}}</span>
+          <sc-if value="{{v.isCurrent}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: #E7EEFE; color: #0B1B4F">The mock today</span></sc-if>
+        </div>
+
+        <nav aria-label="{{v.name}}" style="min-height: 1080px; border-radius: 18px; background: #0C1B47; box-sizing: border-box; padding: 18px 12px; display: flex; flex-direction: column; gap: {{v.gap}}; color: #B6C3EA">
+          <div style="display: flex; align-items: center; gap: 10px; padding: 2px 8px 10px">
+            <img src="/_blob/24b37b892fd904da55a18f908e874613" alt="AntaraX" style="width: 28px; height: 28px">
+            <span style="display: flex; flex-direction: column; line-height: 1.15"><span style="color: #EAF0FF; font-weight: 700; font-size: 16px; letter-spacing: .04em">AXLE</span><span class="mono" style="color: #8E9CC9; font-size: 9px; letter-spacing: .12em; margin-top: 3px">REKA STAFF CONSOLE</span></span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10)">
+            <span style="display: flex; align-items: center; justify-content: center; min-height: 34px; border-radius: 9px; background: #FB9800; color: #071233; font-weight: 600; font-size: 13px">Dashboard</span>
+            <span style="display: flex; align-items: center; justify-content: center; min-height: 34px; border-radius: 9px; color: #B6C3EA; font-size: 13px">R8</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; margin: 10px 0 2px; padding: 0 8px">
+            <span class="mono" style="font-size: 10px; font-weight: 600; letter-spacing: .12em; color: #8E9CC9">AXLE STANDARD</span>
+            <span style="flex: 1; height: 1px; background: rgba(157,184,255,.16)"></span>
+            <sc-if value="{{v.hasAll}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{v.allToggle}}" style="border: 0; background: transparent; color: #8E9CC9; font-size: 11px; cursor: pointer; padding: 2px 4px; text-decoration: underline">{{v.allLabel}}</button></sc-if>
+          </div>
+
+          <sc-for list="{{v.sections}}" as="s" hint-placeholder-count="7">
+            <div style="{{s.wrap}}">
+              <button type="button" class="gh" onClick="{{s.toggle}}" aria-expanded="{{s.expanded}}" style="{{s.head}}">
+                <sc-if value="{{s.chevLeft}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8E9CC9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none; transform: {{s.chevron}}"><path d="M6 9l6 6 6-6"></path></svg></sc-if>
+                <sc-if value="{{s.hasIcon}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="{{s.iconInk}}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="flex: none"><path d="{{s.icon}}"></path></svg></sc-if>
+                <span style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+                  <span style="{{s.labelStyle}}">{{s.label}}</span>
+                  <sc-if value="{{s.showPreview}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; color: #8E9CC9; font-weight: 400; letter-spacing: 0; text-transform: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{s.preview}}</span></sc-if>
+                </span>
+                <sc-if value="{{s.showPages}}" hint-placeholder-val="{{false}}"><span class="mono" style="font-size: 11px; letter-spacing: 0; color: #8E9CC9">{{s.pages}}</span></sc-if>
+                <sc-if value="{{s.showRoll}}" hint-placeholder-val="{{false}}"><span class="mono" aria-label="{{s.roll}} need a person" style="font-size: 11px; letter-spacing: 0; min-width: 18px; text-align: center; padding: 1px 6px; border-radius: 999px; background: #FB9800; color: #071233; font-weight: 600">{{s.roll}}</span></sc-if>
+                <sc-if value="{{s.chevRight}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8E9CC9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none; transform: {{s.chevron}}"><path d="M9 6l6 6-6 6"></path></svg></sc-if>
+              </button>
+              <sc-if value="{{s.showItems}}" hint-placeholder-val="{{true}}">
+                <div style="{{s.childWrap}}">
+                  <sc-for list="{{s.items}}" as="it" hint-placeholder-count="4">
+                    <span style="{{it.style}}">
+                      <span style="width: 8px; height: 8px; transform: rotate(45deg); border-radius: 1px; flex: none; background: {{it.intan}}"></span>
+                      <span style="flex: 1">{{it.label}}</span>
+                      <sc-if value="{{it.hasCount}}" hint-placeholder-val="{{false}}"><span class="mono" style="font-size: 11px; min-width: 18px; text-align: center; padding: 1px 6px; border-radius: 999px; {{it.countStyle}}">{{it.count}}</span></sc-if>
+                    </span>
+                  </sc-for>
+                  <sc-if value="{{s.hasMore}}" hint-placeholder-val="{{false}}">
+                    <button type="button" onClick="{{s.moreToggle}}" style="display: flex; align-items: center; gap: 9px; min-height: 30px; padding: 0 9px; border: 0; border-radius: 9px; background: transparent; color: #8E9CC9; font-size: 12px; cursor: pointer; text-align: left">
+                      <span style="width: 8px; flex: none"></span>{{s.moreLabel}}
+                    </button>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+
+          <div style="margin-top: 12px; padding: 10px 6px 8px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1px dashed rgba(157,184,255,.30); display: flex; flex-direction: column; gap: 1px">
+            <div style="display: flex; align-items: center; gap: 8px; padding: 0 6px 6px">
+              <span style="width: 22px; height: 22px; border-radius: 6px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><img src="/_blob/8757545247be33f643590d3dcfee0bb8" alt="" style="max-width: 16px; max-height: 16px"></span>
+              <span class="mono" style="font-size: 10px; font-weight: 600; letter-spacing: .1em; color: #EAF0FF">JANKA ONLY</span>
+            </div>
+            <sc-for list="{{janka}}" as="it" hint-placeholder-count="3">
+              <span style="{{it.style}}">
+                <span style="width: 8px; height: 8px; transform: rotate(45deg); border-radius: 1px; flex: none; background: {{it.intan}}"></span>
+                <span style="flex: 1">{{it.label}}</span>
+                <sc-if value="{{it.hasCount}}" hint-placeholder-val="{{false}}"><span class="mono" style="font-size: 11px; min-width: 18px; text-align: center; padding: 1px 6px; border-radius: 999px; {{it.countStyle}}">{{it.count}}</span></sc-if>
+              </span>
+            </sc-for>
+          </div>
+        </nav>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #067647">Good for</span>
+            <sc-for list="{{v.pros}}" as="p" hint-placeholder-count="2"><span style="display: flex; gap: 8px"><span aria-hidden="true" style="color: #12B76A">+</span><span>{{p.t}}</span></span></sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #B54708">Costs</span>
+            <sc-for list="{{v.cons}}" as="c" hint-placeholder-count="2"><span style="display: flex; gap: 8px"><span aria-hidden="true" style="color: #F79009">–</span><span>{{c.t}}</span></span></sc-for>
+          </div>
+        </div>
+      </section>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1760,"height":2200}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { t: {}, acc: 'Watch', more: {}, allClosed: false }; }
+  renderVals() {
+    var self = this, st = this.state;
+    var C = { 'Overview': [5, 1], 'Feedback': [2, 1], 'Requests': [1, 1], 'Errors': [3, 1], 'Reference library': [5, 1], 'Organisations': [48, 0] };
+    var STD = [
+      ['Watch', ['Overview', 'Adoption', 'Feedback']],
+      ['Organisations', ['Organisations', 'Members', 'Invitations', 'Requests', 'Support']],
+      ['AI', ['Models & keys', 'AI usage', 'Live trace', 'Prompts & quality']],
+      ['Money', ['Plans & features', 'Billing', 'Costs']],
+      ['Platform', ['Announcements', 'Help content', 'Demo', 'Settings']],
+      ['Operations', ['Errors', 'Alerts', 'Backups', 'Access']],
+      ['Trail', ['Audit', 'Staff', 'AXLE guide']]
+    ];
+    // Up to two pages shown in style E even when the group is folded: what needs a person first, then the most used.
+    var TOP = { 'Watch': ['Overview', 'Feedback'], 'Organisations': ['Organisations', 'Requests'], 'AI': ['Models & keys', 'Live trace'], 'Money': ['Plans & features', 'Billing'],
+      'Platform': ['Settings', 'Demo'], 'Operations': ['Errors', 'Alerts'], 'Trail': ['Audit', 'Staff'] };
+    var ICON = {
+      'Watch': 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 100 6 3 3 0 000-6z',
+      'Organisations': 'M4 21V5l8-3 8 3v16M9 21v-4h6v4M8 8h.01M12 8h.01M16 8h.01M8 12h.01M12 12h.01M16 12h.01',
+      'AI': 'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z',
+      'Money': 'M12 2a10 10 0 100 20 10 10 0 000-20zM15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2',
+      'Platform': 'M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M16 4v4M10 10v4M18 16v4',
+      'Operations': 'M3 12h4l3-7 4 14 3-7h4',
+      'Trail': 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'
+    };
+    function item(label, indent) {
+      var on = label === 'Overview', c = C[label];
+      return { label: label, intan: on ? '#FB9800' : 'transparent', hasCount: !!c, count: c ? c[0] : '',
+        countStyle: c && c[1] ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;',
+        style: 'display:flex;align-items:center;gap:9px;min-height:34px;padding:0 9px' + (indent ? ' 0 ' + indent : '') + ';border-radius:9px;font-size:14px;' +
+          (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;box-shadow:inset 3px 0 0 #FB9800;' : 'color:#EAF0FF;') };
+    }
+    function roll(labels) { return labels.reduce(function (n, l) { var c = C[l]; return n + (c && c[1] ? c[0] : 0); }, 0); }
+    var START = ['Organisations', 'Money', 'Platform', 'Trail'];
+    function toggled(key, dflt) { return st.t[key] !== undefined ? st.t[key] : dflt; }
+    function flip(key, closed) { return function () { var t = Object.assign({}, self.state.t); t[key] = !closed; self.setState({ t: t }); }; }
+    var HEAD_BASE = 'display:flex;align-items:center;gap:8px;width:100%;border:0;background:transparent;cursor:pointer;text-align:left;font-family:inherit;';
+    var SMALLCAPS = 'font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8E9CC9;';
+    var ROWLABEL = 'font-size:14px;font-weight:500;color:#EAF0FF;';
+
+    function build(letter) {
+      return STD.map(function (g) {
+        var name = g[0], labels = g[1], key = letter + ':' + name, hasActive = labels.indexOf('Overview') >= 0;
+        var closed, s = { label: name, chevLeft: false, chevRight: false, hasIcon: false, showPreview: false, showPages: false, hasMore: false, iconInk: '#B6C3EA', icon: ICON[name] };
+        if (letter === 'A1') {
+          closed = toggled(key, START.indexOf(name) >= 0 && !hasActive);
+          Object.assign(s, { chevLeft: true, head: HEAD_BASE + 'min-height:30px;padding:0 8px;border-radius:8px;', labelStyle: SMALLCAPS,
+            wrap: 'margin-top:6px;display:flex;flex-direction:column;gap:1px;', childWrap: 'display:flex;flex-direction:column;gap:1px;', items: labels.map(function (l) { return item(l); }) });
+        } else if (letter === 'A2') {
+          closed = toggled(key, START.indexOf(name) >= 0 && !hasActive);
+          Object.assign(s, { hasIcon: true, chevRight: true, iconInk: closed ? '#B6C3EA' : '#EAF0FF', head: HEAD_BASE + 'min-height:38px;padding:0 9px;border-radius:9px;', labelStyle: ROWLABEL,
+            wrap: 'display:flex;flex-direction:column;gap:1px;', childWrap: 'display:flex;flex-direction:column;gap:1px;margin:0 0 6px 17px;padding-left:8px;border-left:1px solid rgba(157,184,255,.22);',
+            items: labels.map(function (l) { return item(l); }) });
+        } else if (letter === 'A3') {
+          closed = st.acc !== name;
+          Object.assign(s, { chevRight: true, showPages: closed, pages: labels.length, head: HEAD_BASE + 'min-height:40px;padding:0 10px;border-radius:10px;', labelStyle: ROWLABEL,
+            wrap: 'display:flex;flex-direction:column;gap:1px;border-bottom:1px solid rgba(157,184,255,.10);padding-bottom:2px;', childWrap: 'display:flex;flex-direction:column;gap:1px;padding-bottom:6px;',
+            items: labels.map(function (l) { return item(l); }) });
+          s.toggle = function () { self.setState({ acc: closed ? name : '' }); };
+        } else if (letter === 'A4') {
+          closed = st.allClosed ? toggled(key, !hasActive) : toggled(key, START.indexOf(name) >= 0 && !hasActive);
+          Object.assign(s, { chevRight: true, showPreview: closed, preview: labels.join(' · '), head: HEAD_BASE + 'min-height:40px;padding:4px 10px;border-radius:10px;', labelStyle: ROWLABEL,
+            wrap: 'display:flex;flex-direction:column;gap:1px;padding:2px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid rgba(157,184,255,.10);margin-top:5px;',
+            childWrap: 'display:flex;flex-direction:column;gap:1px;padding:0 2px 4px;', items: labels.map(function (l) { return item(l); }) });
+        } else {
+          var moreOpen = !!st.more[name];
+          closed = false;
+          var shown = moreOpen ? labels : labels.filter(function (l) { return TOP[name].indexOf(l) >= 0; });
+          shown = labels.filter(function (l) { return shown.indexOf(l) >= 0; });
+          Object.assign(s, { head: HEAD_BASE + 'min-height:28px;padding:0 8px;cursor:default;', labelStyle: SMALLCAPS,
+            wrap: 'margin-top:6px;display:flex;flex-direction:column;gap:1px;', childWrap: 'display:flex;flex-direction:column;gap:1px;', items: shown.map(function (l) { return item(l); }),
+            hasMore: labels.length > TOP[name].length, moreLabel: moreOpen ? 'Fewer' : (labels.length - TOP[name].length) + ' more',
+            moreToggle: function () { var m = Object.assign({}, self.state.more); m[name] = !moreOpen; self.setState({ more: m }); } });
+          s.toggle = function () {};
+        }
+        var r = roll(labels);
+        if (letter === 'A5') {
+          var hidden = labels.filter(function (l) { return s.items.map(function (x) { return x.label; }).indexOf(l) < 0; });
+          r = roll(hidden);
+          s.showRoll = r > 0; s.roll = r; s.showItems = true; s.expanded = 'true';
+        } else {
+          s.showRoll = closed && r > 0; s.roll = r; s.showItems = !closed; s.expanded = closed ? 'false' : 'true';
+        }
+        s.chevron = s.chevRight ? (closed ? 'none' : 'rotate(90deg)') : (closed ? 'rotate(-90deg)' : 'none');
+        if (!s.toggle) s.toggle = flip(key, closed);
+        return s;
+      });
+    }
+    function L(a) { return a.map(function (t) { return { t: t }; }); }
+    var variants = [
+      { letter: 'A1', name: 'Quiet headings', isCurrent: true, gap: '3px',
+        idea: 'Small grey capitals with a chevron in front. The heading reads as a label, the pages carry the weight.',
+        pros: L(['Calm: the least ink of the five', 'Familiar from Linear, GitHub settings']),
+        cons: L(['The heading is a small target: 30px tall, easy to miss', 'Hard to tell at a glance that it folds']) },
+      { letter: 'A2', name: 'Tree with icons', gap: '2px',
+        idea: 'Each group is a full row with an icon; its pages hang under a thin guide line. A closed group looks like a page.',
+        pros: L(['The icons let a closed menu be read in one glance', 'Bigger targets: 38px rows', 'Same icons can serve a folded rail later']),
+        cons: L(['Seven icons to design and keep in step across products', 'Groups and pages look alike; the guide line separates them']) },
+      { letter: 'A3', name: 'One open at a time', gap: '0',
+        idea: 'Opening a group closes the others. Closed groups show how many pages they hold.',
+        pros: L(['The menu never grows past one screen', 'Clear where you are: one group open']),
+        cons: L(['Comparing two groups means opening and closing', 'Moving between areas costs an extra click every time']) },
+      { letter: 'A4', name: 'Cards with a preview', gap: '0', hasAll: true,
+        idea: 'Each group is a soft card. A closed card lists its pages in one grey line, so you know what is inside without opening it.',
+        pros: L(['Closed groups still say what they hold', 'Clear blocks, easy to scan', 'Collapse all and expand all at the top']),
+        cons: L(['The most boxes of the five', 'The preview line is cut short in groups with long names']) },
+      { letter: 'A5', name: 'Top pages, then more', gap: '3px',
+        idea: 'Nothing fully closes. Each group shows its two busiest pages; "2 more" opens the rest.',
+        pros: L(['The pages people use most are always one click away', 'Nothing is ever fully hidden']),
+        cons: L(['Which pages count as top must be chosen and kept up', 'Pages move between "shown" and "more", which can surprise']) }
+    ];
+    variants.forEach(function (v) {
+      v.hid = 'col-' + v.letter; v.sections = build(v.letter); v.hasAll = !!v.hasAll;
+      v.allLabel = st.allClosed ? 'Expand all' : 'Collapse all';
+      v.allToggle = function () {
+        var t = Object.assign({}, self.state.t);
+        Object.keys(t).forEach(function (k) { if (k.indexOf('A4:') === 0) delete t[k]; });
+        if (self.state.allClosed) STD.forEach(function (g) { t['A4:' + g[0]] = false; });
+        self.setState({ allClosed: !self.state.allClosed, t: t });
+      };
+    });
+    return { variants: variants, janka: ['Forecast accuracy', 'Reference library', 'Learning'].map(function (l) { return item(l); }) };
+  }
+}
+</script>
+</body>
+</html>
