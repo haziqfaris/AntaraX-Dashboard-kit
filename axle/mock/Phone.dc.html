@@ -120,8 +120,9 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
         <sc-for list="{{groups}}" as="g" hint-placeholder-count="7">
           <div style="margin-top: 6px; padding: 2px; border-radius: 12px; background: rgba(255,255,255,.035); border: 1px solid rgba(157,184,255,.10); display: flex; flex-direction: column; gap: 1px">
             <button type="button" onClick="{{g.toggle}}" aria-expanded="{{g.expanded}}" style="display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; padding: 4px 10px; border: 0; border-radius: 10px; background: transparent; cursor: pointer; text-align: left">
+              <span style="width: 26px; height: 26px; border-radius: 7px; flex: none; display: flex; align-items: center; justify-content: center; background: {{g.tileBg}}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{g.hue}}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="{{g.icon}}"></path></svg></span>
               <span style="flex: 1; min-width: 0; display: flex; flex-direction: column">
-                <span style="font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #7FA4FF">{{g.label}}</span>
+                <span style="font-size: 14px; font-weight: 600; color: {{g.hue}}">{{g.label}}</span>
                 <sc-if value="{{g.showPreview}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; color: #8E9CC9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{g.preview}}</span></sc-if>
               </span>
               <sc-if value="{{g.showRoll}}" hint-placeholder-val="{{false}}">
@@ -201,10 +202,25 @@ class Component extends DCLogic {
       var on = !r8 && it[0] === 'Overview';
       return { label: it[0], href: PAGES[it[0]] || '#', current: on ? 'page' : undefined, intan: on ? '#FB9800' : 'transparent',
         style: 'display:flex;align-items:center;gap:10px;min-height:44px;padding:0 10px;border-radius:10px;font-size:14px;text-decoration:none;' +
-          (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;box-shadow:inset 3px 0 0 #FB9800;' : (PAGES[it[0]] ? 'color:#EAF0FF;' : 'color:#B6C3EA;')),
+          (on ? 'background:rgba(251,152,0,.16);color:#FB9800;font-weight:600;' : (PAGES[it[0]] ? 'color:#EAF0FF;' : 'color:#B6C3EA;')),
         hasCount: it[1] != null, count: it[1],
         countStyle: it[2] === 'loud' ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;' };
     }
+    var HUE = { 'Watch': '#7FA4FF', 'Organisations': '#5ED3C9', 'AI': '#B7A8FF', 'Money': '#E3C25E', 'Platform': '#F2A0CB', 'Operations': '#8FD3FF', 'Trail': '#C4CDE8',
+      'Command': '#7FA4FF', 'System': '#B7A8FF', 'Control and diagnostics': '#C4CDE8' };
+    var ICON = {
+      'Watch': 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 100 6 3 3 0 000-6z',
+      'Organisations': 'M4 21V5l8-3 8 3v16M9 21v-4h6v4M8 8h.01M12 8h.01M16 8h.01M8 12h.01M12 12h.01M16 12h.01',
+      'AI': 'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z',
+      'Money': 'M12 2a10 10 0 100 20 10 10 0 000-20zM15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2M12 16v2',
+      'Platform': 'M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M16 4v4M10 10v4M18 16v4',
+      'Operations': 'M3 12h4l3-7 4 14 3-7h4',
+      'Trail': 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01',
+      'Command': 'M5 21V4M5 4h11l-2 4 2 4H5',
+      'System': 'M4 4h16v6H4zM4 14h16v6H4zM8 7h.01M8 17h.01',
+      'Control and diagnostics': 'M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M16 4v4M10 10v4M18 16v4'
+    };
+    function hexA(h, a) { var n = parseInt(h.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; }
     var START_CLOSED = r8 ? [] : ['Organisations', 'Money', 'Platform', 'Trail'];
     var groups = navDef.map(function (g) {
       var key = (r8 ? 'r8:' : 'd:') + g[0];
@@ -214,6 +230,7 @@ class Component extends DCLogic {
       return { label: g[0], items: g[1].map(item), open: !closed, expanded: closed ? 'false' : 'true',
         chevron: closed ? 'none' : 'rotate(90deg)', showRoll: closed && roll > 0, roll: roll, rollLabel: roll + ' need a person',
         showPreview: closed, preview: g[1].map(function (it) { return it[0]; }).join(' · '),
+        hue: HUE[g[0]] || '#7FA4FF', tileBg: hexA(HUE[g[0]] || '#7FA4FF', 0.16), icon: ICON[g[0]] || '',
         toggle: function () { var t = Object.assign({}, self.state.toggled); t[key] = !closed; self.setState({ toggled: t }); } };
     });
     var custom = customDef.map(item);

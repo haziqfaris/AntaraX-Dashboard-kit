@@ -145,7 +145,7 @@ class Component extends DCLogic {
       return { label: label, intan: on ? '#FB9800' : 'transparent', hasCount: !!c, count: c ? c[0] : '',
         countStyle: c && c[1] ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;',
         style: 'display:flex;align-items:center;gap:9px;min-height:34px;padding:0 9px' + (indent ? ' 0 ' + indent : '') + ';border-radius:9px;font-size:14px;' +
-          (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;box-shadow:inset 3px 0 0 #FB9800;' : 'color:#EAF0FF;') };
+          (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;' : 'color:#EAF0FF;') };
     }
     function roll(labels) { return labels.reduce(function (n, l) { var c = C[l]; return n + (c && c[1] ? c[0] : 0); }, 0); }
     var START = ['Organisations', 'Money', 'Platform', 'Trail'];

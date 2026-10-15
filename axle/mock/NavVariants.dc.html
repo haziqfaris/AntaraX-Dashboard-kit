@@ -158,7 +158,7 @@ class Component extends DCLogic {
       return { label: label, intan: on ? '#FB9800' : 'transparent', hasTag: !!opts.tag && JANKA.indexOf(label) >= 0,
         hasCount: !!c, count: c ? c[0] : '', countStyle: c && c[1] ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;',
         style: 'display:flex;align-items:center;gap:9px;min-height:' + h + ';padding:0 9px;border-radius:9px;font-size:' + (opts.compact ? '13px' : '14px') + ';' +
-          (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;box-shadow:inset 3px 0 0 #FB9800;' : 'color:#EAF0FF;') };
+          (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;' : 'color:#EAF0FF;') };
     }
     function sec(vid, label, labels, o) {
       o = o || {};
@@ -224,7 +224,7 @@ class Component extends DCLogic {
         ink: on ? '#FB9800' : '#B6C3EA', hasDot: dot > 0, dot: dot,
         pick: function () { self.setState({ rail: r.label }); },
         style: 'position:relative;width:52px;height:52px;border-radius:12px;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;' +
-          (on ? 'background:rgba(251,152,0,.14);box-shadow:inset 3px 0 0 #FB9800;' : 'background:transparent;') + (r.mark ? 'margin-top:8px;border:1px dashed rgba(157,184,255,.35);' : '') };
+          (on ? 'background:rgba(251,152,0,.14);' : 'background:transparent;') + (r.mark ? 'margin-top:8px;border:1px dashed rgba(157,184,255,.35);' : '') };
     });
     var cur = railDef.filter(function (r) { return r.label === self.state.rail; })[0];
     var panel = { label: cur.label, line: LINES[cur.label], items: cur.items.map(function (l) { return item(l); }) };

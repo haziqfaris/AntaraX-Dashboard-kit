@@ -211,7 +211,7 @@ class Component extends DCLogic {
         stateWord: WORD[i.now][0], stateInk: WORD[i.now][1], current: on ? 'true' : undefined,
         pick: function () { self.setState({ sel: i.id, suppressOpen: false }); },
         style: 'display:flex;flex-direction:column;gap:3px;width:100%;padding:12px 14px;border-radius:14px;cursor:pointer;font-size:14px;' +
-          (on ? 'background:#FFF6E8;border:1px solid #FB9800;box-shadow:inset 3px 0 0 #FB9800;' : 'background:#FFFFFF;border:1px solid #EEF1F6;') };
+          (on ? 'background:#FFF6E8;border:1px solid #FB9800;' : 'background:#FFFFFF;border:1px solid #EEF1F6;') };
     });
     var inc = incs.filter(function (i) { return i.id === st.sel; })[0] || incs[0];
     var order = ['open', 'acknowledged', 'recovered', 'closed'];

@@ -173,7 +173,7 @@ AXLE keeps the **AntaraX top bar** every product already ships (adopted 12 Oct 2
 | Part | Standard | Tier |
 |---|---|---|
 | **Sidebar** | 240px, raised ground. Its own brand block (the products keep one too): the A, "AXLE" and "REKA STAFF CONSOLE" in mono; the Dashboard · R8 switch with a one-line description of the mode (§7.1); the AXLE standard groups, then the dashed ‹Product› only box (§7); at the foot, initials, name, the role chip in orange, and the footer line | Always |
-| **Active item** | Orange text, a 3px orange marker, an orange intan before the label, `aria-current="page"` | Always |
+| **Active item** | An orange tint (`rgba(251,152,0,.16)`), orange text in weight 600, an orange intan before the label, `aria-current="page"`. No side stripe or border marker (owner, 15 Oct 2026: "looks too AI"). Selected rows in lists follow the same rule | Always |
 | **State banner** | A rounded warn band under the top bar, in the same gutter, while a state staff must not forget holds (§13.2) | Always |
 | **Page header** | The title is in the top bar. Under it: one line saying what the page is for, the state line, the "How this page works" disclosure, and the page's range picker or primary action | Always |
 | **Phones** | Below 1024px the sidebar becomes a drawer with its groups and counters (Yara), not a chip strip. AXLE on a phone shows AXLE, never the customer app (std L1). The title is never covered | Always |
@@ -218,7 +218,7 @@ Product-only items sit at the end so that adding one never moves a standard item
 
 **Groups are cards that fold** (owner, 15 Oct 2026, from the collapse styles in the mock).
 - **The card:** each standard group is a soft card, `rgba(255,255,255,.035)` with a `rgba(157,184,255,.10)` border and a 12px radius, 6px apart.
-- **The title** is a button (`aria-expanded`, 38px on desktop and 44px on touch): small capitals in AXLE title blue `#7FA4FF`, 6.3:1 on the card, with a chevron on the right that turns down when open. One colour for every group, so orange stays the only loud colour in the sidebar.
+- **The title** is a button (`aria-expanded`, 38px on desktop and 44px on touch): a 24px icon tile tinted in the group's colour (16% of it), then the title in that colour, 13px weight 600, and a chevron on the right that turns down when open (owner, 15 Oct 2026). The colour belongs to the area and never means a status; orange stays reserved for what needs a person and for the current page.
 - **A folded card** lists its pages in one grey line under the title ("Plans & features · Billing · Costs"), so staff know what is inside without opening it.
 - **A folded card shows a roll-up**: the total of its loud counters in orange ("1 needs a person"). Quiet counts (48 organisations) do not roll up, so folding never hides something that needs a person.
 - **The group holding the current page opens on arrival**, so staff always see where they are.
@@ -226,7 +226,23 @@ Product-only items sit at the end so that adding one never moves a standard item
 - **Remembered per staff member**, like the mode, separately for Dashboard and R8. Everything starts open on a first visit.
 - **The ‹Product› only box does not fold.** It is short, and its point is to be seen.
 - The phone drawer follows the same rules.
-- Icon tiles per group, and a colour per group, were mocked and not chosen: icons are kept in reserve for a folded, icon-only sidebar later.
+- **Group colours and icons**, the same in every product (light enough for at least 6:1 on the card):
+
+  | Mode | Group | Colour | Icon |
+  |---|---|---|---|
+  | Dashboard | Watch | `#7FA4FF` | eye |
+  | | Organisations | `#5ED3C9` | building |
+  | | AI | `#B7A8FF` | sparkle |
+  | | Money | `#E3C25E` | coin |
+  | | Platform | `#F2A0CB` | sliders |
+  | | Operations | `#8FD3FF` | pulse |
+  | | Trail | `#C4CDE8` | list |
+  | R8 | Command | `#7FA4FF` | flag |
+  | | Observe | `#5ED3C9` | eye |
+  | | System | `#B7A8FF` | server |
+  | | Control and diagnostics | `#C4CDE8` | sliders |
+
+  One title blue, white titles beside the tiles, and colour without tiles were mocked and not chosen (mock `NavTitles`).
 
 ### 7.3 Dashboard mode, standard
 

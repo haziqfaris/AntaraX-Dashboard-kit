@@ -189,7 +189,7 @@ class Component extends DCLogic {
       var j = J[k], r = R[resultOf(k)], on = st.sel === k;
       return { name: j.name, own: !!j.own, schedule: j.schedule, last: j.last, took: j.took, result: r[0], tint: r[1], ink: r[2],
         next: st.paused[k] ? 'paused' : j.next, nextInk: st.paused[k] ? '#B54708' : '#3B4469',
-        current: on ? 'true' : undefined, rowBg: on ? '#FFF6E8' : 'transparent', rowMark: on ? 'inset 3px 0 0 #FB9800' : 'none',
+        current: on ? 'true' : undefined, rowBg: on ? '#FFF6E8' : 'transparent', rowMark: 'none',
         pick: function () { self.setState({ sel: k }); } };
     });
     var j = J[st.sel], res = resultOf(st.sel);

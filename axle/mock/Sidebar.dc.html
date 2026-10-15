@@ -95,7 +95,7 @@
   </div>
 </nav>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"text","default":"Overview"},"mode":{"editor":"enum","options":["dashboard","r8"],"default":"dashboard"},"product":{"editor":"enum","options":["Janka","Yara","AX Frame","Angka","PLExyz Grid","Tinara"],"default":"Janka"},"staffName":{"editor":"text","default":"Aisyah Rahman"},"staffRung":{"editor":"text","default":"OPERATOR"},"initials":{"editor":"text","default":"AR"},"titles":{"editor":"enum","options":["blue","tiles","hues"],"default":"blue","section":"Group titles"},"$preview":{"width":240,"height":1400}}'>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"text","default":"Overview"},"mode":{"editor":"enum","options":["dashboard","r8"],"default":"dashboard"},"product":{"editor":"enum","options":["Janka","Yara","AX Frame","Angka","PLExyz Grid","Tinara"],"default":"Janka"},"staffName":{"editor":"text","default":"Aisyah Rahman"},"staffRung":{"editor":"text","default":"OPERATOR"},"initials":{"editor":"text","default":"AR"},"titles":{"editor":"enum","options":["combined","blue","tiles","hues"],"default":"combined","section":"Group titles"},"$preview":{"width":240,"height":1400}}'>
 class Component extends DCLogic {
   constructor(props) { super(props); this.state = { toggled: {}, allClosed: false }; }
   renderVals() {
@@ -145,7 +145,7 @@ class Component extends DCLogic {
         current: on ? 'page' : undefined,
         intan: on ? '#FB9800' : 'transparent',
         style: 'display:flex;align-items:center;gap:10px;min-height:36px;padding:0 10px;border-radius:10px;font-size:14px;text-decoration:none;' +
-          (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;box-shadow:inset 3px 0 0 #FB9800;' : (linked ? 'color:#EAF0FF;' : 'color:#B6C3EA;')),
+          (on ? 'background:rgba(251,152,0,.16);color:#FB9800;font-weight:600;' : (linked ? 'color:#EAF0FF;' : 'color:#B6C3EA;')),
         hasCount: it[1] != null, count: it[1],
         countLabel: it[1] + (loud ? ' need a person' : ' in total'),
         countStyle: loud ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;'
@@ -153,8 +153,9 @@ class Component extends DCLogic {
     }
     // Groups are cards that fold. The current page's group opens on arrival; a folded card lists its pages
     // in one grey line and rolls up what needs a person. In AXLE the choice is remembered per staff member.
-    // titles: 'blue' one AXLE title colour (the standard), 'tiles' an icon tile per group, 'hues' a colour per group.
-    var titles = this.props.titles ?? 'blue';
+    // titles: 'combined' (the standard, owner 15 Oct 2026) an icon tile and the title in the group's colour;
+    // kept for comparison: 'blue' one title colour, 'tiles' icon tile with a white title, 'hues' coloured title only.
+    var titles = this.props.titles ?? 'combined';
     var HUE = { 'Watch': '#7FA4FF', 'Organisations': '#5ED3C9', 'AI': '#B7A8FF', 'Money': '#E3C25E', 'Platform': '#F2A0CB', 'Operations': '#8FD3FF', 'Trail': '#C4CDE8',
       'Command': '#7FA4FF', 'Observe': '#5ED3C9', 'System': '#B7A8FF', 'Control and diagnostics': '#C4CDE8' };
     var ICON = {
@@ -179,12 +180,13 @@ class Component extends DCLogic {
       var closed = toggled[g[0]] !== undefined ? toggled[g[0]] : dflt;
       var roll = g[1].reduce(function (n, it) { return n + (it[2] === 'loud' ? it[1] : 0); }, 0);
       var hue = HUE[g[0]] || '#7FA4FF';
-      var titleStyle = titles === 'tiles' ? 'font-size:13px;font-weight:600;color:#EAF0FF;'
+      var titleStyle = titles === 'combined' ? 'font-size:13px;font-weight:600;color:' + hue + ';'
+        : titles === 'tiles' ? 'font-size:13px;font-weight:600;color:#EAF0FF;'
         : 'font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:' + (titles === 'hues' ? hue : '#7FA4FF') + ';';
       return { label: g[0], items: g[1].map(item), open: !closed, expanded: closed ? 'false' : 'true',
         chevron: closed ? 'none' : 'rotate(90deg)', showRoll: closed && roll > 0, roll: roll, rollLabel: roll + ' need a person',
         showPreview: closed, preview: g[1].map(function (it) { return it[0]; }).join(' · '),
-        titleStyle: titleStyle, hasTile: titles === 'tiles', hue: hue, tileBg: hexA(hue, 0.16), icon: ICON[g[0]] || '',
+        titleStyle: titleStyle, hasTile: titles === 'tiles' || titles === 'combined', hue: hue, tileBg: hexA(hue, 0.16), icon: ICON[g[0]] || '',
         toggle: function () { var t = Object.assign({}, self.state.toggled); t[g[0]] = !closed; self.setState({ toggled: t }); } };
     });
     var allLabel = groups.every(function (g) { return g.open; }) ? 'Collapse all' : 'Expand all';
