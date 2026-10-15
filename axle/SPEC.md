@@ -216,12 +216,17 @@ Each mode's sidebar has two parts, always in this order:
 
 Product-only items sit at the end so that adding one never moves a standard item. A page that turns out to be useful to every product is promoted into the standard, with a tier, and leaves the box.
 
-**Groups collapse.** Each standard group's heading is a button (`aria-expanded`, a chevron, 30px on desktop and 44px on touch) that hides or shows its items.
+**Groups are cards that fold** (owner, 15 Oct 2026, from the collapse styles in the mock).
+- **The card:** each standard group is a soft card, `rgba(255,255,255,.035)` with a `rgba(157,184,255,.10)` border and a 12px radius, 6px apart.
+- **The title** is a button (`aria-expanded`, 38px on desktop and 44px on touch): small capitals in AXLE title blue `#7FA4FF`, 6.3:1 on the card, with a chevron on the right that turns down when open. One colour for every group, so orange stays the only loud colour in the sidebar.
+- **A folded card** lists its pages in one grey line under the title ("Plans & features · Billing · Costs"), so staff know what is inside without opening it.
+- **A folded card shows a roll-up**: the total of its loud counters in orange ("1 needs a person"). Quiet counts (48 organisations) do not roll up, so folding never hides something that needs a person.
 - **The group holding the current page opens on arrival**, so staff always see where they are.
-- **A collapsed group shows a roll-up**: the total of its loud counters in orange ("1 needs a person"). Quiet counts (48 organisations) do not roll up, so collapsing never hides something that needs a person.
+- **"Collapse all" and "Expand all"** sit at the end of the AXLE STANDARD line. Collapse all leaves the current page's group open.
 - **Remembered per staff member**, like the mode, separately for Dashboard and R8. Everything starts open on a first visit.
-- **The ‹Product› only box does not collapse.** It is short, and its point is to be seen.
+- **The ‹Product› only box does not fold.** It is short, and its point is to be seen.
 - The phone drawer follows the same rules.
+- Icon tiles per group, and a colour per group, were mocked and not chosen: icons are kept in reserve for a folded, icon-only sidebar later.
 
 ### 7.3 Dashboard mode, standard
 

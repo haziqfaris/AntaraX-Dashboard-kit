@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>AXLE group title colours</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>body{margin:0;background:#F5F7FC}.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace}</style>
+</helmet>
+<div style="width: 1440px; box-sizing: border-box; padding: 48px 50px 60px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; flex-direction: column; gap: 10px; max-width: 1100px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">Cards, and three ways to colour their titles</h1>
+    <p style="margin: 0; font-size: 16px">Groups are now cards in every page's sidebar. A folded card lists its pages in one grey line and keeps the orange total; "Expand all" sits beside AXLE STANDARD. Only the title treatment differs below. Every page uses the first one; the shared sidebar's "Group titles" setting switches between them.</p>
+  </header>
+  <div style="display: flex; gap: 64px; align-items: flex-start">
+    <sc-for list="{{options}}" as="o" hint-placeholder-count="4">
+      <section aria-label="{{o.name}}" style="flex: none; width: 260px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 4px; min-height: 120px">
+          <span style="display: flex; align-items: center; gap: 10px"><span class="mono" style="width: 30px; height: 30px; border-radius: 9px; background: #0C1B47; color: #FB9800; font-weight: 600; display: flex; align-items: center; justify-content: center">{{o.letter}}</span><span style="color: #0B1B4F; font-size: 18px; font-weight: 600">{{o.name}}</span></span>
+          <span style="font-size: 13px">{{o.idea}}</span>
+          <sc-if value="{{o.chosen}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: #E7EEFE; color: #0B1B4F">On every page now</span></sc-if>
+        </div>
+        <div style="border-radius: 18px; overflow: hidden; background: #0C1B47; width: 240px"><dc-import name="Sidebar" product="Janka" mode="{{o.mode}}" active="Overview" titles="{{o.titles}}" hint-size="240px,1250px"></dc-import></div>
+        <div style="display: flex; flex-direction: column; gap: 6px; font-size: 13px">
+          <sc-for list="{{o.notes}}" as="n" hint-placeholder-count="3"><span style="display: flex; gap: 8px"><span aria-hidden="true" style="color: {{n.ink}}">{{n.mark}}</span><span>{{n.t}}</span></span></sc-for>
+        </div>
+      </section>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    function N(pros, cons) { return pros.map(function (t) { return { t: t, mark: '+', ink: '#12B76A' }; }).concat(cons.map(function (t) { return { t: t, mark: '–', ink: '#F79009' }; })); }
+    return { options: [
+      { letter: '1', name: 'One AXLE blue', titles: 'blue', mode: 'dashboard', chosen: true,
+        idea: 'Small capitals in a light AXLE blue (#7FA4FF), the same for every group.',
+        notes: N(['Clearly a heading, never mistaken for a page', 'One colour: orange stays the only loud thing', '6.3:1 contrast on the card'], ['The groups still look alike; the words do the work']) },
+      { letter: '2', name: 'Icon tiles', titles: 'tiles', mode: 'dashboard',
+        idea: 'A small tinted tile with the group\'s icon, and the title in white, sentence case.',
+        notes: N(['The quickest to scan when everything is folded', 'The icons can serve a folded icon-only sidebar later'], ['Seven icons and tints to keep in step across products', 'The busiest of the three']) },
+      { letter: '3', name: 'A colour per group', titles: 'hues', mode: 'dashboard',
+        idea: 'Each group\'s title in its own light colour: blue, teal, violet, gold, pink, sky, grey.',
+        notes: N(['Each area gets a colour staff can learn'], ['Gold reads close to a warning, pink and teal to nothing in particular', 'Seven colours that mean nothing elsewhere in AXLE', 'Breaks "status colours only on real signal" in spirit']) },
+      { letter: '1', name: 'One AXLE blue, R8', titles: 'blue', mode: 'r8',
+        idea: 'The same treatment in R8 mode, for Janka (R8 Full).',
+        notes: N(['Fewer, shorter groups, so cards open by default here'], []) }
+    ] };
+  }
+}
+</script>
+</body>
+</html>
