@@ -29,13 +29,13 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
       </button>
       <div style="display: flex; align-items: center; gap: 2px; padding: 3px; flex: none; border-radius: 15px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10)">
         <a href="https://antarax.ai" aria-label="AntaraX" style="display: flex; align-items: center; justify-content: center; width: 30px; height: 38px; border-radius: 12px"><img src="/_blob/0371bde7c6755085b0a2bc82707aecb3" alt="" style="width: 20px; height: 20px; display: block"></a>
-        <a href="#" aria-label="Janka AXLE home" style="display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 12px 0 7px; border-radius: 12px; background: rgba(255,255,255,.10); color: #FFFFFF; font-size: 15px; font-weight: 600; letter-spacing: -.02em; text-decoration: none">
+        <a href="Main.dc.html" aria-label="Janka AXLE home" style="display: flex; align-items: center; gap: 7px; height: 38px; padding: 0 12px 0 7px; border-radius: 12px; background: rgba(255,255,255,.10); color: #FFFFFF; font-size: 15px; font-weight: 600; letter-spacing: -.02em; text-decoration: none">
           <span style="width: 22px; height: 22px; border-radius: 6px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><img src="/_blob/8757545247be33f643590d3dcfee0bb8" alt="" style="height: 14px; display: block"></span>Janka
         </a>
       </div>
       <span class="mono" style="flex: none; font-size: 10px; font-weight: 600; letter-spacing: .12em; color: #071233; background: #FB9800; border-radius: 999px; padding: 2px 8px">AXLE</span>
       <span style="flex: 1"></span>
-      <a href="#" aria-label="Health: 1 service failing" style="width: 44px; height: 44px; flex: none; border-radius: 999px; border: 1px solid rgba(240,68,56,.45); background: rgba(240,68,56,.14); display: flex; align-items: center; justify-content: center; position: relative">
+      <a href="R8.dc.html" aria-label="R8: 1 service failing" style="width: 44px; height: 44px; flex: none; border-radius: 999px; border: 1px solid rgba(240,68,56,.45); background: rgba(240,68,56,.14); display: flex; align-items: center; justify-content: center; position: relative">
         <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F7877F" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-7 4 14 3-7h4"></path></svg>
         <span class="mono" style="position: absolute; top: -2px; right: -2px; min-width: 18px; height: 18px; border-radius: 999px; background: #F04438; color: #FFFFFF; font-size: 11px; display: flex; align-items: center; justify-content: center">1</span>
       </a>
@@ -60,7 +60,7 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
       <section aria-labelledby="p-needs" style="display: flex; flex-direction: column; gap: 8px">
         <h2 id="p-needs" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 9px"><span style="width: 9px; height: 9px; transform: rotate(45deg); background: #FB9800; border-radius: 1px"></span>Needs a person <span class="mono" style="font-size: 12px; color: #5B6488; font-weight: 400">5</span></h2>
         <sc-for list="{{needs}}" as="n" hint-placeholder-count="3">
-          <a href="#" style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E5E8EE; text-decoration: none">
+          <a href="{{n.href}}" style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: 14px; background: #FFFFFF; border: 1px solid #E5E8EE; text-decoration: none">
             <span style="align-self: flex-start; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{n.tint}}; color: {{n.ink}}">{{n.level}}</span>
             <span style="color: #0B1B4F; font-weight: 500">{{n.what}}</span>
             <span style="font-size: 12px; color: #5B6488">{{n.who}} · <span class="mono">{{n.since}}</span></span>
@@ -111,11 +111,17 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EAF0FF" stroke-width="1.75" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
           </button>
         </div>
+        <div role="tablist" aria-label="AXLE mode" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10)">
+          <button type="button" role="tab" aria-selected="{{dashSel}}" onClick="{{toDash}}" style="{{dashTab}}">Dashboard</button>
+          <button type="button" role="tab" aria-selected="{{r8Sel}}" onClick="{{toR8}}" style="{{r8Tab}}">R8</button>
+        </div>
+        <div style="font-size: 11px; color: #8E9CC9; padding: 4px 8px 0">{{modeLine}}</div>
+        <div class="mono" style="margin-top: 12px; padding: 0 10px; font-size: 10px; font-weight: 600; letter-spacing: .14em; color: #8E9CC9">AXLE STANDARD</div>
         <sc-for list="{{groups}}" as="g" hint-placeholder-count="7">
           <div style="display: flex; flex-direction: column; margin-top: 8px">
             <div style="font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #8E9CC9; padding: 0 10px 2px">{{g.label}}</div>
             <sc-for list="{{g.items}}" as="it" hint-placeholder-count="4">
-              <a href="#" onClick="{{closeDrawer}}" aria-current="{{it.current}}" style="{{it.style}}">
+              <a href="{{it.href}}" aria-current="{{it.current}}" style="{{it.style}}">
                 <span style="width: 9px; height: 9px; transform: rotate(45deg); border-radius: 1px; flex: none; background: {{it.intan}}"></span>
                 <span style="flex: 1">{{it.label}}</span>
                 <sc-if value="{{it.hasCount}}" hint-placeholder-val="{{false}}">
@@ -125,6 +131,21 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
             </sc-for>
           </div>
         </sc-for>
+        <div style="margin-top: 14px; padding: 10px 8px 8px; border-radius: 14px; border: 1px dashed rgba(157,184,255,.45); display: flex; flex-direction: column; gap: 2px">
+          <div style="display: flex; align-items: center; gap: 8px; padding: 0 2px 4px">
+            <span style="width: 22px; height: 22px; border-radius: 6px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><img src="/_blob/8757545247be33f643590d3dcfee0bb8" alt="" style="height: 14px; display: block"></span>
+            <span class="mono" style="font-size: 10px; font-weight: 600; letter-spacing: .14em; color: #EAF0FF">JANKA ONLY</span>
+          </div>
+          <sc-for list="{{custom}}" as="it" hint-placeholder-count="3">
+            <a href="{{it.href}}" aria-current="{{it.current}}" style="{{it.style}}">
+              <span style="width: 9px; height: 9px; transform: rotate(45deg); border-radius: 1px; flex: none; background: {{it.intan}}"></span>
+              <span style="flex: 1">{{it.label}}</span>
+              <sc-if value="{{it.hasCount}}" hint-placeholder-val="{{false}}">
+                <span class="mono" style="font-size: 11px; padding: 1px 7px; border-radius: 999px; {{it.countStyle}}">{{it.count}}</span>
+              </sc-if>
+            </a>
+          </sc-for>
+        </div>
         <div style="margin-top: 14px; padding: 14px 6px 0; border-top: 1px solid rgba(157,184,255,.16); display: flex; flex-direction: column; gap: 6px">
           <span style="color: #EAF0FF; font-weight: 500">Aisyah Rahman <span class="mono" style="color: #FB9800; font-size: 11px; font-weight: 600; letter-spacing: .08em">OPERATOR</span></span>
           <span style="font-size: 11px; color: #8E9CC9">Authorised REKA staff · every action is recorded</span>
@@ -139,34 +160,45 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { open: null };
+    this.state = { open: null, mode: 'dashboard' };
   }
   renderVals() {
     var self = this;
     var open = this.state.open == null ? (this.props.startOpen ?? false) : this.state.open;
-    var navDef = [
-      ['Watch', [['Overview', 5, 'loud'], ['Health', 1, 'loud'], ['Alerts'], ['Errors', 3, 'loud'], ['Adoption']]],
+    var r8 = this.state.mode === 'r8';
+    // Same menu as Sidebar.dc.html for Janka (R8 Full). The switch changes only the menu (std M1).
+    var navDef = r8 ? [
+      ['Command', [['Overview'], ['Incidents', 2, 'loud'], ['Troubleshoot']]],
+      ['System', [['Jobs', 1, 'loud'], ['Providers', 1, 'loud'], ['Services']]],
+      ['Control and diagnostics', [['Configuration', 1, 'loud'], ['Operations audit']]]
+    ] : [
+      ['Watch', [['Overview', 5, 'loud'], ['Adoption'], ['Feedback', 2, 'loud']]],
       ['Organisations', [['Organisations', 48, 'quiet'], ['Members'], ['Invitations'], ['Requests', 1, 'loud'], ['Support']]],
-      ['Janka', [['Forecast accuracy'], ['Library', 5, 'loud']]],
-      ['AI', [['Models & keys', 1, 'loud'], ['AI usage'], ['Live trace'], ['Prompts & quality']]],
+      ['AI', [['Models & keys'], ['AI usage'], ['Live trace'], ['Prompts & quality']]],
       ['Money', [['Plans & features'], ['Billing'], ['Costs']]],
-      ['Platform', [['Announcements'], ['Help content'], ['Demo'], ['Access'], ['Settings']]],
+      ['Platform', [['Announcements'], ['Help content'], ['Demo'], ['Settings']]],
+      ['Operations', [['Errors', 3, 'loud'], ['Alerts'], ['Backups'], ['Access']]],
       ['Trail', [['Audit'], ['Staff'], ['AXLE guide']]]
     ];
-    var groups = navDef.map(function (g) {
-      return { label: g[0], items: g[1].map(function (it) {
-        var on = it[0] === 'Overview';
-        return { label: it[0], current: on ? 'page' : undefined, intan: on ? '#FB9800' : 'transparent',
-          style: 'display:flex;align-items:center;gap:10px;min-height:44px;padding:0 10px;border-radius:10px;font-size:14px;text-decoration:none;' +
-            (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;box-shadow:inset 3px 0 0 #FB9800;' : 'color:#B6C3EA;'),
-          hasCount: it[1] != null, count: it[1],
-          countStyle: it[2] === 'loud' ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;' };
-      }) };
-    });
+    var customDef = r8 ? [['Nightly forecast']] : [['Forecast accuracy'], ['Reference library', 5, 'loud'], ['Learning']];
+    var PAGES = r8
+      ? { 'Overview': 'R8.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Services': 'Health.dc.html' }
+      : { 'Organisations': 'Organisations.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html', 'Plans & features': 'PlansFeatures.dc.html', 'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html' };
+    function item(it) {
+      var on = !r8 && it[0] === 'Overview';
+      return { label: it[0], href: PAGES[it[0]] || '#', current: on ? 'page' : undefined, intan: on ? '#FB9800' : 'transparent',
+        style: 'display:flex;align-items:center;gap:10px;min-height:44px;padding:0 10px;border-radius:10px;font-size:14px;text-decoration:none;' +
+          (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;box-shadow:inset 3px 0 0 #FB9800;' : (PAGES[it[0]] ? 'color:#EAF0FF;' : 'color:#B6C3EA;')),
+        hasCount: it[1] != null, count: it[1],
+        countStyle: it[2] === 'loud' ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;' };
+    }
+    var groups = navDef.map(function (g) { return { label: g[0], items: g[1].map(item) }; });
+    var custom = customDef.map(item);
+    var TAB = 'display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:9px;border:0;font-size:14px;cursor:pointer;';
     var needs = [
-      { level: 'Failing', tint: '#FEECEB', ink: '#B42318', what: 'Gemini key is failing: 429, rate limited', who: 'All organisations', since: 'since 13:52', fix: 'Check key' },
-      { level: 'Due', tint: '#FEF4E6', ink: '#B54708', what: 'Acme Plastics has used 86% of its AI budget', who: 'Acme Plastics Sdn Bhd', since: 'since 09:10', fix: 'Open budget' },
-      { level: 'Due', tint: '#FEF4E6', ink: '#B54708', what: '5 reference photos are waiting for review', who: '3 organisations', since: 'oldest 2 days', fix: 'Review photos' }
+      { level: 'Failing', tint: '#FEECEB', ink: '#B42318', what: 'Gemini key is failing: 429, rate limited', who: 'All organisations', since: 'since 13:52', fix: 'Troubleshoot in R8', href: 'Troubleshoot.dc.html' },
+      { level: 'Due', tint: '#FEF4E6', ink: '#B54708', what: 'Acme Plastics has used 86% of its AI budget', who: 'Acme Plastics Sdn Bhd', since: 'since 09:10', fix: 'Open budget', href: 'PlansFeatures.dc.html' },
+      { level: 'Due', tint: '#FEF4E6', ink: '#B54708', what: '5 reference photos are waiting for review', who: '3 organisations', since: 'oldest 2 days', fix: 'Review photos', href: '#' }
     ];
     var figures = [
       { label: 'Organisations', value: '48', hint: '+3 this week' },
@@ -178,7 +210,13 @@ class Component extends DCLogic {
       drawerOpen: open, drawerAria: open ? 'true' : 'false',
       openDrawer: function () { self.setState({ open: true }); },
       closeDrawer: function (e) { if (e && e.preventDefault) e.preventDefault(); self.setState({ open: false }); },
-      groups: groups, needs: needs, figures: figures
+      groups: groups, custom: custom, needs: needs, figures: figures,
+      dashSel: r8 ? 'false' : 'true', r8Sel: r8 ? 'true' : 'false',
+      dashTab: TAB + (r8 ? 'background:transparent;color:#B6C3EA;' : 'background:#FB9800;color:#071233;font-weight:600;'),
+      r8Tab: TAB + (r8 ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:transparent;color:#B6C3EA;'),
+      modeLine: r8 ? 'R8 Full · is the platform okay, and why did this fail?' : 'How is Janka doing, and who needs us?',
+      toDash: function () { self.setState({ mode: 'dashboard' }); },
+      toR8: function () { self.setState({ mode: 'r8' }); }
     };
   }
 }

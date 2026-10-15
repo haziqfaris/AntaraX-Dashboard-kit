@@ -276,8 +276,8 @@ Each product's R8 level, and what each product's box holds. Anything here that a
 |---|---|---|---|---|
 | Janka | Full: nightly forecast, AI on two providers | Nothing yet | Forecast accuracy, Reference library, Learning | Nightly forecast |
 | AX Frame | Full: daily site checks, screenshots, the R8 it built | Probes and network, Visual | AI connections, Customer health, Catalog | None: Visual and Troubleshoot are standard now |
-| Angka | Full, proposed: scheduled runs and the weekly brief | Nothing yet | Lapis, Weekly brief | Runs |
-| Tinara | Full, proposed: ingestion pipelines | Nothing yet | Scoring & metrics, Data sources, Intelligence ledger | Data pipelines |
+| Angka | Full: scheduled runs and the weekly brief | Nothing yet | Lapis, Weekly brief | Runs |
+| Tinara | Full: ingestion pipelines | Nothing yet | Scoring & metrics, Data sources, Intelligence ledger | Data pipelines |
 | Yara | Base: database triggers, the status API, deploy checks | Nothing | Data integrity (`tenant_integrity`), Modules, Status API | None yet |
 | PLExyz Grid | Base: nothing of its own to run yet | Nothing | None: its AXLE is covered by the standard | None |
 
@@ -626,10 +626,10 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 10. **Cooling-off and invitation expiry defaults** (30 days, 7 days).
 11. ~~**R8 for every product.**~~ Decided 15 Oct 2026: every product has R8, Base or Full (§2, §7.1). This departs from std v0.2, which gives R8 only to products with machinery; the standard should take it in v0.3.
 12. **Where the product-only box sits.** At the end of each mode's list (this draft), so the standard never moves; or first, because product pages may be the ones staff open most.
-13. **Which products are R8 Full.** This draft: AX Frame and Janka Full; Angka (scheduled runs, the weekly brief) and Tinara (ingestion pipelines) Full, proposed; Yara and PLExyz Grid Base (§7.5). Confirm.
-14. **Where Errors lives.** This draft keeps Errors in Dashboard → Operations in every product, because an error usually lands on a customer first, and links each one to Troubleshoot. The alternative is R8 → System.
-15. **R8 roles on the ladder.** std M14's Support, Engineering, Finance and Super Admin mapped onto Support, Operator (Level 1) and Admin (Level 2), the Finance right, and Owner (§5.2). Confirm, especially Level 2 at Admin rather than Operator.
-16. **AI split.** AI configuration (Models & keys, AI usage, Live trace, Prompts) stays in Dashboard (std F); provider health and Test provider are R8 → Providers (M5). Confirm Live trace belongs in Dashboard rather than R8.
+13. ~~**Which products are R8 Full.**~~ Decided 15 Oct 2026: AX Frame, Janka, Angka and Tinara are Full; Yara and PLExyz Grid are Base (§7.5).
+14. ~~**Where Errors lives.**~~ Decided 15 Oct 2026: Dashboard → Operations in every product, each error linking to Troubleshoot (§7.3).
+15. ~~**R8 roles on the ladder.**~~ Decided 15 Oct 2026: std M14 maps onto Support, Operator (Level 1), Admin (Level 2), the Finance right and Owner (§5.2).
+16. ~~**AI split.**~~ Decided 15 Oct 2026: AI configuration, including Live trace, stays in Dashboard (std F); provider health and Test provider are R8 → Providers (M5).
 
 ## 21 What each console changes
 

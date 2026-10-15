@@ -8,7 +8,7 @@ Every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v0.6 (REKA standard v0.
 | File | Page | Shows |
 |---|---|---|
 | `Main.dc.html` | Overview | The standard landing page (§8). Tweaks: Finance right, Open access |
-| `Phone.dc.html` | Overview at 390px | The phone top bar and the drawer (the drawer still shows the v0.4 menu) |
+| `Phone.dc.html` | Overview at 390px | The phone top bar and the drawer: the Dashboard · R8 switch (it changes only the menu), the AXLE standard groups, the dashed Janka-only box. Tweak: start with the drawer open |
 | `Organisations.dc.html` | Organisations | Every list (§9): stats strip as filters, search, sort, group, bulk actions, export |
 | `Organisation.dc.html` | Organisation 360 | Readiness checklist, stage stepper, tabs: summary and timeline, members, plan and features, usage, integrations, errors and health, internal notes, branding, audit (§10.3) |
 | `CreateOrganisation.dc.html` | New organisation | The five-step guided flow (§10.1) |
