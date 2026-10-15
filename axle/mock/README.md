@@ -1,6 +1,6 @@
 # AXLE mock
 
-The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.0, the standard with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
+The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.0, the standard, with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
 
 - Live canvas (private until shared): https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr. Press Play on any page; the sidebar links move between pages.
 - The logos load from the canvas's asset store, so open the pages there rather than from disk.
