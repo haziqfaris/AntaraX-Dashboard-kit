@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>AntaraX shell top bar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+.axs a{text-decoration:none}
+.axs :focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.axs .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div class="axs" style="position: relative; width: 100%; box-sizing: border-box; padding: {{b.outerPad}}; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; color: {{p.body}}; background: {{p.ground}}">
+  <header style="display: flex; align-items: center; gap: 8px; height: {{b.height}}; box-sizing: border-box; padding: {{b.innerPad}}; background: {{b.bg}}; border: {{b.border}}; border-bottom: {{b.borderBottom}}; border-radius: {{b.radius}}; box-shadow: {{b.shadow}}">
+
+    <sc-if value="{{showMenu}}" hint-placeholder-val="{{false}}">
+      <span style="position: relative; flex: none">
+        <button type="button" aria-label="Open the menu" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid {{p.line}}; background: {{p.well}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{p.ink}}" stroke-width="1.8" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h14"></path></svg>
+        </button>
+        <sc-if value="{{numbered}}" hint-placeholder-val="{{false}}"><span class="mono" style="position: absolute; top: -14px; left: -6px; width: 20px; height: 20px; border-radius: 999px; background: #0B1B4F; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">1</span></sc-if>
+      </span>
+    </sc-if>
+
+    <span style="position: relative; flex: none; display: flex; align-items: center; gap: 2px; padding: 4px; border-radius: 16px; background: {{p.well}}; border: 1px solid {{p.line}}">
+      <a href="https://antarax.ai" aria-label="AntaraX" style="display: flex; align-items: center; justify-content: center; width: 32px; height: 38px; border-radius: 12px"><img src="/_blob/9ace71ccd412c3968daa549ff29b1a4e" alt="" style="width: 21px; height: 21px; display: block"></a>
+      <a href="#" aria-label="{{p.name}} home" style="display: flex; align-items: center; gap: 8px; height: 38px; padding: {{chipPad}}; border-radius: 12px; background: {{p.subtle}}; color: {{p.ink}}; font-size: 16px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap">
+        <span style="width: 24px; height: 24px; border-radius: 7px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><img src="{{p.mark}}" alt="" style="max-width: 18px; max-height: 18px; display: block"></span>
+        <sc-if value="{{showName}}" hint-placeholder-val="{{true}}"><span>{{p.name}}</span></sc-if>
+      </a>
+      <sc-if value="{{numbered}}" hint-placeholder-val="{{false}}"><span class="mono" style="position: absolute; top: -14px; left: -6px; width: 20px; height: 20px; border-radius: 999px; background: #0B1B4F; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">2</span></sc-if>
+    </span>
+
+    <sc-if value="{{showTitle}}" hint-placeholder-val="{{true}}">
+      <span style="position: relative; flex: 1 1 120px; min-width: 0; padding-left: 12px; border-left: 1px solid {{p.line}}">
+        <h1 style="margin: 0; color: {{p.ink}}; font-size: 18px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{title}}</h1>
+        <sc-if value="{{numbered}}" hint-placeholder-val="{{false}}"><span class="mono" style="position: absolute; top: -26px; left: 4px; width: 20px; height: 20px; border-radius: 999px; background: #0B1B4F; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">3</span></sc-if>
+      </span>
+    </sc-if>
+    <sc-if value="{{noTitle}}" hint-placeholder-val="{{false}}"><span style="flex: 1"></span></sc-if>
+
+    <sc-if value="{{showSlot}}" hint-placeholder-val="{{true}}">
+      <span style="position: relative; flex: none; display: flex; align-items: center; gap: 6px; padding: {{slotPad}}; border-radius: 14px; border: {{slotBorder}}">
+        <sc-for list="{{slot}}" as="s" hint-placeholder-count="2">
+          <button type="button" style="{{s.style}}">
+            <sc-if value="{{s.sparkle}}" hint-placeholder-val="{{false}}"><img src="/_blob/44b2604fbd45a42ca7d165b9a109217c" alt="" style="width: 16px; height: 16px; display: block"></sc-if>
+            <sc-if value="{{s.plus}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></sc-if>
+            <span>{{s.label}}</span>
+            <sc-if value="{{s.caret}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></sc-if>
+          </button>
+        </sc-for>
+        <sc-if value="{{numbered}}" hint-placeholder-val="{{false}}"><span class="mono" style="position: absolute; top: -26px; left: 4px; height: 20px; padding: 0 7px; border-radius: 999px; background: #0B1B4F; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; white-space: nowrap">4 · {{p.name}}'s own</span></sc-if>
+      </span>
+    </sc-if>
+
+    <sc-if value="{{showSearchField}}" hint-placeholder-val="{{false}}">
+      <span style="position: relative; flex: none">
+        <button type="button" style="display: flex; align-items: center; gap: 8px; width: 210px; height: 44px; padding: 0 10px 0 12px; border-radius: 14px; border: 1px solid {{p.line}}; background: {{p.well}}; color: {{p.muted}}; font-family: inherit; font-size: 13px; cursor: pointer; text-align: left">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+          <span style="flex: 1">Search</span><span class="mono" style="font-size: 11px; border: 1px solid {{p.line}}; border-radius: 6px; padding: 0 5px">⌘K</span>
+        </button>
+        <sc-if value="{{numbered}}" hint-placeholder-val="{{false}}"><span class="mono" style="position: absolute; top: -14px; left: -6px; width: 20px; height: 20px; border-radius: 999px; background: #0B1B4F; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">5</span></sc-if>
+      </span>
+    </sc-if>
+    <sc-if value="{{showSearchIcon}}" hint-placeholder-val="{{false}}">
+      <button type="button" aria-label="Search" style="flex: none; width: 44px; height: 44px; border-radius: 999px; border: 1px solid {{p.line}}; background: {{p.well}}; color: {{p.ink}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      </button>
+    </sc-if>
+
+    <sc-if value="{{showBell}}" hint-placeholder-val="{{false}}">
+      <span style="position: relative; flex: none">
+        <button type="button" aria-label="Notifications: {{p.bell}} new" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid {{p.line}}; background: {{p.well}}; color: {{p.ink}}; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 1112 0v5l1.5 2h-15z"></path><path d="M10 20a2 2 0 004 0"></path></svg>
+          <span class="mono" style="position: absolute; top: -3px; right: -3px; min-width: 18px; height: 18px; border-radius: 999px; background: {{p.action}}; color: #FFFFFF; font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{p.bell}}</span>
+        </button>
+        <sc-if value="{{numbered}}" hint-placeholder-val="{{false}}"><span class="mono" style="position: absolute; top: -14px; left: -6px; width: 20px; height: 20px; border-radius: 999px; background: #0B1B4F; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">6</span></sc-if>
+      </span>
+    </sc-if>
+
+    <span style="position: relative; flex: none">
+      <button type="button" onClick="{{toggleHelp}}" aria-label="Help" aria-expanded="{{helpAria}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid {{helpLine}}; background: {{helpBg}}; color: {{p.ink}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.6 9.3a2.5 2.5 0 014.8.9c0 1.7-2.4 2.2-2.4 3.6"></path><path d="M12 17h.01"></path></svg>
+      </button>
+      <sc-if value="{{numbered}}" hint-placeholder-val="{{false}}"><span class="mono" style="position: absolute; top: -14px; left: -6px; width: 20px; height: 20px; border-radius: 999px; background: #0B1B4F; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">7</span></sc-if>
+    </span>
+
+    <span style="position: relative; flex: none">
+      <button type="button" onClick="{{toggleAccount}}" aria-label="Account: {{p.person}}" aria-expanded="{{accountAria}}" style="width: 44px; height: 44px; border-radius: 999px; border: 2px solid {{accountRing}}; background: {{p.action}}; color: #FFFFFF; font-family: inherit; font-weight: 600; font-size: 14px; cursor: pointer">{{p.initials}}</button>
+      <sc-if value="{{numbered}}" hint-placeholder-val="{{false}}"><span class="mono" style="position: absolute; top: -14px; left: -6px; width: 20px; height: 20px; border-radius: 999px; background: #0B1B4F; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">8</span></sc-if>
+    </span>
+  </header>
+
+  <sc-if value="{{helpOpen}}" hint-placeholder-val="{{false}}">
+    <div role="menu" aria-label="Help" style="position: absolute; z-index: 5; top: {{menuTop}}; right: {{helpRight}}; width: 280px; box-sizing: border-box; padding: 6px; background: #FFFFFF; border: 1px solid {{p.line}}; border-radius: 16px; box-shadow: 0 18px 40px -18px rgba(11,27,79,.35); display: flex; flex-direction: column">
+      <sc-for list="{{helpItems}}" as="h" hint-placeholder-count="4">
+        <a href="#" role="menuitem" style="display: flex; flex-direction: column; justify-content: center; min-height: 44px; padding: 4px 12px; border-radius: 10px; color: {{p.ink}}">
+          <span style="font-weight: 500">{{h.label}}</span>
+          <span style="font-size: 12px; color: {{p.muted}}">{{h.hint}}</span>
+        </a>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{accountOpen}}" hint-placeholder-val="{{false}}">
+    <div role="menu" aria-label="Account" style="position: absolute; z-index: 5; top: {{menuTop}}; right: {{accountRight}}; width: 300px; box-sizing: border-box; padding: 6px; background: #FFFFFF; border: 1px solid {{p.line}}; border-radius: 16px; box-shadow: 0 18px 40px -18px rgba(11,27,79,.35); display: flex; flex-direction: column; gap: 2px">
+      <div style="display: flex; gap: 10px; align-items: center; padding: 10px 10px 12px; border-bottom: 1px solid {{p.line}}">
+        <span style="width: 40px; height: 40px; border-radius: 999px; background: {{p.action}}; color: #FFFFFF; font-weight: 600; display: flex; align-items: center; justify-content: center; flex: none">{{p.initials}}</span>
+        <span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.35">
+          <span style="color: {{p.ink}}; font-weight: 600">{{p.person}}</span>
+          <span style="font-size: 12px; color: {{p.muted}}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.email}}</span>
+          <span style="font-size: 12px; color: {{p.accentText}}; font-weight: 600">{{p.role}}</span>
+        </span>
+      </div>
+      <div style="display: flex; flex-direction: column; padding: 6px 10px 8px; border-bottom: 1px solid {{p.line}}">
+        <span style="font-size: 11px; color: {{p.muted}}">Organisation</span>
+        <span style="color: {{p.ink}}; font-weight: 500">{{p.org}}</span>
+        <sc-if value="{{p.multiOrg}}" hint-placeholder-val="{{false}}"><a href="#" style="display: flex; align-items: center; min-height: 32px; color: {{p.accentText}}; font-size: 13px; font-weight: 500">Switch organisation</a></sc-if>
+      </div>
+      <sc-for list="{{accountItems}}" as="m" hint-placeholder-count="4">
+        <a href="#" role="menuitem" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 10px; border-radius: 10px; color: {{p.ink}}">
+          <span style="flex: 1">{{m.label}}</span>
+          <span style="font-size: 12px; color: {{p.muted}}">{{m.hint}}</span>
+          <sc-if value="{{numbered}}" hint-placeholder-val="{{false}}"><span class="mono" style="font-size: 10px; color: {{p.muted}}">{{m.n}}</span></sc-if>
+        </a>
+      </sc-for>
+      <sc-if value="{{p.dark}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 10px">
+          <span style="flex: 1; color: {{p.ink}}">Appearance</span>
+          <span role="radiogroup" aria-label="Appearance" style="display: flex; gap: 2px; padding: 2px; border-radius: 10px; background: {{p.well}}">
+            <button type="button" role="radio" aria-checked="false" style="font-family: inherit; font-size: 12px; min-height: 32px; padding: 0 8px; border: 0; border-radius: 8px; background: transparent; color: {{p.body}}; cursor: pointer">Light</button>
+            <button type="button" role="radio" aria-checked="false" style="font-family: inherit; font-size: 12px; min-height: 32px; padding: 0 8px; border: 0; border-radius: 8px; background: transparent; color: {{p.body}}; cursor: pointer">Dark</button>
+            <button type="button" role="radio" aria-checked="true" style="font-family: inherit; font-size: 12px; min-height: 32px; padding: 0 8px; border: 0; border-radius: 8px; background: #FFFFFF; color: {{p.ink}}; font-weight: 600; cursor: pointer">System</button>
+          </span>
+        </div>
+      </sc-if>
+      <a href="#" role="menuitem" style="display: flex; align-items: center; min-height: 44px; padding: 0 10px; border-radius: 10px; color: {{p.ink}}; border-top: 1px solid {{p.line}}">Sign out</a>
+      <div style="display: flex; flex-wrap: wrap; gap: 4px 10px; padding: 8px 10px 6px; border-top: 1px solid {{p.line}}; font-size: 11px; color: {{p.muted}}">
+        <span><strong style="font-weight: 600; color: {{p.ink}}">{{p.name}}</strong> by AntaraX</span>
+        <span class="mono">{{p.version}}</span>
+        <a href="#" style="color: {{p.muted}}; text-decoration: underline">Privacy</a>
+        <a href="#" style="color: {{p.muted}}; text-decoration: underline">Terms</a>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"product":{"editor":"enum","options":["Yara","Janka","AX Frame","Angka","Tinara","PLExyz Grid"],"default":"Yara"},"mode":{"editor":"enum","options":["wide","medium","phone"],"default":"wide"},"open":{"editor":"enum","options":["none","help","account"],"default":"account"},"title":{"editor":"text","default":"Work orders"},"numbered":{"editor":"boolean","default":false},"$preview":{"width":1280,"height":620}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { open: null }; }
+  renderVals() {
+    var self = this;
+    var product = this.props.product ?? 'Yara';
+    var mode = this.props.mode ?? 'wide';
+    var numbered = !!(this.props.numbered ?? false);
+    var open = this.state.open == null ? (this.props.open ?? 'account') : this.state.open;
+    var BTN = 'display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:12px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;';
+    function act(p, label, extra) { return Object.assign({ label: label, style: BTN + 'border:0;background:' + p.action + ';color:#FFFFFF;' }, extra || {}); }
+    function quiet(p, label, extra) { return Object.assign({ label: label, style: BTN + 'border:1px solid ' + p.line + ';background:#FFFFFF;color:' + p.ink + ';' }, extra || {}); }
+    // Each product's own palette (brand kit tokens/product-palettes.css) and its own bar shape. The anatomy is the same for all.
+    var P = {
+      'Yara': { name: 'Yara', mark: '/_blob/44c518a68fd732aff2ace614c736976b', action: '#098284', accentText: '#098284', subtle: '#DAF3F3', well: '#EFF5F5', line: '#E1EAEA', ground: '#F7FBFB', ink: '#0B1B4F', body: '#3B4469', muted: '#657575',
+        bar: 'floating', radius: '24px', person: 'Hafiz Roslan', initials: 'HR', email: 'hafiz@tegap-fab.example', role: 'Owner', org: 'Tegap Fabrication Sdn Bhd', multiOrg: false, plan: 'Nova', dark: false, lang: true, bell: 3, search: true, version: 'v2.14', whatsNew: true },
+      'Janka': { name: 'Janka', mark: '/_blob/e49267db52a49ce314f758e045b38dc1', action: '#077DA1', accentText: '#077DA1', subtle: '#D7F2FE', well: '#EFF4F7', line: '#E2E9ED', ground: '#F7FBFC', ink: '#0B1B4F', body: '#3B4469', muted: '#66747B',
+        bar: 'floating', radius: '20px', person: 'Nur Aina Hashim', initials: 'NA', email: 'aina@contoh-logistik.example', role: 'Owner', org: 'Contoh Logistik Sdn Bhd', multiOrg: true, plan: 'Nova', dark: false, lang: false, bell: 0, search: false, version: 'v1.9', whatsNew: true },
+      'AX Frame': { name: 'AX Frame', mark: '/_blob/4465d40a6045e7213803d41ebd2d541f', action: '#074AF8', accentText: '#074AF8', subtle: '#E4EDFF', well: '#F1F3F8', line: '#E5E8EE', ground: '#F9FAFD', ink: '#0B1B4F', body: '#3B4469', muted: '#6C727E',
+        bar: 'floating', radius: '16px', person: 'Daniel Ong', initials: 'DO', email: 'daniel@studio-awan.example', role: 'Admin', org: 'Studio Awan', multiOrg: true, plan: 'Nova', dark: false, lang: false, bell: 2, search: true, version: 'v3.2', whatsNew: true },
+      'Angka': { name: 'Angka', mark: '/_blob/bb282ff0455686251e09bac778072b5a', action: '#6B3F6B', accentText: '#6B3F6B', subtle: '#F4E9F4', well: '#F6F2F5', line: '#EBE6EB', ground: '#FAF7F2', ink: '#0B1B4F', body: '#3B4469', muted: '#786E78',
+        bar: 'floating', radius: '28px', person: 'Siti Mariam', initials: 'SM', email: 'siti@kopi-sinar.example', role: 'Owner', org: 'Kedai Kopi Sinar', multiOrg: false, plan: 'Business', dark: true, lang: true, bell: 0, search: true, version: 'v0.18', whatsNew: true },
+      'Tinara': { name: 'Tinara', mark: '/_blob/e79eaf52cb4f6ccc588b86860ca53dcd', action: '#7A1E3C', accentText: '#7A1E3C', subtle: '#FFE6EA', well: '#F7F2F3', line: '#EEE5E7', ground: '#FDF9FA', ink: '#0B1B4F', body: '#3B4469', muted: '#7D6D70',
+        bar: 'flat', radius: '0', person: 'Arif Zulkifli', initials: 'AZ', email: 'arif@rantau-consulting.example', role: 'Member', org: 'Rantau Consulting', multiOrg: false, plan: 'Terra', dark: false, lang: false, bell: 0, search: false, version: 'v0.6', whatsNew: false },
+      'PLExyz Grid': { name: 'PLExyz Grid', mark: '/_blob/bb69b049e48ccaa805e370586faa379e', action: '#2C09B2', accentText: '#2C09B2', subtle: '#E7ECFF', well: '#F2F3F8', line: '#E6E7EE', ground: '#F7F7FA', ink: '#1C1B2E', body: '#3B3A52', muted: '#6E717E',
+        bar: 'flat', radius: '0', person: 'Kavitha Raj', initials: 'KR', email: 'kavitha@pelabuhan-utara.example', role: 'Admin', org: 'Pelabuhan Utara Logistics', multiOrg: false, plan: 'Galaxy', dark: false, lang: false, bell: 5, search: false, version: 'v0.9', whatsNew: false }
+    };
+    var p = P[product] || P['Yara'];
+    var SLOT = {
+      'Yara': [act(p, 'New work order', { plus: true })],
+      'Janka': [quiet(p, 'Scan'), quiet(p, 'Assist', { sparkle: true })],
+      'AX Frame': [act(p, 'Add', { plus: true }), quiet(p, 'Assist', { sparkle: true })],
+      'Angka': [quiet(p, 'Angka · Lapis', { caret: true }), quiet(p, 'Ask Angka', { sparkle: true }), act(p, 'Add', { plus: true })],
+      'Tinara': [act(p, 'Start campaign', { plus: true })],
+      'PLExyz Grid': [quiet(p, 'Today', { caret: true }), quiet(p, 'Bay 3', { caret: true })]
+    }[product] || [];
+    if (mode === 'medium' && product === 'Angka') SLOT = SLOT.slice(1);
+    var phone = mode === 'phone', wide = mode === 'wide';
+    var floating = p.bar === 'floating';
+    var b = {
+      outerPad: floating ? (phone ? '8px 12px 0' : '14px 20px 0') : '0',
+      height: phone ? '58px' : '64px',
+      innerPad: floating ? '0 10px 0 7px' : '0 16px 0 12px',
+      bg: '#FFFFFF',
+      border: floating ? '1px solid ' + p.line : '0',
+      borderBottom: floating ? '1px solid ' + p.line : '1px solid ' + p.line,
+      radius: floating ? (phone ? '20px' : p.radius) : '0',
+      shadow: floating ? '0 10px 28px -20px rgba(11,27,79,.35)' : 'none'
+    };
+    var help = [
+      { label: 'User guide', hint: 'How to do each task, step by step' },
+      { label: 'Help centre', hint: 'Answers to common questions' }
+    ];
+    if (p.whatsNew) help.push({ label: "What's new", hint: 'Changes in the last month' });
+    help.push({ label: 'Contact support', hint: 'support@go.antarax.ai' });
+    var items = [{ label: 'Your account', hint: '', n: '3' }, { label: 'Settings', hint: '', n: '4' }];
+    if (p.role === 'Owner') items.push({ label: 'Plan and billing', hint: p.plan, n: '5' });
+    if (p.lang) items.push({ label: 'Language', hint: 'English', n: '7' });
+    if (phone) items.push({ label: 'Help', hint: 'Guide, answers, support', n: '8' });
+    var menuTop = phone ? '74px' : (floating ? '86px' : '72px');
+    return {
+      p: p, b: b, title: this.props.title ?? 'Work orders', numbered: numbered,
+      showMenu: phone || numbered, showName: !phone, showTitle: wide, noTitle: !wide,
+      showSlot: !phone && SLOT.length > 0, slot: SLOT, slotPad: numbered ? '3px' : '0', slotBorder: numbered ? '1px dashed #8E9CC9' : '0',
+      chipPad: phone ? '0 7px' : '0 12px 0 7px',
+      showSearchField: wide && p.search, showSearchIcon: mode === 'medium' && p.search,
+      showBell: !phone && p.bell > 0,
+      helpOpen: open === 'help', accountOpen: open === 'account',
+      helpAria: open === 'help' ? 'true' : 'false', accountAria: open === 'account' ? 'true' : 'false',
+      helpBg: open === 'help' ? p.subtle : p.well, helpLine: open === 'help' ? p.action : p.line,
+      accountRing: open === 'account' ? p.subtle : '#FFFFFF',
+      helpItems: help, accountItems: items, menuTop: menuTop,
+      helpRight: floating ? (phone ? '70px' : '84px') : '68px', accountRight: floating ? (phone ? '12px' : '20px') : '12px',
+      toggleHelp: function () { self.setState({ open: open === 'help' ? 'none' : 'help' }); },
+      toggleAccount: function () { self.setState({ open: open === 'account' ? 'none' : 'account' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

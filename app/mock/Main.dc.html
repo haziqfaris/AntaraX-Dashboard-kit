@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>The AntaraX shell</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7}a:hover{color:#002EB2}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="width: 1440px; box-sizing: border-box; padding: 48px 56px 64px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 40px">
+
+  <header style="display: flex; flex-direction: column; gap: 10px; max-width: 1080px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">The AntaraX shell</h1>
+    <p style="margin: 0; font-size: 16px">Every AntaraX customer app looks like itself: its own colours, shape, layout and navigation. These few things stay the same in all of them, so a customer always finds help, their account and settings in the same place, under the same names.</p>
+  </header>
+
+  <section aria-labelledby="bar-h" style="display: flex; flex-direction: column; gap: 14px">
+    <h2 id="bar-h" style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">The top bar, in Yara's colours</h2>
+    <div style="position: relative; min-height: 560px; border-radius: 24px; background: #F7FBFB; border: 1px solid #E1EAEA; padding-bottom: 24px">
+      <div style="padding-top: 18px"><dc-import name="AppBar" product="Yara" mode="wide" open="account" numbered="{{true}}" title="Work orders" hint-size="100%,92px"></dc-import></div>
+      <ol style="list-style: none; margin: 30px 0 0; padding: 0 0 0 28px; width: 760px; display: flex; flex-direction: column; gap: 10px">
+        <sc-for list="{{anatomy}}" as="a" hint-placeholder-count="8">
+          <li style="display: flex; gap: 12px; align-items: baseline">
+            <span class="mono" style="flex: none; width: 22px; height: 22px; border-radius: 999px; background: #0B1B4F; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{a.n}}</span>
+            <span><strong style="color: #0B1B4F; font-weight: 600">{{a.name}}.</strong> {{a.rule}}</span>
+          </li>
+        </sc-for>
+      </ol>
+    </div>
+    <p style="margin: 0; font-size: 13px; color: #5B6488; max-width: 1080px">The places, the order and the words are the shell. How it looks is the product's own: its colours come from its palette in the brand kit, and whether the bar floats as a card or spans the page is its choice. Click Help or the account to open their menus.</p>
+  </section>
+
+  <section aria-label="Help in another product, and on a phone" style="display: flex; gap: 40px; align-items: flex-start">
+    <div style="flex: 1 1 760px; display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">Help, in Janka's colours</h2>
+      <div style="position: relative; min-height: 400px; border-radius: 24px; background: #F7FBFC; border: 1px solid #E2E9ED; overflow: hidden">
+        <dc-import name="AppBar" product="Janka" mode="medium" open="help" hint-size="100%,80px"></dc-import>
+      </div>
+      <p style="margin: 0; font-size: 13px; color: #5B6488">The same four items in every product: User guide (<span class="mono">/guide</span>), Help centre (<span class="mono">/help</span>), What's new where the product keeps one, and Contact support (support@go.antarax.ai). The product slot here is Janka's own: Scan, and Assist with the AntaraX sparkle.</p>
+    </div>
+    <div style="flex: none; width: 390px; display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">On a phone, in Angka's</h2>
+      <div style="width: 390px; height: 700px; border-radius: 36px; border: 1px solid #EBE6EB; background: #FAF7F2; overflow: hidden; position: relative; display: flex; flex-direction: column">
+        <dc-import name="AppBar" product="Angka" mode="phone" open="account" hint-size="390px,70px"></dc-import>
+        <div style="flex: 1; padding: 18px 16px; display: flex; flex-direction: column; gap: 12px">
+          <span style="font-size: 22px; font-weight: 600; color: #0B1B4F">Good morning, Siti</span>
+          <div style="height: 120px; border-radius: 22px; background: #FFFFFF; border: 1px solid #EBE6EB"></div>
+          <div style="height: 120px; border-radius: 22px; background: #FFFFFF; border: 1px solid #EBE6EB"></div>
+        </div>
+        <nav aria-label="Angka" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: center; height: 72px; padding: 0 10px; background: #FFFFFF; border-top: 1px solid #EBE6EB; font-size: 11px; color: #786E78; text-align: center">
+          <a href="#" style="color: #6B3F6B; font-weight: 600; text-decoration: none">Today</a><a href="#" style="color: #786E78; text-decoration: none">Money</a>
+          <button type="button" aria-label="Add" style="justify-self: center; width: 48px; height: 48px; border-radius: 999px; border: 0; background: #6B3F6B; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></button>
+          <a href="#" style="color: #786E78; text-decoration: none">Bills</a><a href="#" style="color: #786E78; text-decoration: none">More</a>
+        </nav>
+      </div>
+      <p style="margin: 0; font-size: 13px; color: #5B6488">The bottom bar is Angka's own. Help and the account stay in the top bar, one tap away; on a phone, Help also sits in the account menu.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="pages-h" style="display: flex; flex-direction: column; gap: 14px">
+    <h2 id="pages-h" style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">Standard pages: the same addresses everywhere, each product's own look</h2>
+    <div style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 6px 20px; overflow-x: auto">
+      <table style="width: 100%; min-width: 900px; border-collapse: collapse; font-size: 13px">
+        <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #E5E8EE">Address</th><th scope="col" style="font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #E5E8EE">Page</th><th scope="col" style="font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #E5E8EE">Holds first, in this order</th></tr></thead>
+        <tbody>
+          <sc-for list="{{pages}}" as="r" hint-placeholder-count="7">
+            <tr>
+              <td class="mono" style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6; color: #0B1B4F; white-space: nowrap">{{r.path}}</td>
+              <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6; color: #0B1B4F; font-weight: 500; white-space: nowrap">{{r.page}}</td>
+              <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6">{{r.holds}}</td>
+            </tr>
+          </sc-for>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-label="Shell or own" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
+    <div style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+      <h2 style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600">The shell: the same in every product</h2>
+      <sc-for list="{{shell}}" as="s" hint-placeholder-count="6"><span style="display: flex; gap: 10px"><span aria-hidden="true" style="color: #0459F7">•</span><span>{{s.t}}</span></span></sc-for>
+    </div>
+    <div style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+      <h2 style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600">Own: the product decides</h2>
+      <sc-for list="{{own}}" as="s" hint-placeholder-count="6"><span style="display: flex; gap: 10px"><span aria-hidden="true" style="color: #12B76A">•</span><span>{{s.t}}</span></span></sc-for>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    function L(a) { return a.map(function (t) { return { t: t }; }); }
+    return {
+      anatomy: [
+        { n: '1', name: 'Menu button', rule: 'Only when the product\'s navigation is a drawer at this width.' },
+        { n: '2', name: 'Brand pill', rule: 'The AntaraX A, linking to antarax.ai, and the product chip, linking to the app\'s home.' },
+        { n: '3', name: 'Page title', rule: 'May be hidden where the page shows its own large title right below.' },
+        { n: '4', name: 'Product slot', rule: 'The product\'s own controls, in its own style: Add, Assist, a date range, a site picker. It never pushes 5 to 8 out of view.' },
+        { n: '5', name: 'Search', rule: 'Only if the product has it; a button on narrow screens.' },
+        { n: '6', name: 'Notifications', rule: 'Only if the product has them; a bell with a count.' },
+        { n: '7', name: 'Help', rule: 'Always: User guide, Help centre, What\'s new, Contact support.' },
+        { n: '8', name: 'Account', rule: 'Always last, always at the far right, never at the foot of a sidebar. Its menu: you, the organisation, Your account, Settings, Plan and billing for Owners, Appearance and Language where offered, Sign out, then "by AntaraX", the version, Privacy and Terms.' }
+      ],
+      pages: [
+        { path: '/account', page: 'Your account', holds: 'Name and photo · email and sign-in, two-step sign-in · which emails you get · signed-in devices, Sign out everywhere' },
+        { path: '/settings', page: 'Settings', holds: 'Organisation · Members · Plan and billing · then the product\'s own sections · leaving or deleting the organisation last' },
+        { path: '/settings/members', page: 'Members', holds: 'Who is in, their role, last active · Invite · pending invitations' },
+        { path: '/settings/billing', page: 'Plan and billing', holds: 'Current plan and what it includes · usage against limits · invoices · payment method · change plan (Owners)' },
+        { path: '/guide', page: 'User guide', holds: 'REKA\'s user-guide format: task, steps, a screenshot, "You should see"' },
+        { path: '/help', page: 'Help centre', holds: 'Answers to common questions, public before sign-in where not private · Contact support' },
+        { path: '/legal/privacy · /legal/terms', page: 'Privacy and Terms', holds: 'The legal texts, with privacy@go.antarax.ai' }
+      ],
+      shell: L([
+        'The top bar\'s anatomy and order; Help and the account always in it',
+        'The account menu\'s contents and order',
+        'The standard pages, their addresses and what each holds first',
+        'The words: organisation, member, Owner, Admin, Member, Viewer, Invite, Plan and Billing, Sign in, Sign out, Settings, Assist',
+        'The AntaraX layer: the A, "by AntaraX", the AI sparkle, Poppins and JetBrains Mono, status colours, the AntaraX-blue focus ring',
+        '44px targets and the accessibility baseline'
+      ]),
+      own: L([
+        'Colours, ground, surfaces and charts, from the product\'s palette in the brand kit',
+        'The shape of navigation: sidebar, tabs, bottom bar, a canvas with no menu',
+        'Layouts, components, density, corner radius, illustration and motion',
+        'What goes in the product slot of the top bar',
+        'Dark mode, and how the standard pages look',
+        'The names of its own things and menu groups'
+      ])
+    };
+  }
+}
+</script>
+</body>
+</html>

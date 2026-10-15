@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Six products, one shell</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+.pv a{text-decoration:none}
+.pv .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div class="pv" style="width: 1480px; box-sizing: border-box; padding: 48px 40px 64px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 32px">
+  <header style="display: flex; flex-direction: column; gap: 10px; max-width: 1100px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">Six products, six identities, one shell</h1>
+    <p style="margin: 0; font-size: 16px">Below the top bar, each product is free: its own colours, ground, navigation shape and layout. In the bar, the brand pill sits at the left and Help and the account at the right, in every product. Click Help or the account in any of them.</p>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px">
+
+    <section aria-label="Yara" style="display: flex; flex-direction: column; gap: 10px">
+      <span><strong style="color: #0B1B4F">Yara</strong> · a sidebar, teal on white, a board of work</span>
+      <div style="height: 560px; border-radius: 20px; overflow: hidden; background: #F7FBFB; border: 1px solid #E1EAEA; display: flex; flex-direction: column; position: relative">
+        <dc-import name="AppBar" product="Yara" mode="medium" open="none" hint-size="100%,80px"></dc-import>
+        <div style="flex: 1; display: flex; gap: 14px; padding: 14px 20px 20px; min-height: 0">
+          <nav aria-label="Yara" style="flex: none; width: 168px; background: #FFFFFF; border: 1px solid #E1EAEA; border-radius: 18px; padding: 12px 8px; display: flex; flex-direction: column; gap: 2px; font-size: 13px">
+            <span style="font-size: 11px; color: #657575; padding: 0 8px 2px">Operations</span>
+            <a href="#" aria-current="page" style="display: flex; align-items: center; min-height: 36px; padding: 0 10px; border-radius: 10px; background: #DAF3F3; color: #05686A; font-weight: 600">Work orders</a>
+            <a href="#" style="display: flex; align-items: center; min-height: 36px; padding: 0 10px; color: #0B1B4F">Job cards</a>
+            <a href="#" style="display: flex; align-items: center; min-height: 36px; padding: 0 10px; color: #0B1B4F">Schedule</a>
+            <span style="font-size: 11px; color: #657575; padding: 8px 8px 2px">Team</span>
+            <a href="#" style="display: flex; align-items: center; min-height: 36px; padding: 0 10px; color: #0B1B4F">People</a>
+            <span style="font-size: 11px; color: #657575; padding: 8px 8px 2px">Setup</span>
+            <a href="#" style="display: flex; align-items: center; min-height: 36px; padding: 0 10px; color: #0B1B4F">Workflow</a>
+          </nav>
+          <div style="flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+            <sc-for list="{{yaraCols}}" as="c" hint-placeholder-count="3">
+              <div style="background: #EFF5F5; border-radius: 14px; padding: 10px; display: flex; flex-direction: column; gap: 8px">
+                <span style="font-size: 12px; font-weight: 600; color: #0B1B4F">{{c.name}} <span class="mono" style="color: #657575; font-weight: 400">{{c.n}}</span></span>
+                <sc-for list="{{c.cards}}" as="k" hint-placeholder-count="2">
+                  <div style="background: #FFFFFF; border: 1px solid #E1EAEA; border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px">
+                    <span class="mono" style="font-size: 11px; color: #098284">{{k.id}}</span>
+                    <span style="font-size: 13px; color: #0B1B4F">{{k.what}}</span>
+                    <span style="font-size: 11px; color: #657575">{{k.due}}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Janka" style="display: flex; flex-direction: column; gap: 10px">
+      <span><strong style="color: #0B1B4F">Janka</strong> · tabs across the top, no sidebar, a list to act on</span>
+      <div style="height: 560px; border-radius: 20px; overflow: hidden; background: #F7FBFC; border: 1px solid #E2E9ED; display: flex; flex-direction: column; position: relative">
+        <dc-import name="AppBar" product="Janka" mode="medium" open="none" hint-size="100%,80px"></dc-import>
+        <nav aria-label="Janka" style="display: flex; gap: 4px; padding: 14px 20px 0; font-size: 14px">
+          <a href="#" aria-current="page" style="display: flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; background: #077DA1; color: #FFFFFF; font-weight: 600">Stock</a>
+          <a href="#" style="display: flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; color: #0B1B4F">Plan</a>
+          <a href="#" style="display: flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; color: #0B1B4F">Watch</a>
+          <a href="#" style="display: flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; color: #0B1B4F">Scan &amp; tag</a>
+        </nav>
+        <div style="flex: 1; padding: 14px 20px 20px; display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 18px; font-weight: 600; color: #0B1B4F">Act on these first</span>
+          <sc-for list="{{jankaRows}}" as="r" hint-placeholder-count="5">
+            <div style="display: flex; align-items: center; gap: 14px; background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 16px; padding: 10px 14px">
+              <span style="flex: 1; display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 500">{{r.item}}</span><span style="font-size: 12px; color: #66747B">{{r.why}}</span></span>
+              <span style="width: 120px; height: 8px; border-radius: 999px; background: #D7F2FE; overflow: hidden"><span style="display: block; height: 100%; width: {{r.w}}; background: #077DA1; border-radius: 999px"></span></span>
+              <span class="mono" style="width: 64px; text-align: right; color: #0B1B4F">{{r.days}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="AX Frame" style="display: flex; flex-direction: column; gap: 10px">
+      <span><strong style="color: #0B1B4F">AX Frame</strong> · no menu at all, the map is the app</span>
+      <div style="height: 560px; border-radius: 20px; overflow: hidden; background: #F9FAFD; border: 1px solid #E5E8EE; display: flex; flex-direction: column; position: relative; background-image: radial-gradient(#D3D8E0 1px, transparent 1.3px); background-size: 22px 22px">
+        <dc-import name="AppBar" product="AX Frame" mode="medium" open="none" hint-size="100%,80px"></dc-import>
+        <div style="flex: 1; position: relative">
+          <div role="toolbar" aria-label="Map tools" style="position: absolute; left: 20px; top: 20px; display: flex; flex-direction: column; gap: 4px; padding: 4px; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 14px">
+            <button type="button" aria-label="Select" style="width: 40px; height: 40px; border: 0; border-radius: 10px; background: #E4EDFF; color: #074AF8; cursor: pointer">↖</button>
+            <button type="button" aria-label="Connect" style="width: 40px; height: 40px; border: 0; border-radius: 10px; background: transparent; color: #0B1B4F; cursor: pointer">↔</button>
+            <button type="button" aria-label="Group" style="width: 40px; height: 40px; border: 0; border-radius: 10px; background: transparent; color: #0B1B4F; cursor: pointer">▢</button>
+          </div>
+          <div style="position: absolute; left: 110px; top: 40px; width: 430px; height: 300px; border: 1px dashed #A7C4FE; border-radius: 18px; background: rgba(243,247,254,.7)">
+            <span style="position: absolute; top: -11px; left: 16px; background: #F9FAFD; padding: 0 8px; font-size: 12px; color: #074AF8; font-weight: 600">Shop website</span>
+          </div>
+          <sc-for list="{{frameNodes}}" as="n" hint-placeholder-count="4">
+            <div style="position: absolute; left: {{n.x}}; top: {{n.y}}; width: 150px; padding: 10px 12px; background: #FFFFFF; border: 1px solid #C9DBFE; border-radius: 14px; box-shadow: 0 6px 18px -12px rgba(7,74,248,.5)">
+              <span style="display: block; color: #0B1B4F; font-weight: 600; font-size: 13px">{{n.name}}</span>
+              <span style="display: block; font-size: 11px; color: #6C727E">{{n.what}}</span>
+            </div>
+          </sc-for>
+          <div style="position: absolute; left: 20px; right: 20px; bottom: 16px; display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 14px; font-size: 13px">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: #F79009"></span>
+            <span style="flex: 1; color: #0B1B4F">3 renewals in the next 30 days</span>
+            <a href="#" style="color: #074AF8; font-weight: 500">See them</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Angka" style="display: flex; flex-direction: column; gap: 10px">
+      <span><strong style="color: #0B1B4F">Angka</strong> · a floating sidebar with tinted tiles, on paper</span>
+      <div style="height: 560px; border-radius: 20px; overflow: hidden; background: #FAF7F2; border: 1px solid #EBE6EB; display: flex; flex-direction: column; position: relative">
+        <dc-import name="AppBar" product="Angka" mode="medium" open="none" hint-size="100%,80px"></dc-import>
+        <div style="flex: 1; display: flex; gap: 16px; padding: 16px 20px 20px; min-height: 0">
+          <nav aria-label="Angka" style="flex: none; width: 176px; background: #FFFFFF; border-radius: 26px; padding: 12px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 12px 30px -22px rgba(107,63,107,.6); font-size: 13px">
+            <sc-for list="{{angkaNav}}" as="a" hint-placeholder-count="5">
+              <a href="#" aria-current="{{a.current}}" style="display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 8px; border-radius: 14px; background: {{a.bg}}; color: {{a.ink}}; font-weight: {{a.weight}}">
+                <span style="width: 26px; height: 26px; border-radius: 9px; background: {{a.tile}}; flex: none"></span>{{a.label}}
+              </a>
+            </sc-for>
+          </nav>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+            <span style="font-size: 20px; font-weight: 600; color: #0B1B4F">How it's going</span>
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+              <div style="background: #FFFFFF; border-radius: 22px; padding: 14px 16px"><span style="font-size: 12px; color: #786E78">Money in, this month</span><span class="mono" style="display: block; font-size: 24px; color: #0B1B4F">RM18,420</span></div>
+              <div style="background: #FFFFFF; border-radius: 22px; padding: 14px 16px"><span style="font-size: 12px; color: #786E78">Bills due this week</span><span class="mono" style="display: block; font-size: 24px; color: #0B1B4F">RM2,150</span></div>
+            </div>
+            <div style="background: #FFFFFF; border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px">
+              <span style="font-weight: 600; color: #0B1B4F">Needs you</span>
+              <span style="font-size: 13px">Supplier invoice from Kilang Gula Murni is 4 days late</span>
+              <span style="font-size: 13px">Two receipts are waiting to be matched</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Tinara" style="display: flex; flex-direction: column; gap: 10px">
+      <span><strong style="color: #0B1B4F">Tinara</strong> · a flat bar, a narrow rail, garnet and gold</span>
+      <div style="height: 560px; border-radius: 20px; overflow: hidden; background: #FDF9FA; border: 1px solid #EEE5E7; display: flex; flex-direction: column; position: relative">
+        <dc-import name="AppBar" product="Tinara" mode="medium" open="none" hint-size="100%,64px"></dc-import>
+        <div style="flex: 1; display: flex; min-height: 0">
+          <nav aria-label="Tinara" style="flex: none; width: 64px; background: #7A1E3C; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 0">
+            <sc-for list="{{tinaraRail}}" as="t" hint-placeholder-count="4">
+              <a href="#" aria-label="{{t.label}}" aria-current="{{t.current}}" style="width: 44px; height: 44px; border-radius: 12px; background: {{t.bg}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">{{t.short}}</a>
+            </sc-for>
+          </nav>
+          <div style="flex: 1; min-width: 0; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+            <span style="font-size: 18px; font-weight: 600; color: #0B1B4F">Intelligence ledger</span>
+            <div style="background: #FFFFFF; border: 1px solid #EEE5E7; border-radius: 6px">
+              <sc-for list="{{tinaraRows}}" as="r" hint-placeholder-count="5">
+                <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid #F7F2F3; font-size: 13px">
+                  <span style="flex: 1; color: #0B1B4F">{{r.signal}}</span>
+                  <span style="width: 110px; color: #7D6D70">{{r.source}}</span>
+                  <span class="mono" style="width: 44px; text-align: center; padding: 1px 0; border-radius: 4px; background: {{r.bg}}; color: {{r.ink}}">{{r.score}}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="PLExyz Grid" style="display: flex; flex-direction: column; gap: 10px">
+      <span><strong style="color: #0B1B4F">PLExyz Grid</strong> · a full-width bar, a zone map and a side panel</span>
+      <div style="height: 560px; border-radius: 20px; overflow: hidden; background: #F7F7FA; border: 1px solid #E6E7EE; display: flex; flex-direction: column; position: relative">
+        <dc-import name="AppBar" product="PLExyz Grid" mode="medium" open="none" hint-size="100%,64px"></dc-import>
+        <div style="flex: 1; display: flex; gap: 14px; padding: 16px 20px 20px; min-height: 0">
+          <div role="img" aria-label="Yard map: four bays, Bay 3 selected" style="flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+            <sc-for list="{{gridBays}}" as="g" hint-placeholder-count="4">
+              <div style="border-radius: 10px; background: {{g.bg}}; border: {{g.border}}; padding: 12px; display: flex; flex-direction: column; justify-content: space-between">
+                <span style="font-weight: 600; color: #1C1B2E">{{g.name}}</span>
+                <span class="mono" style="font-size: 22px; color: #1C1B2E">{{g.fill}}</span>
+              </div>
+            </sc-for>
+          </div>
+          <aside aria-label="Bay 3" style="flex: none; width: 190px; background: #FFFFFF; border: 1px solid #E6E7EE; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 8px; font-size: 13px">
+            <span style="font-weight: 600; color: #1C1B2E">Bay 3</span>
+            <span>82% full · 41 of 50 slots</span>
+            <span>Next arrival 10:40, 6 containers</span>
+            <a href="#" style="margin-top: auto; display: flex; align-items: center; justify-content: center; min-height: 40px; border-radius: 8px; background: #2C09B2; color: #FFFFFF; font-weight: 600">Plan arrivals</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1480,"height":2100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var angka = ['Today', 'Money', 'Bills', 'Receipts', 'Reports'];
+    var tiles = ['#F4E9F4', '#FDE8DF', '#EAD2E9', '#FBD0BF', '#F4E9F4'];
+    var rail = [['Ledger', 'Lg'], ['Signals', 'Sg'], ['Sources', 'Sr'], ['Saved', 'Sv']];
+    return {
+      yaraCols: [
+        { name: 'Cutting', n: '4', cards: [{ id: 'WO-1042', what: 'Bracket set × 40', due: 'Due Thu' }, { id: 'WO-1047', what: 'Base plates × 12', due: 'Due Fri' }] },
+        { name: 'Welding', n: '3', cards: [{ id: 'WO-1039', what: 'Handrail, 6 m', due: 'Due today' }, { id: 'WO-1041', what: 'Gate frame', due: 'Due Thu' }] },
+        { name: 'QC', n: '2', cards: [{ id: 'WO-1035', what: 'Stair stringers × 2', due: 'Due today' }] }
+      ],
+      jankaRows: [
+        { item: 'Cable ties, 200 mm', why: 'Runs out before the next delivery', w: '18%', days: '4 days' },
+        { item: 'Pallet wrap, 500 mm', why: 'Usage up 30% this month', w: '32%', days: '9 days' },
+        { item: 'Carton, 40 × 30 × 30', why: 'Order now to get the bulk price', w: '45%', days: '12 days' },
+        { item: 'Gloves, size L', why: 'Below the safety stock you set', w: '22%', days: '6 days' },
+        { item: 'Label rolls, 100 × 150', why: 'Supplier lead time went up to 10 days', w: '51%', days: '15 days' }
+      ],
+      frameNodes: [
+        { name: 'Website', what: 'Hosting · Vercel', x: '140px', y: '80px' },
+        { name: 'Domain', what: 'sinar.example', x: '360px', y: '80px' },
+        { name: 'Database', what: 'Postgres · renews 2 Nov', x: '140px', y: '210px' },
+        { name: 'Email', what: 'Sends receipts', x: '360px', y: '210px' }
+      ],
+      angkaNav: angka.map(function (l, i) { var on = i === 0; return { label: l, current: on ? 'page' : undefined, bg: on ? '#F4E9F4' : 'transparent', ink: on ? '#6B3F6B' : '#0B1B4F', weight: on ? '600' : '400', tile: tiles[i] }; }),
+      tinaraRail: rail.map(function (r, i) { var on = i === 0; return { label: r[0], short: r[1], current: on ? 'page' : undefined, bg: on ? 'rgba(255,255,255,.22)' : 'transparent' }; }),
+      tinaraRows: [
+        { signal: 'Competitor price cut, mid-range sedans', source: 'Dealer listings', score: '92', bg: '#F6ECDA', ink: '#7A1E3C' },
+        { signal: 'New showroom opening, Shah Alam', source: 'Planning notices', score: '78', bg: '#FBF6EE', ink: '#7A1E3C' },
+        { signal: 'Fleet tender, state agency', source: 'Tender portal', score: '71', bg: '#FBF6EE', ink: '#7A1E3C' },
+        { signal: 'Supplier change at a rival', source: 'Trade press', score: '54', bg: '#F7F2F3', ink: '#7D6D70' },
+        { signal: 'Hiring spree, after-sales', source: 'Job boards', score: '48', bg: '#F7F2F3', ink: '#7D6D70' }
+      ],
+      gridBays: [
+        { name: 'Bay 1', fill: '46%', bg: '#E3F8F7', border: '1px solid #4FD7D1' },
+        { name: 'Bay 2', fill: '64%', bg: '#FFF1DE', border: '1px solid #FD9001' },
+        { name: 'Bay 3', fill: '82%', bg: '#FFE6EE', border: '2px solid #2C09B2' },
+        { name: 'Bay 4', fill: '31%', bg: '#F1ECFE', border: '1px solid #CBB6FA' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
