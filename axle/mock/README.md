@@ -1,6 +1,6 @@
 # AXLE mock
 
-Every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v0.6 (REKA standard v0.2, with R8 Base for every product and R8 Full where there is machinery) with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
+The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v0.6 (REKA standard v0.2, with R8 Base for every product and R8 Full where there is machinery) with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
 
 - Live canvas (private until shared): https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr. Press Play on any page; the sidebar links move between pages.
 - The logos load from the canvas's asset store, so open the pages there rather than from disk.
@@ -26,8 +26,17 @@ Every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v0.6 (REKA standard v0.
 | `Providers.dc.html` | R8 · Providers | Every outside dependency worst first, with calls, success rate, median time and quota exposure; one provider with its facts, calls per hour, what depends on it, and Test provider (a result and a time, never a key). Try: test Gemini, then Claude (§7.4, std M5) |
 | `Configuration.dc.html` | R8 · Configuration | Setup as set or missing, never values; schedules in plain words; limits; changes. Tweak "Who is looking": as Operator every change says Needs Admin; as Admin, change the Sheets import limit to 20 min, enforced, for INC-0413 (§7.4) |
 | `Navbars.dc.html` | Navbars per product | The top bar and both sidebar modes for Janka, Yara, AX Frame, Angka, PLExyz Grid and Tinara: AXLE standard above, the dashed product-only box below. Yara and PLExyz Grid are R8 Base (no Incidents, no Observe); the others are R8 Full (§7, §7.5) |
-| `NavVariants.dc.html` | Navbar variations | Five ways to organise the same 29 Dashboard pages for Janka: A by area with the standard first (the spec today), B by task, C product first, D pinned then A to Z, E rail and panel. Each with what it is good for, what it costs and when it fits |
-| `NavCollapse.dc.html` | Collapse styles for layout A | Five ways a group opens and closes: A1 quiet headings (the mock today), A2 tree with icons, A3 one open at a time, A4 cards with a preview line and collapse all, A5 top two pages then "more". Every style keeps the orange roll-up and opens the current page's group |
-| `NavTitles.dc.html` | Card titles | The chosen sidebar: folding cards with an icon tile and a title in each group's colour, the selected page as an orange tint with no side stripe; in Dashboard and R8. Three alternatives for comparison: one blue, white titles with tiles, colour without tiles |
 | `Costs.dc.html` | Costs, without the Finance right | The gate card and dashes instead of zeros (§5.2, §13.1) |
 | `Sidebar.dc.html`, `TopBar.dc.html` | Shared | The sidebar and the AntaraX top bar every page imports; both take the product, and the sidebar takes the mode (Dashboard or R8). Groups collapse; Organisations, Money, Platform and Trail start closed here to show the orange roll-up (§7.2) |
+
+The canvas shows only the final design: Dashboard pages first, then R8, then every product's menus. The sidebar is the chosen one (folding cards, a tinted icon tile and a coloured title per group, no side stripe on the current page).
+
+## Explorations (kept for the record, not on the canvas)
+
+The comparisons that led to the sidebar. They are not kept up to date: `NavTitles` used a sidebar setting that has since been removed, so open it from git history before 15 Oct 2026's cleanup to see it working.
+
+| File | Page | Shows |
+|---|---|---|
+| `explorations/NavVariants.dc.html` | Navbar variations | Five ways to organise the same 29 Dashboard pages for Janka: A by area with the standard first (the spec today), B by task, C product first, D pinned then A to Z, E rail and panel. Each with what it is good for, what it costs and when it fits |
+| `explorations/NavCollapse.dc.html` | Collapse styles for layout A | Five ways a group opens and closes: A1 quiet headings (the mock today), A2 tree with icons, A3 one open at a time, A4 cards with a preview line and collapse all, A5 top two pages then "more". Every style keeps the orange roll-up and opens the current page's group |
+| `explorations/NavTitles.dc.html` | Card titles | The chosen sidebar: folding cards with an icon tile and a title in each group's colour, the selected page as an orange tint with no side stripe; in Dashboard and R8. Three alternatives for comparison: one blue, white titles with tiles, colour without tiles |
