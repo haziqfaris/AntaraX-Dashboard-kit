@@ -1,0 +1,350 @@
+<title>AntaraX Screen Inventory</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a working contact sheet. Header and benchmark up top, a sticky filter bar, then one section per product with desktop and phone grids; click any shot for a lightbox. Built on the AntaraX brand kit core: white ground, navy ink, AntaraX blue, Poppins and JetBrains Mono, intan eyebrows. */
+:root{
+  --bg:#FFFFFF; --sunken:#F5F7FC; --raised:#FFFFFF;
+  --ink:#0B1B4F; --body:#3B4469; --muted:#646D90;
+  --line:#E2E7F2; --accent:#0459F7; --accent-soft:#E7EEFE; --on-accent:#FFFFFF;
+  --ok:#067647; --ok-bg:#E7F8EF; --warn:#B54708; --warn-bg:#FEF4E6; --fault:#B42318; --fault-bg:#FEECEB;
+  --shade:rgba(7,18,51,.96); --shadow:0 1px 2px rgba(11,27,79,.06),0 6px 20px rgba(11,27,79,.06);
+  --sans:"Poppins",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#071233; --sunken:#0A1740; --raised:#0C1B47; --ink:#EAF0FF; --body:#B6C3EA; --muted:#8E9CC9;
+  --line:rgba(157,184,255,.16); --accent:#4D84FE; --accent-soft:rgba(77,132,254,.16); --on-accent:#071233;
+  --ok:#5FD39B; --ok-bg:rgba(18,183,106,.14); --warn:#F8B862; --warn-bg:rgba(247,144,9,.14); --fault:#F7877F; --fault-bg:rgba(240,68,56,.14);
+  --shade:rgba(3,8,24,.97); --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#071233; --sunken:#0A1740; --raised:#0C1B47; --ink:#EAF0FF; --body:#B6C3EA; --muted:#8E9CC9;
+  --line:rgba(157,184,255,.16); --accent:#4D84FE; --accent-soft:rgba(77,132,254,.16); --on-accent:#071233;
+  --ok:#5FD39B; --ok-bg:rgba(18,183,106,.14); --warn:#F8B862; --warn-bg:rgba(247,144,9,.14); --fault:#F7877F; --fault-bg:rgba(240,68,56,.14);
+  --shade:rgba(3,8,24,.97); --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--body);font-family:var(--sans);font-size:15px;line-height:1.55}
+.wrap{max-width:1360px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{color:var(--ink);text-wrap:balance;margin:0;font-weight:600}
+h1{font-size:clamp(1.75rem,3.4vw,2.5rem);line-height:1.15;letter-spacing:-.01em}
+h2{font-size:1.375rem;line-height:1.25}
+h3{font-size:1rem}
+p{margin:0}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{display:flex;align-items:center;gap:8px;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.intan{width:9px;height:9px;transform:rotate(45deg);background:var(--c,var(--accent));flex:none;border-radius:1px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) :focus-visible{outline-color:var(--accent)}}
+:root[data-theme="dark"] :focus-visible{outline-color:var(--accent)}
+
+/* header */
+header.top{padding-block:40px 28px;display:grid;gap:18px}
+.lede{max-width:68ch;font-size:1rem}
+.stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:4px}
+.stat{display:flex;align-items:baseline;gap:8px}
+.stat b{font-family:var(--mono);font-size:1.375rem;font-weight:500;color:var(--ink)}
+.stat span{font-size:.8125rem;color:var(--muted)}
+
+/* benchmark */
+section.bench{padding-block:28px 36px;border-top:1px solid var(--line);display:grid;gap:22px}
+.bench-head{display:grid;gap:8px;max-width:72ch}
+.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.pick{background:var(--sunken);border:1px solid var(--line);border-radius:20px;padding:20px;display:grid;gap:10px;align-content:start;min-width:0}
+.pick .for{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pick h3{font-size:1.125rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pick ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:.875rem}
+.pick .why{font-size:.875rem}
+.pick .avoid{font-size:.8125rem;color:var(--muted)}
+.jump{justify-self:start;font:inherit;font-size:.8125rem;font-weight:600;color:var(--accent);background:none;border:0;padding:6px 0;cursor:pointer;min-height:32px}
+.jump:hover{text-decoration:underline}
+.score-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--raised)}
+table.score{border-collapse:collapse;width:100%;min-width:760px;font-size:.8125rem}
+.score th,.score td{padding:9px 12px;text-align:center;border-bottom:1px solid var(--line);white-space:nowrap}
+.score thead th{font-weight:600;color:var(--ink);background:var(--sunken)}
+.score th[scope=row]{text-align:left;font-weight:500;color:var(--body)}
+.score tr:last-child td,.score tr:last-child th{border-bottom:0}
+.score tfoot td,.score tfoot th{font-weight:600;color:var(--ink);background:var(--sunken);border-top:1px solid var(--line)}
+.y{color:var(--ok);font-weight:700}.h{color:var(--warn);font-weight:700}.n{color:var(--muted)}
+.top-col{background:var(--accent-soft)}
+.score-note{font-size:.8125rem;color:var(--muted);max-width:80ch}
+.score-title{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+
+/* toolbar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-block:1px solid var(--line)}
+.bar .wrap{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding-block:10px}
+.seg{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.seg .lab{font-size:.75rem;color:var(--muted);margin-right:2px}
+.chip{font:inherit;font-size:.8125rem;font-weight:500;color:var(--body);background:var(--raised);border:1px solid var(--line);border-radius:999px;padding:5px 12px;min-height:32px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip .intan{width:7px;height:7px}
+select.chip{appearance:none;padding-right:28px;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(-45deg,transparent 50%,var(--muted) 50%);background-position:calc(100% - 15px) 55%,calc(100% - 10px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.count{margin-left:auto;font-size:.8125rem;color:var(--muted)}
+
+/* product sections */
+main{padding-block:12px 64px}
+section.prod{padding-block:30px 8px;display:grid;gap:16px;scroll-margin-top:72px}
+section.prod[hidden]{display:none}
+.prod-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.prod-head h2{display:flex;align-items:center;gap:10px}
+.prod-head h2 .intan{width:11px;height:11px}
+.prod-head .meta{font-size:.8125rem;color:var(--muted)}
+.prod-head .readme{font-size:.8125rem;margin-left:auto}
+.sub{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.grid{display:grid;gap:18px}
+.grid.d{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.grid.m{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.card{display:grid;gap:8px;align-content:start;min-width:0}
+.card[hidden]{display:none}
+.shot{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--sunken);cursor:zoom-in;position:relative;box-shadow:var(--shadow);transition:transform .15s ease,border-color .15s ease}
+.shot:hover{transform:translateY(-2px);border-color:var(--accent)}
+.grid.d .shot{aspect-ratio:16/10}
+.grid.m .shot{aspect-ratio:390/700}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.flag{position:absolute;left:8px;top:8px;font-family:var(--mono);font-size:.6875rem;padding:2px 7px;border-radius:999px;background:var(--shade);color:#EAF0FF}
+.cap{font-size:.8125rem;color:var(--ink);line-height:1.4}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:.6875rem;padding:2px 8px;border-radius:999px;background:var(--sunken);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tag.k-axle{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tag.m-From{background:var(--warn-bg);color:var(--warn);border-color:transparent}
+.tag.m-Spec{background:var(--warn-bg);color:var(--warn);border-color:transparent}
+.empty{padding:40px 0;color:var(--muted)}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:20;background:var(--shade);display:grid;grid-template-rows:auto 1fr auto;padding:calc(env(safe-area-inset-top,0px) + 10px) max(12px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 12px) max(12px,env(safe-area-inset-left,0px))}
+.lb[hidden]{display:none}
+.lb-top{display:flex;align-items:center;gap:12px;color:#EAF0FF;padding-bottom:10px;min-width:0}
+.lb-top .t{min-width:0;flex:1;display:grid}
+.lb-top .t b{font-weight:600;font-size:.9375rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-top .t span{font-size:.75rem;color:#B6C3EA;font-family:var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-btn{font:inherit;font-size:.875rem;color:#EAF0FF;background:rgba(255,255,255,.08);border:1px solid rgba(157,184,255,.25);border-radius:999px;min-width:44px;min-height:44px;padding:0 14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+.lb-btn:hover{background:rgba(255,255,255,.16)}
+.lb-stage{overflow:auto;display:grid;place-items:start center;border-radius:10px;min-height:0;overscroll-behavior:contain}
+.lb-stage img{max-width:min(100%,1440px);height:auto;display:block;border-radius:8px;background:#fff}
+.lb-stage.fit img{max-height:100%;object-fit:contain}
+.lb-foot{color:#B6C3EA;font-size:.8125rem;padding-top:10px;display:grid;gap:4px;max-width:110ch}
+.lb-foot b{color:#EAF0FF;font-weight:500}
+@media (max-width:640px){.lb-btn.hide-s{display:none}.count{margin-left:0;width:100%}.bar{position:static}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow"><span class="intan"></span>AntaraX Dashboard kit · step 1 inventory</div>
+    <h1>Every AntaraX dashboard, navbar and AXLE console, as they ship today</h1>
+    <p class="lede">Screens from all eight product repositories, captured on 15 Oct 2026 with fictional data from each app's own demo mode or a local fake backend. No production or staging system was signed in to. Click any screen to see it full size with how it was made.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <section class="bench" id="benchmark" aria-labelledby="bench-h">
+    <div class="bench-head">
+      <div class="eyebrow"><span class="intan"></span>Benchmark</div>
+      <h2 id="bench-h">What to benchmark the standard against</h2>
+      <p>No single product is the answer. Each layer has a clear leader, and each leader has gaps the standard must not copy.</p>
+    </div>
+    <div class="picks">
+      <article class="pick">
+        <div class="for">Customer shell and controls</div>
+        <h3><span class="intan" style="--c:#6B3F6B"></span>Angka, on Yara's frame</h3>
+        <p class="why">Angka has the fullest control set of any product: 11 of 13. Yara's frame is the one four products already share.</p>
+        <ul>
+          <li>Angka: search with ⌘K, a global Add, Ask with the sparkle, a business switcher, light, dark and system themes, a REKA support-view banner, and nav counters with spoken labels</li>
+          <li>Angka phones: a drawer plus a bottom bar with a raised Add and a More sheet</li>
+          <li>Yara frame: sidebar 240, floating top bar with the AntaraX A and product pill, Help and User guide in the menu, an accessible drawer with a focus trap</li>
+        </ul>
+        <p class="avoid">Don't copy: Angka's floating sidebar look, plum focus ring, extra typefaces and missing credit line; Yara's "Powered by".</p>
+        <button class="jump" type="button" data-jump="angka">See Angka screens</button>
+      </article>
+      <article class="pick">
+        <div class="for">Customer dashboard</div>
+        <h3><span class="intan" style="--c:#08B0B3"></span>Yara, with Angka's tone</h3>
+        <p class="why">Yara has the most complete operational home. Angka shows how to say the same things in plain words.</p>
+        <ul>
+          <li>Yara: what needs attention first; money tiles only for roles allowed to see money; a 7, 30, 90 days or all time picker; count tiles, charts and a time summary; a module slot</li>
+          <li>Janka and AX Frame have the same "act on these first" idea, which confirms the pattern</li>
+          <li>Angka: one plain sentence at the top ("September is 46% understood"), "Needs you", "Coming up"</li>
+        </ul>
+        <p class="avoid">Don't copy: money with a space ("RM 550,634.00"), numbers not in mono, tiles that overflow on phones.</p>
+        <button class="jump" type="button" data-jump="yara">See Yara screens</button>
+      </article>
+      <article class="pick">
+        <div class="for">AXLE console</div>
+        <h3><span class="intan" style="--c:#FB9800"></span>Angka's content in AX Frame's look</h3>
+        <p class="why">Angka's AXLE is the broadest console, at 28 places, and antarax-api already names it the pattern. AX Frame's is the only one in the brand kit's dark AXLE look.</p>
+        <ul>
+          <li>Angka: 28 places in Watch, Products, Run and Trail; five staff rungs that match AXLE Central's ladder; status strip, range picker, "needs an operator"; support view; announcements and the help editor</li>
+          <li>AX Frame: dark #071233 ground, REKA orange signal, the "AXLE · Product" name, an open-access banner, a "How this page works" explainer on every page</li>
+          <li>Yara and Janka: their overview tables (organisation readiness, data health, needs a human) are worth keeping</li>
+        </ul>
+        <p class="avoid">Don't copy: Angka's light plum theme; AX Frame's phone header bug and two-mode switch.</p>
+        <button class="jump" type="button" data-jump="ax-frame">See AX Frame screens</button>
+      </article>
+    </div>
+
+    <div class="score-title"><h3>Customer app scorecard</h3><span class="score-note">✓ 1 · ◐ ½ · – 0. A count of features found in the code, not a judgement of quality.</span></div>
+    <div class="score-wrap"><table class="score" id="score-c"></table></div>
+    <div class="score-title"><h3>AXLE scorecard</h3><span class="score-note">Same scoring. PLExyz Crowd has no internal console; AXLE Central is not built.</span></div>
+    <div class="score-wrap"><table class="score" id="score-a"></table></div>
+    <p class="score-note">Least ready to learn from: Tinara (no phone layout, no focus styles, hard-coded admin figures), PLExyz Crowd (shows AXLE to customers) and Grid's AXLE (no landing page, light violet, "Platform Admin").</p>
+  </section>
+</div>
+
+<div class="bar" role="region" aria-label="Filters">
+  <div class="wrap">
+    <div class="seg"><label class="lab" for="f-prod">Product</label>
+      <select class="chip" id="f-prod"></select></div>
+    <div class="seg" role="group" aria-label="Surface" id="f-cat"></div>
+    <div class="seg" role="group" aria-label="Screen size" id="f-vp"></div>
+    <div class="count mono" id="count" aria-live="polite"></div>
+  </div>
+</div>
+
+<main class="wrap" id="main"></main>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-labelledby="lb-title">
+  <div class="lb-top">
+    <div class="t"><b id="lb-title"></b><span id="lb-sub"></span></div>
+    <button class="lb-btn hide-s" type="button" id="lb-fit" aria-pressed="false">Fit</button>
+    <a class="lb-btn hide-s" id="lb-open" target="_blank" rel="noopener">Open</a>
+    <button class="lb-btn" type="button" id="lb-prev" aria-label="Previous screen">←</button>
+    <button class="lb-btn" type="button" id="lb-next" aria-label="Next screen">→</button>
+    <button class="lb-btn" type="button" id="lb-close" aria-label="Close">✕</button>
+  </div>
+  <div class="lb-stage" id="lb-stage"><img id="lb-img" alt=""></div>
+  <div class="lb-foot" id="lb-foot"></div>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const P = Object.fromEntries(DATA.products.map(p => [p.slug, p]));
+const CATS = [['all','All'],['customer','Customer app'],['axle','AXLE'],['other','Worker and portals'],['signin','Sign-in'],['reference','Reference']];
+const VPS = [['all','All sizes'],['desktop','Desktop'],['phone','Phone']];
+const state = {prod:'all', cat:'all', vp:'all'};
+try { const s = JSON.parse(localStorage.getItem('axinv-filters')||'null'); if (s) Object.assign(state, s); } catch(e) {}
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// stats
+const surfaces = 15;
+document.getElementById('stats').innerHTML = [
+  [DATA.products.length,'products'],[surfaces,'product surfaces'],[DATA.items.length,'screenshots'],
+  [DATA.items.filter(i=>i.vp==='phone').length,'at phone width'],[DATA.items.filter(i=>i.cat==='axle').length,'of admin consoles']
+].map(([n,l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+
+// scorecards
+const C_ORDER = ['Yara','Janka','PLExyz Grid','PLExyz Crowd','AX Frame','Angka','Tinara','Lapisan'];
+const C_ROWS = [
+  ['Global search',[1,0,.5,0,.5,1,0,0]],['Command palette',[0,0,0,0,0,1,0,0]],['Notifications',[1,0,1,0,1,.5,0,0]],
+  ['Global create',[.5,0,0,0,1,1,1,0]],['AI entry',[0,0,.5,0,1,1,0,0]],['Help',[1,.5,0,0,.5,1,0,0]],
+  ['User guide',[1,1,.5,0,0,.5,0,.5]],['Page intro or tour',[1,1,0,0,1,1,0,0]],['Organisation switcher',[.5,1,0,0,.5,1,0,.5]],
+  ['Plan gating in nav',[0,1,1,0,0,0,.5,0]],['Nav counters',[0,0,1,0,1,1,0,0]],['Demo or environment badge',[0,1,1,1,.5,1,0,0]],
+  ['Support view',[0,0,0,0,0,1,0,0]]];
+const A_ORDER = ['Yara','Janka','PLExyz Grid','AX Frame','Angka','Tinara'];
+const A_ROWS = [
+  ['Landing dashboard',[1,1,0,.5,1,0]],['Staff role ladder',[0,.5,0,.5,1,0]],['Per-page explainer',[1,1,0,1,.5,0]],
+  ['Environment or state banner',[0,0,0,1,1,1]],['Support view into an organisation',[.5,0,.5,.5,1,0]],
+  ['Works on phones',[1,1,.5,.5,.5,0]],['Kit 13 §6 dark look',[.5,.5,0,1,0,0]],['"AXLE · Product" name',[0,0,0,1,1,0]]];
+function score(el, order, rows){
+  const tot = order.map((_,i)=>rows.reduce((a,r)=>a+r[1][i],0));
+  const best = Math.max(...tot);
+  const mark = v => v===1?'<span class="y" aria-label="yes">✓</span>':v===.5?'<span class="h" aria-label="partly">◐</span>':'<span class="n" aria-label="no">–</span>';
+  const cls = i => tot[i]===best?' class="top-col"':'';
+  el.innerHTML = `<thead><tr><th scope="col" style="text-align:left">Feature</th>${order.map((o,i)=>`<th scope="col"${cls(i)}>${o}</th>`).join('')}</tr></thead>
+  <tbody>${rows.map(r=>`<tr><th scope="row">${r[0]}</th>${r[1].map((v,i)=>`<td${cls(i)}>${mark(v)}</td>`).join('')}</tr>`).join('')}</tbody>
+  <tfoot><tr><th scope="row" style="text-align:left">Total of ${rows.length}</th>${tot.map((t,i)=>`<td class="mono${tot[i]===best?' top-col':''}">${t%1?t.toFixed(1):t}</td>`).join('')}</tr></tfoot>`;
+}
+score(document.getElementById('score-c'), C_ORDER, C_ROWS);
+score(document.getElementById('score-a'), A_ORDER, A_ROWS);
+
+// filters
+const fProd = document.getElementById('f-prod');
+fProd.innerHTML = `<option value="all">All products</option>` + DATA.products.map(p=>`<option value="${p.slug}">${esc(p.name)}</option>`).join('');
+function chips(id, list, key){
+  const el = document.getElementById(id);
+  el.innerHTML = list.map(([v,l])=>`<button type="button" class="chip" data-v="${v}" aria-pressed="${state[key]===v}">${l}</button>`).join('');
+  el.addEventListener('click', e => { const b = e.target.closest('button'); if(!b) return; state[key]=b.dataset.v; render(); });
+}
+chips('f-cat', CATS, 'cat'); chips('f-vp', VPS, 'vp');
+fProd.addEventListener('change', () => { state.prod = fProd.value; render(); });
+
+// build sections once
+const main = document.getElementById('main');
+main.innerHTML = DATA.products.map(p => {
+  const its = DATA.items.map((it,idx)=>({...it,idx})).filter(i=>i.p===p.slug);
+  const card = i => `<figure class="card" data-i="${i.idx}" style="margin:0">
+      <button type="button" class="shot" data-open="${i.idx}" aria-label="Open ${esc(i.what)}">
+        <img loading="lazy" decoding="async" src="${esc(i.src)}" alt="${esc(p.name+': '+i.what)}" width="${i.w}" height="${i.h}">
+        ${i.full?'<span class="flag">Full page</span>':''}
+      </button>
+      <figcaption class="cap">${esc(i.what)}</figcaption>
+      <div class="tags"><span class="tag ${i.cat==='axle'?'k-axle':''}">${esc(i.label)}</span><span class="tag mono">${i.w}×${i.h}</span><span class="tag m-${esc(i.method.split(' ')[0])}">${esc(i.method)}</span></div>
+    </figure>`;
+  const d = its.filter(i=>i.vp==='desktop'), m = its.filter(i=>i.vp==='phone');
+  return `<section class="prod" id="p-${p.slug}" data-p="${p.slug}" aria-labelledby="h-${p.slug}">
+    <div class="prod-head">
+      <h2 id="h-${p.slug}"><span class="intan" style="--c:${p.accent}"></span>${esc(p.name)}</h2>
+      <span class="meta">${esc(p.surfaces)}</span>
+      <span class="meta mono">${esc(p.repo)} @ ${esc(p.commit)}</span>
+    </div>
+    ${d.length?`<div class="sub" data-sub="d">Desktop and tablet</div><div class="grid d">${d.map(card).join('')}</div>`:''}
+    ${m.length?`<div class="sub" data-sub="m">Phone</div><div class="grid m">${m.map(card).join('')}</div>`:''}
+  </section>`;
+}).join('') + '<p class="empty" id="empty" hidden>No screens match these filters.</p>';
+
+let visible = [];
+function render(){
+  fProd.value = state.prod;
+  document.querySelectorAll('#f-cat .chip').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===state.cat));
+  document.querySelectorAll('#f-vp .chip').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===state.vp));
+  visible = [];
+  document.querySelectorAll('.card').forEach(c => {
+    const it = DATA.items[+c.dataset.i];
+    const ok = (state.prod==='all'||it.p===state.prod) && (state.cat==='all'||it.cat===state.cat) && (state.vp==='all'||it.vp===state.vp);
+    c.hidden = !ok; if (ok) visible.push(+c.dataset.i);
+  });
+  document.querySelectorAll('section.prod').forEach(s => {
+    s.hidden = !s.querySelector('.card:not([hidden])');
+    s.querySelectorAll('.sub').forEach(h => { h.hidden = !h.nextElementSibling.querySelector('.card:not([hidden])'); h.nextElementSibling.hidden = h.hidden; });
+  });
+  document.getElementById('empty').hidden = visible.length > 0;
+  document.getElementById('count').textContent = `${visible.length} of ${DATA.items.length} screens`;
+  try { localStorage.setItem('axinv-filters', JSON.stringify(state)); } catch(e) {}
+}
+render();
+
+document.querySelectorAll('[data-jump]').forEach(b => b.addEventListener('click', () => {
+  state.prod = b.dataset.jump; state.cat='all'; state.vp='all'; render();
+  document.getElementById('p-'+b.dataset.jump).scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+}));
+
+// lightbox
+const lb = document.getElementById('lb'), img = document.getElementById('lb-img'), stage = document.getElementById('lb-stage');
+let cur = -1, lastFocus = null;
+function show(idx){
+  cur = idx; const it = DATA.items[idx], p = P[it.p];
+  img.src = it.src; img.alt = p.name + ': ' + it.what; img.width = it.w; img.height = it.h;
+  document.getElementById('lb-title').textContent = `${p.name} · ${it.what}`;
+  const pos = visible.indexOf(idx);
+  document.getElementById('lb-sub').textContent = `${it.file} · ${it.w}×${it.h}${pos>=0?` · ${pos+1} of ${visible.length}`:''}`;
+  document.getElementById('lb-open').href = it.src;
+  document.getElementById('lb-foot').innerHTML = `<div><b>${esc(it.label)}</b> · ${esc(it.method)}</div>${it.notes?`<div>${esc(it.notes)}</div>`:''}`;
+  stage.scrollTop = 0;
+}
+function open(idx){ lastFocus = document.activeElement; lb.hidden = false; document.body.style.overflow='hidden'; show(idx); document.getElementById('lb-close').focus(); }
+function close(){ lb.hidden = true; document.body.style.overflow=''; if (lastFocus) lastFocus.focus(); }
+function step(d){ const pos = visible.indexOf(cur); if (pos<0||!visible.length) return; show(visible[(pos+d+visible.length)%visible.length]); }
+main.addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) open(+b.dataset.open); });
+document.getElementById('lb-close').onclick = close;
+document.getElementById('lb-prev').onclick = () => step(-1);
+document.getElementById('lb-next').onclick = () => step(1);
+document.getElementById('lb-fit').onclick = e => { const on = stage.classList.toggle('fit'); e.currentTarget.setAttribute('aria-pressed', on); };
+lb.addEventListener('click', e => { if (e.target === lb || e.target === stage) close(); });
+document.addEventListener('keydown', e => {
+  if (lb.hidden) return;
+  if (e.key==='Escape') close(); else if (e.key==='ArrowRight') step(1); else if (e.key==='ArrowLeft') step(-1);
+  else if (e.key==='Tab') { const f=[...lb.querySelectorAll('button,a[href]')].filter(x=>x.offsetParent); const i=f.indexOf(document.activeElement);
+    if (e.shiftKey && i<=0){ e.preventDefault(); f[f.length-1].focus(); } else if (!e.shiftKey && i===f.length-1){ e.preventDefault(); f[0].focus(); } }
+});
+</script>

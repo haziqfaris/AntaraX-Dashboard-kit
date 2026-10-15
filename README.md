@@ -6,7 +6,7 @@ The standard dashboard and AXLE console design for every AntaraX product. It sit
 
 | Step | What | State |
 |---|---|---|
-| 1 | Inventory of every product's navigation and dashboards, with screenshots | Done: [inventory/](inventory/README.md) |
+| 1 | Inventory of every product's navigation and dashboards, with screenshots | Done: [inventory/](inventory/README.md), browsable in [inventory/gallery.html](inventory/gallery.html) |
 | 2 | Standard customer shell and dashboard | Next |
 | 3 | Standard AXLE console and AXLE Central | Next |
 
