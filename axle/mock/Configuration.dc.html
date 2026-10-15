@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Configuration · R8 · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Configuration" mode="r8" staff-name="{{staffName}}" staff-rung="{{staffRung}}" initials="{{initials}}" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="R8 · Configuration" initials="{{initials}}" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <p style="margin: 0; color: #0B1B4F; font-size: 16px">What Janka needs to run, whether each one is set, and the schedules and limits its machinery keeps to.</p>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">This page never shows a value that is a secret: only whether it is set, where it is kept and when it last changed. Changing a schedule or a limit needs Admin and a reason. Platform switches (open access, maintenance) are <a href="Settings.dc.html">Dashboard → Settings</a>.</p>
+      </div>
+
+      <section aria-labelledby="setup-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px">
+          <h2 id="setup-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Setup</h2>
+          <span style="display: flex; align-items: center; gap: 10px; font-size: 13px"><span class="mono" style="color: #0B1B4F">{{setDone}} of {{setTotal}}</span> set
+            <span role="img" aria-label="{{setDone}} of {{setTotal}} set" style="display: inline-flex; gap: 3px">
+              <sc-for list="{{setupPips}}" as="p" hint-placeholder-count="9"><span style="width: 14px; height: 8px; border-radius: 3px; background: {{p.color}}"></span></sc-for>
+            </span>
+          </span>
+        </div>
+        <sc-for list="{{setup}}" as="r" hint-placeholder-count="9">
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; padding: 10px 12px; border-radius: 14px; background: {{r.bg}}; border: 1px solid {{r.border}}">
+            <span style="flex: 0 0 76px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{r.tint}}; color: {{r.ink}}">{{r.state}}</span></span>
+            <span style="flex: 1 1 260px; display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 500">{{r.name}}</span><span style="font-size: 12px; color: #5B6488">{{r.why}}</span></span>
+            <span style="flex: 1 1 220px; font-size: 12px; color: #5B6488">{{r.where}}</span>
+            <sc-if value="{{r.hasLink}}" hint-placeholder-val="{{false}}"><a href="{{r.href}}" style="font-size: 13px; font-weight: 500">{{r.link}}</a></sc-if>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="sch-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+        <h2 id="sch-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Schedules</h2>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 760px; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Job</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Runs</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Last changed</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE"><span style="position: absolute; left: -9999px">Change</span></th></tr></thead>
+            <tbody>
+              <sc-for list="{{schedules}}" as="j" hint-placeholder-count="5">
+                <tr>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6"><a href="Jobs.dc.html" style="color: #0B1B4F; font-weight: 500">{{j.name}}</a></td>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6">{{j.when}}</td>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6; font-size: 12px; color: #5B6488">{{j.changed}}</td>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6; text-align: right"><button type="button" disabled="{{locked}}" title="{{lockWhy}}" style="{{changeStyle}}">{{changeWord}}</button></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="lim-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+        <h2 id="lim-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Limits</h2>
+        <sc-for list="{{limits}}" as="g" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; gap: 0; margin-top: 6px">
+            <h3 style="margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #5B6488">{{g.group}}</h3>
+            <sc-for list="{{g.rows}}" as="l" hint-placeholder-count="3">
+              <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; padding: 10px 0; border-bottom: 1px solid #EEF1F6">
+                <span style="flex: 1 1 280px; display: flex; flex-direction: column"><span style="color: #0B1B4F">{{l.name}}</span><span style="font-size: 12px; color: {{l.noteInk}}">{{l.note}}</span></span>
+                <span class="mono" style="flex: 0 0 150px; color: #0B1B4F">{{l.value}}</span>
+                <span style="flex: 0 0 180px; font-size: 12px; color: #5B6488">{{l.changed}}</span>
+                <button type="button" onClick="{{l.edit}}" disabled="{{locked}}" title="{{lockWhy}}" style="{{changeStyle}}">{{changeWord}}</button>
+              </div>
+              <sc-if value="{{l.editing}}" hint-placeholder-val="{{false}}">
+                <div role="group" aria-label="Change {{l.name}}" style="display: flex; flex-direction: column; gap: 10px; margin: 8px 0 4px; padding: 14px; border-radius: 14px; background: #F5F7FC; border: 1px solid #D5DBE7">
+                  <span style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end">
+                    <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #5B6488">Time limit, minutes
+                      <input type="number" value="20" style="width: 120px; height: 44px; border-radius: 12px; border: 1px solid #D5DBE7; padding: 0 12px; font-size: 14px; color: #0B1B4F"></label>
+                    <label style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-size: 13px; color: #0B1B4F"><input type="checkbox" checked style="width: 18px; height: 18px"> Stop the item when it reaches the limit, and retry it next run</label>
+                  </span>
+                  <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #5B6488">Reason (recorded in the operations audit)
+                    <textarea rows="2" style="padding: 10px 12px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F">INC-0413: one stuck sheet held a worker for hours. Usual run is 4 min.</textarea></label>
+                  <span style="display: flex; gap: 8px; flex-wrap: wrap">
+                    <button type="button" onClick="{{save}}" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #FB9800; color: #071233; font-weight: 600; cursor: pointer">Save: 20 min, enforced</button>
+                    <button type="button" onClick="{{cancel}}" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Cancel</button>
+                  </span>
+                  <span style="font-size: 12px; color: #5B6488">Applies from the next run at 18:00. The run going now is not changed.</span>
+                </div>
+              </sc-if>
+            </sc-for>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="log-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 4px">
+        <h2 id="log-h" style="margin: 0 0 6px; color: #0B1B4F; font-size: 16px; font-weight: 600">Changes</h2>
+        <sc-for list="{{log}}" as="l" hint-placeholder-count="4">
+          <div style="display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 8px 0; border-bottom: 1px solid #EEF1F6; font-size: 13px"><span class="mono" style="flex: 0 0 116px; color: #5B6488; font-size: 12px">{{l.when}}</span><span style="flex: 1 1 400px">{{l.what}}</span></div>
+        </sc-for>
+        <a href="Audit.dc.html" style="font-size: 13px; padding-top: 6px">Every change, with before and after, in Audit</a>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"rung":{"editor":"enum","options":["Operator","Admin"],"default":"Operator","section":"Who is looking"},"$preview":{"width":1440,"height":1900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { editing: false, saved: false }; }
+  renderVals() {
+    var self = this, st = this.state;
+    var admin = (this.props.rung ?? 'Operator') === 'Admin';
+    var ST = {
+      set: ['Set', '#E7F8EF', '#067647', '#FFFFFF', '#E5E8EE'],
+      missing: ['Missing', '#FEF4E6', '#B54708', '#FFFBF4', '#F8CD92']
+    };
+    function row(state, name, why, where, link, href) {
+      var s = ST[state];
+      return { state: s[0], tint: s[1], ink: s[2], bg: s[3], border: s[4], name: name, why: why, where: where, hasLink: !!link, link: link || '', href: href || '#', ok: state === 'set' };
+    }
+    var setup = [
+      row('missing', 'Two-step sign-in for every staff account', 'Every AXLE account must have it', '5 of 6 have it. Jason Lee (Viewer) does not', 'Open Staff', 'Staff.dc.html'),
+      row('set', 'Database connection', 'Everything', 'Environment · since 12 Aug 2026'),
+      row('set', 'Job secret', 'Lets the scheduler start jobs', 'Vault · rotated 1 Oct 2026'),
+      row('set', 'Email sender and domain', 'Digests, invitations, sign-in links', 'Environment · domain antarax.ai verified 2 Aug'),
+      row('set', 'Google Gemini key', 'AI tasks', 'Vault · rotated 3 Sep 2026 by Mei Lin', 'Models & keys', 'ModelsKeys.dc.html'),
+      row('set', 'Anthropic Claude key', 'AI tasks and fallbacks', 'Vault · added 11 Aug 2026 by Mei Lin', 'Models & keys', 'ModelsKeys.dc.html'),
+      row('set', 'Payment webhook signing secret', 'Checks billing events are genuine', 'Vault · since 20 Jul 2026'),
+      row('set', 'Google Sheets access', 'Imports from members\' sheets', 'Vault · service account, since 2 Aug 2026'),
+      row('set', 'Error reporting', 'Errors in Dashboard → Operations', 'Environment · since 12 Aug 2026')
+    ];
+    var done = setup.filter(function (r) { return r.ok; }).length;
+    var schedules = [
+      { name: 'Forecast scoring', when: 'Every night at 03:00', changed: '12 Aug · first set' },
+      { name: 'Nightly forecast', when: 'Every night at 03:10', changed: '12 Aug · first set' },
+      { name: 'Low-stock email digest', when: 'Every day at 07:00', changed: '3 Oct · Mei Lin: buyers start at 07:30' },
+      { name: 'Google Sheets import', when: 'Every 6 hours, from 00:00', changed: '2 Aug · first set' },
+      { name: 'Backups', when: 'Every night at 03:00', changed: '12 Aug · first set' }
+    ];
+    var sheetsLimit = st.saved
+      ? { name: 'Google Sheets import, per organisation', value: '20 min, enforced', note: 'From the 18:00 run, an item that reaches 20 minutes stops and is retried next run', noteInk: '#067647', changed: '15 Oct · Mei Lin (Admin)' }
+      : { name: 'Google Sheets import, per organisation', value: '30 min', note: 'Set, but the worker does not stop at it yet: see INC-0413', noteInk: '#B54708', changed: '2 Aug · first set' };
+    var limits = [
+      { group: 'Job time limits', rows: [
+        Object.assign(sheetsLimit, { edit: function () { self.setState({ editing: true }); }, editing: st.editing && admin }),
+        { name: 'Nightly forecast, whole run', value: '60 min', note: 'Usual 22 min', noteInk: '#5B6488', changed: '12 Aug · first set' },
+        { name: 'Low-stock email digest, whole run', value: '10 min', note: 'Usual 1 min', noteInk: '#5B6488', changed: '12 Aug · first set' }
+      ] },
+      { group: 'Calls and size', rows: [
+        { name: 'API requests per organisation', value: '600 a minute', note: 'Above it, the member sees "Too many requests, try again in a minute"', noteInk: '#5B6488', changed: '12 Aug · first set' },
+        { name: 'AI calls per organisation', value: '30 a minute', note: 'Budgets per organisation are Dashboard → AI usage', noteInk: '#5B6488', changed: '9 Sep · Mei Lin' },
+        { name: 'Largest file a member can import', value: '25 MB', note: '', noteInk: '#5B6488', changed: '12 Aug · first set' }
+      ] },
+      { group: 'How long records are kept', rows: [
+        { name: 'Job runs and their counts', value: '90 days', note: '', noteInk: '#5B6488', changed: '12 Aug · first set' },
+        { name: 'Incident signals and notes', value: '180 days', note: '', noteInk: '#5B6488', changed: '1 Oct · Mei Lin' },
+        { name: 'AI run traces', value: '30 days', note: 'Live trace bodies; the run summary stays 90 days', noteInk: '#5B6488', changed: '12 Aug · first set' }
+      ] }
+    ];
+    limits.forEach(function (g) { g.rows.forEach(function (l) { if (!l.edit) l.edit = function () {}; if (l.editing === undefined) l.editing = false; }); });
+    var log = [
+      { when: '3 Oct, 10:02', what: 'Mei Lin (Admin) moved the low-stock digest from 06:30 to 07:00: buyers start at 07:30' },
+      { when: '1 Oct, 11:30', what: 'Mei Lin (Admin) kept incident signals 180 days (was 90): to compare quarters' },
+      { when: '1 Oct, 09:15', what: 'Zainal Abidin (Owner) rotated the job secret: quarterly rotation' },
+      { when: '9 Sep, 16:05', what: 'Mei Lin (Admin) set AI calls per organisation to 30 a minute (was 60): one organisation looped on Ask' }
+    ];
+    if (st.saved) log.unshift({ when: '15 Oct, 14:33', what: 'Mei Lin (Admin) set the Google Sheets import limit to 20 min, enforced (was 30 min, not enforced): INC-0413' });
+    var BTN = 'min-height:36px;padding:0 12px;border-radius:10px;font-size:12px;';
+    return {
+      staffName: admin ? 'Mei Lin' : 'Aisyah Rahman', staffRung: admin ? 'ADMIN' : 'OPERATOR', initials: admin ? 'ML' : 'AR',
+      setup: setup, setDone: done, setTotal: setup.length,
+      setupPips: setup.map(function (r) { return { color: r.ok ? '#12B76A' : '#F79009' }; }).sort(function (a, b) { return a.color === b.color ? 0 : (a.color === '#12B76A' ? -1 : 1); }),
+      schedules: schedules, limits: limits, log: log,
+      locked: !admin, lockWhy: admin ? '' : 'Needs Admin',
+      changeWord: admin ? 'Change…' : 'Needs Admin',
+      changeStyle: BTN + (admin ? 'border:1px solid #D5DBE7;background:#FFFFFF;color:#0B1B4F;cursor:pointer;' : 'border:1px solid #E5E8EE;background:#F5F7FC;color:#8A93AE;cursor:not-allowed;'),
+      save: function () { self.setState({ editing: false, saved: true }); },
+      cancel: function () { self.setState({ editing: false }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

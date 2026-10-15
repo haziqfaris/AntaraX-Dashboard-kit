@@ -172,7 +172,7 @@ class Component extends DCLogic {
         last: '15 Oct, 03:10', took: '21 min 40 s', next: '16 Oct, 03:10', result: 'skipped', counts: [48, 47, 0, 1],
         reasons: [{ n: 1, why: 'Kedai Runcit Maju: pending deletion, so not forecast', kind: 'skipped, expected' }],
         banner: '', runs: [1300, 1320, 1290, 1340, 1310, 1280, 4200, 1330, 1300, 1310, 1290, 1320, 1305, 1300], kinds: ['d', 'd', 'd', 'd', 'd', 'd', 'p', 'd', 'd', 'd', 'd', 'd', 'd', 'd'],
-        log: [{ when: '13 Oct, 03:44', what: 'Jason Lee re-ran the 6 that timed out (INC-0410)' }] },
+        log: [{ when: '13 Oct, 03:44', what: 'Aisyah Rahman re-ran the 6 that timed out (INC-0410)' }] },
       scoring: { own: true, name: 'Forecast scoring', what: 'Scores last week\'s forecasts against what was actually used.', schedule: 'Every night at 03:00', cron: '0 3 * * *', handler: 'jobs/forecastScoring', limit: '15 min', usual: '3 min',
         last: '15 Oct, 03:00', took: '2 min 50 s', next: '16 Oct, 03:00', result: 'done', counts: [48, 48, 0, 0], reasons: [], banner: '',
         runs: [170, 175, 168, 180, 172, 169, 171, 176, 174, 170, 173, 171, 168, 170], kinds: ['d', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd'], log: [] },
@@ -181,7 +181,7 @@ class Component extends DCLogic {
         runs: [0.4, 0.5, 0.4, 0.4, 0.6, 0.4, 0.4, 0.5, 0.4, 0.4, 0.4, 0.5, 0.4, 0.4], kinds: ['d', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd'], log: [] },
       deletion: { name: 'Deletion: Kedai Runcit Maju', what: 'Deletes the organisation and its data after the cooling-off. Its export was sent on 8 Oct.', schedule: 'Once, 18 Oct at 02:00', cron: '0 2 18 10 *', handler: 'jobs/deleteOrganisation', limit: '60 min', usual: 'n/a',
         last: 'never', took: '', next: '18 Oct, 02:00', result: 'scheduled', counts: null, reasons: [], banner: 'Runs once. Cancelling it is Dashboard → Organisations → Kedai Runcit Maju, and needs Owner.', bannerKind: 'info',
-        runs: [], kinds: [], log: [{ when: '8 Oct, 09:00', what: 'Owner Nur Aina scheduled it after the organisation asked to leave' }] }
+        runs: [], kinds: [], log: [{ when: '8 Oct, 09:00', what: 'Zainal Abidin (Owner) scheduled it after the organisation asked to leave' }] }
     };
     var ORDER = ['sheets', 'digest', 'forecast', 'scoring', 'webhook', 'deletion'];
     function resultOf(k) { var j = J[k]; if (st.paused[k]) return 'paused'; if (st.ranNow[k] && j.result !== 'running') return 'queued'; return j.result; }

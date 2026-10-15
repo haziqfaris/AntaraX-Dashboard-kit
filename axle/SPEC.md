@@ -216,6 +216,13 @@ Each mode's sidebar has two parts, always in this order:
 
 Product-only items sit at the end so that adding one never moves a standard item. A page that turns out to be useful to every product is promoted into the standard, with a tier, and leaves the box.
 
+**Groups collapse.** Each standard group's heading is a button (`aria-expanded`, a chevron, 30px on desktop and 44px on touch) that hides or shows its items.
+- **The group holding the current page opens on arrival**, so staff always see where they are.
+- **A collapsed group shows a roll-up**: the total of its loud counters in orange ("1 needs a person"). Quiet counts (48 organisations) do not roll up, so collapsing never hides something that needs a person.
+- **Remembered per staff member**, like the mode, separately for Dashboard and R8. Everything starts open on a first visit.
+- **The ‹Product› only box does not collapse.** It is short, and its point is to be seen.
+- The phone drawer follows the same rules.
+
 ### 7.3 Dashboard mode, standard
 
 | Group | Item | Tier | What it is (std) | Change needs |
@@ -604,6 +611,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **Support session** | (If built) the banner shows, writes are refused by the server, the session ends on time, and the organisation sees it in its log |
 | **Links** | Copying the address on any filtered, scoped page and opening it in a new window shows the same view |
 | **Phone** | Every page opens from the drawer at 390px with nothing hidden or overlapping |
+| **Collapsed groups** | Collapse every group: each one holding something that needs a person still shows its orange total; the current page's group is open on arrival; the choice is remembered after signing out and in |
 | **R8 switch** | The switch changes only the menu, is remembered, needs no new sign-in, and says Base or Full; a member cannot open any R8 address |
 | **R8 jobs** | Run a job now: it appears with eligible, processed and failed counts; retry failures runs only the failed items |
 | **R8 providers** | Test provider gives a result and a latency; no key or secret appears on the page or in its network responses |

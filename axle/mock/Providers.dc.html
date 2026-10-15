@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Providers · R8 · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Providers" mode="r8" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="R8 · Providers" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <p style="margin: 0; color: #0B1B4F; font-size: 16px">Every outside service Janka depends on, and how each one is answering.</p>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">Last 24 hours, times in MYT. Keys and secrets are never shown here; they stay in the vault. <a href="ModelsKeys.dc.html">AI keys and model order are in Dashboard → Models &amp; keys</a>. <span class="mono">Checked 14:30:12</span></p>
+      </div>
+
+      <section aria-label="Providers at a glance" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px">
+        <sc-for list="{{stats}}" as="s" hint-placeholder-count="5">
+          <div style="display: flex; flex-direction: column; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 1px solid {{s.border}}">
+            <span style="font-size: 12px; color: #5B6488">{{s.label}}</span>
+            <span class="mono" style="font-size: 26px; color: #0B1B4F; line-height: 1.2">{{s.n}}</span>
+            <span style="font-size: 11px; color: #5B6488">{{s.hint}}</span>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="list-h" style="display: flex; flex-direction: column; gap: 10px">
+        <h2 id="list-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Providers, worst first</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px">
+          <sc-for list="{{cards}}" as="p" hint-placeholder-count="7">
+            <button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="{{p.style}}">
+              <span style="display: flex; align-items: center; gap: 8px; width: 100%">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: {{p.dot}}; flex: none"></span>
+                <span style="flex: 1; color: #0B1B4F; font-weight: 600; font-size: 14px; text-align: left">{{p.name}}</span>
+                <span style="font-size: 12px; font-weight: 600; color: {{p.ink}}">{{p.word}}</span>
+              </span>
+              <span style="font-size: 12px; color: #5B6488; text-align: left">{{p.kind}}</span>
+              <span style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; width: 100%; text-align: left">
+                <span style="display: flex; flex-direction: column"><span class="mono" style="color: #0B1B4F; font-size: 15px">{{p.calls}}</span><span style="font-size: 11px; color: #5B6488">calls</span></span>
+                <span style="display: flex; flex-direction: column"><span class="mono" style="color: {{p.rateInk}}; font-size: 15px">{{p.rate}}</span><span style="font-size: 11px; color: #5B6488">succeeded</span></span>
+                <span style="display: flex; flex-direction: column"><span class="mono" style="color: #0B1B4F; font-size: 15px">{{p.median}}</span><span style="font-size: 11px; color: #5B6488">median</span></span>
+              </span>
+              <span style="display: flex; flex-direction: column; gap: 3px; width: 100%">
+                <span style="display: flex; justify-content: space-between; font-size: 11px; color: #5B6488"><span>{{p.quotaName}}</span><span class="mono" style="color: {{p.quotaInk}}">{{p.quotaText}}</span></span>
+                <span style="display: block; height: 6px; border-radius: 999px; background: #EEF1F6; overflow: hidden"><span style="display: block; height: 100%; width: {{p.quotaW}}; background: {{p.quotaColor}}; border-radius: 999px"></span></span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+      </section>
+
+      <section aria-labelledby="pv-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; flex-wrap: wrap; gap: 10px 20px; justify-content: space-between; align-items: flex-start">
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <span style="display: flex; gap: 8px; align-items: center"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{pv.tint}}; color: {{pv.ink}}">{{pv.word}}</span><span style="font-size: 12px; color: #5B6488">{{pv.kind}}</span></span>
+            <h2 id="pv-h" style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">{{pv.name}}</h2>
+            <span style="font-size: 13px">{{pv.summary}}</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <button type="button" onClick="{{test}}" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #FB9800; color: #071233; font-weight: 600; font-size: 14px; cursor: pointer"><span>Test provider</span><span class="mono" style="font-size: 10px; letter-spacing: .06em; opacity: .8">LEVEL 1</span></button>
+            <sc-if value="{{pv.failing}}" hint-placeholder-val="{{false}}"><a href="Troubleshoot.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; color: #0B1B4F; font-weight: 500">Troubleshoot INC-0412</a></sc-if>
+            <sc-if value="{{pv.ai}}" hint-placeholder-val="{{false}}"><a href="ModelsKeys.dc.html" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; color: #0B1B4F; font-weight: 500">Keys and model order <span class="mono" style="font-size: 10px; letter-spacing: .06em; color: #5B6488">DASHBOARD</span></a></sc-if>
+          </div>
+        </div>
+
+        <sc-if value="{{hasTest}}" hint-placeholder-val="{{false}}">
+          <p role="status" style="margin: 0; padding: 10px 12px; border-radius: 12px; background: {{testBg}}; border: 1px solid {{testBorder}}; color: {{testInk}}; font-size: 13px"><strong style="font-weight: 600">{{testWord}}</strong> {{testLine}}</p>
+        </sc-if>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px">
+          <sc-for list="{{facts}}" as="f" hint-placeholder-count="6">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; background: #F5F7FC">
+              <span style="font-size: 12px; color: #5B6488">{{f.label}}</span>
+              <span class="mono" style="font-size: 14px; color: {{f.ink}}">{{f.value}}</span>
+              <span style="font-size: 11px; color: #5B6488">{{f.hint}}</span>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 16px">
+          <div style="flex: 1.4 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+            <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Calls per hour, last 24 hours</h3>
+            <div role="img" aria-label="{{chartLabel}}" style="display: flex; align-items: flex-end; gap: 3px; height: 120px; border-bottom: 1px solid #D5DBE7">
+              <sc-for list="{{hours}}" as="h" hint-placeholder-count="24">
+                <span title="{{h.tip}}" style="flex: 1 1 0; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; gap: 1px">
+                  <span style="height: {{h.failH}}; background: #F04438; border-radius: 3px 3px 0 0"></span>
+                  <span style="height: {{h.okH}}; background: #2a78d6; border-radius: {{h.okRadius}}"></span>
+                </span>
+              </sc-for>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: #5B6488"><span class="mono">15:00 yesterday</span><span class="mono">06:00</span><span class="mono">now</span></div>
+            <div style="display: flex; gap: 14px; font-size: 12px"><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #2a78d6"></span>Answered</span><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 3px; background: #F04438"></span>Failed</span></div>
+          </div>
+          <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+            <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">What depends on it</h3>
+            <sc-for list="{{pv.uses}}" as="u" hint-placeholder-count="3">
+              <span style="display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; border: 1px solid #E5E8EE; font-size: 13px"><span style="color: #0B1B4F">{{u.what}}</span><span style="font-size: 12px; color: #5B6488">{{u.how}}</span></span>
+            </sc-for>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">Test provider sends one small request with no customer data and shows the answer and how long it took. It is recorded in the operations audit. Rotating a key is Dashboard → Models &amp; keys and needs the AI right.</p>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { sel: 'gemini', tested: {} }; }
+  renderVals() {
+    var self = this, st = this.state;
+    var S = {
+      fault: { word: 'Failing', dot: '#F04438', ink: '#B42318', tint: '#FEECEB', border: '#F6B5AF', bg: '#FFF8F7' },
+      warn: { word: 'Slow', dot: '#F79009', ink: '#B54708', tint: '#FEF4E6', border: '#F8CD92', bg: '#FFFBF4' },
+      ok: { word: 'Working', dot: '#12B76A', ink: '#067647', tint: '#E7F8EF', border: '#E5E8EE', bg: '#FFFFFF' }
+    };
+    var P = [
+      { id: 'gemini', name: 'Google Gemini', kind: 'AI model provider', s: 'fault', ai: true, calls: 548, failed: 214, median: '1.2 s', p95: '2.9 s',
+        quotaName: 'Daily quota', quota: 100, quotaHint: 'resets 15:00', lastErr: '14:30 · 429 quota exceeded', lastOk: '13:51', failHours: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 184], dip: 0,
+        summary: 'Every call since 13:52 is refused: the daily quota ran out at 13:51. The gateway sends its tasks to Claude meanwhile.',
+        test: ['fault', 'Answered 429 "quota exceeded" in 0.31 s.'],
+        uses: [{ what: 'Explain a forecast', how: 'Default model; on Claude Haiku 5.5 now' }, { what: 'Photo identify', how: 'Default model; on Claude Sonnet 5.5 now' }, { what: 'Fallback for 2 other tasks', how: 'Not needed today' }] },
+      { id: 'email', name: 'Email delivery', kind: 'Transactional email', s: 'warn', calls: 312, failed: 3, median: '4.0 s', p95: '11 s',
+        quotaName: 'Monthly sends', quota: 12, quotaHint: '3,620 of 30,000', lastErr: '07:00 · 3 addresses refused', lastOk: '14:22', failHours: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0], dip: 0,
+        summary: 'Sending works, but slower than usual (4 s against 1.5 s). Three addresses bounced in this morning\'s digest.',
+        test: ['ok', 'Accepted a test message in 3.8 s (usual 1.5 s).'],
+        uses: [{ what: 'Low-stock email digest', how: 'Daily at 07:00, 44 organisations' }, { what: 'Invitations and sign-in links', how: 'On demand' }] },
+      { id: 'claude', name: 'Anthropic Claude', kind: 'AI model provider', s: 'ok', ai: true, calls: 1206, failed: 2, median: '1.4 s', p95: '3.3 s',
+        quotaName: 'Monthly spend cap', quota: 38, quotaHint: 'US$190 of US$500', lastErr: '11:40 · 529 overloaded, retried', lastOk: '14:29', failHours: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0], dip: 0,
+        summary: 'Working, and carrying Gemini\'s tasks since 13:52, so calls this hour are about twice the usual.',
+        test: ['ok', 'Answered in 0.92 s.'],
+        uses: [{ what: 'Draft a purchase order', how: 'Default model' }, { what: 'Answer a question (Ask)', how: 'Default model' }, { what: 'Explain a forecast, Photo identify', how: 'Fallback, in use now' }] },
+      { id: 'sheets', name: 'Google Sheets API', kind: 'Imports from members\' sheets', s: 'ok', calls: 2140, failed: 1, median: '0.6 s', p95: '1.8 s',
+        quotaName: 'Reads a minute, peak', quota: 22, quotaHint: '66 of 300', lastErr: '12:05 · read timed out (one sheet)', lastOk: '14:28', failHours: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], dip: 0,
+        summary: 'Working. One read timed out at 12:05 on Contoh Logistik\'s sheet; that import has been stuck since (INC-0413).',
+        test: ['ok', 'Read a test sheet in 0.58 s.'],
+        uses: [{ what: 'Google Sheets import', how: 'Every 6 hours, 31 organisations' }] },
+      { id: 'storage', name: 'Object storage', kind: 'Photos and exports', s: 'ok', calls: 8410, failed: 0, median: '90 ms', p95: '240 ms',
+        quotaName: 'Space used', quota: 18, quotaHint: '18.2 of 100 GB', lastErr: 'none in 30 days', lastOk: '14:30', failHours: null, dip: 0,
+        summary: 'Working.', test: ['ok', 'Wrote and read a test object in 0.11 s.'],
+        uses: [{ what: 'Reference photos', how: 'Upload and Photo identify' }, { what: 'Exports', how: 'CSV and PDF downloads' }] },
+      { id: 'pay', name: 'Payment provider', kind: 'Billing events, incoming', s: 'ok', calls: 14, failed: 0, median: '0.4 s', p95: '0.7 s',
+        quotaName: 'Quota', quota: null, quotaHint: 'none', lastErr: 'none in 7 days', lastOk: '11:20', failHours: null, dip: 0,
+        summary: 'Working. Events arrive and are acknowledged.', test: ['ok', 'Sent a test event; acknowledged in 0.38 s.'],
+        uses: [{ what: 'Payment webhook', how: 'Plans and invoices in Dashboard → Billing' }] },
+      { id: 'signin', name: 'Sign-in with Google', kind: 'Member sign-in', s: 'ok', calls: 212, failed: 1, median: '0.8 s', p95: '1.6 s',
+        quotaName: 'Quota', quota: null, quotaHint: 'none', lastErr: '08:12 · person cancelled', lastOk: '14:26', failHours: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], dip: 0,
+        summary: 'Working.', test: ['ok', 'Fetched the sign-in configuration in 0.21 s.'],
+        uses: [{ what: 'Member and staff sign-in', how: 'Every sign-in' }] }
+    ];
+    function n(x) { return x.toLocaleString('en-GB'); }
+    function rate(p) { return p.calls ? (Math.round((p.calls - p.failed) / p.calls * 1000) / 10) + '%' : '–'; }
+    var cards = P.map(function (p) {
+      var s = S[p.s], on = st.sel === p.id;
+      var q = p.quota;
+      return { name: p.name, kind: p.kind, word: s.word, dot: s.dot, ink: s.ink, calls: n(p.calls), rate: rate(p), median: p.median,
+        rateInk: p.failed / p.calls > 0.05 ? '#B42318' : '#0B1B4F',
+        quotaName: p.quotaName, quotaText: q == null ? 'no quota' : q + '%', quotaW: q == null ? '0%' : q + '%',
+        quotaColor: q >= 100 ? '#F04438' : (q >= 80 ? '#F79009' : '#2a78d6'), quotaInk: q >= 100 ? '#B42318' : (q >= 80 ? '#B54708' : '#5B6488'),
+        pressed: on ? 'true' : 'false', pick: function () { self.setState({ sel: p.id }); },
+        style: 'display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:14px;border-radius:16px;cursor:pointer;font-size:14px;background:' + s.bg + ';' +
+          (on ? 'border:2px solid #FB9800;padding:13px;' : 'border:1px solid ' + s.border + ';') };
+    });
+    var p = P.filter(function (x) { return x.id === st.sel; })[0];
+    var s = S[p.s];
+    var shape = [0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.2, 0.15, 0.12, 0.12, 0.15, 0.25, 0.5, 0.8, 1.1, 1.3, 1.35, 1.3, 1.2, 1.25, 1.3, 1.35, 1.4, 1.2];
+    var sum = shape.reduce(function (a, b) { return a + b; }, 0);
+    var fails = p.failHours || shape.map(function () { return 0; });
+    var okTotal = p.calls - p.failed;
+    var hrs = shape.map(function (f, i) { return { ok: Math.round(okTotal * f / sum), fail: fails[i] }; });
+    if (p.id === 'gemini') { hrs[22].ok = 18; hrs[23].ok = 0; }
+    if (p.id === 'claude') { hrs[22].ok = Math.round(hrs[22].ok * 1.6); hrs[23].ok = Math.round(hrs[23].ok * 2.1); }
+    var max = Math.max.apply(null, hrs.map(function (h) { return h.ok + h.fail; }).concat([1]));
+    var hours = hrs.map(function (h, i) {
+      var hr = (15 + i) % 24;
+      return { okH: Math.round(h.ok / max * 100) + '%', failH: Math.round(h.fail / max * 100) + '%', okRadius: h.fail ? '0' : '3px 3px 0 0',
+        tip: (hr < 10 ? '0' : '') + hr + ':00 · ' + h.ok + ' answered' + (h.fail ? ', ' + h.fail + ' failed' : '') };
+    });
+    var t = st.tested[p.id];
+    var TS = { fault: ['#FEECEB', '#F6B5AF', '#B42318', 'Still failing.'], ok: ['#E7F8EF', '#A6E4C6', '#067647', 'Working.'] }[p.test[0]];
+    var failing = p.failed / p.calls > 0.05;
+    var facts = [
+      { label: 'Calls', value: n(p.calls), hint: 'last 24 hours', ink: '#0B1B4F' },
+      { label: 'Succeeded', value: rate(p), hint: n(p.failed) + ' failed', ink: failing ? '#B42318' : '#0B1B4F' },
+      { label: 'Time to answer', value: p.median, hint: 'median · p95 ' + p.p95, ink: '#0B1B4F' },
+      { label: p.quotaName, value: p.quota == null ? '–' : p.quota + '%', hint: p.quotaHint, ink: p.quota >= 100 ? '#B42318' : '#0B1B4F' },
+      { label: 'Latest success', value: p.lastOk, hint: 'today unless dated', ink: '#0B1B4F' },
+      { label: 'Latest error', value: p.lastErr, hint: 'the provider\'s own words', ink: failing ? '#B42318' : '#0B1B4F' }
+    ];
+    var failingCount = P.filter(function (x) { return x.s === 'fault'; }).length, slow = P.filter(function (x) { return x.s === 'warn'; }).length;
+    var calls = P.reduce(function (a, x) { return a + x.calls; }, 0);
+    return {
+      stats: [
+        { label: 'Providers', n: P.length, hint: '2 AI, 5 others', border: '#E5E8EE' },
+        { label: 'Failing', n: failingCount, hint: 'Google Gemini', border: failingCount ? '#F6B5AF' : '#E5E8EE' },
+        { label: 'Slow', n: slow, hint: 'Email delivery', border: slow ? '#F8CD92' : '#E5E8EE' },
+        { label: 'Calls, 24 h', n: n(calls), hint: 'all providers', border: '#E5E8EE' },
+        { label: 'At or near a quota', n: 1, hint: '80% or more', border: '#F6B5AF' }
+      ],
+      cards: cards, facts: facts, hours: hours,
+      chartLabel: p.name + ': calls per hour over the last 24 hours; ' + n(p.failed) + ' failed',
+      pv: Object.assign({}, p, { word: s.word, tint: s.tint, ink: s.ink, failing: p.id === 'gemini', ai: !!p.ai }),
+      hasTest: !!t, testBg: TS[0], testBorder: TS[1], testInk: TS[2], testWord: TS[3], testLine: p.test[1] + ' Tested at 14:31 by Aisyah Rahman.',
+      test: function () { var o = Object.assign({}, st.tested); o[p.id] = true; self.setState({ tested: o }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

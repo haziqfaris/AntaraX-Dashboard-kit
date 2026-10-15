@@ -118,8 +118,15 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
         <div style="font-size: 11px; color: #8E9CC9; padding: 4px 8px 0">{{modeLine}}</div>
         <div class="mono" style="margin-top: 12px; padding: 0 10px; font-size: 10px; font-weight: 600; letter-spacing: .14em; color: #8E9CC9">AXLE STANDARD</div>
         <sc-for list="{{groups}}" as="g" hint-placeholder-count="7">
-          <div style="display: flex; flex-direction: column; margin-top: 8px">
-            <div style="font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #8E9CC9; padding: 0 10px 2px">{{g.label}}</div>
+          <div style="display: flex; flex-direction: column; margin-top: 4px">
+            <button type="button" onClick="{{g.toggle}}" aria-expanded="{{g.expanded}}" style="display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; padding: 0 10px; border: 0; border-radius: 10px; background: transparent; cursor: pointer; color: #8E9CC9; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; text-align: left">
+              <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8E9CC9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none; transform: {{g.chevron}}"><path d="M6 9l6 6 6-6"></path></svg>
+              <span style="flex: 1">{{g.label}}</span>
+              <sc-if value="{{g.showRoll}}" hint-placeholder-val="{{false}}">
+                <span class="mono" aria-label="{{g.rollLabel}}" style="font-size: 11px; letter-spacing: 0; padding: 1px 7px; border-radius: 999px; background: #FB9800; color: #071233; font-weight: 600">{{g.roll}}</span>
+              </sc-if>
+            </button>
+            <sc-if value="{{g.open}}" hint-placeholder-val="{{true}}">
             <sc-for list="{{g.items}}" as="it" hint-placeholder-count="4">
               <a href="{{it.href}}" aria-current="{{it.current}}" style="{{it.style}}">
                 <span style="width: 9px; height: 9px; transform: rotate(45deg); border-radius: 1px; flex: none; background: {{it.intan}}"></span>
@@ -129,6 +136,7 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
                 </sc-if>
               </a>
             </sc-for>
+            </sc-if>
           </div>
         </sc-for>
         <div style="margin-top: 14px; padding: 10px 8px 8px; border-radius: 14px; border: 1px dashed rgba(157,184,255,.45); display: flex; flex-direction: column; gap: 2px">
@@ -160,7 +168,7 @@ nav :focus-visible,header :focus-visible{outline-color:#4D84FE!important}
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { open: null, mode: 'dashboard' };
+    this.state = { open: null, mode: 'dashboard', toggled: {} };
   }
   renderVals() {
     var self = this;
@@ -182,7 +190,7 @@ class Component extends DCLogic {
     ];
     var customDef = r8 ? [['Nightly forecast']] : [['Forecast accuracy'], ['Reference library', 5, 'loud'], ['Learning']];
     var PAGES = r8
-      ? { 'Overview': 'R8.dc.html', 'Incidents': 'Incidents.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Jobs': 'Jobs.dc.html', 'Services': 'Health.dc.html' }
+      ? { 'Overview': 'R8.dc.html', 'Incidents': 'Incidents.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Jobs': 'Jobs.dc.html', 'Providers': 'Providers.dc.html', 'Services': 'Health.dc.html', 'Configuration': 'Configuration.dc.html' }
       : { 'Organisations': 'Organisations.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html', 'Plans & features': 'PlansFeatures.dc.html', 'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html' };
     function item(it) {
       var on = !r8 && it[0] === 'Overview';
@@ -192,7 +200,16 @@ class Component extends DCLogic {
         hasCount: it[1] != null, count: it[1],
         countStyle: it[2] === 'loud' ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;' };
     }
-    var groups = navDef.map(function (g) { return { label: g[0], items: g[1].map(item) }; });
+    var START_CLOSED = r8 ? [] : ['Organisations', 'Money', 'Platform', 'Trail'];
+    var groups = navDef.map(function (g) {
+      var key = (r8 ? 'r8:' : 'd:') + g[0];
+      var hasActive = !r8 && g[1].some(function (it) { return it[0] === 'Overview'; });
+      var closed = self.state.toggled[key] !== undefined ? self.state.toggled[key] : (START_CLOSED.indexOf(g[0]) >= 0 && !hasActive);
+      var roll = g[1].reduce(function (n, it) { return n + (it[2] === 'loud' ? it[1] : 0); }, 0);
+      return { label: g[0], items: g[1].map(item), open: !closed, expanded: closed ? 'false' : 'true',
+        chevron: closed ? 'rotate(-90deg)' : 'none', showRoll: closed && roll > 0, roll: roll, rollLabel: roll + ' need a person',
+        toggle: function () { var t = Object.assign({}, self.state.toggled); t[key] = !closed; self.setState({ toggled: t }); } };
+    });
     var custom = customDef.map(item);
     var TAB = 'display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:9px;border:0;font-size:14px;cursor:pointer;';
     var needs = [

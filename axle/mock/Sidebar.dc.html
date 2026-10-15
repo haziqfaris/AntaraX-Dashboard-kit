@@ -33,8 +33,15 @@
     <span style="flex: 1; height: 1px; background: rgba(157,184,255,.16)"></span>
   </div>
   <sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
-    <div style="display: flex; flex-direction: column; gap: 1px; margin-top: 8px">
-      <div style="font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #8E9CC9; padding: 0 10px 4px">{{g.label}}</div>
+    <div style="display: flex; flex-direction: column; gap: 1px; margin-top: 6px">
+      <button type="button" onClick="{{g.toggle}}" aria-expanded="{{g.expanded}}" style="display: flex; align-items: center; gap: 6px; width: 100%; min-height: 30px; padding: 0 10px; border: 0; border-radius: 8px; background: transparent; cursor: pointer; color: #8E9CC9; font-family: inherit; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; text-align: left">
+        <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8E9CC9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none; transform: {{g.chevron}}"><path d="M6 9l6 6 6-6"></path></svg>
+        <span style="flex: 1">{{g.label}}</span>
+        <sc-if value="{{g.showRoll}}" hint-placeholder-val="{{false}}">
+          <span aria-label="{{g.rollLabel}}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0; min-width: 20px; text-align: center; padding: 1px 6px; border-radius: 999px; background: #FB9800; color: #071233; font-weight: 600">{{g.roll}}</span>
+        </sc-if>
+      </button>
+      <sc-if value="{{g.open}}" hint-placeholder-val="{{true}}">
       <sc-for list="{{g.items}}" as="it" hint-placeholder-count="4">
         <a href="{{it.href}}" aria-current="{{it.current}}" style="{{it.style}}">
           <span style="width: 9px; height: 9px; transform: rotate(45deg); border-radius: 1px; flex: none; background: {{it.intan}}"></span>
@@ -44,6 +51,7 @@
           </sc-if>
         </a>
       </sc-for>
+      </sc-if>
     </div>
   </sc-for>
 
@@ -80,7 +88,9 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"text","default":"Overview"},"mode":{"editor":"enum","options":["dashboard","r8"],"default":"dashboard"},"product":{"editor":"enum","options":["Janka","Yara","AX Frame","Angka","PLExyz Grid","Tinara"],"default":"Janka"},"staffName":{"editor":"text","default":"Aisyah Rahman"},"staffRung":{"editor":"text","default":"OPERATOR"},"initials":{"editor":"text","default":"AR"},"$preview":{"width":240,"height":1400}}'>
 class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { toggled: {} }; }
   renderVals() {
+    var self = this;
     var active = this.props.active ?? 'Overview';
     var product = this.props.product ?? 'Janka';
     // Every product has R8 (owner, 15 Oct 2026). full: it runs machinery of its own, so R8 adds Incidents. observe: its Observe pages, once their backend exists.
@@ -95,7 +105,7 @@ class Component extends DCLogic {
     var p = P[product] || P['Janka'];
     var r8 = (this.props.mode ?? 'dashboard') === 'r8';
     var PAGES = r8
-      ? { 'Overview': 'R8.dc.html', 'Incidents': 'Incidents.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Jobs': 'Jobs.dc.html', 'Services': 'Health.dc.html' }
+      ? { 'Overview': 'R8.dc.html', 'Incidents': 'Incidents.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Jobs': 'Jobs.dc.html', 'Providers': 'Providers.dc.html', 'Services': 'Health.dc.html', 'Configuration': 'Configuration.dc.html' }
       : { 'Overview': 'Main.dc.html', 'Organisations': 'Organisations.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html', 'Plans & features': 'PlansFeatures.dc.html', 'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html', 'Health': 'Health.dc.html' };
     var STD;
     if (r8) {
@@ -132,7 +142,18 @@ class Component extends DCLogic {
         countStyle: loud ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;'
       };
     }
-    var groups = STD.filter(function (g) { return g[1].length > 0; }).map(function (g) { return { label: g[0], items: g[1].map(item) }; });
+    // Collapsible groups: the current page's group starts open; a collapsed group rolls up what needs a person.
+    // In AXLE the choice is remembered per staff member; here a few start closed to show the roll-up.
+    var START_CLOSED = r8 ? [] : ['Organisations', 'Money', 'Platform', 'Trail'];
+    var toggled = this.state.toggled;
+    var groups = STD.filter(function (g) { return g[1].length > 0; }).map(function (g) {
+      var hasActive = g[1].some(function (it) { return it[0] === active; });
+      var closed = toggled[g[0]] !== undefined ? toggled[g[0]] : (START_CLOSED.indexOf(g[0]) >= 0 && !hasActive);
+      var roll = g[1].reduce(function (n, it) { return n + (it[2] === 'loud' ? it[1] : 0); }, 0);
+      return { label: g[0], items: g[1].map(item), open: !closed, expanded: closed ? 'false' : 'true',
+        chevron: closed ? 'rotate(-90deg)' : 'none', showRoll: closed && roll > 0, roll: roll, rollLabel: roll + ' need a person',
+        toggle: function () { var t = Object.assign({}, self.state.toggled); t[g[0]] = !closed; self.setState({ toggled: t }); } };
+    });
     var custom = (r8 ? p.r : p.d).map(item);
     var TAB = 'display:flex;align-items:center;justify-content:center;min-height:36px;border-radius:9px;font-size:13px;text-decoration:none;';
     return {

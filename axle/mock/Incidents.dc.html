@@ -174,7 +174,7 @@ class Component extends DCLogic {
         summary: 'The forecast run timed out on 6 organisations after a database upgrade slowed one query. A re-run finished them.',
         affected: '6 organisations · Nightly forecast', affectedList: [{ name: '6 organisations', how: 'Forecasts 50 minutes late, none missing' }, { name: 'Nightly forecast', how: 'Timed out on 6 of 48' }],
         signals: [{ what: 'Run finished with 6 timeouts', source: 'job runs · 03:38' }, { what: 'Query time 12 s (usual 0.8 s)', source: 'database stats · 03:39' }],
-        notes: [{ when: '13 Oct, 03:44', who: 'Jason Lee', what: 'acknowledged and re-ran the 6 that failed.' }],
+        notes: [{ when: '13 Oct, 03:44', who: 'Aisyah Rahman', what: 'acknowledged and re-ran the 6 that failed.' }],
         recovery: [{ what: 'Re-run: 6 of 6 processed, 0 failed', source: 'job runs · 04:02' }, { what: 'Runs on 14 and 15 Oct: 48 of 48 on time', source: 'job runs' }] },
       { id: 'INC-0411', sev: 'Low', title: 'Email sending delayed', opened: '14 Oct, 22:05', age: 'closed 14 Oct, 23:20', state: 'closed', ackAt: '22:08', recAt: '23:12', closeAt: '23:20',
         summary: 'The email provider\'s planned maintenance delayed sending for an hour. Suppressed for its window, then closed.',
