@@ -102,7 +102,7 @@ The menu, top to bottom. An item marked "if" is left out when it does not apply;
 | 7 | **Language** (if the product offers more than one) | English, Bahasa Melayu | Changes in place |
 | 8 | **Help** (phones only, where the Help button does not fit) | User guide, Help centre, Contact support | As §2.1 |
 | 9 | **Sign out** | Asks first: "Sign out of ‹Product›?" | The sign-in page |
-| 10 | **Foot** | "‹Product› by AntaraX", the version, Privacy and Terms | `/legal/privacy`, `/legal/terms` |
+| 10 | **Foot** | "‹Product› · by AntaraX", the version, Privacy and Terms | `/legal/privacy`, `/legal/terms` |
 
 - **REKA support inside an organisation:** a banner across the top of every page names REKA support and when the session ends (brand kit 13 §1, axle SPEC §11). The account button shows the REKA person's initials with a "Support" ring.
 - **Sample data:** a product showing sample data says so in the product slot or a banner, never inside the account menu.
@@ -126,7 +126,7 @@ Every product has these pages at these addresses. What each holds first is fixed
 | `/settings/data` | Your data | **Download your data:** everything the organisation holds, as files, emailed when ready · **Leave the organisation** (a member) · **Delete the organisation** (Owners): typed confirmation, then 30 days in which an Owner can undo it, then gone | As noted |
 | `/guide` | User guide | REKA's user-guide format: task IDs, steps, a screenshot, "You should see" (brand kit 13 §8) | Everyone |
 | `/help` | Help centre | Answers to common questions; public before sign-in where not private; Contact support at the foot | Everyone |
-| `/legal/privacy`, `/legal/terms` | Privacy and Terms | The legal texts; `privacy@go.antarax.ai` as the contact | Everyone, signed in or not |
+| `/legal/privacy`, `/legal/terms` | Privacy and Terms | The legal texts; `privacy@go.antarax.ai` as the contact; the legal line "AntaraX, a product line of REKA Inisiatif Sdn Bhd." at the foot | Everyone, signed in or not |
 
 - **Settings has one home** (owner, 15 Oct 2026). Every setting that changes how the organisation works lives under `/settings`: the standard sections first, then the product's own, then API and Your data. A product may also show a setting next to the thing it affects, as a shortcut (Yara's workflow stages beside its board), but the same setting is always in `/settings` too.
 - **View choices are not settings.** Filters, columns, sort order and density stay on their page, remembered per person.
@@ -148,11 +148,16 @@ Every product has these pages at these addresses. What each holds first is fixed
   - **Viewer:** reads only.
 
   A product may add roles named for a job (Supervisor and Worker in Yara). It never changes what Owner, Admin, Member and Viewer mean.
-- **The sign-in page** carries the product mark, "by AntaraX", a Help link and the product's own look.
+- **The sign-in page** carries the product mark, "‹Product› by AntaraX, from REKA.", a Help link and the product's own look.
+- **Invoices** carry the legal line "AntaraX, a product line of REKA Inisiatif Sdn Bhd."
 
 ## 5 The AntaraX layer, as it applies to the shell
 
-- **Credit line:** "‹Product› by AntaraX", at the foot of the account menu and on sign-in. The product may also show it at the foot of its own navigation.
+- **Credit lines** (brand kit 12, Credit lines):
+  - **In the product's chrome** (the account menu's foot, the foot of the product's own navigation): "‹Product› · by AntaraX".
+  - **On sign-in, the splash, the first email, reports and exports:** "‹Product› by AntaraX, from REKA."
+  - **On legal pages, terms and invoices:** "AntaraX, a product line of REKA Inisiatif Sdn Bhd."
+  - **Elsewhere, REKA is named only where REKA people really act:** REKA support (§7, §13), "the team at REKA" on support and feedback (§10).
 - **AI:**
   - the product's AI entry carries the AntaraX sparkle, and its name is **Assist** (Angka keeps **Ask Angka**);
   - it lives in the product slot;
@@ -168,7 +173,7 @@ The words and what each screen holds are shared. How they look is the product's 
 
 | Screen | Address | Holds |
 |---|---|---|
-| **Sign in** | `/signin` | The product mark and "by AntaraX" · Continue with Google · email and password, both in every product (owner, 15 Oct 2026) · "Forgot your password?" · Help (`/help`) · Privacy and Terms at the foot |
+| **Sign in** | `/signin` | The product mark and "‹Product› by AntaraX, from REKA." · Continue with Google · email and password, both in every product (owner, 15 Oct 2026) · "Forgot your password?" · Help (`/help`) · Privacy and Terms at the foot |
 | **Create an account** | `/signup` (where the product lets people sign themselves up) | The same, plus the plan they are starting on, by its brand kit name |
 | **Join from an invitation** | `/invite/‹code›` | "‹Person› invited you to join ‹Organisation› on ‹Product›", their role, then sign in or create an account. An expired or used link says so and offers to ask for a new one |
 | **Reset your password** | `/reset` | Email, then "If an account exists for that email, we've sent a link". It never confirms whether an account exists |
@@ -260,7 +265,7 @@ The brand kit decides the motion system (guide 04 animations, guide 12 signature
 | **Logo** | The product chip in the top bar; one app-tile shape; the browser tab and installed-app icon made from that tile; the tab title "‹Page› · ‹Product›" | The mark itself, its colours and lockup |
 | **Waiting** | The seven kinds of wait (brand kit 14): none (under about 400ms), inline, skeleton, section, thinking, progress, splash; and when each is used | Each loader's motion, drawn from the product's mark and motif (Janka's ticks, Angka's seeds, Yara's wave) |
 | **AI thinking** | The AntaraX sparkle morphing into the product's logo and back, the same everywhere | Only the logo it becomes |
-| **Splash** | The logo and "by AntaraX", drawn on once when the app opens | The composition and the motif |
+| **Splash** | The logo and "‹Product› by AntaraX, from REKA.", drawn on once when the app opens | The composition and the motif |
 | **Signature moment** | At most one per product, never on screens people work through quickly (brand kit 12) | Which moment, and how it moves |
 
 **Every wait is animated and stylised** (owner, 15 Oct 2026):
@@ -432,6 +437,7 @@ In every customer app, whatever its own design:
 - **Help and the account:** never moved, renamed or hidden, and never placed in a sidebar or a bottom bar.
 - **Shared words:** never changed. Not "Log out", "Login", "Organization", "user" on screen, "Admin panel", "Preferences", or "Oops".
 - **Another identity:** never another product's colours or mark, AXLE's orange, the `AXLE` tag, or the AntaraX A used for anything but antarax.ai and, later, switching products.
+- **Credits:** never "Powered by", "by REKA", "A product of REKA Inisiatif", "REKA Intelligence", "AntaraX AI", or REKA in REKA orange (brand kit 12).
 - **What only REKA sees:** never shown to customers. That means:
   - AI model or provider names, AI costs or prompts;
   - REKA staff names, except during a support session the organisation allowed;

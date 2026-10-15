@@ -108,7 +108,7 @@ class Component extends DCLogic {
         { n: '5', name: 'Search', rule: 'Only if the product has it; a button on narrow screens.' },
         { n: '6', name: 'Notifications', rule: 'Only if the product has them; a bell with a count.' },
         { n: '7', name: 'Help', rule: 'Always its own button: User guide, Help centre, What\'s new, Send feedback, Contact support.' },
-        { n: '8', name: 'Account', rule: 'Always last, always at the far right, never at the foot of a sidebar. Its menu: you, the organisation, Your account, Settings, Plan and billing for Owners, Appearance and Language where offered, Sign out, then "by AntaraX", the version, Privacy and Terms.' }
+        { n: '8', name: 'Account', rule: 'Always last, always at the far right, never at the foot of a sidebar. Its menu: you, the organisation, Your account, Settings, Plan and billing for Owners, Appearance and Language where offered, Sign out, then "‹Product› · by AntaraX", the version, Privacy and Terms.' }
       ],
       pages: [
         { path: '/account', page: 'Your account', holds: 'Name and photo · email and sign-in, two-step sign-in · which emails you get · signed-in devices, Sign out everywhere' },
@@ -117,7 +117,7 @@ class Component extends DCLogic {
         { path: '/settings/billing', page: 'Plan and billing', holds: 'Current plan and what it includes · usage against limits · invoices · payment method · change plan (Owners)' },
         { path: '/guide', page: 'User guide', holds: 'REKA\'s user-guide format: task, steps, a screenshot, "You should see"' },
         { path: '/help', page: 'Help centre', holds: 'Answers to common questions, public before sign-in where not private · Contact support' },
-        { path: '/legal/privacy · /legal/terms', page: 'Privacy and Terms', holds: 'The legal texts, with privacy@go.antarax.ai' }
+        { path: '/legal/privacy · /legal/terms', page: 'Privacy and Terms', holds: 'The legal texts, with privacy@go.antarax.ai, and "AntaraX, a product line of REKA Inisiatif Sdn Bhd." at the foot' }
       ],
       shell: L([
         'The top bar\'s anatomy and order; Help and the account always in it, the account at the far right',
