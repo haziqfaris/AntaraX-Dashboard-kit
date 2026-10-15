@@ -51,7 +51,7 @@ Scores are from the AXLE scorecard in the gallery, out of 8. "Own pages" go in t
 | Yara | `haziqfaris/yara` | Base | Data integrity, Modules, Status API | None | 4 | Add R8 Base; rename; bars to `#071233`; the `AXLE` tag; the ladder; state banner; Demo and Access pages |
 | Tinara | `haziqfaris/tinara` | Full | Scoring & metrics, Data sources, Intelligence ledger | Data pipelines | 1 | Rebuild as `AXLE · Tinara` on its own host; remove hard-coded figures |
 | PLExyz Grid | `haziqfaris/plexyz-grid` | Base | None | None | 1 | Rebuild: Overview, R8 Base, addresses for every page, the ladder, no `confirm()`, a create flow |
-| ISO Generator | `haziqfaris/iso-generator` | Not set | Not mapped yet | Not mapped yet | 4 | Rename from REKA Admin; dark bars; rights onto the ladder; phone drawer; stop hiding readable pages. Not in the brand kit: confirm scope first (§20 question 8) |
+| ISO Generator | `haziqfaris/iso-generator` | On hold | | | 4 | **On hold (owner, 15 Oct 2026): do not touch it.** Not part of this work until the owner says so |
 | PLExyz Crowd | `haziqfaris/plexyz-crowd` | n/a | | | n/a | No internal console; take AXLE out of the customer app first |
 | AXLE Central | `haziqfaris/antarax-api` | n/a | | | n/a | Planned at `axle.antarax.ai`; reads each product AXLE through AXLE Link (§18). Not built |
 

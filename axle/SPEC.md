@@ -648,9 +648,9 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 3. **Support sessions (std H7 Later against Angka, which has one).** Keep them Later for new products, with the §11 rules binding wherever one exists?
 4. **Acting as a member.** Allowed at all (§11)?
 5. **Focus ring on the dark bars.** `#4D84FE` there, AntaraX blue `#0459F7` on the light page (§4). Confirm for the brand kit.
-6. **The primary action colour.** Orange (this draft) or the product's colour (AX Frame)?
+6. ~~**The primary action colour.**~~ Decided 15 Oct 2026: REKA orange `#FB9800` with navy text, in every product's AXLE.
 7. **The "Support" rung name.** The brand kit reserves "REKA support" for customers. The rung is never shown to them, so is it fine to keep?
-8. **Scope.** The std draws on YARA One, Entangled Particles and KITAR AI, which the inventory has not covered, and ISO Generator, which the brand kit doesn't list. Which products must meet this standard?
+8. **Scope.** The std draws on YARA One, Entangled Particles and KITAR AI, which the inventory has not covered, and ISO Generator, which the brand kit doesn't list. Which products must meet this standard? **ISO Generator is on hold** (owner, 15 Oct 2026): nothing in this standard applies to it until the owner says so, and nobody changes its AXLE.
 9. **Lifecycle words.** std C3's statuses (trial, active, restricted, suspended, cancelled, pending deletion) alongside a rollout stage (sandbox, pilot, live): confirm both are wanted.
 10. **Cooling-off and invitation expiry defaults** (30 days, 7 days).
 11. ~~**R8 for every product.**~~ Decided 15 Oct 2026: every product has R8, Base or Full (§2, §7.1). This departs from std v0.2, which gives R8 only to products with machinery; the standard should take it in v0.3.
@@ -670,7 +670,7 @@ Scores from the AXLE scorecard in the [gallery](../inventory/gallery.html), out 
 | Angka | 6 | Dark sidebar and top bar around its light page; a phone drawer; US$; the organisation create flow and lifecycle |
 | Yara | 4 | Add R8 Base (Services from its `/api/version` check, Jobs, Providers, Configuration, Troubleshoot); rename; bars from `#0B0E14` to `#071233`; the `AXLE` tag; the ladder (only `reka_admin` today); the state banner; Organizations → Organisations; Demo and Access pages (Showcase already exists) |
 | Janka | 4 | Rename; the AntaraX top bar in its dark variant over the light page; rail `#0B0E14` → `#071233`; the AntaraX A; the ladder; JetBrains Mono; Members management (std D2 correction) |
-| ISO Generator | 4 | Rename from REKA Admin; dark bars (its page is already light); rights onto the ladder; support session to §11; phone drawer; stop hiding readable pages; AXLE Link |
+| ISO Generator | 4 | **On hold** (owner, 15 Oct 2026): do not change it. The scorecard stays for reference |
 | PLExyz Grid | 1 | Rebuild: Overview, R8 Base, addresses for every page, dark bars around its light page, ladder, no `confirm()`, a create flow |
 | Tinara | 1 | Rebuild as `AXLE · Tinara` on its own host, with R8 Full for its pipelines; remove hard-coded figures |
 | PLExyz Crowd | n/a | No internal console; remove AXLE from the customer app first |
