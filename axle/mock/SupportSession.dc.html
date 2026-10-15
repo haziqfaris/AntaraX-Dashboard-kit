@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Support session, start to finish</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+.ss a{text-decoration:none}
+.ss .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.ss :focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+</style>
+</helmet>
+<div class="ss" style="width: 1440px; box-sizing: border-box; padding: 48px 56px 64px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; flex-direction: column; gap: 8px; max-width: 1100px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">A support session, start to finish</h1>
+    <p style="margin: 0; font-size: 16px">Farid Osman (Support) looks at Contoh Logistik in Janka after a member reported a missing forecast. Contoh Logistik's Support access is "Ask each time", so an Owner approves first. It is read only throughout and recorded on both sides. AXLE screens are navy and orange; Janka's are Janka's own.</p>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px">
+
+    <section aria-labelledby="s1-h" style="display: flex; flex-direction: column; gap: 10px">
+      <h2 id="s1-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600"><span class="mono" style="color: #FB9800">1</span> AXLE: start it from the organisation page</h2>
+      <div role="dialog" aria-labelledby="d1-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 18px 40px -26px rgba(11,27,79,.4)">
+        <span id="d1-h" style="color: #0B1B4F; font-size: 18px; font-weight: 600">Start a support session with Contoh Logistik Sdn Bhd</span>
+        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">Reason (shown to Contoh Logistik)<textarea rows="2" style="border-radius: 12px; border: 1px solid #D5DBE7; padding: 10px 12px; font-family: inherit; font-size: 14px; color: #0B1B4F">A member reported a missing forecast for the Klang warehouse.</textarea></label>
+        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">The message it answers (optional)<input type="text" value="Feedback from Kumar Selvam, 15 Oct, 11:20" style="height: 44px; border-radius: 12px; border: 1px solid #D5DBE7; padding: 0 12px; font-family: inherit; font-size: 14px"></label>
+        <fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
+          <legend style="font-size: 13px; color: #0B1B4F; margin-bottom: 4px">How long</legend>
+          <span style="display: flex; gap: 8px">
+            <sc-for list="{{lengths}}" as="l" hint-placeholder-count="3"><button type="button" role="radio" aria-checked="{{l.on}}" onClick="{{l.pick}}" style="{{l.style}}">{{l.label}}</button></sc-for>
+          </span>
+        </fieldset>
+        <div style="display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: #F3F7FE; border: 1px solid #C9DBFE; font-size: 13px">
+          <span aria-hidden="true" style="width: 8px; height: 8px; margin-top: 7px; border-radius: 50%; background: #0459F7; flex: none"></span>
+          <span>Contoh Logistik asks each time. Its Owners get the request in Janka and by email, and the session starts when one approves. It is <strong style="font-weight: 600; color: #0B1B4F">read only</strong>; passwords, two-step settings and payment details are never shown.</span>
+        </div>
+        <span style="display: flex; gap: 8px; justify-content: flex-end">
+          <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-family: inherit; cursor: pointer">Cancel</button>
+          <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #FB9800; color: #071233; font-family: inherit; font-weight: 600; cursor: pointer">Send request to the Owners</button>
+        </span>
+      </div>
+    </section>
+
+    <section aria-labelledby="s2-h" style="display: flex; flex-direction: column; gap: 10px">
+      <h2 id="s2-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600"><span class="mono" style="color: #FB9800">2</span> Janka: an Owner approves</h2>
+      <div style="background: #F7FBFC; border: 1px solid #E2E9ED; border-radius: 20px; overflow: hidden">
+        <div style="display: flex; align-items: center; gap: 10px; height: 58px; padding: 0 14px; background: #FFFFFF; border-bottom: 1px solid #E2E9ED">
+          <span style="display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 14px; background: #EFF4F7; border: 1px solid #E2E9ED"><img src="/_blob/0371bde7c6755085b0a2bc82707aecb3" alt="AntaraX" style="width: 20px; height: 20px; margin: 0 6px"><span style="display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 10px 0 6px; border-radius: 11px; background: #D7F2FE; color: #0B1B4F; font-weight: 600"><span style="width: 22px; height: 22px; border-radius: 6px; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><img src="/_blob/8757545247be33f643590d3dcfee0bb8" alt="" style="max-width: 16px; max-height: 16px"></span>Janka</span></span>
+          <span style="flex: 1"></span>
+          <span style="width: 40px; height: 40px; border-radius: 50%; background: #077DA1; color: #FFFFFF; font-weight: 600; display: flex; align-items: center; justify-content: center">NA</span>
+        </div>
+        <div role="status" style="margin: 12px 14px; padding: 12px 14px; border-radius: 14px; background: #D7F2FE; color: #004C64; display: flex; flex-direction: column; gap: 10px">
+          <span style="font-size: 14px"><strong style="font-weight: 600">REKA support asks to look at your organisation.</strong> Farid Osman, for 30 minutes, read only. Reason: "A member reported a missing forecast for the Klang warehouse."</span>
+          <span style="display: flex; gap: 8px">
+            <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-family: inherit; font-weight: 600; cursor: pointer">Approve</button>
+            <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #ADE4FD; background: #FFFFFF; color: #004C64; font-family: inherit; cursor: pointer">Decline</button>
+          </span>
+        </div>
+        <div style="padding: 0 14px 16px; font-size: 12px; color: #66747B">Only Owners see this. It lapses if nobody answers within 24 hours. Also sent by email to Nur Aina Hashim.</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="s3-h" style="display: flex; flex-direction: column; gap: 10px">
+      <h2 id="s3-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600"><span class="mono" style="color: #FB9800">3</span> Farid sees Janka as an Owner would, read only</h2>
+      <div style="background: #F7FBFC; border: 1px solid #E2E9ED; border-radius: 20px; overflow: hidden">
+        <div role="status" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #071233; color: #EAF0FF; font-size: 13px">
+          <span class="mono" style="font-size: 11px; font-weight: 600; letter-spacing: .12em; color: #071233; background: #FB9800; border-radius: 999px; padding: 2px 9px">AXLE</span>
+          <span style="flex: 1">Support view of <strong style="font-weight: 600">Contoh Logistik</strong> · read only · ends at <span class="mono">12:12</span></span>
+          <button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,.3); background: transparent; color: #EAF0FF; font-family: inherit; cursor: pointer">End now</button>
+        </div>
+        <div style="padding: 16px; display: flex; flex-direction: column; gap: 10px">
+          <span style="color: #0B1B4F; font-size: 17px; font-weight: 600">Klang warehouse · Forecasts</span>
+          <div style="display: flex; align-items: center; gap: 12px; background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 14px; padding: 10px 14px">
+            <span style="flex: 1; display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 500">Gloves, size L</span><span style="font-size: 12px; color: #66747B">No forecast: this site has no usage history yet</span></span>
+            <button type="button" disabled title="Read only in a support session" style="min-height: 40px; padding: 0 12px; border-radius: 12px; border: 1px solid #E5E8EE; background: #F5F7FC; color: #8A93AE; font-family: inherit; cursor: not-allowed">Run forecast</button>
+          </div>
+          <span style="font-size: 12px; color: #66747B">Changes are refused by the server, not only greyed out here. Passwords, two-step settings and payment details never show.</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="s4-h" style="display: flex; flex-direction: column; gap: 10px">
+      <h2 id="s4-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600"><span class="mono" style="color: #FB9800">4</span> Everyone at Contoh Logistik sees it is happening</h2>
+      <div style="background: #F7FBFC; border: 1px solid #E2E9ED; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+        <div role="status" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; background: #D7F2FE; color: #004C64; font-size: 13px">
+          <span style="flex: 1"><strong style="font-weight: 600">REKA support is here.</strong> Farid Osman from REKA support is looking at your organisation until 12:12, read only, as Nur Aina Hashim approved.</span>
+          <a href="#" style="color: #004C64; font-weight: 600; text-decoration: underline">End session</a>
+        </div>
+        <span style="font-size: 12px; color: #66747B">Every member sees this banner. Owners and Admins can end the session. The Owners are told when it starts and when it ends.</span>
+      </div>
+    </section>
+  </div>
+
+  <section aria-labelledby="s5-h" style="display: flex; flex-direction: column; gap: 10px">
+    <h2 id="s5-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600"><span class="mono" style="color: #FB9800">5</span> Afterwards: the same session, on both sides</h2>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px">
+      <div style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px">
+        <span style="color: #0B1B4F; font-weight: 600">AXLE · Audit</span>
+        <sc-for list="{{audit}}" as="a" hint-placeholder-count="4">
+          <div style="display: flex; gap: 12px; padding: 7px 0; border-bottom: 1px solid #EEF1F6; font-size: 13px"><span class="mono" style="flex: 0 0 52px; font-size: 12px; color: #5B6488">{{a.when}}</span><span>{{a.what}}</span></div>
+        </sc-for>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px">
+        <span style="color: #0B1B4F; font-weight: 600">Janka · Settings · Support access · Past sessions</span>
+        <div style="display: flex; flex-direction: column; gap: 2px; padding: 8px 12px; border-radius: 12px; background: #F7FBFC; font-size: 13px">
+          <span><strong style="font-weight: 500; color: #0B1B4F">Farid Osman, REKA support</strong> · 15 Oct, 11:44 to 12:09 · approved by Nur Aina Hashim</span>
+          <span style="font-size: 12px; color: #66747B">Why: a member reported a missing forecast for the Klang warehouse.</span>
+          <span style="font-size: 12px; color: #66747B">Looked at 4 pages: Forecasts, Klang warehouse, Gloves size L, Reorder rules. Changed nothing; 1 change refused.</span>
+        </div>
+        <span style="font-size: 12px; color: #66747B; margin-top: 6px">The same lines are in Contoh Logistik's Activity log.</span>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1560}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { len: '30 minutes' }; }
+  renderVals() {
+    var self = this;
+    var lengths = ['30 minutes', '1 hour', '4 hours'].map(function (l) {
+      var on = self.state.len === l;
+      return { label: l, on: on ? 'true' : 'false', pick: function () { self.setState({ len: l }); },
+        style: 'min-height:44px;padding:0 14px;border-radius:12px;font-family:inherit;font-size:13px;cursor:pointer;' + (on ? 'border:2px solid #FB9800;background:#FFF1DA;color:#8A4B00;font-weight:600;' : 'border:1px solid #D5DBE7;background:#FFFFFF;color:#0B1B4F;') };
+    });
+    return {
+      lengths: lengths,
+      audit: [
+        { when: '11:42', what: 'Farid Osman (Support) asked Contoh Logistik for a 30-minute support session: member reported a missing forecast' },
+        { when: '11:44', what: 'Nur Aina Hashim (Owner, Contoh Logistik) approved it; session started, read only' },
+        { when: '11:51', what: 'Refused during the session: Run forecast on Gloves, size L' },
+        { when: '12:09', what: 'Farid Osman ended the session: no usage history at the new site, explained to the member' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

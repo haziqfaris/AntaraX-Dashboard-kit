@@ -18,6 +18,7 @@ The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.
 | `Health.dc.html` | R8 · Services | Services, jobs with retry and cancel, backups and restore drills, alert rules (§7.4, §10.9). Every product has it, Base or Full |
 | `Audit.dc.html` | Audit | Filters, export, before and after on every row (§10.8) |
 | `Staff.dc.html` | Staff | The ladder, rights, two-step sign-in, controls disabled with "Needs Admin" (§5.2) |
+| `SupportSession.dc.html` | Support session, start to finish | Both sides of one session (§11): the start dialog in AXLE (a reason, the member's feedback it answers, 30 minutes, 1 hour or 4 hours); Janka's Owner approving the request; the staff view under the navy AXLE banner, read only, with every change disabled; the organisation's "REKA support is here" banner; the trail in AXLE Audit and the organisation's Support access history. Opened from Organisation 360's "Start support session…". Uses Janka's own palette for Janka's side |
 | `Settings.dc.html` | Settings | Platform switches, each asking for a reason first (§8.6, §13.2) |
 | `R8.dc.html` | R8 Overview | One overall state, needs an operator (each opens Troubleshoot), platform services, Janka's machinery, incidents, recent operations (§8.1, std M3) |
 | `Troubleshoot.dc.html` | R8 · Troubleshoot | INC-0412: evidence in layers (outside, inside, application), timeline, AXLE's reading kept apart from your conclusion, Level 1 safe actions only (§10.11, §14.1, std M10–M12) |

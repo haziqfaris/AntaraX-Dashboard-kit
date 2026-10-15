@@ -493,17 +493,20 @@ One problem, all its evidence. Every product has it, Base or Full. Opened in one
 
 ## 11 Support sessions (std H7)
 
-How REKA support sees what a member sees. **Later** (std H7): build it only when the product needs it. When it is built, these rules hold (Angka is the reference; ISO Generator's must change):
+How REKA support sees an organisation exactly as its people see it, to solve a problem they reported, without asking for screenshots. **In every product** (owner, 15 Oct 2026; std H7 had it as Later). Angka's is the reference. The organisation's side is app SPEC §7 and §13.
 
 | Rule | Standard |
 |---|---|
-| Who | Support rung and above |
-| How it starts | "Start support session" on the organisation page; a reason; a length of 30 minutes (default), 1 hour or 4 hours |
-| Default mode | **Read only.** The server refuses writes, not only the interface |
-| Acting as a member | Only if the product needs it (std H7): Operator, a second reason, sensitive actions blocked (billing, members, deletion, exports) |
-| Banner | Fixed at the top of every page in the product: "REKA support view of Acme Plastics · read only · ends at 14:30 · End now" |
-| The organisation sees | The session in its own activity log, with the time and reason |
-| Ending | At the time shown or "End now"; every action in the session is audited |
+| **Who** | The Support rung and above |
+| **How it starts** | "Start support session" on the organisation page. It asks for:<ul><li>a reason, which is required and shown to the organisation;</li><li>the message or ticket it answers, if any;</li><li>a length: 30 minutes (default), 1 hour, or 4 hours at most.</li></ul> |
+| **Consent** | Follows the organisation's own Support access setting (app SPEC §13):<ul><li>**Always allowed:** it starts at once, and the Owners are told.</li><li>**Ask each time** (the default): the Owners get the request in the product, as a banner and a notification, and by email, with the reason. It starts when one of them approves. An unanswered request lapses after 24 hours.</li><li>**Never:** the button is disabled, with "‹Organisation› doesn't allow support sessions. Ask an Owner to change Support access."</li></ul> |
+| **Read only** | The server refuses every change during a session, not only the screen. Buttons that would change something show disabled, with "Read only in a support session" |
+| **What staff see** | The product as an Owner sees it, except passwords, two-step settings and payment details, which are never shown |
+| **Acting as a member** | Not built (§20 question 4) |
+| **Banner, staff side** | Fixed at the top of every page of the product for the REKA person, in AXLE's look (navy, REKA orange): "Support view of ‹Organisation› · read only · ends at 12:12 · End now" |
+| **Banner, organisation side** | Every member of the organisation sees "REKA support is here" with the person's name and end time, and Owners and Admins can End session (app SPEC §7, banner 1) |
+| **Ending** | At the time shown, by "End now" for staff, or by "End session" from an Owner or Admin. A longer session is a new request |
+| **The trail** | Every page viewed and every refused change is recorded:<ul><li>in AXLE's Audit;</li><li>in the organisation's own Activity log;</li><li>in its Support access history, with who, when, why and what was looked at.</li></ul>The Owners are told when a session starts and ends |
 
 ## 12 Never crosses to organisations (std A4)
 
@@ -629,7 +632,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **Lists** | On every list: search, filter, sort, group, a bulk action on 2 rows, export; the stats strip updates |
 | **Audit** | Three staff changes each appear with who, what, when, reason, before and after |
 | **Rights** | A Viewer sees every page, disabled controls say what they need, and a missing right shows its gate card and dashes, never zeros |
-| **Support session** | (If built) the banner shows, writes are refused by the server, the session ends on time, and the organisation sees it in its log |
+| **Support session** | With "Ask each time", the session waits for an Owner's approval; the staff and organisation banners both show; a change is refused by the server; the session ends on time or when an Owner ends it; it appears in Audit, in the organisation's Activity log and in its Support access history |
 | **Links** | Copying the address on any filtered, scoped page and opening it in a new window shows the same view |
 | **Phone** | Every page opens from the drawer at 390px with nothing hidden or overlapping |
 | **Collapsed groups** | Collapse every group: each one holding something that needs a person still shows its orange total; the current page's group is open on arrival; the choice is remembered after signing out and in |
@@ -645,7 +648,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 
 1. ~~**The look.**~~ Decided 15 Oct 2026: dark bars, light page (§4). Recorded in the brand kit (10, 13 §6).
 2. **Roles (std A2 against antarax-api docs/07).** std A2 lists functional roles that one person may combine; antarax-api and Angka use a ladder. This draft maps them onto one model: a ladder for how much, rights for which area. Confirm the rungs and the four rights.
-3. **Support sessions (std H7 Later against Angka, which has one).** Keep them Later for new products, with the §11 rules binding wherever one exists?
+3. ~~**Support sessions.**~~ Decided 15 Oct 2026: in every product now, with the organisation's consent (§11).
 4. **Acting as a member.** Allowed at all (§11)?
 5. **Focus ring on the dark bars.** `#4D84FE` there, AntaraX blue `#0459F7` on the light page (§4). Confirm for the brand kit.
 6. ~~**The primary action colour.**~~ Decided 15 Oct 2026: REKA orange `#FB9800` with navy text, in every product's AXLE.

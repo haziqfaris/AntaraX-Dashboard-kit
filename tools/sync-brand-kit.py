@@ -2,7 +2,8 @@
 """Keep the Dashboard kit in step with the AntaraX brand kit.
 
 The brand kit owns every colour and size. Its tokens/tokens.json has an "axle" section;
-this script copies the brand kit's tokens into brand/ (a pinned snapshot), records which
+this script copies the brand kit's tokens and its product palettes (tokens/product-palettes.json,
+each product's own colours) into brand/ (a pinned snapshot), records which
 version and commit they came from in brand/brand-kit.lock, and generates axle/tokens.css
 from the "axle" section. Never edit axle/tokens.css by hand.
 
@@ -12,14 +13,17 @@ from the "axle" section. Never edit axle/tokens.css by hand.
 
 --check fails when:
   - axle/tokens.css is not exactly what the snapshot generates (someone edited it by hand);
-  - a mock in axle/mock/ uses a hex colour that is not a brand kit token;
-  - a brand kit checkout is available (--brand-kit, or ../AntaraX-brand-kit) and its tokens differ
-    from the snapshot (the brand kit changed and this kit has not been synced).
+  - a mock in axle/mock/ uses a hex colour that is in neither the brand kit tokens nor a product
+    palette (a board that shows a product's own side, such as a support session, uses that
+    product's palette);
+  - a brand kit checkout is available (--brand-kit, or ../AntaraX-brand-kit) and its tokens or
+    product palettes differ from the snapshot (the brand kit changed and this kit has not been synced).
 """
 import argparse, json, os, re, shutil, subprocess, sys
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SNAPSHOT = os.path.join(HERE, 'brand', 'tokens.json')
+PALETTES = os.path.join(HERE, 'brand', 'product-palettes.json')
 LOCK = os.path.join(HERE, 'brand', 'brand-kit.lock')
 OUT = os.path.join(HERE, 'axle', 'tokens.css')
 MOCK = os.path.join(HERE, 'axle', 'mock')
@@ -61,8 +65,15 @@ def generate(tokens, lock):
     return '\n'.join(out) + '\n'
 
 
+def read(path):
+    return open(path, encoding='utf-8').read()
+
+
 def brand_hexes(tokens):
-    return {h.upper() for h in HEX.findall(json.dumps(tokens))}
+    found = HEX.findall(json.dumps(tokens))
+    if os.path.isfile(PALETTES):
+        found += HEX.findall(read(PALETTES))
+    return {h.upper() for h in found}
 
 
 def mock_strays(tokens):
@@ -91,18 +102,21 @@ def main():
     args = ap.parse_args()
     kit = args.brand_kit or (DEFAULT_KIT if os.path.isdir(DEFAULT_KIT) else None)
     kit_tokens_path = os.path.join(kit, 'tokens', 'tokens.json') if kit else None
+    kit_palettes_path = os.path.join(kit, 'tokens', 'product-palettes.json') if kit else None
 
     if not args.check:
         if not kit_tokens_path or not os.path.isfile(kit_tokens_path):
             sys.exit('No brand kit found. Clone haziqfaris/AntaraX-brand-kit beside this repo, or pass --brand-kit PATH.')
         os.makedirs(os.path.dirname(SNAPSHOT), exist_ok=True)
         shutil.copyfile(kit_tokens_path, SNAPSHOT)
+        shutil.copyfile(kit_palettes_path, PALETTES)
         tokens = json.load(open(SNAPSHOT, encoding='utf-8'))
         lock = {'source': 'haziqfaris/AntaraX-brand-kit', 'file': 'tokens/tokens.json',
+                'palettes': 'tokens/product-palettes.json',
                 'version': tokens['version'], 'updated': tokens['updated'], 'commit': kit_commit(kit)}
         open(LOCK, 'w', encoding='utf-8').write(json.dumps(lock, indent=2) + '\n')
         open(OUT, 'w', encoding='utf-8').write(generate(tokens, lock))
-        print('Synced brand kit tokens %s (commit %s) into brand/ and axle/tokens.css.' % (lock['version'], lock['commit']))
+        print('Synced brand kit tokens %s and product palettes (commit %s) into brand/ and axle/tokens.css.' % (lock['version'], lock['commit']))
         strays = mock_strays(tokens)
         for h, files in sorted(strays.items()):
             print('  not a brand token: %s in %s' % (h, ', '.join(sorted(files))))
@@ -114,7 +128,7 @@ def main():
     if open(OUT, encoding='utf-8').read() != generate(tokens, lock):
         problems.append('axle/tokens.css is not what the brand kit snapshot generates. Do not edit it by hand: run tools/sync-brand-kit.py.')
     for h, files in sorted(mock_strays(tokens).items()):
-        problems.append('%s is used in %s but is not a brand kit token. Use a token, or add it to the brand kit first.' % (h, ', '.join(sorted(files))))
+        problems.append('%s is used in %s but is not a brand kit token or product palette colour. Use a token, or add it to the brand kit first.' % (h, ', '.join(sorted(files))))
     if kit_tokens_path and os.path.isfile(kit_tokens_path):
         if open(kit_tokens_path, encoding='utf-8').read() != open(SNAPSHOT, encoding='utf-8').read():
             upstream = json.load(open(kit_tokens_path, encoding='utf-8'))
@@ -122,6 +136,8 @@ def main():
                 problems.append('The snapshot (%s) is ahead of this brand kit checkout (%s): merge the brand kit change into its default branch first.' % (tokens['version'], upstream['version']))
             else:
                 problems.append('The brand kit has changed (now %s, snapshot %s). Run tools/sync-brand-kit.py and commit the result.' % (upstream['version'], tokens['version']))
+        elif not os.path.isfile(PALETTES) or read(kit_palettes_path) != read(PALETTES):
+            problems.append('The brand kit product palettes differ from the snapshot. Run tools/sync-brand-kit.py and commit the result.')
     else:
         print('No brand kit checkout found: checked against the snapshot only (%s, commit %s).' % (lock['version'], lock['commit']))
     for p in problems:

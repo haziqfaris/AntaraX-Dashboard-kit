@@ -189,7 +189,7 @@ A banner is a full-width strip directly under the top bar, for a state that hold
 
 | # | Banner | When | Says |
 |---|---|---|---|
-| 1 | **REKA support is here** | A REKA support session is open in this organisation | Who, until when, and "End session" for Owners and Admins (axle SPEC §11) |
+| 1 | **REKA support is here**, or **REKA support asks to look** | A REKA support session is open, or (Owners only) a request is waiting | Open: who, until when, and "End session" for Owners and Admins. Waiting: who, why, how long, and Approve or Decline (axle SPEC §11) |
 | 2 | **Something is down** | The product or a service it needs is failing | What does not work, and what still does |
 | 3 | **Maintenance** | Planned work is due or under way | When, and what will be unavailable |
 | 4 | **Plan** | A trial is ending, a limit is near, or a payment failed | The date or the limit, and "Plan and billing" for Owners; others see who to ask |
@@ -293,7 +293,7 @@ What AXLE gives REKA staff, an organisation's Owners and Admins get for their ow
 | **Usage** `/settings/usage` | Use against the plan's limits in plain units (records, members, Assist answers, storage); when each resets. Never AI cost, model or provider (axle SPEC §12) | Admins, Owners | Plans & features, AI usage |
 | **Plan and billing** `/settings/billing` | §4 | Owners | Billing |
 | **API** `/settings/api` | §4 | Admins, Owners | API |
-| **Support access** `/settings/support` | Whether REKA support may open a session · any open session with "End session" · past sessions: who, when, why, what they did | Owners | Support sessions |
+| **Support access** `/settings/support` | Whether REKA support may open a session: Always allowed, Ask each time (the default) or Never · requests waiting for an answer, with Approve or Decline and the reason · any open session with "End session" · past sessions: who, when, why, what they looked at | Owners | Support sessions (axle SPEC §11) |
 | **Your data** `/settings/data` | §4, plus a record of every download and deletion request | Owners | Requests |
 
 - **Members and Viewers:** they see only `/account` and the settings that apply to them.

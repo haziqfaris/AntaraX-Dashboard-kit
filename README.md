@@ -16,7 +16,7 @@ The standard dashboard and AXLE console design for every AntaraX product. It sit
 
 The [AntaraX brand kit](https://github.com/haziqfaris/AntaraX-brand-kit) owns every colour and size; this kit consumes them.
 
-- **The snapshot:** `brand/tokens.json` is a pinned copy of the brand kit's tokens, and `brand/brand-kit.lock` records the version and commit it came from.
+- **The snapshot:** `brand/tokens.json` and `brand/product-palettes.json` are pinned copies of the brand kit's tokens and each product's own palette, and `brand/brand-kit.lock` records the version and commit they came from. A mock may use a product's palette only where it shows that product's own side.
 - **Generated, never edited:** `axle/tokens.css` is generated from the snapshot's `axle` section.
 - **Sync:** `python3 tools/sync-brand-kit.py` refreshes both from a brand kit checkout beside this repo (or `--brand-kit PATH`).
 - **The check:** `python3 tools/sync-brand-kit.py --check` fails on drift. That means a hand-edited token file, a mock colour that is not a brand token, or a brand kit that has changed since the snapshot. GitHub Actions runs it on every push and every Monday (`.github/workflows/brand-kit-sync.yml`). If the brand kit is private, add a read-only token as the `BRAND_KIT_TOKEN` secret so the check can compare against it; without one it checks the snapshot only.
