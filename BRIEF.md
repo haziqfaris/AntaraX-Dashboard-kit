@@ -72,10 +72,8 @@ Scores are from the AXLE scorecard in the gallery, out of 8. "Own pages" go in t
 
 - **Open questions** in [SPEC §20](axle/SPEC.md#20-open-questions):
   - roles against antarax-api;
-  - support sessions;
   - acting as a member;
   - the focus ring on the bars;
-  - the main action colour;
   - the "Support" rung name;
   - which products are in scope;
   - lifecycle words;
@@ -83,6 +81,7 @@ Scores are from the AXLE scorecard in the gallery, out of 8. "Own pages" go in t
   - where the product box sits.
 
   Until one is decided, the SPEC text applies.
+- **Decided 15 Oct 2026:** the main action is REKA orange, and support sessions are in every product, read only, with the organisation's consent (SPEC §11).
 - **Not mocked yet:**
   - R8 → Services in the new layout (the current page is the older Health layout);
   - each product's own pages;
