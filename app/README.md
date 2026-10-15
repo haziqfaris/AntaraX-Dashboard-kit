@@ -4,7 +4,7 @@ Every AntaraX customer app is the product's own: its identity, colours, shape, n
 
 | File | What it is |
 |---|---|
-| [SPEC.md](SPEC.md) | The shell, v1.0: what is shared, and that everything else is the product's own |
+| [SPEC.md](SPEC.md) | The shell, v1.1: what is shared, the standards beneath the look, what never to do, and that everything else is the product's own |
 | [mock/](mock/README.md) | The shell drawn in six products' own colours: the top bar and its menus, getting in, shared moments, settings |
 
 The live mock is a private claude.ai canvas (https://claude.ai/artifact/BnCgM4zvLZpKiJGDaqqBix), shared by the owner.
@@ -20,6 +20,10 @@ The live mock is a private claude.ai canvas (https://claude.ai/artifact/BnCgM4zv
   - `/account`, `/settings` (Organisation, Members, Plan and billing, the product's own, API, Your data), `/guide`, `/help`, `/legal/privacy`, `/legal/terms`;
   - every setting lives under `/settings`.
 - **Words and roles**: the brand kit's words. Owner, Admin, Member and Viewer mean the same in every product.
+- **Every wait is animated** in the product's own style (§12): never "Loading…" alone, a static placeholder or a spinner.
+- **The organisation's admin area** under `/settings` (§13): Members, Roles, Security, Activity log, Usage, Plan and billing, API, Support access, Your data.
+- **Built right** (§15): sign-in and passwords (Show password, password managers, 12+ characters, no composition rules), forms, PDPA data handling, speed and caching, reliability, security, time and language, devices. Not cosmetic, so the same everywhere.
+- **Never** (§16): the things no product does, whatever its design.
 - **Shared moments**, where the words and behaviour are shared and the look is the product's own:
   - getting in (§6);
   - banners in a fixed order (§7);

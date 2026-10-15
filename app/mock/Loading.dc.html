@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Every wait is animated</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+.ld .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.ld .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@keyframes ld-tick{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+.ld .tick{width:6px;height:28px;border-radius:3px;background:#077DA1;transform-origin:bottom;animation:ld-tick 1.4s ease-in-out infinite}
+@keyframes ld-hop{0%{transform:translate(0,0)}25%{transform:translate(17px,-14px)}50%{transform:translate(34px,0)}75%{transform:translate(17px,-14px)}100%{transform:translate(0,0)}}
+.ld .seed{width:10px;height:10px;border-radius:50%;background:#6B3F6B;position:absolute;left:7px;top:9px;animation:ld-hop 1.5s ease-in-out infinite}
+@keyframes ld-wave{0%{offset-distance:0%;opacity:0}10%{opacity:1}90%{opacity:1}100%{offset-distance:100%;opacity:0}}
+.ld .wdot{position:absolute;left:0;top:0;width:8px;height:8px;border-radius:50%;background:#098284;offset-path:path('M4 16 C 14 2, 24 2, 34 16 S 54 30, 64 16');animation:ld-wave 1.5s linear infinite}
+@keyframes ld-corner{0%,100%{transform:translate(0,0)}50%{transform:translate(var(--dx),var(--dy))}}
+.ld .corner{position:absolute;width:10px;height:10px;border-color:#074AF8;border-style:solid;border-width:0;animation:ld-corner 1.4s ease-in-out infinite}
+@keyframes ld-light{0%,100%{opacity:.2}40%{opacity:1}}
+.ld .cell{width:9px;height:9px;border-radius:2px;background:#7A1E3C;opacity:.2;animation:ld-light 1.6s ease-in-out infinite}
+@keyframes ld-zone{0%,15%{opacity:.15}35%,80%{opacity:1}100%{opacity:.15}}
+.ld .zone{width:14px;height:14px;border-radius:3px;animation:ld-zone 1.6s ease-in-out infinite}
+@keyframes ld-shim{0%{background-position:-240px 0}100%{background-position:240px 0}}
+.ld .sk{border-radius:8px;background:linear-gradient(90deg,#DAF3F3 0%,#EEF9F9 40%,#DAF3F3 80%);background-size:480px 100%;animation:ld-shim 1.6s linear infinite}
+@keyframes ld-think-a{0%,40%{opacity:1;transform:scale(1)}50%,90%{opacity:0;transform:scale(.6)}100%{opacity:1;transform:scale(1)}}
+@keyframes ld-think-b{0%,40%{opacity:0;transform:scale(.6)}50%,90%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.6)}}
+.ld .think-a{position:absolute;inset:0;animation:ld-think-a 6s ease-in-out infinite}
+.ld .think-b{position:absolute;inset:0;animation:ld-think-b 6s ease-in-out infinite}
+@keyframes ld-drop{0%,10%{opacity:0;transform:translateY(-10px)}25%,100%{opacity:1;transform:translateY(0)}}
+.ld .hole{width:22px;height:22px;border-radius:50%;background:#F4E9F4;display:flex;align-items:center;justify-content:center}
+.ld .hseed{width:10px;height:10px;border-radius:50%;background:#6B3F6B;opacity:0;animation:ld-drop 4s ease-out infinite}
+@keyframes ld-fill{0%{width:0}100%{width:62%}}
+.ld .pbar{height:100%;border-radius:999px;background:#6B3F6B;animation:ld-fill 4s ease-out infinite}
+@keyframes ld-splash{0%{opacity:0;transform:scale(.8)}30%,80%{opacity:1;transform:scale(1)}100%{opacity:1}}
+@keyframes ld-credit{0%,35%{opacity:0}55%,100%{opacity:1}}
+.ld .splash-logo{animation:ld-splash 4s ease-out infinite}
+.ld .splash-credit{animation:ld-credit 4s ease-out infinite}
+@media (prefers-reduced-motion: reduce){
+  .ld *{animation:none!important}
+  .ld .tick{transform:scaleY(1)}
+  .ld .cell,.ld .zone,.ld .hseed{opacity:1}
+  .ld .think-b{opacity:0}
+  .ld .wdot{offset-distance:50%}
+  .ld .pbar{width:62%}
+}
+</style>
+</helmet>
+<div class="ld" style="width: 1440px; box-sizing: border-box; padding: 48px 56px 64px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; flex-direction: column; gap: 8px; max-width: 1100px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">Every wait is animated</h1>
+    <p style="margin: 0; font-size: 16px">Never "Loading…" on its own, a static placeholder or a generic spinner. Each product waits in its own motion, drawn from its mark and motif; nothing spins or flips. With reduced motion on, each holds a stylised still frame, and a screen reader always hears what is happening.</p>
+  </header>
+
+  <section aria-labelledby="in-h" style="display: flex; flex-direction: column; gap: 12px">
+    <h2 id="in-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Inline: inside a button, a row or a field <span style="font-weight: 400; color: #5B6488; font-size: 14px">· each product's own loop</span></h2>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px">
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start">
+        <span role="status" style="display: flex; gap: 4px; align-items: flex-end; height: 32px"><span class="tick" style="animation-delay: 0s"></span><span class="tick" style="animation-delay: .12s"></span><span class="tick" style="animation-delay: .24s"></span><span class="tick" style="animation-delay: .36s"></span><span class="tick" style="animation-delay: .48s"></span><span class="tick" style="animation-delay: .6s"></span><span class="sr">Loading stock</span></span>
+        <span style="font-size: 13px"><strong style="color: #0B1B4F">Janka</strong> · six ticks rise in turn</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #EBE6EB; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start">
+        <span role="status" style="position: relative; width: 56px; height: 32px"><span style="position: absolute; left: 4px; top: 18px; width: 16px; height: 8px; border-radius: 0 0 8px 8px; background: #F4E9F4"></span><span style="position: absolute; left: 38px; top: 18px; width: 16px; height: 8px; border-radius: 0 0 8px 8px; background: #F4E9F4"></span><span class="seed"></span><span class="sr">Loading</span></span>
+        <span style="font-size: 13px"><strong style="color: #0B1B4F">Angka</strong> · a seed hops between holes</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E1EAEA; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start">
+        <span role="status" style="position: relative; width: 68px; height: 32px"><svg aria-hidden="true" width="68" height="32" viewBox="0 0 68 32" fill="none"><path d="M4 16 C 14 2, 24 2, 34 16 S 54 30, 64 16" stroke="#B3E6E7" stroke-width="2" stroke-linecap="round"></path></svg><span class="wdot" style="animation-delay: 0s"></span><span class="wdot" style="animation-delay: .5s"></span><span class="wdot" style="animation-delay: 1s"></span><span class="sr">Loading</span></span>
+        <span style="font-size: 13px"><strong style="color: #0B1B4F">Yara</strong> · dots travel along a wave</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start">
+        <span role="status" style="position: relative; width: 32px; height: 32px">
+          <span class="corner" style="left: 0; top: 0; border-top-width: 2.5px; border-left-width: 2.5px; --dx: 5px; --dy: 5px"></span>
+          <span class="corner" style="right: 0; top: 0; border-top-width: 2.5px; border-right-width: 2.5px; --dx: -5px; --dy: 5px"></span>
+          <span class="corner" style="left: 0; bottom: 0; border-bottom-width: 2.5px; border-left-width: 2.5px; --dx: 5px; --dy: -5px"></span>
+          <span class="corner" style="right: 0; bottom: 0; border-bottom-width: 2.5px; border-right-width: 2.5px; --dx: -5px; --dy: -5px"></span>
+          <span class="sr">Loading</span>
+        </span>
+        <span style="font-size: 13px"><strong style="color: #0B1B4F">AX Frame</strong> · four corners close in</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #EEE5E7; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start">
+        <span role="status" style="display: grid; grid-template-columns: repeat(3, 9px); gap: 3px; height: 32px; align-content: center">
+          <sc-for list="{{lattice}}" as="c" hint-placeholder-count="9"><span class="cell" style="animation-delay: {{c.d}}"></span></sc-for>
+          <span class="sr">Loading</span>
+        </span>
+        <span style="font-size: 13px"><strong style="color: #0B1B4F">Tinara</strong> · the lattice lights along its path</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E6E7EE; border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start">
+        <span role="status" style="display: grid; grid-template-columns: repeat(2, 14px); gap: 4px; height: 32px; align-content: center">
+          <span class="zone" style="background: #4FD7D1; animation-delay: 0s"></span><span class="zone" style="background: #FD9001; animation-delay: .4s"></span><span class="zone" style="background: #CBB6FA; animation-delay: 1.2s"></span><span class="zone" style="background: #FD4F85; animation-delay: .8s"></span>
+          <span class="sr">Loading</span>
+        </span>
+        <span style="font-size: 13px"><strong style="color: #0B1B4F">PLExyz Grid</strong> · the four zones fill in turn</span>
+      </div>
+    </div>
+  </section>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+    <section aria-labelledby="sk-h" style="display: flex; flex-direction: column; gap: 10px">
+      <h2 id="sk-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Skeleton: a screen or table loading <span style="font-weight: 400; color: #5B6488; font-size: 14px">· Yara</span></h2>
+      <div role="status" style="background: #FFFFFF; border: 1px solid #E1EAEA; border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+        <span class="sk" style="width: 40%; height: 18px"></span>
+        <sc-for list="{{rows}}" as="r" hint-placeholder-count="4">
+          <span style="display: flex; gap: 12px; align-items: center"><span class="sk" style="width: 36px; height: 36px; border-radius: 10px"></span><span style="flex: 1; display: flex; flex-direction: column; gap: 6px"><span class="sk" style="width: {{r.w1}}; height: 12px"></span><span class="sk" style="width: {{r.w2}}; height: 10px"></span></span></span>
+        </sc-for>
+        <span class="sr">Loading work orders</span>
+      </div>
+      <span style="font-size: 13px; color: #5B6488">Shared shapes, shimmering in the product's own subtle colour, never flat grey.</span>
+    </section>
+
+    <section aria-labelledby="th-h" style="display: flex; flex-direction: column; gap: 10px">
+      <h2 id="th-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Thinking: AI at work <span style="font-weight: 400; color: #5B6488; font-size: 14px">· the same in every product</span></h2>
+      <div role="status" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 18px; padding: 24px; display: flex; align-items: center; gap: 20px; min-height: 160px; box-sizing: border-box">
+        <span style="position: relative; width: 64px; height: 64px; flex: none">
+          <img class="think-a" src="/_blob/44b2604fbd45a42ca7d165b9a109217c" alt="" style="width: 64px; height: 64px">
+          <img class="think-b" src="/_blob/4465d40a6045e7213803d41ebd2d541f" alt="" style="width: 64px; height: 64px">
+        </span>
+        <span style="display: flex; flex-direction: column; gap: 4px"><span style="color: #0B1B4F; font-weight: 600">Mapping how your website connects</span><span style="font-size: 13px; color: #6C727E">AX Frame · Assist</span></span>
+        <span class="sr">Assist is working: mapping how your website connects</span>
+      </div>
+      <span style="font-size: 13px; color: #5B6488">The AntaraX sparkle becomes the product's logo and back, every 6 seconds. With reduced motion, the sparkle holds.</span>
+    </section>
+
+    <section aria-labelledby="pr-h" style="display: flex; flex-direction: column; gap: 10px">
+      <h2 id="pr-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Progress: a task with a known end <span style="font-weight: 400; color: #5B6488; font-size: 14px">· Angka</span></h2>
+      <div role="status" style="background: #FFFFFF; border-radius: 26px; padding: 22px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 18px 40px -30px rgba(107,63,107,.7)">
+        <span style="color: #0B1B4F; font-weight: 600">Matching October's receipts</span>
+        <span style="display: flex; gap: 8px">
+          <sc-for list="{{holes}}" as="h" hint-placeholder-count="8"><span class="hole"><span class="hseed" style="animation-delay: {{h.d}}"></span></span></sc-for>
+        </span>
+        <span style="display: block; height: 8px; border-radius: 999px; background: #F4E9F4; overflow: hidden"><span class="pbar" style="display: block"></span></span>
+        <span class="mono" style="font-size: 13px">31 of 50 matched</span>
+        <span class="sr">Matching receipts: 31 of 50</span>
+      </div>
+      <span style="font-size: 13px; color: #5B6488">The bar ends in a pad, the count is in words, and each match drops a seed into the board.</span>
+    </section>
+
+    <section aria-labelledby="sp-h" style="display: flex; flex-direction: column; gap: 10px">
+      <h2 id="sp-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Splash: the app opening <span style="font-weight: 400; color: #5B6488; font-size: 14px">· Janka</span></h2>
+      <div role="status" style="background: #023647; border-radius: 26px; min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px">
+        <span class="splash-logo" style="width: 76px; height: 76px; border-radius: 22px; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><img src="/_blob/e49267db52a49ce314f758e045b38dc1" alt="" style="max-width: 52px; max-height: 52px"></span>
+        <span class="splash-credit" style="color: #EAF0FF; font-size: 14px">Janka <span style="color: #9FD9EC">by AntaraX</span></span>
+        <span class="sr">Opening Janka</span>
+      </div>
+      <span style="font-size: 13px; color: #5B6488">The logo and "by AntaraX", drawn on once.</span>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var order = [0, 1, 2, 5, 4, 3, 6, 7, 8];
+    return {
+      lattice: order.map(function (n) { return { d: (n * 0.12).toFixed(2) + 's' }; }),
+      rows: [{ w1: '70%', w2: '40%' }, { w1: '55%', w2: '30%' }, { w1: '64%', w2: '46%' }, { w1: '48%', w2: '28%' }],
+      holes: [0, 1, 2, 3, 4, 5, 6, 7].map(function (i) { return { d: (i * 0.45).toFixed(2) + 's' }; })
+    };
+  }
+}
+</script>
+</body>
+</html>

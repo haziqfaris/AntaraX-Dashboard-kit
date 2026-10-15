@@ -17,7 +17,7 @@ body{margin:0;background:#F5F7FC}
 <div class="si" style="width: 1440px; box-sizing: border-box; padding: 48px 56px 56px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 28px">
   <header style="display: flex; flex-direction: column; gap: 8px; max-width: 1100px">
     <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">Getting in</h1>
-    <p style="margin: 0; font-size: 16px">Every product's sign-in holds the same things, in the same words: the product mark and "by AntaraX", Continue with Google, email and password, "Forgot your password?", Help, and Privacy and Terms. The look is the product's own. Janka splits the screen; Angka centres a card on paper.</p>
+    <p style="margin: 0; font-size: 16px">Every product's sign-in holds the same things, in the same words: the product mark and "by AntaraX", Continue with Google, email and password with Show password, "Forgot your password?", Help, and Privacy and Terms. Underneath, the same standards: password managers fill it, paste works, a Caps Lock warning, passwords of 12 characters or more with any characters. The look is the product's own. Janka splits the screen; Angka centres a card on paper.</p>
   </header>
 
   <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px">
@@ -35,8 +35,15 @@ body{margin:0;background:#F5F7FC}
           <span style="color: #0B1B4F; font-size: 18px; font-weight: 600">Sign in</span>
           <button type="button" style="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; border-radius: 12px; border: 1px solid #E2E9ED; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-weight: 500; cursor: pointer">Continue with Google</button>
           <span style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #66747B"><span style="flex: 1; height: 1px; background: #E2E9ED"></span>or<span style="flex: 1; height: 1px; background: #E2E9ED"></span></span>
-          <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">Email<input type="email" value="aina@contoh-logistik.example" style="height: 44px; border-radius: 12px; border: 1px solid #E2E9ED; padding: 0 12px; font-family: inherit; font-size: 14px"></label>
-          <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">Password<input type="password" value="placeholder" style="height: 44px; border-radius: 12px; border: 1px solid #E2E9ED; padding: 0 12px; font-family: inherit; font-size: 14px"></label>
+          <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">Email<input type="email" autocomplete="username" value="aina@contoh-logistik.example" style="height: 44px; border-radius: 12px; border: 1px solid #E2E9ED; padding: 0 12px; font-family: inherit; font-size: 14px"></label>
+          <label for="j-pw" style="font-size: 13px; color: #0B1B4F; margin-bottom: -10px">Password</label>
+          <span style="position: relative; display: flex">
+            <input id="j-pw" type="{{pwType}}" value="{{pwValue}}" autocomplete="current-password" style="flex: 1; height: 44px; border-radius: 12px; border: 1px solid #E2E9ED; padding: 0 52px 0 12px; font-family: inherit; font-size: 14px">
+            <button type="button" onClick="{{togglePw}}" aria-label="{{pwLabel}}" aria-pressed="{{pwPressed}}" style="position: absolute; right: 4px; top: 4px; width: 44px; height: 36px; border: 0; border-radius: 9px; background: transparent; color: #077DA1; cursor: pointer; display: flex; align-items: center; justify-content: center">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle><path d="M4 4l16 16" opacity="{{slash}}"></path></svg>
+            </button>
+          </span>
+          <span style="font-size: 12px; color: #B54708; margin-top: -8px">Caps Lock is on</span>
           <a href="#" style="align-self: flex-end; font-size: 13px; color: #077DA1">Forgot your password?</a>
           <button type="button" style="min-height: 44px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-family: inherit; font-weight: 600; cursor: pointer">Sign in</button>
           <span style="font-size: 13px">New to Janka? <a href="#" style="color: #077DA1">Create an account</a></span>
@@ -69,7 +76,13 @@ body{margin:0;background:#F5F7FC}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
 class Component extends DCLogic {
-  renderVals() { return {}; }
+  constructor(props) { super(props); this.state = { show: false }; }
+  renderVals() {
+    var self = this, show = this.state.show;
+    return { pwType: show ? 'text' : 'password', pwValue: show ? 'padi grows slowly 2026' : 'padi grows slowly 2026', slash: show ? '0' : '1',
+      pwLabel: show ? 'Hide password' : 'Show password', pwPressed: show ? 'true' : 'false',
+      togglePw: function () { self.setState({ show: !self.state.show }); } };
+  }
 }
 </script>
 </body>

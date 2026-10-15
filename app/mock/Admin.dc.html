@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>The organisation's admin area</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+.ad a{text-decoration:none}
+.ad .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.ad :focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+</style>
+</helmet>
+<div class="ad" style="width: 1440px; box-sizing: border-box; padding: 48px 56px 64px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 24px">
+  <header style="display: flex; flex-direction: column; gap: 8px; max-width: 1100px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">The organisation's own admin area</h1>
+    <p style="margin: 0; font-size: 16px">What AXLE gives REKA staff, an organisation's Owners and Admins get for their own organisation: members, roles, security, an activity log, usage, support access and their data, all under <span class="mono">/settings</span>. Here in Janka's colours, signed in as an Owner.</p>
+  </header>
+
+  <div style="border-radius: 20px; overflow: hidden; border: 1px solid #E2E9ED; background: #F7FBFC">
+    <dc-import name="AppBar" product="Janka" mode="medium" open="none" hint-size="100%,80px"></dc-import>
+    <div style="display: flex; gap: 20px; padding: 18px 20px 24px; align-items: flex-start">
+      <nav aria-label="Settings" style="flex: none; width: 230px; background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 12px 8px; display: flex; flex-direction: column; gap: 2px; font-size: 14px">
+        <span style="padding: 2px 10px 8px; color: #0B1B4F; font-size: 17px; font-weight: 600">Settings</span>
+        <sc-for list="{{sections}}" as="g" hint-placeholder-count="3">
+          <span style="font-size: 11px; color: #66747B; padding: 8px 10px 2px">{{g.label}}</span>
+          <sc-for list="{{g.items}}" as="i" hint-placeholder-count="3">
+            <a href="#" aria-current="{{i.current}}" style="display: flex; align-items: center; min-height: 36px; padding: 0 10px; border-radius: 10px; background: {{i.bg}}; color: {{i.ink}}; font-weight: {{i.weight}}">{{i.label}}</a>
+          </sc-for>
+        </sc-for>
+      </nav>
+
+      <div style="flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+
+        <section aria-labelledby="sec-h" style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+          <span style="display: flex; flex-direction: column"><h2 id="sec-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Security</h2><span class="mono" style="font-size: 12px; color: #66747B">/settings/security</span></span>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: #F7FBFC">
+            <span style="flex: 1; display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 500">Require two-step sign-in for everyone</span><span style="font-size: 12px; color: #66747B">2 of 9 members don't use it yet. They'll be asked to set it up next time they sign in.</span></span>
+            <button type="button" role="switch" aria-checked="{{tsAria}}" aria-label="Require two-step sign-in for everyone" onClick="{{toggleTs}}" style="flex: none; width: 46px; height: 26px; border-radius: 999px; border: 0; padding: 3px; cursor: pointer; display: flex; justify-content: {{tsJustify}}; background: {{tsBg}}"><span style="width: 20px; height: 20px; border-radius: 50%; background: #FFFFFF; display: block"></span></button>
+          </div>
+          <span style="font-weight: 600; color: #0B1B4F; font-size: 14px">Sign-in activity</span>
+          <sc-for list="{{signins}}" as="x" hint-placeholder-count="4">
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #EFF4F7">
+              <span style="width: 8px; height: 8px; border-radius: 50%; background: {{x.dot}}"></span>
+              <span style="flex: 1"><strong style="font-weight: 500; color: #0B1B4F">{{x.who}}</strong> · {{x.what}}</span>
+              <span class="mono" style="font-size: 12px; color: #66747B">{{x.when}}</span>
+            </div>
+          </sc-for>
+          <a href="#" style="font-size: 13px; color: #077DA1; font-weight: 500">Signed-in sessions (14)</a>
+        </section>
+
+        <section aria-labelledby="act-h" style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px">
+            <span style="display: flex; flex-direction: column"><h2 id="act-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Activity log</h2><span class="mono" style="font-size: 12px; color: #66747B">/settings/activity</span></span>
+            <button type="button" style="min-height: 40px; padding: 0 12px; border-radius: 12px; border: 1px solid #E2E9ED; background: #FFFFFF; color: #0B1B4F; font-family: inherit; cursor: pointer">Export</button>
+          </div>
+          <sc-for list="{{activity}}" as="a" hint-placeholder-count="5">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 8px 0; border-bottom: 1px solid #EFF4F7; font-size: 13px">
+              <span><strong style="font-weight: 500; color: #0B1B4F">{{a.who}}</strong> {{a.what}}</span>
+              <span style="display: flex; gap: 10px; font-size: 12px; color: #66747B"><span class="mono">{{a.when}}</span><span>{{a.change}}</span></span>
+            </div>
+          </sc-for>
+        </section>
+
+        <section aria-labelledby="use-h" style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+          <span style="display: flex; flex-direction: column"><h2 id="use-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Usage</h2><span style="font-size: 12px; color: #66747B">Nova plan · resets 1 Nov 2026 · <span class="mono">/settings/usage</span></span></span>
+          <sc-for list="{{usage}}" as="u" hint-placeholder-count="4">
+            <div style="display: flex; flex-direction: column; gap: 4px">
+              <span style="display: flex; justify-content: space-between; font-size: 13px"><span style="color: #0B1B4F">{{u.what}}</span><span class="mono">{{u.used}} of {{u.limit}}</span></span>
+              <span style="display: block; height: 8px; border-radius: 999px; background: #D7F2FE; overflow: hidden"><span style="display: block; height: 100%; width: {{u.w}}; background: {{u.color}}; border-radius: 999px"></span></span>
+            </div>
+          </sc-for>
+          <span style="font-size: 12px; color: #66747B">Counted in what you use, never in what it costs us to run.</span>
+        </section>
+
+        <section aria-labelledby="sup-h" style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+          <span style="display: flex; flex-direction: column"><h2 id="sup-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Support access</h2><span class="mono" style="font-size: 12px; color: #66747B">/settings/support</span></span>
+          <fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
+            <legend style="font-size: 13px; color: #0B1B4F; margin-bottom: 4px">Can REKA support look at your organisation?</legend>
+            <label style="display: flex; align-items: center; gap: 10px; min-height: 40px; font-size: 13px"><input type="radio" name="sa" style="width: 18px; height: 18px"> Yes, whenever we contact support</label>
+            <label style="display: flex; align-items: center; gap: 10px; min-height: 40px; font-size: 13px"><input type="radio" name="sa" checked style="width: 18px; height: 18px"> Only after an Owner says yes each time</label>
+            <label style="display: flex; align-items: center; gap: 10px; min-height: 40px; font-size: 13px"><input type="radio" name="sa" style="width: 18px; height: 18px"> Never</label>
+          </fieldset>
+          <span style="font-weight: 600; color: #0B1B4F; font-size: 14px">Past sessions</span>
+          <div style="display: flex; flex-direction: column; gap: 2px; font-size: 13px; padding: 8px 12px; border-radius: 12px; background: #F7FBFC">
+            <span><strong style="font-weight: 500; color: #0B1B4F">Farid Osman, REKA support</strong> · 3 Oct, 10:05 to 10:40</span>
+            <span style="font-size: 12px; color: #66747B">Why: reorder dates looked wrong for one site. Looked at 3 items; changed nothing.</span>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { ts: false }; }
+  renderVals() {
+    var self = this, ts = this.state.ts;
+    function it(label, on) { return { label: label, current: on ? 'page' : undefined, bg: on ? '#D7F2FE' : 'transparent', ink: on ? '#066482' : '#0B1B4F', weight: on ? '600' : '400' }; }
+    function u(what, used, limit, pct) { return { what: what, used: used, limit: limit, w: pct + '%', color: pct >= 80 ? '#F79009' : '#077DA1' }; }
+    return {
+      sections: [
+        { label: 'Organisation', items: [it('Organisation'), it('Members'), it('Roles'), it('Plan and billing'), it('Usage')] },
+        { label: 'Janka', items: [it('Sites'), it('Suppliers'), it('Units'), it('Reorder rules')] },
+        { label: 'Admin', items: [it('Security', true), it('Activity log'), it('Support access'), it('API'), it('Your data')] }
+      ],
+      tsAria: ts ? 'true' : 'false', tsJustify: ts ? 'flex-end' : 'flex-start', tsBg: ts ? '#077DA1' : '#B9C1D4',
+      toggleTs: function () { self.setState({ ts: !self.state.ts }); },
+      signins: [
+        { who: 'Nur Aina Hashim', what: 'signed in, Chrome on Windows, Shah Alam', when: '08:52', dot: '#12B76A' },
+        { who: 'Kumar Selvam', what: 'signed in, Janka on Android, Klang', when: '08:31', dot: '#12B76A' },
+        { who: 'Unknown', what: '6 failed attempts for kumar@…, paused 15 min', when: '02:14', dot: '#F79009' },
+        { who: 'Lee Shu Fen', what: 'signed in, Safari on iPhone, Petaling Jaya', when: 'Yesterday', dot: '#12B76A' }
+      ],
+      activity: [
+        { who: 'Nur Aina Hashim', what: 'changed Kumar Selvam from Member to Admin', when: '15 Oct, 09:02', change: 'Role: Member → Admin' },
+        { who: 'Kumar Selvam', what: 'edited the reorder rule for Gloves, size L', when: '14 Oct, 16:40', change: 'Safety stock: 20 → 30 boxes' },
+        { who: 'Lee Shu Fen', what: 'invited farid.z@contoh-logistik.example as a Viewer', when: '14 Oct, 11:15', change: 'Invitation sent' },
+        { who: 'Nur Aina Hashim', what: 'added the site Klang warehouse', when: '12 Oct, 10:20', change: 'Sites: 2 → 3' },
+        { who: 'Nur Aina Hashim', what: 'downloaded the organisation\'s data', when: '1 Oct, 17:05', change: 'Export: 48 MB' }
+      ],
+      usage: [
+        u('Items tracked', '3,412', '5,000', 68),
+        u('Members', '9', '10', 90),
+        u('Assist answers this month', '412', '1,000', 41),
+        u('Photo storage', '6.1 GB', '20 GB', 31)
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
