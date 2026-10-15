@@ -16,7 +16,7 @@ This spec draws on the [inventory](../inventory/README.md) of eight customer app
 | | **The shell: the same in every product** | **Own: the product decides** |
 |---|---|---|
 | Top bar | Its anatomy and order, the brand pill, where Help and the account sit (§2) | Its colours, from the product's palette; what goes in the product's slot (§2.3) |
-| Navigation | That every page is reachable within two steps from the top bar or the product's own navigation; Help and the account are never hidden in it | Its shape: sidebar, top tabs, bottom bar on phones, a canvas with no menu, anything. Group names, icons, order |
+| Navigation | That Help and the account are in the top bar, never in the product's navigation; the accessibility baseline (keyboard, `aria-current`, focus ring) | **Fully the product's own** (owner, 15 Oct 2026): whether it has a sidebar at all, its shape (sidebar, top tabs, bottom bar, a canvas with no menu), groups, names, icons, order, how it marks the current page, how it collapses |
 | Account | The account button and the contents and order of its menu (§3) | Its avatar style, within the palette |
 | Standard pages | That they exist, where they live, what each holds first (§4) | How they look; extra sections after the standard ones |
 | Words | Brand kit 13 §1: organisation, member, Owner · Admin · Member · Viewer, Invite, Plan and Billing, Sign in and Sign out, Settings, Assist | Words for the product's own things (a job card, a forecast, a bay) |
@@ -25,7 +25,7 @@ This spec draws on the [inventory](../inventory/README.md) of eight customer app
 | Getting in | What the sign-in, invitation, reset and two-step screens hold, and their words (§6) | Their look, illustration and layout |
 | Shared moments | The order of banners (§7); the notifications panel (§8); the Assist panel (§9); Send feedback (§10); what dialogs, toasts, errors and empty states say (§11) | How each looks |
 
-Anything not named as shell is the product's own.
+Anything not named as shell is the product's own (owner, 15 Oct 2026). A product never needs permission to customise something this spec does not name.
 
 ## 2 The top bar
 
@@ -139,7 +139,7 @@ The words and what each screen holds are shared. How they look is the product's 
 
 | Screen | Address | Holds |
 |---|---|---|
-| **Sign in** | `/signin` | The product mark and "by AntaraX" · Continue with Google · email and password, or a one-time email link where the product offers it · "Forgot your password?" · Help (`/help`) · Privacy and Terms at the foot |
+| **Sign in** | `/signin` | The product mark and "by AntaraX" · Continue with Google · email and password, both in every product (owner, 15 Oct 2026) · "Forgot your password?" · Help (`/help`) · Privacy and Terms at the foot |
 | **Create an account** | `/signup` (where the product lets people sign themselves up) | The same, plus the plan they are starting on, by its brand kit name |
 | **Join from an invitation** | `/invite/‹code›` | "‹Person› invited you to join ‹Organisation› on ‹Product›", their role, then sign in or create an account. An expired or used link says so and offers to ask for a new one |
 | **Reset your password** | `/reset` | Email, then "If an account exists for that email, we've sent a link". It never confirms whether an account exists |
@@ -260,4 +260,4 @@ From the [inventory](../inventory/README.md). Everything else in each app stays 
 3. ~~**Help as its own button.**~~ Decided 15 Oct 2026 (§2.1).
 4. **Settings in one home.** Proposed in §4: everything under `/settings`, with shortcuts beside the work allowed. The owner is not yet sure.
 5. **What's new.** Should every product keep one, under Help?
-6. **Sign-in with Google and email for every product**, or each product's choice of methods?
+6. ~~**Sign-in methods.**~~ Decided 15 Oct 2026: Google and email in every product (§6).
