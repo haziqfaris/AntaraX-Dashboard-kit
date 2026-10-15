@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>R8 overview · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Overview" mode="r8" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="R8 · Overview" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 18px; max-width: 1320px; width: 100%; box-sizing: border-box">
+      <div><p style="margin: 0; color: #0B1B4F; font-size: 16px">The machinery behind Janka: is every job running, every outside service answering, and the setup complete.</p>
+      <p class="mono" style="margin: 0; font-size: 12px; color: #5B6488">build 7cc4b93 · deployed 15 Oct, 12:28 · matches main · checked 14:30:12 MYT</p></div>
+
+      <section aria-labelledby="op-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px"><h2 id="op-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600; display: flex; align-items: center; gap: 10px"><span style="width: 9px; height: 9px; transform: rotate(45deg); background: #FB9800; border-radius: 1px"></span>Needs an operator</h2><span class="mono" style="font-size: 12px; color: #5B6488">3 open · worst first</span></div>
+        <sc-for list="{{needs}}" as="n" hint-placeholder-count="3">
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 14px; background: #F5F7FC">
+            <span style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: {{n.tint}}; color: {{n.ink}}">{{n.level}}</span>
+            <span style="flex: 1 1 320px; display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 500">{{n.what}}</span><span class="mono" style="font-size: 12px; color: #5B6488">{{n.since}}</span></span>
+            <a href="{{n.href}}" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 10px; border: 1px solid #D5DBE7; color: #0B1B4F; font-size: 13px; font-weight: 500; text-decoration: none">{{n.fix}}</a>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="jobs-h" style="display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline"><h2 id="jobs-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600">Jobs</h2><a href="Health.dc.html" style="font-size: 13px">All jobs</a></div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px">
+          <sc-for list="{{jobs}}" as="j" hint-placeholder-count="6">
+            <div style="display: flex; flex-direction: column; gap: 3px; padding: 14px 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid {{j.border}}">
+              <span style="display: flex; align-items: center; gap: 8px; color: #0B1B4F; font-weight: 500"><span style="width: 9px; height: 9px; border-radius: 50%; background: {{j.dot}}"></span>{{j.name}}</span>
+              <sc-if value="{{j.custom}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .08em; padding: 1px 7px; border-radius: 999px; border: 1px dashed #8E9CC9; color: #3B4469">JANKA ONLY</span></sc-if>
+              <span style="font-size: 13px; font-weight: 600; color: {{j.fg}}">{{j.word}}</span>
+              <span class="mono" style="font-size: 11px; color: #5B6488">{{j.detail}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section aria-labelledby="svc-h" style="display: flex; flex-direction: column; gap: 10px">
+        <h2 id="svc-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600">Outside services</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px">
+          <sc-for list="{{services}}" as="s" hint-placeholder-count="7">
+            <div style="display: flex; flex-direction: column; gap: 3px; padding: 12px 14px; border-radius: 14px; background: {{s.bg}}; border: 1px solid {{s.border}}">
+              <span style="display: flex; align-items: center; gap: 7px; color: #0B1B4F; font-weight: 500; font-size: 13px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{s.dot}}"></span>{{s.name}}</span>
+              <span style="font-size: 12px; font-weight: 600; color: {{s.fg}}">{{s.word}}</span>
+              <span class="mono" style="font-size: 11px; color: #5B6488">{{s.detail}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+        <section aria-labelledby="cfg-h" style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+          <h2 id="cfg-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Setup: 1 thing missing</h2>
+          <sc-for list="{{config}}" as="c" hint-placeholder-count="5">
+            <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; padding: 4px 0">
+              <span aria-hidden="true" style="width: 20px; height: 20px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: {{c.bg}}; color: {{c.fg}}">{{c.mark}}</span>
+              <span style="display: flex; flex-direction: column"><span style="color: #0B1B4F">{{c.what}}</span><span style="font-size: 12px; color: #5B6488">{{c.why}}</span></span>
+            </div>
+          </sc-for>
+          <p style="margin: 0; font-size: 12px; color: #5B6488">Shows whether each setting is set, never its value.</p>
+        </section>
+        <section aria-labelledby="ops-h" style="flex: 1 1 380px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 4px">
+          <h2 id="ops-h" style="margin: 0 0 6px; color: #0B1B4F; font-size: 16px; font-weight: 600">Recent operations</h2>
+          <sc-for list="{{ops}}" as="o" hint-placeholder-count="4">
+            <div style="display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 8px 0; border-bottom: 1px solid #EEF1F6; font-size: 13px"><span class="mono" style="flex: 0 0 96px; color: #5B6488; font-size: 12px">{{o.when}}</span><span style="flex: 1 1 260px">{{o.what}}</span></div>
+          </sc-for>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var OKc = { bg: '#FFFFFF', border: '#E5E8EE', dot: '#12B76A', fg: '#067647' };
+    var WARN = { bg: '#FFFBF4', border: '#F8CD92', dot: '#F79009', fg: '#B54708' };
+    var FAULT = { bg: '#FFF8F7', border: '#F6B5AF', dot: '#F04438', fg: '#B42318' };
+    function t(st, o) { return Object.assign({}, st, o); }
+    return {
+      needs: [
+        { level: 'Failing', tint: '#FEECEB', ink: '#B42318', what: 'Gemini key answers 429, rate limited; two tasks are running on their fallback', since: 'since 13:52', fix: 'Open Models & keys', href: 'ModelsKeys.dc.html' },
+        { level: 'Stuck', tint: '#FEF4E6', ink: '#B54708', what: 'Google Sheets import for Contoh Logistik has run 2 h 30 min (usually 4 min)', since: 'started 12:00', fix: 'Open the job', href: 'Health.dc.html' },
+        { level: 'Failed', tint: '#FEF4E6', ink: '#B54708', what: 'Low-stock email digest: 3 addresses refused, 41 sent', since: '07:00', fix: 'Retry', href: 'Health.dc.html' }
+      ],
+      jobs: [
+        t(OKc, { name: 'Nightly forecast', custom: true, word: 'Done, 1 skipped', detail: '03:10 · next 16 Oct, 03:10' }),
+        t(OKc, { name: 'Forecast scoring', custom: true, word: 'Done', detail: '03:00 · next 16 Oct, 03:00' }),
+        t(WARN, { name: 'Sheets imports', custom: false, word: 'Running long', detail: '1 of 4 stuck · every 6 h' }),
+        t(WARN, { name: 'Low-stock digest', custom: false, word: 'Failed', detail: '07:00 · next 16 Oct, 07:00' }),
+        t(OKc, { name: 'Backups', custom: false, word: 'Done', detail: '03:00 · drill passed 1 Oct' }),
+        t(OKc, { name: 'Webhooks', custom: false, word: 'Done', detail: '0 failures in 7 days' })
+      ],
+      services: [
+        t(FAULT, { name: 'Google Gemini', word: 'Failing', detail: '429 since 13:52' }),
+        t(OKc, { name: 'Anthropic Claude', word: 'Up', detail: 'median 1.4 s' }),
+        t(WARN, { name: 'Email', word: 'Slow', detail: '3 bounced today' }),
+        t(OKc, { name: 'Database', word: 'Up', detail: '41% of plan' }),
+        t(OKc, { name: 'Storage', word: 'Up', detail: '18.2 of 100 GB' }),
+        t(OKc, { name: 'Sign-in', word: 'Up', detail: '212 in 30 min' }),
+        t(OKc, { name: 'Google Sheets API', word: 'Up', detail: 'quota 12% today' })
+      ],
+      config: [
+        { mark: '✓', bg: '#E7F8EF', fg: '#067647', what: 'Database and storage', why: 'Set' },
+        { mark: '✓', bg: '#E7F8EF', fg: '#067647', what: 'Email sender and reply-to', why: 'Janka <janka@antarax.ai>, replies to support' },
+        { mark: '✓', bg: '#E7F8EF', fg: '#067647', what: 'Scheduled job secret', why: 'Set; Run now works' },
+        { mark: '✓', bg: '#E7F8EF', fg: '#067647', what: 'AI providers', why: '2 keys in the vault' },
+        { mark: '!', bg: '#FEF4E6', fg: '#B54708', what: 'Two-step sign-in for every staff account', why: '1 without it: Jason Lee (Viewer). Fix in Staff' }
+      ],
+      ops: [
+        { when: '15 Oct, 13:52', what: 'Automatic switch to the fallback model for 2 tasks' },
+        { when: '15 Oct, 09:40', what: 'Aisyah Rahman ran the Sheets import for Contoh Logistik now: owner asked' },
+        { when: '14 Oct, 22:10', what: 'Mei Lin paused the low-stock digest for 1 hour: email provider maintenance' },
+        { when: '1 Oct, 10:00', what: 'Nadia Rahim recorded a restore drill: passed in 22 min' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

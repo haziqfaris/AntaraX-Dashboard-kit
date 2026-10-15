@@ -15,8 +15,8 @@
   <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; min-height: 64px; padding: 7px 10px 7px 7px; box-sizing: border-box; background: #0C1B47; border: 1px solid rgba(157,184,255,.22); border-radius: 24px; box-shadow: 0 10px 28px -18px rgba(7,18,51,.6)">
     <div style="display: flex; align-items: center; gap: 2px; padding: 4px; flex: none; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10)">
       <a href="https://antarax.ai" aria-label="AntaraX" style="display: flex; align-items: center; justify-content: center; width: 34px; height: 40px; border-radius: 12px"><img src="/_blob/0371bde7c6755085b0a2bc82707aecb3" alt="" style="width: 22px; height: 22px; display: block"></a>
-      <a href="Main.dc.html" aria-label="Janka AXLE home" style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px 0 8px; border-radius: 12px; background: rgba(255,255,255,.10); color: #FFFFFF; font-size: 17px; font-weight: 600; letter-spacing: -.02em; text-decoration: none">
-        <span style="width: 24px; height: 24px; border-radius: 6px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><img src="/_blob/8757545247be33f643590d3dcfee0bb8" alt="" style="height: 16px; display: block"></span>Janka
+      <a href="Main.dc.html" aria-label="{{product}} AXLE home" style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px 0 8px; border-radius: 12px; background: rgba(255,255,255,.10); color: #FFFFFF; font-size: 17px; font-weight: 600; letter-spacing: -.02em; text-decoration: none; white-space: nowrap">
+        <span style="width: 24px; height: 24px; border-radius: 6px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><img src="{{markUrl}}" alt="" style="max-width: 18px; max-height: 18px; display: block"></span>{{product}}
       </a>
     </div>
     <span style="flex: none; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: .12em; color: #071233; background: #FB9800; border-radius: 999px; padding: 3px 10px">AXLE</span>
@@ -40,10 +40,12 @@
   </header>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"pageTitle":{"editor":"text","default":"Overview"},"orgScope":{"editor":"text","default":"All organisations"},"initials":{"editor":"text","default":"AR"},"$preview":{"width":1200,"height":96}}'>
+<script type="text/x-dc" data-dc-script data-props='{"pageTitle":{"editor":"text","default":"Overview"},"orgScope":{"editor":"text","default":"All organisations"},"initials":{"editor":"text","default":"AR"},"product":{"editor":"enum","options":["Janka","Yara","AX Frame","Angka","PLExyz Grid","Tinara"],"default":"Janka"},"$preview":{"width":1200,"height":96}}'>
 class Component extends DCLogic {
   renderVals() {
-    return { pageTitle: this.props.pageTitle ?? 'Overview', orgScope: this.props.orgScope ?? 'All organisations', initials: this.props.initials ?? 'AR' };
+    var product = this.props.product ?? 'Janka';
+    var MARKS = { 'Janka': '/_blob/8757545247be33f643590d3dcfee0bb8', 'Yara': '/_blob/b5ffef229482a50345391de29cbfee0f', 'AX Frame': '/_blob/14ea05d2ed6655f1a0c7e460cb8fce0f', 'Angka': '/_blob/74ac0d107d262dbf7252396ab8eb230b', 'PLExyz Grid': '/_blob/39777292a881530041e7c4ac04e939a8', 'Tinara': '/_blob/cdaa47e69d5d2a13a1fb2a99e7572df9' };
+    return { pageTitle: this.props.pageTitle ?? 'Overview', orgScope: this.props.orgScope ?? 'All organisations', initials: this.props.initials ?? 'AR', product: product, markUrl: MARKS[product] || MARKS['Janka'] };
   }
 }
 </script>

@@ -11,16 +11,27 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
 <style>body{margin:0}</style>
 </helmet>
-<nav aria-label="AXLE" style="width: 240px; min-height: 1400px; height: 100%; box-sizing: border-box; background: #0C1B47; border-right: 1px solid rgba(157,184,255,.16); display: flex; flex-direction: column; gap: 4px; padding: 20px 14px 18px; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; color: #B6C3EA; font-size: 14px; line-height: 1.5">
-  <a href="Main.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 4px 8px 14px; text-decoration: none">
+<nav aria-label="AXLE" style="width: 240px; min-height: 100%; box-sizing: border-box; background: #0C1B47; border-right: 1px solid rgba(157,184,255,.16); display: flex; flex-direction: column; gap: 4px; padding: 20px 14px 18px; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; color: #B6C3EA; font-size: 14px; line-height: 1.5">
+  <a href="Main.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 4px 8px 12px; text-decoration: none">
     <img src="/_blob/24b37b892fd904da55a18f908e874613" alt="AntaraX" style="width: 30px; height: 30px">
     <span style="display: flex; flex-direction: column; line-height: 1.15">
       <span style="color: #EAF0FF; font-weight: 700; font-size: 17px; letter-spacing: .04em">AXLE</span>
       <span style="font-family: 'JetBrains Mono', monospace; color: #8E9CC9; font-size: 10px; letter-spacing: .12em; margin-top: 3px">REKA STAFF CONSOLE</span>
     </span>
   </a>
-  <sc-for list="{{groups}}" as="g" hint-placeholder-count="7">
-    <div style="display: flex; flex-direction: column; gap: 1px; margin-top: 10px">
+
+  <div role="tablist" aria-label="AXLE mode" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.10)">
+    <a href="Main.dc.html" role="tab" aria-selected="{{dashSel}}" style="{{dashTab}}">Dashboard</a>
+    <a href="R8.dc.html" role="tab" aria-selected="{{r8Sel}}" style="{{r8Tab}}">R8</a>
+  </div>
+  <div style="font-size: 11px; color: #8E9CC9; padding: 4px 8px 0">{{modeLine}}</div>
+
+  <div style="display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 0 8px">
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .12em; color: #8E9CC9">AXLE STANDARD</span>
+    <span style="flex: 1; height: 1px; background: rgba(157,184,255,.16)"></span>
+  </div>
+  <sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+    <div style="display: flex; flex-direction: column; gap: 1px; margin-top: 8px">
       <div style="font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #8E9CC9; padding: 0 10px 4px">{{g.label}}</div>
       <sc-for list="{{g.items}}" as="it" hint-placeholder-count="4">
         <a href="{{it.href}}" aria-current="{{it.current}}" style="{{it.style}}">
@@ -33,6 +44,26 @@
       </sc-for>
     </div>
   </sc-for>
+
+  <section aria-label="{{customLabel}}" style="margin-top: 16px; padding: 10px 6px 8px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1px dashed rgba(157,184,255,.30); display: flex; flex-direction: column; gap: 1px">
+    <div style="display: flex; align-items: center; gap: 8px; padding: 0 6px 6px">
+      <span style="width: 22px; height: 22px; border-radius: 6px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none"><img src="{{markUrl}}" alt="" style="max-width: 16px; max-height: 16px; display: block"></span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; letter-spacing: .1em; color: #EAF0FF; text-transform: uppercase">{{product}} only</span>
+    </div>
+    <sc-for list="{{custom}}" as="it" hint-placeholder-count="2">
+      <a href="{{it.href}}" aria-current="{{it.current}}" style="{{it.style}}">
+        <span style="width: 9px; height: 9px; transform: rotate(45deg); border-radius: 1px; flex: none; background: {{it.intan}}"></span>
+        <span style="flex: 1">{{it.label}}</span>
+        <sc-if value="{{it.hasCount}}" hint-placeholder-val="{{false}}">
+          <span aria-label="{{it.countLabel}}" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; min-width: 20px; text-align: center; padding: 1px 6px; border-radius: 999px; {{it.countStyle}}">{{it.count}}</span>
+        </sc-if>
+      </a>
+    </sc-for>
+    <sc-if value="{{noCustom}}" hint-placeholder-val="{{false}}">
+      <span style="font-size: 12px; color: #8E9CC9; padding: 2px 10px 4px">{{emptyLine}}</span>
+    </sc-if>
+  </section>
+
   <div style="margin-top: auto; padding: 16px 8px 0; border-top: 1px solid rgba(157,184,255,.16); display: flex; flex-direction: column; gap: 10px">
     <div style="display: flex; align-items: center; gap: 10px">
       <span style="width: 34px; height: 34px; border-radius: 50%; background: #13255C; color: #EAF0FF; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px">{{initials}}</span>
@@ -45,42 +76,65 @@
   </div>
 </nav>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["Overview","Health","Organisations","Plans & features","Models & keys","Live trace","Costs","Settings","Audit","Staff"],"default":"Overview"},"staffName":{"editor":"text","default":"Aisyah Rahman"},"staffRung":{"editor":"text","default":"OPERATOR"},"initials":{"editor":"text","default":"AR"},"$preview":{"width":240,"height":1400}}'>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"text","default":"Overview"},"mode":{"editor":"enum","options":["dashboard","r8"],"default":"dashboard"},"product":{"editor":"enum","options":["Janka","Yara","AX Frame","Angka","PLExyz Grid","Tinara"],"default":"Janka"},"staffName":{"editor":"text","default":"Aisyah Rahman"},"staffRung":{"editor":"text","default":"OPERATOR"},"initials":{"editor":"text","default":"AR"},"$preview":{"width":240,"height":1400}}'>
 class Component extends DCLogic {
   renderVals() {
     var active = this.props.active ?? 'Overview';
-    var PAGES = {
-      'Overview': 'Main.dc.html', 'Health': 'Health.dc.html', 'Organisations': 'Organisations.dc.html',
-      'Plans & features': 'PlansFeatures.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html',
-      'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html'
-    };
-    var navDef = [
-      ['Watch', [['Overview', 5, 'loud'], ['Health', 1, 'loud'], ['Alerts'], ['Errors', 3, 'loud'], ['Adoption']]],
-      ['Organisations', [['Organisations', 48, 'quiet'], ['Members'], ['Invitations'], ['Requests', 1, 'loud'], ['Support']]],
-      ['Janka', [['Forecast accuracy'], ['Library', 5, 'loud']]],
+    var mode = this.props.mode ?? 'dashboard';
+    var product = this.props.product ?? 'Janka';
+    var r8 = mode === 'r8';
+    var PAGES = r8
+      ? { 'Overview': 'R8.dc.html', 'Health': 'Health.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html' }
+      : { 'Overview': 'Main.dc.html', 'Organisations': 'Organisations.dc.html', 'Plans & features': 'PlansFeatures.dc.html', 'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html' };
+    var STD = r8 ? [
+      ['Operations', [['Overview', 2, 'loud'], ['Health', 1, 'loud'], ['Jobs', 1, 'loud'], ['Errors', 3, 'loud']]],
       ['AI', [['Models & keys', 1, 'loud'], ['AI usage'], ['Live trace'], ['Prompts & quality']]],
+      ['Setup', [['Configuration'], ['Alerts'], ['Backups'], ['Access']]],
+      ['Trail', [['Operations audit']]]
+    ] : [
+      ['Watch', [['Overview', 5, 'loud'], ['Adoption'], ['Feedback', 2, 'loud']]],
+      ['Organisations', [['Organisations', 48, 'quiet'], ['Members'], ['Invitations'], ['Requests', 1, 'loud'], ['Support']]],
       ['Money', [['Plans & features'], ['Billing'], ['Costs']]],
-      ['Platform', [['Announcements'], ['Help content'], ['Demo'], ['Access'], ['Settings']]],
+      ['Platform', [['Announcements'], ['Help content'], ['Demo'], ['Settings']]],
       ['Trail', [['Audit'], ['Staff'], ['AXLE guide']]]
     ];
-    var groups = navDef.map(function (g) {
-      return { label: g[0], items: g[1].map(function (it) {
-        var on = active === it[0];
-        var loud = it[2] === 'loud';
-        var mocked = !!PAGES[it[0]];
-        return {
-          label: it[0], href: PAGES[it[0]] || '#',
-          current: on ? 'page' : undefined,
-          intan: on ? '#FB9800' : 'transparent',
-          style: 'display:flex;align-items:center;gap:10px;min-height:36px;padding:0 10px;border-radius:10px;font-size:14px;text-decoration:none;' +
-            (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;box-shadow:inset 3px 0 0 #FB9800;' : (mocked ? 'color:#EAF0FF;' : 'color:#B6C3EA;')),
-          hasCount: it[1] != null, count: it[1],
-          countLabel: it[1] + (loud ? ' need a person' : ' in total'),
-          countStyle: loud ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;'
-        };
-      }) };
-    });
-    return { groups: groups, staffName: this.props.staffName ?? 'Aisyah Rahman', staffRung: this.props.staffRung ?? 'OPERATOR', initials: this.props.initials ?? 'AR' };
+    var P = {
+      'Janka': { mark: '/_blob/8757545247be33f643590d3dcfee0bb8', d: [['Forecast accuracy'], ['Reference library', 5, 'loud'], ['Learning']], r: [['Nightly forecast']] },
+      'Yara': { mark: '/_blob/b5ffef229482a50345391de29cbfee0f', d: [['Data integrity', 2, 'loud'], ['Modules']], r: [['Status API'], ['Deploys']] },
+      'AX Frame': { mark: '/_blob/14ea05d2ed6655f1a0c7e460cb8fce0f', d: [['AI connections'], ['Customer health', 4, 'loud'], ['Catalog']], r: [['Visual'], ['Troubleshoot']] },
+      'Angka': { mark: '/_blob/74ac0d107d262dbf7252396ab8eb230b', d: [['Lapis'], ['Weekly brief']], r: [['Runs']] },
+      'PLExyz Grid': { mark: '/_blob/39777292a881530041e7c4ac04e939a8', d: [], r: [] },
+      'Tinara': { mark: '/_blob/cdaa47e69d5d2a13a1fb2a99e7572df9', d: [['Scoring & metrics'], ['Data sources'], ['Intelligence ledger']], r: [] }
+    };
+    var p = P[product] || P['Janka'];
+    function item(it) {
+      var on = active === it[0];
+      var loud = it[2] === 'loud';
+      var linked = !!PAGES[it[0]];
+      return {
+        label: it[0], href: PAGES[it[0]] || '#',
+        current: on ? 'page' : undefined,
+        intan: on ? '#FB9800' : 'transparent',
+        style: 'display:flex;align-items:center;gap:10px;min-height:36px;padding:0 10px;border-radius:10px;font-size:14px;text-decoration:none;' +
+          (on ? 'background:rgba(251,152,0,.12);color:#FB9800;font-weight:600;box-shadow:inset 3px 0 0 #FB9800;' : (linked ? 'color:#EAF0FF;' : 'color:#B6C3EA;')),
+        hasCount: it[1] != null, count: it[1],
+        countLabel: it[1] + (loud ? ' need a person' : ' in total'),
+        countStyle: loud ? 'background:#FB9800;color:#071233;font-weight:600;' : 'background:#13255C;color:#B6C3EA;'
+      };
+    }
+    var groups = STD.map(function (g) { return { label: g[0], items: g[1].map(item) }; });
+    var custom = (r8 ? p.r : p.d).map(item);
+    var TAB = 'display:flex;align-items:center;justify-content:center;min-height:36px;border-radius:9px;font-size:13px;text-decoration:none;';
+    return {
+      groups: groups, custom: custom, noCustom: custom.length === 0, product: product, markUrl: p.mark,
+      customLabel: product + ' only',
+      emptyLine: 'No ' + product + '-only pages ' + (r8 ? 'in R8' : 'here') + '. Everything above is the standard.',
+      dashSel: r8 ? 'false' : 'true', r8Sel: r8 ? 'true' : 'false',
+      dashTab: TAB + (r8 ? 'color:#B6C3EA;' : 'background:#FB9800;color:#071233;font-weight:600;'),
+      r8Tab: TAB + (r8 ? 'background:#FB9800;color:#071233;font-weight:600;' : 'color:#B6C3EA;'),
+      modeLine: r8 ? 'The machinery: jobs, services, AI, setup' : 'The business: organisations, people, money',
+      staffName: this.props.staffName ?? 'Aisyah Rahman', staffRung: this.props.staffRung ?? 'OPERATOR', initials: this.props.initials ?? 'AR'
+    };
   }
 }
 </script>

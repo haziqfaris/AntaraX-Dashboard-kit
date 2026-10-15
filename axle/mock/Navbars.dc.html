@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>AXLE navbars per product</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7}
+</style>
+</helmet>
+<div style="width: 1800px; min-height: 3000px; box-sizing: border-box; padding: 48px 50px 60px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 36px">
+
+  <header style="display: flex; flex-direction: column; gap: 10px; max-width: 1100px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">One AXLE, six products</h1>
+    <p style="margin: 0; font-size: 16px">Every product's AXLE has the same two modes and the same standard pages in the same places. What only one product has sits in its own box at the end, so the standard never moves.</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 13px; margin-top: 4px">
+      <span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 38px; height: 20px; border-radius: 6px; background: #0C1B47"></span>AXLE standard: every product, same names, same order</span>
+      <span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 38px; height: 20px; border-radius: 6px; background: #0C1B47; box-shadow: inset 0 0 0 1px rgba(157,184,255,.6); outline: 1px dashed #8E9CC9; outline-offset: -4px"></span>Product only: in a dashed box under the product's mark</span>
+      <span style="display: inline-flex; align-items: center; gap: 8px"><span style="padding: 1px 8px; border-radius: 8px; background: #FB9800; color: #071233; font-weight: 600; font-size: 12px">Dashboard</span> the business · <span style="padding: 1px 8px; border-radius: 8px; background: #FB9800; color: #071233; font-weight: 600; font-size: 12px">R8</span> the machinery</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="tb-h" style="display: flex; flex-direction: column; gap: 6px">
+    <h2 id="tb-h" style="margin: 0 0 6px; color: #0B1B4F; font-size: 20px; font-weight: 600">The top bar: only the product chip changes</h2>
+    <sc-for list="{{products}}" as="p" hint-placeholder-count="6">
+      <div style="width: 1240px; max-width: 100%"><dc-import name="TopBar" product="{{p.name}}" page-title="Overview" hint-size="1240px,80px"></dc-import></div>
+    </sc-for>
+  </section>
+
+  <section aria-labelledby="dm-h" style="display: flex; flex-direction: column; gap: 12px">
+    <h2 id="dm-h" style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">Dashboard mode: the business</h2>
+    <div style="display: flex; gap: 40px; align-items: flex-start">
+      <sc-for list="{{products}}" as="p" hint-placeholder-count="6">
+        <div style="flex: none; width: 240px; display: flex; flex-direction: column; gap: 8px">
+          <span style="color: #0B1B4F; font-weight: 600">{{p.name}}</span>
+          <span style="font-size: 12px; color: #5B6488; min-height: 36px">{{p.dashNote}}</span>
+          <div style="border-radius: 16px; overflow: hidden; background: #0C1B47"><dc-import name="Sidebar" product="{{p.name}}" mode="dashboard" active="Overview" hint-size="240px,1150px"></dc-import></div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-labelledby="r8-h" style="display: flex; flex-direction: column; gap: 12px">
+    <h2 id="r8-h" style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">R8 mode: the machinery</h2>
+    <div style="display: flex; gap: 40px; align-items: flex-start">
+      <sc-for list="{{products}}" as="p" hint-placeholder-count="6">
+        <div style="flex: none; width: 240px; display: flex; flex-direction: column; gap: 8px">
+          <span style="color: #0B1B4F; font-weight: 600">{{p.name}}</span>
+          <span style="font-size: 12px; color: #5B6488; min-height: 36px">{{p.r8Note}}</span>
+          <div style="border-radius: 16px; overflow: hidden; background: #0C1B47"><dc-import name="Sidebar" product="{{p.name}}" mode="r8" active="Overview" hint-size="240px,1000px"></dc-import></div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1800,"height":3000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      products: [
+        { name: 'Janka', dashNote: 'Forecast accuracy, the reference photo library and learning', r8Note: 'The nightly forecast run' },
+        { name: 'Yara', dashNote: 'Data integrity checks and paid modules', r8Note: 'Status API keys and deploys' },
+        { name: 'AX Frame', dashNote: 'AI connections, customer site health and the catalog', r8Note: 'Screenshots (Visual) and Troubleshoot' },
+        { name: 'Angka', dashNote: 'Lapis and the weekly brief', r8Note: 'Runs' },
+        { name: 'PLExyz Grid', dashNote: 'Nothing of its own today: the standard covers it', r8Note: 'Nothing of its own today' },
+        { name: 'Tinara', dashNote: 'Scoring, data sources and the intelligence ledger', r8Note: 'Nothing of its own today' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

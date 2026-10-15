@@ -1,6 +1,6 @@
 # AXLE mock
 
-Every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v0.3 with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
+Every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v0.4 with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
 
 - Live canvas (private until shared): https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr. Press Play on any page; the sidebar links move between pages.
 - The logos load from the canvas's asset store, so open the pages there rather than from disk.
@@ -19,5 +19,7 @@ Every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v0.3 with AXLE · Janka
 | `Audit.dc.html` | Audit | Filters, export, before and after on every row (§10.8) |
 | `Staff.dc.html` | Staff | The ladder, rights, two-step sign-in, controls disabled with "Needs Admin" (§5.2) |
 | `Settings.dc.html` | Settings | Platform switches, each asking for a reason first (§8.6, §13.2) |
+| `R8.dc.html` | R8 Overview | The machinery: needs an operator, jobs, outside services, setup checklist, recent operations (§8.1) |
+| `Navbars.dc.html` | Navbars per product | The top bar and both sidebar modes for Janka, Yara, AX Frame, Angka, PLExyz Grid and Tinara: AXLE standard above, the dashed product-only box below (§7) |
 | `Costs.dc.html` | Costs, without the Finance right | The gate card and dashes instead of zeros (§5.2, §13.1) |
-| `Sidebar.dc.html`, `TopBar.dc.html` | Shared | The sidebar and the AntaraX top bar every page imports |
+| `Sidebar.dc.html`, `TopBar.dc.html` | Shared | The sidebar and the AntaraX top bar every page imports; both take the product, and the sidebar takes the mode (Dashboard or R8) |
