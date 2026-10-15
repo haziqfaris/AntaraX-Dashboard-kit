@@ -31,7 +31,7 @@ The live mock is a private claude.ai canvas (https://claude.ai/artifact/BnCgM4zv
   - Assist (§9);
   - Send feedback (§10);
   - dialogs, toasts, errors and empty states (§11);
-  - the footer on public share pages (§12).
+  - the footer on public share pages (§14).
 
 ## Everything else is the product's
 
