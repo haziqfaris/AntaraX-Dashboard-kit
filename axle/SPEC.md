@@ -1,6 +1,6 @@
 # AXLE standard
 
-**Version 0.6, draft, 15 Oct 2026.** This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`.
+**Version 1.0, the standard (owner, 15 Oct 2026).** This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
 
 It merges two sources:
 

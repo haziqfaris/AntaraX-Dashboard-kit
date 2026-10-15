@@ -1,0 +1,77 @@
+/*
+  AXLE tokens: the values every product's AXLE uses, from axle/SPEC.md v1.0.
+  Copy this file into the product (or import it) and build AXLE screens from these names only.
+  A colour that is not here is not part of AXLE: raise it, don't add it in the product.
+  Brand values come from the AntaraX brand kit; AXLE-only values were decided on 15 Oct 2026
+  (brand kit guide/10-decisions-log.md).
+*/
+
+.axle-root {
+  /* Type */
+  --axle-font: Poppins, ui-sans-serif, system-ui, sans-serif;
+  --axle-mono: "JetBrains Mono", ui-monospace, Menlo, monospace; /* every number, tabular-nums */
+
+  /* The bars: sidebar, top bar, phone drawer (dark) */
+  --axle-bar: #071233;
+  --axle-bar-raised: #0C1B47;          /* sidebar ground, top bar card */
+  --axle-bar-ink: #EAF0FF;             /* page names, the AXLE word */
+  --axle-bar-body: #B6C3EA;
+  --axle-bar-muted: #8E9CC9;           /* previews, captions, chevrons */
+  --axle-bar-line: rgba(157, 184, 255, .16);
+  --axle-bar-card: rgba(255, 255, 255, .035);       /* a sidebar group card */
+  --axle-bar-card-line: rgba(157, 184, 255, .10);
+  --axle-bar-focus: #4D84FE;
+
+  /* REKA orange: needs a person, and where you are. Nothing else. */
+  --axle-orange: #FB9800;
+  --axle-on-orange: #071233;
+  --axle-current-bg: rgba(251, 152, 0, .16);         /* the current page: tint, orange text, intan; never a side stripe */
+
+  /* Sidebar group colours: mark an area, never a status. Icon tile = the colour at 16%. */
+  --axle-group-watch: #7FA4FF;
+  --axle-group-organisations: #5ED3C9;
+  --axle-group-ai: #B7A8FF;
+  --axle-group-money: #E3C25E;
+  --axle-group-platform: #F2A0CB;
+  --axle-group-operations: #8FD3FF;
+  --axle-group-trail: #C4CDE8;
+  --axle-group-command: #7FA4FF;       /* R8 */
+  --axle-group-observe: #5ED3C9;       /* R8 */
+  --axle-group-system: #B7A8FF;        /* R8 */
+  --axle-group-control: #C4CDE8;       /* R8, Control and diagnostics */
+
+  /* The page (light) */
+  --axle-page: #F5F7FC;
+  --axle-card: #FFFFFF;
+  --axle-card-line: #E5E8EE;
+  --axle-row-line: #EEF1F6;
+  --axle-control-line: #D5DBE7;
+  --axle-text-strong: #0B1B4F;
+  --axle-text: #3B4469;
+  --axle-text-muted: #5B6488;
+  --axle-text-disabled: #8A93AE;
+  --axle-link: #0459F7;
+  --axle-link-hover: #002EB2;
+  --axle-focus: #0459F7;
+  --axle-selected-row: #FFF6E8;       /* selected list row: tint and an orange border, no side stripe */
+
+  /* Status: only on a real signal, always with a word */
+  --axle-ok: #12B76A;     --axle-ok-tint: #E7F8EF;    --axle-ok-text: #067647;
+  --axle-warn: #F79009;   --axle-warn-tint: #FEF4E6;  --axle-warn-text: #B54708;
+  --axle-fault: #F04438;  --axle-fault-tint: #FEECEB; --axle-fault-text: #B42318;
+
+  /* Charts on the light page */
+  --axle-chart-1: #2a78d6;
+  --axle-chart-2: #1baf7a;
+  --axle-chart-3: #eb6834;
+  --axle-chart-4: #6250d6;
+
+  /* Shape and size */
+  --axle-sidebar-width: 240px;
+  --axle-topbar-height: 64px;          /* 58px on phones */
+  --axle-topbar-radius: 24px;          /* 20px on phones */
+  --axle-card-radius: 20px;
+  --axle-nav-card-radius: 12px;
+  --axle-control-radius: 12px;
+  --axle-target: 44px;                 /* every control on touch; the main action everywhere */
+}
