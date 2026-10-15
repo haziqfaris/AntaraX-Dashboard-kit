@@ -1,0 +1,1477 @@
+{
+  "product": "AX Frame",
+  "repo": "haziqfaris/axframe",
+  "commit": "a0ae746",
+  "stack": "Next.js 16 (App Router, Turbopack) + React 19 + TypeScript, Tailwind 4 plus hand-written CSS, Supabase (Postgres, Auth, RLS, Realtime), lucide-react icons, Stripe",
+  "surfaces": [
+    {
+      "surface": "customer",
+      "name": "AX Frame customer app, desktop (Ledger altitude)",
+      "host_or_route": "frame.antarax.ai / (signed in); view in ?v=",
+      "entry_files": [
+        "src/app/page.tsx:11",
+        "src/App.tsx:267",
+        "src/App.tsx:271 (sidebar)",
+        "src/App.tsx:276 (nav render)",
+        "src/App.tsx:285 (pinned item)",
+        "src/App.tsx:286 (profile footer)",
+        "src/App.tsx:308 (top bar)",
+        "src/features/shell/pageMeta.ts:40 (PAGE_META)",
+        "src/features/shell/pageMeta.ts:173 (NAV_LAYOUT)",
+        "src/features/shell/BrandPill.tsx:11",
+        "src/components/ProfileMenu.tsx:8",
+        "src/components/NotificationBell.tsx",
+        "src/features/shell/desktop.css:7"
+      ],
+      "layout": "Left sidebar 240px (white, right border) + fluid main. Floating white top-bar card (min-height 64px, radius 24px, 12px/26px margin) above an inner scroller; content max-width 1240px (--pg-max), padding 24px 26px. Breakpoint 860px switches to the mobile shell (useNarrow).",
+      "brand": {
+        "logo": "Sidebar: BrandMark variant 'breathe' 36px (public/brand/mark-breathe.svg, A + Frame icon). Top bar: BrandPill = grey pill with AntaraX 'A' (public/brand/antarax-mark.svg, links to https://antarax.ai) + white chip with Frame mark (mark-tight.svg) and 'AX Frame' (links home).",
+        "name_text": "AX Frame",
+        "eyebrow": "none (sidebar sub-line 'Digital asset ledger')",
+        "credit_line": "none in app chrome (sign-in shows 'AX Frame by AntaraX')",
+        "other": "Page title + icon chip + one-line description from PAGE_META sit in the top bar beside the brand pill."
+      },
+      "nav_groups": [
+        {
+          "label": "(top, unlabelled)",
+          "items": [
+            {
+              "label": "Insight",
+              "route": "/?v=insight (default)",
+              "icon": "lucide Gauge 16px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Health",
+              "route": "/?v=health",
+              "icon": "lucide HeartPulse 16px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Projects",
+              "route": "/?v=projects",
+              "icon": "lucide Sparkles 16px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Estate",
+          "items": [
+            {
+              "label": "Estate map",
+              "route": "/?v=map",
+              "icon": "lucide Workflow 16px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Ledger",
+              "route": "/?v=ledger",
+              "icon": "lucide Table2 16px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Tidy up",
+              "route": "/?v=tidy",
+              "icon": "lucide ListChecks 16px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "count of tidy steps to go (tidy.toGo), blue-soft chip, hidden at 0",
+              "children": []
+            },
+            {
+              "label": "Stacks & Systems",
+              "route": "/?v=systems",
+              "icon": "lucide Network 16px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Money",
+          "items": [
+            {
+              "label": "Spend",
+              "route": "/?v=executive",
+              "icon": "lucide LineChart 16px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Savings",
+              "route": "/?v=savings",
+              "icon": "lucide HandCoins 16px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Renewals",
+              "route": "/?v=renewals",
+              "icon": "lucide CalendarClock 16px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Vendors & Groups",
+              "route": "/?v=vendors",
+              "icon": "lucide Building2 16px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": [
+                {
+                  "label": "Vendors (tab)",
+                  "route": "/?v=vendors"
+                },
+                {
+                  "label": "Groups (tab)",
+                  "route": "/?v=groups"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "(pinned at sidebar foot)",
+          "items": [
+            {
+              "label": "Connect your AI",
+              "route": "/?v=ai",
+              "icon": "lucide Bot 16px (violet #7A5AF8 pill, filled when active)",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "(profile menu, not in nav)",
+          "items": [
+            {
+              "label": "Profile",
+              "route": "drawer (ProfileSheet)",
+              "icon": "lucide User 14px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Billing",
+              "route": "/?v=billing",
+              "icon": "lucide CreditCard 14px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "billing actions owner-only (lib/billing/billingAuthority.ts)",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Notifications",
+              "route": "/?v=notifications",
+              "icon": "lucide Bell 14px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Support & FAQ",
+              "route": "/?v=faq",
+              "icon": "lucide HelpCircle 14px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Workspace",
+              "route": "/?v=workspace",
+              "icon": "lucide Users2 14px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Reconcile",
+              "route": "/?v=reconcile (reached from Insight 'Needs you' and Tidy up, not in nav)",
+              "icon": "lucide Shapes",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none global (Ledger has its own 'Search the ledger')",
+        "command_palette": "none",
+        "notifications": "Bell in top bar, 44px round, red unread count badge, dropdown with 'Mark all read' and 'What you get, and how to change it →'",
+        "help": "'Support & FAQ' in profile menu; per-page HelpCircle 'Show what this page is for' re-shows dismissed page intros",
+        "guide": "none (/guide and /help do not exist)",
+        "org_switcher": "'Switch workspace' list inside profile menu (only if >1 workspace)",
+        "product_switcher": "none; AntaraX 'A' in BrandPill links out to antarax.ai",
+        "create_button": "'Add asset' primary (44px, Frame blue) with menu: Is my website up? · Something I pay for · Import what you have · Connect your AI · Something else (full form). Demoted to secondary on Stacks & Systems, Groups, Projects.",
+        "ai_entry": "'Connect your AI' pinned violet item; 'Connect your AI' quick-start; AI sparkle (components/AiSparkle.tsx) marks AI work only",
+        "theme_toggle": "none (light only)",
+        "language": "none (English only)",
+        "user_menu": [
+          "Profile",
+          "Billing",
+          "Notifications",
+          "Support & FAQ",
+          "Workspace",
+          "Switch workspace (list, only when member of >1)",
+          "Sign out (confirm modal 'Sign out?')"
+        ],
+        "sign_out": "profile menu, red, then confirm modal",
+        "plan_badge": "none in chrome",
+        "env_badge": "none",
+        "impersonation": "none",
+        "other": [
+          "EarlyAccessNote: fixed bottom-right card 'Early access: every paid feature is unlocked…' while AXLE open-access is on (desktop only, dismissible per workspace)",
+          "LoadErrorBanner (names failed reads)",
+          "BillingReturnNotice (after Stripe)",
+          "Back chevron in top bar on detail views",
+          "Page intro panels (dismissible) per screen"
+        ]
+      },
+      "responsive": "Above 860px only. No collapsible rail; sidebar is fixed 240px.",
+      "active_state": "Nav item: background --blue-soft #E4EDFF, text and icon --blue #074AF8, weight 600, radius 9px. Parent stays lit for child screens (Groups lights Vendors & Groups). Pinned AI item active: solid #7A5AF8 with white text.",
+      "colours": {
+        "action": "#074AF8 (--blue), hover #002EB2",
+        "focus": "#0459F7 (--focus)",
+        "indigo": "#524FE9",
+        "ink": "#0B1B4F / #3B4469 / #5B6488",
+        "line": "#E5E8EE",
+        "canvas": "#F9FAFD",
+        "status": "ok #12B76A, warn #F79009, fault #F04438",
+        "charts": "#074AF8 #13A8A0 #EB6834 #D9579C #B98A12",
+        "hardcoded": "#7A5AF8 / #F6F3FF / #EFE9FF (Connect your AI), #3B82F6 (avatar gradient)"
+      },
+      "fonts": "Poppins 400-700 (UI); JetBrains Mono for numbers and section labels (9.5px uppercase, 1.4px tracking)",
+      "a11y": "Top-bar buttons: 2px --focus outline, offset 2. Bell has aria-label with unread count. Nav buttons have no aria-current. Reduced motion handled in 22 CSS blocks (globals.css:153 etc.).",
+      "role_variants": "Workspace roles owner/member: same nav for both; billing actions owner-only inside the Billing screen. No plan gating in nav (limits shown in-screen).",
+      "dashboard": {
+        "route": "/ (?v=insight)",
+        "file": "src/features/overview/Overview.tsx:45",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "Good morning, <first name>",
+            "detail": "Sub-line is the attention headline ('1 overdue, 2 due soon') or 'Everything is running and nothing is due.'; optional 'Could save RM…/mo · see Savings →' link"
+          },
+          {
+            "order": 2,
+            "kind": "quick-actions",
+            "title": "Quick start / Add more",
+            "detail": "Four quick starts (Is my website up?, Something I pay for, Import what you have, Connect your AI). Big cards for new accounts, slim 'Add more' chip row once 3+ things are tracked; opening one grows a QuickPanel in place."
+          },
+          {
+            "order": 3,
+            "kind": "other",
+            "title": "Tidy up your estate (TidyCard)",
+            "detail": "Shown when 3+ tracked and steps remain: progress ring (% tidy, N to go) + 4 step cards (Connect what each relies on, Fix records, Put things in projects, Finish the details) with counts and Start/Review"
+          },
+          {
+            "order": 4,
+            "kind": "kpi",
+            "title": "Is it up?",
+            "detail": "Uptime status ('All up', N of N answering), daily bars, 'N watched →' to Health. Dashed blue 'EXAMPLE' blueprint until real data exists."
+          },
+          {
+            "order": 5,
+            "kind": "chart",
+            "title": "What you pay",
+            "detail": "Donut by category + monthly total grouped by currency (RM178 + US$166)"
+          },
+          {
+            "order": 6,
+            "kind": "chart",
+            "title": "Coming up",
+            "detail": "90-day calendar grid with renewal squares + next renewals list"
+          },
+          {
+            "order": 7,
+            "kind": "alert",
+            "title": "Needs you",
+            "detail": "Attention list (overdue fault dot, expiring warn dot) + Reconcile row with count"
+          },
+          {
+            "order": 8,
+            "kind": "kpi",
+            "title": "1 What you have",
+            "detail": "Assets tracked count, status chips (active / on trial / half-described / cancelled) linking to filtered Ledger, category stacked bar + legend, 'Open the Ledger'"
+          },
+          {
+            "order": 9,
+            "kind": "kpi",
+            "title": "2 What it costs",
+            "detail": "Every month / Every year totals, SpendForPeriod with period select (This month), Expected vs Recorded, 'Where it goes' roll-up bars by System / Stack / Loose"
+          },
+          {
+            "order": 10,
+            "kind": "other",
+            "title": "3 How it fits together",
+            "detail": "Read-only MiniMap of systems/stacks/assets, 'Open the map'; empty state 'Nothing is composed yet.'"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "customer",
+      "name": "AX Frame customer app, phone (Insight altitude)",
+      "host_or_route": "frame.antarax.ai / at width <= 860px (mScreen state, same URLs)",
+      "entry_files": [
+        "src/App.tsx:390 (mobile shell)",
+        "src/App.tsx:447 (tab bar)",
+        "src/features/insight/InsightScreen.tsx:46",
+        "src/features/insight/InsightScreen.tsx:69 (app bar)",
+        "src/features/insight/insight.css:145 (tab bar css)",
+        "src/features/blueprint/ActionChooser.tsx",
+        "src/hooks/useNarrow.ts:3"
+      ],
+      "layout": "Single column max 430px centred; top app bar card (min-height 58px) only on Insight; fixed bottom tab bar 82px (blurred, top border) with centre 50px blue '+' button. Other screens use BackLink + page title.",
+      "brand": {
+        "logo": "BrandPill (AntaraX A + Frame mark chip 'AX Frame') in app bar",
+        "name_text": "AX Frame",
+        "eyebrow": "'DIGITAL ASSETS' (mono, over halo count)",
+        "credit_line": "none",
+        "other": "Workspace row under the bar: initials tile, workspace name, '<Month> · All groups'"
+      },
+      "nav_groups": [
+        {
+          "label": "Bottom tab bar (82px)",
+          "items": [
+            {
+              "label": "Insight",
+              "route": "mScreen=insight",
+              "icon": "lucide House 22px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Assets",
+              "route": "mScreen=assets",
+              "icon": "lucide LayoutGrid 22px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "+ (add)",
+              "route": "opens ActionChooser sheet",
+              "icon": "lucide Plus 24px in 50px blue rounded square, no aria-label",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": [
+                {
+                  "label": "Is my website up?"
+                },
+                {
+                  "label": "Something I pay for"
+                },
+                {
+                  "label": "Import what you have"
+                },
+                {
+                  "label": "Connect your AI"
+                },
+                {
+                  "label": "Something else"
+                },
+                {
+                  "label": "New project"
+                },
+                {
+                  "label": "New stack or system"
+                }
+              ]
+            },
+            {
+              "label": "Renewals",
+              "route": "mScreen=renewals",
+              "icon": "lucide CalendarClock 22px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Vendors",
+              "route": "mScreen=vendors (Groups reached from here)",
+              "icon": "lucide Building2 22px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Insight app bar (top)",
+          "items": [
+            {
+              "label": "Estate map",
+              "route": "mScreen=map",
+              "icon": "lucide Workflow 18px, 44px round",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Notifications",
+              "route": "bell sheet",
+              "icon": "lucide Bell, unread badge",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Profile & settings",
+              "route": "avatar initial, ProfileMenu drop-down",
+              "icon": "initial letter, 44px",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Insight entry cards (in page)",
+          "items": [
+            {
+              "label": "Tidy up your estate",
+              "route": "mScreen=tidy",
+              "icon": "lucide ListChecks",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "% tidy, N to go",
+              "children": []
+            },
+            {
+              "label": "N things to reconcile",
+              "route": "mScreen=reconcile",
+              "icon": "lucide Shapes",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "count; hidden at 0",
+              "children": []
+            },
+            {
+              "label": "Estate map",
+              "route": "mScreen=map",
+              "icon": "lucide Workflow",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Projects / New project",
+              "route": "mScreen=projects",
+              "icon": "lucide Sparkles",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Could save …/mo",
+              "route": "mScreen=savings",
+              "icon": "lucide HandCoins",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Is it up? N watched →",
+              "route": "mScreen=health",
+              "icon": "link",
+              "roles": [
+                "owner",
+                "member"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none global (Assets and Vendors have their own search)",
+        "command_palette": "none",
+        "notifications": "Bell in app bar, opens a sheet",
+        "help": "Support & FAQ in avatar menu",
+        "guide": "none",
+        "org_switcher": "Switch workspace in avatar menu",
+        "product_switcher": "none",
+        "create_button": "Centre '+' in tab bar opens ActionChooser sheet 'Add to your workspace'",
+        "ai_entry": "AskBox under the halo (sparkle, 'A website, or \"Canva 50 monthly\"…') routes to a quick start; 'Your AI' quick start",
+        "theme_toggle": "none",
+        "language": "none",
+        "user_menu": [
+          "Profile",
+          "Billing",
+          "Notifications",
+          "Support & FAQ",
+          "Workspace",
+          "Switch workspace (list, only when member of >1)",
+          "Sign out (confirm modal 'Sign out?')"
+        ],
+        "sign_out": "avatar menu, then confirm",
+        "plan_badge": "none (Profile sheet mentions early access)",
+        "env_badge": "none",
+        "impersonation": "none",
+        "other": [
+          "InstallPrompt (PWA)",
+          "Quick starts open full-screen"
+        ]
+      },
+      "responsive": "useNarrow() at max-width 860px swaps the whole shell (server renders desktop first). Between 430 and 860px a phone-width column is centred.",
+      "active_state": "Tab: icon and label --blue #074AF8; inactive --ink-3. Labels 10px 600.",
+      "colours": {
+        "action": "#074AF8",
+        "tab_bar_bg": "rgba(251,252,254,.9) + blur",
+        "avatar": "gradient #074AF8 to #3B82F6 (hard-coded)"
+      },
+      "fonts": "Poppins; JetBrains Mono for numbers and eyebrows",
+      "a11y": "App bar avatar has focus-visible ring (--focus). Tab buttons have visible text but no aria-current; '+' tab button has no accessible name. Halo cubes stop for reduced motion (insight.css:181).",
+      "role_variants": "None.",
+      "dashboard": {
+        "route": "/ (mScreen=insight)",
+        "file": "src/features/insight/InsightScreen.tsx:46",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "other",
+            "title": "App bar",
+            "detail": "BrandPill, Estate map, bell, avatar"
+          },
+          {
+            "order": 2,
+            "kind": "other",
+            "title": "Workspace row",
+            "detail": "initials tile, name, month · All groups"
+          },
+          {
+            "order": 3,
+            "kind": "kpi",
+            "title": "Halo hero",
+            "detail": "Breathing asset-cube halo with 'DIGITAL ASSETS' count; caption 'tracked across N groups · N vendors'; health chip (All healthy / Attention / Action needed + headline) to Renewals"
+          },
+          {
+            "order": 4,
+            "kind": "quick-actions",
+            "title": "Quick start",
+            "detail": "Website · I pay for · Import · Your AI (2x2 when new, 4 small buttons when established)"
+          },
+          {
+            "order": 5,
+            "kind": "other",
+            "title": "AskBox",
+            "detail": "sparkle input that routes to a quick start"
+          },
+          {
+            "order": 6,
+            "kind": "kpi",
+            "title": "Is it up?",
+            "detail": "same section as desktop"
+          },
+          {
+            "order": 7,
+            "kind": "chart",
+            "title": "What you pay",
+            "detail": "donut + totals by currency"
+          },
+          {
+            "order": 8,
+            "kind": "chart",
+            "title": "Coming up",
+            "detail": "90-day grid"
+          },
+          {
+            "order": 9,
+            "kind": "alert",
+            "title": "Needs you",
+            "detail": "attention list"
+          },
+          {
+            "order": 10,
+            "kind": "feed",
+            "title": "AX Frame · Understand",
+            "detail": "rule-based sentence with warn/fault highlights"
+          },
+          {
+            "order": 11,
+            "kind": "alert",
+            "title": "N assets need attention",
+            "detail": "only when something is down"
+          },
+          {
+            "order": 12,
+            "kind": "other",
+            "title": "Entry cards",
+            "detail": "Could save, Tidy up your estate, N things to reconcile, Estate map, Projects"
+          },
+          {
+            "order": 13,
+            "kind": "table",
+            "title": "Your assets · N",
+            "detail": "horizontal card carousel (8, overdue/expiring first) with logo, status dot, group, cost/mo, renewal chip; trailing 'Add asset'; 'See all →'"
+          },
+          {
+            "order": 14,
+            "kind": "kpi",
+            "title": "Total monthly spend",
+            "detail": "by currency + per year"
+          },
+          {
+            "order": 15,
+            "kind": "chart",
+            "title": "Renewal runway · 12 weeks",
+            "detail": "weekly bar chart, taps to Renewals"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "axle",
+      "name": "AXLE · AX Frame (REKA operator console)",
+      "host_or_route": "/admin on the AXLE host (NEXT_PUBLIC_ADMIN_HOST; production axle-antarax.vercel.app). Customer host redirects /admin there.",
+      "entry_files": [
+        "src/app/admin/layout.tsx:13",
+        "src/features/adminui/AdminShell.tsx:15",
+        "src/features/adminui/AdminNav.tsx:9 (DASHBOARD sections)",
+        "src/features/adminui/AdminNav.tsx:15 (R8 sections)",
+        "src/features/adminui/AdminNav.tsx:28 (ModeSwitch)",
+        "src/features/adminui/admin.css:18 (dark tokens)",
+        "src/features/adminui/admin.css:40 (sidebar)",
+        "src/features/adminui/admin.css:54 (mobile drawer)",
+        "src/lib/admin/auth.ts:9 (roles)",
+        "src/middleware.ts:74 (host split)",
+        "src/features/adminui/DeniedGate.tsx:8",
+        "src/features/auth/AxleLogin.tsx"
+      ],
+      "layout": "Dark-only. Sticky left sidebar 230px (raised #0C1B47 with dotted blueprint ground) + fluid main (padding 28px 34px, content max 1240px). No top bar. Below 860px the sidebar becomes a 250px (max 84vw) off-canvas drawer over a scrim, opened by a fixed 38px hamburger top-left; close X in the brand row.",
+      "brand": {
+        "logo": "BrandMark variant 'morph' 36px, onDark (A + Frame icon)",
+        "name_text": "AXLE",
+        "eyebrow": "'AX FRAME' (mono uppercase, 10px) under AXLE",
+        "credit_line": "none",
+        "other": "Footer: staff email + role chip (mono, orange, e.g. ADMIN) + '← Back to AX Frame'. Page metadata title 'AXLE · AX Frame'."
+      },
+      "nav_groups": [
+        {
+          "label": "Mode switch (segmented tabs)",
+          "items": [
+            {
+              "label": "Dashboard",
+              "route": "/admin?mode=dashboard",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "R8",
+              "route": "/admin/r8",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Pulse (Dashboard mode)",
+          "items": [
+            {
+              "label": "Overview",
+              "route": "/admin",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Analytics",
+              "route": "/admin/analytics",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "AI connections",
+              "route": "/admin/ai",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Customer health",
+              "route": "/admin/health",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Customers (Dashboard mode)",
+          "items": [
+            {
+              "label": "Users",
+              "route": "/admin/users",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "recover actions need support+",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Workspaces",
+              "route": "/admin/workspaces",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "pricing needs admin; comp needs support+",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Commerce (Dashboard mode)",
+          "items": [
+            {
+              "label": "Discounts",
+              "route": "/admin/discounts",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Catalog",
+              "route": "/admin/catalog",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Console (Dashboard mode)",
+          "items": [
+            {
+              "label": "Team",
+              "route": "/admin/team",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Broadcast",
+              "route": "/admin/broadcast",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "FAQ",
+              "route": "/admin/faq",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Settings",
+              "route": "/admin/settings",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Audit",
+              "route": "/admin/audit",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Operations (R8 mode)",
+          "items": [
+            {
+              "label": "Overview",
+              "route": "/admin/r8",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Jobs",
+              "route": "/admin/r8/jobs",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "run/pause by role",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Providers",
+              "route": "/admin/r8/providers",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "test by role",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Visual",
+              "route": "/admin/r8/visual",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "capture by role",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Setup (R8 mode)",
+          "items": [
+            {
+              "label": "Configuration",
+              "route": "/admin/r8/configuration",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Audit",
+              "route": "/admin/r8/audit",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Not in nav",
+          "items": [
+            {
+              "label": "Troubleshoot",
+              "route": "/admin/r8/troubleshoot (reached from links)",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Monitoring",
+              "route": "/admin/monitoring (redirects to /admin/r8/configuration)",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            },
+            {
+              "label": "Workspace detail",
+              "route": "/admin/workspaces/[id] (lights Workspaces)",
+              "icon": "none",
+              "roles": [
+                "viewer",
+                "support",
+                "admin"
+              ],
+              "gating": "",
+              "badge": "",
+              "children": []
+            }
+          ]
+        }
+      ],
+      "global_controls": {
+        "search": "none global",
+        "command_palette": "none",
+        "notifications": "none",
+        "help": "AdmGuide 'How this page works' disclosure on each page",
+        "guide": "none",
+        "org_switcher": "none",
+        "product_switcher": "none (single product)",
+        "create_button": "none global",
+        "ai_entry": "none (AI connections is a page)",
+        "theme_toggle": "none (dark-only)",
+        "language": "none",
+        "user_menu": [],
+        "sign_out": "none in shell (only on DeniedGate); '← Back to AX Frame' link in footer",
+        "plan_badge": "none",
+        "env_badge": "OPEN ACCESS banner on every page while open access is on ('Every workspace has paid limits right now. Settings →')",
+        "impersonation": "none",
+        "other": [
+          "Mode is remembered in an axle_mode cookie: /admin redirects to /admin/r8 if last used",
+          "Staff role chip in footer (viewer / support / admin)"
+        ]
+      },
+      "responsive": "<=860px: off-canvas drawer + hamburger; content padding meant to be 64px top but overridden (see brand_gaps), so the hamburger overlaps page titles on phones.",
+      "active_state": "Link: background rgba(255,255,255,.1), white, weight 600, 2px left border REKA orange #FB9800. Mode tab active: raised-2 #13255C with inset line.",
+      "colours": {
+        "ground": "#071233",
+        "raised": "#0C1B47",
+        "raised_2": "#13255C",
+        "ink": "#EAF0FF / #B6C3EA / #94A3D0",
+        "line": "rgba(157,184,255,.16)",
+        "action": "#074AF8 (hover #2A63F9)",
+        "link_blue": "#4D84FE",
+        "focus": "#4D84FE",
+        "orange": "#FB9800 (active border, role chip, OPEN ACCESS badge)",
+        "status": "ok #32D583, warn #FDB022, fault #F97066 (lifted for dark)"
+      },
+      "fonts": "Poppins UI; JetBrains Mono for section labels (9px uppercase 1.4px), stat labels and figures",
+      "a11y": "Mode tabs role=tablist/tab with aria-selected and focus ring; hamburger and close have aria-labels; nav links have no aria-current; no icons; reduced motion stops page-in animation and skeletons (admin.css:114).",
+      "role_variants": "Staff roles viewer < support < admin (platform_admins). Same nav for every role; actions inside pages are disabled or hidden by role. Non-staff signed-in users get DeniedGate ('This account isn't on the REKA staff list').",
+      "dashboard": {
+        "route": "/admin (Dashboard mode Overview)",
+        "file": "src/app/admin/page.tsx:10",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "Overview",
+            "detail": "'The wedge, working (or not) — at a glance.'"
+          },
+          {
+            "order": 2,
+            "kind": "other",
+            "title": "How this page works",
+            "detail": "AdmGuide disclosure (What this is · Value under management · Go deeper)"
+          },
+          {
+            "order": 3,
+            "kind": "kpi",
+            "title": "Workspaces",
+            "detail": "count, 'total signups'"
+          },
+          {
+            "order": 4,
+            "kind": "kpi",
+            "title": "Paying",
+            "detail": "count, 'N comped'"
+          },
+          {
+            "order": 5,
+            "kind": "kpi",
+            "title": "MRR",
+            "detail": "by currency, 'standard + custom deals'"
+          },
+          {
+            "order": 6,
+            "kind": "kpi",
+            "title": "Value under management",
+            "detail": "live monthly spend across all ledgers by currency, 'N assets · live monthly spend watched'"
+          },
+          {
+            "order": 7,
+            "kind": "table",
+            "title": "Recent signups",
+            "detail": "last 6 profiles: name, email, joined date; empty 'No signups yet.'"
+          }
+        ]
+      }
+    },
+    {
+      "surface": "axle",
+      "name": "AXLE · R8 mode (machinery)",
+      "host_or_route": "/admin/r8",
+      "entry_files": [
+        "src/app/admin/r8/page.tsx:18",
+        "src/features/adminui/AdminNav.tsx:15"
+      ],
+      "layout": "Same AXLE shell; nav swaps to R8 sections when the path is under /admin/r8.",
+      "brand": {
+        "logo": "as AXLE",
+        "name_text": "AXLE",
+        "eyebrow": "AX FRAME",
+        "credit_line": "none",
+        "other": ""
+      },
+      "nav_groups": [],
+      "global_controls": {
+        "search": "",
+        "command_palette": "",
+        "notifications": "",
+        "help": "AdmGuide",
+        "guide": "",
+        "org_switcher": "",
+        "product_switcher": "",
+        "create_button": "",
+        "ai_entry": "",
+        "theme_toggle": "",
+        "language": "",
+        "user_menu": [],
+        "sign_out": "",
+        "plan_badge": "",
+        "env_badge": "",
+        "impersonation": "",
+        "other": []
+      },
+      "responsive": "as AXLE",
+      "active_state": "as AXLE",
+      "colours": {},
+      "fonts": "as AXLE",
+      "a11y": "as AXLE",
+      "role_variants": "Run now / pause / test actions by role",
+      "dashboard": {
+        "route": "/admin/r8",
+        "file": "src/app/admin/r8/page.tsx:18",
+        "widgets": [
+          {
+            "order": 1,
+            "kind": "greeting",
+            "title": "R8 · Overview",
+            "detail": "'The machinery behind AX Frame…'"
+          },
+          {
+            "order": 2,
+            "kind": "other",
+            "title": "How this page works",
+            "detail": "AdmGuide"
+          },
+          {
+            "order": 3,
+            "kind": "alert",
+            "title": "Needs an operator",
+            "detail": "technical attention list with state dot, detail, 'Open →'; empty 'Nothing — every job ran and every service answered.'"
+          },
+          {
+            "order": 4,
+            "kind": "kpi",
+            "title": "Jobs",
+            "detail": "5 tiles: Website checks, Weekly / daily summary email, Renewal reminders, Scheduled broadcasts, Catalog price checks; state word, reason, runs/failed 24h"
+          },
+          {
+            "order": 5,
+            "kind": "kpi",
+            "title": "Outside services",
+            "detail": "9 tiles: Anthropic, Gemini, Cloudflare Browser Run, ScreenshotOne, Google PageSpeed, Resend, RDAP, DNS-over-HTTPS, Stripe; state, reason, median ms"
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "screenshots/01-customer-dashboard-desktop.png",
+      "surface": "customer",
+      "what": "Insight dashboard + sidebar + top bar",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Local next dev (port 3105) against a fake Supabase on 3205 (scratch mock-supabase.mjs); fictional 'Demo Sdn Bhd' data; dev overlay hidden"
+    },
+    {
+      "file": "screenshots/01-customer-dashboard-desktop-full.png",
+      "surface": "customer",
+      "what": "Insight dashboard, whole page",
+      "viewport": "1440x1593",
+      "method": "mocked",
+      "notes": "Tall viewport (the page scrolls inside .dsk-content, so fullPage alone does not work)"
+    },
+    {
+      "file": "screenshots/01b-customer-profile-menu-desktop.png",
+      "surface": "customer",
+      "what": "Profile menu open (incl. workspace switcher)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Local next dev (port 3105) against a fake Supabase on 3205 (scratch mock-supabase.mjs); fictional 'Demo Sdn Bhd' data; dev overlay hidden"
+    },
+    {
+      "file": "screenshots/01c-customer-add-menu-desktop.png",
+      "surface": "customer",
+      "what": "'Add asset' menu open",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Local next dev (port 3105) against a fake Supabase on 3205 (scratch mock-supabase.mjs); fictional 'Demo Sdn Bhd' data; dev overlay hidden"
+    },
+    {
+      "file": "screenshots/01d-customer-notifications-desktop.png",
+      "surface": "customer",
+      "what": "Notifications dropdown open",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Local next dev (port 3105) against a fake Supabase on 3205 (scratch mock-supabase.mjs); fictional 'Demo Sdn Bhd' data; dev overlay hidden"
+    },
+    {
+      "file": "screenshots/01e-customer-ledger-desktop.png",
+      "surface": "customer",
+      "what": "Ledger (the desktop altitude's grid)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Local next dev (port 3105) against a fake Supabase on 3205 (scratch mock-supabase.mjs); fictional 'Demo Sdn Bhd' data; dev overlay hidden"
+    },
+    {
+      "file": "screenshots/02-customer-dashboard-mobile.png",
+      "surface": "customer",
+      "what": "Mobile Insight + app bar + tab bar",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": "Local next dev (port 3105) against a fake Supabase on 3205 (scratch mock-supabase.mjs); fictional 'Demo Sdn Bhd' data; dev overlay hidden"
+    },
+    {
+      "file": "screenshots/02-customer-dashboard-mobile-full.png",
+      "surface": "customer",
+      "what": "Mobile Insight, whole page",
+      "viewport": "390x2648",
+      "method": "mocked",
+      "notes": "Tall viewport"
+    },
+    {
+      "file": "screenshots/02b-customer-menu-open-mobile.png",
+      "surface": "customer",
+      "what": "Avatar menu open (mobile nav menu)",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": "Mobile has no drawer; the avatar menu is the menu"
+    },
+    {
+      "file": "screenshots/02c-customer-add-chooser-mobile.png",
+      "surface": "customer",
+      "what": "'+' tab ActionChooser sheet",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": "Local next dev (port 3105) against a fake Supabase on 3205 (scratch mock-supabase.mjs); fictional 'Demo Sdn Bhd' data; dev overlay hidden"
+    },
+    {
+      "file": "screenshots/03-axle-dashboard-desktop.png",
+      "surface": "axle",
+      "what": "AXLE Dashboard-mode Overview + sidebar",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Captured with the host split off (NEXT_PUBLIC_ADMIN_HOST unset) so /admin serves on localhost"
+    },
+    {
+      "file": "screenshots/03b-axle-r8-overview-desktop.png",
+      "surface": "axle",
+      "what": "AXLE R8-mode Overview + R8 nav",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "No run/call records in the mock, so every tile reads 'No record yet' / 'Quiet'"
+    },
+    {
+      "file": "screenshots/03c-axle-dashboard-mobile.png",
+      "surface": "axle",
+      "what": "AXLE Overview on a phone",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": "Shows the hamburger overlapping the page title"
+    },
+    {
+      "file": "screenshots/03d-axle-menu-open-mobile.png",
+      "surface": "axle",
+      "what": "AXLE drawer open",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": "Local next dev (port 3105) against a fake Supabase on 3205 (scratch mock-supabase.mjs); fictional 'Demo Sdn Bhd' data; dev overlay hidden"
+    },
+    {
+      "file": "screenshots/05-customer-signin-desktop.png",
+      "surface": "customer",
+      "what": "Sign-in (closed-pilot copy)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "Front door set to pilot in the mock, as in production"
+    },
+    {
+      "file": "screenshots/05b-axle-signin-desktop.png",
+      "surface": "axle",
+      "what": "AXLE sign-in (AXLE host)",
+      "viewport": "1440x900",
+      "method": "mocked",
+      "notes": "NEXT_PUBLIC_ADMIN_HOST=127.0.0.1:3105; server-rendered only (dev assets blocked cross-origin), so the mark may not animate"
+    },
+    {
+      "file": "screenshots/05c-customer-signin-mobile.png",
+      "surface": "customer",
+      "what": "Sign-in, phone",
+      "viewport": "390x844",
+      "method": "mocked",
+      "notes": "pilot copy"
+    },
+    {
+      "file": "screenshots/spec-axf-hero-mobile.png",
+      "surface": "other",
+      "what": "SPEC, not shipped: axf-hero.html mobile halo hero reference",
+      "viewport": "390x844",
+      "method": "harness",
+      "notes": "Static mock in repo root; shows an older 'Reka Inisiatif' sample with orange cubes; the shipped nav differs (see 02)"
+    }
+  ],
+  "brand_gaps": [
+    "No AntaraX credit line ('AX Frame · by AntaraX') in the app chrome; the sidebar sub-line reads 'Digital asset ledger'. Only the sign-in page says 'AX Frame by AntaraX' (09, products/frame.md Credit lines).",
+    "No Help item in the nav and no /guide or /help routes; help is 'Support & FAQ' inside the profile menu (13 §8).",
+    "'Connect your AI' pinned item and the AI quick start use hard-coded violet #7A5AF8 / #F6F3FF / #EFE9FF (desktop.css:95-97, quickstart/illustrations.tsx:145), outside the Frame palette and against the repo's 'tokens, never hex in a component' rule. Avatar gradient also hard-codes #3B82F6.",
+    "Customer account is called 'Workspace' in the profile menu and screen; 13 §1 says 'organisation' on settings and billing. Profile menu says 'Billing', the page says 'Plan & Billing'.",
+    "No plan name (Seed / Nova) anywhere in the shell chrome; only inside Billing.",
+    "AXLE focus ring is #4D84FE (admin.css:28); 13 §10 asks for the AntaraX-blue #0459F7 ring in every product.",
+    "AXLE mobile bug: the <=860px rule `.adm-main{padding:64px 16px 40px}` (admin.css:62) is overridden by the later `.adm-main{padding:28px 34px 48px}` (admin.css:106), so the fixed hamburger sits on top of every page title on phones (see 03c).",
+    "AXLE nav has no icons while the customer nav does; AXLE shell has no sign-out (only 'Back to AX Frame').",
+    "AXLE sign-in and denied page say 'AUTHORIZED STAFF ONLY' (US spelling; British is 'authorised', 13 §7).",
+    "AXLE host is axle-antarax.vercel.app, not axle.antarax.ai (13 §2). §6 asks for 'the AntaraX A in the corner'; AXLE shows the Frame mark (A + Frame icon), which is close.",
+    "Accessibility: no aria-current on desktop nav, mobile tabs or AXLE links; the mobile '+' tab button has no accessible name; no axe check in CI (13 §10).",
+    "Em dashes throughout page descriptions in pageMeta.ts and AXLE subtitles (the brand voice audit flags em dashes).",
+    "Docs drift: AXF-AXLE-THEME.md (12 Jul 2026) still describes a dark rail over a light canvas, ink #0E1420 and 'REKA operator console'; the shipped AXLE is dark-only (#071233). The brand kit's products/frame.md 'Gaps' list (#0062FB primary, orange accent) is also out of date: the repo already uses Frame blue #074AF8 and keeps orange in AXLE only."
+  ],
+  "notes": "One Next.js app serves the customer app and AXLE. The customer app is a single client component (src/App.tsx) that switches screens by state and ?v= (no per-screen routes); desktop vs phone is a whole-shell swap at 860px (two altitudes: desktop Ledger, phone Insight). Nav labels/icons come from one registry, src/features/shell/pageMeta.ts. AXLE has two modes (Dashboard / R8) with separate nav sets. Other non-dashboard surfaces not inventoried in depth: public landing (/), project guest view (/shared, /guest/[token]), public share (/share/[token]), onboarding, closed-pilot page. Static mocks (axf-hero.html, axf-stack-composer.html, docs/mock/map-v2) are specs, not the shipped nav."
+}
