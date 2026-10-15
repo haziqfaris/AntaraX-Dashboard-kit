@@ -33,7 +33,7 @@ The canvas shows only the final design: Dashboard pages first, then R8, then eve
 
 ## Explorations (kept for the record, not on the canvas)
 
-The comparisons that led to the sidebar. They are not kept up to date: `NavTitles` used a sidebar setting that has since been removed, so open it from git history before 15 Oct 2026's cleanup to see it working.
+The comparisons that led to the sidebar. They are not kept up to date: `NavTitles` used a sidebar setting that has since been removed, so to see it working, check out commit `014f537`, the last one before the cleanup.
 
 | File | Page | Shows |
 |---|---|---|
