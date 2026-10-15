@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Organisations · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Organisations" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Organisations" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+
+      <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <p style="margin: 0; color: #0B1B4F; font-size: 16px">Every organisation on Janka, and what each one needs.</p>
+          <p class="mono" style="margin: 0; font-size: 12px; color: #5B6488">48 organisations · counted 15 Oct 2026, 14:30 MYT</p>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; cursor: pointer">Export CSV</button>
+          <a href="CreateOrganisation.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 12px; background: #FB9800; color: #071233; font-weight: 600; text-decoration: none">New organisation</a>
+        </div>
+      </div>
+
+      <div role="group" aria-label="Filter by status" style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{strip}}" as="s" hint-placeholder-count="8">
+          <button type="button" onClick="{{s.pick}}" aria-pressed="{{s.on}}" style="{{s.style}}">
+            <span style="width: 10px; height: 10px; border-radius: 3px; background: {{s.color}}"></span>{{s.label}} <span class="mono" style="color: #0B1B4F; font-weight: 600">{{s.n}}</span>
+          </button>
+        </sc-for>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+        <label for="org-search" style="position: absolute; left: -9999px">Search organisations</label>
+        <input id="org-search" type="search" placeholder="Search by name or slug" value="{{query}}" onChange="{{onQuery}}" style="flex: 1 1 240px; height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 14px">
+        <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">Plan
+          <select style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"><option>Any</option><option>Seed</option><option>Terra</option><option>Nova</option><option>Galaxy</option></select></label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">Sort
+          <select style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"><option>Problems first</option><option>Newest</option><option>Name A to Z</option><option>AI cost</option></select></label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">Group
+          <select style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"><option>None</option><option>Plan</option><option>Status</option><option>Stage</option></select></label>
+        <label style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 12px; font-size: 13px"><input type="checkbox" checked style="width: 18px; height: 18px">Show demo organisations</label>
+      </div>
+
+      <sc-if value="{{hasSelection}}" hint-placeholder-val="{{false}}">
+        <div role="region" aria-label="Bulk actions" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 14px; background: #0B1B4F; color: #EAF0FF">
+          <span class="mono" style="font-weight: 600">{{selectedCount}} selected</span>
+          <span style="flex: 1"></span>
+          <button type="button" style="min-height: 36px; padding: 0 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,.2); background: transparent; color: #EAF0FF; cursor: pointer">Change plan</button>
+          <button type="button" style="min-height: 36px; padding: 0 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,.2); background: transparent; color: #EAF0FF; cursor: pointer">Export</button>
+          <button type="button" style="min-height: 36px; padding: 0 14px; border-radius: 10px; border: 0; background: #F04438; color: #FFFFFF; font-weight: 600; cursor: pointer">Suspend…</button>
+          <button type="button" onClick="{{clearSel}}" style="min-height: 36px; padding: 0 10px; border: 0; background: transparent; color: #B6C3EA; cursor: pointer">Clear</button>
+        </div>
+      </sc-if>
+
+      <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; overflow: hidden">
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 1040px; border-collapse: collapse; font-size: 13px">
+            <thead>
+              <tr style="text-align: left; color: #5B6488; font-size: 12px; background: #FAFBFE">
+                <th scope="col" style="width: 44px; padding: 10px 0 10px 16px; border-bottom: 1px solid #E5E8EE"><span style="position: absolute; left: -9999px">Select</span></th>
+                <th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Organisation</th>
+                <th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Plan</th>
+                <th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Status</th>
+                <th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Stage</th>
+                <th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Readiness</th>
+                <th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Problems</th>
+                <th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE; text-align: right">Members</th>
+                <th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Created</th>
+                <th scope="col" style="font-weight: 500; padding: 10px 16px 10px 10px; border-bottom: 1px solid #E5E8EE; text-align: right">AI cost, Oct</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{rows}}" as="o" hint-placeholder-count="10">
+                <tr style="background: {{o.rowBg}}">
+                  <td style="padding: 10px 0 10px 16px; border-bottom: 1px solid #EEF1F6"><input type="checkbox" checked="{{o.checked}}" onChange="{{o.toggle}}" aria-label="Select {{o.name}}" style="width: 18px; height: 18px"></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #EEF1F6"><a href="Organisation.dc.html" style="color: #0B1B4F; font-weight: 500">{{o.name}}</a><div class="mono" style="font-size: 11px; color: #5B6488">{{o.slug}}</div></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #EEF1F6">{{o.plan}}</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #EEF1F6"><span style="font-size: 12px; padding: 2px 9px; border-radius: 999px; border: 1px solid #E5E8EE; color: #0B1B4F; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 2px; background: {{o.color}}"></span>{{o.status}}</span></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #EEF1F6">{{o.stage}}</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #EEF1F6"><span style="display: flex; align-items: center; gap: 8px"><span style="width: 64px; height: 6px; border-radius: 3px; background: #EEF1F6; display: flex"><span style="width: {{o.readyPct}}; background: #0459F7; border-radius: 3px"></span></span><span class="mono" style="font-size: 12px">{{o.ready}}</span></span></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #EEF1F6; color: {{o.problemColor}}">{{o.problems}}</td>
+                  <td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; text-align: right">{{o.members}}</td>
+                  <td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; white-space: nowrap">{{o.created}}</td>
+                  <td class="mono" style="padding: 10px 16px 10px 10px; border-bottom: 1px solid #EEF1F6; text-align: right">{{o.cost}}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 16px; font-size: 13px">
+          <span class="mono" style="color: #5B6488">Showing {{shown}} of {{total}}</span>
+          <span style="display: flex; gap: 4px"><button type="button" aria-current="page" style="min-width: 36px; min-height: 36px; border-radius: 10px; border: 0; background: #0B1B4F; color: #FFFFFF">1</button><button type="button" style="min-width: 36px; min-height: 36px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F">2</button><button type="button" style="min-width: 36px; min-height: 36px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F">3</button><button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F">Next</button></span>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { status: 'All', sel: {}, query: '' }; }
+  renderVals() {
+    var self = this;
+    var C = { Trial: '#1baf7a', Active: '#2a78d6', Suspended: '#eb6834', 'Pending deletion': '#6250d6', Cancelled: '#8A93AE', Restricted: '#B54708' };
+    var data = [
+      ['Acme Plastics Sdn Bhd', 'acme-plastics', 'Nova', 'Active', 'Live', '6 of 6', 'AI budget at 86%', 42, '12 Mar 2026', 'US$96.10'],
+      ['Kedai Runcit Maju', 'kedai-runcit-maju', 'Seed', 'Pending deletion', 'Live', '2 of 6', 'Deletion in 3 days', 3, '4 Jan 2026', 'US$0.00'],
+      ['Bumi Hardware Trading', 'bumi-hardware', 'Seed', 'Suspended', 'Live', '6 of 6', 'Unpaid since 1 Oct', 6, '9 Feb 2026', 'US$1.20'],
+      ['Contoh Logistik Sdn Bhd', 'contoh-logistik', 'Nova', 'Active', 'Live', '5 of 6', 'Skipped in forecast', 18, '21 May 2026', 'US$22.40'],
+      ['Sinar Elektrik Sdn Bhd', 'sinar-elektrik', 'Nova', 'Trial', 'Pilot', '3 of 6', 'None', 7, '2 Oct 2026', 'US$4.75'],
+      ['Pantai Seafood Supplies', 'pantai-seafood', 'Terra', 'Trial', 'Sandbox', '1 of 6', 'None', 2, '13 Oct 2026', 'US$0.30'],
+      ['Mawar Textiles Sdn Bhd', 'mawar-textiles', 'Galaxy', 'Active', 'Live', '6 of 6', 'None', 64, '11 Nov 2025', 'US$118.40'],
+      ['Harapan Pharma Sdn Bhd', 'harapan-pharma', 'Nova', 'Active', 'Live', '6 of 6', 'None', 31, '18 Jul 2026', 'US$54.90'],
+      ['Teguh Packaging Sdn Bhd', 'teguh-packaging', 'Nova', 'Active', 'Live', '6 of 6', 'None', 25, '30 Apr 2026', 'US$31.20'],
+      ['Demo Manufacturing Sdn Bhd', 'demo-manufacturing · demo', 'Galaxy', 'Active', 'Live', '6 of 6', 'None', 12, '1 Mar 2026', 'US$8.10']
+    ];
+    var counts = [['All', 48], ['Has problems', 4], ['Trial', 9], ['Active', 34], ['Restricted', 0], ['Suspended', 2], ['Cancelled', 2], ['Pending deletion', 1]];
+    var strip = counts.map(function (c) {
+      var on = self.state.status === c[0];
+      return { label: c[0], n: c[1], color: C[c[0]] || (c[0] === 'Has problems' ? '#F79009' : '#0B1B4F'), on: on ? 'true' : 'false',
+        style: 'display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;border-radius:12px;cursor:pointer;font-size:13px;color:#3B4469;' +
+          (on ? 'background:#FFFFFF;border:2px solid #0B1B4F;' : 'background:#FFFFFF;border:1px solid #D5DBE7;'),
+        pick: function () { self.setState({ status: c[0] }); } };
+    });
+    var q = (this.state.query || '').toLowerCase();
+    var rows = data.filter(function (d) {
+      var st = self.state.status;
+      var okS = st === 'All' || (st === 'Has problems' ? d[6] !== 'None' : d[3] === st);
+      var okQ = !q || d[0].toLowerCase().indexOf(q) >= 0 || d[1].indexOf(q) >= 0;
+      return okS && okQ;
+    }).map(function (d) {
+      var p = d[5].split(' of ');
+      var checked = !!self.state.sel[d[1]];
+      return { name: d[0], slug: d[1], plan: d[2], status: d[3], color: C[d[3]], stage: d[4], ready: d[5],
+        readyPct: Math.round(100 * Number(p[0]) / Number(p[1])) + '%', problems: d[6], problemColor: d[6] === 'None' ? '#5B6488' : '#B54708',
+        members: d[7], created: d[8], cost: d[9], checked: checked, rowBg: checked ? '#F3F7FE' : '#FFFFFF',
+        toggle: function () { var s = Object.assign({}, self.state.sel); if (s[d[1]]) delete s[d[1]]; else s[d[1]] = true; self.setState({ sel: s }); } };
+    });
+    var n = Object.keys(this.state.sel).length;
+    return { strip: strip, rows: rows, shown: rows.length, total: this.state.status === 'All' && !q ? 48 : rows.length,
+      hasSelection: n > 0, selectedCount: n, clearSel: function () { self.setState({ sel: {} }); },
+      query: this.state.query, onQuery: function (e) { self.setState({ query: e.target.value }); } };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Settings · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Settings" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Settings" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box; position: relative">
+      <p style="margin: 0; color: #0B1B4F; font-size: 16px">Switches that affect every organisation, and the settings Janka shares across them.</p>
+
+      <section aria-labelledby="sw-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 4px">
+        <h2 id="sw-h" style="margin: 0 0 6px; color: #0B1B4F; font-size: 16px; font-weight: 600">Platform switches</h2>
+        <sc-for list="{{switches}}" as="s" hint-placeholder-count="4">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid #EEF1F6">
+            <span style="flex: 1 1 260px; display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 500">{{s.name}}</span><span style="font-size: 12px; color: #5B6488">{{s.effect}}</span></span>
+            <span style="flex: 0 0 64px; font-weight: 600; color: {{s.stateColor}}">{{s.state}}</span>
+            <span style="flex: 1 1 260px; font-size: 12px; color: #5B6488">{{s.who}}</span>
+            <button type="button" onClick="{{s.open}}" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">{{s.action}}</button>
+          </div>
+        </sc-for>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+        <section aria-labelledby="em-h" style="flex: 1 1 360px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><h2 id="em-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Email</h2><span style="font-size: 12px; color: #5B6488">Needs Admin</span></div>
+          <dl style="margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; font-size: 13px">
+            <dt style="color: #5B6488">Sender</dt><dd class="mono" style="margin: 0; font-size: 12px; color: #0B1B4F">Janka &lt;janka@antarax.ai&gt;</dd>
+            <dt style="color: #5B6488">Replies go to</dt><dd class="mono" style="margin: 0; font-size: 12px; color: #0B1B4F">support@go.antarax.ai</dd>
+            <dt style="color: #5B6488">Template</dt><dd style="margin: 0">The shared AntaraX template · <a href="#">Preview</a></dd>
+          </dl>
+        </section>
+        <section aria-labelledby="lg-h" style="flex: 1 1 360px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><h2 id="lg-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Legal texts and regions</h2><span style="font-size: 12px; color: #5B6488">Needs Admin</span></div>
+          <dl style="margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; font-size: 13px">
+            <dt style="color: #5B6488">Terms</dt><dd style="margin: 0">Version 3, from 1 Sep 2026</dd>
+            <dt style="color: #5B6488">Privacy notice</dt><dd style="margin: 0">Version 4, from 1 Oct 2026</dd>
+            <dt style="color: #5B6488">Default time zone</dt><dd style="margin: 0">Asia/Kuala_Lumpur (MYT)</dd>
+            <dt style="color: #5B6488">Data kept in</dt><dd style="margin: 0">Singapore</dd>
+          </dl>
+        </section>
+      </div>
+
+      <sc-if value="{{dialogOpen}}" hint-placeholder-val="{{false}}">
+        <div style="position: absolute; inset: 0; background: rgba(11,27,79,.35); display: flex; align-items: flex-start; justify-content: center; padding-top: 120px">
+          <section role="dialog" aria-modal="true" aria-labelledby="dlg-h" style="width: 520px; max-width: calc(100% - 32px); background: #FFFFFF; border-radius: 20px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 30px 60px -30px rgba(11,27,79,.6)">
+            <h2 id="dlg-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">{{dialog.title}}</h2>
+            <p style="margin: 0">{{dialog.consequence}}</p>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #0B1B4F">Reason <span style="font-size: 12px; color: #5B6488">{{dialog.reasonHint}}</span>
+              <textarea rows="3" style="padding: 10px 12px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F">{{dialog.reason}}</textarea></label>
+            <div style="display: flex; justify-content: flex-end; gap: 8px">
+              <button type="button" onClick="{{close}}" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Cancel</button>
+              <button type="button" onClick="{{apply}}" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #FB9800; color: #071233; font-weight: 600; cursor: pointer">{{dialog.button}}</button>
+            </div>
+          </section>
+        </div>
+      </sc-if>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1200}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { open: 'maint', on: { access: true, maint: false, pause: false, sim: false } }; }
+  renderVals() {
+    var self = this, on = this.state.on;
+    var D = {
+      access: ['Open access', 'Every organisation gets paid limits while it is on', 'Mei Lin, 14 Oct, 09:03: pilot extended to 31 Oct', 'Switch open access off', 'Switch open access on'],
+      maint: ['Maintenance', 'Members see the maintenance page instead of Janka', 'Last on 2 Sep, 22:00 to 22:40: database upgrade', 'Start maintenance…', 'End maintenance'],
+      pause: ['Pause AI work', 'Forecasts, explanations and photo identify stop; nothing else changes', 'Never used', 'Pause AI work…', 'Resume AI work'],
+      sim: ['Simulation module, everywhere', 'Off for every organisation, whatever its plan', 'Mei Lin, 9 Oct: rebuilding the model', 'Switch on everywhere…', 'Switch off everywhere…']
+    };
+    var switches = Object.keys(D).map(function (k) {
+      var d = D[k], isOn = on[k];
+      return { name: d[0], effect: d[1], who: d[2], state: isOn ? 'On' : 'Off', stateColor: isOn ? '#067647' : '#5B6488',
+        action: k === 'sim' ? (isOn ? d[4] : d[3]) : (isOn ? d[4] : d[3]), open: function () { self.setState({ open: k }); } };
+    });
+    var dlg = {
+      access: { title: on.access ? 'Switch open access off?' : 'Switch open access on?', consequence: on.access ? 'Every organisation goes back to its own plan limits at once. Organisations over their limit see an upgrade prompt.' : 'Every organisation gets paid limits until you switch it off.', reasonHint: 'Required. Shown in Audit.', reason: '', button: on.access ? 'Switch open access off' : 'Switch open access on' },
+      maint: { title: 'Start maintenance?', consequence: 'All 612 members are signed out and see the maintenance page with your message until you end it. AXLE keeps working.', reasonHint: 'Required. Members read this on the maintenance page.', reason: 'Janka is being upgraded. We will be back by 22:40 MYT.', button: 'Start maintenance' },
+      pause: { title: 'Pause AI work?', consequence: 'Forecasts, explanations and photo identify stop for every organisation. Members see "AI is paused" on those screens.', reasonHint: 'Required. Members read this.', reason: '', button: 'Pause AI work' },
+      sim: { title: on.sim ? 'Switch Simulation off everywhere?' : 'Switch Simulation on everywhere?', consequence: on.sim ? 'Simulation disappears for every organisation.' : 'Organisations whose plan includes Simulation get it back.', reasonHint: 'Required. Shown in Audit.', reason: '', button: on.sim ? 'Switch off everywhere' : 'Switch on everywhere' }
+    };
+    var openKey = this.state.open;
+    return { switches: switches, dialogOpen: !!openKey, dialog: openKey ? dlg[openKey] : dlg.maint,
+      close: function () { self.setState({ open: null }); },
+      apply: function () { var o = Object.assign({}, self.state.on); o[openKey] = !o[openKey]; self.setState({ on: o, open: null }); } };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Models and keys · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Models &amp; keys" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Models &amp; keys" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 10px">
+        <div><p style="margin: 0; color: #0B1B4F; font-size: 16px">Which AI providers Janka uses, which model does each task, and what happens when one fails.</p>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">Keys live in the vault and are only ever shown masked. Needs the AI right to change.</p></div>
+        <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; cursor: pointer">Add a provider</button>
+      </div>
+
+      <section aria-labelledby="prov-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
+        <h2 id="prov-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Providers and keys</h2>
+        <sc-for list="{{providers}}" as="p" hint-placeholder-count="2">
+          <div style="display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 12px 14px; border-radius: 14px; border: 1px solid {{p.border}}; background: {{p.bg}}">
+            <span style="flex: 1 1 200px; display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 600">{{p.name}}</span><span class="mono" style="font-size: 12px; color: #5B6488">key {{p.key}} · added {{p.added}}</span></span>
+            <span style="flex: 1 1 220px; display: flex; flex-direction: column"><span style="font-weight: 600; color: {{p.stateColor}}">{{p.state}}</span><span class="mono" style="font-size: 12px; color: #5B6488">{{p.detail}}</span></span>
+            <span style="display: flex; gap: 8px"><button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Test</button><button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Rotate…</button></span>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="task-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: center">
+          <h2 id="task-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Model for each task</h2>
+          <label style="display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: #0B1B4F; cursor: pointer">
+            <button type="button" role="switch" aria-checked="{{autoAria}}" onClick="{{toggleAuto}}" style="width: 46px; height: 26px; border-radius: 999px; border: 0; padding: 3px; cursor: pointer; display: flex; justify-content: {{autoJustify}}; background: {{autoBg}}"><span style="width: 20px; height: 20px; border-radius: 50%; background: #FFFFFF; display: block"></span></button>
+            Switch to the next model automatically when a provider fails
+          </label>
+        </div>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 760px; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Task</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Default, then fallbacks in order</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Running on now</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE"><span style="position: absolute; left: -9999px">Edit</span></th></tr></thead>
+            <tbody>
+              <sc-for list="{{tasks}}" as="t" hint-placeholder-count="4">
+                <tr>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6"><span style="display: inline-flex; align-items: center; gap: 6px; color: #0B1B4F"><img src="/_blob/cf6824bb467ddde504e59d1d3f173ea2" alt="" style="width: 14px; height: 14px">{{t.task}}</span></td>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6"><span style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
+                    <sc-for list="{{t.chain}}" as="c" hint-placeholder-count="3"><span class="mono" style="font-size: 12px; padding: 3px 9px; border-radius: 8px; {{c.style}}">{{c.label}}</span><sc-if value="{{c.more}}" hint-placeholder-val="{{true}}"><span aria-hidden="true" style="color: #5B6488">→</span></sc-if></sc-for>
+                  </span></td>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6"><span style="font-size: 12px; font-weight: 600; color: {{t.nowColor}}">{{t.now}}</span></td>
+                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6; text-align: right"><button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Change</button></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="log-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 4px">
+        <h2 id="log-h" style="margin: 0 0 6px; color: #0B1B4F; font-size: 16px; font-weight: 600">Switches and changes</h2>
+        <sc-for list="{{log}}" as="l" hint-placeholder-count="4">
+          <div style="display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 8px 0; border-bottom: 1px solid #EEF1F6; font-size: 13px"><span class="mono" style="flex: 0 0 116px; color: #5B6488; font-size: 12px">{{l.when}}</span><span style="flex: 1 1 400px">{{l.what}}</span></div>
+        </sc-for>
+        <p style="margin: 8px 0 0; font-size: 12px; color: #5B6488">AI on or off, and a model override, for one organisation: on its <a href="Organisation.dc.html">Plan &amp; features tab</a>. Members never see model or provider names.</p>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { auto: true }; }
+  renderVals() {
+    var self = this, auto = this.state.auto;
+    var providers = [
+      { name: 'Google Gemini', key: '••••7Q2c', added: '3 Sep 2026', state: 'Failing: 429, rate limited', detail: 'since 13:52 · last success 13:51', stateColor: '#B42318', border: '#F6B5AF', bg: '#FFF8F7' },
+      { name: 'Anthropic Claude', key: '••••k9Ff', added: '11 Aug 2026', state: 'Working', detail: 'last success 14:29 · median 1.4 s', stateColor: '#067647', border: '#E5E8EE', bg: '#FFFFFF' }
+    ];
+    function chain(names, failingIdx) {
+      return names.map(function (n, i) {
+        var failing = i === failingIdx;
+        return { label: n, more: i < names.length - 1,
+          style: failing ? 'background:#FEECEB;color:#B42318;text-decoration:line-through;' : (i === 0 ? 'background:#E7EEFE;color:#0B1B4F;' : 'background:#EEF1F6;color:#3B4469;') };
+      });
+    }
+    var tasks = [
+      { task: 'Explain a forecast', chain: chain(['Gemini 3 Flash', 'Claude Haiku 5.5'], 0), now: auto ? 'Claude Haiku 5.5 (fallback)' : 'Failing', nowColor: auto ? '#B54708' : '#B42318' },
+      { task: 'Photo identify', chain: chain(['Gemini 3 Pro', 'Claude Sonnet 5.5', 'Gemini 3 Flash'], 0), now: auto ? 'Claude Sonnet 5.5 (fallback)' : 'Failing', nowColor: auto ? '#B54708' : '#B42318' },
+      { task: 'Draft a purchase order', chain: chain(['Claude Sonnet 5.5', 'Gemini 3 Pro'], -1), now: 'Claude Sonnet 5.5', nowColor: '#067647' },
+      { task: 'Answer a question (Ask)', chain: chain(['Claude Haiku 5.5', 'Gemini 3 Flash'], -1), now: 'Claude Haiku 5.5', nowColor: '#067647' }
+    ];
+    var log = [
+      { when: '15 Oct, 13:52', what: 'Automatic switch: Photo identify moved from Gemini 3 Pro to Claude Sonnet 5.5 (Gemini answered 429, rate limited)' },
+      { when: '15 Oct, 13:52', what: 'Automatic switch: Explain a forecast moved from Gemini 3 Flash to Claude Haiku 5.5' },
+      { when: '9 Oct, 10:20', what: 'Mei Lin (Admin) set Claude Sonnet 5.5 as the default for Draft a purchase order: better PO wording in review' },
+      { when: '3 Sep, 15:00', what: 'Mei Lin (Admin) added the Google Gemini key; the old key was rotated out' }
+    ];
+    return { providers: providers, tasks: tasks, log: log,
+      autoAria: auto ? 'true' : 'false', autoJustify: auto ? 'flex-end' : 'flex-start', autoBg: auto ? '#0459F7' : '#B9C1D4',
+      toggleAuto: function () { self.setState({ auto: !self.state.auto }); } };
+  }
+}
+</script>
+</body>
+</html>

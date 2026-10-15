@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>New organisation · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Organisations" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="New organisation" hint-size="100%,80px"></dc-import>
+    <main style="padding: 18px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 980px; width: 100%; box-sizing: border-box">
+      <nav aria-label="Breadcrumb" style="font-size: 13px"><a href="Organisations.dc.html">Organisations</a> <span style="color: #5B6488">/ New organisation</span></nav>
+
+      <ol aria-label="Steps" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
+          <li style="flex: 1 1 150px">
+            <button type="button" onClick="{{s.go}}" disabled="{{s.locked}}" aria-current="{{s.current}}" style="{{s.style}}">
+              <span class="mono" style="width: 24px; height: 24px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; {{s.dot}}">{{s.mark}}</span>
+              <span>{{s.label}}</span>
+            </button>
+          </li>
+        </sc-for>
+      </ol>
+
+      <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+
+        <sc-if value="{{at.s1}}" hint-placeholder-val="{{true}}">
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <h2 style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Name and address</h2>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #0B1B4F">Organisation name
+              <input type="text" value="Sinaran Cold Chain Sdn Bhd" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F"></label>
+            <div style="font-size: 12px; color: #5B6488">Address in AXLE and in links: <span class="mono" style="color: #0B1B4F">sinaran-cold-chain</span> <a href="#">Change</a></div>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #0B1B4F">Registered address
+              <textarea rows="3" style="padding: 10px 14px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F">Lot 12, Jalan Perindustrian 3, 47000 Sungai Buloh, Selangor</textarea></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #0B1B4F; max-width: 360px">Time zone
+              <select style="height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F"><option>Asia/Kuala_Lumpur (MYT)</option><option>Asia/Singapore (SGT)</option><option>Asia/Jakarta (WIB)</option></select></label>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{at.s2}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <h2 style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Plan</h2>
+            <div role="radiogroup" aria-label="Plan" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px">
+              <sc-for list="{{plans}}" as="p" hint-placeholder-count="4">
+                <button type="button" role="radio" aria-checked="{{p.on}}" onClick="{{p.pick}}" style="{{p.style}}">
+                  <span style="color: #0B1B4F; font-weight: 600; font-size: 16px">{{p.name}}</span>
+                  <span style="font-size: 13px">{{p.who}}</span>
+                  <span style="font-size: 12px; color: #5B6488">{{p.gets}}</span>
+                </button>
+              </sc-for>
+            </div>
+            <p style="margin: 0; font-size: 12px; color: #5B6488">Billing happens outside Janka for now, so AXLE records the edition only.</p>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{at.s3}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <h2 style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Modules</h2>
+            <p style="margin: 0; font-size: 13px">Modules in the plan are ticked. Adding one outside the plan is an override and needs a reason.</p>
+            <sc-for list="{{modules}}" as="m" hint-placeholder-count="5">
+              <label style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; border: 1px solid #E5E8EE">
+                <input type="checkbox" checked="{{m.on}}" style="width: 18px; height: 18px; margin-top: 2px">
+                <span style="display: flex; flex-direction: column"><span style="color: #0B1B4F">{{m.name}}</span><span style="font-size: 12px; color: #5B6488">{{m.note}}</span></span>
+              </label>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{at.s4}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <h2 style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">First Owner</h2>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #0B1B4F">Email <span style="color: #5B6488; font-size: 12px">Required. The invitation works once and expires in 7 days.</span>
+              <input type="email" value="farah@sinaran-cold-chain.example" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F"></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #0B1B4F">Name
+              <input type="text" value="Farah Kamal" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F"></label>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{at.s5}}" hint-placeholder-val="{{false}}">
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <h2 style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Demo data, then check</h2>
+            <fieldset style="border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px">
+              <legend style="font-size: 13px; color: #0B1B4F; margin-bottom: 6px">Start with sample items and movements?</legend>
+              <label style="display: flex; gap: 10px; align-items: center"><input type="radio" name="demo" checked style="width: 18px; height: 18px">No, start empty (for real organisations)</label>
+              <label style="display: flex; gap: 10px; align-items: center"><input type="radio" name="demo" style="width: 18px; height: 18px">Yes, labelled as demo, and removable later without leaving rows behind</label>
+            </fieldset>
+            <dl style="margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; font-size: 13px; padding: 14px 16px; border-radius: 14px; background: #F5F7FC">
+              <dt style="color: #5B6488">Organisation</dt><dd style="margin: 0; color: #0B1B4F">Sinaran Cold Chain Sdn Bhd <span class="mono" style="font-size: 12px; color: #5B6488">sinaran-cold-chain</span></dd>
+              <dt style="color: #5B6488">Plan</dt><dd style="margin: 0; color: #0B1B4F">{{planName}}</dd>
+              <dt style="color: #5B6488">Modules</dt><dd style="margin: 0; color: #0B1B4F">Forecasting, Replenishment, Mobile scanner</dd>
+              <dt style="color: #5B6488">First Owner</dt><dd style="margin: 0; color: #0B1B4F">Farah Kamal, <span class="mono" style="font-size: 12px">farah@sinaran-cold-chain.example</span></dd>
+              <dt style="color: #5B6488">Demo data</dt><dd style="margin: 0; color: #0B1B4F">No</dd>
+            </dl>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{at.done}}" hint-placeholder-val="{{false}}">
+          <div role="status" style="display: flex; flex-direction: column; gap: 10px">
+            <h2 style="margin: 0; color: #067647; font-size: 18px; font-weight: 600">Sinaran Cold Chain Sdn Bhd created</h2>
+            <p style="margin: 0">Farah Kamal has an invitation. The organisation is a trial until she accepts; it then shows in Needs a person if nothing happens within 3 days.</p>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap"><a href="Organisation.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 12px; background: #FB9800; color: #071233; font-weight: 600; text-decoration: none">Open the organisation</a><a href="Organisations.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; color: #0B1B4F; text-decoration: none">Back to Organisations</a></div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{showNav}}" hint-placeholder-val="{{true}}">
+          <div style="display: flex; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1px solid #EEF1F6">
+            <button type="button" onClick="{{back}}" disabled="{{atFirst}}" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Back</button>
+            <button type="button" onClick="{{next}}" style="min-height: 44px; padding: 0 20px; border-radius: 12px; border: 0; background: #FB9800; color: #071233; font-weight: 600; cursor: pointer">{{nextLabel}}</button>
+          </div>
+        </sc-if>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { step: 1, plan: 'Nova' }; }
+  renderVals() {
+    var self = this;
+    var step = this.state.step;
+    var labels = ['Name and address', 'Plan', 'Modules', 'First Owner', 'Demo data and check'];
+    var steps = labels.map(function (l, i) {
+      var n = i + 1, done = step > n || step === 6, cur = step === n;
+      return { label: l, mark: done ? '✓' : String(n), locked: !done && !cur, current: cur ? 'step' : undefined,
+        dot: done ? 'background:#0459F7;color:#FFFFFF;' : (cur ? 'background:#FB9800;color:#071233;' : 'background:#EEF1F6;color:#5B6488;'),
+        style: 'width:100%;display:flex;align-items:center;gap:10px;min-height:48px;padding:0 12px;border-radius:14px;font-size:13px;text-align:left;cursor:pointer;' +
+          (cur ? 'background:#FFFFFF;border:2px solid #0B1B4F;color:#0B1B4F;font-weight:600;' : 'background:#FFFFFF;border:1px solid #E5E8EE;color:#3B4469;'),
+        go: function () { if (done) self.setState({ step: n }); } };
+    });
+    var planDefs = [['Seed', 'Seed · free to start', 'Up to 200 items, one site'], ['Terra', 'Terra · for one person', 'One site, forecasting'], ['Nova', 'Nova · for teams', 'Several sites, replenishment, scanner'], ['Galaxy', 'Galaxy · for growing businesses', 'Adds RFID, simulation, capital view']];
+    var plans = planDefs.map(function (p) {
+      var on = self.state.plan === p[0];
+      return { name: p[0], who: p[1], gets: p[2], on: on ? 'true' : 'false',
+        style: 'display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left;padding:14px;border-radius:14px;cursor:pointer;background:#FFFFFF;' + (on ? 'border:2px solid #FB9800;' : 'border:1px solid #E5E8EE;'),
+        pick: function () { self.setState({ plan: p[0] }); } };
+    });
+    var inPlan = { Seed: 1, Terra: 1, Nova: 3, Galaxy: 5 }[this.state.plan];
+    var modDefs = [['Forecasting', 'Core: every organisation has it'], ['Replenishment', 'Nova and above'], ['Mobile scanner', 'Nova and above'], ['PLExyz Trace (RFID)', 'Galaxy and above'], ['Simulation', 'Galaxy and above']];
+    var modules = modDefs.map(function (m, i) { return { name: m[0], note: m[1], on: i < inPlan }; });
+    return {
+      steps: steps, plans: plans, modules: modules, planName: planDefs.filter(function (p) { return p[0] === self.state.plan; })[0][1],
+      at: { s1: step === 1, s2: step === 2, s3: step === 3, s4: step === 4, s5: step === 5, done: step === 6 },
+      showNav: step < 6, atFirst: step === 1, nextLabel: step === 5 ? 'Create organisation' : 'Continue',
+      back: function () { self.setState({ step: Math.max(1, step - 1) }); },
+      next: function () { self.setState({ step: Math.min(6, step + 1) }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

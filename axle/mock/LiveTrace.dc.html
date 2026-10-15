@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Live trace · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Live trace" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Live trace" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+      <p style="margin: 0; color: #0B1B4F; font-size: 16px">One AI run at a time: what happened, what it means, and what to fix first. AXLE only.</p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+        <section aria-label="Runs" style="flex: 1 1 280px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 6px">
+          <div role="group" aria-label="Show" style="display: flex; gap: 4px; flex-wrap: wrap; padding-bottom: 6px">
+            <button type="button" aria-pressed="true" style="min-height: 34px; padding: 0 12px; border-radius: 10px; border: 0; background: #0B1B4F; color: #FFFFFF; font-size: 12px">All</button>
+            <button type="button" aria-pressed="false" style="min-height: 34px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #3B4469; font-size: 12px">Problems</button>
+            <button type="button" aria-pressed="false" style="min-height: 34px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #3B4469; font-size: 12px">Running</button>
+          </div>
+          <sc-for list="{{runs}}" as="r" hint-placeholder-count="4">
+            <button type="button" onClick="{{r.pick}}" aria-current="{{r.current}}" style="{{r.style}}">
+              <span style="width: 10px; height: 10px; border-radius: 50%; flex: none; margin-top: 6px; background: {{r.dot}}"></span>
+              <span style="display: flex; flex-direction: column; min-width: 0"><span style="color: #0B1B4F; font-weight: 500">{{r.title}}</span><span style="font-size: 12px; color: #5B6488">{{r.org}}</span><span class="mono" style="font-size: 11px; color: #5B6488">{{r.when}}</span></span>
+            </button>
+          </sc-for>
+        </section>
+
+        <div style="flex: 3 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+          <section role="status" style="border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 6px; background: {{run.vBg}}; border: 1px solid {{run.vBorder}}">
+            <span style="font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: {{run.vFg}}">{{run.verdictWord}}</span>
+            <h2 style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">{{run.verdict}}</h2>
+            <p style="margin: 0">{{run.meaning}}</p>
+            <p class="mono" style="margin: 0; font-size: 12px; color: #5B6488">{{run.facts}}</p>
+          </section>
+
+          <section aria-labelledby="fix-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+            <h3 id="fix-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">What to fix, worst first</h3>
+            <sc-if value="{{run.noFix}}" hint-placeholder-val="{{false}}"><p style="margin: 0; color: #067647">Nothing. Every step finished as expected.</p></sc-if>
+            <sc-for list="{{run.fixes}}" as="f" hint-placeholder-count="2">
+              <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 12px; background: #F5F7FC">
+                <span style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: {{f.tint}}; color: {{f.ink}}">{{f.level}}</span>
+                <span style="flex: 1 1 300px; color: #0B1B4F">{{f.what}}</span>
+                <a href="{{f.href}}" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; color: #0B1B4F; font-size: 13px; text-decoration: none">{{f.fix}}</a>
+              </div>
+            </sc-for>
+          </section>
+
+          <section aria-labelledby="steps-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+            <h3 id="steps-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Step by step</h3>
+            <div style="overflow-x: auto">
+              <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13px">
+                <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Step</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Status</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Model</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE; text-align: right">Time</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE; text-align: right">Cost</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Findings</th></tr></thead>
+                <tbody>
+                  <sc-for list="{{run.steps}}" as="s" hint-placeholder-count="4">
+                    <tr><td style="padding: 8px; border-bottom: 1px solid #EEF1F6; color: #0B1B4F">{{s.name}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6; font-weight: 600; color: {{s.color}}">{{s.status}}</td><td class="mono" style="padding: 8px; border-bottom: 1px solid #EEF1F6; font-size: 12px">{{s.model}}</td><td class="mono" style="padding: 8px; border-bottom: 1px solid #EEF1F6; text-align: right">{{s.time}}</td><td class="mono" style="padding: 8px; border-bottom: 1px solid #EEF1F6; text-align: right">{{s.cost}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6; font-size: 12px">{{s.findings}}</td></tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 22px">
+            <button type="button" onClick="{{toggleRaw}}" aria-expanded="{{rawAria}}" style="border: 0; background: transparent; padding: 6px 0; color: #0459F7; font-size: 14px; cursor: pointer">Raw events {{rawArrow}}</button>
+            <sc-if value="{{rawOpen}}" hint-placeholder-val="{{false}}">
+              <pre class="mono" style="margin: 8px 0 0; padding: 12px 14px; border-radius: 12px; background: #0B1B4F; color: #EAF0FF; font-size: 12px; overflow-x: auto; white-space: pre">{{run.raw}}</pre>
+              <p style="margin: 6px 0 0; font-size: 12px; color: #5B6488">Prompt and reply bodies need the AI right. Keys never appear here.</p>
+            </sc-if>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { run: 'photo', raw: false }; }
+  renderVals() {
+    var self = this;
+    var WARN = { tint: '#FEF4E6', ink: '#B54708' }, FAULT = { tint: '#FEECEB', ink: '#B42318' };
+    var R = {
+      photo: { title: 'Photo identify', org: 'Acme Plastics Sdn Bhd', when: '15 Oct, 13:52 · 4.8 s', dot: '#F79009',
+        verdictWord: 'Finished with a fallback', verdict: 'The item was named, but on the second model', vBg: '#FEF4E6', vBorder: '#F8CD92', vFg: '#B54708',
+        meaning: 'Gemini refused the call (rate limited), so the run moved to Claude Sonnet 5.5 as the fallback chain says. The member saw the answer 3 s later than usual.',
+        facts: 'req_3e91c2 · 2 model calls · US$0.021 · member: Siti (Member)',
+        fixes: [Object.assign({ level: 'Failing', what: 'Gemini key is rate limited since 13:52: raise the quota or rotate the key', fix: 'Open Models & keys', href: 'ModelsKeys.dc.html' }, FAULT)],
+        steps: [
+          { name: 'Read the photo', status: 'Done', color: '#067647', model: '–', time: '0.2 s', cost: '–', findings: '1 image, 1.1 MB' },
+          { name: 'Identify the item', status: 'Refused', color: '#B42318', model: 'Gemini 3 Pro', time: '0.4 s', cost: 'US$0.000', findings: '429, rate limited' },
+          { name: 'Identify the item (fallback)', status: 'Done', color: '#067647', model: 'Claude Sonnet 5.5', time: '3.9 s', cost: 'US$0.021', findings: 'Match: RM-RSN-003 ABS Resin Pellets, 0.91' },
+          { name: 'Save the suggestion', status: 'Done', color: '#067647', model: '–', time: '0.3 s', cost: '–', findings: 'Waiting for the member to confirm' }
+        ],
+        raw: '13:52:04.112  run.start      task=photo_identify org=acme-plastics\n13:52:04.330  model.call     provider=gemini model=gemini-3-pro\n13:52:04.731  model.error    status=429 reason=rate_limited\n13:52:04.733  fallback       next=claude-sonnet-5-5\n13:52:08.640  model.reply    tokens_in=1840 tokens_out=96\n13:52:08.902  run.finish     status=ok_with_fallback' },
+      nightly: { title: 'Nightly forecast', org: 'All organisations', when: '15 Oct, 03:10 · 6 min', dot: '#F79009',
+        verdictWord: 'Finished with 1 problem', verdict: '47 of 48 organisations forecast', vBg: '#FEF4E6', vBorder: '#F8CD92', vFg: '#B54708',
+        meaning: 'Contoh Logistik was skipped because it has no stock movements in 30 days. Its members see last week\'s forecast until it runs again.',
+        facts: 'run_0915 · 12,480 SKUs · 17 new alerts · US$4.10',
+        fixes: [Object.assign({ level: 'Due', what: 'Contoh Logistik has no stock movements in 30 days (stock count until 20 Oct, per staff note)', fix: 'Open the organisation', href: 'Organisation.dc.html' }, WARN)],
+        steps: [
+          { name: 'Load movements', status: 'Done', color: '#067647', model: '–', time: '48 s', cost: '–', findings: '48 organisations, 1 with none in 30 days' },
+          { name: 'Forecast demand', status: 'Done', color: '#067647', model: 'Janka forecaster', time: '4 min 10 s', cost: '–', findings: '12,480 SKUs' },
+          { name: 'Explain changes', status: 'Done', color: '#067647', model: 'Gemini 3 Flash', time: '52 s', cost: 'US$4.10', findings: '312 explanations' },
+          { name: 'Raise alerts', status: 'Done', color: '#067647', model: '–', time: '9 s', cost: '–', findings: '17 new alerts' }
+        ],
+        raw: '03:10:00.004  run.start      task=nightly_forecast orgs=48\n03:10:48.220  skip           org=contoh-logistik reason=no_movements_30d\n03:14:58.910  forecast.done  skus=12480\n03:15:50.402  explain.done   n=312\n03:15:59.871  run.finish     status=ok problems=1' },
+      po: { title: 'Draft a purchase order', org: 'Mawar Textiles Sdn Bhd', when: '15 Oct, 14:10 · 2.1 s', dot: '#12B76A',
+        verdictWord: 'Finished', verdict: 'PO draft ready for review', vBg: '#E7F8EF', vBorder: '#A9E2C7', vFg: '#067647',
+        meaning: 'Three lines drafted for the supplier Benang Jaya; nothing is sent until a member approves it.',
+        facts: 'req_9b07aa · 1 model call · US$0.008', fixes: [],
+        steps: [
+          { name: 'Pick items below reorder point', status: 'Done', color: '#067647', model: '–', time: '0.3 s', cost: '–', findings: '3 items' },
+          { name: 'Write the draft', status: 'Done', color: '#067647', model: 'Claude Sonnet 5.5', time: '1.8 s', cost: 'US$0.008', findings: 'Clean' }
+        ],
+        raw: '14:10:11.020  run.start      task=po_draft org=mawar-textiles\n14:10:12.840  model.reply    tokens_in=920 tokens_out=210\n14:10:13.101  run.finish     status=ok' }
+    };
+    var order = ['photo', 'po', 'nightly'];
+    var runs = order.map(function (k) {
+      var r = R[k], on = self.state.run === k;
+      return { title: r.title, org: r.org, when: r.when, dot: r.dot, current: on ? 'true' : undefined,
+        style: 'display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;padding:10px 12px;border-radius:12px;cursor:pointer;font-size:13px;' + (on ? 'background:#F3F7FE;border:2px solid #0459F7;' : 'background:#FFFFFF;border:1px solid #E5E8EE;'),
+        pick: function () { self.setState({ run: k }); } };
+    });
+    var run = R[this.state.run];
+    run.noFix = run.fixes.length === 0;
+    return { runs: runs, run: run, rawOpen: this.state.raw, rawAria: this.state.raw ? 'true' : 'false', rawArrow: this.state.raw ? '▴' : '▾',
+      toggleRaw: function () { self.setState({ raw: !self.state.raw }); } };
+  }
+}
+</script>
+</body>
+</html>

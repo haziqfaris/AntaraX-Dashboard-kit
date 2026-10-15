@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Contoh Logistik Sdn Bhd · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Organisations" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Contoh Logistik Sdn Bhd" org-scope="Contoh Logistik Sdn Bhd" hint-size="100%,80px"></dc-import>
+    <main style="padding: 18px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+
+      <nav aria-label="Breadcrumb" style="font-size: 13px"><a href="Organisations.dc.html">Organisations</a> <span style="color: #5B6488">/ Contoh Logistik Sdn Bhd</span></nav>
+
+      <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 20px 22px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
+        <span style="width: 52px; height: 52px; border-radius: 14px; background: #EEF1F6; color: #0B1B4F; font-weight: 700; font-size: 18px; display: flex; align-items: center; justify-content: center">CL</span>
+        <div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+          <h2 style="margin: 0; color: #0B1B4F; font-size: 22px; font-weight: 600">Contoh Logistik Sdn Bhd</h2>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12px">
+            <span class="mono" style="color: #5B6488">contoh-logistik</span>
+            <span style="padding: 2px 9px; border-radius: 999px; border: 1px solid #E5E8EE; display: inline-flex; align-items: center; gap: 6px; color: #0B1B4F"><span style="width: 8px; height: 8px; border-radius: 2px; background: #2a78d6"></span>Active</span>
+            <span style="padding: 2px 9px; border-radius: 999px; background: #EEF1F6; color: #0B1B4F">Nova · for teams</span>
+            <span style="padding: 2px 9px; border-radius: 999px; background: #EEF1F6; color: #0B1B4F">Live</span>
+            <span style="color: #5B6488">Owner: Nur Aina Hashim · created 21 May 2026</span>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; cursor: pointer">Start support session…</button>
+          <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-weight: 500; cursor: pointer">Suspend…</button>
+        </div>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+        <section aria-labelledby="ready-h" style="flex: 2 1 460px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
+          <h3 id="ready-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Before Contoh Logistik is fully set up: 1 thing left</h3>
+          <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 16px">
+            <sc-for list="{{ready}}" as="r" hint-placeholder-count="6">
+              <li style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px">
+                <span aria-hidden="true" style="width: 20px; height: 20px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: {{r.bg}}; color: {{r.fg}}">{{r.mark}}</span>
+                <span style="display: flex; flex-direction: column"><span style="color: #0B1B4F">{{r.label}}</span><span style="color: #5B6488; font-size: 12px">{{r.detail}}</span></span>
+              </li>
+            </sc-for>
+          </ul>
+        </section>
+        <section aria-labelledby="stage-h" style="flex: 1 1 280px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 14px">
+          <h3 id="stage-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Stage</h3>
+          <ol style="list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 0">
+            <li style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1"><span style="width: 16px; height: 16px; border-radius: 50%; background: #0459F7; box-shadow: 0 0 0 3px #FFFFFF, 0 0 0 4px #0459F7"></span><span style="font-size: 12px">Sandbox</span><span class="mono" style="font-size: 11px; color: #5B6488">21 May</span></li>
+            <li aria-hidden="true" style="flex: 1; height: 2px; background: #0459F7; margin-bottom: 40px"></li>
+            <li style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1"><span style="width: 16px; height: 16px; border-radius: 50%; background: #0459F7"></span><span style="font-size: 12px">Pilot</span><span class="mono" style="font-size: 11px; color: #5B6488">2 Jun</span></li>
+            <li aria-hidden="true" style="flex: 1; height: 2px; background: #0459F7; margin-bottom: 40px"></li>
+            <li aria-current="step" style="display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1"><span style="width: 16px; height: 16px; border-radius: 50%; background: #FFFFFF; border: 3px solid #0459F7; box-sizing: border-box"></span><span style="font-size: 12px; color: #0B1B4F; font-weight: 600">Live</span><span class="mono" style="font-size: 11px; color: #5B6488">1 Jul</span></li>
+          </ol>
+          <p style="margin: 0; font-size: 12px; color: #5B6488">Each change of stage is recorded in Audit with who made it and why.</p>
+        </section>
+      </div>
+
+      <div role="tablist" aria-label="Organisation" style="display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid #E5E8EE">
+        <sc-for list="{{tabs}}" as="t" hint-placeholder-count="9">
+          <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}<sc-if value="{{t.hasN}}" hint-placeholder-val="{{false}}"><span class="mono" style="font-size: 11px; padding: 0 6px; border-radius: 999px; background: #EEF1F6; color: #3B4469">{{t.n}}</span></sc-if></button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{is.Summary}}" hint-placeholder-val="{{true}}">
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+          <section aria-label="Timeline" style="flex: 2 1 460px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px">
+            <h3 style="margin: 0 0 8px; color: #0B1B4F; font-size: 16px; font-weight: 600">Timeline</h3>
+            <ol style="list-style: none; margin: 0; padding: 0">
+              <sc-for list="{{timeline}}" as="e" hint-placeholder-count="7">
+                <li style="display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px solid #EEF1F6; font-size: 13px">
+                  <span class="mono" style="flex: 0 0 116px; color: #5B6488; font-size: 12px">{{e.when}}</span>
+                  <span style="flex: 1; min-width: 0">{{e.what}}</span>
+                </li>
+              </sc-for>
+            </ol>
+          </section>
+          <section aria-label="Details" style="flex: 1 1 280px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px">
+            <h3 style="margin: 0 0 10px; color: #0B1B4F; font-size: 16px; font-weight: 600">Details</h3>
+            <dl style="margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 8px 14px; font-size: 13px">
+              <dt style="color: #5B6488">Owner</dt><dd style="margin: 0; color: #0B1B4F">Nur Aina Hashim</dd>
+              <dt style="color: #5B6488">Contact</dt><dd class="mono" style="margin: 0; font-size: 12px">aina@contoh-logistik.example</dd>
+              <dt style="color: #5B6488">Plan</dt><dd style="margin: 0">Nova · for teams</dd>
+              <dt style="color: #5B6488">Billing</dt><dd style="margin: 0">Outside the product (edition only)</dd>
+              <dt style="color: #5B6488">Time zone</dt><dd style="margin: 0">Asia/Kuala_Lumpur (MYT)</dd>
+              <dt style="color: #5B6488">Sites</dt><dd class="mono" style="margin: 0">3</dd>
+              <dt style="color: #5B6488">SKUs</dt><dd class="mono" style="margin: 0">1,204</dd>
+            </dl>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{is.Members}}" hint-placeholder-val="{{false}}">
+        <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: center">
+            <p style="margin: 0; font-size: 13px">An organisation always keeps at least one Owner. Transferring ownership is recorded in Audit.</p>
+            <button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Transfer ownership…</button>
+          </div>
+          <div style="overflow-x: auto">
+            <table style="width: 100%; min-width: 760px; border-collapse: collapse; font-size: 13px">
+              <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Member</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Role</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Last sign-in</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Status</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE; text-align: right">Actions</th></tr></thead>
+              <tbody>
+                <sc-for list="{{members}}" as="m" hint-placeholder-count="5">
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #EEF1F6"><span style="color: #0B1B4F">{{m.name}}</span><div class="mono" style="font-size: 11px; color: #5B6488">{{m.email}}</div></td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6">{{m.role}}</td><td class="mono" style="padding: 8px; border-bottom: 1px solid #EEF1F6; font-size: 12px">{{m.last}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6">{{m.status}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6; text-align: right; white-space: nowrap"><button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Resend sign-in</button> <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Revoke sessions</button> <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-size: 12px; cursor: pointer">Lock…</button></td></tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{is.Plan}}" hint-placeholder-val="{{false}}">
+        <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
+          <sc-for list="{{features}}" as="f" hint-placeholder-count="5">
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid #EEF1F6">
+              <span style="flex: 1 1 220px; color: #0B1B4F">{{f.name}}</span>
+              <span style="font-size: 12px; padding: 2px 9px; border-radius: 999px; background: #EEF1F6">{{f.kind}}</span>
+              <span style="flex: 0 0 64px; font-weight: 600; color: {{f.color}}">{{f.state}}</span>
+              <span style="flex: 1 1 260px; font-size: 12px; color: #5B6488">Why: {{f.why}}</span>
+            </div>
+          </sc-for>
+          <a href="PlansFeatures.dc.html" style="font-size: 13px">Open Plans &amp; features</a>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{is.Usage}}" hint-placeholder-val="{{false}}">
+        <section style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px">
+          <div style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 18px; padding: 16px 18px"><div style="font-size: 12px; color: #5B6488">Active members, 30 days</div><div class="mono" style="font-size: 26px; color: #0B1B4F">14 of 18</div></div>
+          <div style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 18px; padding: 16px 18px"><div style="font-size: 12px; color: #5B6488">Forecasts run, October</div><div class="mono" style="font-size: 26px; color: #0B1B4F">14</div></div>
+          <div style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 18px; padding: 16px 18px"><div style="font-size: 12px; color: #5B6488">AI calls, October</div><div class="mono" style="font-size: 26px; color: #0B1B4F">1,088</div></div>
+          <div style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 18px; padding: 16px 18px"><div style="font-size: 12px; color: #5B6488">AI cost, October</div><div class="mono" style="font-size: 26px; color: #0B1B4F">US$22.40</div><div style="font-size: 12px; color: #5B6488">budget US$60.00 · 37%</div></div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{is.Integrations}}" hint-placeholder-val="{{false}}">
+        <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px; font-size: 13px">
+          <div style="display: flex; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid #EEF1F6"><span style="flex: 1; color: #0B1B4F">Google Sheets import</span><span style="color: #067647; font-weight: 600">Connected</span><span class="mono" style="color: #5B6488; font-size: 12px">last run 15 Oct, 06:00</span></div>
+          <div style="display: flex; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid #EEF1F6"><span style="flex: 1; color: #0B1B4F">Purchase-order email inbox</span><span style="color: #5B6488; font-weight: 600">Not connected</span><span class="mono" style="color: #5B6488; font-size: 12px">–</span></div>
+          <div style="display: flex; gap: 10px; align-items: center; padding: 8px 0"><span style="flex: 1; color: #0B1B4F">Lapis API</span><span style="color: #5B6488; font-weight: 600">Off</span><span class="mono" style="color: #5B6488; font-size: 12px">no keys</span></div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{is.Health}}" hint-placeholder-val="{{false}}">
+        <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px; font-size: 13px">
+          <p style="margin: 0; color: #0B1B4F; font-weight: 600">Data checks: <span style="color: #B42318">1 fix now</span> · 0 to check</p>
+          <div style="padding: 10px 14px; border-radius: 12px; background: #FEECEB; color: #B42318">No stock movements in the last 30 days: the nightly forecast skips this organisation until there are.</div>
+          <p style="margin: 6px 0 0; color: #0B1B4F; font-weight: 600">Recent errors</p>
+          <div style="display: flex; gap: 14px"><span class="mono" style="color: #5B6488; font-size: 12px">14 Oct, 10:02</span><span>Import row 214: unit "ctn" is not a known unit</span><span class="mono" style="color: #5B6488; font-size: 12px">req_8f2a91</span></div>
+          <div style="display: flex; gap: 14px"><span class="mono" style="color: #5B6488; font-size: 12px">12 Oct, 16:40</span><span>Sign-in link expired before use</span><span class="mono" style="color: #5B6488; font-size: 12px">req_77c0d3</span></div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{is.Notes}}" hint-placeholder-val="{{false}}">
+        <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px; font-size: 13px">
+          <p style="margin: 0; padding: 8px 12px; border-radius: 10px; background: #FEF4E6; color: #B54708">Internal notes. Never shown to the organisation.</p>
+          <sc-for list="{{notes}}" as="n" hint-placeholder-count="3">
+            <div style="padding: 10px 0; border-bottom: 1px solid #EEF1F6"><div style="color: #0B1B4F">{{n.text}}</div><div class="mono" style="font-size: 11px; color: #5B6488">{{n.by}}</div></div>
+          </sc-for>
+          <label for="new-note" style="font-size: 12px; color: #5B6488">Add a note</label>
+          <textarea id="new-note" rows="3" style="border-radius: 12px; border: 1px solid #D5DBE7; padding: 10px 12px; font-size: 14px; color: #0B1B4F"></textarea>
+          <button type="button" style="align-self: flex-start; min-height: 40px; padding: 0 16px; border-radius: 12px; border: 0; background: #FB9800; color: #071233; font-weight: 600; cursor: pointer">Save note</button>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{is.Branding}}" hint-placeholder-val="{{false}}">
+        <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-wrap: wrap; gap: 20px; font-size: 13px">
+          <div style="width: 120px; height: 120px; border-radius: 16px; border: 1px dashed #D5DBE7; display: flex; align-items: center; justify-content: center; color: #5B6488; text-align: center; font-size: 12px">[ORGANISATION LOGO]</div>
+          <dl style="margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 8px 14px">
+            <dt style="color: #5B6488">Sign-in page</dt><dd style="margin: 0">Their name and logo, never another client's</dd>
+            <dt style="color: #5B6488">Email sender</dt><dd style="margin: 0">Contoh Logistik via Janka</dd>
+            <dt style="color: #5B6488">Colour</dt><dd style="margin: 0">Janka's own (no override)</dd>
+          </dl>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{is.Audit}}" hint-placeholder-val="{{false}}">
+        <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; font-size: 13px">
+          <sc-for list="{{audit}}" as="a" hint-placeholder-count="4">
+            <div style="display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 9px 0; border-bottom: 1px solid #EEF1F6"><span class="mono" style="flex: 0 0 116px; color: #5B6488; font-size: 12px">{{a.when}}</span><span style="flex: 1 1 360px">{{a.what}}</span></div>
+          </sc-for>
+          <a href="Audit.dc.html" style="display: inline-block; margin-top: 10px">Open in Audit</a>
+        </section>
+      </sc-if>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'Summary' }; }
+  renderVals() {
+    var self = this;
+    var tabDefs = [['Summary', 'Summary'], ['Members', 'Members', 18], ['Plan', 'Plan & features'], ['Usage', 'Usage & AI'], ['Integrations', 'Integrations'], ['Health', 'Errors & health', 1], ['Notes', 'Notes', 3], ['Branding', 'Branding'], ['Audit', 'Audit']];
+    var is = {};
+    var tabs = tabDefs.map(function (t) {
+      var on = self.state.tab === t[0]; is[t[0]] = on;
+      return { label: t[1], hasN: t[2] != null, n: t[2], on: on ? 'true' : 'false',
+        style: 'display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:0;background:transparent;cursor:pointer;font-size:14px;margin-bottom:-1px;' +
+          (on ? 'color:#0B1B4F;font-weight:600;border-bottom:3px solid #FB9800;' : 'color:#5B6488;border-bottom:3px solid transparent;'),
+        pick: function () { self.setState({ tab: t[0] }); } };
+    });
+    function r(ok, label, detail) { return { label: label, detail: detail, mark: ok ? '✓' : '!', bg: ok ? '#E7F8EF' : '#FEF4E6', fg: ok ? '#067647' : '#B54708' }; }
+    return {
+      tabs: tabs, is: is,
+      ready: [
+        r(true, 'Owner accepted the invitation', 'Nur Aina Hashim, 21 May'),
+        r(true, 'Second admin added', 'Rahul Menon'),
+        r(true, 'Sites set up', '3 sites'),
+        r(true, 'Items imported', '1,204 SKUs'),
+        r(false, 'Stock movements in the last 30 days', 'Forecasts skip it until there are some'),
+        r(true, 'Plan chosen', 'Nova')
+      ],
+      timeline: [
+        { when: '15 Oct, 11:42', what: 'Farid Osman (Support) opened a 30-minute support view: member reported a missing forecast' },
+        { when: '15 Oct, 03:10', what: 'Skipped by the nightly forecast: no stock movements in 30 days' },
+        { when: '14 Oct, 10:02', what: 'Google Sheets import finished with 1 row refused' },
+        { when: '2 Oct, 09:15', what: 'Plan changed from Terra to Nova by Mei Lin (Admin): the team grew past one person' },
+        { when: '1 Jul, 14:00', what: 'Stage moved from Pilot to Live by Mei Lin (Admin)' },
+        { when: '2 Jun, 10:30', what: 'Stage moved from Sandbox to Pilot' },
+        { when: '21 May, 16:05', what: 'Created by Aisyah Rahman (Operator); Nur Aina Hashim invited as Owner' }
+      ],
+      members: [
+        { name: 'Nur Aina Hashim', email: 'aina@contoh-logistik.example', role: 'Owner', last: '15 Oct, 08:55', status: 'Active' },
+        { name: 'Rahul Menon', email: 'rahul@contoh-logistik.example', role: 'Admin', last: '14 Oct, 17:20', status: 'Active' },
+        { name: 'Siti Zulaikha', email: 'siti@contoh-logistik.example', role: 'Member', last: '15 Oct, 07:40', status: 'Active' },
+        { name: 'Daniel Tan', email: 'daniel@contoh-logistik.example', role: 'Member', last: '30 Sep, 12:02', status: 'Active' },
+        { name: 'Hafiz Ismail', email: 'hafiz@contoh-logistik.example', role: 'Viewer', last: 'Never', status: 'Invited' }
+      ],
+      features: [
+        { name: 'Forecasting', kind: 'Core', state: 'On', color: '#067647', why: 'every organisation has it' },
+        { name: 'Replenishment', kind: 'Module', state: 'On', color: '#067647', why: 'included in Nova' },
+        { name: 'PLExyz Trace (RFID)', kind: 'Module', state: 'Off', color: '#5B6488', why: 'not in Nova; Galaxy and above' },
+        { name: 'Photo identify', kind: 'Flag', state: 'On', color: '#067647', why: 'switched on for this organisation by Mei Lin, 2 Oct' },
+        { name: 'Simulation', kind: 'Module', state: 'Off', color: '#5B6488', why: 'switched off everywhere (global)' }
+      ],
+      notes: [
+        { text: 'Owner prefers WhatsApp for urgent issues; email for everything else.', by: 'Farid Osman · 15 Oct, 11:58' },
+        { text: 'Warehouse 2 stops recording movements during the stock count, 13 to 20 Oct.', by: 'Aisyah Rahman · 12 Oct, 09:30' },
+        { text: 'Asked about the PO email inbox; follow up in November.', by: 'Mei Lin · 2 Oct, 09:20' }
+      ],
+      audit: [
+        { when: '15 Oct, 11:42', what: 'Farid Osman (Support) started a support session, 30 minutes: member reported a missing forecast' },
+        { when: '2 Oct, 09:15', what: 'Mei Lin (Admin) changed the plan from Terra to Nova: the team grew past one person' },
+        { when: '2 Oct, 09:16', what: 'Mei Lin (Admin) switched Photo identify on: pilot of the feature' },
+        { when: '1 Jul, 14:00', what: 'Mei Lin (Admin) moved the stage to Live: go-live call held' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

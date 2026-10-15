@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Health · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Health" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Health" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+      <div><p style="margin: 0; color: #0B1B4F; font-size: 16px">Is every part of Janka working, did every job run, and can we restore if we must.</p>
+      <p class="mono" style="margin: 0; font-size: 12px; color: #5B6488">checked every minute · last check 15 Oct 2026, 14:30:12 MYT · build 7cc4b93, deployed 12:28</p></div>
+
+      <section aria-label="Services" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px">
+        <sc-for list="{{services}}" as="s" hint-placeholder-count="8">
+          <div style="display: flex; flex-direction: column; gap: 3px; padding: 14px 16px; border-radius: 16px; background: {{s.bg}}; border: 1px solid {{s.border}}">
+            <span style="display: flex; align-items: center; gap: 8px; color: #0B1B4F; font-weight: 500"><span style="width: 9px; height: 9px; border-radius: 50%; background: {{s.dot}}"></span>{{s.name}}</span>
+            <span style="font-size: 13px; font-weight: 600; color: {{s.fg}}">{{s.word}}</span>
+            <span class="mono" style="font-size: 11px; color: #5B6488">{{s.detail}}</span>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="jobs-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+        <h2 id="jobs-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Jobs and webhooks</h2>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 820px; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Job</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Schedule</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Last run</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Next run</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Result</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE; text-align: right"><span style="position: absolute; left: -9999px">Actions</span></th></tr></thead>
+            <tbody>
+              <sc-for list="{{jobs}}" as="j" hint-placeholder-count="6">
+                <tr>
+                  <td style="padding: 9px 8px; border-bottom: 1px solid #EEF1F6; color: #0B1B4F">{{j.name}}</td>
+                  <td style="padding: 9px 8px; border-bottom: 1px solid #EEF1F6">{{j.schedule}}</td>
+                  <td class="mono" style="padding: 9px 8px; border-bottom: 1px solid #EEF1F6; font-size: 12px">{{j.last}}</td>
+                  <td class="mono" style="padding: 9px 8px; border-bottom: 1px solid #EEF1F6; font-size: 12px">{{j.next}}</td>
+                  <td style="padding: 9px 8px; border-bottom: 1px solid #EEF1F6"><span style="font-weight: 600; color: {{j.fg}}">{{j.result}}</span><div style="font-size: 12px; color: #5B6488">{{j.why}}</div></td>
+                  <td style="padding: 9px 8px; border-bottom: 1px solid #EEF1F6; text-align: right; white-space: nowrap">
+                    <sc-if value="{{j.canRetry}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{j.retry}}" style="min-height: 36px; padding: 0 12px; border-radius: 10px; border: 0; background: #FB9800; color: #071233; font-weight: 600; font-size: 12px; cursor: pointer">Retry</button></sc-if>
+                    <sc-if value="{{j.canCancel}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{j.cancel}}" style="min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-size: 12px; cursor: pointer">Cancel</button></sc-if>
+                    <button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Run now</button>
+                  </td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+        <section aria-labelledby="bk-h" style="flex: 1 1 360px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
+          <h2 id="bk-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Backups</h2>
+          <dl style="margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; font-size: 13px">
+            <dt style="color: #5B6488">Last backup</dt><dd style="margin: 0; color: #0B1B4F"><span class="mono">15 Oct, 03:00</span> · <span style="color: #067647; font-weight: 600">Done</span>, 2.4 GB</dd>
+            <dt style="color: #5B6488">Kept</dt><dd style="margin: 0">30 daily, 12 monthly · Singapore region, a second copy in another account</dd>
+            <dt style="color: #5B6488">Last restore drill</dt><dd style="margin: 0; color: #0B1B4F"><span class="mono">1 Oct 2026</span> · <span style="color: #067647; font-weight: 600">Passed</span>, restored in 22 min</dd>
+            <dt style="color: #5B6488">Next drill</dt><dd class="mono" style="margin: 0">1 Nov 2026</dd>
+          </dl>
+          <button type="button" style="align-self: flex-start; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Record a restore drill…</button>
+        </section>
+        <section aria-labelledby="al-h" style="flex: 1 1 360px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+          <h2 id="al-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Alerts</h2>
+          <sc-for list="{{alerts}}" as="a" hint-placeholder-count="5">
+            <div style="display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 7px 0; border-bottom: 1px solid #EEF1F6; font-size: 13px"><span style="flex: 1 1 200px; color: #0B1B4F">{{a.when}}</span><span style="flex: 1 1 180px; color: #5B6488">{{a.who}}</span></div>
+          </sc-for>
+          <p style="margin: 4px 0 0; font-size: 12px; color: #5B6488">Alerts go by email and appear in Needs a person on the Overview.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { digest: 'failed', sheets: 'running' }; }
+  renderVals() {
+    var self = this;
+    var OK = { bg: '#FFFFFF', border: '#E5E8EE', dot: '#12B76A', fg: '#067647' };
+    var WARN = { bg: '#FFFBF4', border: '#F8CD92', dot: '#F79009', fg: '#B54708' };
+    var FAULT = { bg: '#FFF8F7', border: '#F6B5AF', dot: '#F04438', fg: '#B42318' };
+    function s(st, name, word, detail) { return Object.assign({ name: name, word: word, detail: detail }, st); }
+    var services = [
+      s(FAULT, 'Google Gemini', 'Failing', '429 rate limited since 13:52'),
+      s(WARN, 'Email', 'Slow', '3 bounced today · queue 12'),
+      s(OK, 'App', 'Up', 'build 7cc4b93 · 99.98% this month'),
+      s(OK, 'Database', 'Up', '41% of plan · 18 ms median'),
+      s(OK, 'Sign-in', 'Up', '212 in the last 30 min'),
+      s(OK, 'Storage', 'Up', '18.2 GB of 100 GB'),
+      s(OK, 'Anthropic Claude', 'Up', 'median 1.4 s'),
+      s(OK, 'Backups', 'Done', '15 Oct, 03:00')
+    ];
+    var dg = this.state.digest, sh = this.state.sheets;
+    var jobs = [
+      { name: 'Low-stock email digest', schedule: 'Daily, 07:00', last: '15 Oct, 07:00', next: '16 Oct, 07:00',
+        result: dg === 'failed' ? 'Failed' : 'Queued', fg: dg === 'failed' ? '#B42318' : '#0459F7',
+        why: dg === 'failed' ? 'The email service refused 3 addresses; 41 sent' : 'Retrying now, by Aisyah Rahman',
+        canRetry: dg === 'failed', retry: function () { self.setState({ digest: 'queued' }); }, canCancel: false },
+      { name: 'Google Sheets import, Contoh Logistik', schedule: 'Every 6 hours', last: '15 Oct, 12:00', next: '–',
+        result: sh === 'running' ? 'Running' : 'Cancelled', fg: sh === 'running' ? '#0459F7' : '#5B6488',
+        why: sh === 'running' ? 'Started 12:00, 2 h 30 min so far (usually 4 min)' : 'Cancelled by Aisyah Rahman: stuck',
+        canRetry: false, canCancel: sh === 'running', cancel: function () { self.setState({ sheets: 'cancelled' }); } },
+      { name: 'Nightly forecast', schedule: 'Daily, 03:10', last: '15 Oct, 03:10', next: '16 Oct, 03:10', result: 'Done, 1 skipped', fg: '#067647', why: '47 of 48 organisations', canRetry: false, canCancel: false },
+      { name: 'Forecast scoring', schedule: 'Daily, 03:00', last: '15 Oct, 03:00', next: '16 Oct, 03:00', result: 'Done', fg: '#067647', why: '', canRetry: false, canCancel: false },
+      { name: 'Payment webhook (billing provider)', schedule: 'On event', last: '15 Oct, 11:20', next: '–', result: 'Done', fg: '#067647', why: '0 failures in 7 days', canRetry: false, canCancel: false },
+      { name: 'Deletion: Kedai Runcit Maju', schedule: 'Once, 18 Oct', last: '–', next: '18 Oct, 02:00', result: 'Scheduled', fg: '#5B6488', why: 'After the cooling-off; export sent 8 Oct', canRetry: false, canCancel: false }
+    ];
+    var alerts = [
+      { when: 'A job fails', who: 'Email to Operators, at once' },
+      { when: 'An AI provider fails 3 times in 5 min', who: 'Email to Operators and Admins' },
+      { when: 'An organisation passes 80% of its AI budget', who: 'Needs a person' },
+      { when: 'Error rate over 5% for 5 min', who: 'Email to Operators' },
+      { when: 'No backup in 26 hours', who: 'Email to Owners' }
+    ];
+    return { services: services, jobs: jobs, alerts: alerts };
+  }
+}
+</script>
+</body>
+</html>

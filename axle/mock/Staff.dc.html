@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Staff · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Staff" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Staff" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 10px">
+        <div><p style="margin: 0; color: #0B1B4F; font-size: 16px">REKA people who can use AXLE, how much each may change, and which areas they can see.</p>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">Only REKA staff appear here. Customers' members are under Members.</p></div>
+        <span style="display: flex; align-items: center; gap: 10px">
+          <span style="font-size: 12px; color: #5B6488">Needs Admin</span>
+          <button type="button" disabled style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #F3E3C7; color: #8A6A3A; font-weight: 600; cursor: not-allowed">Add staff…</button>
+        </span>
+      </div>
+
+      <div role="status" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 10px 16px; border-radius: 14px; background: #E7F8EF; border: 1px solid #A9E2C7; color: #067647; font-size: 13px">
+        <span aria-hidden="true">✓</span><span>2 Owners, both on company accounts. Every staff account has two-step sign-in except one.</span>
+      </div>
+
+      <section aria-labelledby="ladder-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 12px">
+        <h2 id="ladder-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">The ladder: how much someone may change</h2>
+        <ol style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px">
+          <sc-for list="{{ladder}}" as="l" hint-placeholder-count="5">
+            <li style="padding: 12px 14px; border-radius: 14px; background: #F5F7FC; border: 1px solid #E5E8EE; display: flex; flex-direction: column; gap: 4px">
+              <span style="display: flex; align-items: center; gap: 8px"><span class="mono" style="font-size: 11px; color: #5B6488">{{l.n}}</span><span style="color: #0B1B4F; font-weight: 600">{{l.name}}</span><span class="mono" style="margin-left: auto; font-size: 11px; color: #5B6488">{{l.count}}</span></span>
+              <span style="font-size: 12px">{{l.can}}</span>
+            </li>
+          </sc-for>
+        </ol>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">Rights add areas on top of the ladder: Finance (money and AI cost), Security (sign-ins, sessions, exports, deletions), AI (providers, keys, prompts), Library (publishing).</p>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; overflow: hidden">
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 900px; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #5B6488; font-size: 12px; background: #FAFBFE"><th scope="col" style="font-weight: 500; padding: 10px 16px; border-bottom: 1px solid #E5E8EE">Staff</th><th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Rung</th><th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Rights</th><th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Two-step sign-in</th><th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Last sign-in</th><th scope="col" style="font-weight: 500; padding: 10px 16px 10px 10px; border-bottom: 1px solid #E5E8EE; text-align: right"><span style="position: absolute; left: -9999px">Actions</span></th></tr></thead>
+            <tbody>
+              <sc-for list="{{staff}}" as="s" hint-placeholder-count="5">
+                <tr>
+                  <td style="padding: 10px 16px; border-bottom: 1px solid #EEF1F6"><span style="color: #0B1B4F; font-weight: 500">{{s.name}}</span><div class="mono" style="font-size: 11px; color: #5B6488">{{s.email}}</div></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #EEF1F6"><span class="mono" style="font-size: 11px; font-weight: 600; letter-spacing: .06em; padding: 2px 8px; border-radius: 999px; background: #FFF1DA; color: #8A4B00">{{s.rung}}</span></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #EEF1F6"><span style="display: flex; flex-wrap: wrap; gap: 4px"><sc-for list="{{s.rights}}" as="r" hint-placeholder-count="2"><span style="font-size: 12px; padding: 1px 8px; border-radius: 999px; background: #E7EEFE; color: #0B1B4F">{{r}}</span></sc-for><sc-if value="{{s.noRights}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #5B6488">None</span></sc-if></span></td>
+                  <td style="padding: 10px; border-bottom: 1px solid #EEF1F6; font-weight: 600; color: {{s.mfaColor}}">{{s.mfa}}</td>
+                  <td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; font-size: 12px">{{s.last}}</td>
+                  <td style="padding: 10px 16px 10px 10px; border-bottom: 1px solid #EEF1F6; text-align: right; white-space: nowrap"><span style="font-size: 11px; color: #5B6488; margin-right: 6px">{{s.note}}</span><button type="button" disabled style="min-height: 34px; padding: 0 12px; border-radius: 10px; border: 1px solid #E5E8EE; background: #F5F7FC; color: #8A93AE; font-size: 12px; cursor: not-allowed">Change…</button></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var ladder = [
+      { n: '1', name: 'Viewer', count: '1', can: 'Reads everything except secrets and the areas behind a right' },
+      { n: '2', name: 'Support', count: '1', can: 'Plus support sessions, look-ups, resending invitations, notes' },
+      { n: '3', name: 'Operator', count: '1', can: 'Plus suspend and restore, switches, quota overrides, jobs' },
+      { n: '4', name: 'Admin', count: '1', can: 'Plus creating organisations, plans and features, staff, settings' },
+      { n: '5', name: 'Owner', count: '2', can: 'Plus secrets, deletions and second-person approvals' }
+    ];
+    function st(name, email, rung, rights, mfa, last, note) {
+      return { name: name, email: email, rung: rung, rights: rights, noRights: rights.length === 0, mfa: mfa ? 'On' : 'Off', mfaColor: mfa ? '#067647' : '#B42318', last: last, note: note };
+    }
+    var staff = [
+      st('Zainal Abidin', 'zainal@reka.example', 'OWNER', ['Finance', 'Security', 'AI', 'Library'], true, '15 Oct, 09:12', 'Needs Admin'),
+      st('Nadia Rahim', 'nadia@reka.example', 'OWNER', ['Finance', 'Security'], true, '14 Oct, 18:40', 'Needs Admin'),
+      st('Mei Lin', 'meilin@reka.example', 'ADMIN', ['AI', 'Library'], true, '15 Oct, 10:05', 'Needs Admin'),
+      st('Aisyah Rahman', 'aisyah@reka.example', 'OPERATOR', ['Finance'], true, '15 Oct, 13:58', 'You · cannot change yourself'),
+      st('Farid Osman', 'farid@reka.example', 'SUPPORT', [], true, '15 Oct, 11:40', 'Needs Admin'),
+      st('Jason Lee', 'jason@reka.example', 'VIEWER', [], false, '2 Oct, 16:20', 'Needs Admin')
+    ];
+    return { ladder: ladder, staff: staff };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Costs · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Costs" staff-name="Farid Osman" staff-rung="SUPPORT" initials="FO" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Costs" initials="FO" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+      <p style="margin: 0; color: #0B1B4F; font-size: 16px">What Janka costs to run, against what it earns.</p>
+
+      <section role="note" aria-labelledby="gate-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 24px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start">
+        <span aria-hidden="true" style="width: 48px; height: 48px; flex: none; border-radius: 14px; background: #EEF1F6; display: flex; align-items: center; justify-content: center">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B1B4F" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+        </span>
+        <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 6px">
+          <h2 id="gate-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">You don't have the Finance right</h2>
+          <p style="margin: 0">It covers MRR, invoices, AI and infrastructure cost, and budgets. Everything else on this page you can see.</p>
+          <p style="margin: 0; font-size: 13px; color: #5B6488">An Admin or Owner can add it in AXLE → Staff → your name: Mei Lin (Admin), Zainal Abidin or Nadia Rahim (Owners).</p>
+        </div>
+        <a href="Staff.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; color: #0B1B4F; font-weight: 500; text-decoration: none">Open Staff</a>
+      </section>
+
+      <section aria-label="Figures" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px">
+        <sc-for list="{{figures}}" as="f" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border-radius: 18px; background: #FFFFFF; border: 1px solid #E5E8EE">
+            <span style="font-size: 12px; color: #5B6488">{{f.label}}</span>
+            <span class="mono" style="font-size: 26px; color: {{f.color}}">{{f.value}}</span>
+            <span style="font-size: 12px; color: #5B6488">{{f.hint}}</span>
+          </div>
+        </sc-for>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
+        <h2 style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">By organisation, October</h2>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Organisation</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE; text-align: right">AI calls</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE; text-align: right">AI cost</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE; text-align: right">Charged</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Budget</th></tr></thead>
+            <tbody>
+              <sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+                <tr><td style="padding: 8px; border-bottom: 1px solid #EEF1F6; color: #0B1B4F">{{r.name}}</td><td class="mono" style="padding: 8px; border-bottom: 1px solid #EEF1F6; text-align: right">{{r.calls}}</td><td class="mono" style="padding: 8px; border-bottom: 1px solid #EEF1F6; text-align: right; color: #5B6488">–</td><td class="mono" style="padding: 8px; border-bottom: 1px solid #EEF1F6; text-align: right; color: #5B6488">–</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6; color: #5B6488; font-size: 12px">Needs the Finance right</td></tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var HID = 'Needs the Finance right';
+    return {
+      figures: [
+        { label: 'AI calls, October', value: '18,204', hint: '0.5% failed', color: '#0B1B4F' },
+        { label: 'MRR', value: '–', hint: HID, color: '#5B6488' },
+        { label: 'AI cost, October', value: '–', hint: HID, color: '#5B6488' },
+        { label: 'Infrastructure, October', value: '–', hint: HID, color: '#5B6488' }
+      ],
+      rows: [
+        { name: 'Mawar Textiles Sdn Bhd', calls: '5,120' },
+        { name: 'Acme Plastics Sdn Bhd', calls: '4,212' },
+        { name: 'Harapan Pharma Sdn Bhd', calls: '2,380' },
+        { name: 'Teguh Packaging Sdn Bhd', calls: '1,402' },
+        { name: 'Contoh Logistik Sdn Bhd', calls: '1,088' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

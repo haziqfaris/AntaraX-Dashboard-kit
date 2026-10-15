@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Audit · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Audit" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Audit" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 10px">
+        <div><p style="margin: 0; color: #0B1B4F; font-size: 16px">Every action staff took in AXLE, with the reason, and what it changed.</p>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">Nothing here can be edited or deleted. Calls from AXLE Central appear as the service.</p></div>
+        <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; cursor: pointer">Export CSV</button>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">Staff <select style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"><option>Anyone</option><option>Aisyah Rahman</option><option>Farid Osman</option><option>Mei Lin</option><option>AXLE Central</option></select></label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">Organisation <select style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"><option>Any</option><option>Acme Plastics Sdn Bhd</option><option>Contoh Logistik Sdn Bhd</option></select></label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">Action <select style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"><option>Any</option><option>Suspend or restore</option><option>Quota override</option><option>Support session</option><option>Plan change</option><option>Switch</option><option>Staff change</option></select></label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">From <input type="date" value="2026-10-08" style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"></label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">To <input type="date" value="2026-10-15" style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"></label>
+      </div>
+
+      <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; overflow: hidden">
+        <ol style="list-style: none; margin: 0; padding: 0">
+          <sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
+            <li style="border-bottom: 1px solid #EEF1F6">
+              <button type="button" onClick="{{r.toggle}}" aria-expanded="{{r.aria}}" style="width: 100%; display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline; padding: 12px 18px; border: 0; background: {{r.bg}}; text-align: left; cursor: pointer; font-size: 13px; color: #3B4469">
+                <span class="mono" style="flex: 0 0 120px; font-size: 12px; color: #5B6488">{{r.when}}</span>
+                <span style="flex: 1 1 420px; min-width: 0"><strong style="color: #0B1B4F; font-weight: 500">{{r.who}}</strong> <span class="mono" style="font-size: 11px; color: #B54708">{{r.rung}}</span> {{r.what}}<span style="color: #5B6488"> · {{r.org}}</span></span>
+                <span style="flex: 0 1 300px; color: #5B6488">Reason: {{r.why}}</span>
+                <span aria-hidden="true" style="color: #0459F7">{{r.arrow}}</span>
+              </button>
+              <sc-if value="{{r.open}}" hint-placeholder-val="{{false}}">
+                <div style="display: flex; flex-wrap: wrap; gap: 12px; padding: 0 18px 14px 154px">
+                  <div style="flex: 1 1 240px; padding: 10px 12px; border-radius: 12px; background: #FEECEB"><div style="font-size: 11px; color: #B42318; font-weight: 600">BEFORE</div><div class="mono" style="font-size: 12px; color: #0B1B4F">{{r.before}}</div></div>
+                  <div style="flex: 1 1 240px; padding: 10px 12px; border-radius: 12px; background: #E7F8EF"><div style="font-size: 11px; color: #067647; font-weight: 600">AFTER</div><div class="mono" style="font-size: 12px; color: #0B1B4F">{{r.after}}</div></div>
+                  <div class="mono" style="flex: 1 1 100%; font-size: 11px; color: #5B6488">{{r.meta}}</div>
+                </div>
+              </sc-if>
+            </li>
+          </sc-for>
+        </ol>
+        <div class="mono" style="padding: 12px 18px; font-size: 12px; color: #5B6488">8 of 214 actions in this range</div>
+      </section>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1200}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { open: { 0: true } }; }
+  renderVals() {
+    var self = this;
+    var data = [
+      ['15 Oct, 14:05', 'Aisyah Rahman', 'OPERATOR', 'raised the AI quota', 'Acme Plastics Sdn Bhd', 'month-end stock count', 'ai_calls_month: 8,000 (plan)', 'ai_calls_month: 12,000 until 31 Oct'],
+      ['15 Oct, 11:42', 'Farid Osman', 'SUPPORT', 'started a support session, 30 min, read only', 'Contoh Logistik Sdn Bhd', 'member reported a missing forecast', 'no session', 'session until 12:12, ended 11:58'],
+      ['15 Oct, 09:31', 'AXLE Central', 'SERVICE', 'read health: degraded (jobs_stuck)', 'Platform', 'scheduled check', '–', 'health: degraded'],
+      ['14 Oct, 17:20', 'Aisyah Rahman', 'OPERATOR', 'scheduled deletion after the cooling-off', 'Kedai Runcit Maju', 'owner asked to close the account', 'status: active', 'status: pending deletion, cooling-off to 18 Oct'],
+      ['14 Oct, 09:03', 'Mei Lin', 'ADMIN', 'switched open access on', 'All organisations', 'pilot extended to 31 Oct', 'open_access: off', 'open_access: on'],
+      ['13 Oct, 16:48', 'Mei Lin', 'ADMIN', 'gave Farid Osman the Support rung', 'Staff', 'joined the support rota', 'rung: Viewer', 'rung: Support'],
+      ['9 Oct, 10:20', 'Mei Lin', 'ADMIN', 'switched Simulation off everywhere', 'All organisations', 'rebuilding the model', 'simulation: on', 'simulation: off (global)'],
+      ['8 Oct, 15:12', 'Aisyah Rahman', 'OPERATOR', 'sent the data export before deletion', 'Kedai Runcit Maju', 'deletion request received', 'export: none', 'export: link sent to owner, expires 15 Oct']
+    ];
+    var rows = data.map(function (d, i) {
+      var open = !!self.state.open[i];
+      return { when: d[0], who: d[1], rung: d[2], what: d[3], org: d[4], why: d[5], before: d[6], after: d[7],
+        meta: 'audit_id aud_' + (9120 - i) + ' · from 10.4.2.' + (17 + i) + ' · two-step sign-in: yes',
+        open: open, aria: open ? 'true' : 'false', arrow: open ? '▴' : '▾', bg: open ? '#F3F7FE' : '#FFFFFF',
+        toggle: function () { var o = Object.assign({}, self.state.open); o[i] = !o[i]; self.setState({ open: o }); } };
+    });
+    return { rows: rows };
+  }
+}
+</script>
+</body>
+</html>

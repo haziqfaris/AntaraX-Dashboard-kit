@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Plans and features · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Plans &amp; features" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Plans &amp; features" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+      <p style="margin: 0; color: #0B1B4F; font-size: 16px">What each plan includes, how every feature is switched, and why an organisation has it.</p>
+
+      <div role="tablist" aria-label="Plans and features" style="display: flex; gap: 4px; border-bottom: 1px solid #E5E8EE">
+        <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+          <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{at.plans}}" hint-placeholder-val="{{false}}">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px">
+          <sc-for list="{{plans}}" as="p" hint-placeholder-count="4">
+            <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
+              <h2 style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">{{p.name}}</h2>
+              <p style="margin: 0; font-size: 13px">{{p.who}}</p>
+              <p class="mono" style="margin: 0; font-size: 12px; color: #5B6488">{{p.orgs}} organisations · limit {{p.limit}}</p>
+              <ul style="margin: 4px 0 0; padding-left: 18px; font-size: 13px; display: flex; flex-direction: column; gap: 2px">
+                <sc-for list="{{p.mods}}" as="m" hint-placeholder-count="3"><li>{{m}}</li></sc-for>
+              </ul>
+              <button type="button" style="margin-top: auto; align-self: flex-start; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Edit plan</button>
+            </section>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{at.features}}" hint-placeholder-val="{{true}}">
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+          <section style="flex: 3 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; overflow: hidden">
+            <div style="overflow-x: auto">
+              <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13px">
+                <thead><tr style="text-align: left; color: #5B6488; font-size: 12px; background: #FAFBFE"><th scope="col" style="font-weight: 500; padding: 10px 16px; border-bottom: 1px solid #E5E8EE">Feature</th><th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Kind</th><th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">From plan</th><th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Everywhere</th><th scope="col" style="font-weight: 500; padding: 10px 16px 10px 10px; border-bottom: 1px solid #E5E8EE; text-align: right">Organisations on</th></tr></thead>
+                <tbody>
+                  <sc-for list="{{features}}" as="f" hint-placeholder-count="7">
+                    <tr onClick="{{f.pick}}" style="cursor: pointer; background: {{f.bg}}">
+                      <td style="padding: 10px 16px; border-bottom: 1px solid #EEF1F6"><button type="button" onClick="{{f.pick}}" style="border: 0; background: transparent; padding: 0; color: #0B1B4F; font-weight: 500; font-size: 13px; cursor: pointer; text-align: left">{{f.name}}</button><div style="font-size: 12px; color: #5B6488">{{f.desc}}</div></td>
+                      <td style="padding: 10px; border-bottom: 1px solid #EEF1F6"><span style="font-size: 12px; padding: 2px 9px; border-radius: 999px; background: #EEF1F6; color: #0B1B4F">{{f.kind}}</span></td>
+                      <td style="padding: 10px; border-bottom: 1px solid #EEF1F6">{{f.plan}}</td>
+                      <td style="padding: 10px; border-bottom: 1px solid #EEF1F6; font-weight: 600; color: {{f.globalColor}}">{{f.global}}</td>
+                      <td class="mono" style="padding: 10px 16px 10px 10px; border-bottom: 1px solid #EEF1F6; text-align: right">{{f.orgs}}</td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section aria-labelledby="why-h" style="flex: 2 1 340px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+            <h2 id="why-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Why does Acme Plastics have {{sel.name}}?</h2>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #5B6488">Organisation
+              <select style="flex: 1; height: 40px; border-radius: 10px; border: 1px solid #D5DBE7; padding: 0 10px; color: #0B1B4F; font-size: 13px"><option>Acme Plastics Sdn Bhd (Nova)</option><option>Contoh Logistik Sdn Bhd (Nova)</option><option>Mawar Textiles Sdn Bhd (Galaxy)</option></select></label>
+            <p style="margin: 0; padding: 10px 14px; border-radius: 12px; background: {{sel.answerBg}}; color: {{sel.answerFg}}; font-weight: 600">{{sel.answer}}</p>
+            <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px">
+              <sc-for list="{{sel.steps}}" as="s" hint-placeholder-count="5">
+                <li style="display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; border-radius: 10px; {{s.style}}">
+                  <span class="mono" style="width: 22px; height: 22px; flex: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; {{s.dot}}">{{s.n}}</span>
+                  <span style="display: flex; flex-direction: column; font-size: 13px"><span style="color: #0B1B4F">{{s.label}}</span><span style="font-size: 12px; color: #5B6488">{{s.result}}</span></span>
+                </li>
+              </sc-for>
+            </ol>
+            <p style="margin: 0; font-size: 12px; color: #5B6488">The first step that says on or off decides. Later steps are not checked.</p>
+            <button type="button" style="align-self: flex-start; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Switch for Acme Plastics…</button>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{at.quotas}}" hint-placeholder-val="{{false}}">
+        <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+          <section style="flex: 3 1 520px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; overflow: hidden">
+            <div style="overflow-x: auto">
+              <table style="width: 100%; min-width: 600px; border-collapse: collapse; font-size: 13px">
+                <thead><tr style="text-align: left; color: #5B6488; font-size: 12px; background: #FAFBFE"><th scope="col" style="font-weight: 500; padding: 10px 16px; border-bottom: 1px solid #E5E8EE">Organisation</th><th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE">Quota</th><th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE; text-align: right">Plan gives</th><th scope="col" style="font-weight: 500; padding: 10px; border-bottom: 1px solid #E5E8EE; text-align: right">Now</th><th scope="col" style="font-weight: 500; padding: 10px 16px 10px 10px; border-bottom: 1px solid #E5E8EE">Override</th></tr></thead>
+                <tbody>
+                  <tr><td style="padding: 10px 16px; border-bottom: 1px solid #EEF1F6; color: #0B1B4F">Acme Plastics Sdn Bhd</td><td style="padding: 10px; border-bottom: 1px solid #EEF1F6">AI calls a month</td><td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; text-align: right">8,000</td><td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; text-align: right; color: #0B1B4F; font-weight: 600">12,000</td><td style="padding: 10px 16px 10px 10px; border-bottom: 1px solid #EEF1F6; font-size: 12px">Aisyah Rahman, 15 Oct: month-end stock count · ends 31 Oct</td></tr>
+                  <tr><td style="padding: 10px 16px; border-bottom: 1px solid #EEF1F6; color: #0B1B4F">Mawar Textiles Sdn Bhd</td><td style="padding: 10px; border-bottom: 1px solid #EEF1F6">Sites</td><td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; text-align: right">10</td><td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; text-align: right; color: #0B1B4F; font-weight: 600">12</td><td style="padding: 10px 16px 10px 10px; border-bottom: 1px solid #EEF1F6; font-size: 12px">Mei Lin, 2 Sep: two warehouses opening before contract renewal · no end</td></tr>
+                  <tr><td style="padding: 10px 16px; border-bottom: 1px solid #EEF1F6; color: #0B1B4F">Contoh Logistik Sdn Bhd</td><td style="padding: 10px; border-bottom: 1px solid #EEF1F6">Members</td><td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; text-align: right">20</td><td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; text-align: right">20</td><td style="padding: 10px 16px 10px 10px; border-bottom: 1px solid #EEF1F6; font-size: 12px; color: #5B6488">None</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <section role="dialog" aria-labelledby="ovr-h" style="flex: 2 1 320px; min-width: 0; background: #FFFFFF; border: 2px solid #0B1B4F; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 20px 40px -24px rgba(11,27,79,.45)">
+            <h2 id="ovr-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Override a quota for Contoh Logistik</h2>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #0B1B4F">Members
+              <input type="number" value="25" style="height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F"></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #0B1B4F">Reason <span style="font-size: 12px; color: #5B6488">Required. Shown in Audit and on the organisation's timeline.</span>
+              <textarea rows="3" style="padding: 10px 12px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F">Seasonal staff for the year-end peak, agreed with the owner on 14 Oct</textarea></label>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #0B1B4F">Ends
+              <select style="height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; font-size: 14px; color: #0B1B4F"><option>31 Dec 2026</option><option>No end date</option></select></label>
+            <div style="display: flex; gap: 8px; justify-content: flex-end"><button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Cancel</button><button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #FB9800; color: #071233; font-weight: 600; cursor: pointer">Set 25 members</button></div>
+          </section>
+        </div>
+      </sc-if>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'features', feat: 'Photo identify' }; }
+  renderVals() {
+    var self = this;
+    var tabs = [['plans', 'Plans'], ['features', 'Features'], ['quotas', 'Quotas and overrides']].map(function (t) {
+      var on = self.state.tab === t[0];
+      return { label: t[1], on: on ? 'true' : 'false',
+        style: 'min-height:44px;padding:0 14px;border:0;background:transparent;cursor:pointer;font-size:14px;margin-bottom:-1px;' + (on ? 'color:#0B1B4F;font-weight:600;border-bottom:3px solid #FB9800;' : 'color:#5B6488;border-bottom:3px solid transparent;'),
+        pick: function () { self.setState({ tab: t[0] }); } };
+    });
+    var plans = [
+      { name: 'Seed', who: 'Seed · free to start', orgs: 11, limit: '200 items', mods: ['Forecasting'] },
+      { name: 'Terra', who: 'Terra · for one person', orgs: 9, limit: '1 site', mods: ['Forecasting', 'Stock counts'] },
+      { name: 'Nova', who: 'Nova · for teams', orgs: 19, limit: '5 sites, 20 members', mods: ['Forecasting', 'Replenishment', 'Mobile scanner', 'PO drafts'] },
+      { name: 'Galaxy', who: 'Galaxy · for growing businesses', orgs: 9, limit: '10 sites', mods: ['Everything in Nova', 'PLExyz Trace (RFID)', 'Simulation', 'Capital view'] }
+    ];
+    // [name, desc, kind, plan, global, orgs, steps for Acme: [globalOff, orgOff, orgOn, plan, default]]
+    var F = {
+      'Forecasting': ['Nightly demand forecast', 'Core', 'Every plan', 'On', '48', ['Not off', 'Not set', 'Not set', 'Core: always on', '–'], 4, true],
+      'Replenishment': ['Reorder points and PO drafts', 'Module', 'Nova and above', 'On', '28', ['Not off', 'Not set', 'Not set', 'Nova includes it', '–'], 4, true],
+      'Photo identify': ['Name an item from a photo', 'Flag', 'None (pilot)', 'On', '6', ['Not off', 'Not set', 'On: Mei Lin, 2 Oct, pilot of the feature', 'Not checked', 'Not checked'], 3, true],
+      'PLExyz Trace (RFID)': ['RFID tags and readers', 'Module', 'Galaxy and above', 'On', '9', ['Not off', 'Not set', 'Not set', 'Nova does not include it', '–'], 4, false],
+      'Simulation': ['What-if stock scenarios', 'Module', 'Galaxy and above', 'Off', '0', ['Off everywhere: Mei Lin, 9 Oct, rebuilding the model', 'Not checked', 'Not checked', 'Not checked', 'Not checked'], 1, false],
+      'Lot and expiry tracking': ['Batches and best-before dates', 'Configurable', 'Every plan', 'On', '48', ['Not off', 'Not set', 'Not set', 'Not set', 'Default: on, set by the organisation\'s admin'], 5, true],
+      'Capital view': ['Money tied up in stock', 'Module', 'Galaxy and above', 'On', '9', ['Not off', 'Not set', 'Not set', 'Nova does not include it', '–'], 4, false]
+    };
+    var features = Object.keys(F).map(function (k) {
+      var f = F[k], sel = self.state.feat === k;
+      return { name: k, desc: f[0], kind: f[1], plan: f[2], global: f[3], globalColor: f[3] === 'On' ? '#067647' : '#B42318', orgs: f[4],
+        bg: sel ? '#F3F7FE' : '#FFFFFF', pick: function () { self.setState({ feat: k }); } };
+    });
+    var cur = F[this.state.feat];
+    var stepLabels = ['Switched off everywhere?', 'Switched off for this organisation?', 'Switched on for this organisation?', 'Does the plan include it?', 'Default'];
+    var decided = cur[6], on = cur[7];
+    var steps = stepLabels.map(function (l, i) {
+      var n = i + 1, isD = n === decided, skipped = n > decided;
+      return { n: n, label: l, result: cur[5][i],
+        style: isD ? 'background:' + (on ? '#E7F8EF' : '#FEECEB') + ';border:1px solid ' + (on ? '#A9E2C7' : '#F6B5AF') + ';' : (skipped ? 'opacity:.55;' : 'background:#F5F7FC;'),
+        dot: isD ? 'background:#0B1B4F;color:#FFFFFF;' : 'background:#EEF1F6;color:#5B6488;' };
+    });
+    return {
+      tabs: tabs, plans: plans, features: features,
+      at: { plans: this.state.tab === 'plans', features: this.state.tab === 'features', quotas: this.state.tab === 'quotas' },
+      sel: { name: this.state.feat, steps: steps, answer: (on ? 'On' : 'Off') + ', decided at step ' + decided,
+        answerBg: on ? '#E7F8EF' : '#FEECEB', answerFg: on ? '#067647' : '#B42318' }
+    };
+  }
+}
+</script>
+</body>
+</html>
