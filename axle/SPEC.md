@@ -250,12 +250,12 @@ Product-only items sit at the end so that adding one never moves a standard item
 |---|---|---|---|---|
 | **Watch** | **Overview** | Always | §8 (B1–B4) | Viewer |
 | | **Adoption** | Always | Active organisations and members over time, feature use per organisation, who stopped using it (I1) | Viewer |
-| | **Feedback** | Later | What members sent from the product | Support |
+| | **Tickets** | Always | YaraOne's back office, embedded: this product's support requests and feedback. Reply, add an internal note, change the state the customer sees. Tickets live in YaraOne; nothing about them is stored in the product (§10.12) | Support replies; Viewer reads |
 | **Organisations** | **Organisations** | Orgs | List, create, lifecycle and the organisation page (C1–C6, §10.1–10.3) | Operator, Admin |
 | | **Members** | Orgs | Members across organisations (D2) | Support, Operator |
 | | **Invitations** | Always | Single-use expiring links (D3) | Support |
 | | **Requests** | Orgs | Access requests, data export and deletion requests, pilot requests (C5, J3) | Admin, Security right |
-| | **Support** | Orgs | Notes and tickets per organisation, never shown to it (H4) | Support |
+| | **Support** | Orgs | Internal notes per organisation, never shown to it (H4), and support sessions (§11). Tickets are in Tickets | Support |
 | **AI** | **Models & keys** | AI | Providers, keys (masked, test, rotate), model per task with default and fallback chain, automatic switch on outage (F1, F2). Provider *health* is R8 → Providers; this page is the configuration | AI right |
 | | **AI usage** | AI | Usage, performance and cost per organisation, task and model; budgets and alerts (F4) | Viewer; cost needs Finance |
 | | **Live trace** | AI | One run, diagnosis first, AXLE only (F5, §10.6) | Viewer; bodies need AI |
@@ -403,7 +403,8 @@ The page opens on **what is missing**: a readiness checklist ("Before Acme Plast
 | **Usage & AI** | Activity, AI usage and cost (Finance) |
 | **Integrations** | Connected services and their state |
 | **Errors & health** | Recent errors; data checks: "3 fix now · 2 to check" (Yara `tenant_integrity`) |
-| **Notes** | Internal notes and tickets; never visible to the organisation (H4) |
+| **Notes** | Internal notes; never visible to the organisation (H4) |
+| **Tickets** | This organisation's tickets: YaraOne's back office filtered to it (§10.12) |
 | **Branding** | Logo, colours, sender name, where the product supports it (C7, Later) |
 | **Audit** | Staff actions on this organisation |
 
@@ -504,6 +505,18 @@ One problem, all its evidence. Every product has it, Base or Full. Opened in one
 | **Your conclusion** | The operator's own words, stored apart from the evidence and the reading (M11). An AI guess is never stored as a fact |
 | **Safe actions** | Only the actions that apply to this problem, each labelled with its level (§14.1): for example Test provider, Retry failed items, Suppress for 1 hour. Actions that live in the Dashboard (rotating a key) are links, not buttons |
 
+### 10.12 Tickets: YaraOne's back office (owner, 16 Oct 2026)
+
+Every support request and piece of feedback from every product lives in **YaraOne**, REKA's ticketing product. YaraOne manages tickets and feedback, nothing else; AXLE runs the product. So:
+
+- **Watch → Tickets** embeds YaraOne's back office, showing this product's tickets only. Staff never sign in to YaraOne separately. The embed sits in a dashed frame labelled "YaraOne · back office", so it is clear where AXLE ends.
+- **What staff do there:** filter by state and kind (Support request, Feedback); open a ticket; read what the product sent with it (page, version, person, role, error reference); reply to the customer; add an internal note in a separate thread that never reaches the organisation; change the state the customer sees (Received, Reviewing, Need more information, Planned, In progress, Resolved, Closed).
+- **What stays AXLE's**, one click from a ticket: Start support session… (§11), Troubleshoot when it carries an error reference or matches an incident, Organisation 360.
+- **Organisation 360 → Tickets** shows the same embed filtered to that organisation.
+- **Needs a person** (§8) counts tickets waiting on a reply.
+- **No product stores tickets or feedback**, and no AXLE builds its own inbox for them. YaraOne's own dashboard is where REKA's support team works across products.
+- The contract, and what waits on YaraOne's build: [`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md).
+
 ## 11 Support sessions (std H7)
 
 How REKA support sees an organisation exactly as its people see it, to solve a problem they reported, without asking for screenshots. **In every product** (owner, 15 Oct 2026; std H7 had it as Later). Angka's is the reference. The organisation's side is app SPEC §7 and §13.
@@ -528,7 +541,7 @@ How REKA support sees an organisation exactly as its people see it, to solve a p
 | Model and provider names, prompts, traces | "AI" with the sparkle; the result |
 | AI cost and REKA's margins | The plan and its quota |
 | Sandbox, preview and environment notices meant for staff | Nothing, or the organisation's own trial status |
-| Internal notes and tickets | Nothing |
+| Internal notes, and the internal thread of a ticket | Nothing. The organisation sees only its own requests and the replies to them, in YaraOne's front office |
 | Other organisations' names or data | Nothing |
 | The word AXLE, its address, staff rungs | "REKA support" |
 
@@ -652,6 +665,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **R8 switch** | The switch changes only the menu, is remembered, needs no new sign-in, and says Base or Full; a member cannot open any R8 address |
 | **R8 jobs** | Run a job now: it appears with eligible, processed and failed counts; retry failures runs only the failed items |
 | **R8 providers** | Test provider gives a result and a latency; no key or secret appears on the page or in its network responses |
+| **Tickets** | A request sent from the product's Help appears in Watch → Tickets with its page and version; a reply reaches the customer under Help → Your requests; an internal note never does; the product's database holds no ticket |
 | **R8 AI flow** | Every AI feature in the code appears in the manifest and on the page; the five steps add up (asked = every outcome together); no prompt, photo or answer appears on the page or in its network responses |
 | **R8 troubleshoot** | From a Dashboard alert, Troubleshoot opens R8 on that organisation and asset with outside evidence, a timeline and only safe actions; the reading and the conclusion are stored apart |
 | **R8 safety** | No Level 3 action exists; every R8 action appears in the audit log with a reason |
@@ -676,6 +690,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 14. ~~**Where Errors lives.**~~ Decided 15 Oct 2026: Dashboard → Operations in every product, each error linking to Troubleshoot (§7.3).
 15. ~~**R8 roles on the ladder.**~~ Decided 15 Oct 2026: std M14 maps onto Support, Operator (Level 1), Admin (Level 2), the Finance right and Owner (§5.2).
 16. ~~**AI split.**~~ Decided 15 Oct 2026: AI configuration, including Live trace, stays in Dashboard (std F); provider health and Test provider are R8 → Providers (M5).
+17. ~~**Feedback and tickets.**~~ Decided 16 Oct 2026: they live in YaraOne. AXLE embeds YaraOne's back office as Watch → Tickets and runs everything else (§10.12). How the embed signs in and is drawn waits on YaraOne's build ([`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md)).
 
 ## 21 What each console changes
 

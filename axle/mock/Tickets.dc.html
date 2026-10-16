@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Tickets · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Tickets" mode="dashboard" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Tickets" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+
+      <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; align-items: flex-end">
+        <div style="display: flex; flex-direction: column; gap: 4px; max-width: 820px">
+          <p style="margin: 0; color: #0B1B4F; font-size: 16px">Support requests and feedback from Janka's organisations.</p>
+          <p style="margin: 0; font-size: 12px; color: #5B6488">They live in YaraOne; below is YaraOne's back office, embedded, showing Janka's tickets only. Everything about running Janka itself (organisations, plans, settings, support sessions, Troubleshoot) stays in AXLE.</p>
+        </div>
+        <a href="#" style="display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 13px; font-weight: 500">Open in YaraOne <span aria-hidden="true">↗</span></a>
+      </div>
+
+      <section aria-label="YaraOne back office, embedded" style="border: 1px dashed #B9C1D4; border-radius: 22px; padding: 6px; background: #FFFFFF">
+        <div style="display: flex; align-items: center; gap: 8px; padding: 6px 12px 8px; font-size: 11px; color: #5B6488">
+          <span class="mono" style="letter-spacing: .08em">YARAONE · BACK OFFICE</span>
+          <span aria-hidden="true">·</span>
+          <span>Embedded for Janka · signed in as Aisyah Rahman through AXLE</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; padding: 6px 12px 14px">
+
+          <div role="group" aria-label="Filter by state" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px">
+            <sc-for list="{{stats}}" as="s" hint-placeholder-count="5">
+              <button type="button" onClick="{{s.pick}}" aria-pressed="{{s.pressed}}" style="{{s.style}}">
+                <span style="font-size: 12px; color: #5B6488">{{s.label}}</span>
+                <span class="mono" style="font-size: 24px; color: {{s.ink}}; line-height: 1.2">{{s.n}}</span>
+              </button>
+            </sc-for>
+          </div>
+
+          <div role="group" aria-label="Kind" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center">
+            <span style="font-size: 12px; color: #5B6488; margin-right: 4px">Show</span>
+            <sc-for list="{{kinds}}" as="k" hint-placeholder-count="3">
+              <button type="button" onClick="{{k.pick}}" aria-pressed="{{k.pressed}}" style="{{k.style}}">{{k.label}}</button>
+            </sc-for>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start">
+            <div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+              <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+                <button type="button" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}" style="{{r.style}}">
+                  <span style="display: flex; align-items: center; gap: 8px; width: 100%">
+                    <span class="mono" style="font-size: 11px; color: #5B6488">{{r.ref}}</span>
+                    <span style="font-size: 11px; font-weight: 600; padding: 0 8px; border-radius: 999px; background: {{r.kindBg}}; color: {{r.kindInk}}">{{r.kind}}</span>
+                    <span style="flex: 1"></span>
+                    <sc-if value="{{r.loud}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; font-weight: 600; padding: 0 8px; border-radius: 999px; background: #FB9800; color: #071233">Needs a reply</span></sc-if>
+                    <span class="mono" style="font-size: 11px; color: #5B6488">{{r.age}}</span>
+                  </span>
+                  <span style="color: #0B1B4F; font-weight: 600; text-align: left">{{r.title}}</span>
+                  <span style="display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12px; color: #5B6488; text-align: left"><span>{{r.org}}</span><span>· {{r.from}}</span><span>· {{r.state}}</span></span>
+                </button>
+              </sc-for>
+              <sc-if value="{{empty}}" hint-placeholder-val="{{false}}"><p style="margin: 0; padding: 14px; border-radius: 14px; background: #F5F7FC; font-size: 13px">Nothing here with these filters.</p></sc-if>
+            </div>
+
+            <article aria-labelledby="tk-h" style="flex: 1.4 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 12px; padding: 16px 18px; border-radius: 18px; border: 1px solid #E5E8EE">
+              <div style="display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: space-between; align-items: flex-start">
+                <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+                  <span class="mono" style="font-size: 12px; color: #5B6488">{{t.ref}} · {{t.kind}} · opened {{t.opened}}</span>
+                  <h2 id="tk-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">{{t.title}}</h2>
+                  <span style="font-size: 13px"><a href="Organisation.dc.html">{{t.org}}</a> · {{t.from}}, {{t.role}}</span>
+                </div>
+                <label style="display: flex; flex-direction: column; gap: 2px; font-size: 12px; color: #5B6488">State the customer sees
+                  <select value="{{t.state}}" onChange="{{setState}}" style="min-height: 40px; padding: 0 10px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 14px">
+                    <sc-for list="{{stateOptions}}" as="o" hint-placeholder-count="7"><option value="{{o.v}}">{{o.v}}</option></sc-for>
+                  </select>
+                </label>
+              </div>
+
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px">
+                <sc-for list="{{context}}" as="c" hint-placeholder-count="4">
+                  <span style="display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; background: #F5F7FC"><span style="font-size: 11px; color: #5B6488">{{c.label}}</span><span class="mono" style="font-size: 12px; color: #0B1B4F; overflow-wrap: anywhere">{{c.value}}</span></span>
+                </sc-for>
+              </div>
+              <span style="font-size: 11px; color: #5B6488">Sent with the request by Janka: the page, the version, the person and their role. YaraOne keeps the ticket; Janka keeps nothing of it.</span>
+
+              <div role="tablist" aria-label="Threads" style="display: flex; gap: 4px; padding: 4px; border-radius: 12px; background: #EEF1F6; align-self: flex-start">
+                <sc-for list="{{tabs}}" as="b" hint-placeholder-count="2">
+                  <button type="button" role="tab" onClick="{{b.pick}}" aria-selected="{{b.sel}}" style="{{b.style}}">{{b.label}}</button>
+                </sc-for>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 14px; background: {{threadBg}}; border: 1px solid {{threadLine}}">
+                <span style="font-size: 12px; color: {{threadInk}}; font-weight: 600">{{threadNote}}</span>
+                <sc-for list="{{messages}}" as="m" hint-placeholder-count="3">
+                  <div style="display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E5E8EE">
+                    <span style="display: flex; gap: 8px; font-size: 12px; color: #5B6488"><span style="color: #0B1B4F; font-weight: 600">{{m.who}}</span><span class="mono">{{m.at}}</span></span>
+                    <span style="font-size: 14px; color: #3B4469">{{m.text}}</span>
+                  </div>
+                </sc-for>
+                <textarea aria-label="{{replyLabel}}" rows="2" placeholder="{{replyLabel}}" style="border-radius: 12px; border: 1px solid #D5DBE7; padding: 10px 12px; font-size: 14px; resize: vertical"></textarea>
+                <span style="display: flex; justify-content: flex-end"><button type="button" onClick="{{send}}" style="{{sendStyle}}">{{sendLabel}}</button></span>
+              </div>
+
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-top: 10px; border-top: 1px solid #EEF1F6">
+                <span style="font-size: 12px; color: #5B6488; flex: 1 1 100%">From AXLE, for this organisation</span>
+                <a href="SupportSession.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; font-size: 13px">Start support session…</a>
+                <sc-if value="{{t.incident}}" hint-placeholder-val="{{false}}"><a href="Troubleshoot.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; font-size: 13px">Troubleshoot {{t.incident}}</a></sc-if>
+                <a href="Organisation.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; font-size: 13px">Organisation 360</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <p style="margin: 0; font-size: 12px; color: #5B6488">The same tickets are in YaraOne's own dashboard, where REKA's support team works across every product. Replies sent here reach the customer in Janka, under Help → Your requests. The embed's details (how it signs in, how it is drawn) wait on YaraOne's build: Dashboard kit <span class="mono">yaraone/EMBEDS.md</span>.</p>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { sel: 'YO-1042', filter: 'open', kind: 'all', tab: 'customer', states: {}, sent: {} }; }
+  renderVals() {
+    var self = this, st = this.state;
+    var STATES = ['Received', 'Reviewing', 'Need more information', 'Planned', 'In progress', 'Resolved', 'Closed'];
+    var T = [
+      { ref: 'YO-1047', kind: 'Support', title: 'The low-stock email didn\'t arrive this morning', org: 'Sinar Elektrik Sdn Bhd', from: 'Siti Hajar', role: 'Admin', state: 'Received', age: '18 min', opened: '14:12', loud: true,
+        page: '/settings/notifications', version: '4.12.0', error: '–', device: 'Chrome 141 · Windows', incident: '',
+        customer: [['Siti Hajar', '14:12', 'We usually get the low-stock email at 7. Nothing today, and nobody here changed anything.']],
+        internal: [] },
+      { ref: 'YO-1045', kind: 'Support', title: 'Sheets import stuck since noon', org: 'Contoh Logistik Sdn Bhd', from: 'Lim Wei Jie', role: 'Member', state: 'In progress', age: '2 h', opened: '12:31', loud: false,
+        page: '/imports/sheets', version: '4.12.0', error: 'req_7f3a91c2', device: 'Edge 141 · Windows', incident: 'INC-0413',
+        customer: [['Lim Wei Jie', '12:31', 'The import says running since 12:05. Our stock counts from the morning aren\'t in.'], ['Aisyah Rahman · REKA support', '13:02', 'Thanks, we can see it. One read from your sheet timed out and the import is waiting on it. We are fixing it now and will tell you here.']],
+        internal: [['Aisyah Rahman', '13:00', 'Same as INC-0413. Retry the failed rows once the timeout fix is out.']] },
+      { ref: 'YO-1042', kind: 'Support', title: 'Forecast missing for the Klang warehouse', org: 'Contoh Logistik Sdn Bhd', from: 'Kumar Selvam', role: 'Member', state: 'Reviewing', age: '3 h', opened: '11:20', loud: true,
+        page: '/forecasting?site=klang', version: '4.12.0', error: '–', device: 'Safari 19 · iPad', incident: '',
+        customer: [['Kumar Selvam', '11:20', 'Klang shows no forecast since Monday. Shah Alam is fine.'], ['Kumar Selvam', '13:40', 'Any news? We order on Thursdays.']],
+        internal: [['Zainal Abidin', '11:41', 'Asked the Owners for a support session to look at Klang\'s settings (11:42, approved 11:44).'], ['Zainal Abidin', '12:09', 'Klang\'s SKUs have no lead time since the import on Monday. Fix is theirs: needs a reply with the steps.']] },
+      { ref: 'YO-1039', kind: 'Support', title: 'Identify keeps suggesting the wrong glove size', org: 'Harapan Pharma Sdn Bhd', from: 'Nur Izzati', role: 'Member', state: 'Need more information', age: '1 d', opened: 'yesterday', loud: false,
+        page: '/m/identify', version: '4.12.0 (phone)', error: '–', device: 'Janka app · Android 16', incident: '',
+        customer: [['Nur Izzati', 'yesterday', 'It says size M when the box is L.'], ['Mei Lin · REKA support', 'yesterday', 'Could you send a photo of the box as you take it? We\'ll compare it with your reference photos.']],
+        internal: [['Mei Lin', 'yesterday', 'Only 1 reference photo for the L SKU. Suggest they add more.']] },
+      { ref: 'YO-1046', kind: 'Feedback', title: 'The new forecast chart is much clearer', org: 'Acme Plastics Sdn Bhd', from: 'Daniel Tan', role: 'Owner', state: 'Received', age: '1 h', opened: '13:25', loud: false,
+        page: '/forecasting', version: '4.12.0', error: '–', device: 'Chrome 141 · macOS', incident: '',
+        customer: [['Daniel Tan', '13:25', 'The new forecast chart is much clearer. Could it also show last year\'s line?']],
+        internal: [] },
+      { ref: 'YO-1044', kind: 'Feedback', title: 'Export the reorder list as a PDF', org: 'Teguh Packaging Sdn Bhd', from: 'Rosnah Ali', role: 'Admin', state: 'Planned', age: '2 d', opened: '13 Oct', loud: false,
+        page: '/reorder', version: '4.11.2', error: '–', device: 'Chrome 141 · Windows', incident: '',
+        customer: [['Rosnah Ali', '13 Oct', 'Our supplier wants the reorder list as a PDF, not a spreadsheet.'], ['Farid Osman · REKA support', '14 Oct', 'Good idea. It\'s planned for the November release; we\'ll tell you here when it\'s in.']],
+        internal: [['Farid Osman', '14 Oct', 'Third request this quarter. Added to the roadmap.']] },
+      { ref: 'YO-1031', kind: 'Support', title: 'Two-step code not arriving', org: 'Mawar Textiles Sdn Bhd', from: 'Aminah Yusof', role: 'Owner', state: 'Resolved', age: '5 d', opened: '10 Oct', loud: false,
+        page: '/sign-in', version: '4.11.2', error: 'req_2b9e04d1', device: 'Chrome 141 · Android', incident: '',
+        customer: [['Aminah Yusof', '10 Oct', 'The code never arrives by SMS.'], ['Mei Lin · REKA support', '10 Oct', 'Fixed: your number was saved without the country code. It works now.']],
+        internal: [] }
+    ];
+    T.forEach(function (t) { if (st.states[t.ref]) t.state = st.states[t.ref]; });
+    var open = function (t) { return t.state !== 'Resolved' && t.state !== 'Closed'; };
+    var F = {
+      open: ['Open', function (t) { return open(t); }],
+      reply: ['Need a reply', function (t) { return t.loud && open(t) && !st.sent[t.ref]; }],
+      waiting: ['Waiting on the customer', function (t) { return t.state === 'Need more information'; }],
+      planned: ['Planned', function (t) { return t.state === 'Planned'; }],
+      done: ['Resolved this week', function (t) { return !open(t); }]
+    };
+    var byKind = function (t) { return st.kind === 'all' || t.kind === st.kind; };
+    var stats = Object.keys(F).map(function (k) {
+      var n = T.filter(function (t) { return F[k][1](t) && byKind(t); }).length, on = st.filter === k, loud = k === 'reply' && n > 0;
+      return { label: F[k][0], n: n, ink: loud ? '#8A4B00' : '#0B1B4F', pressed: on ? 'true' : 'false', pick: function () { self.setState({ filter: k }); },
+        style: 'display:flex;flex-direction:column;align-items:flex-start;padding:10px 12px;border-radius:14px;cursor:pointer;background:' + (loud ? '#FFF1DA' : '#FFFFFF') + ';' + (on ? 'border:2px solid #FB9800;padding:9px 11px;' : 'border:1px solid ' + (loud ? '#F8CD92' : '#E5E8EE') + ';') };
+    });
+    var kinds = [['all', 'All'], ['Support', 'Support requests'], ['Feedback', 'Feedback']].map(function (k) {
+      var on = st.kind === k[0];
+      return { label: k[1], pressed: on ? 'true' : 'false', pick: function () { self.setState({ kind: k[0] }); },
+        style: 'min-height:32px;padding:0 12px;border-radius:999px;cursor:pointer;font-size:13px;' + (on ? 'background:#0B1B4F;color:#FFFFFF;border:1px solid #0B1B4F;' : 'background:#FFFFFF;color:#0B1B4F;border:1px solid #D5DBE7;') };
+    });
+    var list = T.filter(function (t) { return F[st.filter][1](t) && byKind(t); });
+    var rows = list.map(function (t) {
+      var on = st.sel === t.ref;
+      return { ref: t.ref, kind: t.kind, title: t.title, org: t.org, from: t.from, state: t.state, age: t.age, loud: t.loud && open(t) && !st.sent[t.ref],
+        kindBg: t.kind === 'Feedback' ? '#E7EEFE' : '#EEF1F6', kindInk: t.kind === 'Feedback' ? '#002EB2' : '#3B4469',
+        pressed: on ? 'true' : 'false', pick: function () { self.setState({ sel: t.ref, tab: 'customer' }); },
+        style: 'display:flex;flex-direction:column;align-items:flex-start;gap:4px;width:100%;padding:10px 12px;border-radius:14px;cursor:pointer;font-size:14px;background:' + (on ? '#FFF6E8' : '#FFFFFF') + ';' + (on ? 'border:2px solid #FB9800;padding:9px 11px;' : 'border:1px solid #E5E8EE;') };
+    });
+    var t = T.filter(function (x) { return x.ref === st.sel; })[0] || T[0];
+    var cust = st.tab === 'customer';
+    var msgs = (cust ? t.customer : t.internal).slice();
+    var sent = st.sent[t.ref] || {};
+    if (sent.customer && cust) msgs.push(['Aisyah Rahman · REKA support', '14:31', sent.customer]);
+    if (sent.internal && !cust) msgs.push(['Aisyah Rahman', '14:31', sent.internal]);
+    var firstName = t.from.split(' ')[0];
+    var REPLY = { 'YO-1042': 'Klang\'s items lost their lead times in Monday\'s import. Settings → Sites → Klang → Lead times, then Run forecast. We can walk you through it if you like.',
+      'YO-1047': 'Thanks, Siti. The email service was slow this morning; your digest has now been sent. Please check your inbox.' };
+    return {
+      stats: stats, kinds: kinds, rows: rows, empty: rows.length === 0,
+      t: t,
+      stateOptions: STATES.map(function (s) { return { v: s }; }),
+      setState: function (e) { var o = Object.assign({}, st.states); o[t.ref] = e.target.value; self.setState({ states: o }); },
+      context: [{ label: 'Page', value: t.page }, { label: 'Janka version', value: t.version }, { label: 'Error reference', value: t.error }, { label: 'Device', value: t.device }],
+      tabs: [['customer', 'With ' + firstName], ['internal', 'Internal']].map(function (b) {
+        var on = st.tab === b[0];
+        return { label: b[1], sel: on ? 'true' : 'false', pick: function () { self.setState({ tab: b[0] }); },
+          style: 'min-height:34px;padding:0 14px;border-radius:9px;border:0;cursor:pointer;font-size:13px;' + (on ? 'background:#FFFFFF;color:#0B1B4F;font-weight:600;box-shadow:0 1px 2px rgba(11,27,79,.12);' : 'background:transparent;color:#5B6488;') };
+      }),
+      threadBg: cust ? '#F3F7FE' : '#FFFBF4', threadLine: cust ? '#C9DBFE' : '#F8CD92', threadInk: cust ? '#002EB2' : '#B54708',
+      threadNote: cust ? firstName + ' sees this thread in Janka, under Help → Your requests.' : 'Internal: REKA staff only. Never reaches ' + t.org + '.',
+      messages: msgs.map(function (m) { return { who: m[0], at: m[1], text: m[2] }; }),
+      replyLabel: cust ? 'Reply to ' + firstName : 'Add an internal note',
+      sendLabel: cust ? 'Send to ' + firstName : 'Add note',
+      sendStyle: 'min-height:40px;padding:0 16px;border-radius:12px;border:0;cursor:pointer;font-weight:600;font-size:14px;' + (cust ? 'background:#FB9800;color:#071233;' : 'background:#FFFFFF;color:#0B1B4F;border:1px solid #D5DBE7;'),
+      send: function () {
+        var o = Object.assign({}, st.sent), cur = Object.assign({}, o[t.ref] || {});
+        if (cust) cur.customer = REPLY[t.ref] || 'Thanks, ' + firstName + '. We\'re looking into it and will reply here.';
+        else cur.internal = 'Noted. Following up after the reply.';
+        o[t.ref] = cur; self.setState({ sent: o });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
