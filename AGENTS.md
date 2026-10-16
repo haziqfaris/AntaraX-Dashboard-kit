@@ -12,7 +12,11 @@ Any work on a product's AXLE uses the template in `axle/`; that includes a new p
 
 ## When working in another repository on a customer app
 
-A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. Follow `app/README.md` and `app/SPEC.md` (v1.1, the standard). Everything the spec does not name is the product's own; a new shared rule goes into the spec first, never into one product.
+A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. Follow `app/README.md` and `app/SPEC.md` (v1.2, the standard). Everything the spec does not name is the product's own; a new shared rule goes into the spec first, never into one product.
+
+- **Before planning, write a gap table** (owner, 16 Oct 2026). Open the closest product's mock PNG (`app/mock/renders/AppBar-<product>-wide.png` and `-phone.png`, and the board for the page) and its `.values.md`. List every difference between the product, the mock and the spec, with what you will do about each. Where the spec says "the product's own", say what the product chose and why. Put the table in your plan before any code.
+- **Take values from `app/tokens.css`**, never from prose or by measuring a mock by eye. `app/reference/` shows them built.
+- **Before calling it done, run `node tools/check-shell.mjs`** against the running product (app/README.md, Before you ship). Record any difference that stays in the product's `antarax-kit.lock` with its reason, and pin the kit version you built against.
 
 ## When working in another repository on a REKA client project
 
@@ -36,10 +40,11 @@ No product, customer app or AXLE builds its own ticketing, feedback inbox or sup
 
 ## When working in this repository
 
-- **The spec and the mock move together.** A change to one changes the other in the same commit.
+- **The spec and the mock move together.** A change to one changes the other in the same commit. A changed shell mock also gets its PNGs re-rendered and its `.values.md` corrected in that commit (`node tools/render-mocks.mjs app/mock`, then `--stamp-values`); CI fails otherwise.
+- **One kit version.** Every change to a standard bumps `VERSION` and adds to `CHANGELOG.md` (major, minor or patch as the CHANGELOG defines), and the release is tagged on `main` after the merge.
 - **Decisions need the owner.** Change the standard only for a decision the owner has made. Record it with its date in the brand kit's `guide/10-decisions-log.md` in the same piece of work. Put anything unresolved in `axle/SPEC.md` §20.
 - **The canvas holds only the final design.** Comparisons and explorations go in `axle/mock/explorations/`, never on the canvas.
 - **Mock data is fictional.** Staff use `@reka.example` addresses. Organisations are invented, and no real client's data appears. Names and roles stay consistent across pages: check `mock/Staff.dc.html`.
-- **Colours and sizes come from the brand kit.** `axle/tokens.css` is generated from the brand kit's `tokens/tokens.json` (`axle` section) by `python3 tools/sync-brand-kit.py`, which also pins the brand kit version in `brand/`. Never edit `axle/tokens.css` or `brand/` by hand. A new value goes into the brand kit first (with an owner decision), then sync here.
+- **Colours and sizes come from the brand kit.** `axle/tokens.css` and `app/tokens.css` are generated from the brand kit's `tokens/tokens.json` (`axle` and `shell` sections) by `python3 tools/sync-brand-kit.py`, which also pins the brand kit version in `brand/`. Never edit either tokens file or `brand/` by hand. A new value goes into the brand kit first (with an owner decision), then sync here.
 - **Run `python3 tools/sync-brand-kit.py --check` before committing.** It fails on a hand-edited token file, a mock colour that is not a brand token, or a brand kit that has moved on. CI runs it on every push and weekly.
 - Write in plain British English, sentence case, no em dashes.

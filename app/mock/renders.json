@@ -1,0 +1,309 @@
+{
+  "note": "What tools/render-mocks.mjs draws. Each board at its canvas size; the top bar in every product, wide and phone, light and dark, with the account menu open. A board without a size here takes its canvas.json size and is drawn full height.",
+  "out": "renders",
+  "renders": [
+    {
+      "mock": "Main.dc.html"
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-yara-wide",
+      "props": {
+        "product": "Yara",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-yara-wide-dark",
+      "props": {
+        "product": "Yara",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-yara-phone",
+      "props": {
+        "product": "Yara",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-yara-phone-dark",
+      "props": {
+        "product": "Yara",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-janka-wide",
+      "props": {
+        "product": "Janka",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-janka-wide-dark",
+      "props": {
+        "product": "Janka",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-janka-phone",
+      "props": {
+        "product": "Janka",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-janka-phone-dark",
+      "props": {
+        "product": "Janka",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-frame-wide",
+      "props": {
+        "product": "AX Frame",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-frame-wide-dark",
+      "props": {
+        "product": "AX Frame",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-frame-phone",
+      "props": {
+        "product": "AX Frame",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-frame-phone-dark",
+      "props": {
+        "product": "AX Frame",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-angka-wide",
+      "props": {
+        "product": "Angka",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-angka-wide-dark",
+      "props": {
+        "product": "Angka",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-angka-phone",
+      "props": {
+        "product": "Angka",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-angka-phone-dark",
+      "props": {
+        "product": "Angka",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-tinara-wide",
+      "props": {
+        "product": "Tinara",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-tinara-wide-dark",
+      "props": {
+        "product": "Tinara",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-tinara-phone",
+      "props": {
+        "product": "Tinara",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-tinara-phone-dark",
+      "props": {
+        "product": "Tinara",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-grid-wide",
+      "props": {
+        "product": "PLExyz Grid",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-grid-wide-dark",
+      "props": {
+        "product": "PLExyz Grid",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "height": 620
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-grid-phone",
+      "props": {
+        "product": "PLExyz Grid",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "AppBar.dc.html",
+      "name": "AppBar-grid-phone-dark",
+      "props": {
+        "product": "PLExyz Grid",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "height": 660
+    },
+    {
+      "mock": "Products.dc.html"
+    },
+    {
+      "mock": "SignIn.dc.html"
+    },
+    {
+      "mock": "Moments.dc.html"
+    },
+    {
+      "mock": "Support.dc.html"
+    },
+    {
+      "mock": "Lists.dc.html"
+    },
+    {
+      "mock": "Settings.dc.html"
+    },
+    {
+      "mock": "Admin.dc.html"
+    },
+    {
+      "mock": "Loading.dc.html"
+    }
+  ]
+}

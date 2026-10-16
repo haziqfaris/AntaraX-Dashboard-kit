@@ -93,7 +93,7 @@ body{margin:0;background:#F5F7FC}
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
   renderVals() {
-    function it(label, on) { return { label: label, current: on ? 'page' : undefined, bg: on ? '#DAF3F3' : 'transparent', ink: on ? '#05686A' : '#0B1B4F', weight: on ? '600' : '400' }; }
+    function it(label, on) { return { label: label, current: on ? 'page' : undefined, bg: on ? '#DAF3F3' : 'transparent', ink: on ? '#044F51' : '#0B1B4F', weight: on ? '600' : '400' }; }
     var ROLE = { Owner: ['#DAF3F3', '#05686A'], Admin: ['#E6EDFC', '#3B4469'], Member: ['#EFF5F5', '#3B4469'], Viewer: ['#EFF5F5', '#657575'], Supervisor: ['#EEF9F9', '#05686A'] };
     function m(name, email, role, last) { return { name: name, email: email, role: role, last: last, tint: ROLE[role][0], ink: ROLE[role][1] }; }
     return {

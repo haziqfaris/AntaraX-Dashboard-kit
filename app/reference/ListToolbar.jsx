@@ -1,0 +1,89 @@
+import { SearchIcon, CloseIcon } from './icons.jsx';
+
+// The tools every long list offers (SPEC §11a): search, filters on its main fields, sort, group and a choice
+// of view where they fit, CSV when it is tabular, and the applied filters as chips with Clear filters.
+// It draws nothing of the list itself. Pair it with useListState() so the state is remembered, and with
+// NoMatch below when the filters find nothing. Its look is the product's own: restyle .ax-list-* freely.
+//
+//   filters  [{ id: 'stage', label: 'Stage', value, options: [{ value: 'cutting', label: 'Cutting' }] }]
+//   sort     { value, dir: 'asc' | 'desc', options: [{ value: 'due', label: 'Due date' }] }
+//   group    { value, options } or nothing      views ['list', 'board', 'table'] or nothing (one view: no switch)
+export function ListToolbar({
+  noun = 'records', query, onQuery, filters = [], onFilter, sort, onSort, group, onGroup,
+  views, view, onView, onExport, shown, total, onClear,
+}) {
+  const applied = filters.filter((f) => f.value);
+  const name = (f) => f.options.find((o) => o.value === f.value)?.label ?? f.value;
+  return (
+    <div className="ax-list-tools">
+      <div className="ax-list-toolbar" role="search">
+        <label className="ax-list-search">
+          <SearchIcon />
+          <input type="search" value={query} onChange={(e) => onQuery(e.target.value)} placeholder={`Search ${noun}`} aria-label={`Search ${noun}`} />
+        </label>
+        {filters.map((f) => (
+          <label key={f.id} className={`ax-list-select${f.value ? ' is-applied' : ''}`}>
+            <span className="ax-visually-hidden">{f.label}</span>
+            <select value={f.value} onChange={(e) => onFilter(f.id, e.target.value)}>
+              <option value="">{f.label}: any</option>
+              {f.options.map((o) => <option key={o.value} value={o.value}>{f.label}: {o.label}</option>)}
+            </select>
+          </label>
+        ))}
+        <span className="ax-spacer" />
+        {sort ? (
+          <span className="ax-list-sort">
+            <label className="ax-list-select">
+              <span className="ax-visually-hidden">Sort by</span>
+              <select value={sort.value} onChange={(e) => onSort({ value: e.target.value, dir: sort.dir })}>
+                {sort.options.map((o) => <option key={o.value} value={o.value}>Sort: {o.label}</option>)}
+              </select>
+            </label>
+            <button type="button" className="ax-list-button" aria-label={sort.dir === 'asc' ? 'Ascending; sort descending' : 'Descending; sort ascending'} onClick={() => onSort({ value: sort.value, dir: sort.dir === 'asc' ? 'desc' : 'asc' })}>
+              {sort.dir === 'asc' ? '↑' : '↓'}
+            </button>
+          </span>
+        ) : null}
+        {group ? (
+          <label className="ax-list-select">
+            <span className="ax-visually-hidden">Group by</span>
+            <select value={group.value} onChange={(e) => onGroup(e.target.value)}>
+              <option value="">Group: none</option>
+              {group.options.map((o) => <option key={o.value} value={o.value}>Group: {o.label}</option>)}
+            </select>
+          </label>
+        ) : null}
+        {views && views.length > 1 ? (
+          <span className="ax-list-views" role="radiogroup" aria-label="View">
+            {views.map((v) => (
+              <button key={v} type="button" role="radio" aria-checked={view === v} onClick={() => onView(v)}>{v[0].toUpperCase() + v.slice(1)}</button>
+            ))}
+          </span>
+        ) : null}
+        {onExport ? <button type="button" className="ax-list-button" onClick={onExport}>Export CSV</button> : null}
+      </div>
+      {applied.length || query ? (
+        <div className="ax-list-applied">
+          {shown != null && total != null ? <span>Showing <b className="ax-mono">{shown}</b> of <b className="ax-mono">{total}</b></span> : null}
+          {applied.map((f) => (
+            <span key={f.id} className="ax-list-chip">
+              {f.label}: {name(f)}
+              <button type="button" aria-label={`Remove ${f.label}: ${name(f)}`} onClick={() => onFilter(f.id, '')}><CloseIcon /></button>
+            </span>
+          ))}
+          <button type="button" className="ax-menu-link" onClick={onClear}>Clear filters</button>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+// When the filters find nothing: say so, never the empty state, never a blank table (SPEC §11a).
+export function NoMatch({ noun = 'records', onClear }) {
+  return (
+    <div className="ax-list-nomatch" role="status">
+      <strong>No {noun} match these filters</strong>
+      <button type="button" className="ax-list-button" onClick={onClear}>Clear filters</button>
+    </div>
+  );
+}

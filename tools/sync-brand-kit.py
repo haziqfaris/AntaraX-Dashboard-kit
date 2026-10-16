@@ -5,7 +5,8 @@ The brand kit owns every colour and size. Its tokens/tokens.json has an "axle" s
 this script copies the brand kit's tokens and its product palettes (tokens/product-palettes.json,
 each product's own colours) into brand/ (a pinned snapshot), records which
 version and commit they came from in brand/brand-kit.lock, and generates axle/tokens.css
-from the "axle" section. Never edit axle/tokens.css by hand.
+from the "axle" section and app/tokens.css (the customer apps' shell) from the "shell" section,
+with each product's slots filled from its palette. Never edit either file by hand.
 
   python3 tools/sync-brand-kit.py                     sync from ../AntaraX-brand-kit
   python3 tools/sync-brand-kit.py --brand-kit PATH    sync from a brand kit checkout elsewhere
@@ -13,7 +14,7 @@ from the "axle" section. Never edit axle/tokens.css by hand.
   python3 tools/sync-brand-kit.py --project PATH      check a REKA client project: no AntaraX colour may appear in it
 
 --check fails when:
-  - axle/tokens.css is not exactly what the snapshot generates (someone edited it by hand);
+  - axle/tokens.css or app/tokens.css is not exactly what the snapshot generates (someone edited it by hand);
   - a mock in axle/mock/ uses a hex colour that is in neither the brand kit tokens nor a product
     palette (a board that shows a product's own side, such as a support session, uses that
     product's palette);
@@ -36,6 +37,7 @@ SNAPSHOT = os.path.join(HERE, 'brand', 'tokens.json')
 PALETTES = os.path.join(HERE, 'brand', 'product-palettes.json')
 LOCK = os.path.join(HERE, 'brand', 'brand-kit.lock')
 OUT = os.path.join(HERE, 'axle', 'tokens.css')
+APP_OUT = os.path.join(HERE, 'app', 'tokens.css')
 MOCK = os.path.join(HERE, 'axle', 'mock')
 PROJECT_MOCK = os.path.join(HERE, 'project', 'mock')
 NEUTRAL = {'#FFFFFF', '#000000'}
@@ -76,6 +78,92 @@ def generate(tokens, lock):
     for name, value in ax['size'].items():
         out.append('  --axle-%s: %s;' % (name, value))
     out.append('}')
+    return '\n'.join(out) + '\n'
+
+
+def palette_value(palette, path):
+    v = palette
+    for part in path.split('.'):
+        v = v[part]
+    return v
+
+
+def slot_value(palette, expr):
+    """A slot source: a palette path ('roles.subtle'), or a color-mix() of palette paths."""
+    if re.fullmatch(r'[a-z0-9.-]+', expr):
+        return palette_value(palette, expr)
+    return re.sub(r'ui\.dark\.[a-z-]+|ui\.[a-z]+\.[a-z-]+|roles\.[a-z-]+', lambda m: palette_value(palette, m.group(0)), expr)
+
+
+def kebab(name):
+    return re.sub(r'([A-Z])', lambda m: '-' + m.group(1).lower(), name)
+
+
+def generate_shell(tokens, palettes, lock):
+    s = tokens['shell']
+    bar, pill, ctl, title, menu, nav = s['bar'], s['pill'], s['control'], s['title'], s['menu'], s['nav']
+    out = [
+        '/*',
+        "  The AntaraX shell's tokens: the top bar every customer app shares (app/SPEC.md section 2).",
+        '  GENERATED from the AntaraX brand kit: do not edit.',
+        '  Source: haziqfaris/AntaraX-brand-kit tokens/tokens.json "shell" and tokens/product-palettes.json, version %s (%s), commit %s.' % (lock['version'], lock['updated'], lock['commit']),
+        '  To change a value, change it in the brand kit (with an owner decision), then run tools/sync-brand-kit.py here.',
+        '',
+        '  Use: put class="shell-root" and data-product="<product>" on the element that holds the bar (and',
+        '  data-theme="dark" in dark mode). Phone values are the *-phone variables; switch at the product\'s own',
+        '  drawer width. app/reference/shell.css shows the whole bar built from these names.',
+        '*/',
+        '',
+        '.shell-root {',
+        '  --shell-font: Poppins, ui-sans-serif, system-ui, sans-serif;',
+        '  --shell-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;',
+        '  --shell-focus: %s; /* the AntaraX-blue focus ring, on every shell control */' % tokens['color']['brand']['blue']['value'],
+        '',
+        '  /* the bar: floating by default; a product records any exception (brand kit shell.bar.byProduct) */',
+        '  --shell-bar-height: %s; --shell-bar-height-phone: %s;' % (bar['height']['value'], bar['height']['phone']),
+        '  --shell-bar-outer-padding: %s; --shell-bar-outer-padding-phone: %s;' % (bar['outerPadding']['value'], bar['outerPadding']['phone']),
+        '  --shell-bar-inner-padding: %s; --shell-bar-gap: %s;' % (bar['innerPadding']['value'], bar['gap']['value']),
+        '  --shell-bar-radius: %s; --shell-bar-radius-phone: %s;' % (bar['radius']['value'], bar['radius']['phone']),
+        '  --shell-bar-border-width: %s;' % bar['border']['value'].split()[0],
+        '  --shell-bar-shadow: %s;' % bar['shadow']['value'],
+        '',
+        '  /* the brand pill */',
+        '  --shell-pill-well-padding: %s; --shell-pill-well-radius: %s; --shell-pill-well-gap: %s;' % (pill['wellPadding']['value'], pill['wellRadius']['value'], pill['wellGap']['value']),
+        '  --shell-pill-a-width: %s; --shell-pill-a-height: %s; --shell-pill-a-radius: %s; --shell-pill-a-mark: %s;' % (pill['aLink']['width'], pill['aLink']['height'], pill['aLink']['radius'], pill['aLink']['mark']),
+        '  --shell-pill-chip-height: %s; --shell-pill-chip-radius: %s; --shell-pill-chip-padding: %s; --shell-pill-chip-padding-phone: %s; --shell-pill-chip-gap: %s;' % (pill['chipHeight']['value'], pill['chipRadius']['value'], pill['chipPadding']['value'], pill['chipPadding']['phone'], pill['chipGap']['value']),
+        '  --shell-pill-chip-size: %s; --shell-pill-chip-weight: %s; --shell-pill-chip-tracking: %s;' % (pill['chipText']['size'], pill['chipText']['weight'], pill['chipText']['letterSpacing']),
+        '  --shell-pill-mark-tile: %s; --shell-pill-mark-tile-radius: %s; --shell-pill-mark-tile-bg: %s; --shell-pill-mark: %s;' % (pill['markTile']['value'], pill['markTile']['radius'], pill['markTile']['background'], pill['markTile']['mark']),
+        '',
+        '  /* controls: round ones 44px; product-slot buttons drawn 40px with a 44px hit area */',
+        '  --shell-control-round: %s;' % ctl['round']['value'],
+        '  --shell-control-slot: %s; --shell-control-slot-target: %s; --shell-control-slot-radius: %s; --shell-control-slot-padding: %s; --shell-control-slot-gap: %s; --shell-control-slot-size: %s; --shell-control-slot-weight: %s;' % (ctl['slot']['value'], ctl['slot']['target'], ctl['slot']['radius'], ctl['slot']['padding'], ctl['slot']['gap'], ctl['slot']['text']['size'], ctl['slot']['text']['weight']),
+        '  --shell-search-width: %s; --shell-search-height: %s; --shell-search-radius: %s; --shell-badge: %s;' % (ctl['searchField']['width'], ctl['searchField']['height'], ctl['searchField']['radius'], ctl['badge']['value']),
+        '  --shell-title-size: %s; --shell-title-weight: %s; --shell-title-divider-gap: %s;' % (title['size'], title['weight'], title['dividerGap']),
+        '',
+        '  /* the Help and account menus */',
+        '  --shell-menu-width-help: %s; --shell-menu-width-account: %s; --shell-menu-radius: %s; --shell-menu-padding: %s; --shell-menu-item-height: %s; --shell-menu-item-radius: %s;' % (menu['width']['help'], menu['width']['account'], menu['radius']['value'], menu['padding']['value'], menu['itemHeight']['value'], menu['itemRadius']['value']),
+        '  --shell-menu-shadow: %s;' % menu['shadow']['value'],
+        '',
+        "  /* navigation: its shape is the product's own; the current item and hover are shell */",
+        '  --shell-nav-current-bg: var(--shell-subtle-tint); --shell-nav-current-ink: var(--shell-on-tint); --shell-nav-current-weight: %s;' % nav['current']['weight'],
+        '  --shell-nav-hover-bg: var(--shell-hover);',
+        '}',
+        '',
+        "/* Each product's slots, from its own palette (brand kit tokens/product-palettes.json), then its recorded exceptions. */",
+    ]
+    slots = [(k, v) for k, v in s['slots'].items() if isinstance(v, dict)]
+    flat = bar['innerPadding']['flat']
+    for key, palette in palettes['products'].items():
+        decl = ['--shell-%s: %s;' % (kebab(k), slot_value(palette, v['from'])) for k, v in slots]
+        exc = bar['byProduct'].get(key, {})
+        if 'radius' in exc:
+            decl.append('--shell-bar-radius: %s;' % exc['radius'])
+        if exc.get('float') == 'flat':
+            decl += ['--shell-bar-outer-padding: 0;', '--shell-bar-outer-padding-phone: 0;', '--shell-bar-inner-padding: %s;' % flat,
+                     '--shell-bar-radius: 0;', '--shell-bar-radius-phone: 0;', '--shell-bar-border-width: 0 0 1px;', '--shell-bar-shadow: none;']
+        out.append('.shell-root[data-product="%s"] { %s }' % (key, ' '.join(decl)))
+        dark = ['--shell-%s: %s;' % (kebab(k), slot_value(palette, v['dark'])) for k, v in slots if 'dark' in v]
+        out.append('.shell-root[data-product="%s"][data-theme="dark"] { %s }' % (key, ' '.join(dark)))
     return '\n'.join(out) + '\n'
 
 
@@ -171,7 +259,8 @@ def main():
                 'version': tokens['version'], 'updated': tokens['updated'], 'commit': kit_commit(kit)}
         open(LOCK, 'w', encoding='utf-8').write(json.dumps(lock, indent=2) + '\n')
         open(OUT, 'w', encoding='utf-8').write(generate(tokens, lock))
-        print('Synced brand kit tokens %s and product palettes (commit %s) into brand/ and axle/tokens.css.' % (lock['version'], lock['commit']))
+        open(APP_OUT, 'w', encoding='utf-8').write(generate_shell(tokens, json.load(open(PALETTES, encoding='utf-8')), lock))
+        print('Synced brand kit tokens %s and product palettes (commit %s) into brand/, axle/tokens.css and app/tokens.css.' % (lock['version'], lock['commit']))
         strays = mock_strays(tokens)
         for h, files in sorted(strays.items()):
             print('  not a brand token: %s in %s' % (h, ', '.join(sorted(files))))
@@ -182,6 +271,9 @@ def main():
     lock = json.load(open(LOCK, encoding='utf-8'))
     if open(OUT, encoding='utf-8').read() != generate(tokens, lock):
         problems.append('axle/tokens.css is not what the brand kit snapshot generates. Do not edit it by hand: run tools/sync-brand-kit.py.')
+    if 'shell' in tokens:
+        if not os.path.isfile(APP_OUT) or read(APP_OUT) != generate_shell(tokens, json.load(open(PALETTES, encoding='utf-8')), lock):
+            problems.append('app/tokens.css is not what the brand kit snapshot generates. Do not edit it by hand: run tools/sync-brand-kit.py.')
     for h, files in sorted(mock_strays(tokens).items()):
         problems.append('%s is used in %s but is not a brand kit token or product palette colour. Use a token, or add it to the brand kit first.' % (h, ', '.join(sorted(files))))
     if os.path.isdir(PROJECT_MOCK):
