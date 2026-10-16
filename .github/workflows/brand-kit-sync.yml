@@ -2,7 +2,8 @@ name: Brand kit sync
 
 # Fails when the Dashboard kit has drifted from the AntaraX brand kit:
 # axle/tokens.css edited by hand, a mock using a colour that is neither a brand token
-# nor a product palette colour, or the brand kit's tokens or palettes changed without a re-sync here.
+# nor a product palette colour, an AntaraX colour in a client-project mock (project/mock),
+# or the brand kit's tokens or palettes changed without a re-sync here.
 on:
   push:
   pull_request:

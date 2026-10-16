@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Sign in · Asset Care</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F6F6F4}
+.si button,.si input{font-family:inherit}
+.si :focus-visible{outline:2px solid #1C1C1A;outline-offset:2px}
+</style>
+</helmet>
+<div class="si" style="width: 1440px; height: 900px; box-sizing: border-box; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); background: #F6F6F4; color: #45453F; font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
+  <div style="display: flex; flex-direction: column; justify-content: space-between; padding: 56px; background: #2F5D3A; color: #E8EFE9">
+    <span style="display: inline-flex; align-items: center; gap: 10px"><span style="width: 36px; height: 36px; border-radius: 4px; background: #FFFFFF; color: #2F5D3A; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">ST</span><span style="color: #FFFFFF; font-weight: 600; font-size: 18px">Seri Teguh Engineering</span></span>
+    <div style="display: flex; flex-direction: column; gap: 12px; max-width: 460px">
+      <span style="color: #FFFFFF; font-size: 36px; font-weight: 600; line-height: 1.2">Asset Care</span>
+      <span style="font-size: 16px">Maintenance for every machine across Shah Alam and Senai.</span>
+    </div>
+    <span style="font-size: 12px; color: #C8D7CB">[CLIENT PHOTO OR PATTERN, from the client's brand]</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; justify-content: space-between; padding: 56px">
+    <div></div>
+    <form style="display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 380px; align-self: center">
+      <h1 style="margin: 0; color: #1C1C1A; font-size: 26px; font-weight: 600">Sign in to Asset Care</h1>
+      <button type="button" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; border-radius: 6px; border: 1px solid #E3E3DE; background: #FFFFFF; color: #1C1C1A; font-size: 14px; font-weight: 500; cursor: pointer">Continue with Google</button>
+      <div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #6E6E66"><span style="flex: 1; height: 1px; background: #E3E3DE"></span>or with email<span style="flex: 1; height: 1px; background: #E3E3DE"></span></div>
+      <label style="display: flex; flex-direction: column; gap: 4px; color: #1C1C1A; font-size: 13px">Email<input type="email" autocomplete="username" value="farah@seriteguh.example" style="height: 44px; padding: 0 12px; border-radius: 6px; border: 1px solid #E3E3DE; font-size: 15px"></label>
+      <label style="display: flex; flex-direction: column; gap: 4px; color: #1C1C1A; font-size: 13px">Password
+        <span style="display: flex; gap: 6px"><input type="{{pwType}}" autocomplete="current-password" value="correct horse battery" style="flex: 1; min-width: 0; height: 44px; padding: 0 12px; border-radius: 6px; border: 1px solid #E3E3DE; font-size: 15px"><button type="button" onClick="{{togglePw}}" aria-pressed="{{pwPressed}}" style="height: 44px; padding: 0 12px; border-radius: 6px; border: 1px solid #E3E3DE; background: #FFFFFF; color: #1C1C1A; font-size: 13px; cursor: pointer">{{pwLabel}}</button></span>
+      </label>
+      <a href="#" style="align-self: flex-start; color: #1C1C1A; font-size: 13px">Forgot your password?</a>
+      <button type="button" style="height: 44px; border-radius: 6px; border: 0; background: #2F5D3A; color: #FFFFFF; font-size: 15px; font-weight: 500; cursor: pointer">Sign in</button>
+      <span style="font-size: 12px; color: #6E6E66">Need access? Ask an Admin at Seri Teguh to invite you. <a href="#" style="color: #1C1C1A">Help</a></span>
+    </form>
+    <footer style="display: flex; justify-content: space-between; gap: 12px; font-size: 12px; color: #6E6E66"><span>© Seri Teguh Engineering Sdn Bhd · <a href="#" style="color: #6E6E66">Privacy</a> · <a href="#" style="color: #6E6E66">Terms</a></span><a href="#" style="color: #6E6E66">Built by REKA</a></footer>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { show: false }; }
+  renderVals() {
+    var self = this, show = this.state.show;
+    return { pwType: show ? 'text' : 'password', pwLabel: show ? 'Hide' : 'Show', pwPressed: show ? 'true' : 'false',
+      togglePw: function () { self.setState({ show: !show }); } };
+  }
+}
+</script>
+</body>
+</html>
