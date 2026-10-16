@@ -18,6 +18,10 @@ A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oc
 
 A client project carries the client's brand and must never look like an AntaraX product (owner, 16 Oct 2026). Follow `project/README.md` and `project/SPEC.md`: the shell's places from `app/SPEC.md`, the neutral base, "Built by REKA" in the footer, the stack in SPEC §5. Never use an AntaraX font, colour, mark or word; check with `python3 tools/sync-brand-kit.py --project PATH`. Its AXLE follows `axle/` like any product's.
 
+## Capacity
+
+Every product and client project keeps `capacity.json` at its root, listing every plan it runs on and every limit it can reach, and passes `python3 capacity/check.py capacity.json` from this kit (owner, 16 Oct 2026). A new provider, plan, function, bucket or sending service is added there in the same piece of work. Never guess a limit: take it from the provider's plan page, or mark the plan not confirmed.
+
 ## Tickets and feedback are YaraOne's
 
 No product, customer app or AXLE builds its own ticketing, feedback inbox or support form that stores anything (owner, 16 Oct 2026). Customers reach YaraOne's **front office** from Help; staff reach its **back office** in AXLE → Tickets. Follow `yaraone/EMBEDS.md` v1.0: `embed.js`, a token the product's server signs, nothing stored in the product. Wire it in once YaraOne's front office is built (its docs/19 phase W); never invent another embed mechanism or sign-in handover in a product.

@@ -1,0 +1,35 @@
+{
+  "$schema": "../capacity.schema.json",
+  "product": "example-client-project",
+  "updated": "2026-10-16",
+  "plans": [
+    { "id": "vm", "provider": "A local data centre", "service": "One virtual machine: app, Postgres and files", "plan": "4 vCPU, 8 GB RAM, 200 GB disk", "confirmed": true, "cost": "RM450", "region": "Cyberjaya",
+      "rules": ["No automatic scaling: a bigger machine needs a maintenance window"] },
+    { "id": "ses", "provider": "Amazon", "service": "SES email sending", "plan": "Production access", "confirmed": true, "region": "ap-southeast-1", "rules": ["Sending quota 50,000 a day"] },
+    { "id": "s3", "provider": "Amazon", "service": "S3 for backups", "plan": "Pay as you go", "confirmed": true, "region": "ap-southeast-1" }
+  ],
+  "resources": [
+    { "id": "disk", "class": "data", "name": "Disk used (database and files)", "plan": "vm", "unit": "bytes", "limit": 214748364800, "per": "none",
+      "measure": { "how": "query", "source": "df on the data volume, nightly" },
+      "warn_at": 70,
+      "decide": [{ "action": "reduce-use", "what": "Move files to object storage" }, { "action": "upgrade-plan", "what": "Grow the volume to 400 GB", "cost": "RM120 a month more" }],
+      "top": ["tables", "folders"] },
+    { "id": "cpu", "class": "compute", "name": "CPU in busy hours", "plan": "vm", "unit": "percent", "limit": 100, "per": "none",
+      "measure": { "how": "query", "source": "Node exporter, 95th percentile of 08:00 to 18:00" },
+      "warn_at": 70,
+      "decide": [{ "action": "change-architecture", "what": "Move reports to a nightly job" }, { "action": "upgrade-plan", "what": "8 vCPU" }] },
+    { "id": "memory", "class": "compute", "name": "Memory", "plan": "vm", "unit": "percent", "limit": 100, "per": "none",
+      "measure": { "how": "query", "source": "Node exporter" },
+      "decide": [{ "action": "upgrade-plan", "what": "16 GB RAM" }] },
+    { "id": "pg-conn", "class": "connections", "name": "Database connections", "plan": "vm", "unit": "connections", "limit": 100, "per": "none",
+      "measure": { "how": "query", "source": "pg_stat_activity, peak per hour" },
+      "decide": [{ "action": "change-architecture", "what": "Add a connection pooler" }] },
+    { "id": "email", "class": "messages", "name": "Emails sent", "plan": "ses", "unit": "emails/day", "limit": 50000, "per": "day",
+      "measure": { "how": "provider-api", "source": "SES GetSendQuota" },
+      "decide": [{ "action": "upgrade-plan", "what": "Ask Amazon to raise the quota" }] },
+    { "id": "backups", "class": "backups", "name": "Restore time", "plan": "s3", "unit": "minutes", "limit": 120, "per": "none",
+      "measure": { "how": "manual", "source": "Last restore drill, from the runbook" },
+      "decide": [{ "action": "change-architecture", "what": "Keep a warm standby" }] }
+  ],
+  "availability": { "url": "https://ops.client.example/health/db", "every_minutes": 1, "from": "an outside uptime checker", "promise": "99.9%" }
+}

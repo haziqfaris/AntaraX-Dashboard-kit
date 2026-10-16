@@ -293,6 +293,7 @@ Every product has these pages at **Base**; **Full** adds Incidents. Observe page
 | | **Providers** | Base | Every outside dependency (AI providers, email, storage, payments, any product API): state, calls in 24 hours, success rate, latency, quota exposure, latest error and latest success; Test provider. Credentials never shown (M5) | Operator tests; keys stay in Dashboard → Models & keys |
 | | **AI flow** | Base, and the product calls an AI model | How the product's AI is wired and what happened on each path, drawn from its AI manifest (§10.6.1) | Viewer: read only |
 | | **Services** | Base | REKA's own platform: API, database, workers, queues, storage, AI gateway, email, deployed version (B3) | Viewer |
+| | **Capacity** | Base | How close the product is to every limit of the plans it runs on, how fast it is growing, when it will reach each one, and what to do then. Any provider, any kind of infrastructure (§10.13) | Viewer; plans and limits are changed by Admin |
 | **Control and diagnostics** | **Configuration** | Base | Schedules, limits, and whether each setting the product needs is set, never its value (AX Frame R8 Configuration) | Admin |
 | | **Operations audit** | Base | Every R8 action with who, what, target and reason (M13): the operations side of Audit, same log | Viewer |
 | | **Logs and traces** | Later | When a log backend exists | Viewer |
@@ -347,7 +348,7 @@ The same rules as §8, for the machinery. Dense, technical and calm: status colo
 | # | Block | Holds |
 |---|---|---|
 | 1 | **Overall state** | One word for the whole platform (Working, Degraded, Down) with the reason and since when, then the build: commit, when it was deployed, whether it matches the main branch (Yara's `/api/version` check), last check time |
-| 2 | **Needs an operator** | The technical attention list, worst first: open incidents (Full), failing providers, stuck or failed jobs, missing setup. Every item opens its Troubleshoot (M3). Empty: "Nothing. Every job ran and every service answered." |
+| 2 | **Needs an operator** | The technical attention list, worst first: open incidents (Full), failing providers, stuck or failed jobs, missing setup, any resource past 80% of its limit or due to reach it within 30 days (§10.13), a failed outside check. Every item opens its Troubleshoot (M3). Empty: "Nothing. Every job ran and every service answered." |
 | 3 | **Platform services** | One tile per REKA service: API, database, workers, queues, storage, AI gateway, email. State in a word, reason, median time |
 | 4 | **‹Product›'s machinery** | One tile per thing the product runs: probes, workers, agents, ingestion, pending jobs. Each tile carries a dashed "‹PRODUCT› ONLY" tag when it is not standard |
 | 5 | **Incidents** | Open and recently recovered incidents with severity, affected organisations and state |
@@ -518,6 +519,42 @@ Every support request and piece of feedback from every product lives in **YaraOn
 - **No product stores tickets or feedback**, and no AXLE builds its own inbox for them. YaraOne's own dashboard is where REKA's support team works across products.
 - **How it works** (settled with YaraOne, [`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md) v1.0): YaraOne's desk scoped to this product, with its views Triage, Mine, Open, Waiting on client, Overdue and Resolved, keyboard first, and two clocks per ticket (first reply, resolution). Viewers read; Support and up reply, add internal notes, change the state the customer sees and assign. The host AXLE signs a short-lived token with the staff member's rung, so nobody signs in twice. Needs a person gets its count from YaraOne's read endpoint, called with the host's secret. Each product is registered as a **host** in YaraOne's own AXLE (its "YaraOne only" box: Hosts).
 
+### 10.13 Capacity (owner, 16 Oct 2026)
+
+**Every product knows how close it is to the limits of what it runs on, before a limit is reached.** On 16 Oct 2026 no product compared its own database, storage, traffic, compute or email against its plans' limits, and free tiers pausing had taken production down three times. R8 → Capacity is in every product, Base and Full.
+
+**Generic by design.** The page knows nothing about any vendor. Each product describes what it runs on in `capacity.json` in its own repository ([`capacity/README.md`](../capacity/README.md), schema `capacity/capacity.schema.json`): every **resource** it depends on, in one of the standard **classes** below, with the **provider** and **plan**, the **limit** and its unit, **how it is measured**, and **what to do** when it is crossed. A managed database, a serverless function, a VM, a container, a phone push service or a sensor gateway all fit the same shape; a new kind of infrastructure is a new resource, never a new page.
+
+| Class | Measures | Examples of a limit |
+|---|---|---|
+| **Data** | Database size; the largest tables | Managed database plan size; a VM's disk |
+| **Files** | Stored bytes and objects; the largest | Object storage plan; a bucket quota |
+| **Transfer** | Bandwidth out | A plan's egress; a CDN's monthly transfer |
+| **Requests** | Requests or invocations per day or month | Function invocations; serverless requests |
+| **Compute** | CPU time per request (median, p95), or CPU and memory use | A worker's CPU-per-request ceiling; a VM's cores and RAM |
+| **Connections** | Open connections, realtime clients, concurrency | A database's connection limit; concurrent executions |
+| **Deployables** | Functions, workers, projects, sites in use | A plan's number of functions or projects |
+| **Jobs** | Runs, duration, backlog | A job's timeout; a scheduler's run limit |
+| **Messages** | Emails, SMS, push sent | A sending provider's daily and monthly quota |
+| **AI** | Tokens and cost | Budgets (§10.6) and provider quotas |
+| **Outside APIs** | Calls to any other provider | That provider's quota (R8 → Providers shows its health) |
+| **Backups** | Backup size; time to restore | Backup storage; the recovery time promised |
+| **Availability** | An outside check of a page that touches the database, every few minutes | The plan's idle pause; the uptime promised |
+
+**The page.**
+
+- **One line on top:** the nearest limit and when it will be reached ("Files: full in about 6 weeks").
+- **The plan register:** every provider and plan the product runs on, its cost, its region, and the plan's own rules that bite (idle pause, non-commercial use, a function count). A plan not confirmed says "Not confirmed", never a guess.
+- **A card per resource:** use against the limit as a bar and a percentage, 30 days of nightly snapshots as a trend, the **runway** (when the limit is reached at this rate), how it is measured and when last, and the decision line. A resource the product cannot measure yet shows a dash and why, never 0.
+- **One resource, opened:** 90 days of history; what is using it (largest tables or files, top organisations); its decisions.
+- **Availability:** the outside check's last result, every outage in 90 days, and how long each lasted.
+
+**Thresholds.** 80% of a limit, or a runway under 30 days, is a Needs-an-operator item on the R8 Overview and an email to the Admin rung; 100%, or a plan pausing the product, is an incident (R8 Full) or a Troubleshoot item (Base). The thresholds are the product's to tighten in `capacity.json`, never to loosen past these.
+
+**Decisions.** Each resource names what to do when it crosses, from: **upgrade the plan** · **reduce the use** (compress, archive, page, cache) · **change the architecture** · **move provider**. The page says it in words; it never acts on its own.
+
+**How it is measured.** A nightly job takes a snapshot of every resource it can measure, from the provider's usage API or the product's own query, and keeps it 400 days. Nothing here needs a monitoring vendor; a product may use one and point the snapshot at it. The outside check runs from outside the product's own hosting.
+
 ## 11 Support sessions (std H7)
 
 How REKA support sees an organisation exactly as its people see it, to solve a problem they reported, without asking for screenshots. **In every product** (owner, 15 Oct 2026; std H7 had it as Later). Angka's is the reference. The organisation's side is app SPEC §7 and §13.
@@ -667,6 +704,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **R8 jobs** | Run a job now: it appears with eligible, processed and failed counts; retry failures runs only the failed items |
 | **R8 providers** | Test provider gives a result and a latency; no key or secret appears on the page or in its network responses |
 | **Tickets** | A request sent from the product's Help appears in Watch → Tickets with its page and version; a reply reaches the customer under Help → Your requests; an internal note never does; the product's database holds no ticket |
+| **R8 capacity** | `capacity.json` lists every plan the product runs on and passes `capacity/check.py`; every resource has a limit, a measurement (or a dash and why) and a decision; a resource set to 81% shows on the R8 Overview and sends the email; the outside check notices the product paused |
 | **R8 AI flow** | Every AI feature in the code appears in the manifest and on the page; the five steps add up (asked = every outcome together); no prompt, photo or answer appears on the page or in its network responses |
 | **R8 troubleshoot** | From a Dashboard alert, Troubleshoot opens R8 on that organisation and asset with outside evidence, a timeline and only safe actions; the reading and the conclusion are stored apart |
 | **R8 safety** | No Level 3 action exists; every R8 action appears in the audit log with a reason |
@@ -692,6 +730,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 15. ~~**R8 roles on the ladder.**~~ Decided 15 Oct 2026: std M14 maps onto Support, Operator (Level 1), Admin (Level 2), the Finance right and Owner (§5.2).
 16. ~~**AI split.**~~ Decided 15 Oct 2026: AI configuration, including Live trace, stays in Dashboard (std F); provider health and Test provider are R8 → Providers (M5).
 17. ~~**Feedback and tickets.**~~ Decided 16 Oct 2026: they live in YaraOne. AXLE embeds YaraOne's back office as Watch → Tickets and runs everything else (§10.12). How it works was settled with YaraOne the same day ([`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md) v1.0).
+18. ~~**Capacity.**~~ Decided 16 Oct 2026: R8 → Capacity in every product, generic for any provider and any kind of infrastructure, described by each product's `capacity.json` (§10.13).
 
 ## 21 What each console changes
 

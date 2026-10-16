@@ -1,0 +1,42 @@
+{
+  "$schema": "../capacity.schema.json",
+  "product": "janka",
+  "updated": "2026-10-16",
+  "plans": [
+    { "id": "appwrite", "provider": "Appwrite Cloud", "service": "Database, files, functions, sign-in", "plan": "Free", "confirmed": true, "cost": "US$0", "region": "Singapore",
+      "rules": ["Pauses a project with no activity for a week (paused 11 Oct 2026, 3 h 12 min down)", "Two functions per project (both in use)"] },
+    { "id": "resend", "provider": "Resend", "service": "Email sending", "plan": "Free", "confirmed": false, "cost": "US$0", "rules": ["100 emails a day, 3,000 a month"] },
+    { "id": "gemini", "provider": "Google", "service": "Gemini API", "plan": "Pay as you go", "confirmed": true, "region": "CONFIRM" },
+    { "id": "anthropic", "provider": "Anthropic", "service": "Claude API", "plan": "Pay as you go", "confirmed": true, "region": "CONFIRM" }
+  ],
+  "resources": [
+    { "id": "db", "class": "data", "name": "Database size", "plan": "appwrite", "unit": "bytes", "limit": 2147483648, "per": "none",
+      "measure": { "how": "provider-api", "source": "Appwrite project usage: databases storage" },
+      "decide": [{ "action": "reduce-use", "what": "Archive stock movements older than 2 years" }, { "action": "upgrade-plan", "what": "Appwrite Pro", "cost": "US$15 a month" }],
+      "top": ["collections", "organisations"] },
+    { "id": "files", "class": "files", "name": "Photos and receipts", "plan": "appwrite", "unit": "bytes", "limit": 2147483648, "per": "none",
+      "measure": { "how": "provider-api", "source": "Appwrite project usage: storage" },
+      "decide": [{ "action": "reduce-use", "what": "Resize photos to 1600 px on upload" }, { "action": "upgrade-plan", "what": "Appwrite Pro", "cost": "US$15 a month" }],
+      "top": ["buckets", "organisations"] },
+    { "id": "egress", "class": "transfer", "name": "Bandwidth out", "plan": "appwrite", "unit": "bytes", "limit": 10737418240, "per": "month",
+      "measure": { "how": "provider-api", "source": "Appwrite project usage: bandwidth" },
+      "decide": [{ "action": "reduce-use", "what": "Serve thumbnails, not originals, in lists" }, { "action": "upgrade-plan", "what": "Appwrite Pro" }] },
+    { "id": "executions", "class": "requests", "name": "Function runs", "plan": "appwrite", "unit": "requests/month", "limit": 750000, "per": "month",
+      "measure": { "how": "provider-api", "source": "Appwrite project usage: executions" },
+      "decide": [{ "action": "upgrade-plan", "what": "Appwrite Pro" }, { "action": "change-architecture", "what": "Batch the nightly forecast per site instead of per SKU" }],
+      "top": ["functions"] },
+    { "id": "functions", "class": "deployables", "name": "Functions", "plan": "appwrite", "unit": "count", "limit": 2, "per": "none",
+      "measure": { "how": "query", "source": "Appwrite functions list" },
+      "decide": [{ "action": "upgrade-plan", "what": "Appwrite Pro: no function limit" }, { "action": "change-architecture", "what": "Route new work through ai-proxy and the nightly function" }] },
+    { "id": "email", "class": "messages", "name": "Emails sent", "plan": "resend", "unit": "emails/day", "limit": 100, "per": "day",
+      "measure": { "how": "log", "source": "email_log, counted per day" },
+      "decide": [{ "action": "upgrade-plan", "what": "Resend Pro: 50,000 a month", "cost": "US$20 a month" }] },
+    { "id": "ai", "class": "ai", "name": "AI spend", "plan": "gemini", "unit": "money/month", "limit": null, "budget": 50, "per": "month",
+      "measure": { "how": "log", "source": "ai_calls cost, priced in AXLE" },
+      "decide": [{ "action": "reduce-use", "what": "Lower the per-organisation monthly cap" }] },
+    { "id": "backups", "class": "backups", "name": "Backup size", "plan": "appwrite", "unit": "bytes", "limit": null, "budget": 5368709120, "per": "none",
+      "measure": { "how": "none", "why_not": "Appwrite Free has no backups; a nightly export to object storage would measure it" },
+      "decide": [{ "action": "upgrade-plan", "what": "Appwrite Pro: daily backups" }] }
+  ],
+  "availability": { "url": "https://janka.antarax.ai/api/health/db", "every_minutes": 5, "from": "an outside uptime checker", "promise": "99.5%" }
+}

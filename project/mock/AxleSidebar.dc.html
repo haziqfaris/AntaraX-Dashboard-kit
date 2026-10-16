@@ -118,7 +118,7 @@ class Component extends DCLogic {
       STD = [
         ['Command', p.full ? [['Overview'], ['Incidents', 2, 'loud'], ['Troubleshoot']] : [['Overview'], ['Troubleshoot']]],
         ['Observe', p.observe],
-        ['System', [['Jobs', 1, 'loud'], ['Providers', 1, 'loud']].concat(p.ai ? [['AI flow', 1, 'loud']] : []).concat([['Services']])],
+        ['System', [['Jobs', 1, 'loud'], ['Providers', 1, 'loud']].concat(p.ai ? [['AI flow', 1, 'loud']] : []).concat([['Services'], ['Capacity', 1, 'loud']])],
         ['Control and diagnostics', [['Configuration', 1, 'loud'], ['Operations audit']]]
       ];
     } else {

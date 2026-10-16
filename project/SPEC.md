@@ -117,6 +117,7 @@ Part of the template, and the same AXLE standard ([`axle/`](../axle/README.md)) 
 - **R8 Base**, unless the project runs machinery of its own.
 - **The ‹Project› only box** holds the project's own pages (Asset Care: Plants, PM templates).
 - **Tickets** is YaraOne's back office, as in every AXLE.
+- **Capacity** (R8): the project's `capacity.json` lists the client's plans and limits, whoever pays for them; a project on the client's own servers uses the same classes ([`capacity/`](../capacity/README.md)).
 - **In the code:** keep AXLE under a folder named `axle` or the route group `(axle)`, on its own host where the project has one (as Yara and YaraOne do). The project colour check skips it; AXLE's own tokens apply.
 - **Handover.** AXLE stays with REKA. If the client takes the project over to run themselves, they run it from the organisation's admin area (app SPEC §13); AXLE does not go with it unless the contract says so.
 
