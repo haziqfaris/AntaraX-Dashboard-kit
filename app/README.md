@@ -4,7 +4,7 @@ Every AntaraX customer app is the product's own: its identity, colours, shape, n
 
 | File | What it is |
 |---|---|
-| [SPEC.md](SPEC.md) | The shell, v1.2: what is shared, its exact sizes, the standards beneath the look, what never to do, and that everything else is the product's own |
+| [SPEC.md](SPEC.md) | The shell, v1.3: what is shared, its exact sizes, the standards beneath the look, what never to do, and that everything else is the product's own |
 | [tokens.css](tokens.css) | Every size and colour slot of the bar, for every product, light and dark. Generated from the brand kit: never edit, never retype |
 | [mock/](mock/README.md) | The shell drawn in six products' own colours, as a canvas and as PNG renders (`mock/renders/`), with a values table beside each mock |
 | [reference/](reference/README.md) | The bar, its menus and the list toolbar in plain React and CSS variables |
@@ -48,7 +48,7 @@ Open the closest product's render (`mock/renders/AppBar-<product>-wide.png` and 
 - [ ] Its screenshots in `compare.html` look like the reference PNGs, apart from the differences in your lock.
 - [ ] Help's six items and the account menu are in §2.1's and §3's order; Sign out asks first.
 - [ ] The current navigation item is on the subtle tint with on-tint text, and hover looks different (§2.5).
-- [ ] The longest list has search, filters, sort, honest empty and no-match states, CSV if tabular, and survives a reload (§11a).
+- [ ] The longest list has search, filters, sort, saved views, honest empty and no-match states, CSV if tabular, and survives a reload (§11a).
 - [ ] At 390px, Help and the account are one tap away on every page, and nothing in the bar overlaps.
 - [ ] No uppercase labels, and none of brand kit 13 §1's banned words.
 - [ ] `antarax-kit.lock` names this kit's version and commit, and every exception has a reason.

@@ -2,7 +2,7 @@
 // Build: npx esbuild demo.jsx --bundle --outfile=demo.js --jsx=automatic --loader:.js=jsx  (needs react and react-dom)
 import { createRoot } from 'react-dom/client';
 import { useMemo, useState } from 'react';
-import { AppBar, useBarSize, ListToolbar, NoMatch, useListState, toCsv, csvName, downloadCsv } from '../index.js';
+import { AppBar, useBarSize, ListToolbar, NoMatch, useListState, useSavedViews, toCsv, csvName, downloadCsv } from '../index.js';
 
 const PRODUCTS = {
   yara: { name: 'Yara', mark: 'yara.svg', list: 'work-orders', noun: 'work orders', slot: 'New work order' },
@@ -29,6 +29,7 @@ function Demo() {
   const size = useBarSize();
   const assets = '../../mock/assets/';
   const [list, set, reset] = useListState({ list: p.list, person: 'demo', defaults: DEFAULTS });
+  const views = useSavedViews({ list: p.list, person: 'demo', state: list, defaults: DEFAULTS });
   const rows = useMemo(() => ROWS
     .filter((r) => (!list.q || (r.id + r.customer).toLowerCase().includes(list.q.toLowerCase())) && (!list.stage || r.stage === list.stage))
     .sort((a, b) => (list.dir === 'asc' ? 1 : -1) * a[list.sort === 'due' ? 'due' : 'id'].localeCompare(b[list.sort === 'due' ? 'due' : 'id'])), [list]);
@@ -57,6 +58,7 @@ function Demo() {
         <section className="list">
           <ListToolbar
             noun={p.noun} query={list.q} onQuery={(q) => set({ q })}
+            savedViews={{ ...views, onPick: (id) => set(views.stateOf(id)) }}
             filters={[{ id: 'stage', label: 'Stage', value: list.stage, options: STAGES }]} onFilter={(id, v) => set({ [id]: v })}
             sort={{ value: list.sort, dir: list.dir, options: [{ value: 'due', label: 'Due date' }, { value: 'id', label: 'Number' }] }} onSort={(s) => set({ sort: s.value, dir: s.dir })}
             views={['list', 'table']} view={list.view} onView={(view) => set({ view })}

@@ -4,7 +4,7 @@
 
 **Client projects are different again:** the client's brand, never AntaraX's look, with the shell's places and "Built by REKA" in the footer. Start with [project/README.md](project/README.md). Their AXLE is this same AXLE.
 
-**Customer apps are different:** each product's own, apart from the AntaraX shell (top bar with Help and the account at the right, the account menu, standard pages under `/settings`, shared roles and moments). Start with [app/README.md](app/README.md); spec v1.2: the bar's exact sizes are tokens (`app/tokens.css`), every mock is rendered to PNG, and `tools/check-shell.mjs` measures a product against them. Products pin the kit version in `antarax-kit.lock` ([CHANGELOG](CHANGELOG.md)).
+**Customer apps are different:** each product's own, apart from the AntaraX shell (top bar with Help and the account at the right, the account menu, standard pages under `/settings`, shared roles and moments). Start with [app/README.md](app/README.md); spec v1.3: the bar's exact sizes are tokens (`app/tokens.css`), every mock is rendered to PNG, and `tools/check-shell.mjs` measures a product against them. Products pin the kit version in `antarax-kit.lock` ([CHANGELOG](CHANGELOG.md)).
 
 ## How to use it in another chat
 

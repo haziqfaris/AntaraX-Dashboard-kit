@@ -157,3 +157,20 @@
 .ax-list-chip { display: inline-flex; align-items: center; gap: 4px; height: 28px; padding: 0 4px 0 10px; border-radius: 999px; background: var(--shell-subtle-tint); color: var(--shell-on-tint); font-weight: 500; }
 .ax-list-chip button { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; background: transparent; color: inherit; cursor: pointer; }
 .ax-list-nomatch { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 40px 24px; text-align: center; }
+/* saved views (SPEC §11a): the Views button and its menu */
+.ax-views-button { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.ax-views-label { font-weight: 500; opacity: .7; }
+.ax-menu-views { top: calc(100% + 6px); left: 0; right: auto; width: var(--shell-menu-width-account); }
+.ax-views-item { justify-content: flex-start; gap: 8px; padding-left: 36px; position: relative; }
+.ax-views-item[aria-checked="true"] { background: var(--shell-subtle-tint); color: var(--shell-on-tint); font-weight: 600; }
+.ax-views-item[aria-checked="true"]::before { content: "✓"; position: absolute; left: 14px; }
+.ax-views-own { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.ax-views-own > .ax-views-item, .ax-views-own > .ax-views-form { flex: 1; min-width: 0; }
+.ax-views-more { width: 32px; height: 32px; flex: none; border: 0; border-radius: 8px; background: transparent; color: inherit; opacity: .7; font: inherit; cursor: pointer; }
+.ax-views-more:hover, .ax-views-more:focus-visible { background: var(--shell-hover); opacity: 1; }
+.ax-views-actions { display: flex; gap: 4px; flex: 1 0 100%; padding: 0 4px 4px 32px; box-sizing: border-box; }
+.ax-views-divider { height: 1px; margin: 4px 6px; background: var(--shell-line); }
+.ax-views-save { color: var(--shell-action); font-weight: 600; padding-left: 36px; }
+.ax-views-form { display: flex; gap: 6px; padding: 4px; }
+.ax-views-form input { flex: 1; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 12px; border-radius: 10px; border: 1px solid var(--shell-line); background: var(--shell-surface); color: inherit; font: inherit; }
+.ax-views-actions .ax-menu-confirm { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

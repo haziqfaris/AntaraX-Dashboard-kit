@@ -19,13 +19,14 @@ body{margin:0}
 <div class="axs" style="box-sizing: border-box; width: 100%; padding: 40px; display: flex; flex-direction: column; gap: 28px; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; color: #3B4469; background: #FFFFFF">
   <header style="display: flex; flex-direction: column; gap: 6px; max-width: 900px">
     <h1 style="margin: 0; font-size: 28px; font-weight: 600; color: #0B1B4F">Every long list (§11a)</h1>
-    <p style="margin: 0; font-size: 16px">Search, filters, sort, group where it helps, a choice of view where the data fits, remembered per person or in the address, honest empty and no-match states, and CSV when it is tabular. Drawn here in Yara's colours; every product draws it in its own.</p>
+    <p style="margin: 0; font-size: 16px">Search, filters, sort, saved views, group where it helps, a choice of view where the data fits, remembered per person or in the address, honest empty and no-match states, and CSV when it is tabular. Drawn here in Yara's colours; every product draws it in its own.</p>
   </header>
 
   <section aria-label="A list with its tools" style="border-radius: 24px; background: #F7FBFB; border: 1px solid #E1EAEA; overflow: hidden">
     <dc-import name="AppBar" product="Yara" mode="wide" open="none" title="Work orders" hint-size="100%,92px"></dc-import>
     <div style="padding: 20px; display: flex; flex-direction: column; gap: 14px">
       <div role="search" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+        <button type="button" aria-haspopup="menu" aria-expanded="false" style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #E1EAEA; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer"><span style="font-weight: 500; color: #657575">Views</span>My cutting this week<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg></button>
         <label style="display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; flex: 1 1 260px; max-width: 360px; border-radius: 12px; background: #FFFFFF; border: 1px solid #869696; color: #0B1B4F">
           <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#657575" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
           <span style="flex: 1">Search work orders</span><span class="mono" style="font-size: 11px; padding: 1px 6px; border-radius: 6px; background: #EFF5F5; color: #657575">/</span>
@@ -77,7 +78,7 @@ body{margin:0}
     </div>
   </section>
 
-  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
     <section aria-label="No match" style="display: flex; flex-direction: column; gap: 10px">
       <span><strong style="color: #0B1B4F">No match</strong> · never the empty state, never a blank table</span>
       <div style="padding: 40px 24px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E1EAEA; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
@@ -93,6 +94,21 @@ body{margin:0}
         <span>Work orders you create, or import from a sheet, appear here.</span>
         <button type="button" style="height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #098284; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">New work order</button>
       </div>
+    </section>
+    <section aria-label="Saved views" style="display: flex; flex-direction: column; gap: 10px">
+      <span><strong style="color: #0B1B4F">Saved views</strong> · the Views menu, open; per person</span>
+      <div role="menu" aria-label="Views" style="padding: 6px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E1EAEA; box-shadow: 0 18px 40px -18px rgba(11, 27, 79, .35); display: flex; flex-direction: column; gap: 2px">
+        <sc-for list="{{saved}}" as="w" hint-placeholder-count="4">
+          <div role="menuitemradio" aria-checked="{{w.checked}}" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 6px 0 12px; border-radius: 10px; background: {{w.bg}}; color: {{w.ink}}; font-weight: {{w.weight}}">
+            <span style="width: 16px; flex: none">{{w.tick}}</span>
+            <span style="flex: 1">{{w.name}}</span>
+            <sc-if value="{{w.own}}" hint-placeholder-val="{{true}}"><button type="button" aria-label="Rename or delete {{w.name}}" style="width: 32px; height: 32px; border: 0; border-radius: 8px; background: transparent; color: #657575; cursor: pointer; font-size: 16px; line-height: 1">⋯</button></sc-if>
+          </div>
+        </sc-for>
+        <div style="height: 1px; margin: 4px 6px; background: #E1EAEA"></div>
+        <a href="#" role="menuitem" style="display: flex; align-items: center; min-height: 44px; padding: 0 12px 0 36px; border-radius: 10px; color: #098284; font-weight: 600">Save view…</a>
+      </div>
+      <span style="font-size: 13px; color: #657575">Saves the search, filters, sort, group and view under a name. “All work orders” is always first and cannot be deleted.</span>
     </section>
   </div>
 
@@ -118,6 +134,12 @@ class Component extends DCLogic {
       filters: [f('Stage: Cutting', true), f('Due: This week', true), f('Customer', false)],
       views: [v('List', false), v('Board', false), v('Table', true)],
       chips: ['Stage: Cutting', 'Due: This week'],
+      saved: [
+        { name: 'All work orders', own: false, checked: 'false', tick: '', bg: 'transparent', ink: '#0B1B4F', weight: '500' },
+        { name: 'My cutting this week', own: true, checked: 'true', tick: '✓', bg: '#DAF3F3', ink: '#044F51', weight: '600' },
+        { name: 'Due today', own: true, checked: 'false', tick: '', bg: 'transparent', ink: '#0B1B4F', weight: '500' },
+        { name: 'Tegap jobs', own: true, checked: 'false', tick: '', bg: 'transparent', ink: '#0B1B4F', weight: '500' }
+      ],
       rows: [
         { id: 'WO-2026-0412', customer: 'Tegap Fabrication', stage: 'Cutting', due: '17 Oct', who: 'Hafiz Roslan' },
         { id: 'WO-2026-0415', customer: 'Kilang Seri Maju', stage: 'Cutting', due: '18 Oct', who: 'Nur Aina Hashim' },
@@ -130,6 +152,7 @@ class Component extends DCLogic {
         { name: 'Filters', when: 'always', tone: '#067647', text: 'On the main fields; each applied filter is a chip that removes it.' },
         { name: 'Sort', when: 'always', tone: '#067647', text: 'Direction shown on the column or the button.' },
         { name: 'Remembered', when: 'always', tone: '#067647', text: 'Per person, or in the address so a view can be shared.' },
+        { name: 'Saved views', when: 'always', tone: '#067647', text: 'Named views from a Views menu beside search; per person, never in Settings.' },
         { name: 'Group and view', when: 'where it fits', tone: '#B54708', text: 'Group with counts; list, board or table only where the data suits more than one.' },
         { name: 'CSV', when: 'when tabular', tone: '#B54708', text: '‹product›-‹list›-‹YYYY-MM-DD›.csv: what is on screen, filters applied.' }
       ]
