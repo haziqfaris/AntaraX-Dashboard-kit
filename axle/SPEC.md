@@ -456,7 +456,7 @@ The page opens on **what is missing**: a readiness checklist ("Before Acme Plast
 
 Every product that calls an AI model has this page in R8 → System, after Providers. It answers "how does this product's AI work, and what actually happened?" without reading code.
 
-- **Drawn from the product's AI manifest**, never by hand. The manifest is the machine-readable list of the product's AI features, in the form the AntaraX AI framework sets (`haziqfaris/ai-framework-heuristiks`). The page says which manifest version it shows and whether it matches the deployed prompts; a mismatch is a Needs-a-person row.
+- **Drawn from the product's AI manifest**, never by hand. The manifest is the machine-readable list of the product's AI features, in the form the AntaraX AI framework sets (`haziqfaris/ai-framework-heuristiks`: the Heuristiks core with REKA's profile, `profiles/reka`; a manifest names it with `"profile": "reka"`). The page says which manifest version it shows and whether it matches the deployed prompts; a mismatch is a Needs-a-person row.
 - **The five steps**, the same in every product: **Asked** (a person or a job asked for AI) → **Allowed** (membership, suspension, plan, REKA switch, organisation switch, monthly cap) → **Answered** (a model replied, after failover if needed) → **Checked** (the answer passed the server's checks) → **Decided** (a guardrail or a person decided). Each step shows how many calls reached it and how many left it, and why.
 - **Where every call ended**, in the framework's five outcome words: Used as is · Corrected by a person · Not used · Waiting · ‹Product›'s own logic.
 - **A row per AI feature** with its outcomes and its own measure of being right over 8 weeks.

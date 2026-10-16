@@ -38,7 +38,7 @@ The product chat builds in the product's own repository. If it needs something t
 | The final design of every page (AXLE · Janka) | [axle/mock/](axle/mock/README.md), and the private canvas https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr |
 | Tokens to copy into the product | [axle/tokens.css](axle/tokens.css) |
 | What each product's AXLE looks like today, with screenshots | [inventory/](inventory/README.md), [inventory/gallery.html](inventory/gallery.html) |
-| How a product's AI must work, its manifest and its AI document | [AntaraX AI framework](https://github.com/haziqfaris/ai-framework-heuristiks): `BRIEF.md` for a product chat |
+| How a product's AI must work, its manifest and its AI document | [AntaraX AI framework](https://github.com/haziqfaris/ai-framework-heuristiks): `BRIEF.md` for a product chat, then REKA's profile `profiles/reka/README.md` |
 | Brand decisions, names, colours | [AntaraX brand kit](https://github.com/haziqfaris/AntaraX-brand-kit): `guide/10-decisions-log.md`, `guide/13-shared-product-standards.md` §6 |
 
 ## Each product's starting point
