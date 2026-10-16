@@ -8,6 +8,14 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.2.1 · 16 Oct 2026
+
+Resync with YaraOne (`1949e49`: its roadmap, docs/22; the start of AX Frame's side, docs/21 §7).
+
+- **Four plain steps in the front office** (`yaraone/EMBEDS.md`, The words). The customer follows Received · Looking into it · Working on it · Done. Each request has a plain label and one sentence, and "Needs your answer" marks the customer's turn. These are the words of YaraOne's built portal. The team and the AXLE back office keep the seven states.
+- **Updated to match:** app/SPEC.md §10 and the Support mock, with its render and values table.
+- **The first embed host** is one REKA client app, before any AntaraX product (YaraOne roadmap Phase 2).
+
 ## 1.2.0 · 16 Oct 2026
 
 Customer apps are checked against the kit, not read from it. A product built to `app/SPEC.md` v1.1 still did not look like the family; these close the gaps.

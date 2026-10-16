@@ -304,7 +304,7 @@
       "mock": "Support.dc.html",
       "props": {},
       "width": 1440,
-      "source": "073659d5d8cb904a"
+      "source": "8649e20fd3b8a18a"
     }
   },
   "note": "Written by tools/render-mocks.mjs. Each PNG with the hash of the mocks it was drawn from."

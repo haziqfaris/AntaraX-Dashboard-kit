@@ -1,6 +1,6 @@
 # YaraOne embeds: what every product expects
 
-**v1.0 · 16 Oct 2026 · resynced with YaraOne.** Decided by the owner on 16 Oct 2026. The six points this file left open are settled in YaraOne's `docs/19_EMBEDDED_TICKETS_PLAN.md` (decisions 1 to 14), from YaraOne's code; they are summed up under **How it works** below. **Built:** not yet. YaraOne builds it in phases V (hosts and identity), W (front office) and X (back office); a product wires it in once phase W lands.
+**v1.0 · 16 Oct 2026 · resynced with YaraOne (its `1949e49`).** Decided by the owner on 16 Oct 2026. The six points this file left open are settled in YaraOne's `docs/19_EMBEDDED_TICKETS_PLAN.md` (decisions 1 to 14), from YaraOne's code; they are summed up under **How it works** below. **Built:** not yet. YaraOne builds it in phases V (hosts and identity), W (front office) and X (back office); a product wires it in once phase W lands. The first host is one REKA client app, end to end, before any AntaraX product (YaraOne `docs/22_ROADMAP.md`, Phase 2).
 
 ## The decision
 
@@ -53,7 +53,23 @@ The back office gets the product, the staff member (name, rung, rights) and, fro
 
 ## The words
 
-States the customer sees (YaraOne PRD §17.4): **Received · Reviewing · Need more information · Planned · In progress · Resolved · Closed.** Kinds: **Support request** and **Feedback**. Feedback promises no reply, but tells the person when it led to a change.
+The team works in seven states (YaraOne PRD §17.4): **Received · Reviewing · Need more information · Planned · In progress · Resolved · Closed.** The back office shows them as they are.
+
+The customer follows **four plain steps: Received · Looking into it · Working on it · Done.** Each request shows its step, a plain label and one sentence saying what is happening (YaraOne `src/modules/portal/plain.ts`):
+
+| State | Step | Label the customer sees | The sentence |
+|---|---|---|---|
+| Received | Received | Received | We've got it and will look at it soon. |
+| Reviewing | Looking into it | Looking into it | The team is looking at what's needed. |
+| Need more information | Looking into it | **Needs your answer** (their turn) | We need something from you to carry on. Reply below. |
+| Planned | Working on it | Scheduled | It's planned in, and you'll hear when it starts. |
+| In progress | Working on it | Working on it | The team is working on it. |
+| Resolved | Done | Done | This is done. Reply if anything still isn't right. |
+| Closed | Done | Closed | This is closed. |
+
+Your requests is split into Open and Done, with search, as in YaraOne's portal.
+
+Kinds: **Support request** and **Feedback**. Feedback promises no reply, but tells the person when it led to a change.
 
 ## What links back to AXLE
 

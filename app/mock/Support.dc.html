@@ -84,8 +84,9 @@ body{margin:0;background:#F5F7FC}
               <div style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 14px; background: #F7FBFC; border: 1px solid #E2E9ED">
                 <span style="color: #0B1B4F; font-weight: 600">{{cur.title}}</span>
                 <ol aria-label="Where it is" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px">
-                  <sc-for list="{{steps}}" as="s" hint-placeholder-count="7"><li style="{{s.style}}">{{s.label}}</li></sc-for>
+                  <sc-for list="{{steps}}" as="s" hint-placeholder-count="4"><li aria-current="{{s.current}}" style="{{s.style}}">{{s.label}}</li></sc-for>
                 </ol>
+                <span style="font-size: 13px; color: {{cur.ink}}">{{cur.sentence}}</span>
                 <sc-for list="{{cur.thread}}" as="m" hint-placeholder-count="2">
                   <div style="display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E2E9ED">
                     <span style="font-size: 12px; color: #66747B"><span style="color: #0B1B4F; font-weight: 600">{{m.who}}</span> · <span class="mono">{{m.at}}</span></span>
@@ -145,7 +146,17 @@ class Component extends DCLogic {
   constructor(props) { super(props); this.state = { tab: 'help', sel: 'YO-1042', helpSent: false, fbSent: false }; }
   renderVals() {
     var self = this, st = this.state;
-    var STATES = ['Received', 'Reviewing', 'Need more information', 'Planned', 'In progress', 'Resolved', 'Closed'];
+    // The team works in seven states; the customer follows four steps, each state with a plain label and one sentence (YaraOne src/modules/portal/plain.ts).
+    var STEPS = ['Received', 'Looking into it', 'Working on it', 'Done'];
+    var PLAIN = {
+      'Received': { label: 'Received', step: 0, sentence: "We've got it and will look at it soon." },
+      'Reviewing': { label: 'Looking into it', step: 1, sentence: "The team is looking at what's needed." },
+      'Need more information': { label: 'Needs your answer', step: 1, sentence: 'We need something from you to carry on. Reply below.', yourTurn: true },
+      'Planned': { label: 'Scheduled', step: 2, sentence: "It's planned in, and you'll hear when it starts." },
+      'In progress': { label: 'Working on it', step: 2, sentence: 'The team is working on it.' },
+      'Resolved': { label: 'Done', step: 3, sentence: "This is done. Reply if anything still isn't right." },
+      'Closed': { label: 'Closed', step: 3, sentence: 'This is closed.' }
+    };
     var R = [
       { ref: 'YO-1042', from: 'Kumar Selvam', title: 'Forecast missing for the Klang warehouse', state: 'Reviewing',
         thread: [['Kumar Selvam', '11:20', 'Klang shows no forecast since Monday. Shah Alam is fine.'], ['Kumar Selvam', '13:40', 'Any news? We order on Thursdays.']] },
@@ -160,7 +171,7 @@ class Component extends DCLogic {
         style: 'flex:1;min-height:36px;padding:0 8px;border-radius:9px;border:0;cursor:pointer;font-size:13px;' + (on ? 'background:#FFFFFF;color:#0B1B4F;font-weight:600;box-shadow:0 1px 2px rgba(11,27,79,.12);' : 'background:transparent;color:#66747B;') };
     });
     var cur = R.filter(function (r) { return r.ref === st.sel; })[0];
-    var ci = STATES.indexOf(cur.state);
+    var pc = PLAIN[cur.state];
     var INK = { 'Reviewing': '#077DA1', 'In progress': '#077DA1', 'Need more information': '#B54708', 'Closed': '#66747B', 'Resolved': '#067647' };
     return {
       tabs: tabs, isHelp: st.tab === 'help', isFeedback: st.tab === 'feedback', isList: st.tab === 'list',
@@ -168,13 +179,13 @@ class Component extends DCLogic {
       sendHelp: function () { self.setState({ helpSent: true }); }, sendFeedback: function () { self.setState({ fbSent: true }); },
       reqs: R.map(function (r) {
         var on = st.sel === r.ref;
-        return { ref: r.ref, from: r.from, title: r.title, state: r.state, ink: INK[r.state] || '#3B4469', pressed: on ? 'true' : 'false', pick: function () { self.setState({ sel: r.ref }); },
+        return { ref: r.ref, from: r.from, title: r.title, state: PLAIN[r.state].label, ink: INK[r.state] || '#3B4469', pressed: on ? 'true' : 'false', pick: function () { self.setState({ sel: r.ref }); },
           style: 'display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;padding:10px 12px;border-radius:12px;cursor:pointer;background:#FFFFFF;' + (on ? 'border:2px solid #077DA1;padding:9px 11px;' : 'border:1px solid #E2E9ED;') };
       }),
-      cur: { title: cur.title, thread: cur.thread.map(function (m) { return { who: m[0], at: m[1], text: m[2] }; }) },
-      steps: STATES.filter(function (s) { return s !== 'Need more information' || cur.state === s; }).map(function (s) {
-        var i = STATES.indexOf(s), done = i < ci, now = i === ci;
-        return { label: s, style: 'font-size:11px;padding:2px 8px;border-radius:999px;' + (now ? 'background:#077DA1;color:#FFFFFF;font-weight:600;' : done ? 'background:#D7F2FE;color:#004C64;' : 'background:#EFF4F7;color:#66747B;') };
+      cur: { title: cur.title, sentence: pc.sentence, ink: pc.yourTurn ? '#B54708' : '#3B4469', thread: cur.thread.map(function (m) { return { who: m[0], at: m[1], text: m[2] }; }) },
+      steps: STEPS.map(function (s, i) {
+        var done = i < pc.step, now = i === pc.step;
+        return { label: s, current: now ? 'step' : undefined, style: 'font-size:11px;padding:2px 8px;border-radius:999px;' + (now ? 'background:#077DA1;color:#FFFFFF;font-weight:600;' : done ? 'background:#D7F2FE;color:#004C64;' : 'background:#EFF4F7;color:#66747B;') };
       }),
       looks: [
         { name: 'AX Frame', action: '#074AF8', line: '#E5E8EE', well: '#F1F3F8', muted: '#6C727E', radius: '16px' },
