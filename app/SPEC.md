@@ -182,6 +182,7 @@ The words and what each screen holds are shared. How they look is the product's 
 
 - **Words:** Sign in, Sign out, Create an account, Invite, join (brand kit 13 §1); never Log in, Login, Register.
 - **Errors say what failed:** "That password didn't match", never "Oops" (brand kit 03).
+- **One recorded exception: YaraOne** (owner, 16 Oct 2026). The REKA team signs in as above; YaraOne's clients sign in with their email and a code the team sets, with no sign-up (YaraOne docs/16, docs/20).
 
 ## 7 Banners
 
@@ -237,7 +238,7 @@ Every product embeds **YaraOne's front office** for feedback and support request
 - **Its look is the product's:** colours, radius and font come from the product; the only other mark is one line at the foot naming REKA support and YaraOne.
 - **Never shown to the customer:** internal notes, staff assignments, other organisations' requests.
 - **Where it goes:** YaraOne, and the product's AXLE → Watch → Tickets (axle SPEC §10.12).
-- **Waiting on YaraOne's build:** how it is embedded, how it knows the person without a second sign-in, and how replies reach the notifications panel (§8).
+- **How it works** (settled with YaraOne, [`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md) v1.0): the product loads YaraOne's `embed.js` and opens the module with a short-lived token its own server signs for the signed-in person, so nobody signs in twice. Owners and Admins may reply to and close their organisation's requests, never change their status. Replies show under Your requests, by email, and as a count on Help.
 
 ## 11 Dialogs, toasts, errors and empty states
 
@@ -501,6 +502,7 @@ From the [inventory](../inventory/README.md). Everything else in each app stays 
 | Angka | Add the AntaraX pill (it has an Angka / Lapis toggle, which moves to the product slot) | Move from the sidebar foot; Help moves from the profile menu to the Help button | Has help in the profile menu; add `/guide` |
 | Tinara | Add a top bar | Move from the sidebar foot | Add `/guide` and `/help`; "by REKA" becomes "by AntaraX" |
 | PLExyz Crowd | Add a top bar; remove AXLE from the customer app | Move from the sidebar foot | Add all |
+| YaraOne | Built to the shell on 16 Oct 2026 (YaraOne docs/20) | Built | Built; Your requests, Security and Support access to come |
 | Lapisan Console | Has the pill and the account in the top bar already | Already right | Add `/guide` and `/help` |
 
 ## 19 Decisions

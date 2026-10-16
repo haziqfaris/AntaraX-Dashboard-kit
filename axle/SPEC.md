@@ -309,6 +309,7 @@ Each product's R8 level, and what each product's box holds. Anything here that a
 | Tinara | Full: ingestion pipelines | Nothing yet | Scoring & metrics, Data sources, Intelligence ledger | Data pipelines |
 | Yara | Base: database triggers, the status API, deploy checks | Nothing | Data integrity (`tenant_integrity`), Modules, Status API | None yet |
 | PLExyz Grid | Base: nothing of its own to run yet | Nothing | None: its AXLE is covered by the standard | None |
+| YaraOne | Base: jobs, email, backups | Nothing | Email (the outbox and a test send), Hosts (the products whose tickets it holds, docs/19) | None yet |
 
 AXLE Central adds a **Products** group at the top of each mode, one item per product with its health dot, and keeps no product-only box of its own.
 
@@ -515,7 +516,7 @@ Every support request and piece of feedback from every product lives in **YaraOn
 - **Organisation 360 → Tickets** shows the same embed filtered to that organisation.
 - **Needs a person** (§8) counts tickets waiting on a reply.
 - **No product stores tickets or feedback**, and no AXLE builds its own inbox for them. YaraOne's own dashboard is where REKA's support team works across products.
-- The contract, and what waits on YaraOne's build: [`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md).
+- **How it works** (settled with YaraOne, [`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md) v1.0): YaraOne's desk scoped to this product, with its views Triage, Mine, Open, Waiting on client, Overdue and Resolved, keyboard first, and two clocks per ticket (first reply, resolution). Viewers read; Support and up reply, add internal notes, change the state the customer sees and assign. The host AXLE signs a short-lived token with the staff member's rung, so nobody signs in twice. Needs a person gets its count from YaraOne's read endpoint, called with the host's secret. Each product is registered as a **host** in YaraOne's own AXLE (its "YaraOne only" box: Hosts).
 
 ## 11 Support sessions (std H7)
 
@@ -690,7 +691,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 14. ~~**Where Errors lives.**~~ Decided 15 Oct 2026: Dashboard → Operations in every product, each error linking to Troubleshoot (§7.3).
 15. ~~**R8 roles on the ladder.**~~ Decided 15 Oct 2026: std M14 maps onto Support, Operator (Level 1), Admin (Level 2), the Finance right and Owner (§5.2).
 16. ~~**AI split.**~~ Decided 15 Oct 2026: AI configuration, including Live trace, stays in Dashboard (std F); provider health and Test provider are R8 → Providers (M5).
-17. ~~**Feedback and tickets.**~~ Decided 16 Oct 2026: they live in YaraOne. AXLE embeds YaraOne's back office as Watch → Tickets and runs everything else (§10.12). How the embed signs in and is drawn waits on YaraOne's build ([`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md)).
+17. ~~**Feedback and tickets.**~~ Decided 16 Oct 2026: they live in YaraOne. AXLE embeds YaraOne's back office as Watch → Tickets and runs everything else (§10.12). How it works was settled with YaraOne the same day ([`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md) v1.0).
 
 ## 21 What each console changes
 
@@ -706,6 +707,7 @@ Scores from the AXLE scorecard in the [gallery](../inventory/gallery.html), out 
 | PLExyz Grid | 1 | Rebuild: Overview, R8 Base, addresses for every page, dark bars around its light page, ladder, no `confirm()`, a create flow |
 | Tinara | 1 | Rebuild as `AXLE · Tinara` on its own host, with R8 Full for its pipelines; remove hard-coded figures |
 | PLExyz Crowd | n/a | No internal console; remove AXLE from the customer app first |
+| YaraOne | n/a | **Rebuilt from this template on 16 Oct 2026** (YaraOne docs/20): tokens copied in, the dark bars and `AXLE` tag, Dashboard · R8, the folding groups, the YaraOne-only box, Overview with Needs a person, Organisations, R8 → Jobs. Still to come as their backends exist: Tickets (docs/19 phase X), the other standard pages, the staff ladder (everyone is an Owner today) and a reason on every change |
 
 ## Appendix A: coverage of the REKA standard
 
