@@ -445,7 +445,7 @@ In every customer app, whatever its own design:
 - **Help and the account:** never moved, renamed or hidden, and never placed in a sidebar or a bottom bar.
 - **Shared words:** never changed. Not "Log out", "Login", "Organization", "user" on screen, "Admin panel", "Preferences", or "Oops".
 - **Another identity:** never another product's colours or mark, AXLE's orange, the `AXLE` tag, or the AntaraX A used for anything but antarax.ai and, later, switching products.
-- **Credits:** never "Powered by", "by REKA", "A product of REKA Inisiatif", "REKA Intelligence", "AntaraX AI", or REKA in REKA orange (brand kit 12). The one exception is YaraOne's front office foot, "Managed by REKA · Powered by YaraOne" (§10).
+- **Credits:** never "Powered by AntaraX" (redundant: the product is AntaraX's), "by REKA", "A product of REKA Inisiatif", "REKA Intelligence", "AntaraX AI", or REKA in REKA orange (brand kit 12). "Powered by ‹tool›" is fine where a separate tool really powers part of the product, as YaraOne does the front office (§10).
 - **What only REKA sees:** never shown to customers. That means:
   - AI model or provider names, AI costs or prompts;
   - REKA staff names, except during a support session the organisation allowed;
