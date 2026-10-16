@@ -29,6 +29,9 @@ jobs:
           path: brand-kit
           token: ${{ secrets.BRAND_KIT_TOKEN || github.token }}
 
+      - name: Capacity examples follow the standard
+        run: python3 capacity/check.py capacity/examples/*.json
+
       - name: Check against the brand kit
         if: steps.kit.outcome == 'success'
         run: python3 tools/sync-brand-kit.py --check --brand-kit brand-kit

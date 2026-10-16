@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Capacity · R8 · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Capacity" mode="r8" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="R8 · Capacity" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <p style="margin: 0; color: #0B1B4F; font-size: 16px">Nearest limit: <strong style="font-weight: 600">Functions, 2 of 2</strong>. Next: <strong style="font-weight: 600">Photos and receipts, full in about 5 weeks</strong>.</p>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">Every limit of every plan Janka runs on, from Janka's <span class="mono">capacity.json</span>. Snapshots nightly at <span class="mono">03:00 MYT</span>, kept 400 days; the outside check every 5 minutes. AXLE only says what to do; it never changes a plan on its own.</p>
+      </div>
+
+      <section aria-label="Needs an operator" style="display: flex; flex-direction: column; gap: 8px">
+        <sc-for list="{{alerts}}" as="a" hint-placeholder-count="2">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 12px 16px; border-radius: 16px; background: {{a.bg}}; border: 1px solid {{a.line}}">
+            <span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{a.chip}}; color: {{a.chipInk}}">{{a.word}}</span>
+            <span style="flex: 1 1 360px; color: #0B1B4F">{{a.text}}</span>
+            <button type="button" onClick="{{a.pick}}" style="min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer; font-size: 13px">Open</button>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="plans-h" style="display: flex; flex-direction: column; gap: 8px; padding: 16px 20px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E5E8EE">
+        <h2 id="plans-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">What Janka runs on</h2>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 760px; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #5B6488; font-size: 12px">
+              <th scope="col" style="padding: 6px 10px 6px 0; font-weight: 500">Provider</th><th scope="col" style="padding: 6px 10px; font-weight: 500">For</th><th scope="col" style="padding: 6px 10px; font-weight: 500">Plan</th><th scope="col" style="padding: 6px 10px; font-weight: 500">Cost</th><th scope="col" style="padding: 6px 10px; font-weight: 500">Region</th><th scope="col" style="padding: 6px 10px; font-weight: 500">Rules that can stop Janka</th>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{plans}}" as="p" hint-placeholder-count="4">
+                <tr>
+                  <td style="padding: 8px 10px 8px 0; border-top: 1px solid #EEF1F6; color: #0B1B4F; font-weight: 500">{{p.provider}}</td>
+                  <td style="padding: 8px 10px; border-top: 1px solid #EEF1F6">{{p.service}}</td>
+                  <td style="padding: 8px 10px; border-top: 1px solid #EEF1F6"><span>{{p.plan}}</span> <span style="font-size: 11px; font-weight: 600; padding: 0 6px; border-radius: 999px; background: {{p.cBg}}; color: {{p.cInk}}">{{p.confirmed}}</span></td>
+                  <td class="mono" style="padding: 8px 10px; border-top: 1px solid #EEF1F6">{{p.cost}}</td>
+                  <td style="padding: 8px 10px; border-top: 1px solid #EEF1F6">{{p.region}}</td>
+                  <td style="padding: 8px 10px; border-top: 1px solid #EEF1F6; font-size: 12px">{{p.rules}}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="res-h" style="display: flex; flex-direction: column; gap: 10px">
+        <h2 id="res-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Every limit, closest first</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px">
+          <sc-for list="{{cards}}" as="c" hint-placeholder-count="8">
+            <button type="button" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}" style="{{c.style}}">
+              <span style="display: flex; align-items: center; gap: 8px; width: 100%">
+                <span class="mono" style="font-size: 10px; letter-spacing: .06em; color: #5B6488; text-transform: uppercase">{{c.cls}}</span>
+                <span style="flex: 1"></span>
+                <span style="font-size: 12px; font-weight: 600; color: {{c.ink}}">{{c.word}}</span>
+              </span>
+              <span style="color: #0B1B4F; font-weight: 600; text-align: left">{{c.name}}</span>
+              <span style="display: flex; align-items: baseline; gap: 6px"><span class="mono" style="font-size: 20px; color: #0B1B4F">{{c.value}}</span><span class="mono" style="font-size: 12px; color: #5B6488">of {{c.limit}}</span></span>
+              <span style="display: block; width: 100%; height: 6px; border-radius: 999px; background: #EEF1F6; overflow: hidden"><span style="display: block; height: 100%; width: {{c.w}}; background: {{c.bar}}; border-radius: 999px"></span></span>
+              <span role="img" aria-label="{{c.trendLabel}}" style="display: flex; align-items: flex-end; gap: 1px; height: 26px; width: 100%">
+                <sc-for list="{{c.trend}}" as="t" hint-placeholder-count="30"><span style="flex: 1; height: {{t.h}}; background: #C4CDE8; border-radius: 1px"></span></sc-for>
+              </span>
+              <span style="font-size: 12px; color: {{c.runInk}}; text-align: left">{{c.runway}}</span>
+              <span style="font-size: 11px; color: #5B6488; text-align: left">{{c.how}}</span>
+            </button>
+          </sc-for>
+        </div>
+      </section>
+
+      <section aria-labelledby="one-h" style="display: flex; flex-direction: column; gap: 14px; padding: 18px 22px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E5E8EE">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; align-items: baseline">
+          <h2 id="one-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">{{sel.name}} <span style="font-weight: 400; font-size: 14px; color: #5B6488">· {{sel.planName}}</span></h2>
+          <span class="mono" style="font-size: 12px; color: #5B6488">{{sel.value}} of {{sel.limit}} · {{sel.pct}}</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 18px">
+          <div style="flex: 1.5 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+            <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Last 90 days</h3>
+            <div role="img" aria-label="{{sel.chartLabel}}" style="position: relative; display: flex; align-items: flex-end; gap: 2px; height: 130px; border-bottom: 1px solid #D5DBE7">
+              <span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: {{sel.limitTop}}; border-top: 1px dashed #F04438"></span>
+              <span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: {{sel.warnTop}}; border-top: 1px dashed #F79009"></span>
+              <sc-for list="{{sel.history}}" as="h" hint-placeholder-count="45"><span style="flex: 1; height: {{h.h}}; background: #2A78D6; border-radius: 1px 1px 0 0"></span></sc-for>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: #5B6488"><span class="mono">18 Jul</span><span>Dashed: the limit (red) and 80% (orange)</span><span class="mono">today</span></div>
+            <span style="font-size: 12px; color: #5B6488">{{sel.how}}</span>
+          </div>
+          <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; flex-direction: column; gap: 4px">
+              <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Using it most</h3>
+              <sc-for list="{{sel.top}}" as="u" hint-placeholder-count="3">
+                <span style="display: flex; gap: 8px; font-size: 13px; padding: 4px 0; border-top: 1px solid #EEF1F6"><span style="flex: 1">{{u.what}}</span><span class="mono" style="color: #0B1B4F">{{u.n}}</span></span>
+              </sc-for>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">When it crosses</h3>
+              <sc-for list="{{sel.decide}}" as="d" hint-placeholder-count="2">
+                <span style="display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border-radius: 12px; background: #F5F7FC; font-size: 13px">
+                  <span class="mono" style="font-size: 10px; letter-spacing: .06em; color: #5B6488; text-transform: uppercase">{{d.action}}</span>
+                  <span style="color: #0B1B4F">{{d.what}}</span>
+                </span>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="up-h" style="display: flex; flex-direction: column; gap: 10px; padding: 18px 22px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E5E8EE">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: space-between; align-items: baseline">
+          <h2 id="up-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Availability, from outside</h2>
+          <span style="font-size: 12px; color: #5B6488">Checks <span class="mono">/api/health/db</span> every 5 minutes from outside Appwrite; last answered <span class="mono">14:30</span> in <span class="mono">0.41 s</span></span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px">
+          <div style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 12px; background: #F5F7FC"><span style="font-size: 12px; color: #5B6488">Last 90 days</span><span class="mono" style="font-size: 20px; color: #0B1B4F">99.84%</span><span style="font-size: 11px; color: #5B6488">promised 99.5%: met</span></div>
+          <div style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 12px; background: #F5F7FC"><span style="font-size: 12px; color: #5B6488">Outages</span><span class="mono" style="font-size: 20px; color: #0B1B4F">2</span><span style="font-size: 11px; color: #5B6488">3 h 18 min in all</span></div>
+          <div style="display: flex; flex-direction: column; padding: 10px 12px; border-radius: 12px; background: #F5F7FC"><span style="font-size: 12px; color: #5B6488">Longest</span><span class="mono" style="font-size: 20px; color: #0B1B4F">3 h 12 min</span><span style="font-size: 11px; color: #5B6488">11 Oct: the plan paused Janka</span></div>
+        </div>
+        <div style="display: flex; flex-direction: column; font-size: 13px">
+          <span style="display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 6px 0; border-top: 1px solid #EEF1F6"><span class="mono" style="flex: 0 0 150px; color: #5B6488">11 Oct 06:40–09:52</span><span style="flex: 1">Appwrite Free paused the project after a week with no activity. SURE-i could not sign in. Ended when a person resumed it.</span></span>
+          <span style="display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 6px 0; border-top: 1px solid #EEF1F6"><span class="mono" style="flex: 0 0 150px; color: #5B6488">2 Sep 14:05–14:11</span><span style="flex: 1">Appwrite maintenance in Singapore.</span></span>
+        </div>
+      </section>
+
+      <p style="margin: 0; font-size: 12px; color: #5B6488">The same page in every product, whatever it runs on: managed cloud, serverless, its own server. Each product lists its plans and limits in <span class="mono">capacity.json</span>; the classes, how to measure and <span class="mono">check.py</span> are in the Dashboard kit's <span class="mono">capacity/</span>. Figures here are illustrative.</p>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2000}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { sel: 'files' }; }
+  renderVals() {
+    var self = this, st = this.state;
+    var PLANS = [
+      { id: 'appwrite', provider: 'Appwrite Cloud', service: 'Database, files, functions, sign-in', plan: 'Free', confirmed: true, cost: 'US$0', region: 'Singapore', rules: 'Pauses after a week with no activity · two functions per project' },
+      { id: 'resend', provider: 'Resend', service: 'Email', plan: 'Free', confirmed: false, cost: 'US$0', region: '–', rules: '100 emails a day, 3,000 a month' },
+      { id: 'gemini', provider: 'Google', service: 'Gemini API', plan: 'Pay as you go', confirmed: true, cost: 'by use', region: 'Not confirmed', rules: 'Daily quota per key' },
+      { id: 'anthropic', provider: 'Anthropic', service: 'Claude API', plan: 'Pay as you go', confirmed: true, cost: 'by use', region: 'Not confirmed', rules: 'Monthly spend cap' }
+    ];
+    function gb(b) { return (b / 1073741824).toFixed(2) + ' GB'; }
+    function n(x) { return x.toLocaleString('en-GB'); }
+    var R = [
+      { id: 'functions', cls: 'Deployables', name: 'Functions', plan: 'appwrite', v: 2, lim: 2, fmt: n, start: 2, runway: 'At the limit: a third function cannot be deployed', how: 'Counted nightly from Appwrite\'s function list',
+        top: [['ai-proxy', 'in use'], ['nightly', 'in use']], decide: [['Upgrade the plan', 'Appwrite Pro: no function limit, daily backups, no idle pause · US$15 a month'], ['Change the architecture', 'Route new work through ai-proxy and the nightly function']] },
+      { id: 'files', cls: 'Files', name: 'Photos and receipts', plan: 'appwrite', v: 1.62 * 1073741824, lim: 2 * 1073741824, fmt: gb, start: 0.70 * 1073741824, runway: 'Full in about 5 weeks (late Nov), at 11 MB a day', how: 'Measured nightly from Appwrite\'s usage API · 03:00',
+        top: [['Contoh Logistik · receipts', '612 MB'], ['Harapan Pharma · reference photos', '388 MB'], ['Sinar Elektrik · receipts', '201 MB']], decide: [['Reduce the use', 'Resize photos to 1600 px on upload: about 70% smaller'], ['Upgrade the plan', 'Appwrite Pro · US$15 a month']] },
+      { id: 'email', cls: 'Messages', name: 'Emails today', plan: 'resend', v: 61, lim: 100, fmt: n, start: 40, runway: 'Peak 97 on 13 Oct (the low-stock digest)', how: 'Counted from email_log · live',
+        top: [['Low-stock digest', '44'], ['Sign-in links', '12'], ['Invitations', '5']], decide: [['Upgrade the plan', 'Resend Pro: 50,000 a month · US$20 a month']] },
+      { id: 'egress', cls: 'Transfer', name: 'Bandwidth out, this month', plan: 'appwrite', v: 6.8 * 1073741824, lim: 10 * 1073741824, fmt: gb, start: 0, runway: 'On pace for 9.4 GB by 31 Oct', how: 'Measured nightly from Appwrite\'s usage API · 03:00',
+        top: [['Photo thumbnails in lists', '4.1 GB'], ['Receipts opened', '1.9 GB'], ['App data', '0.8 GB']], decide: [['Reduce the use', 'Serve small thumbnails, not originals, in lists'], ['Upgrade the plan', 'Appwrite Pro']] },
+      { id: 'ai', cls: 'AI', name: 'AI spend, this month', plan: 'gemini', v: 31.4, lim: 50, fmt: function (x) { return 'US$' + x.toFixed(2); }, start: 0, runway: 'On pace for US$61 by 31 Oct: over the budget', how: 'From ai_calls, priced in AXLE → AI models · live',
+        top: [['Photo identify', 'US$13.10'], ['Run forecast', 'US$11.40'], ['Read a delivery order', 'US$6.90']], decide: [['Reduce the use', 'Lower the per-organisation monthly cap from 2,000 to 1,500 calls']] },
+      { id: 'executions', cls: 'Requests', name: 'Function runs, this month', plan: 'appwrite', v: 212000, lim: 750000, fmt: n, start: 0, runway: 'On pace for 410,000 by 31 Oct', how: 'Measured nightly from Appwrite\'s usage API · 03:00',
+        top: [['ai-proxy', '171,400'], ['nightly', '40,600']], decide: [['Upgrade the plan', 'Appwrite Pro'], ['Change the architecture', 'Batch the nightly forecast per site, not per SKU']] },
+      { id: 'db', cls: 'Data', name: 'Database size', plan: 'appwrite', v: 0.41 * 1073741824, lim: 2 * 1073741824, fmt: gb, start: 0.29 * 1073741824, runway: 'More than a year at 2 MB a day', how: 'Measured nightly from Appwrite\'s usage API · 03:00',
+        top: [['stock_movements', '188 MB'], ['forecast_scores', '64 MB'], ['ai_calls', '41 MB']], decide: [['Reduce the use', 'Archive stock movements older than two years'], ['Upgrade the plan', 'Appwrite Pro']] },
+      { id: 'backups', cls: 'Backups', name: 'Backups', plan: 'appwrite', v: null, lim: null, fmt: n, start: 0, runway: 'Not measured: Appwrite Free keeps no backups', how: 'A nightly export to object storage would measure it',
+        top: [], decide: [['Upgrade the plan', 'Appwrite Pro: daily backups'], ['Change the architecture', 'Nightly export to object storage']] }
+    ];
+    var planName = {}; PLANS.forEach(function (p) { planName[p.id] = p.provider + ' ' + p.plan; });
+    function state(r) {
+      if (r.v === null) return { word: 'Not measured', ink: '#5B6488', bar: '#C4CDE8', bg: '#FFFFFF', line: '#E5E8EE' };
+      var p = r.v / r.lim;
+      if (p >= 1) return { word: 'At the limit', ink: '#B42318', bar: '#F04438', bg: '#FFF8F7', line: '#F6B5AF' };
+      if (p >= 0.8 || r.id === 'ai') return { word: 'Watch', ink: '#B54708', bar: '#F79009', bg: '#FFFBF4', line: '#F8CD92' };
+      return { word: 'Fine', ink: '#067647', bar: '#2A78D6', bg: '#FFFFFF', line: '#E5E8EE' };
+    }
+    function series(r, len) {
+      var out = [];
+      for (var i = 0; i < len; i++) {
+        var f = i / (len - 1), wob = 1 + 0.03 * Math.sin(i * 1.7);
+        out.push(r.v === null ? 0 : Math.max(0, (r.start + (r.v - r.start) * f) * wob));
+      }
+      return out;
+    }
+    function pct(r) { return r.v === null ? '–' : Math.round(r.v / r.lim * 100) + '%'; }
+    var cards = R.map(function (r) {
+      var s = state(r), on = st.sel === r.id, tr = series(r, 30), mx = Math.max.apply(null, tr.concat([r.lim || 1]));
+      return { cls: r.cls, name: r.name, word: s.word, ink: s.ink, bar: s.bar,
+        value: r.v === null ? '–' : r.fmt(r.v), limit: r.lim === null ? '–' : r.fmt(r.lim), w: r.v === null ? '0%' : Math.min(100, Math.round(r.v / r.lim * 100)) + '%',
+        trend: tr.map(function (v) { return { h: Math.max(4, Math.round(v / mx * 100)) + '%' }; }),
+        trendLabel: r.name + ': 30 days, now ' + pct(r) + ' of the limit',
+        runway: r.runway, runInk: s.word === 'Fine' || s.word === 'Not measured' ? '#5B6488' : s.ink, how: r.how,
+        pressed: on ? 'true' : 'false', pick: function () { self.setState({ sel: r.id }); },
+        style: 'display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:14px;border-radius:16px;cursor:pointer;font-size:14px;background:' + s.bg + ';' + (on ? 'border:2px solid #FB9800;padding:13px;' : 'border:1px solid ' + s.line + ';') };
+    });
+    var r = R.filter(function (x) { return x.id === st.sel; })[0];
+    var hist = series(r, 45), top = Math.max.apply(null, hist.concat([r.lim || 1])) * 1.05;
+    var ACT = { 'Upgrade the plan': 'upgrade plan', 'Reduce the use': 'reduce use', 'Change the architecture': 'change architecture', 'Move provider': 'move provider' };
+    return {
+      alerts: [
+        { word: 'At the limit', text: 'Functions: 2 of 2. A third function cannot be deployed on Appwrite Free.', bg: '#FFF8F7', line: '#F6B5AF', chip: '#FEECEB', chipInk: '#B42318', pick: function () { self.setState({ sel: 'functions' }); } },
+        { word: '81%', text: 'Photos and receipts: 1.62 of 2 GB, full in about 5 weeks.', bg: '#FFFBF4', line: '#F8CD92', chip: '#FEF4E6', chipInk: '#B54708', pick: function () { self.setState({ sel: 'files' }); } },
+        { word: 'Over budget soon', text: 'AI spend on pace for US$61 against a US$50 budget this month.', bg: '#FFFBF4', line: '#F8CD92', chip: '#FEF4E6', chipInk: '#B54708', pick: function () { self.setState({ sel: 'ai' }); } }
+      ],
+      plans: PLANS.map(function (p) { return Object.assign({}, p, { confirmed: p.confirmed ? 'Confirmed' : 'Not confirmed', cBg: p.confirmed ? '#E7F8EF' : '#FEF4E6', cInk: p.confirmed ? '#067647' : '#B54708' }); }),
+      cards: cards,
+      sel: {
+        name: r.name, planName: planName[r.plan], value: r.v === null ? '–' : r.fmt(r.v), limit: r.lim === null ? 'no limit set' : r.fmt(r.lim), pct: pct(r), how: r.how,
+        limitTop: r.lim ? Math.round((1 - r.lim / top) * 100) + '%' : '-10px', warnTop: r.lim ? Math.round((1 - 0.8 * r.lim / top) * 100) + '%' : '-10px',
+        history: hist.map(function (v) { return { h: Math.max(1, Math.round(v / top * 100)) + '%' }; }),
+        chartLabel: r.name + ' over 90 days, now ' + pct(r) + ' of its limit',
+        top: r.top.length ? r.top.map(function (t) { return { what: t[0], n: t[1] }; }) : [{ what: 'Nothing measured yet', n: '–' }],
+        decide: r.decide.map(function (d) { return { action: ACT[d[0]] || d[0], what: d[1] }; })
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
