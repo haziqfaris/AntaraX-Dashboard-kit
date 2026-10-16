@@ -1,6 +1,6 @@
 # The AntaraX shell for customer apps
 
-**Version 1.2, the standard (owner, 16 Oct 2026; Dashboard kit 1.2.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17).
+**Version 1.3, the standard (owner, 16 Oct 2026; Dashboard kit 1.3.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17). 1.3 adds named saved views to every long list (§11a).
 
 **The rule (owner, 15 Oct 2026).** AXLE is the same in every product ([axle/](../axle/README.md)). A customer app is the opposite: each product has its own identity, shape, theme and UI. A small shell is the exception. It stays the same in every product so that a customer who uses two AntaraX products, or moves from one to another, always finds the same things in the same places:
 
@@ -312,6 +312,7 @@ Any list that can grow past one screen (work orders, stock, invoices, members, r
 | **Group** | Where it helps | By status, owner, customer or date, with counts |
 | **View** | Where the data fits | List, board or table. A choice only where the data really suits more than one |
 | **Remembered** | Always | Per person, or kept in the address so a view can be shared. Coming back finds the list as it was left. Views are chosen on the page, never in Settings |
+| **Saved views** | Always | A person can save the list as it is (search, filters, sort, group and view) under a name, and pick it again from a **Views** menu beside search. The menu starts with "All ‹records›", which cannot be deleted, then their own views; **Save view…** names the current one, and each view is renamed or deleted from the same menu. A saved view is per person; its address can still be shared. Chosen on the page, never in Settings |
 | **Empty** | Always | Says what will appear and how to start (§11) |
 | **No match** | Always | "No work orders match these filters", with Clear filters. Never the empty state, never a blank table |
 | **CSV export** | When it is tabular | What is on screen, filters applied: `‹product›-‹list›-‹YYYY-MM-DD›.csv`, UTF-8, ISO dates, plain numbers, currency in its own column. Hidden figures stay hidden (§16) |
@@ -590,5 +591,7 @@ All decided by the owner on 15 Oct 2026:
   - the current navigation item and hover are shared (§2.5); navigation's shape stays the product's own;
   - a baseline for long lists (§11a), a customer version of AXLE §9;
   - mocks readable off the canvas, reference components, a conformance check, a gap table before any work, and one kit version that products pin (§17, `README.md`).
+
+- **16 Oct 2026, v1.3:** every long list has named saved views, per person, from a Views menu beside search (§11a). It completes the owner's list baseline (search, filters, sort and saved views on every list page, brand kit guide/10).
 
 New questions go here.

@@ -12,7 +12,7 @@ Any work on a product's AXLE uses the template in `axle/`; that includes a new p
 
 ## When working in another repository on a customer app
 
-A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. Follow `app/README.md` and `app/SPEC.md` (v1.2, the standard). Everything the spec does not name is the product's own; a new shared rule goes into the spec first, never into one product.
+A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. Follow `app/README.md` and `app/SPEC.md` (v1.3, the standard). Everything the spec does not name is the product's own; a new shared rule goes into the spec first, never into one product.
 
 - **Before planning, write a gap table** (owner, 16 Oct 2026). Open the closest product's mock PNG (`app/mock/renders/AppBar-<product>-wide.png` and `-phone.png`, and the board for the page) and its `.values.md`. List every difference between the product, the mock and the spec, with what you will do about each. Where the spec says "the product's own", say what the product chose and why. Put the table in your plan before any code.
 - **Take values from `app/tokens.css`**, never from prose or by measuring a mock by eye. `app/reference/` shows them built.

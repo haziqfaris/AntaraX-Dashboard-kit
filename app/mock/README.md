@@ -1,6 +1,6 @@
 # AntaraX shell mock
 
-The shell every customer app shares, drawn to [SPEC.md](../SPEC.md) v1.2, the standard, with fictional people and organisations throughout.
+The shell every customer app shares, drawn to [SPEC.md](../SPEC.md) v1.3, the standard, with fictional people and organisations throughout.
 
 - **Read it off the canvas:** every board is rendered to PNG in [`renders/`](renders/), and beside each mock is `<Board>.values.md`, a table of its values that says which are shell and which are the product's own. The top bar is rendered in every product, wide and phone, light and dark: open the closest product's `renders/AppBar-<product>-<wide|phone>[-dark].png` before planning (AGENTS.md).
 - Live canvas (private until shared): https://claude.ai/artifact/BnCgM4zvLZpKiJGDaqqBix. Press Play: Help and the account open their menus.

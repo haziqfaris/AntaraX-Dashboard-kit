@@ -8,6 +8,14 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.3.0 · 16 Oct 2026
+
+Minor: something new to adopt (owner, 16 Oct 2026; brand kit guide/10).
+
+- **Named saved views on every long list** (`app/SPEC.md` §11a, v1.3). A person saves the list as it is (search, filters, sort, group and view) under a name and picks it again from a Views menu beside search; "All ‹records›" comes first and cannot be deleted. Per person, renamed or deleted from the same menu, never in Settings. This completes the owner's list baseline: search, filters, sort and saved views.
+- **Updated to match:** the Lists mock, with its render and values table; `reference/ListToolbar` takes `savedViews`, and `reference/useListState.js` adds `useSavedViews`; the demo saves and picks views; Before you ship (`app/README.md`).
+- **For products:** adopt saved views on each long list when you next pin the kit.
+
 ## 1.2.1 · 16 Oct 2026
 
 Resync with YaraOne (`1949e49`: its roadmap, docs/22; the start of AX Frame's side, docs/21 §7).

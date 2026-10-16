@@ -29,6 +29,30 @@ export function useListState({ list, person, defaults }) {
   return [state, set, reset];
 }
 
+// A person's named saved views of one list (SPEC §11a), kept per person in this browser. A product that has
+// accounts on a server should keep them there instead, so they follow the person between devices.
+// `current` is the view that matches the list as it is now, or null for "All ‹records›".
+//
+//   const views = useSavedViews({ list: 'work-orders', person: user.id, state, defaults });
+//   <ListToolbar savedViews={{ ...views, onPick: (id) => set(views.stateOf(id)) }} … />
+export function useSavedViews({ list, person, state, defaults }) {
+  const storeKey = `ax-views:${person}:${list}`;
+  const [items, setItems] = useState(() => {
+    if (typeof window === 'undefined') return [];
+    try { return JSON.parse(localStorage.getItem(storeKey) || '[]'); } catch { return []; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem(storeKey, JSON.stringify(items)); } catch { /* private mode: views last for this visit */ }
+  }, [items, storeKey]);
+  const same = (a, b) => Object.keys(defaults).every((k) => String(a?.[k] ?? '') === String(b?.[k] ?? ''));
+  const current = items.find((v) => same(v.state, state))?.id ?? null;
+  const onSave = useCallback((name) => setItems((xs) => [...xs, { id: `v${Date.now().toString(36)}`, name, state }]), [state]);
+  const onRename = useCallback((id, name) => setItems((xs) => xs.map((v) => (v.id === id ? { ...v, name } : v))), []);
+  const onDelete = useCallback((id) => setItems((xs) => xs.filter((v) => v.id !== id)), []);
+  const stateOf = (id) => (id == null ? defaults : { ...defaults, ...items.find((v) => v.id === id)?.state });
+  return { items: items.map(({ id, name }) => ({ id, name })), current, onSave, onRename, onDelete, stateOf };
+}
+
 // CSV as SPEC §11a asks: UTF-8, ISO dates, plain numbers, currency in its own column, what is on screen.
 export function csvName(product, list, date = new Date()) {
   return `${product}-${list}-${date.toISOString().slice(0, 10)}.csv`;

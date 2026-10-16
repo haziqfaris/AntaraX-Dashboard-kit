@@ -9,8 +9,8 @@ The shell's top bar, its two menus and the list toolbar in plain React and CSS v
 | `RoundControl.jsx` | A 44px round control: menu, search, notifications, Help; with a count |
 | `HelpMenu.jsx` | Help's six items; the last three call YaraOne's front office (`openYaraOne`) |
 | `AccountMenu.jsx` | The account button and menu in §3's order; Sign out asks first |
-| `ListToolbar.jsx` | Search, filters, sort, group, view and CSV for a long list (§11a), and `NoMatch` |
-| `useListState.js` | A list's state kept in the address and per person; `toCsv`, `csvName`, `downloadCsv` |
+| `ListToolbar.jsx` | Saved views, search, filters, sort, group, view and CSV for a long list (§11a), and `NoMatch` |
+| `useListState.js` | A list's state kept in the address and per person; `useSavedViews` for its named views; `toCsv`, `csvName`, `downloadCsv` |
 | `useMenu.js` | Focus, arrow keys, Tab kept inside, Escape and a click outside, for both menus |
 | `icons.jsx` | The six icons, inline |
 | `shell.css` | Every style, from `--shell-*` variables only |

@@ -1,4 +1,4 @@
-<!-- values for Lists.dc.html, source 0bd35f58eba78e20 -->
+<!-- values for Lists.dc.html, source 2ea01e84e86eb6c8 -->
 Every number below is read from the mock. **Shell** rows must match in every product (SPEC section in brackets); **own** rows are how this board draws the product's own side, an example and not a rule. Colours are the product's palette slots (`app/tokens.css`).
 
 | Part | Value | Kind |
@@ -11,5 +11,7 @@ Every number below is read from the mock. **Shell** rows must match in every pro
 | View | segmented List · Board · Table, 36px inside 3px padding on `well` | Where the data fits |
 | Export CSV | 44px button; `‹product›-‹list›-‹YYYY-MM-DD›.csv` | When tabular |
 | Remembered | "Saved for you" and the address, mono 12px | Required |
+| Views button | 44px, radius 12px, 13px / 600, "Views" muted before the current view's name, caret; first in the toolbar | Required (§11a); look own |
+| Views menu | radius 16px, padding 6px, menu shadow (`app/tokens.css`); items 44px, radius 10px; current: `subtle-tint` with `on-tint`, ✓; ⋯ 32px on the person's own views; "Save view…" in `action` text, after a 1px `line` divider | Required (§11a); look own |
 | Table | radius 16px, header 12px muted, rows 13px, ids and dates mono | Own |
 | No match / Empty | 16px / 600 title, a line, one 44px button | Required (§11a, §11) |
