@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Help and requests</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+.su a{text-decoration:none}
+.su button,.su input,.su textarea{font-family:inherit}
+.su .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.su :focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+</style>
+</helmet>
+<div class="su" style="width: 1440px; box-sizing: border-box; padding: 48px 56px 64px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; flex-direction: column; gap: 8px; max-width: 1120px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">Help and requests: YaraOne's front office, inside every product</h1>
+    <p style="margin: 0; font-size: 16px">Send feedback and Contact support open the same embedded module in every AntaraX product and REKA project. Requests live in YaraOne, so no product builds its own ticketing and the customer never signs in anywhere else. The module wears the product's own look; shown here in Janka (owner, 16 Oct 2026).</p>
+  </header>
+
+  <section aria-labelledby="fo-h" style="display: flex; flex-direction: column; gap: 10px">
+    <h2 id="fo-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Opened from Help <span style="font-weight: 400; color: #5B6488; font-size: 14px">· Janka, Nur Aina Hashim (Owner, Contoh Logistik)</span></h2>
+    <div style="position: relative; border-radius: 20px; overflow: hidden; border: 1px solid #E2E9ED; background: #F7FBFC; min-height: 900px">
+      <dc-import name="AppBar" product="Janka" mode="wide" open="none" title="Forecasting" hint-size="100%,80px"></dc-import>
+      <div aria-hidden="true" style="padding: 20px 24px; display: flex; flex-direction: column; gap: 12px; opacity: .5">
+        <div style="height: 28px; width: 260px; border-radius: 8px; background: #E2E9ED"></div>
+        <div style="height: 180px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2E9ED"></div>
+        <div style="height: 120px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2E9ED"></div>
+        <div style="height: 220px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E2E9ED"></div>
+      </div>
+      <aside role="dialog" aria-labelledby="dr-h" style="position: absolute; top: 76px; right: 12px; bottom: 12px; width: 460px; max-width: calc(100% - 24px); background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; box-shadow: 0 24px 60px -28px rgba(11,27,79,.45); display: flex; flex-direction: column; overflow: hidden">
+        <div style="display: flex; align-items: center; gap: 10px; padding: 14px 16px 10px">
+          <span id="dr-h" style="flex: 1; color: #0B1B4F; font-size: 17px; font-weight: 600">Help and requests</span>
+          <button type="button" aria-label="Close" style="width: 36px; height: 36px; border-radius: 10px; border: 1px solid #E2E9ED; background: #FFFFFF; color: #0B1B4F; cursor: pointer">✕</button>
+        </div>
+        <div role="tablist" aria-label="Help and requests" style="display: flex; gap: 4px; margin: 0 16px; padding: 4px; border-radius: 12px; background: #EFF4F7">
+          <sc-for list="{{tabs}}" as="b" hint-placeholder-count="3">
+            <button type="button" role="tab" onClick="{{b.pick}}" aria-selected="{{b.sel}}" style="{{b.style}}">{{b.label}}</button>
+          </sc-for>
+        </div>
+
+        <div style="flex: 1; overflow: auto; padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 12px">
+          <sc-if value="{{isHelp}}" hint-placeholder-val="{{true}}">
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">What do you need help with?<textarea rows="4" style="border-radius: 12px; border: 1px solid #E2E9ED; padding: 10px 12px; font-size: 14px">Klang shows no forecast since Monday. Shah Alam is fine.</textarea></label>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px">
+                <span style="padding: 2px 10px; border-radius: 999px; background: #D7F2FE; color: #004C64">Page: Forecasting · Klang</span>
+                <span style="padding: 2px 10px; border-radius: 999px; background: #EFF4F7; color: #3B4469">Janka v1.9</span>
+              </div>
+              <label style="display: flex; align-items: center; gap: 8px; min-height: 44px; font-size: 13px; color: #0B1B4F"><input type="checkbox" checked style="width: 18px; height: 18px"> Add a screenshot of this page</label>
+              <button type="button" style="align-self: flex-start; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px dashed #E2E9ED; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Attach a file</button>
+              <button type="button" onClick="{{sendHelp}}" style="min-height: 44px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-weight: 600; cursor: pointer">Send to REKA support</button>
+              <sc-if value="{{helpSent}}" hint-placeholder-val="{{false}}"><p role="status" style="margin: 0; padding: 10px 12px; border-radius: 12px; background: #E7F8EF; color: #067647; font-size: 13px">Sent as <span class="mono">YO-1048</span>. Replies appear under Your requests and by email.</p></sc-if>
+              <span style="font-size: 12px; color: #66747B">REKA support replies here. Urgent? Email support@go.antarax.ai.</span>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{isFeedback}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">What would make Janka better?<textarea rows="4" style="border-radius: 12px; border: 1px solid #E2E9ED; padding: 10px 12px; font-size: 14px">Show last year's line on the forecast chart.</textarea></label>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px"><span style="padding: 2px 10px; border-radius: 999px; background: #D7F2FE; color: #004C64">Page: Forecasting · Klang</span></div>
+              <button type="button" onClick="{{sendFeedback}}" style="min-height: 44px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-weight: 600; cursor: pointer">Send feedback</button>
+              <sc-if value="{{fbSent}}" hint-placeholder-val="{{false}}"><p role="status" style="margin: 0; padding: 10px 12px; border-radius: 12px; background: #E7F8EF; color: #067647; font-size: 13px">Thanks. The team at REKA reads every message, and you'll hear here if it leads to a change.</p></sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{isList}}" hint-placeholder-val="{{false}}">
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <span style="font-size: 12px; color: #66747B">As an Owner you see every request from Contoh Logistik. Members see their own.</span>
+              <sc-for list="{{reqs}}" as="r" hint-placeholder-count="3">
+                <button type="button" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}" style="{{r.style}}">
+                  <span style="display: flex; gap: 8px; width: 100%; font-size: 12px; color: #66747B"><span class="mono">{{r.ref}}</span><span>· {{r.from}}</span><span style="flex: 1"></span><span style="font-weight: 600; color: {{r.ink}}">{{r.state}}</span></span>
+                  <span style="color: #0B1B4F; font-weight: 600; text-align: left">{{r.title}}</span>
+                </button>
+              </sc-for>
+              <div style="display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 14px; background: #F7FBFC; border: 1px solid #E2E9ED">
+                <span style="color: #0B1B4F; font-weight: 600">{{cur.title}}</span>
+                <ol aria-label="Where it is" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px">
+                  <sc-for list="{{steps}}" as="s" hint-placeholder-count="7"><li style="{{s.style}}">{{s.label}}</li></sc-for>
+                </ol>
+                <sc-for list="{{cur.thread}}" as="m" hint-placeholder-count="2">
+                  <div style="display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; background: #FFFFFF; border: 1px solid #E2E9ED">
+                    <span style="font-size: 12px; color: #66747B"><span style="color: #0B1B4F; font-weight: 600">{{m.who}}</span> · <span class="mono">{{m.at}}</span></span>
+                    <span style="font-size: 13px">{{m.text}}</span>
+                  </div>
+                </sc-for>
+                <textarea aria-label="Reply" rows="2" placeholder="Reply to REKA support" style="border-radius: 12px; border: 1px solid #E2E9ED; padding: 8px 10px; font-size: 14px"></textarea>
+                <button type="button" style="align-self: flex-end; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-weight: 600; cursor: pointer">Reply</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+        <div style="padding: 8px 16px; border-top: 1px solid #E2E9ED; font-size: 11px; color: #66747B">Requests are handled by REKA support with YaraOne.</div>
+      </aside>
+    </div>
+  </section>
+
+  <section aria-labelledby="hm-h" style="display: flex; flex-wrap: wrap; gap: 20px">
+    <div style="flex: 1 1 520px; display: flex; flex-direction: column; gap: 10px">
+      <h2 id="hm-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Where it opens</h2>
+      <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px">
+        <li><strong style="color: #0B1B4F; font-weight: 600">Help → Contact support</strong> opens Get help. <strong style="color: #0B1B4F; font-weight: 600">Help → Send feedback</strong> opens Send feedback.</li>
+        <li><strong style="color: #0B1B4F; font-weight: 600">Help → Your requests</strong> lists the person's requests; Owners and Admins see their organisation's.</li>
+        <li><strong style="color: #0B1B4F; font-weight: 600">Report this</strong> on an error screen opens Get help with the error reference filled in.</li>
+        <li><strong style="color: #0B1B4F; font-weight: 600">The Help centre's foot</strong> opens Get help.</li>
+      </ul>
+      <h2 style="margin: 8px 0 0; color: #0B1B4F; font-size: 18px; font-weight: 600">What the product sends with it</h2>
+      <p style="margin: 0">The product, the organisation, the person and their role, the page, the version, any error reference, and a screenshot only if the person ticks it. The product keeps nothing of the request; YaraOne does.</p>
+    </div>
+    <div style="flex: 1 1 520px; display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Report this <span style="font-weight: 400; color: #5B6488; font-size: 14px">· an error in AX Frame</span></h2>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E5E8EE">
+        <span style="color: #0B1B4F; font-size: 16px; font-weight: 600">Couldn't load this map.</span>
+        <span style="font-size: 13px">Try again in a moment. If it keeps happening, tell us and we'll look.</span>
+        <span class="mono" style="font-size: 12px; color: #6C727E">Reference req_5d21e8a0</span>
+        <span style="display: flex; gap: 8px"><button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #074AF8; color: #FFFFFF; font-weight: 600; cursor: pointer">Try again</button><button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #E5E8EE; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Report this</button></span>
+      </div>
+      <h2 style="margin: 8px 0 0; color: #0B1B4F; font-size: 18px; font-weight: 600">The same module, each product's look</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <sc-for list="{{looks}}" as="l" hint-placeholder-count="3">
+          <div style="flex: 1 1 150px; display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: {{l.radius}}; background: #FFFFFF; border: 1px solid {{l.line}}">
+            <span style="font-size: 13px; color: #0B1B4F; font-weight: 600">{{l.name}}</span>
+            <span style="display: flex; gap: 4px; padding: 3px; border-radius: 10px; background: {{l.well}}"><span style="flex: 1; text-align: center; font-size: 11px; padding: 3px; border-radius: 7px; background: #FFFFFF; color: #0B1B4F">Get help</span><span style="flex: 1; text-align: center; font-size: 11px; padding: 3px; color: {{l.muted}}">Feedback</span></span>
+            <span style="height: 34px; border-radius: 10px; border: 1px solid {{l.line}}"></span>
+            <span style="min-height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: {{l.action}}; color: #FFFFFF; font-size: 12px; font-weight: 600">Send</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <p style="margin: 0; font-size: 12px; color: #5B6488">Waiting on YaraOne's build, then resynced: how the module is embedded, how it knows the person without a second sign-in, and how replies reach the product's notifications. Dashboard kit <span class="mono">yaraone/EMBEDS.md</span>.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1700}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'help', sel: 'YO-1042', helpSent: false, fbSent: false }; }
+  renderVals() {
+    var self = this, st = this.state;
+    var STATES = ['Received', 'Reviewing', 'Need more information', 'Planned', 'In progress', 'Resolved', 'Closed'];
+    var R = [
+      { ref: 'YO-1042', from: 'Kumar Selvam', title: 'Forecast missing for the Klang warehouse', state: 'Reviewing',
+        thread: [['Kumar Selvam', '11:20', 'Klang shows no forecast since Monday. Shah Alam is fine.'], ['Kumar Selvam', '13:40', 'Any news? We order on Thursdays.']] },
+      { ref: 'YO-1045', from: 'Lim Wei Jie', title: 'Sheets import stuck since noon', state: 'In progress',
+        thread: [['Lim Wei Jie', '12:31', 'The import says running since 12:05. Our stock counts from the morning aren\'t in.'], ['REKA support', '13:02', 'Thanks, we can see it. One read from your sheet timed out and the import is waiting on it. We are fixing it now and will tell you here.']] },
+      { ref: 'YO-0988', from: 'Nur Aina Hashim', title: 'Add our second warehouse', state: 'Closed',
+        thread: [['Nur Aina Hashim', '2 Oct', 'How do we add Klang as a second site?'], ['REKA support', '2 Oct', 'Settings → Sites → Add a site. We\'ve linked the guide task T-SITE-02.']] }
+    ];
+    var tabs = [['help', 'Get help'], ['feedback', 'Send feedback'], ['list', 'Your requests']].map(function (b) {
+      var on = st.tab === b[0];
+      return { label: b[1], sel: on ? 'true' : 'false', pick: function () { self.setState({ tab: b[0] }); },
+        style: 'flex:1;min-height:36px;padding:0 8px;border-radius:9px;border:0;cursor:pointer;font-size:13px;' + (on ? 'background:#FFFFFF;color:#0B1B4F;font-weight:600;box-shadow:0 1px 2px rgba(11,27,79,.12);' : 'background:transparent;color:#66747B;') };
+    });
+    var cur = R.filter(function (r) { return r.ref === st.sel; })[0];
+    var ci = STATES.indexOf(cur.state);
+    var INK = { 'Reviewing': '#077DA1', 'In progress': '#077DA1', 'Need more information': '#B54708', 'Closed': '#66747B', 'Resolved': '#067647' };
+    return {
+      tabs: tabs, isHelp: st.tab === 'help', isFeedback: st.tab === 'feedback', isList: st.tab === 'list',
+      helpSent: st.helpSent, fbSent: st.fbSent,
+      sendHelp: function () { self.setState({ helpSent: true }); }, sendFeedback: function () { self.setState({ fbSent: true }); },
+      reqs: R.map(function (r) {
+        var on = st.sel === r.ref;
+        return { ref: r.ref, from: r.from, title: r.title, state: r.state, ink: INK[r.state] || '#3B4469', pressed: on ? 'true' : 'false', pick: function () { self.setState({ sel: r.ref }); },
+          style: 'display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;padding:10px 12px;border-radius:12px;cursor:pointer;background:#FFFFFF;' + (on ? 'border:2px solid #077DA1;padding:9px 11px;' : 'border:1px solid #E2E9ED;') };
+      }),
+      cur: { title: cur.title, thread: cur.thread.map(function (m) { return { who: m[0], at: m[1], text: m[2] }; }) },
+      steps: STATES.filter(function (s) { return s !== 'Need more information' || cur.state === s; }).map(function (s) {
+        var i = STATES.indexOf(s), done = i < ci, now = i === ci;
+        return { label: s, style: 'font-size:11px;padding:2px 8px;border-radius:999px;' + (now ? 'background:#077DA1;color:#FFFFFF;font-weight:600;' : done ? 'background:#D7F2FE;color:#004C64;' : 'background:#EFF4F7;color:#66747B;') };
+      }),
+      looks: [
+        { name: 'AX Frame', action: '#074AF8', line: '#E5E8EE', well: '#F1F3F8', muted: '#6C727E', radius: '16px' },
+        { name: 'Angka', action: '#6B3F6B', line: '#EBE6EB', well: '#F6F2F5', muted: '#786E78', radius: '28px' },
+        { name: 'PLExyz Grid', action: '#2C09B2', line: '#E6E7EE', well: '#F2F3F8', muted: '#6E717E', radius: '12px' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

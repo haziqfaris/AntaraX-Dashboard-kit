@@ -23,7 +23,7 @@ This spec draws on the [inventory](../inventory/README.md) of eight customer app
 | Look | Poppins and JetBrains Mono, the status colours, the AntaraX-blue focus ring, 44px targets, the accessibility baseline (13 §10) | Palette, ground, surfaces, radius, density, illustration, motion, charts, dark mode, every layout, every component |
 | The AntaraX layer | The eight touchpoints in brand kit 12: credit line, motif, AI sparkle, thinking motion, shared core, intan eyebrow, app tile, footer | How each touchpoint sits within the product's own style |
 | Getting in | What the sign-in, invitation, reset and two-step screens hold, and their words (§6) | Their look, illustration and layout |
-| Shared moments | The order of banners (§7); the notifications panel (§8); the Assist panel (§9); Send feedback (§10); what dialogs, toasts, errors and empty states say (§11) | How each looks |
+| Shared moments | The order of banners (§7); the notifications panel (§8); the Assist panel (§9); feedback and support requests, through YaraOne's front office (§10); what dialogs, toasts, errors and empty states say (§11) | How each looks |
 | Logo, loading, motion | The seven kinds of wait and that every one is animated; AI thinking; the splash; tab title and icon (§12) | Every loader's motion, drawn from the product's mark and motif; its one signature moment |
 | Admin area | The pages an organisation's Owners and Admins get, under `/settings` (§13) | How they look; the product's own admin sections |
 | Built right | Sign-in and passwords, forms, data and privacy, speed and caching, reliability, security, time and language, devices (§15) | Nothing: these are the floor every product meets |
@@ -44,7 +44,7 @@ Left to right, always in this order. An item shown "if" appears only when the pr
 | 4 | **Product slot** | The product's own controls: Add, Assist, a date range, a site picker, a mode switch. Anything, in the product's style. It never pushes items 5 to 8 out of view |
 | 5 | **Search** (if) | A field, or a 44px button on narrow screens. `⌘K` or `/` opens it, if the product has a palette |
 | 6 | **Notifications** (if) | A 44px bell with a count, opening a panel; "See all" goes to the product's own page |
-| 7 | **Help** | A 44px button with a question mark, its own button in every product (owner, 15 Oct 2026). It opens a small menu: **User guide** (`/guide`), **Help centre** (`/help`), **What's new** (optional: a short list of recent changes; a product that keeps one puts it here), **Send feedback** (§10), **Contact support** (`support@go.antarax.ai`, brand kit 13 §2) |
+| 7 | **Help** | A 44px button with a question mark, its own button in every product (owner, 15 Oct 2026). It opens a small menu: **User guide** (`/guide`), **Help centre** (`/help`), **What's new** (optional: a short list of recent changes; a product that keeps one puts it here), **Send feedback**, **Contact support** and **Your requests**, which open YaraOne's front office (§10); `support@go.antarax.ai` (brand kit 13 §2) stays as the fallback |
 | 8 | **Account** | A 44px round button with the person's photo or initials, always last, always at the far right (§3) |
 
 ### 2.2 Size and shape
@@ -100,7 +100,7 @@ The menu, top to bottom. An item marked "if" is left out when it does not apply;
 | 5 | **Plan and billing** (if the person is an Owner) | The plan name, from the brand kit's ladder (Seed, Terra, Nova, Galaxy, Quantum; Angka keeps its own) | `/settings/billing` |
 | 6 | **Appearance** (if the product offers dark mode) | Light, Dark, System | Changes in place |
 | 7 | **Language** (if the product offers more than one) | English, Bahasa Melayu | Changes in place |
-| 8 | **Help** (phones only, where the Help button does not fit) | User guide, Help centre, Contact support | As §2.1 |
+| 8 | **Help** (phones only, where the Help button does not fit) | User guide, Help centre, Contact support, Your requests | As §2.1 |
 | 9 | **Sign out** | Asks first: "Sign out of ‹Product›?" | The sign-in page |
 | 10 | **Foot** | "‹Product› · by AntaraX", the version, Privacy and Terms | `/legal/privacy`, `/legal/terms` |
 
@@ -125,7 +125,7 @@ Every product has these pages at these addresses. What each holds first is fixed
 | `/settings/support` | Support access | REKA support sessions (§13) | Owners |
 | `/settings/data` | Your data | **Download your data:** everything the organisation holds, as files, emailed when ready · **Leave the organisation** (a member) · **Delete the organisation** (Owners): typed confirmation, then 30 days in which an Owner can undo it, then gone | As noted |
 | `/guide` | User guide | REKA's user-guide format: task IDs, steps, a screenshot, "You should see" (brand kit 13 §8) | Everyone |
-| `/help` | Help centre | Answers to common questions; public before sign-in where not private; Contact support at the foot | Everyone |
+| `/help` | Help centre | Answers to common questions; public before sign-in where not private; Contact support at the foot, opening YaraOne's front office (§10) | Everyone |
 | `/legal/privacy`, `/legal/terms` | Privacy and Terms | The legal texts; `privacy@go.antarax.ai` as the contact; the legal line "AntaraX, a product line of REKA Inisiatif Sdn Bhd." at the foot | Everyone, signed in or not |
 
 - **Settings has one home** (owner, 15 Oct 2026). Every setting that changes how the organisation works lives under `/settings`: the standard sections first, then the product's own, then API and Your data. A product may also show a setting next to the thing it affects, as a shortcut (Yara's workflow stages beside its board), but the same setting is always in `/settings` too.
@@ -225,12 +225,19 @@ For products with AI (brand kit 12, 13 §1):
 - **One line at the foot:** "Assist can make mistakes. Check anything important."
 - **Never in the panel:** model or provider names, prompts, or costs (axle SPEC §12).
 
-## 10 Feedback
+## 10 Feedback and support requests: YaraOne's front office
 
-- **Where:** "Send feedback" is in the Help menu of every product.
-- **What it opens:** a short form with what they were doing (the page is filled in) and what happened, an optional screenshot, and "Send".
-- **After sending:** "Thanks. The team at REKA reads every message."
-- **Where it goes:** to AXLE → Watch → Feedback for that product (axle SPEC §7.3).
+Every product embeds **YaraOne's front office** for feedback and support requests (owner, 16 Oct 2026). YaraOne is REKA's ticketing product: it holds every ticket from every AntaraX product and REKA client project, so no product builds its own, and customers never sign in to another dashboard. The contract is [`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md).
+
+- **Where it opens:** Help → Contact support (Get help), Help → Send feedback, Help → Your requests; **Report this** on an error screen, with the error reference filled in; the foot of `/help`.
+- **Get help:** what they need help with, the page filled in, an optional screenshot and file, "Send to REKA support". After sending: the request's reference, and "Replies appear under Your requests and by email."
+- **Send feedback:** what would make the product better, the page filled in, "Send feedback". After sending: "Thanks. The team at REKA reads every message, and you'll hear here if it leads to a change."
+- **Your requests:** each request with where it is (Received, Reviewing, Need more information, Planned, In progress, Resolved, Closed) and its thread, with Reply. A person sees their own; Owners and Admins see their organisation's.
+- **What the product passes:** product, organisation, person and role, page, version, any error reference, and a screenshot only when ticked. The product keeps nothing of the request.
+- **Its look is the product's:** colours, radius and font come from the product; the only other mark is one line at the foot naming REKA support and YaraOne.
+- **Never shown to the customer:** internal notes, staff assignments, other organisations' requests.
+- **Where it goes:** YaraOne, and the product's AXLE → Watch → Tickets (axle SPEC §10.12).
+- **Waiting on YaraOne's build:** how it is embedded, how it knows the person without a second sign-in, and how replies reach the notifications panel (§8).
 
 ## 11 Dialogs, toasts, errors and empty states
 
@@ -454,6 +461,7 @@ In every customer app, whatever its own design:
   - never sending a password by email;
   - never taking a password or a payment anywhere except the standard pages.
 - **Personal data:** never in an address, a log or analytics.
+- **Tickets and feedback:** never a product's own ticket table, feedback inbox or support form that stores anything; they are YaraOne's (§10).
 - **Shared rules:** never added inside one product. They go into this spec first.
 
 ## 17 How to prove it
@@ -468,7 +476,7 @@ In every customer app, whatever its own design:
 | **Own palette** | Every colour in the shell comes from the product's palette in the brand kit, or the shared status and focus colours |
 | **Getting in** | Sign in, invitation, reset and two-step screens hold §6's items; reset never reveals whether an account exists |
 | **Banners** | With two states at once (sample data and a trial ending), both show, in §7's order |
-| **Feedback** | Send feedback from Help arrives in AXLE → Feedback for that product, with the page filled in |
+| **Feedback and support** | Send feedback and Contact support open YaraOne's front office in the product's look; a request arrives in AXLE → Tickets with the page and version; a reply shows under Your requests; no ticket is stored in the product |
 | **Assist** | No model, provider, prompt or cost appears in the panel or its network responses |
 | **Settings** | Every setting the product has can be found under `/settings`; `/settings/data` downloads the data and deletes with a 30-day undo |
 | **Share pages** | A public share page carries "Made with ‹Product› by AntaraX" |
@@ -513,5 +521,7 @@ All decided by the owner on 15 Oct 2026:
   - a customer admin area under `/settings`;
   - the standards beneath the look (§15);
   - the Never list (§16).
+
+- **16 Oct 2026:** feedback and support requests are YaraOne's front office, embedded in every product; no product builds its own (§10). Products that have their own today move to it: Angka's feedback inbox, Yara's support page, AX Frame's Support & FAQ form.
 
 New questions go here.

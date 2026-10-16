@@ -205,8 +205,9 @@ class Component extends DCLogic {
       { label: 'Help centre', hint: 'Answers to common questions' }
     ];
     if (p.whatsNew) help.push({ label: "What's new", hint: 'Changes in the last month' });
-    help.push({ label: 'Send feedback', hint: 'Tell the team what happened' });
-    help.push({ label: 'Contact support', hint: 'support@go.antarax.ai' });
+    help.push({ label: 'Send feedback', hint: 'Tell the team what would help' });
+    help.push({ label: 'Contact support', hint: 'Ask for help or report a problem' });
+    help.push({ label: 'Your requests', hint: 'Replies from REKA support' });
     var items = [{ label: 'Your account', hint: '', n: '3' }, { label: 'Settings', hint: '', n: '4' }];
     if (p.role === 'Owner') items.push({ label: 'Plan and billing', hint: p.plan, n: '5' });
     if (p.lang) items.push({ label: 'Language', hint: 'English', n: '7' });

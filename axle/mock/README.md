@@ -9,6 +9,7 @@ The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.
 |---|---|---|
 | `Main.dc.html` | Overview | The standard landing page (§8). Tweaks: Finance right, Open access |
 | `Phone.dc.html` | Overview at 390px | The phone top bar and the drawer: the Dashboard · R8 switch (it changes only the menu), the AXLE standard groups, the dashed Janka-only box. Tweak: start with the drawer open |
+| `Tickets.dc.html` | Tickets | YaraOne's back office embedded in Janka's AXLE (§10.12): states as filters, support requests and feedback, a ticket with what the product sent, the customer thread and the internal one apart, the state the customer sees, and AXLE's own tools one click away (support session, Troubleshoot, Organisation 360). Try: reply to Kumar on YO-1042, switch to Internal, change a state |
 | `Organisations.dc.html` | Organisations | Every list (§9): stats strip as filters, search, sort, group, bulk actions, export |
 | `Organisation.dc.html` | Organisation 360 | Readiness checklist, stage stepper, tabs: summary and timeline, members, plan and features, usage, integrations, errors and health, internal notes, branding, audit (§10.3) |
 | `CreateOrganisation.dc.html` | New organisation | The five-step guided flow (§10.1) |

@@ -116,7 +116,7 @@ class Component extends DCLogic {
     var r8 = (this.props.mode ?? 'dashboard') === 'r8';
     var PAGES = r8
       ? { 'Overview': 'R8.dc.html', 'Incidents': 'Incidents.dc.html', 'Troubleshoot': 'Troubleshoot.dc.html', 'Jobs': 'Jobs.dc.html', 'Providers': 'Providers.dc.html', 'AI flow': 'AIFlow.dc.html', 'Services': 'Health.dc.html', 'Configuration': 'Configuration.dc.html' }
-      : { 'Overview': 'Main.dc.html', 'Organisations': 'Organisations.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html', 'Plans & features': 'PlansFeatures.dc.html', 'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html', 'Health': 'Health.dc.html' };
+      : { 'Overview': 'Main.dc.html', 'Tickets': 'Tickets.dc.html', 'Organisations': 'Organisations.dc.html', 'Models & keys': 'ModelsKeys.dc.html', 'Live trace': 'LiveTrace.dc.html', 'Plans & features': 'PlansFeatures.dc.html', 'Costs': 'Costs.dc.html', 'Settings': 'Settings.dc.html', 'Audit': 'Audit.dc.html', 'Staff': 'Staff.dc.html', 'Health': 'Health.dc.html' };
     var STD;
     if (r8) {
       STD = [
@@ -128,7 +128,7 @@ class Component extends DCLogic {
     } else {
       var ops = [['Errors', 3, 'loud'], ['Alerts'], ['Backups'], ['Access']];
       STD = [
-        ['Watch', [['Overview', 5, 'loud'], ['Adoption'], ['Feedback', 2, 'loud']]],
+        ['Watch', [['Overview', 5, 'loud'], ['Adoption'], ['Tickets', 2, 'loud']]],
         ['Organisations', [['Organisations', 48, 'quiet'], ['Members'], ['Invitations'], ['Requests', 1, 'loud'], ['Support']]],
         ['AI', [['Models & keys'], ['AI usage'], ['Live trace'], ['Prompts & quality']]],
         ['Money', [['Plans & features'], ['Billing'], ['Costs']]],

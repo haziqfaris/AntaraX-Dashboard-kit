@@ -26,6 +26,7 @@ The product chat builds in the product's own repository. If it needs something t
 | Staff | A ladder (Viewer, Support, Operator, Admin, Owner) plus rights (Finance, Security, AI, Library). Every rung sees every page; what they cannot do is disabled, with "Needs ‹rung›" | §5.2 |
 | R8 actions | Level 1 (run, retry, pause, test, acknowledge, suppress) from Operator. Level 2 (drain, restart, scale) from Admin, later. Level 3 (shell, deploy, restart a customer's machine) never. Each asks for a reason and is audited | §14.1 |
 | R8 → AI flow | Every product with AI features has it, after Providers: the product's AI drawn from its AI manifest, through the five steps (Asked, Allowed, Answered, Checked, Decided) and the five outcomes. Read only; never prompts or answers. The rules for the AI itself are the [AntaraX AI framework](https://github.com/haziqfaris/ai-framework-heuristiks) | §7.4, §10.6.1 |
+| Tickets and feedback | They live in **YaraOne**. AXLE embeds YaraOne's back office as Watch → Tickets; the customer app embeds its front office from Help. No product builds its own ticketing or feedback; AXLE runs everything else | §10.12, [yaraone/EMBEDS.md](yaraone/EMBEDS.md) |
 | Figures | Real and clickable. Money is grouped by currency. A hidden or unknown figure is a dash with the reason, never `0` | §3, §13.1 |
 | Values | Every colour and size comes from [`axle/tokens.css`](axle/tokens.css), generated from the brand kit (tokens 1.9.0) | [README](README.md#connected-to-the-brand-kit) |
 

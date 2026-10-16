@@ -15,7 +15,7 @@ The live mock is a private claude.ai canvas (https://claude.ai/artifact/BnCgM4zv
   - always in this order: the brand pill (the AntaraX A and the product chip), the page title, the product's own slot, then search and notifications where the product has them, then **Help**, then **the account at the far right**;
   - colours from the product's own palette.
 - **Account menu** (§3): you, your organisation, Your account, Settings, Plan and billing (Owners), Appearance and Language where offered, Sign out, then "‹Product› · by AntaraX", Privacy and Terms. Sign-in and the splash say "‹Product› by AntaraX, from REKA."; legal pages and invoices carry "AntaraX, a product line of REKA Inisiatif Sdn Bhd."
-- **Help menu**: User guide, Help centre, What's new (optional), Send feedback, Contact support.
+- **Help menu**: User guide, Help centre, What's new (optional), Send feedback, Contact support, Your requests. The last three open **YaraOne's front office**, embedded: no product builds its own ticketing or feedback ([yaraone/EMBEDS.md](../yaraone/EMBEDS.md)).
 - **Standard pages** (§4):
   - `/account`, `/settings` (Organisation, Members, Plan and billing, the product's own, API, Your data), `/guide`, `/help`, `/legal/privacy`, `/legal/terms`;
   - every setting lives under `/settings`.
@@ -29,7 +29,7 @@ The live mock is a private claude.ai canvas (https://claude.ai/artifact/BnCgM4zv
   - banners in a fixed order (§7);
   - notifications (§8);
   - Assist (§9);
-  - Send feedback (§10);
+  - feedback and support requests, through YaraOne (§10);
   - dialogs, toasts, errors and empty states (§11);
   - the footer on public share pages (§14).
 

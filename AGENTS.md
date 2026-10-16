@@ -14,6 +14,10 @@ Any work on a product's AXLE uses the template in `axle/`; that includes a new p
 
 A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. Follow `app/README.md` and `app/SPEC.md` (v1.1, the standard). Everything the spec does not name is the product's own; a new shared rule goes into the spec first, never into one product.
 
+## Tickets and feedback are YaraOne's
+
+No product, customer app or AXLE builds its own ticketing, feedback inbox or support form that stores anything (owner, 16 Oct 2026). Customers reach YaraOne's **front office** from Help; staff reach its **back office** in AXLE → Tickets. Follow `yaraone/EMBEDS.md`; what it marks Resync waits on YaraOne's build, so do not invent an embed mechanism or a sign-in handover in a product meanwhile.
+
 ## On hold
 
 - **ISO Generator** (`haziqfaris/iso-generator`): do not change it in any way for this work (owner, 15 Oct 2026).
