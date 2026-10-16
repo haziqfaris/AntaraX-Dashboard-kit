@@ -231,10 +231,10 @@ For products with AI (brand kit 12, 13 §1):
 Every product embeds **YaraOne's front office** for feedback and support requests (owner, 16 Oct 2026). YaraOne is REKA's ticketing product: it holds every ticket from every AntaraX product and REKA client project, so no product builds its own, and customers never sign in to another dashboard. The contract is [`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md).
 
 - **Where it opens:** Help → Contact support (Get help), Help → Send feedback, Help → Your requests; **Report this** on an error screen, with the error reference filled in; the foot of `/help`.
-- **Get help:** what they need help with, the page filled in, an optional screenshot and file, "Send to REKA support". After sending: the request's reference, and "Replies appear under Your requests and by email."
+- **Get help:** what they need help with, the page filled in, screenshots and files pasted, dropped or chosen (10 MB each, up to five), "Send to REKA support"; "Message us on WhatsApp" where REKA keeps a number. After sending: the request's reference, and "Replies appear under Your requests and by email."
 - **Send feedback:** what would make the product better, the page filled in, "Send feedback". After sending: "Thanks. The team at REKA reads every message, and you'll hear here if it leads to a change."
 - **Your requests:** each request with where it is (Received, Reviewing, Need more information, Planned, In progress, Resolved, Closed) and its thread, with Reply. A person sees their own; Owners and Admins see their organisation's.
-- **What the product passes:** product, organisation, person and role, page, version, any error reference, and a screenshot only when ticked. The product keeps nothing of the request.
+- **What the product passes:** product, organisation, person and role, page, version, any error reference. The person adds any screenshots or files. The product keeps nothing of the request.
 - **Its look is the product's:** colours, radius and font come from the product; the only other mark is one line at the foot, "Managed by REKA · Powered by YaraOne" (owner, 16 Oct 2026).
 - **Never shown to the customer:** internal notes, staff assignments, other organisations' requests.
 - **Where it goes:** YaraOne, and the product's AXLE → Watch → Tickets (axle SPEC §10.12).

@@ -13,6 +13,10 @@ Every AntaraX product and REKA client project describes what it runs on in **`ca
 
 The figures in the examples are illustrative. A real `capacity.json` takes every limit from the provider's own plan page, and marks a plan `"confirmed": false` until someone has checked it there.
 
+## With AX Frame
+
+AX Frame is where REKA records what it pays for: domains, hosting, cloud accounts, SaaS and licences, with their cost and renewal date, and the source of truth for any asset (owner, 16 Oct 2026; YaraOne docs/21). A plan in `capacity.json` is often the same thing. When it is in Frame, give the plan its Frame id in `asset` (`ast_…`): the cost and renewal come from Frame, and `capacity.json` adds only what Frame does not hold, the limits and how each is measured. Never keep a plan's cost in two places.
+
 ## The classes
 
 | Class | Measures | Managed cloud, for example | Serverless, for example | Your own server, for example |
