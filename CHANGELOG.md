@@ -8,6 +8,20 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.4.0 · 16 Oct 2026
+
+The AI framework's finished work, brought into the kit. The framework is at 0.5.0, built in its own session; its `main` still awaits the fast-forward.
+
+- **axle/SPEC.md §10.6.1, R8 → AI flow** gains what framework 0.4 and 0.5 add, from the manifest and call records only:
+  - free first;
+  - where answers came from (model, cache, shared);
+  - traffic and turn-aways as a scaling signal;
+  - rollouts with Roll back;
+  - alerts, retrieval freshness, and where the AI runs.
+  
+  §19's AI flow check counts reused and shared answers. The AIFlow mock draws all of it in "How it runs".
+- **app/SPEC.md §9:** AI anywhere in a customer app uses the shared pieces in brand kit 13 §6b, "AI in the interface", with a new §17 check.
+
 ## 1.3.0 · 16 Oct 2026
 
 Minor: something new to adopt (owner, 16 Oct 2026; brand kit guide/10).

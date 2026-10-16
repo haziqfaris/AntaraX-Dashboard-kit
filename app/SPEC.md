@@ -261,6 +261,15 @@ For products with AI (brand kit 12, 13 §1):
   - offers "Helpful" and "Not helpful", which reach AXLE.
 - **One line at the foot:** "Assist can make mistakes. Check anything important."
 - **Never in the panel:** model or provider names, prompts, or costs (axle SPEC §12).
+- **AI anywhere else in the product** uses the shared pieces in brand kit 13 §6b (owner, 16 Oct 2026). That covers a suggestion, a document read by AI, or a forecast. The look is the product's own:
+  - the sparkle with "AI" in words;
+  - **Accept**, **Change** and **Dismiss**, each reporting its outcome so AXLE's R8 → AI flow counts it;
+  - why (sources, and confidence in words);
+  - "Applied by AI · Undo";
+  - thinking with a way out after 10 seconds ("Type it yourself");
+  - the gateway's own notes when AI is off, busy or out of allowance, never as an error.
+
+  These are the interface layer (B1) of the AntaraX AI framework (`haziqfaris/ai-framework-heuristiks`).
 
 ## 10 Feedback and support requests: YaraOne's front office
 
@@ -535,6 +544,7 @@ In every customer app, whatever its own design:
 | **Banners** | With two states at once (sample data and a trial ending), both show, in §7's order |
 | **Feedback and support** | Send feedback and Contact support open YaraOne's front office in the product's look; a request arrives in AXLE → Tickets with the page and version; a reply shows under Your requests; no ticket is stored in the product |
 | **Assist** | No model, provider, prompt or cost appears in the panel or its network responses |
+| **AI in the interface** | Accept, Change and Dismiss on an AI suggestion each reach the gateway as an outcome. With AI switched off, the gateway's note and the way without AI appear, never an error. After 10 seconds of thinking, the way without AI is offered |
 | **Settings** | Every setting the product has can be found under `/settings`; `/settings/data` downloads the data and deletes with a 30-day undo |
 | **Share pages** | A public share page carries "Made with ‹Product› by AntaraX" |
 | **Waiting** | Throttle the network: every wait shows the product's animated loader, never "Loading…" alone; with reduced motion on, a stylised still frame; a screen reader hears the wait |

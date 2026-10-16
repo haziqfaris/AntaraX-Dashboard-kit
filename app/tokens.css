@@ -1,7 +1,7 @@
 /*
   The AntaraX shell's tokens: the top bar every customer app shares (app/SPEC.md section 2).
   GENERATED from the AntaraX brand kit: do not edit.
-  Source: haziqfaris/AntaraX-brand-kit tokens/tokens.json "shell" and tokens/product-palettes.json, version 1.11.0 (2026-10-16), commit 3dc860e.
+  Source: haziqfaris/AntaraX-brand-kit tokens/tokens.json "shell" and tokens/product-palettes.json, version 1.11.0 (2026-10-16), commit 931844f.
   To change a value, change it in the brand kit (with an owner decision), then run tools/sync-brand-kit.py here.
 
   Use: put class="shell-root" and data-product="<product>" on the element that holds the bar (and
