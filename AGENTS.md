@@ -20,7 +20,7 @@ A client project carries the client's brand and must never look like an AntaraX 
 
 ## Tickets and feedback are YaraOne's
 
-No product, customer app or AXLE builds its own ticketing, feedback inbox or support form that stores anything (owner, 16 Oct 2026). Customers reach YaraOne's **front office** from Help; staff reach its **back office** in AXLE → Tickets. Follow `yaraone/EMBEDS.md`; what it marks Resync waits on YaraOne's build, so do not invent an embed mechanism or a sign-in handover in a product meanwhile.
+No product, customer app or AXLE builds its own ticketing, feedback inbox or support form that stores anything (owner, 16 Oct 2026). Customers reach YaraOne's **front office** from Help; staff reach its **back office** in AXLE → Tickets. Follow `yaraone/EMBEDS.md` v1.0: `embed.js`, a token the product's server signs, nothing stored in the product. Wire it in once YaraOne's front office is built (its docs/19 phase W); never invent another embed mechanism or sign-in handover in a product.
 
 ## On hold
 

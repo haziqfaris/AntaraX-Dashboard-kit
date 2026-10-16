@@ -71,7 +71,7 @@ body{margin:0;background:#F5F7FC}
 
           <sc-if value="{{isList}}" hint-placeholder-val="{{false}}">
             <div style="display: flex; flex-direction: column; gap: 8px">
-              <span style="font-size: 12px; color: #66747B">As an Owner you see every request from Contoh Logistik. Members see their own.</span>
+              <span style="font-size: 12px; color: #66747B">As an Owner you see every request from Contoh Logistik, and may reply and close them. Members see their own.</span>
               <sc-for list="{{reqs}}" as="r" hint-placeholder-count="3">
                 <button type="button" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}" style="{{r.style}}">
                   <span style="display: flex; gap: 8px; width: 100%; font-size: 12px; color: #66747B"><span class="mono">{{r.ref}}</span><span>· {{r.from}}</span><span style="flex: 1"></span><span style="font-weight: 600; color: {{r.ink}}">{{r.state}}</span></span>
@@ -90,7 +90,7 @@ body{margin:0;background:#F5F7FC}
                   </div>
                 </sc-for>
                 <textarea aria-label="Reply" rows="2" placeholder="Reply to REKA support" style="border-radius: 12px; border: 1px solid #E2E9ED; padding: 8px 10px; font-size: 14px"></textarea>
-                <button type="button" style="align-self: flex-end; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-weight: 600; cursor: pointer">Reply</button>
+                <span style="display: flex; gap: 8px; justify-content: flex-end"><button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #E2E9ED; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Close request</button><button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-weight: 600; cursor: pointer">Reply</button></span>
               </div>
             </div>
           </sc-if>
@@ -105,7 +105,7 @@ body{margin:0;background:#F5F7FC}
       <h2 id="hm-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Where it opens</h2>
       <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px">
         <li><strong style="color: #0B1B4F; font-weight: 600">Help → Contact support</strong> opens Get help. <strong style="color: #0B1B4F; font-weight: 600">Help → Send feedback</strong> opens Send feedback.</li>
-        <li><strong style="color: #0B1B4F; font-weight: 600">Help → Your requests</strong> lists the person's requests; Owners and Admins see their organisation's.</li>
+        <li><strong style="color: #0B1B4F; font-weight: 600">Help → Your requests</strong> lists the person's requests; Owners and Admins see their organisation's, and may reply and close but never change a request's status. A new reply shows as a count on Help.</li>
         <li><strong style="color: #0B1B4F; font-weight: 600">Report this</strong> on an error screen opens Get help with the error reference filled in.</li>
         <li><strong style="color: #0B1B4F; font-weight: 600">The Help centre's foot</strong> opens Get help.</li>
       </ul>
@@ -134,7 +134,7 @@ body{margin:0;background:#F5F7FC}
     </div>
   </section>
 
-  <p style="margin: 0; font-size: 12px; color: #5B6488">Waiting on YaraOne's build, then resynced: how the module is embedded, how it knows the person without a second sign-in, and how replies reach the product's notifications. Dashboard kit <span class="mono">yaraone/EMBEDS.md</span>.</p>
+  <p style="margin: 0; font-size: 12px; color: #5B6488">How it works, settled with YaraOne (Dashboard kit <span class="mono">yaraone/EMBEDS.md</span> v1.0): the product loads YaraOne's <span class="mono">embed.js</span> and opens the module with a short-lived token its own server signs for the signed-in person, so nobody signs in twice. Replies arrive here, by email, and as a count on Help. Attachments up to 10 MB, five per message.</p>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1700}}'>

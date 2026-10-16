@@ -39,7 +39,7 @@ Not covered:
 
 - **AX Loom and AX Motion:** no repository yet.
 - **ISO Generator** is a REKA product for its client NexusTAC, on `*.nexustac.reka.tech`. It is not in the brand kit's product list or the Lapisan registry, and was added for its AXLE. Decide whether it joins the AntaraX standard.
-- **YARA One:** antarax-api lists it with its own AXLE at `axle.yo.antarax.ai`, but it is not in the brand kit's product list. Add it if it should be in scope.
+- **YaraOne** (one word since 16 Oct 2026): in scope (owner, 16 Oct 2026). An AntaraX product, A-mark in the Ripple family with its own colour, jade `#087F5B`; the home of every product's tickets and feedback ([yaraone/EMBEDS.md](../yaraone/EMBEDS.md)). Its customer app and AXLE were rebuilt to this kit on 16 Oct (YaraOne docs/20). Its brand kit entry waits on the owner's go.
 
 ## Customer app: navigation matrix
 
