@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Project base kit</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+body{margin:0;background:#F6F6F4}
+.kt button,.kt input{font-family:inherit}
+.kt .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+@keyframes ktsweep{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+@keyframes ktfill{0%{opacity:.45}50%{opacity:1}100%{opacity:.45}}
+.kt .sweep{animation:ktsweep 1.4s cubic-bezier(.4,0,.2,1) infinite}
+.kt .breathe{animation:ktfill 1.6s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.kt .sweep,.kt .breathe{animation:none}}
+</style>
+</helmet>
+<div class="kt" style="width: 1440px; box-sizing: border-box; padding: 56px 64px 64px; background: #F6F6F4; color: #45453F; font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 32px">
+  <header style="display: flex; flex-direction: column; gap: 8px; max-width: 980px">
+    <h1 style="margin: 0; color: #1C1C1A; font-size: 32px; font-weight: 600">The neutral base</h1>
+    <p style="margin: 0; font-size: 16px">Every project starts here and puts the client's brand on top: their logo, one primary colour, and their typeface if they have one. Built as shadcn/ui's CSS variables, so a client theme is a change of variables, never of components.</p>
+  </header>
+
+  <section aria-labelledby="tok-h" style="display: flex; flex-direction: column; gap: 12px">
+    <h2 id="tok-h" style="margin: 0; color: #1C1C1A; font-size: 18px; font-weight: 600">Tokens</h2>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px">
+      <sc-for list="{{swatches}}" as="s" hint-placeholder-count="12">
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+          <span style="height: 44px; border-radius: 6px; background: {{s.hex}}; border: 1px solid #E3E3DE"></span>
+          <span style="color: #1C1C1A; font-weight: 500; font-size: 13px">{{s.name}}</span>
+          <span class="mono" style="font-size: 12px; color: #6E6E66">--{{s.v}} · {{s.hex}}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; font-size: 13px">
+      <div style="padding: 12px 14px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE"><strong style="color: #1C1C1A; font-weight: 600">Type</strong> · IBM Plex Sans for text, IBM Plex Mono for codes and numbers; or the client's own typeface. Never Poppins or JetBrains Mono.</div>
+      <div style="padding: 12px 14px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE"><strong style="color: #1C1C1A; font-weight: 600">Shape</strong> · controls 6px, cards and menus 8px, badges 4px. No pills, no 20px cards. Controls 36px with a mouse, 44px on touch.</div>
+      <div style="padding: 12px 14px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE"><strong style="color: #1C1C1A; font-weight: 600">Layout</strong> · an attached flat top bar, a classic left sidebar that stacks on a phone, a plain footer with "Built by REKA".</div>
+    </div>
+  </section>
+
+  <section aria-labelledby="cmp-h" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+    <div style="display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+      <h2 id="cmp-h" style="margin: 0; color: #1C1C1A; font-size: 18px; font-weight: 600">Controls</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <button type="button" style="height: 36px; padding: 0 14px; border-radius: 6px; border: 0; background: #2F5D3A; color: #FFFFFF; font-weight: 500; cursor: pointer">Save work order</button>
+        <button type="button" style="height: 36px; padding: 0 14px; border-radius: 6px; border: 1px solid #E3E3DE; background: #FFFFFF; color: #1C1C1A; cursor: pointer">Cancel</button>
+        <button type="button" style="height: 36px; padding: 0 14px; border-radius: 6px; border: 0; background: transparent; color: #1C1C1A; cursor: pointer; text-decoration: underline">Show history</button>
+        <button type="button" style="height: 36px; padding: 0 14px; border-radius: 6px; border: 0; background: #9F2B22; color: #FFFFFF; font-weight: 500; cursor: pointer">Delete asset</button>
+      </div>
+      <label style="display: flex; flex-direction: column; gap: 4px; color: #1C1C1A; font-size: 13px">Asset name<input type="text" value="Compressor C-07" style="height: 36px; padding: 0 10px; border-radius: 6px; border: 1px solid #E3E3DE; font-size: 14px"></label>
+      <label style="display: flex; flex-direction: column; gap: 4px; color: #1C1C1A; font-size: 13px">Serial number<input type="text" value="" aria-invalid="true" aria-describedby="sn-err" style="height: 36px; padding: 0 10px; border-radius: 6px; border: 1px solid #9F2B22; font-size: 14px"><span id="sn-err" style="color: #9F2B22; font-size: 12px">Enter the serial number from the plate on the machine.</span></label>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px">
+        <span style="padding: 1px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; background: #EDEDEA; color: #45453F">Open</span>
+        <span style="padding: 1px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; background: #FBF0DF; color: #8A5300">In progress</span>
+        <span style="padding: 1px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; background: #E6F2EC; color: #1F6B45">Done</span>
+        <span style="padding: 1px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; background: #FBE9E7; color: #9F2B22">Overdue</span>
+      </div>
+      <span style="font-size: 12px; color: #6E6E66">Status colours only for a real state, always with the word. They are the project's own, never AntaraX's.</span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+      <h2 style="margin: 0; color: #1C1C1A; font-size: 18px; font-weight: 600">Moments</h2>
+      <div role="dialog" aria-labelledby="dlg-h" style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 8px; border: 1px solid #E3E3DE; box-shadow: 0 12px 32px -18px rgba(28,28,26,.4)">
+        <span id="dlg-h" style="color: #1C1C1A; font-weight: 600; font-size: 16px">Delete Compressor C-03?</span>
+        <span>Its 14 work orders stay in reports. You can restore it from Settings → Deleted for 30 days.</span>
+        <span style="display: flex; justify-content: flex-end; gap: 8px"><button type="button" style="height: 36px; padding: 0 14px; border-radius: 6px; border: 1px solid #E3E3DE; background: #FFFFFF; color: #1C1C1A; cursor: pointer">Keep it</button><button type="button" style="height: 36px; padding: 0 14px; border-radius: 6px; border: 0; background: #9F2B22; color: #FFFFFF; cursor: pointer">Delete Compressor C-03</button></span>
+      </div>
+      <div role="status" style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; background: #1C1C1A; color: #FFFFFF"><span style="flex: 1">Work order WO-2302 saved.</span><button type="button" style="height: 30px; padding: 0 10px; border-radius: 6px; border: 1px solid #45453F; background: transparent; color: #FFFFFF; cursor: pointer">Undo</button></div>
+      <div style="display: flex; flex-direction: column; gap: 6px; padding: 16px; border-radius: 8px; background: #F6F6F4">
+        <span style="color: #1C1C1A; font-weight: 600">No parts yet</span>
+        <span>Add the parts this plant keeps, or import them from a spreadsheet.</span>
+        <span style="display: flex; gap: 8px"><button type="button" style="height: 36px; padding: 0 14px; border-radius: 6px; border: 0; background: #2F5D3A; color: #FFFFFF; cursor: pointer">Add a part</button><button type="button" style="height: 36px; padding: 0 14px; border-radius: 6px; border: 1px solid #E3E3DE; background: #FFFFFF; color: #1C1C1A; cursor: pointer">Import</button></span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="wait-h" style="display: flex; flex-direction: column; gap: 12px">
+    <h2 id="wait-h" style="margin: 0; color: #1C1C1A; font-size: 18px; font-weight: 600">Every wait moves</h2>
+    <p style="margin: 0; max-width: 900px">The shell's rule holds: never "Loading…" alone, a static placeholder or a spinner. The project's own movement is quiet: a sweep in the client's colour, rows that breathe. With reduced motion they hold still and the words carry the state.</p>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 18px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+        <span style="color: #1C1C1A; font-weight: 500">Saving the schedule</span>
+        <span role="progressbar" aria-label="Saving the schedule" style="position: relative; display: block; height: 4px; border-radius: 2px; background: #E8EFE9; overflow: hidden"><span class="sweep" style="position: absolute; top: 0; left: 0; width: 40%; height: 100%; border-radius: 2px; background: #2F5D3A"></span></span>
+      </div>
+      <div aria-label="Loading work orders" style="display: flex; flex-direction: column; gap: 8px; padding: 18px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+        <span class="breathe" style="height: 12px; width: 70%; border-radius: 4px; background: #EDEDEA"></span>
+        <span class="breathe" style="height: 12px; width: 90%; border-radius: 4px; background: #EDEDEA"></span>
+        <span class="breathe" style="height: 12px; width: 55%; border-radius: 4px; background: #EDEDEA"></span>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var S = [['Ground', 'ground', '#F6F6F4'], ['Surface', 'card', '#FFFFFF'], ['Line', 'border', '#E3E3DE'], ['Ink', 'foreground', '#1C1C1A'], ['Body', 'body', '#45453F'], ['Muted', 'muted-foreground', '#6E6E66'],
+      ['Subtle', 'muted', '#EDEDEA'], ['Primary (client)', 'primary', '#2F5D3A'], ['Done', 'success', '#1F6B45'], ['Attention', 'warning', '#8A5300'], ['Problem', 'destructive', '#9F2B22'], ['Focus', 'ring', '#1C1C1A']];
+    return { swatches: S.map(function (s) { return { name: s[0], v: s[1], hex: s[2] }; }) };
+  }
+}
+</script>
+</body>
+</html>

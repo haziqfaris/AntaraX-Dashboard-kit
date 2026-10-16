@@ -2,6 +2,8 @@
 
 **Read this first in any chat that builds or changes a product's AXLE.** It sums up what was decided on 15 Oct 2026, where everything is, and how a product chat should work. The detail lives in the files it links; when they disagree with this page, the files win. Last updated 15 Oct 2026.
 
+**Client projects are different again:** the client's brand, never AntaraX's look, with the shell's places and "Built by REKA" in the footer. Start with [project/README.md](project/README.md). Their AXLE is this same AXLE.
+
 **Customer apps are different:** each product's own, apart from the AntaraX shell (top bar with Help and the account at the right, the account menu, standard pages under `/settings`, shared roles and moments). Start with [app/README.md](app/README.md); spec v1.1.
 
 ## How to use it in another chat
