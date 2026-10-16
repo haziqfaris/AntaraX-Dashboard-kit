@@ -1,6 +1,6 @@
 # REKA project template
 
-**v1.0 · 16 Oct 2026.** The standard for dashboards REKA builds for a client: bespoke work carrying the client's brand. Decided by the owner on 16 Oct 2026. The mock: [`mock/`](mock/README.md).
+**v1.1 · 16 Oct 2026.** The standard for dashboards REKA builds for a client: bespoke work carrying the client's brand, and the AXLE REKA runs it from. Decided by the owner on 16 Oct 2026. The mock: [`mock/`](mock/README.md); the branding SOP: [`BRANDING.md`](BRANDING.md).
 
 ## 1 Three dashboards
 
@@ -12,7 +12,7 @@
 | **Credit** | "‹Product› · by AntaraX" | **"Built by REKA"**, in the footer (owner, 16 Oct 2026) | None; staff only |
 | **Tickets and feedback** | YaraOne's front office | YaraOne's front office, in the client's look | YaraOne's back office |
 
-A project's AXLE is the same AXLE as a product's (§7).
+A project's AXLE is the same AXLE as a product's (§7), and is part of this template: the set is complete with the client app, its AXLE, the building blocks (§8) and the branding SOP (§3a).
 
 ## 2 What a project keeps from the shell
 
@@ -46,7 +46,7 @@ A project must never read as an AntaraX product. **The test:** put the AntaraX l
 | **Marks** | The AntaraX A, the product chip, the AI sparkle, the halo, the intan, BaTech | None of them. AI work is said in words, with the project's own plain icon |
 | **Words** | "by AntaraX", plan names (Seed, Nova…), Lapisan | None of them |
 
-**The neutral base**, as shadcn/ui CSS variables:
+**The neutral base**, as shadcn/ui CSS variables. It is also REKA's default for a client without a brand kit (§3a):
 
 | Token | Value | Use |
 |---|---|---|
@@ -66,6 +66,12 @@ A project must never read as an AntaraX product. **The test:** put the AntaraX l
 - The client's primary must pass 4.5:1 with white text; if their brand colour does not, use its darkest shade that does.
 - Status colours mean a real state, always with the word.
 - **Checked by a script:** `python3 tools/sync-brand-kit.py --project PATH` fails if any colour from the brand kit's tokens or product palettes (white and black aside) appears in the project's code.
+
+## 3a Client branding (REKA SOP)
+
+**If the client has a brand kit, the project adopts it; if not, it uses REKA's default: this neutral base with the client's logo and one colour from the default set** (owner, 16 Oct 2026). Either way the bare minimum stays: §2, §4, and app SPEC §15. The brand decides the logo, colours, typeface, imagery, tone and rounding (4 to 12px); our standards decide places, words, contrast, focus, status meanings, waits, security, the credit and YaraOne. Where a brand value fails a standard, the standard wins and the fix is written down.
+
+The steps (ask at kick-off, collect or choose, map onto the base, standards check, client sign-off), the default set of six primaries and `client-brand.json`, which records the brand once and which the colour check reads, are in [`BRANDING.md`](BRANDING.md), written to go straight into REKA's SOP.
 
 ## 4 The credit: "Built by REKA"
 
@@ -104,25 +110,50 @@ The same as a product ([`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md)): Help → Se
 
 ## 7 AXLE for a project
 
-The same AXLE standard, read for one client:
+Part of the template, and the same AXLE standard ([`axle/`](../axle/README.md)) read for one client. Boards: `mock/AxleOverview`, `mock/AxleR8`, with the AXLE sidebar and top bar set for the project.
 
-- **Organisations** usually holds one organisation, the client. Tier "Orgs" pages appear only when the project serves several.
+- **Its look is AXLE's**, never the client's: dark bars, light page, REKA orange. Clients never see it. The client appears inside it only as their logo or monogram and their name.
+- **Organisations** holds one organisation, the client, so Overview shows a card for them instead of a list; Organisation 360 opens from it. Tier "Orgs" list pages appear only when the project serves several organisations.
 - **R8 Base**, unless the project runs machinery of its own.
-- **The ‹Project› only box** holds the project's own pages.
+- **The ‹Project› only box** holds the project's own pages (Asset Care: Plants, PM templates).
+- **Tickets** is YaraOne's back office, as in every AXLE.
+- **In the code:** keep AXLE under a folder named `axle` or the route group `(axle)`, on its own host where the project has one (as Yara and YaraOne do). The project colour check skips it; AXLE's own tokens apply.
 - **Handover.** AXLE stays with REKA. If the client takes the project over to run themselves, they run it from the organisation's admin area (app SPEC §13); AXLE does not go with it unless the contract says so.
 
-## 8 How to prove it
+## 8 Building blocks
+
+Patterns that come back in nearly every client project. Each is built once in the starter on shadcn/ui, behaves the same in every project, and takes the client's look. Board: `mock/Patterns`; the list page is `mock/Workspace`.
+
+| Block | Always has |
+|---|---|
+| **List page** | Search, filters, sort, columns, bulk actions on selected rows, export of the current view, paging; a row opens its record; the address keeps the view |
+| **Record page** | A header with name, status, key facts and the one main action; tabs; an activity timeline with who, when, before and after; comments with mentions |
+| **Form** | Sections; errors in words beside each field and summed up at the top; nothing typed is lost; leaving with unsaved changes asks first; one Zod schema on the client and the server |
+| **Import** | CSV or Excel; a template to download; columns matched by name and changeable; a check that shows every problem row before anything is written; import only the good rows; undo for 24 hours |
+| **Approval** | Who approves is a rule the client sets (amount, kind, site), never code; approve, or return with a reason; nobody approves their own request; every step on the record's timeline; the asker is told |
+| **Dashboard figure** | Real numbers, a labelled axis, a written summary for screen readers; a figure opens the list it counts; the client's primary and its tints |
+| **Printed document** | PDF, A4 by default; the client's letterhead; when and by whom it was made; page numbers. Never "Built by REKA" |
+| **Files** | Drag and drop or choose; type and size checked on the server; private storage opened through short-lived links; preview |
+| **Find (⌘K)** | Across the records the person may see, grouped by kind, keyboard first |
+| **Notifications and email** | The in-app panel (app SPEC §8) and emails in the client's look, from the project's own sender |
+| **Formats** | 16 Oct 2026 · 14:30 MYT · RM 18,400.00 · a dash with the reason for an unknown or hidden figure, never 0 |
+| **Statuses** | Data, not code: each with a word and a meaning colour; every change recorded |
+
+A pattern a second project needs and this list lacks is added here first, mocked, then built into the starter.
+
+## 9 How to prove it
 
 | Check | Passes when |
 |---|---|
 | **Logo swap** | With the AntaraX logo in the client's place, three people asked "is this an AntaraX product?" say no |
-| **Colours** | `tools/sync-brand-kit.py --project PATH` passes |
+| **Colours** | `tools/sync-brand-kit.py --project PATH` passes, with the client's colours in `client-brand.json` |
+| **Branding** | `client-brand.json` exists, every `fixes` entry has a reason, and `signedOff` is filled before the build goes wide |
 | **Places** | Help second from the right and the account at the far right on every page; the account menu in app SPEC §3's order |
 | **Credit** | "Built by REKA" on the sign-in foot, the account menu foot and the footer, and nowhere else |
 | **Legal** | The legal pages name the client, not REKA or AntaraX |
 | **Shell checks** | app SPEC §17's checks, except the ones about AntaraX's look |
 
-## 9 Decisions
+## 10 Decisions
 
 All by the owner, 16 Oct 2026:
 
@@ -131,5 +162,7 @@ All by the owner, 16 Oct 2026:
 - Projects follow the shell's places.
 - The credit is "Built by REKA" in the footer.
 - The stack: Next.js, TypeScript, Tailwind, shadcn/ui, TanStack, React Hook Form with Zod, Supabase, Refine where it fits.
+- **v1.1:** the template includes the project's AXLE, and the building blocks (§8).
+- **v1.1, client branding for REKA's SOP:** a client's brand kit is adopted; without one, REKA's default (§3a, `BRANDING.md`). The bare minimum stays either way.
 
 New questions go here.

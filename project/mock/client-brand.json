@@ -1,0 +1,10 @@
+{
+  "client": "Seri Teguh Engineering Sdn Bhd",
+  "project": "Asset Care",
+  "source": "No brand kit: REKA's default (project/BRANDING.md), Forest from the default set, chosen with the client",
+  "logo": { "mark": "monogram ST", "wordmark": "Asset Care, in IBM Plex Sans" },
+  "colours": { "primary": "#2F5D3A", "primary-subtle": "#E8EFE9", "chart-tint": "#A9C2AE" },
+  "type": { "sans": "IBM Plex Sans", "mono": "IBM Plex Mono", "licence": "SIL Open Font License" },
+  "radius": "6px",
+  "signedOff": { "by": "[CLIENT CONTACT]", "on": "[DATE]" }
+}

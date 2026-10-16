@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Client branding SOP</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@500;700&display=swap">
+<style>
+body{margin:0;background:#F6F6F4}
+.br .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div class="br" style="width: 1440px; box-sizing: border-box; padding: 56px 64px 64px; background: #F6F6F4; color: #45453F; font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; flex-direction: column; gap: 8px; max-width: 1080px">
+    <span class="mono" style="font-size: 12px; letter-spacing: .08em; color: #6E6E66">REKA SOP · CLIENT BRANDING</span>
+    <h1 style="margin: 0; color: #1C1C1A; font-size: 32px; font-weight: 600">The client's brand on top, our standards underneath</h1>
+    <p style="margin: 0; font-size: 16px">If the client has a brand kit, the project adopts it. If not, it uses REKA's default: the neutral base with the client's logo and one colour. Either way, the bare minimum every application must have stays the same (owner, 16 Oct 2026).</p>
+  </header>
+
+  <section aria-labelledby="flow-h" style="display: flex; flex-direction: column; gap: 12px">
+    <h2 id="flow-h" style="margin: 0; color: #1C1C1A; font-size: 20px; font-weight: 600">At kick-off</h2>
+    <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; align-items: stretch">
+      <div style="grid-row: span 2; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 16px; border-radius: 8px; background: #1C1C1A; color: #FFFFFF">
+        <span class="mono" style="font-size: 11px; opacity: .7">1</span>
+        <span style="font-weight: 600; font-size: 16px">Ask: does the client have a brand kit?</span>
+        <span style="font-size: 13px; opacity: .85">Brand guidelines, logo files, colours, fonts. Ask in the kick-off checklist, before any screen is drawn.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+        <span class="mono" style="font-size: 11px; color: #6E6E66">2 · YES</span>
+        <span style="color: #1C1C1A; font-weight: 600">Collect</span>
+        <span style="font-size: 13px">Logo as SVG: full colour, white, one colour · colours and what each is for · typefaces and the web licence · photography or illustration · tone of voice · letterhead</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+        <span class="mono" style="font-size: 11px; color: #6E6E66">3 · YES</span>
+        <span style="color: #1C1C1A; font-weight: 600">Map onto the base</span>
+        <span style="font-size: 13px">Their colours become the base's variables; their typeface replaces IBM Plex. Written down once in <span class="mono">client-brand.json</span></span>
+      </div>
+      <div style="grid-row: span 2; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 14px; border-radius: 8px; background: #FFFFFF; border: 2px solid #1C1C1A">
+        <span class="mono" style="font-size: 11px; color: #6E6E66">4 · BOTH</span>
+        <span style="color: #1C1C1A; font-weight: 600">Standards check</span>
+        <span style="font-size: 13px">Contrast, focus, status meanings, places, credit and the colour script (below). Where the brand fails one, the standard wins and we say how.</span>
+      </div>
+      <div style="grid-row: span 2; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 14px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+        <span class="mono" style="font-size: 11px; color: #6E6E66">5 · BOTH</span>
+        <span style="color: #1C1C1A; font-weight: 600">Client signs off</span>
+        <span style="font-size: 13px">The sign-in page and one working screen, in their look, before the build goes wide. Recorded in the project's decisions.</span>
+      </div>
+      <div style="grid-column: 2 / span 2; display: flex; flex-direction: column; gap: 4px; padding: 14px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+        <span class="mono" style="font-size: 11px; color: #6E6E66">2 · NO</span>
+        <span style="color: #1C1C1A; font-weight: 600">REKA's default</span>
+        <span style="font-size: 13px">The neutral base · the client's logo, or their name set as a wordmark in IBM Plex Sans · one primary from the default set, chosen with the client. Also written in <span class="mono">client-brand.json</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="who-h" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+    <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+      <h2 id="who-h" style="margin: 0; color: #1C1C1A; font-size: 18px; font-weight: 600">The client's brand decides</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px">
+        <li>The logo, and the wordmark beside it</li>
+        <li>The primary colour, and a secondary for charts and highlights</li>
+        <li>The typeface, where it is licensed for the web</li>
+        <li>Photography, illustration and the sign-in panel</li>
+        <li>The tone of the words on their own pages</li>
+        <li>Letterhead on documents, and how emails look</li>
+        <li>Corner rounding, within 4 to 12px</li>
+      </ul>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+      <h2 style="margin: 0; color: #1C1C1A; font-size: 18px; font-weight: 600">Our standards decide, whatever the brand</h2>
+      <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px">
+        <li>Where things are: the top bar's order, Help, the account at the far right, the standard pages</li>
+        <li>The shared words and roles</li>
+        <li>Contrast: text 4.5:1. A brand colour that fails is darkened until it passes</li>
+        <li>A visible focus ring; 44px touch targets</li>
+        <li>Status colours by meaning, always with the word</li>
+        <li>Every wait animated; forms, passwords, data and security ("Built right")</li>
+        <li>"Built by REKA" in the footer; YaraOne for help and feedback</li>
+        <li>No AntaraX font, colour, mark or word</li>
+      </ul>
+    </div>
+  </section>
+
+  <section aria-labelledby="def-h" style="display: flex; flex-direction: column; gap: 12px">
+    <h2 id="def-h" style="margin: 0; color: #1C1C1A; font-size: 20px; font-weight: 600">The default set, when there is no brand kit</h2>
+    <p style="margin: 0; max-width: 900px">Six primaries, each passing 4.5:1 with white text and none of them an AntaraX colour. The client picks one; the base does the rest.</p>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px">
+      <sc-for list="{{defaults}}" as="d" hint-placeholder-count="6">
+        <div style="display: flex; flex-direction: column; gap: 6px; padding: 8px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+          <span style="height: 56px; border-radius: 6px; background: {{d.hex}}; color: #FFFFFF; display: flex; align-items: flex-end; padding: 6px 8px; box-sizing: border-box; font-size: 13px; font-weight: 500">Save</span>
+          <span style="color: #1C1C1A; font-weight: 500">{{d.name}}</span>
+          <span class="mono" style="font-size: 12px; color: #6E6E66">{{d.hex}} · {{d.ratio}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section aria-labelledby="ex-h" style="display: flex; flex-direction: column; gap: 12px">
+    <h2 id="ex-h" style="margin: 0; color: #1C1C1A; font-size: 20px; font-weight: 600">The same screen, three starting points</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 8px">
+        <div style="border-radius: 10px; overflow: hidden; border: 1px solid #DCE3E6; background: #F4F7F8; font-family: Manrope, ui-sans-serif, sans-serif">
+          <div style="display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 14px; background: #0F4C5C; color: #FFFFFF">
+            <span style="font-weight: 700; letter-spacing: .02em">HARBOUR</span><span style="flex: 1; font-size: 13px; opacity: .85">Shipments</span>
+            <span style="height: 32px; padding: 0 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,.4); display: inline-flex; align-items: center; font-size: 13px">Help</span>
+            <span style="width: 32px; height: 32px; border-radius: 10px; background: #E9A23B; color: #0F4C5C; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700">LT</span>
+          </div>
+          <div style="padding: 14px; display: flex; flex-direction: column; gap: 8px"><span style="height: 10px; width: 60%; border-radius: 3px; background: #DCE3E6"></span><span style="align-self: flex-start; height: 32px; padding: 0 12px; border-radius: 10px; background: #0F4C5C; color: #FFFFFF; display: inline-flex; align-items: center; font-size: 13px">New shipment</span></div>
+        </div>
+        <figcaption style="font-size: 13px"><strong style="color: #1C1C1A; font-weight: 600">With a brand kit.</strong> A logistics client's teal, amber and Manrope; a dark top bar because their guidelines ask for one. Help and the account stay where they are.</figcaption>
+      </figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 8px">
+        <div style="border-radius: 8px; overflow: hidden; border: 1px solid #E3E3DE; background: #F6F6F4">
+          <div style="display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 14px; background: #FFFFFF; border-bottom: 1px solid #E3E3DE">
+            <span style="color: #1C1C1A; font-weight: 600">Kedai Runcit Aman</span><span style="flex: 1; font-size: 13px; color: #45453F">Stock</span>
+            <span style="height: 32px; padding: 0 10px; border-radius: 6px; border: 1px solid #E3E3DE; display: inline-flex; align-items: center; font-size: 13px; color: #1C1C1A">Help</span>
+            <span style="width: 32px; height: 32px; border-radius: 6px; background: #8A4A2B; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">AZ</span>
+          </div>
+          <div style="padding: 14px; display: flex; flex-direction: column; gap: 8px"><span style="height: 10px; width: 60%; border-radius: 3px; background: #EDEDEA"></span><span style="align-self: flex-start; height: 32px; padding: 0 12px; border-radius: 6px; background: #8A4A2B; color: #FFFFFF; display: inline-flex; align-items: center; font-size: 13px">Add item</span></div>
+        </div>
+        <figcaption style="font-size: 13px"><strong style="color: #1C1C1A; font-weight: 600">No brand kit.</strong> REKA's default: their name as the wordmark, the neutral base, Clay from the default set.</figcaption>
+      </figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; gap: 8px">
+        <div style="border-radius: 8px; overflow: hidden; border: 1px solid #E3E3DE; background: #F6F6F4">
+          <div style="display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 14px; background: #FFFFFF; border-bottom: 1px solid #E3E3DE">
+            <span style="color: #1C1C1A; font-weight: 600">[CLIENT]</span><span style="flex: 1; font-size: 13px; color: #45453F">Home</span>
+            <span style="height: 32px; padding: 0 10px; border-radius: 6px; border: 1px solid #E3E3DE; display: inline-flex; align-items: center; font-size: 13px; color: #1C1C1A">Help</span>
+            <span style="width: 32px; height: 32px; border-radius: 6px; background: #1C1C1A; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">AB</span>
+          </div>
+          <div style="padding: 14px; display: flex; flex-direction: column; gap: 8px"><span style="height: 10px; width: 60%; border-radius: 3px; background: #EDEDEA"></span><span style="align-self: flex-start; height: 32px; padding: 0 12px; border-radius: 6px; background: #1C1C1A; color: #FFFFFF; display: inline-flex; align-items: center; font-size: 13px">Save</span></div>
+        </div>
+        <figcaption style="font-size: 13px"><strong style="color: #1C1C1A; font-weight: 600">Before the client chooses.</strong> The neutral base alone, ink as the primary. What every project starts from on day one.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="json-h" style="display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E3E3DE">
+    <h2 id="json-h" style="margin: 0; color: #1C1C1A; font-size: 18px; font-weight: 600">client-brand.json: the brand, written down once</h2>
+    <pre class="mono" style="margin: 0; padding: 14px; border-radius: 6px; background: #F6F6F4; color: #1C1C1A; font-size: 12px; line-height: 1.6; overflow-x: auto">{
+  "client": "Harbour Logistics Sdn Bhd",
+  "source": "Harbour brand guidelines v3 (2025), received 16 Oct 2026",
+  "logo": { "full": "brand/logo.svg", "white": "brand/logo-white.svg", "mark": "brand/mark.svg" },
+  "colours": { "primary": "#0F4C5C", "secondary": "#E9A23B" },
+  "fixes": { "secondary-text": "#8A5A12: their amber fails 4.5:1 as text, so text uses this darker shade" },
+  "type": { "sans": "Manrope", "licence": "SIL Open Font License" },
+  "radius": "10px",
+  "signedOff": { "by": "[CLIENT CONTACT]", "on": "[DATE]" }
+}</pre>
+    <span style="font-size: 13px">The theme is generated from it, and the colour script allows its colours even where one happens to match an AntaraX colour, because they are the client's own.</span>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    function lum(h) { var c = [1, 3, 5].map(function (i) { var v = parseInt(h.substr(i, 2), 16) / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; }
+    var D = [['Ink', '#1C1C1A'], ['Forest', '#2F5D3A'], ['Harbour', '#23466E'], ['Clay', '#8A4A2B'], ['Ochre', '#7A5A12'], ['Slate', '#3F4A5A']];
+    return { defaults: D.map(function (d) { return { name: d[0], hex: d[1], ratio: (1.05 / (lum(d[1]) + 0.05)).toFixed(1) + ':1' }; }) };
+  }
+}
+</script>
+</body>
+</html>

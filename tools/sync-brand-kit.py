@@ -20,10 +20,14 @@ from the "axle" section. Never edit axle/tokens.css by hand.
   - a brand kit checkout is available (--brand-kit, or ../AntaraX-brand-kit) and its tokens or
     product palettes differ from the snapshot (the brand kit changed and this kit has not been synced);
   - a mock in project/mock/ uses any AntaraX colour (project SPEC §3), except a board marked
-    "antarax-comparison", which shows an AntaraX product beside a project on purpose.
+    "antarax-comparison", which shows an AntaraX product beside a project on purpose, and a board
+    marked "axle-board" (the project's AXLE), which is held to the AXLE rule above instead.
 
 --project PATH checks a client project's own code the same way: every .css, .scss, .ts, .tsx, .js,
-.jsx, .html and .json file under PATH, skipping node_modules, .next and build output.
+.jsx, .html and .json file under PATH, skipping node_modules, .next and build output. Colours listed in
+PATH/client-brand.json (the client's own brand, project/BRANDING.md) are allowed even where one
+matches an AntaraX colour. The project's AXLE is skipped: keep it under a folder named `axle` or
+`(axle)`, or mark a file "axle-board"; it follows the AXLE standard and its tokens instead.
 """
 import argparse, json, os, re, shutil, subprocess, sys
 
@@ -89,21 +93,32 @@ def brand_hexes(tokens):
 def mock_strays(tokens):
     allowed = brand_hexes(tokens)
     strays = {}
-    for name in sorted(os.listdir(MOCK)):
-        if not name.endswith('.dc.html'):
-            continue
-        for h in HEX.findall(open(os.path.join(MOCK, name), encoding='utf-8').read()):
-            if h.upper() not in allowed:
+    paths = [os.path.join(MOCK, n) for n in sorted(os.listdir(MOCK)) if n.endswith('.dc.html')]
+    client = set()
+    if os.path.isdir(PROJECT_MOCK):
+        paths += [os.path.join(PROJECT_MOCK, n) for n in sorted(os.listdir(PROJECT_MOCK))
+                  if n.endswith('.dc.html') and 'axle-board' in read(os.path.join(PROJECT_MOCK, n))]
+        brand = os.path.join(PROJECT_MOCK, 'client-brand.json')
+        if os.path.isfile(brand):
+            client = {h.upper() for h in HEX.findall(read(brand))}
+    for path in paths:
+        name = os.path.relpath(path, HERE) if path.startswith(PROJECT_MOCK) else os.path.basename(path)
+        for h in HEX.findall(read(path)):
+            ok = allowed | client if path.startswith(PROJECT_MOCK) else allowed
+            if h.upper() not in ok:
                 strays.setdefault(h.upper(), set()).add(name)
     return strays
 
 
 def antarax_in_project(tokens, root, only_mock=False):
-    """AntaraX colours found in a REKA client project: {hex: {files}}. White and black are allowed."""
+    """AntaraX colours found in a REKA client project: {hex: {files}}. White, black and the client's own colours are allowed."""
     banned = brand_hexes(tokens) - NEUTRAL
+    client = os.path.join(root, 'client-brand.json')
+    if os.path.isfile(client):
+        banned -= {h.upper() for h in HEX.findall(read(client))}
     found = {}
     for d, dirs, files in os.walk(root):
-        dirs[:] = [x for x in dirs if x not in SKIP_DIRS]
+        dirs[:] = [x for x in dirs if x not in SKIP_DIRS and x not in ('axle', '(axle)')]
         for name in files:
             if only_mock and not name.endswith('.dc.html'):
                 continue
@@ -111,7 +126,7 @@ def antarax_in_project(tokens, root, only_mock=False):
                 continue
             path = os.path.join(d, name)
             text = open(path, encoding='utf-8', errors='replace').read()
-            if only_mock and 'antarax-comparison' in text:
+            if 'axle-board' in text or (only_mock and 'antarax-comparison' in text):
                 continue
             for h in HEX.findall(text):
                 if h.upper() in banned:

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<!-- axle-board: REKA's AXLE, drawn in AXLE's own tokens -->
+<title>Overview · AXLE · Asset Care</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="AxleSidebar" active="Overview" mode="dashboard" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="AxleTopBar" page-title="Overview" org-scope="Seri Teguh Engineering" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+      <div style="display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between">
+        <p style="margin: 0; color: #0B1B4F; font-size: 16px">Asset Care is running. Two things need a person.</p>
+        <span style="font-size: 12px; color: #5B6488">A REKA client project · one organisation · R8 Base · <span class="mono">v2.3.0</span> deployed 15 Oct 18:20</span>
+      </div>
+
+      <section aria-label="Needs a person" style="display: flex; flex-direction: column; gap: 8px">
+        <h2 style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Needs a person</h2>
+        <sc-for list="{{needs}}" as="n" hint-placeholder-count="2">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 12px 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid #F8CD92">
+            <span class="mono" style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: #FB9800; color: #071233">{{n.n}}</span>
+            <span style="flex: 1 1 320px; color: #0B1B4F">{{n.what}}</span>
+            <span style="font-size: 12px; color: #5B6488">{{n.since}}</span>
+            <a href="{{n.href}}" style="font-weight: 500">{{n.link}}</a>
+          </div>
+        </sc-for>
+      </section>
+
+      <section aria-label="Asset Care at a glance" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px">
+        <sc-for list="{{figures}}" as="f" hint-placeholder-count="5">
+          <div style="display: flex; flex-direction: column; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E5E8EE">
+            <span style="font-size: 12px; color: #5B6488">{{f.label}}</span>
+            <span class="mono" style="font-size: 26px; color: #0B1B4F; line-height: 1.2">{{f.n}}</span>
+            <span style="font-size: 11px; color: #5B6488">{{f.hint}}</span>
+          </div>
+        </sc-for>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px">
+        <section aria-labelledby="org-h" style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 18px 20px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E5E8EE">
+          <h2 id="org-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">The client</h2>
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span style="width: 40px; height: 40px; border-radius: 6px; background: #2F5D3A; color: #FFFFFF; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">ST</span>
+            <span style="display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 600">Seri Teguh Engineering Sdn Bhd</span><span style="font-size: 12px; color: #5B6488">Live since 2 Sep 2026 · 2 plants · 52 people · contract until Aug 2027</span></span>
+          </div>
+          <span style="font-size: 13px">A project has one organisation, so Organisations shows this card instead of a list. Members, invitations, support sessions and notes work as in any AXLE.</span>
+          <span style="display: flex; flex-wrap: wrap; gap: 8px"><a href="#" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; color: #0B1B4F; font-weight: 500">Organisation 360</a><a href="#" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; color: #0B1B4F; font-weight: 500">Start support session…</a></span>
+        </section>
+        <section aria-labelledby="act-h" style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E5E8EE">
+          <h2 id="act-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Recent staff actions</h2>
+          <sc-for list="{{audit}}" as="a" hint-placeholder-count="4">
+            <div style="display: flex; gap: 10px; padding: 6px 0; border-top: 1px solid #EEF1F6; font-size: 13px"><span class="mono" style="flex: 0 0 52px; color: #5B6488">{{a.at}}</span><span style="flex: 1">{{a.what}}</span></div>
+          </sc-for>
+          <a href="#" style="font-size: 13px">All of Audit</a>
+        </section>
+      </div>
+
+      <p style="margin: 0; padding: 12px 16px; border-radius: 14px; background: #F3F7FE; border: 1px solid #C9DBFE; font-size: 13px; color: #0B1B4F">This is the same AXLE standard as every AntaraX product (Dashboard kit <span class="mono">axle/</span>), read for one client: one organisation, R8 Base, and the project's own pages in the dashed "Asset Care only" box. Clients never see AXLE.</p>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      needs: [
+        { n: 2, what: 'Tickets waiting on a reply: "PM schedule for Compressor C-07 skipped October" and one more', since: 'oldest 3 h', link: 'Tickets', href: '#' },
+        { n: 1, what: 'The nightly PM schedule job failed at 03:00 on the Senai plant', since: 'since 03:02', link: 'Troubleshoot in R8', href: 'AxleR8.dc.html' }
+      ],
+      figures: [
+        { label: 'People active this week', n: '46', hint: 'of 52 invited' },
+        { label: 'Work orders this week', n: '138', hint: 'opened in Asset Care' },
+        { label: 'Errors, 24 h', n: '3', hint: 'each with a request id' },
+        { label: 'Open tickets', n: '4', hint: 'in YaraOne' },
+        { label: 'Last backup', n: '03:00', hint: 'restore drilled 1 Oct' }
+      ],
+      audit: [
+        { at: '11:42', what: 'Mei Lin started a support session (Ask each time; approved 11:44)' },
+        { at: '10:05', what: 'Farid Osman invited 3 technicians at Senai' },
+        { at: '09:12', what: 'Aisyah Rahman retried the failed PM schedule rows' },
+        { at: 'Mon', what: 'Zainal Abidin changed the email sender to "Asset Care"' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

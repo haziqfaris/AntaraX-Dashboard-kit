@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<!-- axle-board: REKA's AXLE, drawn in AXLE's own tokens -->
+<title>R8 Overview · AXLE · Asset Care</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="AxleSidebar" active="Overview" mode="r8" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="AxleTopBar" page-title="R8 · Overview" org-scope="Seri Teguh Engineering" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+      <section aria-label="Overall state" style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 16px 20px; border-radius: 20px; background: #FFFBF4; border: 1px solid #F8CD92">
+        <span style="font-size: 13px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: #FEF4E6; color: #B54708">Degraded</span>
+        <span style="flex: 1 1 360px; color: #0B1B4F; font-size: 16px">One job failed overnight. Everything else answered.</span>
+        <span class="mono" style="font-size: 12px; color: #5B6488">Checked 14:30:12 · R8 Base</span>
+      </section>
+
+      <section aria-labelledby="op-h" style="display: flex; flex-direction: column; gap: 8px">
+        <h2 id="op-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Needs an operator</h2>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 12px 16px; border-radius: 16px; background: #FFFFFF; border: 1px solid #F8CD92">
+          <span style="flex: 1 1 360px; color: #0B1B4F">PM schedule (nightly) failed on Senai: 14 of 212 assets skipped, "calendar has no working days in October"</span>
+          <span class="mono" style="font-size: 12px; color: #5B6488">03:02</span>
+          <a href="#" style="font-weight: 500">Troubleshoot</a>
+        </div>
+      </section>
+
+      <section aria-labelledby="svc-h" style="display: flex; flex-direction: column; gap: 10px">
+        <h2 id="svc-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Services</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px">
+          <sc-for list="{{services}}" as="s" hint-placeholder-count="6">
+            <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E5E8EE">
+              <span style="display: flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{s.dot}}"></span><span style="flex: 1; color: #0B1B4F; font-weight: 600">{{s.name}}</span><span style="font-size: 12px; font-weight: 600; color: {{s.ink}}">{{s.word}}</span></span>
+              <span style="font-size: 12px; color: #5B6488">{{s.detail}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px">
+        <section aria-labelledby="jobs-h" style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E5E8EE">
+          <h2 id="jobs-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Jobs</h2>
+          <sc-for list="{{jobs}}" as="j" hint-placeholder-count="4">
+            <div style="display: flex; gap: 10px; padding: 6px 0; border-top: 1px solid #EEF1F6; font-size: 13px"><span style="flex: 1; color: #0B1B4F">{{j.name}}</span><span style="color: #5B6488">{{j.when}}</span><span style="font-weight: 600; color: {{j.ink}}">{{j.result}}</span></div>
+          </sc-for>
+        </section>
+        <section aria-labelledby="ops-h" style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border-radius: 20px; background: #FFFFFF; border: 1px solid #E5E8EE">
+          <h2 id="ops-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Recent operations</h2>
+          <sc-for list="{{ops}}" as="o" hint-placeholder-count="3">
+            <div style="display: flex; gap: 10px; padding: 6px 0; border-top: 1px solid #EEF1F6; font-size: 13px"><span class="mono" style="flex: 0 0 52px; color: #5B6488">{{o.at}}</span><span style="flex: 1">{{o.what}}</span></div>
+          </sc-for>
+        </section>
+      </div>
+      <p style="margin: 0; font-size: 12px; color: #5B6488">R8 Base: Overview, Troubleshoot, Jobs, Providers, Services, Configuration and the operations audit. A project moves to R8 Full only when it runs machinery of its own.</p>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var OK = ['#12B76A', '#067647', 'Working'], WARN = ['#F79009', '#B54708', 'Failed once'];
+    function s(name, st, detail) { return { name: name, dot: st[0], ink: st[1], word: st[2], detail: detail }; }
+    return {
+      services: [s('Web app', OK, 'p95 410 ms · 0 errors in the last hour'), s('Database', OK, 'Supabase, Singapore · 31% of plan'), s('Sign-in', OK, 'Google and email'), s('Email', OK, 'Sender "Asset Care" · 0 bounces today'), s('Storage', OK, '18 GB of photos and reports'), s('Jobs', WARN, '1 failed of 9 overnight'), s('YaraOne embed', OK, 'Front office and back office answering')],
+      jobs: [
+        { name: 'PM schedule (nightly)', when: '03:00', result: 'Failed on Senai', ink: '#B54708' },
+        { name: 'Overdue reminders (07:00)', when: '07:00', result: 'Sent 11', ink: '#067647' },
+        { name: 'Backup', when: '03:00', result: 'Done', ink: '#067647' },
+        { name: 'Weekly report to managers', when: 'Mon 08:00', result: 'Sent 6', ink: '#067647' }
+      ],
+      ops: [
+        { at: '09:12', what: 'Aisyah Rahman retried 14 failed rows of PM schedule (Level 1, reason: calendar fixed by the client)' },
+        { at: '09:05', what: 'Aisyah Rahman acknowledged the PM schedule failure' },
+        { at: 'Mon', what: 'Farid Osman tested the email provider: answered in 0.4 s' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
