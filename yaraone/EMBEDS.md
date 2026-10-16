@@ -40,7 +40,6 @@
 | `page` | `/forecasting?site=klang`, and the page title | Filled in, editable by the person |
 | `version` | `4.12.0` | |
 | `error_ref` | `req_7f3a91c2` | Only from Report this |
-| `screenshot` | an image | Only when the person ticks "Add a screenshot of this page" |
 | `locale`, `time_zone` | `en-GB`, `Asia/Kuala_Lumpur` | |
 | `theme` | action colour, ink, lines, surface, radius, font | The module wears the host's look (below) |
 
@@ -71,7 +70,9 @@ From a ticket in the back office, staff reach the product's own tools: **Start s
 | **One set of rules** | A front-office session reads and writes through the same filtering and `portal_commit()` as YaraOne's own portal; a back-office session commits like YaraOne's desk. The embeds add no write path |
 | **3 · Replies** | In Your requests; by email (unless the person switches it off); and as a count the host can show on Help, from a `postMessage` event |
 | **4 · Counts for AXLE** | Tickets waiting on a reply, for Needs a person, come from a small read endpoint the host AXLE calls with its secret, not from the embed |
-| **5 · Attachments** | 10 MB each, five per message, kept with the ticket in YaraOne's storage |
+| **5 · Attachments** | The person pastes a screenshot, drops files or chooses them (a photo on a phone); 10 MB each, five per message. Each file is a record with who added it, when, its size and who may see it, kept with its message in YaraOne's storage. A file on the internal thread never reaches the customer. (Replaces the earlier "Add a screenshot" tick box; YaraOne docs/19 §19–20) |
+| **WhatsApp** | Optional. Where REKA's YaraOne workspace keeps a WhatsApp number, the front office offers "Message us on WhatsApp" with the request's reference in the text. A message that arrives there is added to the thread by staff, as the customer's, marked "via WhatsApp, added by …". The WhatsApp Business API comes later (docs/19 §16–18) |
+| **Preview** | YaraOne's Clients → Sharing shows the front office inside a sample host screen, in a product's colours, on desktop or phone, before any product wires it in (docs/19 §15) |
 | **6 · Client projects** | The same modules, with the project's theme; the foot line may be hidden |
 | **The back office** | YaraOne's desk, scoped to this product (and one organisation from Organisation 360): its views **Triage · Mine · Open · Waiting on client · Overdue · Resolved**, keyboard first, two clocks per ticket from its urgency (first reply, resolution), both threads apart |
 | **REKA's own view** | YaraOne's desk across every product, with a Product filter |

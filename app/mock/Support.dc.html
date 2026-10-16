@@ -52,11 +52,14 @@ body{margin:0;background:#F5F7FC}
                 <span style="padding: 2px 10px; border-radius: 999px; background: #D7F2FE; color: #004C64">Page: Forecasting · Klang</span>
                 <span style="padding: 2px 10px; border-radius: 999px; background: #EFF4F7; color: #3B4469">Janka v1.9</span>
               </div>
-              <label style="display: flex; align-items: center; gap: 8px; min-height: 44px; font-size: 13px; color: #0B1B4F"><input type="checkbox" checked style="width: 18px; height: 18px"> Add a screenshot of this page</label>
-              <button type="button" style="align-self: flex-start; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px dashed #E2E9ED; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Attach a file</button>
+              <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px; border-radius: 12px; border: 1px dashed #ADE4FD; background: #F7FBFC">
+                <span style="font-size: 13px; color: #0B1B4F">Paste a screenshot, drop files here, or <button type="button" style="border: 0; padding: 0; background: none; color: #077DA1; font-size: 13px; text-decoration: underline; cursor: pointer">choose files</button></span>
+                <span style="font-size: 11px; color: #66747B">10 MB each, up to five</span>
+                <span style="display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 8px; background: #FFFFFF; border: 1px solid #E2E9ED; font-size: 12px"><span style="flex: 1; color: #0B1B4F">Screenshot 16 Oct, 11:18.png</span><span class="mono" style="color: #66747B">284 KB</span><button type="button" aria-label="Remove the screenshot" style="border: 0; background: none; color: #66747B; cursor: pointer">✕</button></span>
+              </div>
               <button type="button" onClick="{{sendHelp}}" style="min-height: 44px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-weight: 600; cursor: pointer">Send to REKA support</button>
               <sc-if value="{{helpSent}}" hint-placeholder-val="{{false}}"><p role="status" style="margin: 0; padding: 10px 12px; border-radius: 12px; background: #E7F8EF; color: #067647; font-size: 13px">Sent as <span class="mono">YO-1048</span>. Replies appear under Your requests and by email.</p></sc-if>
-              <span style="font-size: 12px; color: #66747B">REKA support replies here. Urgent? Email support@go.antarax.ai.</span>
+              <span style="font-size: 12px; color: #66747B">REKA support replies here. Prefer WhatsApp? <a href="#" style="color: #077DA1">Message us</a> and your reference goes with it.</span>
             </div>
           </sc-if>
 
@@ -110,7 +113,7 @@ body{margin:0;background:#F5F7FC}
         <li><strong style="color: #0B1B4F; font-weight: 600">The Help centre's foot</strong> opens Get help.</li>
       </ul>
       <h2 style="margin: 8px 0 0; color: #0B1B4F; font-size: 18px; font-weight: 600">What the product sends with it</h2>
-      <p style="margin: 0">The product, the organisation, the person and their role, the page, the version, any error reference, and a screenshot only if the person ticks it. The product keeps nothing of the request; YaraOne does.</p>
+      <p style="margin: 0">The product, the organisation, the person and their role, the page, the version and any error reference. Screenshots and files are added by the person, by pasting, dropping or choosing them. The product keeps nothing of the request; YaraOne does.</p>
     </div>
     <div style="flex: 1 1 520px; display: flex; flex-direction: column; gap: 10px">
       <h2 style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">Report this <span style="font-weight: 400; color: #5B6488; font-size: 14px">· an error in AX Frame</span></h2>
