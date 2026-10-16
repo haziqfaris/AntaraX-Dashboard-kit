@@ -106,7 +106,7 @@ Rules that come with it:
 
 ## 6 YaraOne in a project
 
-The same as a product ([`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md)): Help → Send feedback, Contact support and Your requests open YaraOne's front office, wearing the project's theme. Its foot line names REKA support; the project may hide it. REKA staff answer from the project's AXLE → Tickets.
+The same as a product ([`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md)): Help → Send feedback, Contact support and Your requests open YaraOne's front office, wearing the project's theme. Its foot line, "Managed by REKA · Powered by YaraOne", may be hidden in a client project. REKA staff answer from the project's AXLE → Tickets.
 
 ## 7 AXLE for a project
 

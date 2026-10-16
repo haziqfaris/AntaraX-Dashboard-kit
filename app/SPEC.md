@@ -235,7 +235,7 @@ Every product embeds **YaraOne's front office** for feedback and support request
 - **Send feedback:** what would make the product better, the page filled in, "Send feedback". After sending: "Thanks. The team at REKA reads every message, and you'll hear here if it leads to a change."
 - **Your requests:** each request with where it is (Received, Reviewing, Need more information, Planned, In progress, Resolved, Closed) and its thread, with Reply. A person sees their own; Owners and Admins see their organisation's.
 - **What the product passes:** product, organisation, person and role, page, version, any error reference, and a screenshot only when ticked. The product keeps nothing of the request.
-- **Its look is the product's:** colours, radius and font come from the product; the only other mark is one line at the foot naming REKA support and YaraOne.
+- **Its look is the product's:** colours, radius and font come from the product; the only other mark is one line at the foot, "Managed by REKA · Powered by YaraOne" (owner, 16 Oct 2026).
 - **Never shown to the customer:** internal notes, staff assignments, other organisations' requests.
 - **Where it goes:** YaraOne, and the product's AXLE → Watch → Tickets (axle SPEC §10.12).
 - **How it works** (settled with YaraOne, [`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md) v1.0): the product loads YaraOne's `embed.js` and opens the module with a short-lived token its own server signs for the signed-in person, so nobody signs in twice. Owners and Admins may reply to and close their organisation's requests, never change their status. Replies show under Your requests, by email, and as a count on Help.
@@ -445,7 +445,7 @@ In every customer app, whatever its own design:
 - **Help and the account:** never moved, renamed or hidden, and never placed in a sidebar or a bottom bar.
 - **Shared words:** never changed. Not "Log out", "Login", "Organization", "user" on screen, "Admin panel", "Preferences", or "Oops".
 - **Another identity:** never another product's colours or mark, AXLE's orange, the `AXLE` tag, or the AntaraX A used for anything but antarax.ai and, later, switching products.
-- **Credits:** never "Powered by", "by REKA", "A product of REKA Inisiatif", "REKA Intelligence", "AntaraX AI", or REKA in REKA orange (brand kit 12).
+- **Credits:** never "Powered by", "by REKA", "A product of REKA Inisiatif", "REKA Intelligence", "AntaraX AI", or REKA in REKA orange (brand kit 12). The one exception is YaraOne's front office foot, "Managed by REKA · Powered by YaraOne" (§10).
 - **What only REKA sees:** never shown to customers. That means:
   - AI model or provider names, AI costs or prompts;
   - REKA staff names, except during a support session the organisation allowed;

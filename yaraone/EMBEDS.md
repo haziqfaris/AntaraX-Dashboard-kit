@@ -49,7 +49,7 @@ The back office gets the product, the staff member (name, rung, rights) and, fro
 ## Look
 
 - The front office **wears the host's look**: its colours, radius and font come from `theme`. In an AntaraX product that is the product's palette; in a client project, the project's own. It never brings AntaraX's or YaraOne's colours into a client's app.
-- Its only mark is one line at the foot: "Requests are handled by REKA support with YaraOne." A client project may hide it.
+- Its only mark is one line at the foot: **"Managed by REKA · Powered by YaraOne"** (owner, 16 Oct 2026): REKA runs the support, YaraOne is the tool it runs on. Plain text in the host's muted colour, never a logo. A client project may hide it. This line is the one place "Powered by" is allowed (brand kit 12).
 - The back office in AXLE wears AXLE's light page and REKA orange actions, inside a dashed frame labelled "YaraOne · back office", so staff see where AXLE ends and YaraOne begins.
 
 ## The words
