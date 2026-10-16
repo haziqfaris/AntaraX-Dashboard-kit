@@ -464,6 +464,18 @@ Every product that calls an AI model has this page in R8 → System, after Provi
 - **Never shown:** prompts, photos, answers or personal data. One run, step by step, is Dashboard → Live trace; cost is Dashboard → AI usage; changes are Dashboard → Models & keys.
 - Read only. A failing provider links to Troubleshoot.
 
+**From framework 0.4 and 0.5 (owner, 16 Oct 2026).** The page also shows, still from the manifest and the call records only:
+
+| Part | Shows | From |
+|---|---|---|
+| **Free first** | Per feature, the share of calls answered with no tokens (the product's own algorithms and task engines) against paid models, and the card's `free_first` verdicts, rung by rung | Call records' provider and price; the card |
+| **Where answers came from** | Asked a model or engine · reused from the cache · shared with an identical call in flight, with the cost the reuse saved | `served_from` |
+| **Traffic** | Per provider: calls in flight and waiting, and turn-aways ("AI was busy"). Over 1% of a provider's calls turned away in a week is a Needs-a-person row: a scaling signal | `traffic:busy` stops; the gateway's traffic stats |
+| **Rollouts** | Features with a candidate route in shadow or canary: the split, and the verdict (hold, promote, roll back) with its reasons. Roll back is a safe action (§14.1) that sets the feature's rolled-back switch | `variant`; canaryVerdict |
+| **Alerts** | A canary token in an answer is a high alert at once; refusal, check-failure, turn-away and cost spikes per organisation are Needs-a-person rows | detectAnomalies over the call records |
+| **Retrieval** | For features that answer from an organisation's sources: the oldest source in each organisation's index against the card's limit, and the retrieval set's last score | The index's state; the evaluation run |
+| **Where it runs** | Cloud, hybrid or on premises, and what may leave (`deployment.outbound`) | The manifest |
+
 ### 10.7 Libraries (std G1, Later)
 
 Templates, catalogues and device types the platform owns. Each has versions and a release step: draft → review → published. Organisations see only published versions (ISO Generator Library; PLExyz Crowd device catalogue).
@@ -652,7 +664,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **R8 switch** | The switch changes only the menu, is remembered, needs no new sign-in, and says Base or Full; a member cannot open any R8 address |
 | **R8 jobs** | Run a job now: it appears with eligible, processed and failed counts; retry failures runs only the failed items |
 | **R8 providers** | Test provider gives a result and a latency; no key or secret appears on the page or in its network responses |
-| **R8 AI flow** | Every AI feature in the code appears in the manifest and on the page; the five steps add up (asked = every outcome together); no prompt, photo or answer appears on the page or in its network responses |
+| **R8 AI flow** | Every AI feature in the code appears in the manifest and on the page; the five steps add up (asked = every outcome together), and so do model, cache and shared answers; turn-aways are counted; no prompt, photo, answer, reused answer or source text appears on the page or in its network responses |
 | **R8 troubleshoot** | From a Dashboard alert, Troubleshoot opens R8 on that organisation and asset with outside evidence, a timeline and only safe actions; the reading and the conclusion are stored apart |
 | **R8 safety** | No Level 3 action exists; every R8 action appears in the audit log with a reason |
 | **Backend exists** | No R8 page or Observe item is empty or "coming soon"; a Base product shows no Incidents or Observe |
