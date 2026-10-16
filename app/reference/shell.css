@@ -1,0 +1,159 @@
+/*
+  The AntaraX shell's top bar, menus and list toolbar, built only from app/tokens.css.
+  Import app/tokens.css first. Every size and colour here is a --shell-* variable; a product restyles the
+  product's-own parts (the slot's buttons, the list toolbar) freely, and never the bar's sizes or order.
+  The phone switch below is at 767px; move it to the product's own drawer width.
+*/
+
+.ax-bar-wrap {
+  font-family: var(--shell-font);
+  padding: var(--shell-bar-outer-padding);
+  color: var(--shell-ink);
+}
+.ax-bar-wrap[data-size="phone"] { padding: var(--shell-bar-outer-padding-phone); }
+
+.ax-bar {
+  display: flex; align-items: center; gap: var(--shell-bar-gap);
+  height: var(--shell-bar-height); box-sizing: border-box; padding: var(--shell-bar-inner-padding);
+  background: var(--shell-surface); border: solid var(--shell-line); border-width: var(--shell-bar-border-width);
+  border-radius: var(--shell-bar-radius); box-shadow: var(--shell-bar-shadow);
+}
+.ax-bar-wrap[data-size="phone"] .ax-bar { height: var(--shell-bar-height-phone); border-radius: var(--shell-bar-radius-phone); }
+.ax-bar-wrap :focus-visible { outline: 2px solid var(--shell-focus); outline-offset: 2px; }
+.ax-spacer { flex: 1; min-width: 0; }
+.ax-mono { font-family: var(--shell-mono); font-variant-numeric: tabular-nums; }
+.ax-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* the brand pill */
+.ax-pill {
+  display: flex; align-items: center; gap: var(--shell-pill-well-gap); flex: none;
+  padding: var(--shell-pill-well-padding); border-radius: var(--shell-pill-well-radius);
+  background: var(--shell-well); border: 1px solid var(--shell-line);
+}
+.ax-pill-a {
+  display: flex; align-items: center; justify-content: center;
+  width: var(--shell-pill-a-width); height: var(--shell-pill-a-height); border-radius: var(--shell-pill-a-radius);
+}
+.ax-pill-a img { width: var(--shell-pill-a-mark); height: var(--shell-pill-a-mark); display: block; }
+.ax-chip {
+  display: flex; align-items: center; gap: var(--shell-pill-chip-gap);
+  height: var(--shell-pill-chip-height); padding: var(--shell-pill-chip-padding); border-radius: var(--shell-pill-chip-radius);
+  background: var(--shell-subtle-tint); color: var(--shell-ink); text-decoration: none; white-space: nowrap;
+  font-size: var(--shell-pill-chip-size); font-weight: var(--shell-pill-chip-weight); letter-spacing: var(--shell-pill-chip-tracking);
+}
+.ax-chip-compact { padding: var(--shell-pill-chip-padding-phone); }
+.ax-tile {
+  display: flex; align-items: center; justify-content: center; flex: none;
+  width: var(--shell-pill-mark-tile); height: var(--shell-pill-mark-tile); border-radius: var(--shell-pill-mark-tile-radius);
+  background: var(--shell-pill-mark-tile-bg);
+}
+.ax-tile img { max-width: var(--shell-pill-mark); max-height: var(--shell-pill-mark); display: block; }
+
+/* the page title */
+.ax-title {
+  margin: 0; min-width: 0; padding-left: var(--shell-title-divider-gap); border-left: 1px solid var(--shell-line);
+  font-size: var(--shell-title-size); font-weight: var(--shell-title-weight); color: var(--shell-ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* the product's slot: its buttons are drawn 40px with a 44px hit area; their look is the product's own */
+.ax-slot { display: flex; align-items: center; gap: var(--shell-control-slot-gap); flex: none; }
+.ax-slot-button {
+  position: relative; display: inline-flex; align-items: center; gap: 6px;
+  height: var(--shell-control-slot); padding: var(--shell-control-slot-padding); border-radius: var(--shell-control-slot-radius);
+  font: inherit; font-size: var(--shell-control-slot-size); font-weight: var(--shell-control-slot-weight); white-space: nowrap; cursor: pointer;
+  border: 1px solid var(--shell-line); background: var(--shell-surface); color: var(--shell-ink);
+}
+.ax-slot-button::after { content: ""; position: absolute; inset: calc((var(--shell-control-slot) - var(--shell-control-slot-target)) / 2) 0; }
+.ax-slot-button.is-action { border: 0; background: var(--shell-action); color: var(--shell-on-action); }
+
+/* round controls: menu, search, notifications, Help */
+.ax-round {
+  position: relative; flex: none; display: flex; align-items: center; justify-content: center; cursor: pointer;
+  width: var(--shell-control-round); height: var(--shell-control-round); border-radius: 999px;
+  border: 1px solid var(--shell-line); background: var(--shell-well); color: var(--shell-ink);
+}
+.ax-help[aria-expanded="true"] { background: var(--shell-subtle-tint); border-color: var(--shell-action); }
+.ax-badge {
+  position: absolute; top: -3px; right: -3px; min-width: var(--shell-badge); height: var(--shell-badge); box-sizing: border-box; padding: 0 5px;
+  border-radius: 999px; background: var(--shell-action); color: var(--shell-on-action);
+  font-family: var(--shell-mono); font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center;
+}
+.ax-badge-fault { background: #F04438; color: #FFFFFF; }
+.ax-search {
+  display: flex; align-items: center; gap: 8px; flex: none; cursor: pointer;
+  width: var(--shell-search-width); height: var(--shell-search-height); padding: 0 12px; border-radius: var(--shell-search-radius);
+  border: 1px solid var(--shell-line); background: var(--shell-well); color: var(--shell-ink); font: inherit; font-size: 13px;
+}
+.ax-search span { flex: 1; text-align: left; opacity: .75; }
+.ax-search kbd { font-family: var(--shell-mono); font-size: 10px; padding: 1px 5px; border-radius: 6px; border: 1px solid var(--shell-line); background: var(--shell-surface); }
+
+/* the account, always last */
+.ax-account {
+  flex: none; width: var(--shell-control-round); height: var(--shell-control-round); border-radius: 999px; padding: 0; overflow: hidden; cursor: pointer;
+  border: 2px solid var(--shell-surface); background: var(--shell-action); color: var(--shell-on-action);
+  font: inherit; font-size: 14px; font-weight: 600;
+}
+.ax-account[aria-expanded="true"] { border-color: var(--shell-subtle-tint); }
+.ax-account img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* the menus */
+.ax-anchor { position: relative; flex: none; display: flex; }
+.ax-menu {
+  position: absolute; z-index: 50; top: calc(100% + 18px); right: -1px; box-sizing: border-box;
+  padding: var(--shell-menu-padding); border-radius: var(--shell-menu-radius);
+  background: var(--shell-surface); border: 1px solid var(--shell-line); box-shadow: var(--shell-menu-shadow);
+  display: flex; flex-direction: column; color: var(--shell-ink); font-size: 14px;
+}
+.ax-bar-wrap[data-size="phone"] .ax-menu { top: calc(100% + 15px); }
+.ax-menu-help { width: var(--shell-menu-width-help); }
+.ax-menu-account { width: var(--shell-menu-width-account); right: -11px; }
+.ax-menu-item {
+  display: flex; flex-direction: column; justify-content: center; text-align: left; box-sizing: border-box;
+  min-height: var(--shell-menu-item-height); padding: 4px 12px; border-radius: var(--shell-menu-item-radius);
+  border: 0; background: transparent; color: inherit; font: inherit; text-decoration: none; cursor: pointer;
+}
+.ax-menu-item:hover, .ax-menu-item:focus-visible { background: var(--shell-hover); }
+.ax-menu-item small { font-size: 12px; opacity: .7; }
+.ax-menu-row { flex-direction: row; align-items: center; justify-content: space-between; }
+.ax-menu-person { display: flex; gap: 12px; align-items: center; padding: 10px 10px 12px; border-bottom: 1px solid var(--shell-line); }
+.ax-menu-person span:last-child { display: flex; flex-direction: column; min-width: 0; }
+.ax-menu-person small { font-size: 12px; opacity: .75; }
+.ax-menu-person em { font-style: normal; font-size: 12px; font-weight: 600; color: var(--shell-action); }
+.ax-menu-avatar { width: 40px; height: 40px; border-radius: 999px; flex: none; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--shell-action); color: var(--shell-on-action); font-weight: 600; }
+.ax-menu-org { display: flex; flex-direction: column; padding: 10px; border-bottom: 1px solid var(--shell-line); }
+.ax-menu-org small { font-size: 11px; opacity: .7; }
+.ax-menu-link { align-self: flex-start; min-height: 32px; padding: 0; border: 0; background: none; color: var(--shell-action); font: inherit; font-size: 13px; font-weight: 500; cursor: pointer; }
+.ax-menu-appearance { display: flex; padding: 4px 12px; min-height: var(--shell-menu-item-height); }
+.ax-menu-appearance [role="radiogroup"] { display: flex; gap: 2px; padding: 2px; border-radius: 10px; background: var(--shell-well); }
+.ax-menu-appearance button { min-height: 32px; padding: 0 8px; border: 0; border-radius: 8px; background: transparent; color: inherit; font: inherit; font-size: 12px; cursor: pointer; }
+.ax-menu-appearance button[aria-checked="true"] { background: var(--shell-surface); font-weight: 600; }
+.ax-menu-signout { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; border-top: 1px solid var(--shell-line); padding-top: 4px; margin-top: 4px; }
+.ax-menu-signout > span { padding: 0 12px; font-size: 13px; }
+.ax-menu-signout .ax-menu-item { flex: 1; }
+.ax-menu-confirm { box-sizing: border-box; min-height: 44px; padding: 0 14px; border: 0; border-radius: 10px; background: var(--shell-action); color: var(--shell-on-action); font: inherit; font-weight: 600; cursor: pointer; }
+.ax-menu-foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 10px 10px 6px; border-top: 1px solid var(--shell-line); font-size: 11px; opacity: .85; }
+.ax-menu-foot a { color: inherit; }
+
+/* where you are: products put .ax-nav-item on their own navigation's links (SPEC §2.5) */
+.ax-nav-item:hover { background: var(--shell-nav-hover-bg); }
+.ax-nav-item[aria-current="page"] { background: var(--shell-nav-current-bg); color: var(--shell-nav-current-ink); font-weight: var(--shell-nav-current-weight); }
+
+/* the list toolbar (SPEC §11a): its look is the product's own, these are a starting point */
+.ax-list-tools { display: flex; flex-direction: column; gap: 10px; font-family: var(--shell-font); color: var(--shell-ink); }
+.ax-list-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ax-list-search { display: flex; align-items: center; gap: 8px; flex: 1 1 240px; max-width: 360px; height: 44px; padding: 0 12px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--shell-line); background: var(--shell-surface); }
+.ax-list-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; color: inherit; }
+.ax-list-select select, .ax-list-button {
+  height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--shell-line); background: var(--shell-surface);
+  color: inherit; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+}
+.ax-list-select.is-applied select { background: var(--shell-subtle-tint); color: var(--shell-on-tint); }
+.ax-list-sort { display: inline-flex; gap: 4px; }
+.ax-list-views { display: inline-flex; gap: 2px; padding: 3px; border-radius: 12px; background: var(--shell-well); border: 1px solid var(--shell-line); }
+.ax-list-views button { height: 36px; padding: 0 12px; border: 0; border-radius: 9px; background: transparent; color: inherit; font: inherit; font-size: 13px; cursor: pointer; }
+.ax-list-views button[aria-checked="true"] { background: var(--shell-surface); font-weight: 600; }
+.ax-list-applied { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; }
+.ax-list-chip { display: inline-flex; align-items: center; gap: 4px; height: 28px; padding: 0 4px 0 10px; border-radius: 999px; background: var(--shell-subtle-tint); color: var(--shell-on-tint); font-weight: 500; }
+.ax-list-chip button { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; background: transparent; color: inherit; cursor: pointer; }
+.ax-list-nomatch { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 40px 24px; text-align: center; }

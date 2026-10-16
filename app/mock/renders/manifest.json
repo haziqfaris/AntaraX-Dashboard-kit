@@ -1,0 +1,311 @@
+{
+  "renders": {
+    "Admin.png": {
+      "mock": "Admin.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "9951bb017418c979"
+    },
+    "AppBar-angka-phone-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Angka",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-angka-phone.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Angka",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-angka-wide-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Angka",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-angka-wide.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Angka",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-frame-phone-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "AX Frame",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-frame-phone.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "AX Frame",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-frame-wide-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "AX Frame",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-frame-wide.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "AX Frame",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-grid-phone-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "PLExyz Grid",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-grid-phone.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "PLExyz Grid",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-grid-wide-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "PLExyz Grid",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-grid-wide.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "PLExyz Grid",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-janka-phone-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Janka",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-janka-phone.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Janka",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-janka-wide-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Janka",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-janka-wide.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Janka",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-tinara-phone-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Tinara",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-tinara-phone.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Tinara",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-tinara-wide-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Tinara",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-tinara-wide.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Tinara",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-yara-phone-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Yara",
+        "mode": "phone",
+        "open": "account",
+        "dark": true
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-yara-phone.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Yara",
+        "mode": "phone",
+        "open": "account"
+      },
+      "width": 390,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-yara-wide-dark.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Yara",
+        "mode": "wide",
+        "open": "account",
+        "dark": true
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "AppBar-yara-wide.png": {
+      "mock": "AppBar.dc.html",
+      "props": {
+        "product": "Yara",
+        "mode": "wide",
+        "open": "account"
+      },
+      "width": 1280,
+      "source": "3bc44ea8d889edf2"
+    },
+    "Lists.png": {
+      "mock": "Lists.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "0bd35f58eba78e20"
+    },
+    "Loading.png": {
+      "mock": "Loading.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "aa512cc7b12b0bd0"
+    },
+    "Main.png": {
+      "mock": "Main.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "6e16a08171cd9d06"
+    },
+    "Moments.png": {
+      "mock": "Moments.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "3f78279ba6217382"
+    },
+    "Products.png": {
+      "mock": "Products.dc.html",
+      "props": {},
+      "width": 1480,
+      "source": "314881abae443a49"
+    },
+    "Settings.png": {
+      "mock": "Settings.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "d0e645528cfd8b84"
+    },
+    "SignIn.png": {
+      "mock": "SignIn.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "8429bc0535f84ad8"
+    },
+    "Support.png": {
+      "mock": "Support.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "073659d5d8cb904a"
+    }
+  },
+  "note": "Written by tools/render-mocks.mjs. Each PNG with the hash of the mocks it was drawn from."
+}

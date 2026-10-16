@@ -1,0 +1,12 @@
+{
+  "note": "The canvas's asset store ids (/_blob/<id> in the mocks) and the brand kit file each one is. tools/render-mocks.mjs draws the mocks off canvas from these copies.",
+  "9ace71ccd412c3968daa549ff29b1a4e": "antarax-a-blue.svg",
+  "d598fc9bbb35fa41bb442f3b3b74c98d": "antarax-a-white.svg",
+  "44b2604fbd45a42ca7d165b9a109217c": "sparkle.svg",
+  "44c518a68fd732aff2ace614c736976b": "yara.svg",
+  "e49267db52a49ce314f758e045b38dc1": "janka.svg",
+  "4465d40a6045e7213803d41ebd2d541f": "ax-frame.svg",
+  "bb282ff0455686251e09bac778072b5a": "angka.svg",
+  "bb69b049e48ccaa805e370586faa379e": "plexyz-grid.svg",
+  "e79eaf52cb4f6ccc588b86860ca53dcd": "tinara.svg"
+}

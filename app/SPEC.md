@@ -1,6 +1,6 @@
 # The AntaraX shell for customer apps
 
-**Version 1.1, the standard (owner, 15 Oct 2026).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 adds logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16).
+**Version 1.2, the standard (owner, 16 Oct 2026; Dashboard kit 1.2.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17).
 
 **The rule (owner, 15 Oct 2026).** AXLE is the same in every product ([axle/](../axle/README.md)). A customer app is the opposite: each product has its own identity, shape, theme and UI. A small shell is the exception. It stays the same in every product so that a customer who uses two AntaraX products, or moves from one to another, always finds the same things in the same places:
 
@@ -15,8 +15,9 @@ This spec draws on the [inventory](../inventory/README.md) of eight customer app
 
 | | **The shell: the same in every product** | **Own: the product decides** |
 |---|---|---|
-| Top bar | Its anatomy and order, the brand pill, where Help and the account sit (§2) | Its colours, from the product's palette; what goes in the product's slot (§2.3) |
-| Navigation | That Help and the account are in the top bar, never in the product's navigation; the accessibility baseline (keyboard, `aria-current`, focus ring) | **Fully the product's own** (owner, 15 Oct 2026): whether it has a sidebar at all, its shape (sidebar, top tabs, bottom bar, a canvas with no menu), groups, names, icons, order, how it marks the current page, how it collapses |
+| Top bar | Its anatomy and order, the brand pill, where Help and the account sit, its sizes and its floating shape (§2) | Its colours, from the product's palette; what goes in the product's slot; a recorded exception to the shape (§2.2) |
+| Navigation | That Help and the account are in the top bar, never in the product's navigation; how the current item and hover look (§2.5); the accessibility baseline (keyboard, `aria-current`, focus ring) | **The product's own** (owner, 15 Oct 2026): whether it has a sidebar at all, its shape (sidebar, top tabs, bottom bar, a canvas with no menu), groups, names, icons, order, size, how it collapses |
+| Lists | The tools every long list offers (§11a) | How they look, paging, which views fit |
 | Account | The account button and the contents and order of its menu (§3) | Its avatar style, within the palette |
 | Standard pages | That they exist, where they live, what each holds first (§4) | How they look; extra sections after the standard ones |
 | Words | Brand kit 13 §1: organisation, member, Owner · Admin · Member · Viewer, Invite, Plan and Billing, Sign in and Sign out, Settings, Assist | Words for the product's own things (a job card, a forecast, a bay) |
@@ -49,15 +50,39 @@ Left to right, always in this order. An item shown "if" appears only when the pr
 
 ### 2.2 Size and shape
 
-- **Fixed:**
-  - the bar is at the top of every signed-in page;
-  - 64px tall on desktop and 58px on phones;
-  - every control is 44px;
-  - the right-hand order (5, 6, 7, 8) never changes.
-- **The product's own:**
-  - whether the bar floats as a card in the gutter (as in Yara, Janka, Grid and AX Frame today) or spans the width;
-  - its corner radius, surface and border;
-  - its shadow.
+**The bar floats by default** (owner, 16 Oct 2026): a white card in the page's gutter, with these values. They are tokens, so never retype them: `app/tokens.css`, generated from the brand kit's `shell` section, with each product's colours filled in. `reference/` builds the whole bar from them, and the [AppBar renders](mock/renders/) show it in every product.
+
+| Part | Desktop | Phone | Token (`--shell-…`) |
+|---|---|---|---|
+| Gutter around the bar | 14px 20px 0 | 8px 12px 0 | `bar-outer-padding` |
+| Bar height | 64px | 58px | `bar-height` |
+| Inside the bar | 0 10px 0 7px, items 8px apart | same | `bar-inner-padding`, `bar-gap` |
+| Corner radius | 24px, or the product's recorded radius | 20px | `bar-radius` |
+| Edge | 1px hairline in the palette's `border-default` | same | `bar-border-width`, `line` |
+| Shadow | `0 10px 28px -20px rgba(11,27,79,.35)` | same | `bar-shadow` |
+| Surface | the palette's `surface-raised` (white) | same | `surface` |
+| Brand pill well | 4px padding, 16px radius, 2px gap, `neutral-100` fill, hairline edge | same | `pill-well-*`, `well` |
+| The AntaraX A | 32 × 38px link, 12px radius, the A at 21px | same | `pill-a-*` |
+| Product chip | 38px tall, 12px radius, padding 0 12px 0 7px, the subtle tint, the name 16px semibold at −0.01em in `text-strong` | mark only, padding 0 7px | `pill-chip-*`, `subtle-tint` |
+| Mark tile | 24px white tile, 7px radius, the mark at most 18px | same | `pill-mark-*` |
+| Page title | 18px semibold, after a 1px divider and 12px, cut with an ellipsis | hidden | `title-*` |
+| Product-slot buttons | drawn 40px tall with a 44px hit area, 12px radius, padding 0 12px, 13px semibold; their style is the product's own | moved to the product's navigation | `control-slot-*` |
+| Search | a 210 × 44px field, 14px radius, on the well; a 44px round control on medium widths | in the product's navigation | `search-*` |
+| Menu, search, notifications, Help | 44px round, 1px hairline, filled with the well; Help on the subtle tint with an action-coloured edge while its menu is open | same | `control-round`, `well`, `line` |
+| Count on the bell | 18px, the action colour (`fault` when something failed) | in the product's navigation | `badge` |
+| Account | 44px round, initials 14px semibold in `on-action` on the action colour, a 2px ring in the surface (the subtle tint while its menu is open) | same | `control-round`, `action`, `on-action` |
+| Help and account menus | 280px and 300px wide, 16px radius, 6px padding, items at least 44px with a 10px radius, shadow `0 18px 40px -18px rgba(11,27,79,.35)` | same | `menu-*` |
+
+**A product that differs records it** (owner, 16 Oct 2026). The value goes in the brand kit (`shell.bar.byProduct`, so `app/tokens.css` carries it) and the reason goes in the product's own `antarax-kit.lock` (`exceptions`, see the [README](README.md#pin-the-kit)). Recorded today:
+
+| Product | Exception | Why |
+|---|---|---|
+| Janka | Radius 20px | As its app draws it today; Janka's lock says why |
+| AX Frame | Radius 16px | As its app draws it today; AX Frame's lock says why |
+| Angka | Radius 28px | As drawn for its floating sidebar on paper; Angka's lock says why |
+| Tinara | Flat: no gutter, radius or shadow, a bottom hairline only, inside 0 16px 0 12px | Confirmed by the owner, 16 Oct 2026; Tinara's lock says why |
+
+Never an exception: the height, the 44px controls, the anatomy and the right-hand order (5, 6, 7, 8).
 
 ### 2.3 Colour
 
@@ -68,8 +93,10 @@ The bar is drawn in the product's own palette, from `tokens/product-palettes.css
 - **The product chip:** tinted with the product's accent (`tint` or `subtle`).
 - **The count on the bell:** the product's accent, or `fault` when something failed.
 - **Exceptions:**
-  - **Dark mode:** a product that offers it uses its dark palette for the bar (brand kit 13 §10).
+  - **Dark mode:** a product that offers it uses its dark palette for the bar (brand kit 13 §10): `data-theme="dark"` in `app/tokens.css` gives the shared dark surfaces, the product's dark accent and a subtle tint mixed from the two.
   - **The focus ring:** always AntaraX blue.
+
+Each colour has a slot name in `app/tokens.css` (`--shell-subtle-tint`, `--shell-on-tint`, `--shell-action`, `--shell-on-action`, `--shell-well`, `--shell-line`, `--shell-surface`, `--shell-hover`, `--shell-ink`), filled from the product's palette. A shell colour that is not a slot is a mistake.
 
 ### 2.4 Phones
 
@@ -78,6 +105,15 @@ Below the product's drawer width, three things are fixed:
 - **Kept in the bar:** the brand pill (the product chip may drop its name and keep its mark), Help and the account.
 - **Moved into the product's navigation or the product slot:** search and notifications.
 - **Help and the account stay one tap away on every page.** If the product uses a bottom bar, Help and the account still live in the top bar, never in the bottom bar.
+
+### 2.5 Where you are
+
+Navigation's shape is the product's own (§1); two things about it are shared (owner, 16 Oct 2026), so a customer moving between products reads it the same way:
+
+- **The current item** carries `aria-current="page"` and is drawn on the product's **subtle tint** with its **on-tint** text, semibold (`--shell-nav-current-bg`, `--shell-nav-current-ink`). Never a grey, never only a bolder word, never a side stripe alone.
+- **Hover** on any other item is the product's **surface-hover** (`--shell-nav-hover-bg`), never the same as the current item.
+
+This holds in a sidebar, tabs, a rail or a bottom bar. A coloured rail (Tinara) puts the tinted item on its own colour.
 
 ## 3 The account button and menu
 
@@ -263,6 +299,25 @@ What they say and how they behave are shared; how they look is the product's own
   - `Esc` closes any menu, panel or dialog;
   - `?` lists the product's shortcuts where it has any;
   - a "Skip to content" link is the first thing on every page.
+
+## 11a Every long list
+
+Any list that can grow past one screen (work orders, stock, invoices, members, requests) gives people the same tools in every product (owner, 16 Oct 2026). How each looks is the product's own; `reference/ListToolbar` is one way to draw it. It is a customer version of AXLE's §9, not the same rule.
+
+| | Required | Notes |
+|---|---|---|
+| **Search** | Always | Across the fields people know the record by (name, number, customer). `/` focuses it |
+| **Filters** | On the list's main fields | Status, owner, date, site: whatever people sort their day by. Each applied filter shows as a chip that removes it |
+| **Sort** | Always | By the columns or fields that matter, with the direction shown |
+| **Group** | Where it helps | By status, owner, customer or date, with counts |
+| **View** | Where the data fits | List, board or table. A choice only where the data really suits more than one |
+| **Remembered** | Always | Per person, or kept in the address so a view can be shared. Coming back finds the list as it was left. Views are chosen on the page, never in Settings |
+| **Empty** | Always | Says what will appear and how to start (§11) |
+| **No match** | Always | "No work orders match these filters", with Clear filters. Never the empty state, never a blank table |
+| **CSV export** | When it is tabular | What is on screen, filters applied: `‹product›-‹list›-‹YYYY-MM-DD›.csv`, UTF-8, ISO dates, plain numbers, currency in its own column. Hidden figures stay hidden (§16) |
+| **Counts and bulk actions** | Optional | AXLE's stats strip and bulk actions, where they help. A bulk action that deletes or sends asks first, as the single one does |
+
+Paging is the product's own (pages, more, or an endless list), as long as search, filters and export cover every record, not only those loaded.
 
 ## 12 Logo, loading and motion
 
@@ -488,6 +543,10 @@ In every customer app, whatever its own design:
 | **Speed** | Lighthouse on a mid-range phone profile: LCP under 2.5 s, INP under 200 ms, CLS under 0.1; a reload shows data at once from cache |
 | **Security** | Security headers present (HSTS, CSP, frame-ancestors); sign-in slows after 5 failures; personal data absent from logs and analytics |
 | **Accessibility** | The brand kit 13 §10 baseline; every shell control has a name; the account menu traps focus and closes on Escape |
+| **The bar, measured** | `node tools/check-shell.mjs URL` passes on three pages at 1280px and 390px: bar height, control sizes, Help and the account at the far right, no uppercase labels. Its screenshot, beside the product's reference PNG, shows no difference the product has not recorded |
+| **Where you are** | The current item in the navigation has `aria-current="page"`, the subtle tint and on-tint text; hovering another item looks different |
+| **Lists** | On the longest list: search, a filter and a sort survive a reload; a filter that matches nothing says so and offers Clear filters; the CSV holds what was on screen |
+| **Pinned** | `antarax-kit.lock` names the kit version built against, and every difference from §2.2 is in its `exceptions` with a reason |
 
 ## 18 What each product changes
 
@@ -525,5 +584,11 @@ All decided by the owner on 15 Oct 2026:
   - the Never list (§16).
 
 - **16 Oct 2026:** feedback and support requests are YaraOne's front office, embedded in every product; no product builds its own (§10). Products that have their own today move to it: Angka's feedback inbox, Yara's support page, AX Frame's Support & FAQ form.
+
+- **16 Oct 2026, v1.2:**
+  - the floating bar is the default, with exact values as tokens (§2.2); a product records any exception, with its value in the brand kit and its reason in its `antarax-kit.lock`; the radius stays per product; Tinara's flat bar confirmed; PLExyz Grid floats;
+  - the current navigation item and hover are shared (§2.5); navigation's shape stays the product's own;
+  - a baseline for long lists (§11a), a customer version of AXLE §9;
+  - mocks readable off the canvas, reference components, a conformance check, a gap table before any work, and one kit version that products pin (§17, `README.md`).
 
 New questions go here.

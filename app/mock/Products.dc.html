@@ -30,7 +30,7 @@ body{margin:0;background:#F5F7FC}
         <div style="flex: 1; display: flex; gap: 14px; padding: 14px 20px 20px; min-height: 0">
           <nav aria-label="Yara" style="flex: none; width: 168px; background: #FFFFFF; border: 1px solid #E1EAEA; border-radius: 18px; padding: 12px 8px; display: flex; flex-direction: column; gap: 2px; font-size: 13px">
             <span style="font-size: 11px; color: #657575; padding: 0 8px 2px">Operations</span>
-            <a href="#" aria-current="page" style="display: flex; align-items: center; min-height: 36px; padding: 0 10px; border-radius: 10px; background: #DAF3F3; color: #05686A; font-weight: 600">Work orders</a>
+            <a href="#" aria-current="page" style="display: flex; align-items: center; min-height: 36px; padding: 0 10px; border-radius: 10px; background: #DAF3F3; color: #044F51; font-weight: 600">Work orders</a>
             <a href="#" style="display: flex; align-items: center; min-height: 36px; padding: 0 10px; color: #0B1B4F">Job cards</a>
             <a href="#" style="display: flex; align-items: center; min-height: 36px; padding: 0 10px; color: #0B1B4F">Schedule</a>
             <span style="font-size: 11px; color: #657575; padding: 8px 8px 2px">Team</span>
@@ -61,7 +61,7 @@ body{margin:0;background:#F5F7FC}
       <div style="height: 560px; border-radius: 20px; overflow: hidden; background: #F7FBFC; border: 1px solid #E2E9ED; display: flex; flex-direction: column; position: relative">
         <dc-import name="AppBar" product="Janka" mode="medium" open="none" hint-size="100%,80px"></dc-import>
         <nav aria-label="Janka" style="display: flex; gap: 4px; padding: 14px 20px 0; font-size: 14px">
-          <a href="#" aria-current="page" style="display: flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; background: #077DA1; color: #FFFFFF; font-weight: 600">Stock</a>
+          <a href="#" aria-current="page" style="display: flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; background: #D7F2FE; color: #004C64; font-weight: 600">Stock</a>
           <a href="#" style="display: flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; color: #0B1B4F">Plan</a>
           <a href="#" style="display: flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; color: #0B1B4F">Watch</a>
           <a href="#" style="display: flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; color: #0B1B4F">Scan &amp; tag</a>
@@ -142,7 +142,7 @@ body{margin:0;background:#F5F7FC}
         <div style="flex: 1; display: flex; min-height: 0">
           <nav aria-label="Tinara" style="flex: none; width: 64px; background: #7A1E3C; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 0">
             <sc-for list="{{tinaraRail}}" as="t" hint-placeholder-count="4">
-              <a href="#" aria-label="{{t.label}}" aria-current="{{t.current}}" style="width: 44px; height: 44px; border-radius: 12px; background: {{t.bg}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">{{t.short}}</a>
+              <a href="#" aria-label="{{t.label}}" aria-current="{{t.current}}" style="width: 44px; height: 44px; border-radius: 12px; background: {{t.bg}}; color: {{t.ink}}; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">{{t.short}}</a>
             </sc-for>
           </nav>
           <div style="flex: 1; min-width: 0; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
@@ -162,9 +162,9 @@ body{margin:0;background:#F5F7FC}
     </section>
 
     <section aria-label="PLExyz Grid" style="display: flex; flex-direction: column; gap: 10px">
-      <span><strong style="color: #0B1B4F">PLExyz Grid</strong> · a full-width bar, a zone map and a side panel</span>
+      <span><strong style="color: #0B1B4F">PLExyz Grid</strong> · a floating bar, a zone map and a side panel</span>
       <div style="height: 560px; border-radius: 20px; overflow: hidden; background: #F7F7FA; border: 1px solid #E6E7EE; display: flex; flex-direction: column; position: relative">
-        <dc-import name="AppBar" product="PLExyz Grid" mode="medium" open="none" hint-size="100%,64px"></dc-import>
+        <dc-import name="AppBar" product="PLExyz Grid" mode="medium" open="none" hint-size="100%,80px"></dc-import>
         <div style="flex: 1; display: flex; gap: 14px; padding: 16px 20px 20px; min-height: 0">
           <div role="img" aria-label="Yard map: four bays, Bay 3 selected" style="flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
             <sc-for list="{{gridBays}}" as="g" hint-placeholder-count="4">
@@ -211,8 +211,8 @@ class Component extends DCLogic {
         { name: 'Database', what: 'Postgres · renews 2 Nov', x: '140px', y: '210px' },
         { name: 'Email', what: 'Sends receipts', x: '360px', y: '210px' }
       ],
-      angkaNav: angka.map(function (l, i) { var on = i === 0; return { label: l, current: on ? 'page' : undefined, bg: on ? '#F4E9F4' : 'transparent', ink: on ? '#6B3F6B' : '#0B1B4F', weight: on ? '600' : '400', tile: tiles[i] }; }),
-      tinaraRail: rail.map(function (r, i) { var on = i === 0; return { label: r[0], short: r[1], current: on ? 'page' : undefined, bg: on ? 'rgba(255,255,255,.22)' : 'transparent' }; }),
+      angkaNav: angka.map(function (l, i) { var on = i === 0; return { label: l, current: on ? 'page' : undefined, bg: on ? '#F4E9F4' : 'transparent', ink: on ? '#593759' : '#0B1B4F', weight: on ? '600' : '400', tile: tiles[i] }; }),
+      tinaraRail: rail.map(function (r, i) { var on = i === 0; return { label: r[0], short: r[1], current: on ? 'page' : undefined, bg: on ? '#FFE6EA' : 'transparent', ink: on ? '#7A1E3C' : '#FFFFFF' }; }),
       tinaraRows: [
         { signal: 'Competitor price cut, mid-range sedans', source: 'Dealer listings', score: '92', bg: '#F6ECDA', ink: '#7A1E3C' },
         { signal: 'New showroom opening, Shah Alam', source: 'Planning notices', score: '78', bg: '#FBF6EE', ink: '#7A1E3C' },

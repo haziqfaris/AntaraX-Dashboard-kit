@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Every long list</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}
+.axs a{text-decoration:none}
+.axs :focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.axs .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div class="axs" style="box-sizing: border-box; width: 100%; padding: 40px; display: flex; flex-direction: column; gap: 28px; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; color: #3B4469; background: #FFFFFF">
+  <header style="display: flex; flex-direction: column; gap: 6px; max-width: 900px">
+    <h1 style="margin: 0; font-size: 28px; font-weight: 600; color: #0B1B4F">Every long list (§11a)</h1>
+    <p style="margin: 0; font-size: 16px">Search, filters, sort, group where it helps, a choice of view where the data fits, remembered per person or in the address, honest empty and no-match states, and CSV when it is tabular. Drawn here in Yara's colours; every product draws it in its own.</p>
+  </header>
+
+  <section aria-label="A list with its tools" style="border-radius: 24px; background: #F7FBFB; border: 1px solid #E1EAEA; overflow: hidden">
+    <dc-import name="AppBar" product="Yara" mode="wide" open="none" title="Work orders" hint-size="100%,92px"></dc-import>
+    <div style="padding: 20px; display: flex; flex-direction: column; gap: 14px">
+      <div role="search" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+        <label style="display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; flex: 1 1 260px; max-width: 360px; border-radius: 12px; background: #FFFFFF; border: 1px solid #869696; color: #0B1B4F">
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#657575" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+          <span style="flex: 1">Search work orders</span><span class="mono" style="font-size: 11px; padding: 1px 6px; border-radius: 6px; background: #EFF5F5; color: #657575">/</span>
+        </label>
+        <sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
+          <button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid {{f.line}}; background: {{f.bg}}; color: {{f.ink}}">{{f.label}}<svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m6 9 6 6 6-6"></path></svg></button>
+        </sc-for>
+        <span style="flex: 1"></span>
+        <button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #E1EAEA; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Sort: Due date ↑</button>
+        <button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #E1EAEA; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Group: Stage</button>
+        <div role="radiogroup" aria-label="View" style="display: inline-flex; gap: 2px; padding: 3px; border-radius: 12px; background: #EFF5F5; border: 1px solid #E1EAEA">
+          <sc-for list="{{views}}" as="v" hint-placeholder-count="3">
+            <button type="button" role="radio" aria-checked="{{v.checked}}" style="height: 36px; padding: 0 12px; border-radius: 9px; border: 0; font-family: inherit; font-size: 13px; font-weight: {{v.weight}}; cursor: pointer; background: {{v.bg}}; color: {{v.ink}}">{{v.label}}</button>
+          </sc-for>
+        </div>
+        <button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #E1EAEA; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Export CSV</button>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px">
+        <span style="color: #657575">Showing <span class="mono" style="color: #0B1B4F">38</span> of <span class="mono" style="color: #0B1B4F">412</span></span>
+        <sc-for list="{{chips}}" as="c" hint-placeholder-count="2">
+          <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 6px 0 10px; border-radius: 999px; background: #DAF3F3; color: #044F51; font-weight: 500">{{c}}<button type="button" aria-label="Remove {{c}}" style="width: 20px; height: 20px; border: 0; border-radius: 999px; background: transparent; color: #044F51; cursor: pointer; font-size: 14px; line-height: 1">×</button></span>
+        </sc-for>
+        <a href="#" style="color: #098284; font-weight: 500">Clear filters</a>
+        <span style="flex: 1"></span>
+        <span style="color: #657575">Saved for you · <span class="mono">?stage=cutting&amp;due=week</span></span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E1EAEA; border-radius: 16px; overflow-x: auto">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px">
+          <thead><tr style="text-align: left; color: #657575; font-size: 12px">
+            <th scope="col" style="font-weight: 500; padding: 10px 14px; border-bottom: 1px solid #E1EAEA">Work order</th>
+            <th scope="col" style="font-weight: 500; padding: 10px 14px; border-bottom: 1px solid #E1EAEA">Customer</th>
+            <th scope="col" style="font-weight: 500; padding: 10px 14px; border-bottom: 1px solid #E1EAEA">Stage</th>
+            <th scope="col" aria-sort="ascending" style="font-weight: 600; padding: 10px 14px; border-bottom: 1px solid #E1EAEA; color: #0B1B4F">Due ↑</th>
+            <th scope="col" style="font-weight: 500; padding: 10px 14px; border-bottom: 1px solid #E1EAEA">Assigned</th>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+              <tr>
+                <td class="mono" style="padding: 10px 14px; border-bottom: 1px solid #EFF5F5; color: #0B1B4F">{{r.id}}</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #EFF5F5; color: #0B1B4F">{{r.customer}}</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #EFF5F5"><span style="padding: 2px 8px; border-radius: 999px; background: #EFF5F5; color: #475959">{{r.stage}}</span></td>
+                <td class="mono" style="padding: 10px 14px; border-bottom: 1px solid #EFF5F5; color: #0B1B4F">{{r.due}}</td>
+                <td style="padding: 10px 14px; border-bottom: 1px solid #EFF5F5">{{r.who}}</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px">
+    <section aria-label="No match" style="display: flex; flex-direction: column; gap: 10px">
+      <span><strong style="color: #0B1B4F">No match</strong> · never the empty state, never a blank table</span>
+      <div style="padding: 40px 24px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E1EAEA; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <span style="font-size: 16px; font-weight: 600; color: #0B1B4F">No work orders match these filters</span>
+        <span>Stage is Painting and due this week, searching for “Tegap”.</span>
+        <button type="button" style="height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #E1EAEA; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">Clear filters</button>
+      </div>
+    </section>
+    <section aria-label="Empty" style="display: flex; flex-direction: column; gap: 10px">
+      <span><strong style="color: #0B1B4F">Empty</strong> · what will appear here and how to start (§11)</span>
+      <div style="padding: 40px 24px; border-radius: 16px; background: #FFFFFF; border: 1px solid #E1EAEA; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+        <span style="font-size: 16px; font-weight: 600; color: #0B1B4F">No work orders yet</span>
+        <span>Work orders you create, or import from a sheet, appear here.</span>
+        <button type="button" style="height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #098284; color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">New work order</button>
+      </div>
+    </section>
+  </div>
+
+  <section aria-label="Required and optional" style="display: flex; flex-direction: column; gap: 10px">
+    <span><strong style="color: #0B1B4F">Required and optional</strong></span>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+      <sc-for list="{{rules}}" as="u" hint-placeholder-count="6">
+        <div style="padding: 14px 16px; border-radius: 14px; background: #F7FBFB; border: 1px solid #E1EAEA; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-weight: 600; color: #0B1B4F">{{u.name}} <span style="font-weight: 500; font-size: 12px; color: {{u.tone}}">· {{u.when}}</span></span>
+          <span style="font-size: 13px">{{u.text}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    function f(label, on) { return { label: label, bg: on ? '#DAF3F3' : '#FFFFFF', ink: on ? '#044F51' : '#0B1B4F', line: on ? '#B3E6E7' : '#E1EAEA' }; }
+    function v(label, on) { return { label: label, checked: on ? 'true' : 'false', bg: on ? '#FFFFFF' : 'transparent', ink: on ? '#0B1B4F' : '#475959', weight: on ? '600' : '500' }; }
+    return {
+      filters: [f('Stage: Cutting', true), f('Due: This week', true), f('Customer', false)],
+      views: [v('List', false), v('Board', false), v('Table', true)],
+      chips: ['Stage: Cutting', 'Due: This week'],
+      rows: [
+        { id: 'WO-2026-0412', customer: 'Tegap Fabrication', stage: 'Cutting', due: '17 Oct', who: 'Hafiz Roslan' },
+        { id: 'WO-2026-0415', customer: 'Kilang Seri Maju', stage: 'Cutting', due: '18 Oct', who: 'Nur Aina Hashim' },
+        { id: 'WO-2026-0419', customer: 'Tegap Fabrication', stage: 'Cutting', due: '20 Oct', who: 'Daniel Ong' },
+        { id: 'WO-2026-0421', customer: 'Bina Utara Steel', stage: 'Cutting', due: '21 Oct', who: 'Siti Mariam' },
+        { id: 'WO-2026-0424', customer: 'Kilang Seri Maju', stage: 'Cutting', due: '22 Oct', who: 'Hafiz Roslan' }
+      ],
+      rules: [
+        { name: 'Search', when: 'always', tone: '#067647', text: 'Across the fields people know the record by. / focuses it.' },
+        { name: 'Filters', when: 'always', tone: '#067647', text: 'On the main fields; each applied filter is a chip that removes it.' },
+        { name: 'Sort', when: 'always', tone: '#067647', text: 'Direction shown on the column or the button.' },
+        { name: 'Remembered', when: 'always', tone: '#067647', text: 'Per person, or in the address so a view can be shared.' },
+        { name: 'Group and view', when: 'where it fits', tone: '#B54708', text: 'Group with counts; list, board or table only where the data suits more than one.' },
+        { name: 'CSV', when: 'when tabular', tone: '#B54708', text: '‹product›-‹list›-‹YYYY-MM-DD›.csv: what is on screen, filters applied.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

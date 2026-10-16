@@ -1,0 +1,65 @@
+/*
+  The AntaraX shell's tokens: the top bar every customer app shares (app/SPEC.md section 2).
+  GENERATED from the AntaraX brand kit: do not edit.
+  Source: haziqfaris/AntaraX-brand-kit tokens/tokens.json "shell" and tokens/product-palettes.json, version 1.11.0 (2026-10-16), commit 3dc860e.
+  To change a value, change it in the brand kit (with an owner decision), then run tools/sync-brand-kit.py here.
+
+  Use: put class="shell-root" and data-product="<product>" on the element that holds the bar (and
+  data-theme="dark" in dark mode). Phone values are the *-phone variables; switch at the product's own
+  drawer width. app/reference/shell.css shows the whole bar built from these names.
+*/
+
+.shell-root {
+  --shell-font: Poppins, ui-sans-serif, system-ui, sans-serif;
+  --shell-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --shell-focus: #0459F7; /* the AntaraX-blue focus ring, on every shell control */
+
+  /* the bar: floating by default; a product records any exception (brand kit shell.bar.byProduct) */
+  --shell-bar-height: 64px; --shell-bar-height-phone: 58px;
+  --shell-bar-outer-padding: 14px 20px 0; --shell-bar-outer-padding-phone: 8px 12px 0;
+  --shell-bar-inner-padding: 0 10px 0 7px; --shell-bar-gap: 8px;
+  --shell-bar-radius: 24px; --shell-bar-radius-phone: 20px;
+  --shell-bar-border-width: 1px;
+  --shell-bar-shadow: 0 10px 28px -20px rgba(11, 27, 79, .35);
+
+  /* the brand pill */
+  --shell-pill-well-padding: 4px; --shell-pill-well-radius: 16px; --shell-pill-well-gap: 2px;
+  --shell-pill-a-width: 32px; --shell-pill-a-height: 38px; --shell-pill-a-radius: 12px; --shell-pill-a-mark: 21px;
+  --shell-pill-chip-height: 38px; --shell-pill-chip-radius: 12px; --shell-pill-chip-padding: 0 12px 0 7px; --shell-pill-chip-padding-phone: 0 7px; --shell-pill-chip-gap: 8px;
+  --shell-pill-chip-size: 16px; --shell-pill-chip-weight: 600; --shell-pill-chip-tracking: -0.01em;
+  --shell-pill-mark-tile: 24px; --shell-pill-mark-tile-radius: 7px; --shell-pill-mark-tile-bg: #FFFFFF; --shell-pill-mark: 18px;
+
+  /* controls: round ones 44px; product-slot buttons drawn 40px with a 44px hit area */
+  --shell-control-round: 44px;
+  --shell-control-slot: 40px; --shell-control-slot-target: 44px; --shell-control-slot-radius: 12px; --shell-control-slot-padding: 0 12px; --shell-control-slot-gap: 6px; --shell-control-slot-size: 13px; --shell-control-slot-weight: 600;
+  --shell-search-width: 210px; --shell-search-height: 44px; --shell-search-radius: 14px; --shell-badge: 18px;
+  --shell-title-size: 18px; --shell-title-weight: 600; --shell-title-divider-gap: 12px;
+
+  /* the Help and account menus */
+  --shell-menu-width-help: 280px; --shell-menu-width-account: 300px; --shell-menu-radius: 16px; --shell-menu-padding: 6px; --shell-menu-item-height: 44px; --shell-menu-item-radius: 10px;
+  --shell-menu-shadow: 0 18px 40px -18px rgba(11, 27, 79, .35);
+
+  /* navigation: its shape is the product's own; the current item and hover are shell */
+  --shell-nav-current-bg: var(--shell-subtle-tint); --shell-nav-current-ink: var(--shell-on-tint); --shell-nav-current-weight: 600;
+  --shell-nav-hover-bg: var(--shell-hover);
+}
+
+/* Each product's slots, from its own palette (brand kit tokens/product-palettes.json), then its recorded exceptions. */
+.shell-root[data-product="yara"] { --shell-subtle-tint: #DAF3F3; --shell-on-tint: #044F51; --shell-action: #098284; --shell-on-action: #FFFFFF; --shell-well: #EFF5F5; --shell-line: #E1EAEA; --shell-surface: #FFFFFF; --shell-hover: #EFF5F5; --shell-ink: #0B1B4F; }
+.shell-root[data-product="yara"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #07A0A3 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #07A0A3; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }
+.shell-root[data-product="frame"] { --shell-subtle-tint: #E4EDFF; --shell-on-tint: #002EB2; --shell-action: #074AF8; --shell-on-action: #FFFFFF; --shell-well: #F1F3F8; --shell-line: #E5E8EE; --shell-surface: #FFFFFF; --shell-hover: #F1F3F8; --shell-ink: #0B1B4F; --shell-bar-radius: 16px; }
+.shell-root[data-product="frame"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #4D84FE 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #4D84FE; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }
+.shell-root[data-product="janka"] { --shell-subtle-tint: #D7F2FE; --shell-on-tint: #004C64; --shell-action: #077DA1; --shell-on-action: #FFFFFF; --shell-well: #EFF4F7; --shell-line: #E2E9ED; --shell-surface: #FFFFFF; --shell-hover: #EFF4F7; --shell-ink: #0B1B4F; --shell-bar-radius: 20px; }
+.shell-root[data-product="janka"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #069AC6 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #069AC6; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }
+.shell-root[data-product="grid"] { --shell-subtle-tint: #E7ECFF; --shell-on-tint: #2C09B2; --shell-action: #2C09B2; --shell-on-action: #FFFFFF; --shell-well: #F2F3F8; --shell-line: #E6E7EE; --shell-surface: #FFFFFF; --shell-hover: #F2F3F8; --shell-ink: #0B1B4F; }
+.shell-root[data-product="grid"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #6C7CFE 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #6C7CFE; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }
+.shell-root[data-product="crowd"] { --shell-subtle-tint: #EBEBFF; --shell-on-tint: #442C95; --shell-action: #6040CC; --shell-on-action: #FFFFFF; --shell-well: #F3F3F7; --shell-line: #E7E7EE; --shell-surface: #FFFFFF; --shell-hover: #F3F3F7; --shell-ink: #0B1B4F; }
+.shell-root[data-product="crowd"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #8870FE 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #8870FE; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }
+.shell-root[data-product="angka"] { --shell-subtle-tint: #F4E9F4; --shell-on-tint: #593759; --shell-action: #6B3F6B; --shell-on-action: #FFFFFF; --shell-well: #F6F2F5; --shell-line: #EBE6EB; --shell-surface: #FFFFFF; --shell-hover: #F6F2F5; --shell-ink: #0B1B4F; --shell-bar-radius: 28px; }
+.shell-root[data-product="angka"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #A979A8 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #A979A8; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }
+.shell-root[data-product="tinara"] { --shell-subtle-tint: #FFE6EA; --shell-on-tint: #7A1E3C; --shell-action: #7A1E3C; --shell-on-action: #FFFFFF; --shell-well: #F7F2F3; --shell-line: #EEE5E7; --shell-surface: #FFFFFF; --shell-hover: #F7F2F3; --shell-ink: #0B1B4F; --shell-bar-outer-padding: 0; --shell-bar-outer-padding-phone: 0; --shell-bar-inner-padding: 0 16px 0 12px; --shell-bar-radius: 0; --shell-bar-radius-phone: 0; --shell-bar-border-width: 0 0 1px; --shell-bar-shadow: none; }
+.shell-root[data-product="tinara"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #CB6881 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #CB6881; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }
+.shell-root[data-product="loom"] { --shell-subtle-tint: #EBEBFF; --shell-on-tint: #4904B3; --shell-action: #4904B3; --shell-on-action: #FFFFFF; --shell-well: #F3F3F7; --shell-line: #E7E7EE; --shell-surface: #FFFFFF; --shell-hover: #F3F3F7; --shell-ink: #0B1B4F; }
+.shell-root[data-product="loom"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #8870FF 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #8870FF; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }
+.shell-root[data-product="motion"] { --shell-subtle-tint: #FEE7DF; --shell-on-tint: #762802; --shell-action: #BE4402; --shell-on-action: #FFFFFF; --shell-well: #F7F2F0; --shell-line: #EEE6E3; --shell-surface: #FFFFFF; --shell-hover: #F7F2F0; --shell-ink: #0B1B4F; }
+.shell-root[data-product="motion"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #FC5D04 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #FC5D04; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }

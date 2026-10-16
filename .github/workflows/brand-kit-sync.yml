@@ -3,7 +3,8 @@ name: Brand kit sync
 # Fails when the Dashboard kit has drifted from the AntaraX brand kit:
 # axle/tokens.css edited by hand, a mock using a colour that is neither a brand token
 # nor a product palette colour, an AntaraX colour in a client-project mock (project/mock),
-# or the brand kit's tokens or palettes changed without a re-sync here.
+# the brand kit's tokens or palettes changed without a re-sync here, or a shell mock
+# changed without its PNG renders and values table.
 on:
   push:
   pull_request:
@@ -28,6 +29,9 @@ jobs:
           repository: haziqfaris/AntaraX-brand-kit
           path: brand-kit
           token: ${{ secrets.BRAND_KIT_TOKEN || github.token }}
+
+      - name: Shell mock renders and values tables match their mocks
+        run: node tools/render-mocks.mjs app/mock --check
 
       - name: Capacity examples follow the standard
         run: python3 capacity/check.py capacity/examples/*.json

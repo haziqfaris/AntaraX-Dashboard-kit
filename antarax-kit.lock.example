@@ -1,0 +1,17 @@
+{
+  "kit": "haziqfaris/AntaraX-Dashboard-kit",
+  "version": "1.2.0",
+  "commit": "REPLACE_WITH_KIT_COMMIT",
+  "pinned": "2026-10-16",
+  "product": "yara",
+  "follows": ["app", "axle", "embeds", "capacity"],
+  "exceptions": [
+    {
+      "what": "Bar radius",
+      "spec": "app/SPEC.md §2.2",
+      "value": "REPLACE_WITH_THE_VALUE_THE_PRODUCT_USES",
+      "why": "REPLACE_WITH_THE_REASON",
+      "decided": "REPLACE_WITH_WHO_AND_WHEN"
+    }
+  ]
+}

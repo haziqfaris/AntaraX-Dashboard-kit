@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shell reference</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="../shell.css">
+<style>
+  body { margin: 0; font-family: Poppins, system-ui, sans-serif; }
+  .page { min-height: 100vh; background: #F7FBFB; }
+  .page[data-theme="dark"] { background: #071233; }
+  .content { display: flex; gap: 16px; padding: 16px 20px; color: var(--shell-ink); font-family: var(--shell-font); }
+  .nav { display: flex; flex-direction: column; gap: 2px; width: 180px; flex: none; }
+  .nav a { display: flex; align-items: center; min-height: 40px; padding: 0 10px; border-radius: 10px; color: inherit; text-decoration: none; }
+  .list { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+  table { border-collapse: collapse; background: var(--shell-surface); border: 1px solid var(--shell-line); border-radius: 12px; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--shell-line); font-size: 13px; }
+  @media (max-width: 767px) { .nav { display: none; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="demo.js"></script>
+</body>
+</html>
