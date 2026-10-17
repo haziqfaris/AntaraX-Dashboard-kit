@@ -1,6 +1,6 @@
 # AXLE standard
 
-**Version 1.0, the standard (owner, 15 Oct 2026).** This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
+**Version 1.1, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
 
 It merges two sources:
 
@@ -251,6 +251,7 @@ Product-only items sit at the end so that adding one never moves a standard item
 | **Watch** | **Overview** | Always | §8 (B1–B4) | Viewer |
 | | **Adoption** | Always | Active organisations and members over time, feature use per organisation, who stopped using it (I1) | Viewer |
 | | **Tickets** | Always | YaraOne's back office, embedded: this product's support requests and feedback. Reply, add an internal note, change the state the customer sees. Tickets live in YaraOne; nothing about them is stored in the product (§10.12) | Support replies; Viewer reads |
+| | **Email** | Once the product sends through AntaraX email | Every email this product sent, where each one is, why one did not arrive, and whether an address is blocked. Read from AntaraX email; the product keeps no copy (§10.14) | Viewer reads; Support lifts a complaint block |
 | **Organisations** | **Organisations** | Orgs | List, create, lifecycle and the organisation page (C1–C6, §10.1–10.3) | Operator, Admin |
 | | **Members** | Orgs | Members across organisations (D2) | Support, Operator |
 | | **Invitations** | Always | Single-use expiring links (D3) | Support |
@@ -266,7 +267,7 @@ Product-only items sit at the end so that adding one never moves a standard item
 | **Platform** | **Announcements** | Later | Draft, audience, schedule, delivery status (H6) | Admin |
 | | **Help content** | Later | The product's `/help` answers | Admin |
 | | **Demo** | Always | Demo data switch, demo organisations per prospect (K1, K2) | Admin |
-| | **Settings** | Always | Platform switches, email templates and sender, legal texts, regions and time zones, maintenance mode (G2, E5) | Operator for switches, Admin, Owner for secrets |
+| | **Settings** | Always | Platform switches, legal texts, regions and time zones, maintenance mode (G2, E5). Email templates and the sender belong to AntaraX email, not to a product's Settings (§10.14) | Operator for switches, Admin, Owner for secrets |
 | | **API** | when the product has one | Lapisan's section: Keys, Switches, Calls, Lookup, Connect apps (antarax-api docs/07) | Operator |
 | **Operations** | **Errors** | Always | Unknown errors grouped, each with a request id. In the Dashboard because an error usually lands on a customer first; each links to Troubleshoot | Viewer |
 | | **Alerts** | Always | Thresholds and who is told, by email and in AXLE (H2). Each alert links to Troubleshoot (M10) | Admin |
@@ -290,7 +291,7 @@ Every product has these pages at **Base**; **Full** adds Incidents. Observe page
 | | **Agents** | Full, and an agent on customer or REKA hosts exists | Enrolled, connected, offline, outdated; per agent version, last heartbeat, telemetry flowing or stopped; ping, rotate credentials, push config, revoke. Telemetry only at first (M8; agents come last, 6 Oct 2026) | Operator; revoke needs Admin |
 | | **Visual** | Full, and the product takes screenshots or renders pages | Captures, success rate, changes found, failures, queue, storage, provider quota; capture now, retry, pause (M7) | Operator |
 | **System** | **Jobs** | Base | Last run, result, duration, next run; per run eligible, processed, failed, skipped and the top failure reasons; run now, retry failures, pause, resume. Schedules in plain words, raw cron only in an advanced drawer (M4, H1) | Operator |
-| | **Providers** | Base | Every outside dependency (AI providers, email, storage, payments, any product API): state, calls in 24 hours, success rate, latency, quota exposure, latest error and latest success; Test provider. Credentials never shown (M5) | Operator tests; keys stay in Dashboard → Models & keys |
+| | **Providers** | Base | Every outside dependency (AI providers, email through AntaraX email (§10.14), storage, payments, any product API): state, calls in 24 hours, success rate, latency, quota exposure, latest error and latest success; Test provider. Credentials never shown (M5) | Operator tests; keys stay in Dashboard → Models & keys |
 | | **AI flow** | Base, and the product calls an AI model | How the product's AI is wired and what happened on each path, drawn from its AI manifest (§10.6.1) | Viewer: read only |
 | | **Services** | Base | REKA's own platform: API, database, workers, queues, storage, AI gateway, email, deployed version (B3) | Viewer |
 | | **Capacity** | Base | How close the product is to every limit of the plans it runs on, how fast it is growing, when it will reach each one, and what to do then. Any provider, any kind of infrastructure (§10.13) | Viewer; plans and limits are changed by Admin |
@@ -324,7 +325,7 @@ The same page in every product, top to bottom. Every block is visual, every figu
 |---|---|---|---|
 | 1 | **Header** | Title, one line, a state line ("Live database · last 7 days"), a range picker: 7 days (default), 30, 90, 12 months, All time, Choose days | The range is in the address |
 | 2 | **Health strip** | App, database, sign-in, storage, email, each AI provider, deployed version, last backup, last scheduled job (B3) | Tint plus a word, never colour alone; each tile opens Health |
-| 3 | **Needs a person** | Failing jobs and webhooks, failing keys, budgets past 80%, suspended organisations, open requests, stuck runs; each with which organisation, since when, and a link to the fix. A technical problem's link is **Troubleshoot in R8** (M10) | Empty: "Nothing needs a person. Every job ran and every service answered." Respects rights |
+| 3 | **Needs a person** | Failing jobs and webhooks, failing keys, budgets past 80%, suspended organisations, open requests, stuck runs, sign-in and service emails that did not arrive (§10.14); each with which organisation, since when, and a link to the fix. A technical problem's link is **Troubleshoot in R8** (M10) | Empty: "Nothing needs a person. Every job ran and every service answered." Respects rights |
 | 4 | **Platform figures** | Organisations **by status** (a stacked bar: trial, active, restricted, suspended, cancelled, pending deletion), active members, sign-ups, AI usage and cost this month, failed jobs, open alerts (B1) | Mono numbers; money by currency (RM1,200 + US$45); a dash with a reason when hidden; each opens its list |
 | 5 | **Organisations at a glance** | Organisations with plan, status, readiness ("4 of 6 ready"), open problems, members, this month's cost | Problems first; opens the organisation page |
 | 6 | **Trend** | The product's core activity and AI cost over the range | Latest value ends in a pad; flagged points are an intan (kit 12) |
@@ -407,7 +408,8 @@ The page opens on **what is missing**: a readiness checklist ("Before Acme Plast
 | **Errors & health** | Recent errors; data checks: "3 fix now · 2 to check" (Yara `tenant_integrity`) |
 | **Notes** | Internal notes; never visible to the organisation (H4) |
 | **Tickets** | This organisation's tickets: YaraOne's back office filtered to it (§10.12) |
-| **Branding** | Logo, colours, sender name, where the product supports it (C7, Later) |
+| **Email** | The emails this product sent to this organisation's people: Watch → Email filtered to it (§10.14) |
+| **Branding** | Logo and colours, where the product supports it (C7, Later). Email always comes from the product, never from the organisation's name (§10.14; brand kit 13 §2) |
 | **Audit** | Staff actions on this organisation |
 
 ### 10.4 Members and invitations (std D2, D3)
@@ -567,6 +569,35 @@ Every support request and piece of feedback from every product lives in **YaraOn
 
 **How it is measured.** A nightly job takes a snapshot of every resource it can measure, from the provider's usage API or the product's own query, and keeps it 400 days. Nothing here needs a monitoring vendor; a product may use one and point the snapshot at it. The outside check runs from outside the product's own hosting.
 
+### 10.14 Email: AntaraX email, as this product sees it (owner, 17 Oct 2026)
+
+**Every product sends its email through AntaraX email** (`email.antarax.ai`; antarax-api [docs/15](https://github.com/haziqfaris/antarax-api/blob/main/docs/15-email.md), decision 0014; brand kit guide/10, 17 Oct 2026). Each product sends as itself, `<Product> <product@mail.antarax.ai>`, and replies go to `support@go.antarax.ai`. The product decides when to send and to whom. The service owns the templates, the sender, delivery and the blocked addresses. A product's AXLE shows what happened to its own emails and changes none of the service's settings. Angka is deferred, and keeps its own email until the owner decides.
+
+**Watch → Email** appears once the product's switch is on (`ANTARAX_EMAIL_URL` and `AX_SVC_KEY` set, §7.1 M2). It is read from the service through the product's own server, signed with the product's service key; the key never reaches the browser, and the service answers only with this product's emails.
+
+| Part | Holds | From |
+|---|---|---|
+| **Sending line** | "Sending as YaraOne `<yaraone@mail.antarax.ai>` · replies to `support@go.antarax.ai`". When the service is recording and not sending (`DELIVERY=record`, before `mail.antarax.ai` is verified), the state banner says so (§13.2): "Recording only: no email is being delivered" | The product's sender (`@lapisan/email` `SENDERS`) |
+| **Stats strip** | The last 7 days by status, each a filter (§9): Delivered, Sent, Delayed, Retrying, Bounced, Marked as spam, Not sent (blocked), Failed. A range of 1 to 90 days | `GET /v1/emails/summary?days=` |
+| **The list** (§9) | When (mono, MYT); the template's label with its class as a chip (Security, Service, Activity); to, masked (`n***@contoh.example`, mono); organisation; status as a chip with a word; why it failed, in words. Filters: status, template, organisation, since; paged with the service's cursor; CSV export. No bulk actions: nothing here is done to many emails at once | `GET /v1/emails?status=&template=&tenant_id=&since=&cursor=` |
+| **One email, opened** | Its id, template, class, organisation and when; its attempts; what the provider reported, oldest first, with times (sent, delivered, delayed, bounced with its kind, marked as spam); the reason in words, then the code in mono; a link to the product's own record when the email carries its event id (`correlation_id`) | `GET /v1/emails/{id}` |
+| **Is this address blocked?** | Staff type the address a person gave them. The answer is one of: not blocked; **bounced**, which stops every AntaraX product (the person fixes their mailbox, then AXLE Central lifts it); **marked as spam** for this product, which stops this product's service and activity emails only (sign-in and reset still go). **Let them hear from us again** lifts this product's own block, needs the Support rung and the person's request as the reason, and is audited with the masked address | `GET` and `DELETE /v1/suppressions?email=` |
+| **Templates** | The templates this product may send, read only: label, class, and the words each needs. A new template, or a change to one, is a pull request to antarax-api, never an edit in AXLE | `GET /v1/templates` |
+
+**Never shown, because the service never keeps them:** an email's body, subject, links, codes, or a whole address. Staff can find an email by the person's organisation, the template and the time, and confirm an address only by typing it in.
+
+**Status words.** Accepted · Sent · Delivered · Delayed · Retrying (the provider was down; the product sends again with the same key) · Bounced · Marked as spam · Not sent: blocked (a bounce or a spam mark stopped it before sending) · Failed (the provider refused it for good). The class decides what may stop an email: **security** emails (sign-in, reset, email changed) are stopped only by a bounce, never by an opt-out or a spam mark; **service** emails (invitations, exports, something to act on) have no opt-out; **activity** emails (digests, reminders, alerts) carry the product's one-click unsubscribe (app SPEC §8).
+
+**Elsewhere in AXLE.**
+
+- **Needs a person (§8):** security and service emails that did not arrive in the last 24 hours (bounced, blocked or failed), each naming the organisation and the template and opening the email. An invitation or a sign-in link that never arrived means someone cannot get in. Activity emails that failed are counted on the page, quietly.
+- **Organisation 360 → Email (§10.3):** the same list, filtered to that organisation.
+- **R8 → Providers (§7.4):** AntaraX email is one row. Its state comes from the service's `/health` and from the product's own sends: calls in 24 hours, success rate, latest error. **Test provider** sends a `dry_run`: the service renders the email and keeps nothing and sends nothing. Resend is behind the service and never a row of its own in a product's AXLE.
+- **R8 → Capacity (§10.13):** two `messages` resources. One is the product's day's limit in AntaraX email (1,000 by default; security emails get twice the room), measured from the summary. The other is the shared Resend plan, the same in every product's `capacity.json` ([`capacity/README.md`](../capacity/README.md)).
+- **R8 → Configuration (§7.4):** `ANTARAX_EMAIL_URL` and `AX_SVC_KEY`, set or missing, never their values.
+- **Platform → Settings** holds no email templates or sender.
+- **AXLE Central** (later, `axle.antarax.ai`) holds what is shared across products: the service's own health, the Resend plan, the shared bounce list with Lift, and the template catalogue. Until it exists, no product AXLE shows those.
+
 ## 11 Support sessions (std H7)
 
 How REKA support sees an organisation exactly as its people see it, to solve a problem they reported, without asking for screenshots. **In every product** (owner, 15 Oct 2026; std H7 had it as Later). Angka's is the reference. The organisation's side is app SPEC §7 and §13.
@@ -716,6 +747,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **R8 jobs** | Run a job now: it appears with eligible, processed and failed counts; retry failures runs only the failed items |
 | **R8 providers** | Test provider gives a result and a latency; no key or secret appears on the page or in its network responses |
 | **Tickets** | A request sent from the product's Help appears in Watch → Tickets with its page and version; a reply reaches the customer under Help → Your requests; an internal note never does; the product's database holds no ticket |
+| **Email** | An invitation sent from the product appears in Watch → Email with its template and organisation; a test bounce shows as Bounced with the provider's event, lands in Needs a person, and the address then reads "bounced" in Is this address blocked?; no body, link, code or whole address appears on the page or in its network responses; with the switch off, the page is not in the menu |
 | **R8 capacity** | `capacity.json` lists every plan the product runs on and passes `capacity/check.py`; every resource has a limit, a measurement (or a dash and why) and a decision; a resource set to 81% shows on the R8 Overview and sends the email; the outside check notices the product paused |
 | **R8 AI flow** | Every AI feature in the code appears in the manifest and on the page; the five steps add up (asked = every outcome together), and so do model, cache and shared answers; turn-aways are counted; no prompt, photo, answer, reused answer or source text appears on the page or in its network responses |
 | **R8 troubleshoot** | From a Dashboard alert, Troubleshoot opens R8 on that organisation and asset with outside evidence, a timeline and only safe actions; the reading and the conclusion are stored apart |
@@ -743,6 +775,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 16. ~~**AI split.**~~ Decided 15 Oct 2026: AI configuration, including Live trace, stays in Dashboard (std F); provider health and Test provider are R8 → Providers (M5).
 17. ~~**Feedback and tickets.**~~ Decided 16 Oct 2026: they live in YaraOne. AXLE embeds YaraOne's back office as Watch → Tickets and runs everything else (§10.12). How it works was settled with YaraOne the same day ([`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md) v1.0).
 18. ~~**Capacity.**~~ Decided 16 Oct 2026: R8 → Capacity in every product, generic for any provider and any kind of infrastructure, described by each product's `capacity.json` (§10.13).
+19. ~~**Email.**~~ Decided 17 Oct 2026: every product sends through AntaraX email from `mail.antarax.ai`, behind a switch; AXLE reads it as Watch → Email (§10.14). Angka is deferred.
 
 ## 21 What each console changes
 
