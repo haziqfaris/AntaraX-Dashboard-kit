@@ -1,6 +1,6 @@
 # The AntaraX shell for customer apps
 
-**Version 1.3, the standard (owner, 16 Oct 2026; Dashboard kit 1.3.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17). 1.3 adds named saved views to every long list (§11a).
+**Version 1.4, the standard (owner, 16 Oct 2026; 1.4 on 17 Oct 2026, Dashboard kit 1.5.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17). 1.3 adds named saved views to every long list (§11a). 1.4 says where email comes from and which emails a person can turn off (§8).
 
 **The rule (owner, 15 Oct 2026).** AXLE is the same in every product ([axle/](../axle/README.md)). A customer app is the opposite: each product has its own identity, shape, theme and UI. A small shell is the exception. It stays the same in every product so that a customer who uses two AntaraX products, or moves from one to another, always finds the same things in the same places:
 
@@ -149,7 +149,7 @@ Every product has these pages at these addresses. What each holds first is fixed
 
 | Address | Page | Holds first, in this order | Who |
 |---|---|---|---|
-| `/account` | Your account | Name and photo · Email and sign-in (password or Google; two-step sign-in) · Notifications (what is emailed) · Sessions (signed-in devices, "Sign out everywhere") | Everyone |
+| `/account` | Your account | Name and photo · Email and sign-in (password or Google; two-step sign-in) · Emails you get (§8) · Sessions (signed-in devices, "Sign out everywhere") | Everyone |
 | `/settings` | Settings | Organisation (name, logo, time zone, currency) · Members (`/settings/members`) · Plan and billing (`/settings/billing`) · then the product's own sections · API (`/settings/api`, if the product has one) · Your data (download, leave or delete the organisation) last | Admins and Owners change; Members and Viewers read what applies to them |
 | `/settings/members` | Members | Who is in the organisation, their role, last active; Invite; pending invitations with resend and cancel | Admins and Owners |
 | `/settings/billing` | Plan and billing | Current plan and what it includes · usage against limits · invoices · payment method · change plan | Owners |
@@ -248,6 +248,13 @@ For products that have notifications (top bar item 6):
   - unread or read.
 - **At the panel's head:** "Mark all as read". At its foot: "See all", going to the product's own page, and "Notification settings", going to `/account` (which emails a person gets).
 - **Clicking an item** opens the record it is about and marks it read.
+
+**Email** (owner, 17 Oct 2026; brand kit guide/10). Every product sends its email through AntaraX email (antarax-api docs/15), whether or not it has a bell:
+
+- **From the product, never the organisation:** `<Product> <product@mail.antarax.ai>`. Replies go to `support@go.antarax.ai` (brand kit 13 §2). The layout is the service's, drawn from a template (brand kit 13 §4); a product never sends its own HTML.
+- **`/account` → Emails you get** lists every **activity** email the product sends (digests, reminders, alerts, comments, updates), each with its own switch, in plain words ("A daily digest of low stock"). Every activity email carries a one-click unsubscribe that turns off the same switch, with no sign-in, and a link to this page.
+- **Not listed, because they cannot be turned off:** **security** emails (sign-in links and codes, password reset, password or email changed) and **service** emails (invitations, an export that is ready, something the person must act on). The page says so in one line: "Sign-in and account emails always reach you."
+- **When an address bounces,** AntaraX email stops every product mailing it. The product shows it on `/account` beside the email address ("Emails to this address are bouncing. Check it, or change it."), reading it from AntaraX email (`GET /v1/suppressions`).
 
 ## 9 Assist
 
@@ -543,6 +550,7 @@ In every customer app, whatever its own design:
 | **Getting in** | Sign in, invitation, reset and two-step screens hold §6's items; reset never reveals whether an account exists |
 | **Banners** | With two states at once (sample data and a trial ending), both show, in §7's order |
 | **Feedback and support** | Send feedback and Contact support open YaraOne's front office in the product's look; a request arrives in AXLE → Tickets with the page and version; a reply shows under Your requests; no ticket is stored in the product |
+| **Email** | An invitation and a password reset arrive from `<Product> <product@mail.antarax.ai>` and a reply reaches `support@go.antarax.ai`; `/account` lists only activity emails, each with a switch; an activity email's unsubscribe link turns that switch off without signing in; `AX_SVC_KEY` is in no browser bundle |
 | **Assist** | No model, provider, prompt or cost appears in the panel or its network responses |
 | **AI in the interface** | Accept, Change and Dismiss on an AI suggestion each reach the gateway as an outcome. With AI switched off, the gateway's note and the way without AI appear, never an error. After 10 seconds of thinking, the way without AI is offered |
 | **Settings** | Every setting the product has can be found under `/settings`; `/settings/data` downloads the data and deletes with a 30-day undo |

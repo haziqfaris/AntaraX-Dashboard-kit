@@ -1,6 +1,6 @@
 # AXLE mock
 
-The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.0, the standard, with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
+The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.1, the standard, with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
 
 - Live canvas (private until shared): https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr. Press Play on any page; the sidebar links move between pages.
 - The logos load from the canvas's asset store, so open the pages there rather than from disk.
@@ -10,8 +10,9 @@ The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.
 | `Main.dc.html` | Overview | The standard landing page (§8). Tweaks: Finance right, Open access |
 | `Phone.dc.html` | Overview at 390px | The phone top bar and the drawer: the Dashboard · R8 switch (it changes only the menu), the AXLE standard groups, the dashed Janka-only box. Tweak: start with the drawer open |
 | `Tickets.dc.html` | Tickets | YaraOne's back office embedded in Janka's AXLE (§10.12): the desk's views (Triage, Mine, Open, Waiting on client, Overdue, Resolved), an assignee and two clocks per ticket, support requests and feedback, a ticket with what the product sent, the customer thread and the internal one apart, the state the customer sees, and AXLE's own tools one click away (support session, Troubleshoot, Organisation 360). Try: reply to Kumar on YO-1042, switch to Internal, change a state |
+| `Email.dc.html` | Email | Watch → Email for AntaraX email (§10.14): the sending line, two emails that need a person, the last 7 days by status as filters, every email newest first (masked address, organisation, template and its class, status in a word), one email opened with its attempts and what the provider reported, Is this address blocked? (a spam mark can be lifted with the person's request as the reason; a shared bounce cannot, here), and the templates Janka may send. Try: open the Marked as spam row, then Check this address, then lift it. Figures are illustrative |
 | `Organisations.dc.html` | Organisations | Every list (§9): stats strip as filters, search, sort, group, bulk actions, export |
-| `Organisation.dc.html` | Organisation 360 | Readiness checklist, stage stepper, tabs: summary and timeline, members, plan and features, usage, integrations, errors and health, internal notes, branding, audit (§10.3) |
+| `Organisation.dc.html` | Organisation 360 | Readiness checklist, stage stepper, tabs: summary and timeline, members, plan and features, usage, integrations, errors and health, internal notes, email, branding, audit (§10.3) |
 | `CreateOrganisation.dc.html` | New organisation | The five-step guided flow (§10.1) |
 | `PlansFeatures.dc.html` | Plans & features | Plans, feature kinds, "why does this organisation have it?", quota overrides with a reason (§10.5) |
 | `ModelsKeys.dc.html` | Models & keys | Masked keys, test and rotate, model per task with fallbacks, automatic switching and its log (§10.6) |

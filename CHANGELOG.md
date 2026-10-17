@@ -8,6 +8,43 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.5.0 · 17 Oct 2026
+
+Minor: something new to adopt (owner, 17 Oct 2026; brand kit guide/10, "Every product sends email through AntaraX email"). Every product sends its email through AntaraX email (`email.antarax.ai`, antarax-api docs/15, decision 0014), behind a switch; Angka is deferred.
+
+- **axle/SPEC.md v1.1, §10.14 Watch → Email.** This is a new standard page, shown once a product's switch is on. It is read from AntaraX email through the product's server and holds:
+  - the sending line;
+  - the last 7 days by status, as filters;
+  - every email, with a masked address and its template's class;
+  - one email opened, with its attempts and what the provider reported;
+  - **Is this address blocked?** A spam mark can be lifted by Support, with the person's request as the reason; a shared bounce cannot be lifted here;
+  - the templates, read only.
+
+  Never a body, subject, link, code or whole address.
+- **Also in AXLE:**
+  - **Needs a person** counts sign-in and service emails that did not arrive.
+  - **Organisation 360** gains an Email tab, and Branding no longer offers a sender name.
+  - **Platform → Settings** no longer holds email templates or the sender.
+  - **R8 → Providers** has one AntaraX email row; Test provider is a dry run.
+  - **R8 → Capacity** has two `messages` resources.
+  - **R8 → Configuration** shows the two settings as set or missing.
+  - §19 has an Email check, and §20 records the decision.
+- **app/SPEC.md v1.4, §8.**
+  - Email comes from `<Product> <product@mail.antarax.ai>` and replies go to `support@go.antarax.ai`.
+  - `/account` → **Emails you get** lists only activity emails, each with a switch that the email's one-click unsubscribe also turns off.
+  - Security and service emails cannot be turned off.
+  - A bouncing address is shown beside the email.
+  - §17 has an Email check.
+- **capacity/:**
+  - The README gains "Email, through AntaraX email", the two plans and resources every product copies.
+  - The Janka example uses them.
+- **Mocks:**
+  - new `axle/mock/Email.dc.html`;
+  - the sidebar and phone drawer gain Watch → Email (the drawer's stale "Feedback" is now Tickets);
+  - Organisation 360 gains its Email tab, and the sender line is fixed;
+  - Capacity shows AntaraX email's day's limit and the shared Resend plan;
+  - published to the AXLE canvas.
+
 ## 1.4.0 · 16 Oct 2026
 
 The AI framework's finished work, brought into the kit. The framework is at 0.5.0, built in its own session; its `main` still awaits the fast-forward.
