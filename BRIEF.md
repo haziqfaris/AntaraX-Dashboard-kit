@@ -30,7 +30,7 @@ The product chat builds in the product's own repository. If it needs something t
 | R8 → AI flow | Every product with AI features has it, after Providers: the product's AI drawn from its AI manifest, through the five steps (Asked, Allowed, Answered, Checked, Decided) and the five outcomes. Read only; never prompts or answers. The rules for the AI itself are the [AntaraX AI framework](https://github.com/haziqfaris/ai-framework-heuristiks) | §7.4, §10.6.1 |
 | Tickets and feedback | They live in **YaraOne**. AXLE embeds YaraOne's back office as Watch → Tickets; the customer app embeds its front office from Help. No product builds its own ticketing or feedback; AXLE runs everything else | §10.12, [yaraone/EMBEDS.md](yaraone/EMBEDS.md) |
 | Capacity | R8 → Capacity in every product: every plan it runs on, every limit, the trend and when it runs out, what to do, and an outside availability check. Generic for any infrastructure, from the product's `capacity.json` | §10.13, [capacity/](capacity/README.md) |
-| Email | Every product sends through **AntaraX email** (`email.antarax.ai`, from `product@mail.antarax.ai`). AXLE shows Watch → Email, read from the service with the product's service key, and never holds templates, a sender or an address. Every email looks the same everywhere: the brand kit's layout with the family's BaTech band and, on first emails, the product's motif. Angka is deferred | [SPEC §10.14](axle/SPEC.md#1014-email-antarax-email-as-this-product-sees-it-owner-17-oct-2026); brand kit `guide/13` §4 and `assets/email/`; antarax-api `docs/15` |
+| Email | Every product sends through **AntaraX email** (`email.antarax.ai`, from `product@mail.antarax.ai`). AXLE shows Watch → Email, read from the service with the product's service key, and never holds templates, a sender or an address. AXLE Central → Email shows every product's email, the service's alerts and health, and is the only place a shared bounce is lifted (Admin). Every email looks the same everywhere: the brand kit's layout with the family's BaTech band and, on first emails, the product's motif. Angka is deferred | [SPEC §10.14](axle/SPEC.md#1014-email-antarax-email-as-this-product-sees-it-owner-17-oct-2026); brand kit `guide/13` §4 and `assets/email/`; antarax-api `docs/15` |
 | Figures | Real and clickable. Money is grouped by currency. A hidden or unknown figure is a dash with the reason, never `0` | §3, §13.1 |
 | Values | Every colour and size comes from [`axle/tokens.css`](axle/tokens.css), generated from the brand kit (tokens 1.9.0) | [README](README.md#connected-to-the-brand-kit) |
 
@@ -93,7 +93,7 @@ Scores are from the AXLE scorecard in the gallery, out of 8. "Own pages" go in t
 - **Not mocked yet:**
   - R8 → Services in the new layout (the current page is the older Health layout);
   - each product's own pages;
-  - AXLE Central;
+  - AXLE Central, apart from its Email page (`axle/mock/CentralEmail.dc.html`, SPEC §10.14);
   - the standard customer dashboard (step 2 in [README](README.md)).
 
 ## Changing the standard

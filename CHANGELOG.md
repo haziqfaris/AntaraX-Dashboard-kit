@@ -8,6 +8,25 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.6.0 · 18 Oct 2026
+
+Minor: a new page to adopt in AXLE Central (owner, 18 Oct 2026; brand kit guide/10, the email look decided on 18 Oct 2026). AntaraX email is live with AXLE Central's operator-only routes (antarax-api 0.7.5, docs/15 §15.10), so Central gets its Email page.
+
+- **axle/SPEC.md v1.2, §10.14 In AXLE Central.** Email across every product, read through `/internal/axle/v1/email/` with Central's own key:
+  - the sending line for the whole service;
+  - **Needs a person** first: open alerts, worst first, each naming the product, in words, with since when, opening the list filtered to it;
+  - a row per product: sent, delivered, bounced, spam, failed, delivery rate, its day's limit used, its alert in a word; Angka as "Deferred: sends its own email";
+  - the last 7 days by status as filters, and every email across products with a product column and filter;
+  - one email opened, with attempts and provider events, and a link into the product's AXLE;
+  - **Is this address blocked?** across every product: **Lift the bounce** only here, Admin rung, the person's request as the reason, audited with the masked address; spam marks listed with their product and lifted in that product's AXLE;
+  - the alerts, open and cleared in 7 days, also emailed hourly to the operators;
+  - the service: production and staging, Resend, the sending domain, replies, delivery reports last heard.
+
+  The old "AXLE Central (later)" bullet is replaced; product AXLEs are unchanged.
+- **Mocks:**
+  - new `axle/mock/CentralEmail.dc.html`, on the canvas beside Email. It imports the product sidebar and top bar, as no Central variant exists yet (the mock README says so);
+  - `Email.dc.html` uses only brand tokens again (`sync-brand-kit.py --check` failed on eight colours): the selected row is the selected-row tint with an orange border, no side stripe, and the template class chips and the disabled lift button use AXLE tokens.
+
 ## 1.5.1 · 18 Oct 2026
 
 - `BRIEF.md`: Email is in what is decided, and the rendered email reference in where things are. AntaraX email is live (antarax-api 0.7.4) and every email now carries the brand kit's layout with the family's BaTech band (brand kit, decisions of 18 Oct 2026). Nothing for a product to change in its AXLE.

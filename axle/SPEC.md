@@ -1,6 +1,6 @@
 # AXLE standard
 
-**Version 1.1, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
+**Version 1.2, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds AXLE Central → Email, the same service seen across every product (§10.14, In AXLE Central). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
 
 It merges two sources:
 
@@ -596,7 +596,25 @@ Every support request and piece of feedback from every product lives in **YaraOn
 - **R8 → Capacity (§10.13):** two `messages` resources. One is the product's day's limit in AntaraX email (1,000 by default; security emails get twice the room), measured from the summary. The other is the shared Resend plan, the same in every product's `capacity.json` ([`capacity/README.md`](../capacity/README.md)).
 - **R8 → Configuration (§7.4):** `ANTARAX_EMAIL_URL` and `AX_SVC_KEY`, set or missing, never their values.
 - **Platform → Settings** holds no email templates or sender.
-- **AXLE Central** (later, `axle.antarax.ai`) holds what is shared across products: the service's own health, the Resend plan, the shared bounce list with Lift, and the template catalogue. Until it exists, no product AXLE shows those.
+- **AXLE Central** holds what is shared across products; see below. No product AXLE shows the service's own health, other products' emails or Lift the bounce.
+
+**In AXLE Central** (owner, 18 Oct 2026; mock `CentralEmail`). **Email** is the cross-product page for AntaraX email at `axle.antarax.ai`, in Central's Watch group. Central reads the service through operator-only routes under `/internal/axle/v1/email/`, signed with Central's own key (antarax-api 0.7.5, docs/15 §15.10). The key never reaches the browser, and no product's AXLE can call these routes. The same never-shown rule applies: no body, subject, link, code or whole address.
+
+| Part | Holds | From |
+|---|---|---|
+| **Sending line** | The whole service: how many products send from `mail.antarax.ai`, each as itself; replies to `support@go.antarax.ai`; Resend behind the service; Angka deferred | The senders, as in each product |
+| **Needs a person** | First on the page: the open alerts, worst first (security emails failed, then Resend failing, no delivery reports, spam reports, bounces, the day's limit). Each names the product (or every product), says what happened in words, gives since when and last seen, and opens the list filtered to that product and status | `GET /internal/axle/v1/email/alerts` |
+| **Products** | One row per product: sent, delivered, bounced, spam, failed, delivery rate, its day's limit used today (a bar that turns warn at 80%), and its alert in a word ("No alert", "Bounces high"). Choosing a row filters the list. Angka has a row reading "Deferred: sends its own email". A total row adds up every product | `GET /internal/axle/v1/email/summary?days=` (`by_product`, `alerts_open`) |
+| **Stats strip** | The last 7 days by status, each a filter (§9), for every product or the one chosen | The same summary |
+| **The list** (§9) | Every product's emails, newest first: when, **product**, template and its class, to (masked), organisation, status in a word. Filters: product, status, template, organisation, since; the service's cursor; CSV export (`axle-central-email-<date>.csv`) | `GET /internal/axle/v1/email/emails?service=&status=&template=&tenant_id=&since=&cursor=` |
+| **One email, opened** | As in a product (its attempts and what the provider reported, oldest first, the reason in words, then the code), plus the product, and **Open in ‹Product›'s AXLE** at the same email (§18) | `GET /internal/axle/v1/email/emails/{id}` |
+| **Is this address blocked?** | Across every product. A **shared bounce** stops every product; **Lift the bounce** is allowed only here, needs the **Admin** rung and the person's request as the reason, and is audited with the masked address. Each **spam mark** is listed with the product it belongs to and what it stops; it is lifted in that product's AXLE by Support, not here | `GET` and `DELETE /internal/axle/v1/email/suppressions?email=&scope=` (`scope=all` lifts the bounce) |
+| **Alerts** | Open alerts and those cleared in the last 7 days: state in a word, the alert, the product or every product, what happened, first seen, last seen, cleared | `GET /internal/axle/v1/email/alerts` |
+| **The service** | Production (`email.antarax.ai`) and staging (`email-staging.antarax.ai`, team addresses only), each in a word; Resend; the sending domain verified; the reply address; when the delivery reports (Resend's webhook) were last heard; the deployed version | The service's health |
+
+**The alerts** are the service's own: **Security emails failed** (any), **Bounces above 2%**, **Spam reports above 0.1%**, **Near its day's limit** (80%), **Resend is failing**, **No delivery reports**. Each is for one product or for every product. The service also emails every open alert to the operators every hour until it clears, so no one has to keep this page open.
+
+The template catalogue is not on this page: the templates are antarax-api's, and their rendered look is the brand kit's `assets/email/` (brand kit, 18 Oct 2026). Until Central's shared sidebar exists, the mock imports the product sidebar; Central's own menu adds the Products group and has no product box (§7.2).
 
 ## 11 Support sessions (std H7)
 
