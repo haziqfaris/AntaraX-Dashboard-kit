@@ -1,6 +1,6 @@
 # The AntaraX shell for customer apps
 
-**Version 1.5, the standard (owner, 16 Oct 2026; 1.4 on 17 Oct 2026, Dashboard kit 1.5.0; 1.5 on 18 Oct 2026, Dashboard kit 1.7.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17). 1.3 adds named saved views to every long list (§11a). 1.4 says where email comes from and which emails a person can turn off (§8). 1.5 moves signing in and passwords (§15.1) into their own standard, [getting-in/SPEC.md](../getting-in/SPEC.md).
+**Version 1.6, the standard (owner, 16 Oct 2026; 1.4 on 17 Oct 2026, Dashboard kit 1.5.0; 1.5 on 18 Oct 2026, Dashboard kit 1.7.0; 1.6 on 18 Oct 2026, Dashboard kit 1.8.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17). 1.3 adds named saved views to every long list (§11a). 1.4 says where email comes from and which emails a person can turn off (§8). 1.5 moves signing in and passwords (§15.1) into their own standard, [getting-in/SPEC.md](../getting-in/SPEC.md). 1.6 moves confirming, waiting and results (§11) into [actions/SPEC.md](../actions/SPEC.md).
 
 **The rule (owner, 15 Oct 2026).** AXLE is the same in every product ([axle/](../axle/README.md)). A customer app is the opposite: each product has its own identity, shape, theme and UI. A small shell is the exception. It stays the same in every product so that a customer who uses two AntaraX products, or moves from one to another, always finds the same things in the same places:
 
@@ -296,11 +296,10 @@ Every product embeds **YaraOne's front office** for feedback and support request
 
 What they say and how they behave are shared; how they look is the product's own.
 
-- **Confirming a destructive action:**
-  - name the thing and the consequence;
-  - the button names the action ("Delete Tegap Fabrication");
-  - deleting an organisation asks for its name to be typed.
-- **Toasts:** past tense, one line ("Invitation sent"), with Undo where it can be undone, at the bottom of the page, away from the top bar.
+- **Confirming, waiting and results** are their own standard: [actions/SPEC.md](../actions/SPEC.md) (kit 1.8.0). In short:
+  - every action is at one of three levels: undoable (no question, Undo), consequential (a dialog naming the action and the thing), irreversible (type the name and ask again);
+  - what a person sees while it runs depends on how long it takes: the button under 2 seconds, a progress dialog over, a background job for long ones;
+  - every action ends in a past-tense toast naming the thing, with Undo where it can be undone, at the bottom of the page, away from the top bar; errors say what failed and what to do, with Retry.
 - **Error pages:**
   - "We can't find that page" (404) or "Something went wrong on our side" (500);
   - with a link home, Help, and the request id in small mono type.

@@ -200,3 +200,35 @@
 .ax-pw-meter[data-score="3"] .ax-pw-bar span { width: 75%; background: var(--ax-pw-ok); }
 .ax-pw-meter[data-score="4"] .ax-pw-bar span { width: 100%; background: var(--ax-pw-ok); }
 @media (prefers-reduced-motion: reduce) { .ax-pw-bar span { transition: none; } }
+
+/* ConfirmDialog and ProgressDialog (actions/SPEC.md §5). The look is the product's own; these rules give the
+   parts their places, the danger button its meaning and the steps their states. */
+.ax-dialog-backdrop { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 16px;
+  background: rgba(11, 27, 79, .48); font-family: var(--shell-font); }
+.ax-dialog { width: 100%; max-width: 460px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; padding: 24px;
+  border-radius: 20px; background: var(--shell-surface); color: var(--shell-ink); border: 1px solid var(--shell-line); box-shadow: 0 24px 60px -20px rgba(11, 27, 79, .45); }
+@media (max-width: 600px) { .ax-dialog-backdrop { align-items: flex-end; padding: 0; } .ax-dialog { max-width: none; border-radius: 20px 20px 0 0; padding-bottom: max(24px, env(safe-area-inset-bottom)); } }
+.ax-dialog-title { margin: 0; font-size: 18px; font-weight: 600; }
+.ax-dialog-body { font-size: 14px; line-height: 1.5; }
+.ax-dialog-type { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.ax-dialog-type input { height: 44px; box-sizing: border-box; padding: 0 12px; border-radius: 12px; border: 1px solid var(--shell-line); background: var(--shell-surface); color: inherit; font: inherit; }
+.ax-dialog-error { margin: 0; padding: 10px 12px; border-radius: 10px; background: #FEECEB; color: #B42318; font-size: 13px; }
+.ax-dialog-actions { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+.ax-dialog-actions button { min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--shell-line); background: var(--shell-surface); color: var(--shell-ink); font: inherit; font-weight: 500; cursor: pointer; }
+.ax-dialog-actions .is-action { border: 0; background: var(--shell-action); color: var(--shell-on-action); font-weight: 600; }
+.ax-dialog-actions .is-danger { border: 0; background: #B42318; color: #FFFFFF; font-weight: 600; }
+.ax-dialog-actions button:disabled { opacity: .5; cursor: not-allowed; }
+.ax-dialog :focus-visible { outline: 2px solid var(--shell-focus); outline-offset: 2px; }
+.ax-progress-head { display: flex; align-items: center; gap: 12px; }
+.ax-progress-loader { flex: none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+.ax-progress-bar { height: 6px; border-radius: 999px; background: var(--shell-line); overflow: hidden; }
+.ax-progress-bar span { display: block; height: 100%; background: var(--shell-action); border-radius: 999px; transition: width .3s ease; }
+.ax-progress-count p, .ax-progress-note { margin: 6px 0 0; font-size: 13px; }
+.ax-progress-steps { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+.ax-progress-steps li { display: flex; align-items: center; gap: 10px; }
+.ax-progress-steps li > span[aria-hidden] { width: 10px; height: 10px; border-radius: 999px; border: 2px solid var(--shell-line); }
+.ax-progress-steps li[data-state="done"] > span[aria-hidden] { background: #12B76A; border-color: #12B76A; }
+.ax-progress-steps li[data-state="now"] > span[aria-hidden] { border-color: var(--shell-action); background: var(--shell-subtle-tint); }
+.ax-progress-steps li[data-state="to-come"] { color: color-mix(in srgb, var(--shell-ink) 55%, transparent); }
+.ax-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .ax-progress-bar span { transition: none; } }

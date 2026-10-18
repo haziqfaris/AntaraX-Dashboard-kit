@@ -8,6 +8,26 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.8.0 · 18 Oct 2026
+
+Minor: something new to adopt (owner, 18 Oct 2026; brand kit guide/10).
+
+- **actions/SPEC.md v1.0, a new standard for acting:** what happens when a person presses a button, in every customer app and every AXLE.
+  - **§1, the bare minimum:** AC-01 to AC-12. No browser pop-ups; buttons that name the action and the thing; a visible busy state with no double submit; a result for every action; written errors with Retry; "Discard changes?"; accessible dialogs; bulk actions that report each item.
+  - **§2, three levels of confirmation:**
+    - undoable: no question, Undo for 8 seconds, Trash for 30 days;
+    - consequential: a dialog;
+    - irreversible: type the name and ask again for the password or a code; in AXLE, a second person too; more than 50 at once types the count.
+  - **§3, by how long it takes:** the button under 2 seconds, a progress dialog with a count or steps over 2 seconds, a background job with a jobs panel over 30 seconds, and a way out after 10 seconds.
+  - **§4–§7:** the result, dialogs, unsaved changes, the words.
+  - **§10:** what each product and AXLE does today, read from the code on 18 Oct 2026, including the actions that destroy something with no question and the places where the screen says one thing and the code does another.
+  - **§11:** what each product changes, in order.
+- **New pieces:**
+  - `app/reference/`: `ConfirmDialog.jsx` (Level 2 and 3), `ProgressDialog.jsx` and `useAction.js`, with styles in `shell.css`;
+  - `tools/check-actions.mjs`: finds browser pop-ups, OK/Yes buttons and raw error messages.
+- **Mocks:** `app/mock/ActionsScreens.dc.html` draws 22 states. Eight boards, `Actions<Product>.dc.html`, show it in each product's colours with its own records; renders and values tables are included.
+- **app/SPEC.md 1.6:** §11 points to the new standard. **axle/SPEC.md 1.3:** §14 points to it, and irreversible actions ask again for the password or a code.
+
 ## 1.7.0 · 18 Oct 2026
 
 Minor: something new to adopt (owner, 18 Oct 2026; brand kit guide/10).

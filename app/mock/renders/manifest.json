@@ -1,5 +1,53 @@
 {
   "renders": {
+    "ActionsAXFrame.png": {
+      "mock": "ActionsAXFrame.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "6ed823ecb6169c27"
+    },
+    "ActionsAngka.png": {
+      "mock": "ActionsAngka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "8ee286fe76058b64"
+    },
+    "ActionsJanka.png": {
+      "mock": "ActionsJanka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "4b46cd629c164f83"
+    },
+    "ActionsPLExyzCrowd.png": {
+      "mock": "ActionsPLExyzCrowd.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "65e5e0d3091f0f75"
+    },
+    "ActionsPLExyzGrid.png": {
+      "mock": "ActionsPLExyzGrid.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "d734c6a99d6c4c4c"
+    },
+    "ActionsTinara.png": {
+      "mock": "ActionsTinara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "19dc06256a934d2b"
+    },
+    "ActionsYara.png": {
+      "mock": "ActionsYara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "39865e0593ffdc0a"
+    },
+    "ActionsYaraOne.png": {
+      "mock": "ActionsYaraOne.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "a28218774efe1925"
+    },
     "Admin.png": {
       "mock": "Admin.dc.html",
       "props": {},

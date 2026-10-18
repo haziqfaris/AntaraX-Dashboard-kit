@@ -1,0 +1,15 @@
+<!-- values for ActionsPLExyzCrowd.dc.html, source 65e5e0d3091f0f75 -->
+Every value below is read from the mock, which draws `ActionsScreens.dc.html` for PLExyz Crowd. **Standard** rows hold in every product (actions/SPEC.md section in brackets). **Own** rows are how this board draws PLExyz Crowd's side, from its palette in `brand/product-palettes.json` and its own records.
+
+| Part | Value | Kind |
+|---|---|---|
+| States | Level 1 (Deleted with Undo, Archived with Undo, Trash, Restored) · Level 2 (Remove a member, Revoke a key, Cancel the plan, It failed inside the dialog) · Level 3 (Delete the organisation, Name typed and asking again, Deleting, Delete 90 at once) · While it runs (Button busy, Progress with a count, Progress in steps, Background job) · The result (Saved, It failed with Retry, Field errors, Some of many failed, Offline, Discard changes?): 22 | Standard (§2–§6) |
+| Level 1 | No question; a dark toast "Event Merdeka Run 2026 deleted" with Undo; Trash keeps events 30 days with Restore | Standard (§2) |
+| Level 2 | A dialog over the dimmed page: the title asks the question with the thing named, the body says what happens, Cancel first, the action button names the action and the thing in `#B42318` ("Remove Daniel Ong", and "Revoke" with the key's name); "Cancel your plan?": you keep it until 14 Nov 2026, then move to the free plan; an error stays inside the dialog | Standard (§2, §5) |
+| Level 3 | The body lists what goes (14 events, 86,200 check-ins and 32 venues); "Type Dewan Seri Events to confirm"; the button stays pale until the name is typed; then "Your password" with Show; while it runs, Cancel is off and the button reads "Deleting…" with the dots loader. Bulk: "Type 90 to confirm", no password because the items go to Trash | Standard (§2, AC-03) |
+| While it runs | Button: "Saving…" with dots, Cancel off. Progress dialog: "Importing 12,400 attendees", a 6px bar at 25% with the count in mono, Cancel and Run in background. Steps: done `#12B76A`, now in the action colour, to come grey. Jobs panel: Cancel on each running job, Download when done, toast "Import started · See progress" | Standard (§3) |
+| The result | Saved: dark toast. Failed: a toast on `#FEECEB` in `#B42318` with Retry that stays. Field: a 1px `#B42318` border with the message under it. Bulk: `#FEF4E6` alert "88 of 90 events updated. 2 couldn't be." with Retry per item. Offline: a note on the tint. Discard changes? with Keep editing as the main button | Standard (§4, §6) |
+| Action colour | `#6040CC` with white text; tint `#F6F6FE` | Own (PLExyz Crowd) |
+| Card radius | 24px; frames at most 20px | Own (PLExyz Crowd) |
+| Buttons and fields | 36px and 38px drawn (44px in the product), radius 12px | Own (PLExyz Crowd); 44px standard |
+| Example records | Dewan Seri Events (organisation), Event Merdeka Run 2026, Daniel Ong, Alert webhook “Ops channel”; all fictional | Own |

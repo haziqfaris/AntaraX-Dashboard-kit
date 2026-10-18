@@ -1,6 +1,6 @@
 # AXLE standard
 
-**Version 1.2, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
+**Version 1.3, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0; 1.3 on 18 Oct 2026, Dashboard kit 1.8.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). 1.3 points §14 to [actions/SPEC.md](../actions/SPEC.md) and asks again for the password or a code on irreversible actions. This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
 
 It merges two sources:
 
@@ -684,10 +684,13 @@ Each banner says what is on, since when, and links to Settings.
 
 ## 14 Actions and confirmations (std L6)
 
+[actions/SPEC.md](../actions/SPEC.md) (kit 1.8.0) holds the rules for confirming, waiting and results in AXLE as in every customer app. What is AXLE's own:
+
 - **No browser pop-ups.** In-app dialogs only, never `alert()`, `confirm()` or `prompt()`.
 - **Destructive actions** name the thing and the consequence, ask for a reason, and their button names the action ("Suspend Acme Plastics").
-- **Irreversible actions:** typed confirmation plus a second person.
+- **Irreversible actions** (actions/SPEC.md Level 3): the typed name, asking again for the password or a code, and a second person.
 - **After any action:** a past-tense toast, with Undo where possible.
+- The three confirmation levels in actions/SPEC.md are not the R8 safety levels below: those decide who may run an operation at all.
 
 ### 14.1 R8 safety levels (std M12, M13)
 

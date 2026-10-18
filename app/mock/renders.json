@@ -331,6 +331,30 @@
     },
     {
       "mock": "GettingInYaraOne.dc.html"
+    },
+    {
+      "mock": "ActionsYara.dc.html"
+    },
+    {
+      "mock": "ActionsYaraOne.dc.html"
+    },
+    {
+      "mock": "ActionsAXFrame.dc.html"
+    },
+    {
+      "mock": "ActionsJanka.dc.html"
+    },
+    {
+      "mock": "ActionsPLExyzGrid.dc.html"
+    },
+    {
+      "mock": "ActionsPLExyzCrowd.dc.html"
+    },
+    {
+      "mock": "ActionsAngka.dc.html"
+    },
+    {
+      "mock": "ActionsTinara.dc.html"
     }
   ]
 }

@@ -12,6 +12,9 @@ The shell's top bar, its two menus, the list toolbar and the password field in p
 | `ListToolbar.jsx` | Saved views, search, filters, sort, group, view and CSV for a long list (§11a), and `NoMatch` |
 | `useListState.js` | A list's state kept in the address and per person; `useSavedViews` for its named views; `toCsv`, `csvName`, `downloadCsv` |
 | `PasswordField.jsx` | A password field to [getting-in/SPEC.md](../../getting-in/SPEC.md) §4: Show, the Caps Lock warning, `autocomplete`, and for a new password the strength meter in words (pass zxcvbn-ts as `estimate`) |
+| `ConfirmDialog.jsx` | A Level 2 or 3 confirmation ([actions/SPEC.md](../../actions/SPEC.md) §2, §5): the title as the question, the button naming the action, the safe choice focused first, a typed name and asking again for Level 3, busy and error inside the dialog |
+| `ProgressDialog.jsx` | The progress dialog for actions over 2 seconds (actions §3): the product's loader, a count or steps, Cancel and Run in background |
+| `useAction.js` | One action's busy state, no double submit, its result and its error in words, Retry (actions AC-05, AC-08, AC-09) |
 | `useMenu.js` | Focus, arrow keys, Tab kept inside, Escape and a click outside, for both menus |
 | `icons.jsx` | The six icons, inline |
 | `shell.css` | Every style, from `--shell-*` variables only |
