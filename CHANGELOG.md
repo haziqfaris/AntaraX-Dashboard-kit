@@ -8,6 +8,10 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.5.1 · 18 Oct 2026
+
+- `BRIEF.md`: Email is in what is decided, and the rendered email reference in where things are. AntaraX email is live (antarax-api 0.7.4) and every email now carries the brand kit's layout with the family's BaTech band (brand kit, decisions of 18 Oct 2026). Nothing for a product to change in its AXLE.
+
 ## 1.5.0 · 17 Oct 2026
 
 Minor: something new to adopt (owner, 17 Oct 2026; brand kit guide/10, "Every product sends email through AntaraX email"). Every product sends its email through AntaraX email (`email.antarax.ai`, antarax-api docs/15, decision 0014), behind a switch; Angka is deferred.
