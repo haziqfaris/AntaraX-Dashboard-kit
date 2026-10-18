@@ -2,7 +2,7 @@
 
 The standard dashboards for everything REKA builds: AntaraX products, REKA's client projects, and the AXLE console both share. It sits beside the [AntaraX brand kit](https://github.com/haziqfaris/AntaraX-brand-kit), which stays the source of truth for names, colour, type and the AntaraX layer.
 
-**Version 1.7.0** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)).
+**Version 1.8.0** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)).
 
 ## Where it stands
 

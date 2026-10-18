@@ -12,7 +12,7 @@ Any work on a product's AXLE uses the template in `axle/`; that includes a new p
 
 ## When working in another repository on a customer app
 
-A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. Follow `app/README.md` and `app/SPEC.md` (v1.3, the standard). Everything the spec does not name is the product's own; a new shared rule goes into the spec first, never into one product.
+A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. Follow `app/README.md` and `app/SPEC.md` (v1.6, the standard). Everything the spec does not name is the product's own; a new shared rule goes into the spec first, never into one product.
 
 - **Before planning, write a gap table** (owner, 16 Oct 2026). Open the closest product's mock PNG (`app/mock/renders/AppBar-<product>-wide.png` and `-phone.png`, and the board for the page) and its `.values.md`. List every difference between the product, the mock and the spec, with what you will do about each. Where the spec says "the product's own", say what the product chose and why. Put the table in your plan before any code.
 - **Take values from `app/tokens.css`**, never from prose or by measuring a mock by eye. `app/reference/` shows them built.
@@ -21,6 +21,15 @@ A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oc
 ## When working in another repository on a REKA client project
 
 A client project carries the client's brand and must never look like an AntaraX product (owner, 16 Oct 2026). Follow `project/README.md` and `project/SPEC.md`: the shell's places from `app/SPEC.md`, the neutral base, "Built by REKA" in the footer, the stack in SPEC §5. Never use an AntaraX font, colour, mark or word; check with `python3 tools/sync-brand-kit.py --project PATH`. Its AXLE follows `axle/` like any product's.
+
+## Getting in and acting
+
+Every customer app and every AXLE meets two more standards (owner, 18 Oct 2026):
+
+- **`getting-in/SPEC.md`:** signing in, passwords, sign-in links, two-step sign-in, sessions and account changes. Its §1 (GI-01 to GI-20) is the bare minimum before release. §14 says what each product had on 18 Oct 2026 and §15 what each changes. Check with `node tools/check-signin.mjs` against the running product.
+- **`actions/SPEC.md`:** confirming, waiting and results. Its §1 (AC-01 to AC-12) is the bare minimum. Every action is at one of three levels, and what a person sees while it runs depends on how long it takes. §10 says what each product does today and §11 what each changes. Check with `node tools/check-actions.mjs PATH` on the product's source.
+
+The reference pieces are in `app/reference/`: `PasswordField`, `ConfirmDialog`, `ProgressDialog` and `useAction`. Each product's screens are drawn in `app/mock/GettingIn<Product>.dc.html` and `app/mock/Actions<Product>.dc.html`, with PNGs in `app/mock/renders/` and values beside them.
 
 ## Capacity
 
