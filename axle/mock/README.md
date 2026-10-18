@@ -1,12 +1,13 @@
 # AXLE mock
 
-The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.1, the standard, with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
+The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.2, the standard, with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
 
 - Live canvas (private until shared): https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr. Press Play on any page; the sidebar links move between pages.
 - The logos load from the canvas's asset store, so open the pages there rather than from disk.
 
 | File | Page | Shows |
 |---|---|---|
+| `SignIn.dc.html` | Sign in to AXLE | The one sign-in page every AXLE shares (§5.1.1), from AX Frame's: navy ground with the dotted blueprint, the AntaraX A and AXLE, Continue with Google, or email and password, then a six-digit code, and one AntaraX-blue Sign in. Tweaks: the product, and the state to start in (sign in, two-step, wrong door). Try: Sign in, then Use a backup code |
 | `Main.dc.html` | Overview | The standard landing page (§8). Tweaks: Finance right, Open access |
 | `Phone.dc.html` | Overview at 390px | The phone top bar and the drawer: the Dashboard · R8 switch (it changes only the menu), the AXLE standard groups, the dashed Janka-only box. Tweak: start with the drawer open |
 | `Tickets.dc.html` | Tickets | YaraOne's back office embedded in Janka's AXLE (§10.12): the desk's views (Triage, Mine, Open, Waiting on client, Overdue, Resolved), an assignee and two clocks per ticket, support requests and feedback, a ticket with what the product sent, the customer thread and the internal one apart, the state the customer sees, and AXLE's own tools one click away (support session, Troubleshoot, Organisation 360). Try: reply to Kumar on YO-1042, switch to Internal, change a state |

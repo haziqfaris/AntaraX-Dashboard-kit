@@ -8,6 +8,26 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.6.0 · 18 Oct 2026
+
+Minor: something new to adopt (owner, 18 Oct 2026; brand kit guide/10).
+
+- **axle/SPEC.md v1.2, §5.1.1: the sign-in page every AXLE shares.** It is built from AX Frame's: the navy ground with the dotted blueprint, one card, the AntaraX A and `AXLE`, and "‹Product› · REKA staff console". Staff sign in with Continue with Google (REKA's company accounts, with Google's 2-Step Verification required) or with email and password followed by a six-digit code. The one Sign in is **AntaraX blue `#0459F7`**, the only place in AXLE whose main action is not orange.
+
+  From Yara's page the standard keeps:
+  - **Wrong door:** someone who isn't staff is signed out at once and pointed to the product's own sign-in.
+  - **Links:** Help, Privacy and Terms.
+
+  The words are fixed:
+  - Sign in, never Log in or Enter AXLE;
+  - Authorised, never Authorized.
+- **Also in the AXLE spec:**
+  - §4's accent row names the exception;
+  - §5.1 states both ways in and the wrong-door rule;
+  - §19 has a Sign-in check;
+  - §20 records the decision.
+- **Mock:** new `axle/mock/SignIn.dc.html`, with tweaks for the product and the starting state (sign in, two-step, wrong door). It is the first board on the AXLE canvas.
+
 ## 1.5.0 · 17 Oct 2026
 
 Minor: something new to adopt (owner, 17 Oct 2026; brand kit guide/10, "Every product sends email through AntaraX email"). Every product sends its email through AntaraX email (`email.antarax.ai`, antarax-api docs/15, decision 0014), behind a switch; Angka is deferred.
