@@ -1,4 +1,4 @@
-<!-- values for GettingInYara.dc.html, source cc8ce44f896a11b0 -->
+<!-- values for GettingInYara.dc.html, source a66ab4e187ba69ca -->
 Every number below is read from the mock, which draws `GettingInScreens.dc.html` for Yara. **Standard** rows hold in every product (getting-in/SPEC.md section in brackets); **own** rows are how this board draws Yara's side, from its palette in `brand/product-palettes.json`.
 
 | Part | Value | Kind |

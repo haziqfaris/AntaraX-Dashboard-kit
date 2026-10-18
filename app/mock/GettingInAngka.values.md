@@ -1,4 +1,4 @@
-<!-- values for GettingInAngka.dc.html, source 487096c97fd435fa -->
+<!-- values for GettingInAngka.dc.html, source 078aa0582be9d8dd -->
 Every number below is read from the mock, which draws `GettingInScreens.dc.html` for Angka. **Standard** rows hold in every product (getting-in/SPEC.md section in brackets); **own** rows are how this board draws Angka's side, from its palette in `brand/product-palettes.json`.
 
 | Part | Value | Kind |

@@ -328,6 +328,9 @@
     },
     {
       "mock": "GettingInTinara.dc.html"
+    },
+    {
+      "mock": "GettingInYaraOne.dc.html"
     }
   ]
 }

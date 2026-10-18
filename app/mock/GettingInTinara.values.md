@@ -1,4 +1,4 @@
-<!-- values for GettingInTinara.dc.html, source 82ec2981c65ba27d -->
+<!-- values for GettingInTinara.dc.html, source 1e321d2ebd13fa42 -->
 Every number below is read from the mock, which draws `GettingInScreens.dc.html` for Tinara. **Standard** rows hold in every product (getting-in/SPEC.md section in brackets); **own** rows are how this board draws Tinara's side, from its palette in `brand/product-palettes.json`.
 
 | Part | Value | Kind |

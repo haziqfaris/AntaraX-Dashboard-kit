@@ -1,4 +1,4 @@
-<!-- values for GettingInAXFrame.dc.html, source 00e735a83d3a1b1f -->
+<!-- values for GettingInAXFrame.dc.html, source 2615aecf338bd362 -->
 Every number below is read from the mock, which draws `GettingInScreens.dc.html` for AX Frame. **Standard** rows hold in every product (getting-in/SPEC.md section in brackets); **own** rows are how this board draws AX Frame's side, from its palette in `brand/product-palettes.json`.
 
 | Part | Value | Kind |

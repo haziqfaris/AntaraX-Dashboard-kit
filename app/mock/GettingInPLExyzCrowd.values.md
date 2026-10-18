@@ -1,4 +1,4 @@
-<!-- values for GettingInPLExyzCrowd.dc.html, source afe26489ba28f2c5 -->
+<!-- values for GettingInPLExyzCrowd.dc.html, source 7985efd74032d27e -->
 Every number below is read from the mock, which draws `GettingInScreens.dc.html` for PLExyz Crowd. **Standard** rows hold in every product (getting-in/SPEC.md section in brackets); **own** rows are how this board draws PLExyz Crowd's side, from its palette in `brand/product-palettes.json`.
 
 | Part | Value | Kind |

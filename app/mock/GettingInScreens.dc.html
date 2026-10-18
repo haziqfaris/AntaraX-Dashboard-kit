@@ -77,13 +77,14 @@ body{margin:0;background:#F5F7FC}
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"product":{"editor":"enum","options":["yara","frame","janka","grid","crowd","angka","tinara"],"default":"janka"},"$preview":{"width":1440,"height":6400}}'>
+<script type="text/x-dc" data-dc-script data-props='{"product":{"editor":"enum","options":["yara","yaraone","frame","janka","grid","crowd","angka","tinara"],"default":"janka"},"$preview":{"width":1440,"height":6400}}'>
 class Component extends DCLogic {
   renderVals() {
     // Each product's colours from the brand kit's product palettes (brand/product-palettes.json), its card
     // radius from the shell (app/tokens.css), and what is particular to it (getting-in/SPEC.md §2, §14).
     var P = {
       yara: { name: 'Yara', local: 'yara', host: 'yara.antarax.ai', mark: '/_blob/44c518a68fd732aff2ace614c736976b', action: '#098284', tint: '#EEF9F9', subtle: '#DAF3F3', onTint: '#044F51', line: '#E1EAEA', input: '#869696', sunken: '#F7FBFB', link: '#098284', radius: 24, ctrl: 12, org: 'Tegap Fabrication', domain: 'tegap', signup: false, workers: true },
+      yaraone: { name: 'YaraOne', local: 'yaraone', host: 'yo.antarax.ai', mark: '/_blob/bcaeecc00b01b4ba760ab062625b00b7', action: '#087F5B', tint: '#F0F9F5', subtle: '#DFF2E9', onTint: '#01523A', line: '#E3EAE6', input: '#89968F', sunken: '#F8FBF9', link: '#087F5B', radius: 24, ctrl: 12, org: 'Sinar Digital', domain: 'sinar-digital', signup: false, codeLabel: 'Password or code', extraNote: 'Clients sign in with the code their team set, or a sign-in link (YaraOne docs/16); there is no sign-up.' },
       frame: { name: 'AX Frame', local: 'frame', host: 'frame.antarax.ai', mark: '/_blob/4465d40a6045e7213803d41ebd2d541f', action: '#074AF8', tint: '#F3F7FE', subtle: '#E4EDFF', onTint: '#002EB2', line: '#E5E8EE', input: '#8C929E', sunken: '#F9FAFD', link: '#074AF8', radius: 16, ctrl: 12, org: 'Studio Harapan', domain: 'harapan', signup: true },
       janka: { name: 'Janka', local: 'janka', host: 'janka.antarax.ai', mark: '/_blob/e49267db52a49ce314f758e045b38dc1', action: '#077DA1', tint: '#EDF9FF', subtle: '#D7F2FE', onTint: '#004C64', line: '#E2E9ED', input: '#87959B', sunken: '#F7FBFC', link: '#077DA1', radius: 20, ctrl: 12, org: 'Contoh Logistik', domain: 'contoh-logistik', signup: false },
       grid: { name: 'PLExyz Grid', local: 'grid', host: 'grid.antarax.ai', mark: '/_blob/bb69b049e48ccaa805e370586faa379e', action: '#2C09B2', tint: '#F4F6FE', subtle: '#E7ECFF', onTint: '#2C09B2', line: '#E6E7EE', input: '#8F929E', sunken: '#F9FAFD', link: '#2C09B2', radius: 24, ctrl: 12, org: 'Bumi Tenaga', domain: 'bumi-tenaga', signup: true },
@@ -93,7 +94,7 @@ class Component extends DCLogic {
     };
     var props = this.props;
     var c = Object.assign({}, P[props.product] || P.janka);
-    // A product whose palette is not in the brand kit yet passes its colours as props (YaraOne, canvas only).
+    // A product whose palette is not in the brand kit yet may pass its colours as props.
     ['local', 'host', 'mark', 'action', 'tint', 'subtle', 'onTint', 'line', 'input', 'sunken', 'link', 'org', 'domain', 'codeLabel', 'extraNote'].forEach(function (k) { if (props[k]) c[k] = props[k]; });
     if (props.brand) c.name = props.brand;
     if (props.radius != null && props.radius !== '') c.radius = Number(props.radius);

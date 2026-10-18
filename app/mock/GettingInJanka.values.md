@@ -1,4 +1,4 @@
-<!-- values for GettingInJanka.dc.html, source 5d7427d2256469a1 -->
+<!-- values for GettingInJanka.dc.html, source 86226d12f9b5d2d5 -->
 Every number below is read from the mock, which draws `GettingInScreens.dc.html` for Janka. **Standard** rows hold in every product (getting-in/SPEC.md section in brackets); **own** rows are how this board draws Janka's side, from its palette in `brand/product-palettes.json`.
 
 | Part | Value | Kind |
