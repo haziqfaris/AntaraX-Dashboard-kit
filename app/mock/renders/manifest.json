@@ -264,6 +264,48 @@
       "width": 1440,
       "source": "c1b2907e68a76654"
     },
+    "GettingInAXFrame.png": {
+      "mock": "GettingInAXFrame.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "00e735a83d3a1b1f"
+    },
+    "GettingInAngka.png": {
+      "mock": "GettingInAngka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "487096c97fd435fa"
+    },
+    "GettingInJanka.png": {
+      "mock": "GettingInJanka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "5d7427d2256469a1"
+    },
+    "GettingInPLExyzCrowd.png": {
+      "mock": "GettingInPLExyzCrowd.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "afe26489ba28f2c5"
+    },
+    "GettingInPLExyzGrid.png": {
+      "mock": "GettingInPLExyzGrid.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "94cb2a70042bb7fd"
+    },
+    "GettingInTinara.png": {
+      "mock": "GettingInTinara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "82ec2981c65ba27d"
+    },
+    "GettingInYara.png": {
+      "mock": "GettingInYara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "cc8ce44f896a11b0"
+    },
     "Lists.png": {
       "mock": "Lists.dc.html",
       "props": {},

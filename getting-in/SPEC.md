@@ -48,6 +48,8 @@ Two-step and the rules below apply to every way in. A person who first signed in
 
 ## 3 Screens
 
+**Every screen drawn, per product:** the shell canvas's Getting in boards (`app/mock/GettingIn‹Product›.dc.html`, rendered in `app/mock/renders/`), and AXLE's in `axle/mock/SignInScreens.dc.html`.
+
 What each screen holds, in order. Addresses are the customer app's; AXLE uses the same screens under its own host.
 
 | Screen | Address | Holds |

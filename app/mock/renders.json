@@ -307,6 +307,27 @@
     },
     {
       "mock": "GettingIn.dc.html"
+    },
+    {
+      "mock": "GettingInYara.dc.html"
+    },
+    {
+      "mock": "GettingInAXFrame.dc.html"
+    },
+    {
+      "mock": "GettingInJanka.dc.html"
+    },
+    {
+      "mock": "GettingInPLExyzGrid.dc.html"
+    },
+    {
+      "mock": "GettingInPLExyzCrowd.dc.html"
+    },
+    {
+      "mock": "GettingInAngka.dc.html"
+    },
+    {
+      "mock": "GettingInTinara.dc.html"
     }
   ]
 }
