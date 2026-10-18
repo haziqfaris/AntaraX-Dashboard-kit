@@ -4,7 +4,7 @@ Every number below is read from the mock. **Shell** rows must match in every pro
 | Part | Value | Kind |
 |---|---|---|
 | Fields and buttons | min 44px; Janka radius 12px, Angka radius 14px; 1px border in the palette's `border-default`, label above | Own look; 44px and labels shell (§15.2) |
-| Show password | 44 × 36px button inside the field, radius 9px, `aria-pressed` | Shell (§15.1) |
+| Show password | 44 × 36px button inside the field, radius 9px, `aria-pressed` | Shell (getting-in §4) |
 | Primary button | 44px tall, full width, `action` | Shell size, own look |
 | Google and email | both offered, Google first | Shell (§6) |
 | Credit line | "‹Product› by AntaraX, from REKA." with the product mark | Shell (§5) |

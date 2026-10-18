@@ -117,6 +117,8 @@ Every item carries a tier (std):
 | **Words** | Sign in, never Log in or Enter AXLE; Authorised, never Authorized; the page title "Sign in · AXLE · ‹Product›" |
 | **Phones** | The card fills the width inside the 16px gutter; every control stays 44px; the line under the card wraps |
 
+**Everything else about getting in** (passwords, two-step, attempts, sessions, the words, the account screens) is [getting-in/SPEC.md](../getting-in/SPEC.md), which applies to AXLE as much as to customer apps; its GI-10 and GI-16 are AXLE's own.
+
 **Today.** AX Frame's page is the base; it gains the AntaraX A, email and password with the code, these words, and the links. Yara, Janka and PLExyz Grid redraw theirs: Yara's near-black ruled grid, "Yara AXLE" and "Staff identifier" go; its links and its wrong-door sign-out stay.
 
 ### 5.2 Staff roles and rights (std A2, D1)

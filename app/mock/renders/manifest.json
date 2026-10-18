@@ -258,6 +258,12 @@
       "width": 1280,
       "source": "3bc44ea8d889edf2"
     },
+    "GettingIn.png": {
+      "mock": "GettingIn.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "c1b2907e68a76654"
+    },
     "Lists.png": {
       "mock": "Lists.dc.html",
       "props": {},

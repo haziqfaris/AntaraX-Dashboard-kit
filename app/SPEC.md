@@ -1,6 +1,6 @@
 # The AntaraX shell for customer apps
 
-**Version 1.4, the standard (owner, 16 Oct 2026; 1.4 on 17 Oct 2026, Dashboard kit 1.5.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17). 1.3 adds named saved views to every long list (§11a). 1.4 says where email comes from and which emails a person can turn off (§8).
+**Version 1.5, the standard (owner, 16 Oct 2026; 1.4 on 17 Oct 2026, Dashboard kit 1.5.0; 1.5 on 18 Oct 2026, Dashboard kit 1.7.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17). 1.3 adds named saved views to every long list (§11a). 1.4 says where email comes from and which emails a person can turn off (§8). 1.5 moves signing in and passwords (§15.1) into their own standard, [getting-in/SPEC.md](../getting-in/SPEC.md).
 
 **The rule (owner, 15 Oct 2026).** AXLE is the same in every product ([axle/](../axle/README.md)). A customer app is the opposite: each product has its own identity, shape, theme and UI. A small shell is the exception. It stays the same in every product so that a customer who uses two AntaraX products, or moves from one to another, always finds the same things in the same places:
 
@@ -205,7 +205,7 @@ Every product has these pages at these addresses. What each holds first is fixed
 
 ## 6 Getting in
 
-The words and what each screen holds are shared. How they look is the product's own.
+The words and what each screen holds are shared. How they look is the product's own. **The full standard, with every screen, state, rule and message, is [getting-in/SPEC.md](../getting-in/SPEC.md)** (owner, 18 Oct 2026); this table is its summary, and where they differ, that file wins.
 
 | Screen | Address | Holds |
 |---|---|---|
@@ -393,30 +393,7 @@ These are not cosmetic, so no product varies them. They follow the usual industr
 
 ### 15.1 Signing in and passwords
 
-- **Show password:** every password field has a "Show" toggle (an eye button with a name), and paste always works.
-- **Password managers work:** fields carry the right `autocomplete` (`username`, `current-password`, `new-password`, `one-time-code`).
-- **Passwords:**
-  - at least 12 characters, and up to 128;
-  - any characters, spaces and emoji included;
-  - no rules like "one capital and one symbol";
-  - checked against known breached passwords;
-  - a strength meter while typing, and a Caps Lock warning;
-  - never emailed, never shown back, stored only as a slow salted hash.
-- **Emails:** compared without case and trimmed.
-- **One-time codes:**
-  - six digits, typed or pasted whole, with the phone's code autofill;
-  - expire after 10 minutes.
-- **Email sign-in links:** single-use, expire after 15 minutes.
-- **Invitations:** single-use, expire after 7 days.
-- **Two-step sign-in:** an authenticator app, with 10 backup codes; an Owner can require it for everyone (§13).
-- **Too many attempts:**
-  - slow down after 5 failures and pause sign-in for 15 minutes after 10, telling the person when they can try again;
-  - the same message whether or not the account exists.
-- **Sessions:**
-  - secure, HTTP-only, same-site cookies;
-  - "Keep me signed in" lasts 30 days, otherwise until the browser closes;
-  - "Sign out everywhere" in `/account`.
-- **Asking again:** changing an email, password or two-step method, deleting an organisation, and changing billing all ask for the password or a code first.
+**Moved to [getting-in/SPEC.md](../getting-in/SPEC.md)** (owner, 18 Oct 2026), the standard for signing in, passwords, sign-in links, two-step sign-in, sessions and account changes in every customer app and AXLE. Its §1 is the bare minimum (GI-01 to GI-20); `node tools/check-signin.mjs` checks what can be seen from outside.
 
 ### 15.2 Forms and input
 

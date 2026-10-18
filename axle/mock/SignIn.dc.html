@@ -25,7 +25,7 @@ body{margin:0;background:#071233}
 @keyframes axs-sweep{0%{top:-140px;opacity:0}12%{opacity:1}55%{top:100%;opacity:.9}70%,100%{top:100%;opacity:0}}
 .axs-dot{width:6px;height:6px;border-radius:50%;background:rgba(182,195,234,.7);animation:axs-pulse 2.4s infinite}
 @keyframes axs-pulse{0%,100%{box-shadow:0 0 0 0 rgba(182,195,234,.45)}55%{box-shadow:0 0 0 6px rgba(182,195,234,0)}}
-.axs-primary:hover{background:#2A6BFA}
+.axs-primary:hover{background:#4D84FE}
 @media (prefers-reduced-motion:reduce){.axs-dots,.axs-dot{animation:none!important}.axs-scan{display:none}}
 </style>
 </helmet>
@@ -37,7 +37,7 @@ body{margin:0;background:#071233}
     <section aria-labelledby="axs-title" style="width: 100%; box-sizing: border-box; background: #0C1B47; border: 1px solid rgba(157,184,255,.16); border-radius: 20px; padding: 40px 36px 30px; box-shadow: 0 24px 70px -20px rgba(0,0,0,.75); display: flex; flex-direction: column; gap: 14px">
       <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; margin-bottom: 8px">
         <svg viewBox="0 0 1254 1254" width="48" height="48" role="img" aria-label="AntaraX" style="margin-bottom: 10px">
-          <defs><mask id="axs-hole" maskUnits="userSpaceOnUse" x="-500" y="-500" width="2000" height="2000"><rect x="-500" y="-500" width="2000" height="2000" fill="#ffffff"></rect><circle cx="357.5" cy="441" r="95" fill="#000000"></circle></mask></defs>
+          <defs><mask id="axs-hole" maskUnits="userSpaceOnUse" x="-500" y="-500" width="2000" height="2000"><rect x="-500" y="-500" width="2000" height="2000" fill="#ffffff"></rect><circle cx="357.5" cy="441" r="95" fill="black"></circle></mask></defs>
           <g transform="translate(268,265)" fill="#FFFFFF"><g mask="url(#axs-hole)">
             <path d="M358.5,2.141C359.936,2.174 437.254,-3.156 477.137,76.686C509.428,141.329 574.707,261.686 575.624,265.474C576.014,267.082 575.932,267.834 559.247,278.103C552.424,282.302 513.444,306.291 474.816,331.965C470.303,334.965 469.964,332.657 463.912,327.062C378.243,247.856 249.757,291.305 215.863,382.635C189.351,454.074 218.81,493.94 217.198,499.402C216.36,502.24 158.586,542.715 153.396,546.351C128.168,564.025 21.899,641.538 21.507,641.571C19.421,641.746 -12.816,582.844 10.721,518.585C17.01,501.415 18.108,501.939 117.035,316.246C208.447,144.657 206.46,143.783 215.33,129.41C242.546,85.308 256.42,5.579 358.5,2.141Z"></path>
             <path d="M712.86,569.5C707.684,722.194 528.709,765.521 460.343,658.586C459.105,656.65 433.325,611.191 432.989,610.27C420.331,575.581 451.294,563.602 457.519,557.52C463.894,551.291 527.04,502.845 510.067,408.603C505.629,383.961 489.392,360.548 491.623,358.65C514.084,339.539 576.187,291.421 583.613,285.668C587.225,282.869 587.367,286.648 611.755,335.375C698.625,508.943 711.316,511.477 712.86,569.5Z"></path>
@@ -49,12 +49,12 @@ body{margin:0;background:#071233}
       </div>
 
       <sc-if value="{{isDenied}}" hint-placeholder-val="{{false}}">
-        <div role="alert" style="padding: 10px 13px; border-radius: 10px; background: rgba(240,68,56,.14); border: 1px solid rgba(240,68,56,.4); color: #FDA29B; font-size: 12.5px; line-height: 1.55">This account isn't on the REKA staff list, so you've been signed out. <a href="#" style="color: #FDA29B; text-decoration: underline">Sign in to {{product}}</a> instead.</div>
+        <div role="alert" style="padding: 10px 13px; border-radius: 10px; background: rgba(240,68,56,.14); border: 1px solid rgba(240,68,56,.4); color: #F7877F; font-size: 12.5px; line-height: 1.55">This account isn't on the REKA staff list, so you've been signed out. <a href="#" style="color: #F7877F; text-decoration: underline">Sign in to {{product}}</a> instead.</div>
       </sc-if>
 
       <sc-if value="{{isSignIn}}" hint-placeholder-val="{{true}}">
         <button type="button" onClick="{{google}}" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 44px; border-radius: 12px; border: 0; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer">
-          <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.9 6.1C12.5 13.6 17.8 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.7 6c4.5-4.2 6.9-10.3 6.9-17.7z"></path><path fill="#FBBC05" d="M10.5 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.1C1 16.6 0 20.2 0 24s1 7.4 2.7 10.7l7.8-6.1z"></path><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.7-6c-2.2 1.5-5 2.3-8.2 2.3-6.2 0-11.5-4.1-13.4-9.8l-7.9 6.1C6.6 42.6 14.6 48 24 48z"></path></svg>
+          <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#0B1B4F" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path></svg>
           <span>{{googleLabel}}</span>
         </button>
         <span style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #8E9CC9"><span style="flex: 1; height: 1px; background: rgba(157,184,255,.16)"></span>or<span style="flex: 1; height: 1px; background: rgba(157,184,255,.16)"></span></span>
@@ -85,7 +85,7 @@ body{margin:0;background:#071233}
       </sc-if>
 
       <sc-if value="{{isIn}}" hint-placeholder-val="{{false}}">
-        <p role="status" style="margin: 0; padding: 12px; border-radius: 12px; background: rgba(95,211,155,.10); border: 1px solid rgba(95,211,155,.35); color: #5FD39B; font-size: 13px; text-align: center">Signed in. Opening AXLE · {{product}}…</p>
+        <p role="status" style="margin: 0; padding: 12px; border-radius: 12px; background: rgba(95,211,155,.10); border: 1px solid rgba(95,211,155,.35); color: #12B76A; font-size: 13px; text-align: center">Signed in. Opening AXLE · {{product}}…</p>
         <button type="button" onClick="{{back}}" style="border: 0; background: transparent; color: #4D84FE; font-family: inherit; font-size: 13px; cursor: pointer">Start again</button>
       </sc-if>
     </section>

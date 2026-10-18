@@ -174,3 +174,29 @@
 .ax-views-form { display: flex; gap: 6px; padding: 4px; }
 .ax-views-form input { flex: 1; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 12px; border-radius: 10px; border: 1px solid var(--shell-line); background: var(--shell-surface); color: inherit; font: inherit; }
 .ax-views-actions .ax-menu-confirm { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* PasswordField (getting-in/SPEC.md §4): Show, Caps Lock, the strength meter in words. The field's look is the
+   product's own; these rules give the parts their places and the status colours their meaning. */
+.ax-pw { --ax-pw-ok: #12B76A; --ax-pw-warn: #F79009; --ax-pw-fault: #F04438; --ax-pw-warn-ink: #B54708; --ax-pw-fault-ink: #B42318;
+  display: flex; flex-direction: column; gap: 6px; font-family: var(--shell-font); color: var(--shell-ink); }
+[data-theme="dark"] .ax-pw { --ax-pw-warn-ink: #F79009; --ax-pw-fault-ink: #F7877F; }
+.ax-pw-label { font-size: 13px; }
+.ax-pw-box { position: relative; display: flex; }
+.ax-pw-box input { flex: 1; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 72px 0 12px; border-radius: 12px;
+  border: 1px solid var(--shell-line); background: var(--shell-surface); color: var(--shell-ink); font: inherit; font-size: 14px; }
+.ax-pw-box input[aria-invalid="true"] { border-color: var(--ax-pw-fault); }
+.ax-pw-show { position: absolute; right: 4px; top: 4px; height: 36px; min-width: 60px; padding: 0 10px; border: 0; border-radius: 9px;
+  background: transparent; color: var(--shell-action); font: inherit; font-size: 13px; font-weight: 500; cursor: pointer; }
+.ax-pw-show::after { content: ""; position: absolute; inset: -4px 0; }
+.ax-pw :focus-visible { outline: 2px solid var(--shell-focus); outline-offset: 2px; }
+.ax-pw-caps, .ax-pw-error, .ax-pw-meter p { margin: 0; font-size: 12px; }
+.ax-pw-caps { color: var(--ax-pw-warn-ink); }
+.ax-pw-error { color: var(--ax-pw-fault-ink); }
+.ax-pw-meter { display: flex; flex-direction: column; gap: 4px; }
+.ax-pw-bar { display: block; height: 4px; border-radius: 999px; background: var(--shell-line); overflow: hidden; }
+.ax-pw-bar span { display: block; height: 100%; width: 0; border-radius: 999px; transition: width .2s ease; }
+.ax-pw-meter[data-score="1"] .ax-pw-bar span { width: 25%; background: var(--ax-pw-fault); }
+.ax-pw-meter[data-score="2"] .ax-pw-bar span { width: 50%; background: var(--ax-pw-warn); }
+.ax-pw-meter[data-score="3"] .ax-pw-bar span { width: 75%; background: var(--ax-pw-ok); }
+.ax-pw-meter[data-score="4"] .ax-pw-bar span { width: 100%; background: var(--ax-pw-ok); }
+@media (prefers-reduced-motion: reduce) { .ax-pw-bar span { transition: none; } }

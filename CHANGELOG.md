@@ -8,6 +8,30 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.7.0 · 18 Oct 2026
+
+Minor: something new to adopt (owner, 18 Oct 2026; brand kit guide/10).
+
+- **getting-in/SPEC.md v1.0, a new standard for getting in.** It covers signing in, passwords, sign-in links, two-step sign-in, sessions and account changes, for every customer app and every AXLE.
+  - **§1, the bare minimum:** GI-01 to GI-20. It includes Forgot your password, Show (reachable by keyboard), passwords of 12 to 64 characters with a breach check and no composition rules, a strength meter in words, the Caps Lock warning, `autocomplete`, never revealing whether an account exists, and slowing down then pausing after failed attempts. Also:
+    - two-step for Owners and Admins, and for staff;
+    - Email me a sign-in link in customer apps, never in AXLE;
+    - links that expire and work once;
+    - asking again before sensitive changes;
+    - `/account`, and emails when a password or address changes;
+    - no one chooses another person's password;
+    - Sign out on this device only;
+    - a session that ends says why.
+  - **What it holds:** every screen with its words, links and lifetimes, two-step and recovery, protection, the account page, the AntaraX email template for each email, the words, accessibility, and how to switch each rule on in Supabase, Appwrite or your own auth.
+  - **§14:** what each product had on 18 Oct 2026, read from its code.
+  - **§15:** what each product changes.
+- **app/SPEC.md:** §6 points to the new standard, and §15.1 moves there.
+- **axle/SPEC.md:** §5.1.1 points to it for everything beyond the page's look.
+- **`app/reference/PasswordField.jsx`:** Show, Caps Lock, `autocomplete`, the 64-character and 72-byte limit, and the meter in words (pass zxcvbn-ts). Its styles are in `shell.css`.
+- **`tools/check-signin.mjs`:** checks a running product's sign-in, reset and sign-up screens: Forgot your password, Show and its tab order, `autocomplete`, paste, Caps Lock, the sign-in link (and its absence in AXLE), Continue with Google, and the words. With `--submit`, it also reads the reset reply.
+- **Mock:** `app/mock/GettingIn.dc.html` shows the screens a product most often lacks, with its render and values table.
+- **Fix:** the AXLE Sign in and Email mocks (1.5.0, 1.6.0) used colours that aren't brand tokens, so `sync-brand-kit.py --check` failed. They now use tokens; the Google G is drawn in one colour, as AX Frame draws it.
+
 ## 1.6.0 · 18 Oct 2026
 
 Minor: something new to adopt (owner, 18 Oct 2026; brand kit guide/10).
