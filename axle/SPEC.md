@@ -1,6 +1,6 @@
 # AXLE standard
 
-**Version 1.1, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
+**Version 1.2, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
 
 It merges two sources:
 
@@ -74,7 +74,7 @@ Every item carries a tier (std):
 | **Theme** | **Dark bars, light page** (owner, 15 Oct 2026). The sidebar and the top bar are dark; the page between them is light. No theme toggle. This is what Yara's and Janka's AXLE already do | Always |
 | **Bars (sidebar, top bar, drawer)** | Ground `#071233`; raised `#0C1B47`; raised 2 `#13255C`. Ink `#EAF0FF`, body `#B6C3EA`, muted `#8E9CC9`. Lines `rgba(157,184,255,.16)` | |
 | **Page** | Ground `#F5F7FC` (the kit's sunken surface, so white cards stand out); cards `#FFFFFF`, radius 20px, 1px `#E5E8EE` border. Ink `#0B1B4F`, body `#3B4469`, muted `#5B6488` (5.4:1 on the ground) | |
-| **Accent** | REKA orange `#FB9800`: the active nav item, the role chip, the `AXLE` tag, the selected range and the one primary action (navy `#071233` text on orange, 8.4:1). Never orange text on the light page (2:1); there, text in orange's family is `#B54708` | |
+| **Accent** | REKA orange `#FB9800`: the active nav item, the role chip, the `AXLE` tag, the selected range and the one primary action (navy `#071233` text on orange, 8.4:1). One exception: the sign-in page's Sign in is AntaraX blue (§5.1.1). Never orange text on the light page (2:1); there, text in orange's family is `#B54708` | |
 | **Links** | On the page `#0459F7` (5.6:1 on white); on the bars `#4D84FE` | |
 | **Focus ring** | 2px, offset 2px: AntaraX blue `#0459F7` on the page; `#4D84FE` on the bars, where `#0459F7` reaches only 2.99:1 | |
 | **Status** | ok `#12B76A`, warn `#F79009`, fault `#F04438`, real signal only. On the page: tints `#E7F8EF` / `#FEF4E6` / `#FEECEB` with text `#067647` / `#B54708` / `#B42318`. On the bars: `#5FD39B` / `#F8B862` / `#F7877F` | |
@@ -92,9 +92,32 @@ Every item carries a tier (std):
 | AXLE is on its own host, with its own cookies and its own "Sign in to AXLE" page. Members of an organisation can never reach it; any AXLE address returns 404 to them. `/axle` on one host is allowed only in local development | Always |
 | Staff need two-step sign-in (MFA) | Always |
 | At least two staff can sign in as Owner on company accounts, never personal ones, so access is never lost (std A5) | Always |
-| A signed-in person who is not staff sees: "This account isn't on the REKA staff list. Sign out" | Always |
+| Staff sign in with Continue with Google (REKA's company accounts) or with email, password and a code; both in every product AXLE (owner, 18 Oct 2026; §5.1.1) | Always |
+| Someone who signs in and is not staff is signed out at once and sees "This account isn't on the REKA staff list, so you've been signed out", with a link to the product's own sign-in | Always |
 | One staff sign-in for every product AXLE, once AXLE Central exists | Later |
 | On the organisation plane, sign-in is company-first: the organisation's own name and logo, never another client's (std A6). This is a product rule, listed here because AXLE configures it | Orgs |
+
+### 5.1.1 The sign-in page (owner, 18 Oct 2026)
+
+**One sign-in page for every AXLE, built from AX Frame's.** Only the product's name changes. Mock: [`mock/SignIn.dc.html`](mock/SignIn.dc.html) (Sign in, two-step, wrong door, phone). It is the one AXLE page with no bars: dark from edge to edge, because nobody is inside yet.
+
+| Part | Standard |
+|---|---|
+| **Ground** | `#071233` with the dotted blueprint (brand kit 05): 1px dots every 24px at `rgba(157,184,255,.20)`, fainter 1.6px dots every 120px at `.10`, faded out towards the edges. It may drift one 120px tile a minute, and a soft blue scan (`rgba(77,132,254,.12)`) may pass every 7 seconds; both stop under reduced motion. Never ruled lines, never a near-black ground |
+| **Card** | One card, centred, at most 380px wide: `#0C1B47`, 1px `rgba(157,184,255,.16)`, radius 20px, padding 40px 36px 30px. No blur |
+| **Top** | The AntaraX A, white, 48px. `AXLE` in JetBrains Mono 26px, weight 700, letter-spacing 6px, ink `#EAF0FF`. Under it "‹Product› · REKA staff console", 12px, `#B6C3EA`. No product logo and no family name: the product is named once, in words |
+| **Continue with Google** | First. A white button with navy text and Google's G in its colours, 44px, radius 12px. REKA's company Google accounts only; the REKA Google Workspace requires 2-Step Verification of every staff account, which is the two-step for this way in |
+| **or** | A thin line each side, 12px, `#8E9CC9` |
+| **Email and password** | Labels in sentence case, 13px, `#B6C3EA`, never mono capitals. Fields 44px, fill `rgba(255,255,255,.04)`, 1px `rgba(157,184,255,.22)`, radius 12px; the email in mono. Show on the password, the Caps Lock warning, "Forgot your password?" in `#4D84FE`. The app SPEC §15.1 rules apply: password managers fill it, paste works, 12 characters or more |
+| **Sign in** | The one primary action: **AntaraX blue `#0459F7`**, white text (5.6:1), 44px, full width, weight 600. This is the only place in AXLE whose main action is not orange (owner, 18 Oct 2026); inside, the primary action stays REKA orange (§4) |
+| **Two-step** | After email and password, on the same card: "Type the 6-digit code from your authenticator app", one field (`one-time-code`, mono, 22px), Sign in, then "Use a backup code" and "Use another account". Google skips it, because Google has already asked |
+| **Under the card** | A neutral dot (never green: this page knows nothing about the platform's health) and "Authorised REKA staff · every action is recorded" in mono 10px capitals, letter-spacing .1em, `#B6C3EA`. Then Help · Privacy · Terms, 12px |
+| **Wrong door** | Someone who signs in and isn't staff is signed out at once, never left with a session, and sees "This account isn't on the REKA staff list, so you've been signed out. Sign in to ‹Product› instead", linking to the product's own sign-in (Yara's behaviour) |
+| **Errors** | What failed, in words: "That password didn't match", "That code didn't match", "Couldn't reach Google. Try again." The same message whether or not the account exists. After too many attempts: "Too many attempts. Try again at 14:32" |
+| **Words** | Sign in, never Log in or Enter AXLE; Authorised, never Authorized; the page title "Sign in · AXLE · ‹Product›" |
+| **Phones** | The card fills the width inside the 16px gutter; every control stays 44px; the line under the card wraps |
+
+**Today.** AX Frame's page is the base; it gains the AntaraX A, email and password with the code, these words, and the links. Yara, Janka and PLExyz Grid redraw theirs: Yara's near-black ruled grid, "Yara AXLE" and "Staff identifier" go; its links and its wrong-door sign-out stay.
 
 ### 5.2 Staff roles and rights (std A2, D1)
 
@@ -729,6 +752,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 
 | Check | Passes when |
 |---|---|
+| **Sign-in** | The page matches §5.1.1 at 1440px and 390px; Google and email, password and code both get a staff member in; a non-staff account is signed out at once with the wrong-door message; with reduced motion the dots and scan stand still |
 | **Separation** | A member opens every AXLE address and gets 404; staff see no organisation's data on a scoped page until they pick one |
 | **Nothing leaks** | Signed in as a member, searching the screens and the network responses finds no model name, trace, cost, AXLE, staff rung or other organisation |
 | **Real numbers** | Every Overview figure matches a database count, and clicking it opens a list of that many rows |
@@ -776,6 +800,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 17. ~~**Feedback and tickets.**~~ Decided 16 Oct 2026: they live in YaraOne. AXLE embeds YaraOne's back office as Watch → Tickets and runs everything else (§10.12). How it works was settled with YaraOne the same day ([`yaraone/EMBEDS.md`](../yaraone/EMBEDS.md) v1.0).
 18. ~~**Capacity.**~~ Decided 16 Oct 2026: R8 → Capacity in every product, generic for any provider and any kind of infrastructure, described by each product's `capacity.json` (§10.13).
 19. ~~**Email.**~~ Decided 17 Oct 2026: every product sends through AntaraX email from `mail.antarax.ai`, behind a switch; AXLE reads it as Watch → Email (§10.14). Angka is deferred.
+20. ~~**Sign-in page.**~~ Decided 18 Oct 2026: one page for every AXLE, from AX Frame's, with Continue with Google and email, password and a code; its Sign in is AntaraX blue, the one place AXLE's main action is not orange (§5.1.1).
 
 ## 21 What each console changes
 
