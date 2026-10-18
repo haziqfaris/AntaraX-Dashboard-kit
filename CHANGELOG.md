@@ -8,6 +8,52 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.8.0 · 18 Oct 2026
+
+Minor: something new to adopt (owner, 18 Oct 2026; brand kit guide/10).
+
+- **actions/SPEC.md v1.0, a new standard for acting:** what happens when a person presses a button, in every customer app and every AXLE.
+  - **§1, the bare minimum:** AC-01 to AC-12. No browser pop-ups; buttons that name the action and the thing; a visible busy state with no double submit; a result for every action; written errors with Retry; "Discard changes?"; accessible dialogs; bulk actions that report each item.
+  - **§2, three levels of confirmation:**
+    - undoable: no question, Undo for 8 seconds, Trash for 30 days;
+    - consequential: a dialog;
+    - irreversible: type the name and ask again for the password or a code; in AXLE, a second person too; more than 50 at once types the count.
+  - **§3, by how long it takes:** the button under 2 seconds, a progress dialog with a count or steps over 2 seconds, a background job with a jobs panel over 30 seconds, and a way out after 10 seconds.
+  - **§4–§7:** the result, dialogs, unsaved changes, the words.
+  - **§10:** what each product and AXLE does today, read from the code on 18 Oct 2026, including the actions that destroy something with no question and the places where the screen says one thing and the code does another.
+  - **§11:** what each product changes, in order.
+- **New pieces:**
+  - `app/reference/`: `ConfirmDialog.jsx` (Level 2 and 3), `ProgressDialog.jsx` and `useAction.js`, with styles in `shell.css`;
+  - `tools/check-actions.mjs`: finds browser pop-ups, OK/Yes buttons and raw error messages.
+- **Mocks:** `app/mock/ActionsScreens.dc.html` draws 22 states. Eight boards, `Actions<Product>.dc.html`, show it in each product's colours with its own records; renders and values tables are included.
+- **app/SPEC.md 1.6:** §11 points to the new standard. **axle/SPEC.md 1.3:** §14 points to it, and irreversible actions ask again for the password or a code.
+
+## 1.7.0 · 18 Oct 2026
+
+Minor: something new to adopt (owner, 18 Oct 2026; brand kit guide/10).
+
+- **getting-in/SPEC.md v1.0, a new standard for getting in.** It covers signing in, passwords, sign-in links, two-step sign-in, sessions and account changes, for every customer app and every AXLE.
+  - **§1, the bare minimum:** GI-01 to GI-20. It includes Forgot your password, Show (reachable by keyboard), passwords of 12 to 64 characters with a breach check and no composition rules, a strength meter in words, the Caps Lock warning, `autocomplete`, never revealing whether an account exists, and slowing down then pausing after failed attempts. Also:
+    - two-step for Owners and Admins, and for staff;
+    - Email me a sign-in link in customer apps, never in AXLE;
+    - links that expire and work once;
+    - asking again before sensitive changes;
+    - `/account`, and emails when a password or address changes;
+    - no one chooses another person's password;
+    - Sign out on this device only;
+    - a session that ends says why.
+  - **What it holds:** every screen with its words, links and lifetimes, two-step and recovery, protection, the account page, the AntaraX email template for each email, the words, accessibility, and how to switch each rule on in Supabase, Appwrite or your own auth.
+  - **§14:** what each product had on 18 Oct 2026, read from its code.
+  - **§15:** what each product changes.
+- **app/SPEC.md:** §6 points to the new standard, and §15.1 moves there.
+- **axle/SPEC.md:** §5.1.1 points to it for everything beyond the page's look.
+- **`app/reference/PasswordField.jsx`:** Show, Caps Lock, `autocomplete`, the 64-character and 72-byte limit, and the meter in words (pass zxcvbn-ts). Its styles are in `shell.css`.
+- **`tools/check-signin.mjs`:** checks a running product's sign-in, reset and sign-up screens: Forgot your password, Show and its tab order, `autocomplete`, paste, Caps Lock, the sign-in link (and its absence in AXLE), Continue with Google, and the words. With `--submit`, it also reads the reset reply.
+- **Mock:** `app/mock/GettingIn.dc.html` shows the screens a product most often lacks, with its render and values table.
+- **Every screen, per product:** `app/mock/GettingIn‹Product›.dc.html` for Yara, YaraOne, AX Frame, Janka, PLExyz Grid, PLExyz Crowd, Angka and Tinara. Each draws, in its own palette and shape, every screen and email of §3 (25 to 29 per product): signing in, Email me a sign-in link and its email, Forgot your password and its emails, two-step, joining and leaving, Create an account where the product has sign-up, and Yara's workers. All come from one component, `GettingInScreens.dc.html`, and each has a render and a values table. YaraOne's palette (jade `#087F5B`) is now in the brand kit and synced here: `app/tokens.css` has its shell slots.
+- **AXLE:** `axle/mock/SignInScreens.dc.html` holds every AXLE sign-in screen and email, on the AXLE canvas.
+- **Fix:** the AXLE Sign in and Email mocks (1.5.0, 1.6.0) used colours that aren't brand tokens, so `sync-brand-kit.py --check` failed. They now use tokens; the Google G is drawn in one colour, as AX Frame draws it.
+
 ## 1.6.0 · 18 Oct 2026
 
 Minor: something new to adopt (owner, 18 Oct 2026; brand kit guide/10).

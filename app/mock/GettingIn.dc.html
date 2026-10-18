@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Getting in: the screens</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+.gi :focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.gi a{color:#077DA1;text-decoration:none}
+.gi input{font-family:inherit}
+</style>
+</helmet>
+<div class="gi" style="width: 1440px; box-sizing: border-box; padding: 48px 56px 56px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 28px">
+  <header style="display: flex; flex-direction: column; gap: 8px; max-width: 1100px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 34px; font-weight: 600; letter-spacing: -.01em">Getting in: the screens every product needs</h1>
+    <p style="margin: 0; font-size: 16px">The screens the 18 Oct 2026 check found missing most often, with their exact words (getting-in/SPEC.md §3). Drawn in Janka's colours as an example: what each holds and says is shared, the look is each product's own. Try the new password: type, Show, and watch the meter.</p>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; align-items: start">
+
+    <!-- 1 Sign in -->
+    <section aria-labelledby="g1" style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 13px"><strong id="g1" style="color: #0B1B4F">Sign in</strong> · <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">/signin</span> · GI-01, GI-02, GI-11</span>
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="display: flex; flex-direction: column"><span style="color: #0B1B4F; font-size: 20px; font-weight: 600; line-height: 1.2">Janka</span><span style="font-size: 12px; color: #66747B">Janka by AntaraX, from REKA.</span></span>
+        <button type="button" style="min-height: 44px; border-radius: 12px; border: 1px solid #E2E9ED; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-weight: 500; cursor: pointer">Continue with Google</button>
+        <span style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #66747B"><span style="flex: 1; height: 1px; background: #E2E9ED"></span>or<span style="flex: 1; height: 1px; background: #E2E9ED"></span></span>
+        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">Email<input type="email" autocomplete="username" value="aina@contoh-logistik.example" style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid #E2E9ED; padding: 0 12px; font-size: 14px"></label>
+        <label for="g1-pw" style="font-size: 13px; color: #0B1B4F; margin-bottom: -8px">Password</label>
+        <span style="position: relative; display: flex"><input id="g1-pw" type="password" autocomplete="current-password" value="correct horse battery" style="flex: 1; min-width: 0; height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid #E2E9ED; padding: 0 64px 0 12px; font-size: 14px"><button type="button" aria-label="Show password" aria-pressed="false" style="position: absolute; right: 4px; top: 4px; height: 36px; min-width: 56px; border: 0; border-radius: 9px; background: transparent; color: #077DA1; font-family: inherit; font-size: 13px; cursor: pointer">Show</button></span>
+        <span style="display: flex; justify-content: space-between; align-items: center; font-size: 13px"><label style="display: flex; align-items: center; gap: 8px"><input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #077DA1">Keep me signed in</label><a href="#">Forgot your password?</a></span>
+        <button type="button" style="min-height: 44px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-family: inherit; font-weight: 600; cursor: pointer">Sign in</button>
+        <button type="button" style="min-height: 44px; border-radius: 12px; border: 0; background: transparent; color: #077DA1; font-family: inherit; font-weight: 500; cursor: pointer">Email me a sign-in link instead</button>
+        <span style="display: flex; gap: 14px; font-size: 12px"><a href="#" style="color: #66747B">Help</a><a href="#" style="color: #66747B">Privacy</a><a href="#" style="color: #66747B">Terms</a></span>
+      </div>
+    </section>
+
+    <!-- 2 Choose a new password -->
+    <section aria-labelledby="g2" style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 13px"><strong id="g2" style="color: #0B1B4F">Choose a new password</strong> · <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">/reset/‹token›</span> · GI-02 to GI-06</span>
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="color: #0B1B4F; font-size: 18px; font-weight: 600">Choose a new password</span>
+        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">Email<input type="email" autocomplete="username" readonly value="aina@contoh-logistik.example" style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid #E2E9ED; padding: 0 12px; font-size: 14px; background: #F5F7FC; color: #3B4469"></label>
+        <label for="g2-pw" style="font-size: 13px; color: #0B1B4F; margin-bottom: -8px">New password</label>
+        <span style="position: relative; display: flex"><input id="g2-pw" type="{{pwType}}" autocomplete="new-password" value="{{pw}}" onInput="{{typePw}}" aria-describedby="g2-meter g2-caps" style="flex: 1; min-width: 0; height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid #E2E9ED; padding: 0 64px 0 12px; font-size: 14px"><button type="button" onClick="{{togglePw}}" aria-label="{{pwName}}" aria-pressed="{{pwPressed}}" style="position: absolute; right: 4px; top: 4px; height: 36px; min-width: 56px; border: 0; border-radius: 9px; background: transparent; color: #077DA1; font-family: inherit; font-size: 13px; cursor: pointer">{{pwLabel}}</button></span>
+        <span id="g2-caps" style="font-size: 12px; color: #B54708; margin-top: -6px">Caps Lock is on</span>
+        <span style="display: block; height: 4px; border-radius: 999px; background: #E2E9ED; overflow: hidden"><span style="display: block; height: 100%; width: {{meterW}}; background: {{meterC}}; border-radius: 999px"></span></span>
+        <span id="g2-meter" aria-live="polite" style="font-size: 12px; color: #3B4469; margin-top: -6px">{{meterWords}}</span>
+        <button type="button" style="min-height: 44px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-family: inherit; font-weight: 600; cursor: pointer">Save password</button>
+        <span style="font-size: 12px; color: #66747B">12 to 64 characters, any kind. Saving signs you out on your other devices.</span>
+      </div>
+    </section>
+
+    <!-- 3 Check your email -->
+    <section aria-labelledby="g3" style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 13px"><strong id="g3" style="color: #0B1B4F">Sign-in link sent</strong> · <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">/signin/link</span> · GI-07, GI-11, GI-12</span>
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="color: #0B1B4F; font-size: 18px; font-weight: 600">Check your email</span>
+        <p style="margin: 0">If an account exists for <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #0B1B4F">aina@contoh-logistik.example</span>, we've sent a sign-in link. It works once, for 15 minutes.</p>
+        <button type="button" disabled style="min-height: 44px; border-radius: 12px; border: 1px solid #E2E9ED; background: #F5F7FC; color: #66747B; font-family: inherit; font-weight: 500">Send it again in <span style="font-family: 'JetBrains Mono', monospace">0:42</span></button>
+        <a href="#" style="font-size: 13px">Back to sign in</a>
+      </div>
+      <span style="font-size: 13px; margin-top: 8px"><strong style="color: #0B1B4F">Link expired or used</strong> · GI-12</span>
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <p style="margin: 0; color: #0B1B4F">This link has expired or has already been used.</p>
+        <button type="button" style="min-height: 44px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-family: inherit; font-weight: 600; cursor: pointer">Send a new link</button>
+      </div>
+    </section>
+
+    <!-- 4 Two-step set up -->
+    <section aria-labelledby="g4" style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 13px"><strong id="g4" style="color: #0B1B4F">Two-step: set up</strong> · <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">/account/two-step</span> · GI-09</span>
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="color: #0B1B4F; font-size: 18px; font-weight: 600">Turn on two-step sign-in</span>
+        <p style="margin: 0; padding: 8px 12px; border-radius: 10px; background: #FEF4E6; color: #B54708; font-size: 13px">Your role needs two-step sign-in. Set it up to continue.</p>
+        <p style="margin: 0; font-size: 13px">1. Scan this with your authenticator app.</p>
+        <div role="img" aria-label="QR code for your authenticator app" style="align-self: center; display: grid; grid-template-columns: repeat(21, 6px); gap: 0; padding: 10px; background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 12px">
+          <sc-for list="{{qr}}" as="q" hint-placeholder-count="441"><span style="width: 6px; height: 6px; background: {{q.c}}"></span></sc-for>
+        </div>
+        <span style="display: flex; align-items: center; gap: 8px; font-size: 12px">Or type this key: <span style="font-family: 'JetBrains Mono', monospace; color: #0B1B4F">JBSW Y3DP EHPK 3PXP</span><button type="button" style="border: 0; background: transparent; color: #077DA1; font-family: inherit; font-size: 12px; cursor: pointer; padding: 0">Copy</button></span>
+        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">2. Type the 6-digit code it shows<input type="text" inputmode="numeric" autocomplete="one-time-code" value="482 913" style="height: 48px; box-sizing: border-box; border-radius: 12px; border: 1px solid #E2E9ED; padding: 0 12px; font-family: 'JetBrains Mono', monospace; font-size: 20px; letter-spacing: .25em; text-align: center"></label>
+        <button type="button" style="min-height: 44px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-family: inherit; font-weight: 600; cursor: pointer">Turn on</button>
+      </div>
+    </section>
+
+    <!-- 5 Backup codes -->
+    <section aria-labelledby="g5" style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 13px"><strong id="g5" style="color: #0B1B4F">Backup codes</strong> · after Turn on · GI-09</span>
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="color: #0B1B4F; font-size: 18px; font-weight: 600">Save your backup codes</span>
+        <p style="margin: 0; font-size: 13px">If you lose your phone, each code signs you in once. This is the only time we show them.</p>
+        <ol style="margin: 0; padding: 12px 12px 12px 36px; border-radius: 12px; background: #F5F7FC; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #0B1B4F">
+          <sc-for list="{{codes}}" as="c" hint-placeholder-count="10"><li>{{c}}</li></sc-for>
+        </ol>
+        <span style="display: flex; gap: 8px"><button type="button" style="flex: 1; min-height: 44px; border-radius: 12px; border: 1px solid #E2E9ED; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-weight: 500; cursor: pointer">Copy</button><button type="button" style="flex: 1; min-height: 44px; border-radius: 12px; border: 1px solid #E2E9ED; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-weight: 500; cursor: pointer">Download as text</button></span>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 13px"><input type="checkbox" checked="{{saved}}" onChange="{{toggleSaved}}" style="width: 18px; height: 18px; accent-color: #077DA1">I've saved them</label>
+        <button type="button" disabled="{{notSaved}}" style="{{doneStyle}}">Done</button>
+      </div>
+    </section>
+
+    <!-- 6 Enter a code -->
+    <section aria-labelledby="g6" style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 13px"><strong id="g6" style="color: #0B1B4F">Two-step: enter a code</strong> · after the password · GI-09</span>
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <span style="color: #0B1B4F; font-size: 18px; font-weight: 600">Two-step sign-in</span>
+        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">Type the 6-digit code from your authenticator app.<input type="text" inputmode="numeric" autocomplete="one-time-code" value="482 91" aria-invalid="true" aria-describedby="g6-err" style="height: 48px; box-sizing: border-box; border-radius: 12px; border: 1px solid #F04438; padding: 0 12px; font-family: 'JetBrains Mono', monospace; font-size: 20px; letter-spacing: .25em; text-align: center"></label>
+        <span id="g6-err" style="font-size: 12px; color: #B42318; margin-top: -6px">That code didn't match. Check your app and try again.</span>
+        <button type="button" style="min-height: 44px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-family: inherit; font-weight: 600; cursor: pointer">Sign in</button>
+        <span style="display: flex; justify-content: space-between; font-size: 13px"><a href="#">Use a backup code</a><a href="#">Lost your phone?</a></span>
+      </div>
+    </section>
+
+    <!-- 7 Too many attempts -->
+    <section aria-labelledby="g7" style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 13px"><strong id="g7" style="color: #0B1B4F">Too many attempts</strong> · any form · GI-08</span>
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <p role="alert" style="margin: 0; padding: 10px 12px; border-radius: 10px; background: #FEECEB; color: #B42318; font-size: 13px">Too many attempts. Try again at <span style="font-family: 'JetBrains Mono', monospace">14:32</span>.</p>
+        <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #0B1B4F">Email<input type="email" autocomplete="username" value="aina@contoh-logistik.example" style="height: 44px; box-sizing: border-box; border-radius: 12px; border: 1px solid #E2E9ED; padding: 0 12px; font-size: 14px"></label>
+        <button type="button" disabled style="min-height: 44px; border-radius: 12px; border: 0; background: #E2E9ED; color: #66747B; font-family: inherit; font-weight: 600">Sign in</button>
+        <span style="font-size: 12px; color: #66747B">The same message whether or not the account exists; the form stays filled.</span>
+      </div>
+    </section>
+
+    <!-- 8 Session ended -->
+    <section aria-labelledby="g8" style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 13px"><strong id="g8" style="color: #0B1B4F">Session ended</strong> · <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">/signin?ended</span> · GI-20</span>
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <p role="status" style="margin: 0; padding: 10px 12px; border-radius: 10px; background: #F5F7FC; color: #0B1B4F; font-size: 13px">You've been signed out because your password was changed. Sign in again to carry on.</p>
+        <p style="margin: 0; font-size: 13px">After signing in, you go back to <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #0B1B4F">/stock/reorder</span>, where you were.</p>
+        <button type="button" style="min-height: 44px; border-radius: 12px; border: 0; background: #077DA1; color: #FFFFFF; font-family: inherit; font-weight: 600; cursor: pointer">Sign in</button>
+      </div>
+    </section>
+
+    <!-- 9 Account: sign-in and sessions -->
+    <section aria-labelledby="g9" style="display: flex; flex-direction: column; gap: 8px">
+      <span style="font-size: 13px"><strong id="g9" style="color: #0B1B4F">Your account</strong> · <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">/account</span> · GI-13, GI-14, GI-19</span>
+      <div style="background: #FFFFFF; border: 1px solid #E2E9ED; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 10px">
+        <span style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><span style="display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 500">Password</span><span style="font-size: 12px; color: #66747B">Changed 3 Oct 2026</span></span><button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #E2E9ED; background: #FFFFFF; color: #0B1B4F; font-family: inherit; cursor: pointer">Change</button></span>
+        <span style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><span style="display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 500">Two-step sign-in</span><span style="font-size: 12px; color: #067647">On · required for your role · 8 backup codes left</span></span><button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #E2E9ED; background: #FFFFFF; color: #0B1B4F; font-family: inherit; cursor: pointer">Codes</button></span>
+        <span style="color: #0B1B4F; font-weight: 500; margin-top: 4px">Signed in on</span>
+        <sc-for list="{{sessions}}" as="s" hint-placeholder-count="3">
+          <span style="display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 0; border-top: 1px solid #E2E9ED; font-size: 13px"><span style="display: flex; flex-direction: column"><span style="color: #0B1B4F">{{s.device}}</span><span style="font-size: 12px; color: #66747B">{{s.where}}</span></span><span style="font-size: 12px; color: {{s.ink}}">{{s.action}}</span></span>
+        </sc-for>
+        <button type="button" style="min-height: 44px; border-radius: 12px; border: 1px solid #E2E9ED; background: #FFFFFF; color: #B42318; font-family: inherit; font-weight: 500; cursor: pointer">Sign out everywhere</button>
+        <span style="font-size: 12px; color: #66747B">Changing your password, email or two-step asks for your password or a code first.</span>
+      </div>
+    </section>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { pw: 'Kopimanis2026', show: false, saved: true }; }
+  renderVals() {
+    var self = this, st = this.state;
+    var p = st.pw, n = [...p.normalize('NFKC')].length, words = p.trim().split(/\s+/).length;
+    var meter;
+    if (!n) meter = [0, '', ''];
+    else if (n < 12) meter = [0, 'At least 12 characters', ''];
+    else if (n > 64) meter = [0, 'Use at most 64 characters', ''];
+    else if (/password|qwerty|123456/i.test(p)) meter = [25, 'Weak: This is a very common password', '#F04438'];
+    else if (p.length >= 20 || words >= 4) meter = [100, 'Strong', '#12B76A'];
+    else if (p.length >= 16 || words >= 3) meter = [75, 'Good', '#12B76A'];
+    else meter = [50, 'Fair: Add another word or two', '#F79009'];
+    var seed = 7, qr = [];
+    for (var y = 0; y < 21; y++) for (var x = 0; x < 21; x++) {
+      var finder = function (cx, cy) { var dx = x - cx, dy = y - cy; if (dx < 0 || dy < 0 || dx > 6 || dy > 6) return null; return (dx === 0 || dy === 0 || dx === 6 || dy === 6 || (dx >= 2 && dx <= 4 && dy >= 2 && dy <= 4)); };
+      var f = finder(0, 0); if (f === null) f = finder(14, 0); if (f === null) f = finder(0, 14);
+      seed = (seed * 9301 + 49297) % 233280;
+      qr.push({ c: (f === null ? seed / 233280 > 0.52 : f) ? '#0B1B4F' : '#FFFFFF' });
+    }
+    return {
+      pw: p, pwType: st.show ? 'text' : 'password', pwLabel: st.show ? 'Hide' : 'Show', pwName: st.show ? 'Hide password' : 'Show password', pwPressed: st.show ? 'true' : 'false',
+      typePw: function (e) { self.setState({ pw: e.target.value }); },
+      togglePw: function () { self.setState({ show: !st.show }); },
+      meterW: meter[0] + '%', meterC: meter[2] || '#E2E9ED', meterWords: meter[1],
+      qr: qr,
+      codes: ['k7rq-2m9x', 'p4tz-8wd1', 'h2nc-6ve5', 'q9lb-3sy7', 'f5mj-1kx4', 'd8wa-7rq2', 'v3pe-9nh6', 'b6ty-4gc8', 'x1zu-5mf3', 'c7dk-2qa9'],
+      saved: st.saved, notSaved: !st.saved, toggleSaved: function () { self.setState({ saved: !st.saved }); },
+      doneStyle: 'min-height:44px;border-radius:12px;border:0;font-family:inherit;font-weight:600;' + (st.saved ? 'background:#077DA1;color:#FFFFFF;cursor:pointer;' : 'background:#E2E9ED;color:#66747B;'),
+      sessions: [
+        { device: 'Chrome on Windows', where: 'Malaysia · now', action: 'This device', ink: '#067647' },
+        { device: 'Janka on iPhone', where: 'Malaysia · 2 hours ago', action: 'Sign out', ink: '#077DA1' },
+        { device: 'Safari on Mac', where: 'Singapore · 5 days ago', action: 'Sign out', ink: '#077DA1' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

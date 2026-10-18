@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Getting in to AXLE: every screen</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+.axg :focus-visible{outline:2px solid #4D84FE;outline-offset:2px}
+</style>
+</helmet>
+<div class="axg" style="width: 1440px; box-sizing: border-box; padding: 48px 56px 64px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 22px">
+  <header style="display: flex; flex-direction: column; gap: 6px; max-width: 1150px">
+    <h1 style="margin: 0; color: #0B1B4F; font-size: 32px; font-weight: 600; letter-spacing: -.01em">AXLE · {{product}}: getting in, every screen</h1>
+    <span style="font-size: 15px">{{count}} screens and emails, the same in every product's AXLE; only the product's name changes (axle SPEC §5.1.1, getting-in/SPEC.md). Staff sign in with Google (REKA's company accounts, 2-Step Verification enforced by Google) or with email, password and a code. AXLE never offers a sign-in link, and sessions end after 12 hours.</span>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px 22px; align-items: start">
+    <sc-for list="{{items}}" as="it" hint-placeholder-count="12">
+      <sc-if value="{{it.isSection}}" hint-placeholder-val="{{false}}">
+        <div style="grid-column: 1 / -1; display: flex; align-items: baseline; gap: 12px; padding-top: 14px; border-top: 1px solid #E5E8EE">
+          <h2 style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">{{it.title}}</h2>
+          <span style="font-size: 13px; color: #5B6488">{{it.desc}}</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{it.isScreen}}" hint-placeholder-val="{{true}}">
+        <section aria-label="{{it.title}}" style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+          <span style="font-size: 12px; line-height: 1.4"><strong style="color: #0B1B4F; font-size: 13px">{{it.title}}</strong><span style="color: #5B6488"> · {{it.where}}</span></span>
+          <div style="{{it.frame}}">
+            <div style="{{it.card}}">
+              <sc-for list="{{it.rows}}" as="r" hint-placeholder-count="5">
+                <sc-if value="{{r.is_top}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; margin-bottom: 4px"><img src="/_blob/24b37b892fd904da55a18f908e874613" alt="AntaraX" style="width: 30px; height: 30px; margin-bottom: 6px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; letter-spacing: 4px; color: #EAF0FF">AXLE</span><span style="font-size: 11px; color: #B6C3EA">{{product}} · REKA staff console</span></span></sc-if>
+                <sc-if value="{{r.is_h}}" hint-placeholder-val="{{false}}"><span style="color: #EAF0FF; font-size: 15px; font-weight: 600; line-height: 1.35; text-align: center">{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_p}}" hint-placeholder-val="{{false}}"><p style="margin: 0; font-size: 12.5px; color: #B6C3EA; text-align: center">{{r.t}}</p></sc-if>
+                <sc-if value="{{r.is_note}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; color: #8E9CC9; text-align: center">{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_alert}}" hint-placeholder-val="{{false}}"><p role="status" style="margin: 0; padding: 8px 10px; border-radius: 10px; font-size: 12px; line-height: 1.5; background: {{r.bg}}; border: 1px solid {{r.line}}; color: {{r.fg}}">{{r.t}}</p></sc-if>
+                <sc-if value="{{r.is_field}}" hint-placeholder-val="{{false}}">
+                  <span style="display: flex; flex-direction: column; gap: 4px">
+                    <span style="font-size: 12px; color: #B6C3EA">{{r.label}}</span>
+                    <span style="position: relative; display: flex"><span style="{{r.box}}">{{r.value}}</span><sc-if value="{{r.show}}" hint-placeholder-val="{{false}}"><span style="position: absolute; right: 10px; top: 0; bottom: 0; display: flex; align-items: center; font-size: 12px; color: #4D84FE">Show</span></sc-if></span>
+                    <sc-if value="{{r.err}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; color: #F7877F">{{r.err}}</span></sc-if>
+                  </span>
+                </sc-if>
+                <sc-if value="{{r.is_caps}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; color: #F79009; margin-top: -6px">Caps Lock is on</span></sc-if>
+                <sc-if value="{{r.is_meter}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; gap: 3px; margin-top: -4px"><span style="display: block; height: 4px; border-radius: 999px; background: rgba(157,184,255,.16); overflow: hidden"><span style="display: block; height: 100%; width: {{r.w}}; background: {{r.c}}"></span></span><span style="font-size: 11px; color: #B6C3EA">{{r.t}}</span></span></sc-if>
+                <sc-if value="{{r.is_links}}" hint-placeholder-val="{{false}}"><span style="display: flex; justify-content: space-between; gap: 8px; font-size: 12px"><span style="color: #4D84FE">{{r.l}}</span><span style="color: #B6C3EA">{{r.r}}</span></span></sc-if>
+                <sc-if value="{{r.is_btn}}" hint-placeholder-val="{{false}}"><span style="{{r.style}}"><sc-if value="{{r.g}}" hint-placeholder-val="{{false}}"><svg width="15" height="15" viewBox="0 0 48 48" aria-hidden="true"><path fill="#0B1B4F" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path></svg></sc-if>{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_or}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: center; gap: 8px; font-size: 11px; color: #8E9CC9"><span style="flex: 1; height: 1px; background: rgba(157,184,255,.16)"></span>or<span style="flex: 1; height: 1px; background: rgba(157,184,255,.16)"></span></span></sc-if>
+                <sc-if value="{{r.is_codes}}" hint-placeholder-val="{{false}}"><span style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; padding: 10px; border-radius: 10px; background: rgba(255,255,255,.04); font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #EAF0FF"><sc-for list="{{codes}}" as="cd" hint-placeholder-count="10"><span>{{cd}}</span></sc-for></span></sc-if>
+                <sc-if value="{{r.is_qr}}" hint-placeholder-val="{{false}}"><span role="img" aria-label="QR code for your authenticator app" style="align-self: center; display: grid; grid-template-columns: repeat(21, 5px); padding: 8px; background: #FFFFFF; border-radius: 10px"><sc-for list="{{qr}}" as="q" hint-placeholder-count="441"><span style="width: 5px; height: 5px; background: {{q}}"></span></sc-for></span></sc-if>
+                <sc-if value="{{r.is_foot}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 4px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; color: #B6C3EA">Authorised REKA staff · every action is recorded</span><span style="display: flex; gap: 12px; font-size: 11px; color: #B6C3EA"><span>Help</span><span>Privacy</span><span>Terms</span></span></span></sc-if>
+                <sc-if value="{{r.is_mailmeta}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; gap: 2px; padding-bottom: 8px; border-bottom: 1px solid #E5E8EE; font-size: 11.5px; color: #5B6488"><span>From <span style="color: #0B1B4F">{{product}} &lt;{{local}}@mail.antarax.ai&gt;</span></span><span>Subject <span style="color: #0B1B4F; font-weight: 500">{{r.t}}</span></span></span></sc-if>
+                <sc-if value="{{r.is_mh}}" hint-placeholder-val="{{false}}"><span style="color: #0B1B4F; font-size: 16px; font-weight: 600">{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_mp}}" hint-placeholder-val="{{false}}"><p style="margin: 0; font-size: 12.5px; color: #3B4469">{{r.t}}</p></sc-if>
+                <sc-if value="{{r.is_mbtn}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: center; justify-content: center; min-height: 38px; border-radius: 10px; background: #0459F7; color: #FFFFFF; font-size: 13px; font-weight: 600">{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_mmono}}" hint-placeholder-val="{{false}}"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #0459F7; overflow-wrap: anywhere">{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_mnote}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; color: #5B6488">{{r.t}}</span></sc-if>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"product":{"editor":"enum","options":["Janka","Yara","AX Frame","Angka","PLExyz Grid","Tinara","YaraOne","PLExyz Crowd"],"default":"Janka"},"$preview":{"width":1440,"height":4200}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var product = this.props.product ?? 'Janka';
+    var LOCAL = { 'Janka': 'janka', 'Yara': 'yara', 'AX Frame': 'frame', 'Angka': 'angka', 'PLExyz Grid': 'grid', 'Tinara': 'tinara', 'YaraOne': 'yaraone', 'PLExyz Crowd': 'crowd' };
+    var HOST = { 'Janka': 'axle.janka.antarax.ai', 'Yara': 'axle.yara.antarax.ai', 'AX Frame': 'axle.frame.antarax.ai', 'Angka': 'axle.angka.antarax.ai', 'PLExyz Grid': 'axle.grid.antarax.ai', 'Tinara': 'axle.tinara.antarax.ai', 'YaraOne': 'axle.yo.antarax.ai', 'PLExyz Crowd': 'axle.crowd.antarax.ai' };
+    var email = 'aisyah.rahman@reka.example';
+    var T = { fault: ['rgba(240,68,56,.14)', 'rgba(240,68,56,.4)', '#F7877F'], warn: ['rgba(247,144,9,.12)', 'rgba(247,144,9,.4)', '#F79009'], ok: ['rgba(18,183,106,.12)', 'rgba(18,183,106,.4)', '#12B76A'], info: ['rgba(77,132,254,.12)', 'rgba(77,132,254,.35)', '#EAF0FF'] };
+    function row(k, o) { var r = Object.assign({ k: k }, o || {}); r['is_' + k] = true; return r; }
+    var top = function () { return row('top'); };
+    var h = function (t) { return row('h', { t: t }); };
+    var p = function (t) { return row('p', { t: t }); };
+    var note = function (t) { return row('note', { t: t }); };
+    var alert = function (tone, t) { return row('alert', { t: t, bg: T[tone][0], line: T[tone][1], fg: T[tone][2] }); };
+    function field(label, value, o) {
+      o = o || {};
+      var box = 'flex: 1; min-width: 0; display: flex; align-items: center; height: 40px; box-sizing: border-box; padding: 0 ' + (o.show ? '52px' : '11px') + ' 0 11px; border-radius: 12px; background: rgba(255,255,255,.04); border: 1px solid ' + (o.err ? '#F04438' : (o.focus ? '#4D84FE' : 'rgba(157,184,255,.22)')) + "; color: #EAF0FF; font-size: 12.5px; overflow: hidden; white-space: nowrap; font-family: 'JetBrains Mono', monospace;" + (o.code ? ' justify-content: center; font-size: 17px; letter-spacing: .25em; height: 46px;' : '');
+      return row('field', { label: label, value: value, show: !!o.show, err: o.err || '', box: box });
+    }
+    var caps = function () { return row('caps'); };
+    var meter = function (w, c, t) { return row('meter', { w: w, c: c, t: t }); };
+    var links = function (l, r) { return row('links', { l: l, r: r || '' }); };
+    function btn(t, kind, g) {
+      var base = 'display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; border-radius: 12px; font-size: 13px; font-weight: 600;';
+      var k = { primary: 'background: #0459F7; color: #FFFFFF;', google: 'background: #FFFFFF; color: #0B1B4F; font-weight: 500;', ghost: 'color: #4D84FE; font-weight: 500;', off: 'background: rgba(255,255,255,.06); color: #8E9CC9;', quiet: 'border: 1px solid rgba(157,184,255,.22); color: #EAF0FF; font-weight: 500;' }[kind || 'primary'];
+      return row('btn', { t: t, style: base + k, g: !!g });
+    }
+    var or = function () { return row('or'); };
+    var foot = function () { return row('foot'); };
+    var codes = function () { return row('codes'); };
+    var qr = function () { return row('qr'); };
+    var dots = '••••••••••••••••';
+
+    function screen(title, where, rows, mail) {
+      return { isScreen: true, isSection: false, title: title, where: where, rows: rows,
+        frame: mail ? 'padding: 12px; border-radius: 16px; background: #EEF1F6;' : 'padding: 22px 14px; border-radius: 20px; background-color: #071233; background-image: radial-gradient(circle, rgba(157,184,255,.20) 1px, transparent 1.2px); background-size: 24px 24px;',
+        card: mail ? 'display: flex; flex-direction: column; gap: 10px; padding: 16px; background: #FFFFFF; border-radius: 8px; border: 1px solid #E5E8EE;' : 'display: flex; flex-direction: column; gap: 10px; padding: 22px 18px 16px; background: #0C1B47; border-radius: 20px; border: 1px solid rgba(157,184,255,.16); box-shadow: 0 18px 40px -18px rgba(0,0,0,.6);' };
+    }
+    function section(title, desc) { return { isSection: true, isScreen: false, title: title, desc: desc, rows: [] }; }
+    var signin = [top(), btn('Continue with Google', 'google', true), or(), field('Email', email), field('Password', dots, { show: true }), links('Forgot your password?', ''), btn('Sign in'), foot()];
+    var items = [
+      section('Signing in', 'Google, or email, password and a code; never a sign-in link (GI-10, GI-11)'),
+      screen('Sign in', '/', signin),
+      screen('Wrong email or password', '/', [top(), alert('fault', "That email and password don't match."), field('Email', email), field('Password', dots, { show: true, focus: true }), caps(), btn('Sign in'), links('Forgot your password?', '')]),
+      screen('Too many attempts', '/', [top(), alert('fault', 'Too many attempts. Try again at 14:32.'), field('Email', email), field('Password', dots, { show: true }), btn('Sign in', 'off'), note('The same message whether or not the account exists.')]),
+      screen("Couldn't reach Google", '/', [top(), alert('fault', "Couldn't reach Google. Try again."), btn('Continue with Google', 'google', true), or(), field('Email', email), field('Password', '', { show: true }), btn('Sign in')]),
+      screen('Wrong door', 'after sign-in', [top(), alert('fault', "This account isn't on the REKA staff list, so you've been signed out. Sign in to " + product + ' instead.'), btn('Continue with Google', 'google', true), field('Email', email), field('Password', '', { show: true }), btn('Sign in')]),
+      screen('Session ended', 'after 12 hours', [top(), alert('info', "You've been signed out because AXLE sessions last 12 hours. Sign in again to carry on."), btn('Continue with Google', 'google', true), field('Email', email), field('Password', '', { show: true }), btn('Sign in'), note('You go back to the page you were on.')]),
+      screen('Signed out', 'after Sign out', [top(), alert('info', "You've signed out on this device."), btn('Sign in'), note('Sign out everywhere is under Your account in the staff menu.')]),
+
+      section('Two-step sign-in', 'Every staff member; Google asks for its own (GI-10)'),
+      screen('Enter a code', 'after the password', [top(), h('Two-step sign-in'), p('Type the 6-digit code from your authenticator app.'), field('Code', '482 913', { code: true, focus: true }), btn('Sign in'), links('Use a backup code', 'Use another account')]),
+      screen('Wrong code', 'after the password', [top(), field('Code', '482 91', { code: true, err: "That code didn't match. Check your app and try again." }), btn('Sign in'), links('Use a backup code', 'Lost your phone?')]),
+      screen('Use a backup code', 'after the password', [top(), h('Use a backup code'), p('Type one of your 10 backup codes. Each works once.'), field('Backup code', 'k7rq-2m9x', { code: true }), btn('Sign in'), links('Use the app instead', '')]),
+      screen('Two-step required', 'first sign-in with a password', [top(), alert('warn', 'Staff need two-step sign-in. Set it up to continue.'), p('1. Scan this with your authenticator app.'), qr(), note('Or type this key: JBSW Y3DP EHPK 3PXP · Copy'), field('2. Type the 6-digit code it shows', '', { code: true }), btn('Turn on')]),
+      screen('Save your backup codes', 'after Turn on', [top(), h('Save your backup codes'), p('Each signs you in once if you lose your phone. This is the only time we show them.'), codes(), btn('Copy', 'quiet'), btn('Download as text', 'quiet'), btn('Done')]),
+      screen('Lost your phone', 'from Enter a code', [top(), h('Lost your phone?'), p('Use a backup code. If you have none left, ask another AXLE Admin to reset your two-step sign-in; it is recorded in Audit.'), btn('Use a backup code')]),
+
+      section('Forgot your password', 'For a password; Google accounts are reset at Google'),
+      screen('Forgot your password', '/reset', [top(), h('Forgot your password?'), p("Type your email. We'll send a link to choose a new password."), field('Email', email, { focus: true }), btn('Send reset link'), links('Back to sign in', '')]),
+      screen('Reset link sent', '/reset', [top(), h('Check your email'), p("If a staff account exists for that email, we've sent a link. It works once, for 60 minutes."), btn('Send it again in 0:51', 'off'), links('Back to sign in', '')]),
+      screen('The email', 'auth.password_reset.v1', [row('mailmeta', { t: 'Reset your ' + product + ' password' }), row('mh', { t: 'Reset your password' }), row('mp', { t: 'Hi Aisyah,' }), row('mp', { t: 'Someone asked to reset the password for this ' + product + ' account. Choose a new one with the button.' }), row('mbtn', { t: 'Choose a new password' }), row('mmono', { t: 'https://' + HOST[product] + '/reset/q7Lm…' }), row('mnote', { t: 'This link works for 1 hour and only once. It opens on the AXLE host that sent it.' })], true),
+      screen('Choose a new password', '/reset/‹token›', [top(), h('Choose a new password'), field('Email', email), field('New password', 'Kopimanis2026', { show: true, focus: true }), meter('50%', '#F79009', 'Fair: Add another word or two'), btn('Save password'), note('12 to 64 characters, any kind. Saving signs you out everywhere else.')]),
+      screen('Password saved', 'after saving', [top(), alert('ok', "Password saved. You've been signed out on your other devices."), btn('Open AXLE')])
+    ];
+    var seed = 7, cells = [];
+    for (var y = 0; y < 21; y++) for (var x = 0; x < 21; x++) {
+      var f = null;
+      [[0, 0], [14, 0], [0, 14]].forEach(function (o) { var dx = x - o[0], dy = y - o[1]; if (dx >= 0 && dy >= 0 && dx <= 6 && dy <= 6) f = dx === 0 || dy === 0 || dx === 6 || dy === 6 || (dx >= 2 && dx <= 4 && dy >= 2 && dy <= 4); });
+      seed = (seed * 9301 + 49297) % 233280;
+      cells.push((f === null ? seed / 233280 > 0.52 : f) ? '#0B1B4F' : '#FFFFFF');
+    }
+    return {
+      product: product, local: LOCAL[product] || 'janka', items: items, qr: cells,
+      count: items.filter(function (i) { return i.isScreen; }).length,
+      codes: ['k7rq-2m9x', 'p4tz-8wd1', 'h2nc-6ve5', 'q9lb-3sy7', 'f5mj-1kx4', 'd8wa-7rq2', 'v3pe-9nh6', 'b6ty-4gc8', 'x1zu-5mf3', 'c7dk-2qa9']
+    };
+  }
+}
+</script>
+</body>
+</html>

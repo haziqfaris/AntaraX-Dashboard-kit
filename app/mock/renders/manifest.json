@@ -1,5 +1,53 @@
 {
   "renders": {
+    "ActionsAXFrame.png": {
+      "mock": "ActionsAXFrame.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "6ed823ecb6169c27"
+    },
+    "ActionsAngka.png": {
+      "mock": "ActionsAngka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "8ee286fe76058b64"
+    },
+    "ActionsJanka.png": {
+      "mock": "ActionsJanka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "4b46cd629c164f83"
+    },
+    "ActionsPLExyzCrowd.png": {
+      "mock": "ActionsPLExyzCrowd.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "65e5e0d3091f0f75"
+    },
+    "ActionsPLExyzGrid.png": {
+      "mock": "ActionsPLExyzGrid.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "d734c6a99d6c4c4c"
+    },
+    "ActionsTinara.png": {
+      "mock": "ActionsTinara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "19dc06256a934d2b"
+    },
+    "ActionsYara.png": {
+      "mock": "ActionsYara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "39865e0593ffdc0a"
+    },
+    "ActionsYaraOne.png": {
+      "mock": "ActionsYaraOne.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "a28218774efe1925"
+    },
     "Admin.png": {
       "mock": "Admin.dc.html",
       "props": {},
@@ -257,6 +305,60 @@
       },
       "width": 1280,
       "source": "3bc44ea8d889edf2"
+    },
+    "GettingIn.png": {
+      "mock": "GettingIn.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "c1b2907e68a76654"
+    },
+    "GettingInAXFrame.png": {
+      "mock": "GettingInAXFrame.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "2615aecf338bd362"
+    },
+    "GettingInAngka.png": {
+      "mock": "GettingInAngka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "078aa0582be9d8dd"
+    },
+    "GettingInJanka.png": {
+      "mock": "GettingInJanka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "86226d12f9b5d2d5"
+    },
+    "GettingInPLExyzCrowd.png": {
+      "mock": "GettingInPLExyzCrowd.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "7985efd74032d27e"
+    },
+    "GettingInPLExyzGrid.png": {
+      "mock": "GettingInPLExyzGrid.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "d6bd44580e0fe32a"
+    },
+    "GettingInTinara.png": {
+      "mock": "GettingInTinara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "1e321d2ebd13fa42"
+    },
+    "GettingInYara.png": {
+      "mock": "GettingInYara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "a66ab4e187ba69ca"
+    },
+    "GettingInYaraOne.png": {
+      "mock": "GettingInYaraOne.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "4cae20980ca7dd92"
     },
     "Lists.png": {
       "mock": "Lists.dc.html",
