@@ -31,3 +31,7 @@ The [AntaraX brand kit](https://github.com/haziqfaris/AntaraX-brand-kit) owns ev
 - **Decisions are recorded in the brand kit** (`guide/10-decisions-log.md`), in the same piece of work as the change here.
 
 For the background, start with [inventory/README.md](inventory/README.md). It has the cross-product matrices, what has already converged, and the suggested next steps.
+
+## Other REKA frameworks
+
+How Dashboard Kit fits with the other REKA frameworks, and who governs what: [FRAMEWORKS.md](FRAMEWORKS.md).
