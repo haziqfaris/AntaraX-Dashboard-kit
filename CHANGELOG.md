@@ -8,6 +8,19 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.9.0 · 25 Oct 2026
+
+Minor: a rule tightened with a recorded way out (owner, 25 Oct 2026; AwanGan decision 0021; brand kit guide/10). A product that still holds its own keys stays as it is, recorded watch only.
+
+- **AGENTS.md, "AI, APIs and data":** who owns what. AI follows Heuristiks, and its keys, models and routing are AwanGan's; API keys, tenants, scopes and usage rows are Lapisan's; data a business hands over goes to Cebis Loom; RESAM maps which framework governs what. A client's own system comes through AwanGan only with its written agreement.
+- **axle/SPEC.md 1.4, §10.6:** the AI pages show the product's own share of AwanGan.
+  - **Models & keys** is read only: the product's keys (last four only) and each feature's route as AwanGan holds them, with Open Routing in AwanGan. Before the product comes through AwanGan, the keys it still holds, marked watch only. No test or rotate in the product; Test provider stays in R8 → Providers.
+  - **AI usage** reads Lapisan's usage rows for product `ai`: calls, errors, latency, cost by organisation, feature and model; budgets with alerts at 80% and 100%.
+  - **Live trace** puts the verdict first, then the five steps (Asked, Allowed, Answered, Checked, Decided). A prompt, input or answer appears only where the agreement keeps it, masked, and opening one is recorded.
+  - §5.2, §7.3, §7.4, §10.6.1 and §10.11 follow; §19 updates the AI check and adds Live trace; §20 records the decision (21) and asks how AI usage reads while a product is watch only (22).
+- **Mocks:** `ModelsKeys.dc.html` is read only, with a tweak for Through AwanGan or Watch only; `LiveTrace.dc.html` shows the five steps and the rule for bodies; `Providers.dc.html` and `Configuration.dc.html` point keys to AwanGan, and Configuration lists the gateway address and the AntaraX key for product `ai`.
+- **BRIEF.md:** a row for AI, APIs and data and one for their owners; the versions brought up to date (app spec 1.6, AXLE spec 1.4, tokens 1.11.0).
+
 ## 1.8.0 · 18 Oct 2026
 
 Minor: something new to adopt (owner, 18 Oct 2026; brand kit guide/10).
