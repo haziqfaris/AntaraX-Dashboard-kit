@@ -1,6 +1,6 @@
 # AXLE mock
 
-The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.2, the standard, with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
+The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.4, the standard, with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
 
 - Live canvas (private until shared): https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr. Press Play on any page; the sidebar links move between pages.
 - The logos load from the canvas's asset store, so open the pages there rather than from disk.
@@ -17,8 +17,8 @@ The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.
 | `Organisation.dc.html` | Organisation 360 | Readiness checklist, stage stepper, tabs: summary and timeline, members, plan and features, usage, integrations, errors and health, internal notes, email, branding, audit (§10.3) |
 | `CreateOrganisation.dc.html` | New organisation | The five-step guided flow (§10.1) |
 | `PlansFeatures.dc.html` | Plans & features | Plans, feature kinds, "why does this organisation have it?", quota overrides with a reason (§10.5) |
-| `ModelsKeys.dc.html` | Models & keys | Masked keys, test and rotate, model per task with fallbacks, automatic switching and its log (§10.6) |
-| `LiveTrace.dc.html` | Live trace | Verdict, what to fix, steps, raw events last (§10.6) |
+| `ModelsKeys.dc.html` | Models & keys | A read-only view of Janka's keys (last four only) and the route for each feature, first model then fallbacks, as AwanGan holds them, with Open Routing in AwanGan, automatic switches and the change log (§10.6). Tweak: Through AwanGan, or Watch only (Janka still holds its keys) |
+| `LiveTrace.dc.html` | Live trace | Verdict first, what to fix, the five steps (Asked, Allowed, Answered, Checked, Decided), raw events last; bodies only where the agreement keeps them, masked, with opening one recorded (§10.6) |
 | `Health.dc.html` | R8 · Services | Services, jobs with retry and cancel, backups and restore drills, alert rules (§7.4, §10.9). Every product has it, Base or Full |
 | `Audit.dc.html` | Audit | Filters, export, before and after on every row (§10.8) |
 | `Staff.dc.html` | Staff | The ladder, rights, two-step sign-in, controls disabled with "Needs Admin" (§5.2) |
