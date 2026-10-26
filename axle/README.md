@@ -4,7 +4,7 @@ Every product's AXLE, REKA's staff console, is built from this folder. That appl
 
 | File | What it is | Use it for |
 |---|---|---|
-| [SPEC.md](SPEC.md) | The standard, v1.0 | What AXLE must have, how it is organised and how it behaves |
+| [SPEC.md](SPEC.md) | The standard, v1.4 | What AXLE must have, how it is organised and how it behaves |
 | [mock/](mock/README.md) | The final design of every standard page, for AXLE · Janka | What each page looks like; copy the closest page |
 | [tokens.css](tokens.css) | Every AXLE colour, font and size, generated from the brand kit | The only values an AXLE screen may use. Copy it into the product; never edit it |
 | [reference/](reference/) | The REKA AXLE Admin Console Standard, v0.1 and v0.2 | Where the "std" citations in the spec come from |
@@ -40,3 +40,4 @@ The live mock is a private claude.ai canvas (https://claude.ai/artifact/NbWWVFko
 - Use orange for anything except "needs a person" and "you are here".
 - Use a status colour without a real signal, or a group colour as a status.
 - Show a secret's value, or a `0` where the true figure is hidden or unknown.
+- Draw an action as link text, or end a label with "…" (§14.2).

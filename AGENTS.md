@@ -12,7 +12,7 @@ Any work on a product's AXLE uses the template in `axle/`; that includes a new p
 
 ## When working in another repository on a customer app
 
-A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. Follow `app/README.md` and `app/SPEC.md` (v1.6, the standard). Everything the spec does not name is the product's own; a new shared rule goes into the spec first, never into one product.
+A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. Follow `app/README.md` and `app/SPEC.md` (v1.7, the standard). Everything the spec does not name is the product's own; a new shared rule goes into the spec first, never into one product.
 
 - **Before planning, write a gap table** (owner, 16 Oct 2026). Open the closest product's mock PNG (`app/mock/renders/AppBar-<product>-wide.png` and `-phone.png`, and the board for the page) and its `.values.md`. List every difference between the product, the mock and the spec, with what you will do about each. Where the spec says "the product's own", say what the product chose and why. Put the table in your plan before any code.
 - **Take values from `app/tokens.css`**, never from prose or by measuring a mock by eye. `app/reference/` shows them built.
@@ -30,6 +30,10 @@ Every customer app and every AXLE meets two more standards (owner, 18 Oct 2026):
 - **`actions/SPEC.md`:** confirming, waiting and results. Its §1 (AC-01 to AC-12) is the bare minimum. Every action is at one of three levels, and what a person sees while it runs depends on how long it takes. §10 says what each product does today and §11 what each changes. Check with `node tools/check-actions.mjs PATH` on the product's source.
 
 The reference pieces are in `app/reference/`: `PasswordField`, `ConfirmDialog`, `ProgressDialog` and `useAction`. Each product's screens are drawn in `app/mock/GettingIn<Product>.dc.html` and `app/mock/Actions<Product>.dc.html`, with PNGs in `app/mock/renders/` and values beside them.
+
+## Buttons and links
+
+Every customer app, AXLE and client project (owner, 26 Oct 2026): **an action is a button**, in the product's button styles, and **a link only goes somewhere**. Remove and Delete are destructive buttons, never coloured link text. **No button, menu item, link, tab or placeholder ends in "…" or "..."**. The rule is app SPEC §11b, axle SPEC §14.2 and project SPEC §8a; `node tools/check-shell.mjs` reports what it can see on a running page.
 
 ## Capacity
 

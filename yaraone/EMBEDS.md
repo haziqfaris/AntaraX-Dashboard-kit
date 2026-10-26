@@ -73,7 +73,7 @@ Kinds: **Support request** and **Feedback**. Feedback promises no reply, but tel
 
 ## What links back to AXLE
 
-From a ticket in the back office, staff reach the product's own tools: **Start support session…** (axle SPEC §11; the ticket is its "ticket it answers"), **Troubleshoot** when the ticket carries an error reference or matches an incident, and **Organisation 360**. AXLE's Needs-a-person list counts tickets waiting on a reply.
+From a ticket in the back office, staff reach the product's own tools: **Start support session** (axle SPEC §11; the ticket is its "ticket it answers"), **Troubleshoot** when the ticket carries an error reference or matches an incident, and **Organisation 360**. AXLE's Needs-a-person list counts tickets waiting on a reply.
 
 ## How it works (settled in YaraOne docs/19)
 

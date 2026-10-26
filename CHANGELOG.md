@@ -8,6 +8,23 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.9.0 · 26 Oct 2026
+
+Minor: a rule tightened for every product (owner, 26 Oct 2026; the lead adds it to brand kit guide/10). The owner saw a blue text link reading "Remove…" in a product and asked that an action always be a button and that no label end in "…".
+
+- **The rule, in three specs:**
+  - **app/SPEC.md 1.7, new §11b "Buttons and links":** an action is a button in one of the product's button styles (primary, secondary, ghost, destructive), 44px on touch; a link only goes somewhere and always has a real `href`; Remove and Delete are destructive buttons, never coloured link text; no button, menu item, link, tab or placeholder ends in "…" or "...". Text cut short by CSS, the "⋯" button, an ellipsis standing for something left out and a button's busy words ("Saving…") are not affected. Also in §16 Never and §17.
+  - **axle/SPEC.md 1.4, new §14.2:** the same in AXLE's button styles, with its destructive button in a dense row (white, `--axle-fault-line`, `--axle-fault-text`). Also in §15 Words, §19 and §20 (21).
+  - **project/SPEC.md v1.2, new §8a:** the same in shadcn/ui's terms: `link` only for navigation, Remove and Delete `destructive`. Also in §2 and §9.
+  - **actions/SPEC.md 1.1:** §7 Words gains the labels row and points to the rule.
+- **`tools/check-shell.mjs`** now also reports, anywhere on the page and in both menus, a control, tab, menu item or placeholder whose label ends in "…" or "...", and any `<a>` with nowhere to go (no `href`, `href="#"`, `javascript:`). Busy controls and CSS truncation are skipped.
+- **The kit brought into line:**
+  - app mocks: Lists ("Save view" is a menu item; Clear filters a button), Settings ("Delete"), Moments (End session and Mark all as read are buttons), Support (Choose files is a button), AppBar (Sign out is a `<button role="menuitem">`, drawn as before), and every Actions board (Undo, Restore, Cancel, Retry and Download are small outlined buttons, not link text). Renders and values tables updated.
+  - AXLE mocks: Start support session is a button on Organisation 360 and Tickets; End session in the support banner is a button; Email's Clear filters is a button; the dots are gone from Find, Suspend, Lock, Transfer ownership, Rotate, Roll back, Run now, Pause, Suppress, Change, Add staff, Switch for ‹organisation›, Start maintenance, Pause AI work, Switch on or off everywhere and Record a restore drill.
+  - project mocks: Start support session and Find in its AXLE; the kit's ghost button is no longer underlined; Choose files is a button.
+  - `app/reference/`: `.ax-menu-link` is replaced by `.ax-ghost-button` (Switch organisation, Cancel, Clear filters); "Save view" is a plain menu item; the demo's navigation links have real fragments. A product that copied `.ax-menu-link` renames it.
+  - `yaraone/EMBEDS.md`: "Start support session".
+
 ## 1.8.0 · 18 Oct 2026
 
 Minor: something new to adopt (owner, 18 Oct 2026; brand kit guide/10).

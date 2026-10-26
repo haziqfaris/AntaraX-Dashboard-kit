@@ -49,7 +49,7 @@ body{margin:0}
         <sc-for list="{{chips}}" as="c" hint-placeholder-count="2">
           <span style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 6px 0 10px; border-radius: 999px; background: #DAF3F3; color: #044F51; font-weight: 500">{{c}}<button type="button" aria-label="Remove {{c}}" style="width: 20px; height: 20px; border: 0; border-radius: 999px; background: transparent; color: #044F51; cursor: pointer; font-size: 14px; line-height: 1">×</button></span>
         </sc-for>
-        <a href="#" style="color: #098284; font-weight: 500">Clear filters</a>
+        <button type="button" style="min-height: 32px; padding: 0 12px; border-radius: 10px; border: 1px solid #E1EAEA; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Clear filters</button>
         <span style="flex: 1"></span>
         <span style="color: #657575">Saved for you · <span class="mono">?stage=cutting&amp;due=week</span></span>
       </div>
@@ -106,7 +106,7 @@ body{margin:0}
           </div>
         </sc-for>
         <div style="height: 1px; margin: 4px 6px; background: #E1EAEA"></div>
-        <a href="#" role="menuitem" style="display: flex; align-items: center; min-height: 44px; padding: 0 12px 0 36px; border-radius: 10px; color: #098284; font-weight: 600">Save view…</a>
+        <button type="button" role="menuitem" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: #0B1B4F; font-family: inherit; font-size: 14px; font-weight: 500; text-align: left; cursor: pointer"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#657575" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Save view</button>
       </div>
       <span style="font-size: 13px; color: #657575">Saves the search, filters, sort, group and view under a name. “All work orders” is always first and cannot be deleted.</span>
     </section>
