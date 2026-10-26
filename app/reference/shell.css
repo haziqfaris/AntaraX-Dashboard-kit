@@ -123,7 +123,7 @@
 .ax-menu-avatar { width: 40px; height: 40px; border-radius: 999px; flex: none; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--shell-action); color: var(--shell-on-action); font-weight: 600; }
 .ax-menu-org { display: flex; flex-direction: column; padding: 10px; border-bottom: 1px solid var(--shell-line); }
 .ax-menu-org small { font-size: 11px; opacity: .7; }
-.ax-menu-link { align-self: flex-start; min-height: 32px; padding: 0; border: 0; background: none; color: var(--shell-action); font: inherit; font-size: 13px; font-weight: 500; cursor: pointer; }
+.ax-menu-org .ax-ghost-button { align-self: flex-start; margin: 2px 0 0 -12px; }
 .ax-menu-appearance { display: flex; padding: 4px 12px; min-height: var(--shell-menu-item-height); }
 .ax-menu-appearance [role="radiogroup"] { display: flex; gap: 2px; padding: 2px; border-radius: 10px; background: var(--shell-well); }
 .ax-menu-appearance button { min-height: 32px; padding: 0 8px; border: 0; border-radius: 8px; background: transparent; color: inherit; font: inherit; font-size: 12px; cursor: pointer; }
@@ -132,6 +132,12 @@
 .ax-menu-signout > span { padding: 0 12px; font-size: 13px; }
 .ax-menu-signout .ax-menu-item { flex: 1; }
 .ax-menu-confirm { box-sizing: border-box; min-height: 44px; padding: 0 14px; border: 0; border-radius: 10px; background: var(--shell-action); color: var(--shell-on-action); font: inherit; font-weight: 600; cursor: pointer; }
+/* a ghost button (SPEC §11b): an action, so a button and never link text; no fill until hovered, never underlined */
+.ax-ghost-button {
+  box-sizing: border-box; min-height: 44px; padding: 0 12px; border: 0; border-radius: 10px; background: transparent;
+  color: var(--shell-ink); font: inherit; font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer;
+}
+.ax-ghost-button:hover, .ax-ghost-button:focus-visible { background: var(--shell-hover); }
 .ax-menu-foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 10px 10px 6px; border-top: 1px solid var(--shell-line); font-size: 11px; opacity: .85; }
 .ax-menu-foot a { color: inherit; }
 
@@ -170,7 +176,7 @@
 .ax-views-more:hover, .ax-views-more:focus-visible { background: var(--shell-hover); opacity: 1; }
 .ax-views-actions { display: flex; gap: 4px; flex: 1 0 100%; padding: 0 4px 4px 32px; box-sizing: border-box; }
 .ax-views-divider { height: 1px; margin: 4px 6px; background: var(--shell-line); }
-.ax-views-save { color: var(--shell-action); font-weight: 600; padding-left: 36px; }
+.ax-views-save { padding-left: 36px; }
 .ax-views-form { display: flex; gap: 6px; padding: 4px; }
 .ax-views-form input { flex: 1; min-width: 0; height: 44px; box-sizing: border-box; padding: 0 12px; border-radius: 10px; border: 1px solid var(--shell-line); background: var(--shell-surface); color: inherit; font: inherit; }
 .ax-views-actions .ax-menu-confirm { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

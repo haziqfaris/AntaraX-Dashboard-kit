@@ -1,4 +1,4 @@
-<!-- values for Products.dc.html, source 314881abae443a49 -->
+<!-- values for Products.dc.html, source 9a8d879c38e33711 -->
 Every number below is read from the mock. **Shell** rows must match in every product (SPEC section in brackets); **own** rows are how this board draws the product's own side, an example and not a rule. Colours are the product's palette slots (`app/tokens.css`).
 
 | Product | Bar | Navigation | Current item | Kind |

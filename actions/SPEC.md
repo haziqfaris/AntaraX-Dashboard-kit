@@ -1,6 +1,6 @@
 # Acting: confirmations, progress and results
 
-**Version 1.0, the standard (owner, 18 Oct 2026; Dashboard kit 1.8.0).** What happens when a person presses a button in any AntaraX customer app or AXLE: whether it asks first, what they see while it works, and how they learn it worked or failed. It gathers and replaces the short rules in [app/SPEC.md](../app/SPEC.md) §11 (confirming, toasts) and [axle/SPEC.md](../axle/SPEC.md) §14, and builds on the seven kinds of wait in app SPEC §12 and brand kit guide 14. ISO Generator is on hold.
+**Version 1.1, the standard (owner, 18 Oct 2026; Dashboard kit 1.8.0; 1.1 on 26 Oct 2026, Dashboard kit 1.10.0, adds the labels row to §7).** What happens when a person presses a button in any AntaraX customer app or AXLE: whether it asks first, what they see while it works, and how they learn it worked or failed. It gathers and replaces the short rules in [app/SPEC.md](../app/SPEC.md) §11 (confirming, toasts) and [axle/SPEC.md](../axle/SPEC.md) §14, and builds on the seven kinds of wait in app SPEC §12 and brand kit guide 14. ISO Generator is on hold.
 
 **Look and behaviour are separate.** How a dialog, a toast or a progress panel looks is the product's own (AXLE's is fixed by axle SPEC §4); what it holds, what it says and how it behaves are fixed here.
 
@@ -103,8 +103,9 @@ Each action has an **expected duration**, set when it is designed, which decides
 | Couldn't send the invitation. Check the email address and try again. | Something went wrong · Error 500 · An unexpected error occurred |
 | Discard changes? · Keep editing · Discard | Leave page? · You have unsaved changes (with no choice) |
 | Type **Tegap Fabrication** to confirm | Type DELETE |
+| Remove · Save view · Start support session, each a button | Remove… · Save view... · a text link that does something |
 
-Sentence case; the brand kit's voice (03).
+Sentence case; the brand kit's voice (03). What starts an action is a button, never link text, and no label on a control ends in "…" (owner, 26 Oct 2026; [app SPEC §11b](../app/SPEC.md#11b-buttons-and-links), [axle SPEC §14.2](../axle/SPEC.md#142-buttons-and-links-owner-26-oct-2026)). The busy words above ("Saving…") are a state while the action runs (§3), not a label.
 
 ## 8 Reference components
 

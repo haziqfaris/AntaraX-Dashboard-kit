@@ -27,7 +27,7 @@ export function AccountMenu({
       </div>
       <div className="ax-menu-org">
         <small>Organisation</small><strong>{organisation.name}</strong>
-        {onSwitchOrganisation ? <button type="button" role="menuitem" className="ax-menu-link" onClick={onSwitchOrganisation}>Switch organisation</button> : null}
+        {onSwitchOrganisation ? <button type="button" role="menuitem" className="ax-ghost-button" onClick={onSwitchOrganisation}>Switch organisation</button> : null}
       </div>
       <a role="menuitem" className="ax-menu-item ax-menu-row" href={accountHref}>Your account</a>
       <a role="menuitem" className="ax-menu-item ax-menu-row" href={settingsHref}>Settings</a>
@@ -49,7 +49,7 @@ export function AccountMenu({
           <>
             <span>Sign out of {product}?</span>
             <button type="button" role="menuitem" className="ax-menu-confirm" onClick={onSignOut}>Sign out</button>
-            <button type="button" role="menuitem" className="ax-menu-link" onClick={() => setConfirming(false)}>Cancel</button>
+            <button type="button" role="menuitem" className="ax-ghost-button" onClick={() => setConfirming(false)}>Cancel</button>
           </>
         ) : <button type="button" role="menuitem" className="ax-menu-item ax-menu-row" onClick={() => setConfirming(true)}>Sign out</button>}
       </div>

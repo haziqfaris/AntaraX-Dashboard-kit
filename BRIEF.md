@@ -1,6 +1,6 @@
 # AXLE brief for product work
 
-**Read this first in any chat that builds or changes a product's AXLE.** It sums up what was decided on 15 Oct 2026, where everything is, and how a product chat should work. The detail lives in the files it links; when they disagree with this page, the files win. Last updated 25 Oct 2026.
+**Read this first in any chat that builds or changes a product's AXLE.** It sums up what was decided on 15 Oct 2026, where everything is, and how a product chat should work. The detail lives in the files it links; when they disagree with this page, the files win. Last updated 26 Oct 2026.
 
 **Client projects are different again:** the client's brand, never AntaraX's look, with the shell's places and "Built by REKA" in the footer. Start with [project/README.md](project/README.md). Their AXLE is this same AXLE.
 
@@ -31,6 +31,7 @@ The product chat builds in the product's own repository. If it needs something t
 | AI, APIs and data | AI follows Heuristiks; its keys, models and routing are **AwanGan**'s. Models & keys is a read-only view of them; AI usage reads **Lapisan**'s usage rows for product `ai`. API keys, tenants, scopes and usage rows are Lapisan's. Data a business hands over goes to **Cebis Loom**. **RESAM** maps which framework governs what | §10.6, [AGENTS.md](AGENTS.md#ai-apis-and-data) |
 | Tickets and feedback | They live in **YaraOne**. AXLE embeds YaraOne's back office as Watch → Tickets; the customer app embeds its front office from Help. No product builds its own ticketing or feedback; AXLE runs everything else | §10.12, [yaraone/EMBEDS.md](yaraone/EMBEDS.md) |
 | Capacity | R8 → Capacity in every product: every plan it runs on, every limit, the trend and when it runs out, what to do, and an outside availability check. Generic for any infrastructure, from the product's `capacity.json` | §10.13, [capacity/](capacity/README.md) |
+| Buttons and links | An action is a button (primary, secondary, ghost, destructive), a link only goes somewhere, Remove and Delete are destructive buttons, and no label ends in "…" (owner, 26 Oct 2026) | §14.2 |
 | Figures | Real and clickable. Money is grouped by currency. A hidden or unknown figure is a dash with the reason, never `0` | §3, §13.1 |
 | Values | Every colour and size comes from [`axle/tokens.css`](axle/tokens.css), generated from the brand kit (tokens 1.11.0) | [README](README.md#connected-to-the-brand-kit) |
 

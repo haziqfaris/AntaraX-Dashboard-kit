@@ -178,7 +178,7 @@ class Component extends DCLogic {
       setupPips: setup.map(function (r) { return { color: r.ok ? '#12B76A' : '#F79009' }; }).sort(function (a, b) { return a.color === b.color ? 0 : (a.color === '#12B76A' ? -1 : 1); }),
       schedules: schedules, limits: limits, log: log,
       locked: !admin, lockWhy: admin ? '' : 'Needs Admin',
-      changeWord: admin ? 'Change…' : 'Needs Admin',
+      changeWord: admin ? 'Change' : 'Needs Admin',
       changeStyle: BTN + (admin ? 'border:1px solid #D5DBE7;background:#FFFFFF;color:#0B1B4F;cursor:pointer;' : 'border:1px solid #E5E8EE;background:#F5F7FC;color:#8A93AE;cursor:not-allowed;'),
       save: function () { self.setState({ editing: false, saved: true }); },
       cancel: function () { self.setState({ editing: false }); }
