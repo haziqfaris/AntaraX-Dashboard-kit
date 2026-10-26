@@ -1,6 +1,6 @@
 # AXLE standard
 
-**Version 1.5, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0; 1.3 on 18 Oct 2026, Dashboard kit 1.8.0; 1.4 on 25 Oct 2026, Dashboard kit 1.9.0; 1.5 on 26 Oct 2026, Dashboard kit 1.10.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). 1.3 points §14 to [actions/SPEC.md](../actions/SPEC.md) and asks again for the password or a code on irreversible actions. 1.4 says who manages the AI: AwanGan holds the keys and routes, Lapisan records the usage, and the AI pages show this product's own share (§10.6). 1.5 makes every action a button and takes the trailing "…" off every label (§14.2). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
+**Version 1.6, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0; 1.3 on 18 Oct 2026, Dashboard kit 1.8.0; 1.4 on 25 Oct 2026, Dashboard kit 1.9.0; 1.5 on 26 Oct 2026, Dashboard kit 1.10.0; 1.6 on 26 Oct 2026, Dashboard kit 1.11.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). 1.3 points §14 to [actions/SPEC.md](../actions/SPEC.md) and asks again for the password or a code on irreversible actions. 1.4 says who manages the AI: AwanGan holds the keys and routes, Lapisan records the usage, and the AI pages show this product's own share (§10.6). 1.5 makes every action a button and takes the trailing "…" off every label (§14.2). 1.6 takes the dots off busy words too and puts AntaraX's inline loop in their place (§13.3, §14.2). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
 
 It merges two sources:
 
@@ -687,6 +687,7 @@ Each banner says what is on, since when, and links to Settings.
 ### 13.3 Loading, empty and error
 
 - **Loading:** a skeleton in the page's light neutrals; nothing spins.
+- **Busy:** a button or a wait line that is working shows AntaraX's inline loop, **Assemble** (brand kit `assets/antarax/antarax-busy.svg`, `app/reference/InlineLoop.jsx`), with its words and no dots (§14.2). AXLE is the same in every product, so it is Assemble in every product's AXLE, never the product's own loop and never the sparkle.
 - **Empty:** says what will appear and how to get the first one.
 - **Error:** says what failed and what to try, never "Oops".
 
@@ -726,7 +727,8 @@ Decided after a blue text link reading "Remove…" in a product. It covers every
 - **A link only goes somewhere:** another page, another address, a record. Link text (`#0459F7` on the page, §4) is only ever an `<a>` with a real `href`, never `href="#"` or an `<a>` that only runs a script.
 - **Remove and Delete are destructive buttons,** never coloured link text.
 - **No trailing ellipsis.** No button, menu item, link, tab or placeholder ends in "…" or "...": "Suspend", "Start support session", "Find". The dots come from an old desktop convention (Apple's and Microsoft's guidelines), where "…" means a dialog will ask for more first. Staff don't read it that way, so the dots are clutter; the dialog that follows explains itself.
-  - Not affected: text cut short by CSS (`text-overflow: ellipsis`), the "⋯" more-actions button, an ellipsis that stands for something left out (`req_…`, "R8 Base · …"), and a button's words while it works ("Opening Google…", actions/SPEC.md §3).
+  - Not affected: text cut short by CSS (`text-overflow: ellipsis`), the "⋯" more-actions button, and an ellipsis that stands for something left out (`req_…`, "R8 Base · …").
+- **Busy words lose their dots too** (owner, 26 Oct 2026). A working button says what it is doing without dots ("Opening Google", "Running check", "Suspending"), with Assemble in place of its icon or before its words, in the button's text colour (navy on orange, white on AntaraX blue); it keeps its width and has `aria-busy="true"` (actions/SPEC.md §3). A wait line does the same: "Signed in. Opening AXLE · Janka". With reduced motion, Assemble's still frame and the words.
 
 ## 15 Words and formats
 
@@ -739,6 +741,7 @@ Decided after a blue text link reading "Remove…" in a product. It covers every
 | Staff rungs | Viewer · Support · Operator · Admin · Owner | Super Admin, ADMIN MODE |
 | In and out | Sign in · Sign out | Log in, Log out |
 | Labels on controls | Suspend · Start support session · Find | Suspend… · Start support session... · Find… (§14.2) |
+| Busy words | Suspending · Opening Google · Signed in. Opening AXLE · Janka, each with Assemble | Suspending… · Opening Google... (§14.2) |
 | Money | RM1,200 · US$45, grouped by currency | RM 1,200 · $45 · USD · converted totals |
 | Dates | 11 Oct 2026 · 14:30 MYT | 10/11/2026 · 2:30 PM |
 | Spelling | British | US |
@@ -807,7 +810,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **R8 AI flow** | Every AI feature in the code appears in the manifest and on the page; the five steps add up (asked = every outcome together), and so do model, cache and shared answers; turn-aways are counted; no prompt, photo, answer, reused answer or source text appears on the page or in its network responses |
 | **R8 troubleshoot** | From a Dashboard alert, Troubleshoot opens R8 on that organisation and asset with outside evidence, a timeline and only safe actions; the reading and the conclusion are stored apart |
 | **R8 safety** | No Level 3 action exists; every R8 action appears in the audit log with a reason |
-| **Buttons and links** | `node tools/check-shell.mjs` on three AXLE pages finds no control, menu item, tab or placeholder ending in "…" or "...", and no `<a>` without a real `href`; by hand, every action is a button and Remove, Delete and Suspend are destructive buttons (§14.2) |
+| **Buttons and links** | `node tools/check-shell.mjs` on three AXLE pages finds no control (busy ones included), menu item, tab, placeholder or status line ending in "…" or "...", and no `<a>` without a real `href`; by hand, every action is a button and Remove, Delete and Suspend are destructive buttons (§14.2) |
 | **Backend exists** | No R8 page or Observe item is empty or "coming soon"; a Base product shows no Incidents or Observe |
 | **Look** | Dark sidebar and top bar, light page, the orange `AXLE` tag and accent, the AntaraX A, "AXLE · Product" in the page title; the focus ring is visible on every control in both; axe passes |
 
@@ -836,6 +839,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 21. ~~**Who manages the AI.**~~ Decided 25 Oct 2026: AwanGan manages AntaraX's AI (provider keys, models, routing, call records, outcomes, AI cost) and Lapisan the API keys, tenants, scopes, limits and usage rows; each AXLE shows its own AI usage from Lapisan's usage rows for product `ai` (§10.6; AwanGan decision 0021).
 22. **AI usage while watch only.** Lapisan has no usage rows for product `ai` until a product comes through AwanGan. Read the product's own call records until then, or AwanGan's watch-only totals? Until decided, a figure Lapisan does not have is a dash with the reason (§13.1).
 23. ~~**Buttons and links.**~~ Decided 26 Oct 2026: an action is a button, a link only goes somewhere, Remove and Delete are destructive buttons, and no label ends in "…" (§14.2).
+24. ~~**Busy words.**~~ Decided 26 Oct 2026: busy words lose their dots and AntaraX's Assemble carries the motion (§13.3, §14.2). Whether AXLE should take each product's own loop instead is brand kit question 28; until it is answered, Assemble everywhere.
 
 ## 21 What each console changes
 

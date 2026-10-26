@@ -26,7 +26,12 @@ body{margin:0;background:#071233}
 .axs-dot{width:6px;height:6px;border-radius:50%;background:rgba(182,195,234,.7);animation:axs-pulse 2.4s infinite}
 @keyframes axs-pulse{0%,100%{box-shadow:0 0 0 0 rgba(182,195,234,.45)}55%{box-shadow:0 0 0 6px rgba(182,195,234,0)}}
 .axs-primary:hover{background:#4D84FE}
-@media (prefers-reduced-motion:reduce){.axs-dots,.axs-dot{animation:none!important}.axs-scan{display:none}}
+/* AntaraX's busy loop, Assemble (brand kit 14; axle SPEC §13.3, §14.2): busy words have no dots */
+.axs-busy path{animation:1.4s ease-in-out infinite}.axs-busy .a1{animation-name:axs-a1}.axs-busy .a2{animation-name:axs-a2}.axs-busy .a3{animation-name:axs-a3}
+@keyframes axs-a1{0%{opacity:.32}14%,72%{opacity:1}90%,100%{opacity:.32}}
+@keyframes axs-a2{0%,14%{opacity:.32}28%,72%{opacity:1}90%,100%{opacity:.32}}
+@keyframes axs-a3{0%,28%{opacity:.32}42%,72%{opacity:1}90%,100%{opacity:.32}}
+@media (prefers-reduced-motion:reduce){.axs-dots,.axs-dot{animation:none!important}.axs-scan{display:none}.axs-busy path[class]{animation:none;opacity:1}}
 </style>
 </helmet>
 <main class="axs" style="position: relative; min-height: 100vh; box-sizing: border-box; display: grid; place-items: center; padding: 40px 16px; overflow: hidden; background: #071233; color: #EAF0FF; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
@@ -53,8 +58,9 @@ body{margin:0;background:#071233}
       </sc-if>
 
       <sc-if value="{{isSignIn}}" hint-placeholder-val="{{true}}">
-        <button type="button" onClick="{{google}}" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 44px; border-radius: 12px; border: 0; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer">
-          <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#0B1B4F" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path></svg>
+        <button type="button" onClick="{{google}}" aria-busy="{{googleBusy}}" style="display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 44px; border-radius: 12px; border: 0; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer">
+          <sc-if value="{{googleIsBusy}}" hint-placeholder-val="{{false}}"><svg class="axs-busy" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex: none"><path class="a1" d="M9.9 19.1 9.9 18.5 9.8 18.3 8.7 17.3 2.8 21.3 3.7 21.9 5 22.4 6.1 22.5 7.3 22.2 8.1 21.8 8.9 21 9.8 19.6Z"></path><path class="a2" d="M11.7 1.5 10.7 1.7 9.8 2.2 9.1 2.9 8.6 3.7 1.9 16.5 1.7 17.1 1.6 18 1.6 18.8 1.8 19.7 7.7 15.6 7.6 14.9 7.5 14.3 7.6 13.4 7.8 12.7 8.1 12 8.6 11.4 9 10.9 9.6 10.5 10.2 10.2 10.9 10 11.6 9.8 12.3 9.8 13.1 9.9 13.8 10.1 14.5 10.5 15 10.9 18.2 8.8 15.4 3.4 14.9 2.7 14.1 2.1 13.4 1.7 12.6 1.5Z"></path><path class="a3" d="M22.4 17.9 22.3 17.1 22 16.2 19.1 10.4 16.1 12.4 16.4 13.2 16.6 14.1 16.5 15 16.3 15.7 16.1 16.4 15.8 16.9 15.2 17.5 14.4 18.3 14.1 18.8 14.2 19.4 15 20.8 15.6 21.5 15.9 21.7 16.6 22.2 17.8 22.5 19 22.4 20.2 22 21.2 21.2 21.8 20.5 22.2 19.7 22.3 19.2Z"></path></svg></sc-if>
+          <sc-if value="{{googleIdle}}" hint-placeholder-val="{{true}}"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#0B1B4F" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path></svg></sc-if>
           <span>{{googleLabel}}</span>
         </button>
         <span style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #8E9CC9"><span style="flex: 1; height: 1px; background: rgba(157,184,255,.16)"></span>or<span style="flex: 1; height: 1px; background: rgba(157,184,255,.16)"></span></span>
@@ -85,7 +91,7 @@ body{margin:0;background:#071233}
       </sc-if>
 
       <sc-if value="{{isIn}}" hint-placeholder-val="{{false}}">
-        <p role="status" style="margin: 0; padding: 12px; border-radius: 12px; background: rgba(95,211,155,.10); border: 1px solid rgba(95,211,155,.35); color: #12B76A; font-size: 13px; text-align: center">Signed in. Opening AXLE · {{product}}…</p>
+        <p role="status" style="margin: 0; padding: 12px; border-radius: 12px; background: rgba(95,211,155,.10); border: 1px solid rgba(95,211,155,.35); color: #12B76A; font-size: 13px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px"><svg class="axs-busy" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex: none"><path class="a1" d="M9.9 19.1 9.9 18.5 9.8 18.3 8.7 17.3 2.8 21.3 3.7 21.9 5 22.4 6.1 22.5 7.3 22.2 8.1 21.8 8.9 21 9.8 19.6Z"></path><path class="a2" d="M11.7 1.5 10.7 1.7 9.8 2.2 9.1 2.9 8.6 3.7 1.9 16.5 1.7 17.1 1.6 18 1.6 18.8 1.8 19.7 7.7 15.6 7.6 14.9 7.5 14.3 7.6 13.4 7.8 12.7 8.1 12 8.6 11.4 9 10.9 9.6 10.5 10.2 10.2 10.9 10 11.6 9.8 12.3 9.8 13.1 9.9 13.8 10.1 14.5 10.5 15 10.9 18.2 8.8 15.4 3.4 14.9 2.7 14.1 2.1 13.4 1.7 12.6 1.5Z"></path><path class="a3" d="M22.4 17.9 22.3 17.1 22 16.2 19.1 10.4 16.1 12.4 16.4 13.2 16.6 14.1 16.5 15 16.3 15.7 16.1 16.4 15.8 16.9 15.2 17.5 14.4 18.3 14.1 18.8 14.2 19.4 15 20.8 15.6 21.5 15.9 21.7 16.6 22.2 17.8 22.5 19 22.4 20.2 22 21.2 21.2 21.8 20.5 22.2 19.7 22.3 19.2Z"></path></svg><span>Signed in. Opening AXLE · {{product}}</span></p>
         <button type="button" onClick="{{back}}" style="border: 0; background: transparent; color: #4D84FE; font-family: inherit; font-size: 13px; cursor: pointer">Start again</button>
       </sc-if>
     </section>
@@ -109,7 +115,8 @@ class Component extends DCLogic {
     return {
       product: this.props.product ?? 'Janka',
       isSignIn: step === 'signin' || denied, isDenied: denied, isCode: step === 'code', isIn: step === 'in',
-      googleLabel: st.google ? 'Opening Google…' : 'Continue with Google',
+      googleLabel: st.google ? 'Opening Google' : 'Continue with Google',
+      googleIsBusy: !!st.google, googleIdle: !st.google, googleBusy: st.google ? 'true' : 'false',
       google: function () { self.setState({ google: true }); },
       pwType: st.show ? 'text' : 'password', pwLabel: st.show ? 'Hide' : 'Show', pwPressed: st.show ? 'true' : 'false',
       togglePw: function () { self.setState({ show: !st.show }); },

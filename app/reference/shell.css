@@ -224,6 +224,7 @@
 .ax-dialog-actions .is-action { border: 0; background: var(--shell-action); color: var(--shell-on-action); font-weight: 600; }
 .ax-dialog-actions .is-danger { border: 0; background: #B42318; color: #FFFFFF; font-weight: 600; }
 .ax-dialog-actions button:disabled { opacity: .5; cursor: not-allowed; }
+.ax-dialog-actions button[aria-busy="true"]:disabled { opacity: 1; cursor: progress; } /* busy is not unavailable: full colour, the loop moving */
 .ax-dialog :focus-visible { outline: 2px solid var(--shell-focus); outline-offset: 2px; }
 .ax-progress-head { display: flex; align-items: center; gap: 12px; }
 .ax-progress-loader { flex: none; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
@@ -232,9 +233,29 @@
 .ax-progress-count p, .ax-progress-note { margin: 6px 0 0; font-size: 13px; }
 .ax-progress-steps { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
 .ax-progress-steps li { display: flex; align-items: center; gap: 10px; }
-.ax-progress-steps li > span[aria-hidden] { width: 10px; height: 10px; border-radius: 999px; border: 2px solid var(--shell-line); }
-.ax-progress-steps li[data-state="done"] > span[aria-hidden] { background: #12B76A; border-color: #12B76A; }
-.ax-progress-steps li[data-state="now"] > span[aria-hidden] { border-color: var(--shell-action); background: var(--shell-subtle-tint); }
+.ax-progress-steps li > span[aria-hidden]:not(.ax-loop) { width: 10px; height: 10px; border-radius: 999px; border: 2px solid var(--shell-line); }
+.ax-progress-steps li[data-state="done"] > span[aria-hidden]:not(.ax-loop) { background: #12B76A; border-color: #12B76A; }
+.ax-progress-steps li[data-state="now"] > span[aria-hidden]:not(.ax-loop) { border-color: var(--shell-action); background: var(--shell-subtle-tint); }
 .ax-progress-steps li[data-state="to-come"] { color: color-mix(in srgb, var(--shell-ink) 55%, transparent); }
 .ax-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .ax-progress-bar span { transition: none; } }
+
+/* Busy without dots (actions/SPEC.md §3, app SPEC §11b and §12; owner, 26 Oct 2026). The words lose their dots and
+   an inline loop carries the motion: AntaraX's Assemble by default (brand kit guide 14), the product's own when it
+   passes one. The loop draws in currentColor, so it works on primary, secondary and destructive buttons. */
+.ax-loop { flex: none; display: inline-flex; align-items: center; justify-content: center; }
+.ax-loop svg { display: block; }
+.ax-loop-assemble path { animation: 1.4s ease-in-out infinite; }
+.ax-loop-assemble .ax-loop-1 { animation-name: ax-loop-1; }
+.ax-loop-assemble .ax-loop-2 { animation-name: ax-loop-2; }
+.ax-loop-assemble .ax-loop-3 { animation-name: ax-loop-3; }
+@keyframes ax-loop-1 { 0% { opacity: .32; } 14%, 72% { opacity: 1; } 90%, 100% { opacity: .32; } }
+@keyframes ax-loop-2 { 0%, 14% { opacity: .32; } 28%, 72% { opacity: 1; } 90%, 100% { opacity: .32; } }
+@keyframes ax-loop-3 { 0%, 28% { opacity: .32; } 42%, 72% { opacity: 1; } 90%, 100% { opacity: .32; } }
+/* the button keeps the width of the wider of its label and its busy words, so nothing jumps */
+.ax-busy { display: inline-grid; }
+.ax-busy > span { grid-area: 1 / 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.ax-busy[data-busy="true"] > .ax-busy-idle, .ax-busy[data-busy="false"] > .ax-busy-run { visibility: hidden; }
+.ax-progress-steps li .ax-loop { color: var(--shell-action); margin-right: -2px; }
+/* reduced motion: the still frame (the whole A) beside the words, never the words alone */
+@media (prefers-reduced-motion: reduce) { .ax-loop-assemble path[class] { animation: none; opacity: 1; } }

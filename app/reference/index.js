@@ -10,3 +10,4 @@ export { PasswordField } from './PasswordField.jsx';
 export { ConfirmDialog } from './ConfirmDialog.jsx';
 export { ProgressDialog } from './ProgressDialog.jsx';
 export { useAction } from './useAction.js';
+export { InlineLoop, BusyLabel, noDots } from './InlineLoop.jsx';

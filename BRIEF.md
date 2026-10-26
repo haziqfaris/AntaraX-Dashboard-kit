@@ -4,7 +4,7 @@
 
 **Client projects are different again:** the client's brand, never AntaraX's look, with the shell's places and "Built by REKA" in the footer. Start with [project/README.md](project/README.md). Their AXLE is this same AXLE.
 
-**Customer apps are different:** each product's own, apart from the AntaraX shell (top bar with Help and the account at the right, the account menu, standard pages under `/settings`, shared roles and moments). Start with [app/README.md](app/README.md); spec v1.6: the bar's exact sizes are tokens (`app/tokens.css`), every mock is rendered to PNG, and `tools/check-shell.mjs` measures a product against them. Products pin the kit version in `antarax-kit.lock` ([CHANGELOG](CHANGELOG.md)).
+**Customer apps are different:** each product's own, apart from the AntaraX shell (top bar with Help and the account at the right, the account menu, standard pages under `/settings`, shared roles and moments). Start with [app/README.md](app/README.md); spec v1.8: the bar's exact sizes are tokens (`app/tokens.css`), every mock is rendered to PNG, and `tools/check-shell.mjs` measures a product against them. Products pin the kit version in `antarax-kit.lock` ([CHANGELOG](CHANGELOG.md)).
 
 ## How to use it in another chat
 
@@ -32,6 +32,7 @@ The product chat builds in the product's own repository. If it needs something t
 | Tickets and feedback | They live in **YaraOne**. AXLE embeds YaraOne's back office as Watch → Tickets; the customer app embeds its front office from Help. No product builds its own ticketing or feedback; AXLE runs everything else | §10.12, [yaraone/EMBEDS.md](yaraone/EMBEDS.md) |
 | Capacity | R8 → Capacity in every product: every plan it runs on, every limit, the trend and when it runs out, what to do, and an outside availability check. Generic for any infrastructure, from the product's `capacity.json` | §10.13, [capacity/](capacity/README.md) |
 | Buttons and links | An action is a button (primary, secondary, ghost, destructive), a link only goes somewhere, Remove and Delete are destructive buttons, and no label ends in "…" (owner, 26 Oct 2026) | §14.2 |
+| Busy | A working button or wait line says what it is doing without dots ("Running check", "Signed in. Opening AXLE · Janka"), with AntaraX's inline loop, Assemble, in every product's AXLE; never the sparkle (owner, 26 Oct 2026) | §13.3, §14.2 |
 | Figures | Real and clickable. Money is grouped by currency. A hidden or unknown figure is a dash with the reason, never `0` | §3, §13.1 |
 | Values | Every colour and size comes from [`axle/tokens.css`](axle/tokens.css), generated from the brand kit (tokens 1.11.0) | [README](README.md#connected-to-the-brand-kit) |
 
@@ -40,7 +41,7 @@ The product chat builds in the product's own repository. If it needs something t
 | What | Where |
 |---|---|
 | Step-by-step for building an AXLE | [axle/README.md](axle/README.md) |
-| The standard, v1.4 | [axle/SPEC.md](axle/SPEC.md) |
+| The standard, v1.6 | [axle/SPEC.md](axle/SPEC.md) |
 | The final design of every page (AXLE · Janka) | [axle/mock/](axle/mock/README.md), and the private canvas https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr |
 | Tokens to copy into the product | [axle/tokens.css](axle/tokens.css) |
 | What each product's AXLE looks like today, with screenshots | [inventory/](inventory/README.md), [inventory/gallery.html](inventory/gallery.html) |

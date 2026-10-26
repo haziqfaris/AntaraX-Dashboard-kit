@@ -18,8 +18,9 @@
   radius, gutter and shadow; labels set in uppercase anywhere on the page; Help's and the account's menu
   items. Anywhere on the page, and in both menus (SPEC §11b): controls, tabs, menu items and placeholders
   whose label ends in "…" or "...", and <a> elements with nowhere to go (no href, href="#" or javascript:),
-  which are actions dressed as links. A busy control (aria-busy, or disabled with "Saving…"-style words) and
-  text cut short by CSS are not counted. It saves each width's screenshot and, with --product, the matching reference PNG beside it in
+  which are actions dressed as links. A busy control counts like any other: its words lose their dots ("Saving",
+  never "Saving…"; actions/SPEC.md §3), and so do status and wait lines (role="status", aria-live, aria-busy).
+  Text cut short by CSS is not counted. It saves each width's screenshot and, with --product, the matching reference PNG beside it in
   compare.html. Exit 1 on any failure; differences recorded in the lock are reported, not failed.
 
   Needs Playwright and Chromium (npm i -D playwright; npx playwright install chromium).
@@ -90,12 +91,18 @@ async function measure(page, width) {
     }).map((el) => el.textContent.trim().slice(0, 40)).slice(0, 10);
     // SPEC §11b: no label ends in an ellipsis; an action is a button, so every <a> goes somewhere.
     const shown = (el) => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(el).visibility !== 'hidden'; };
-    const busy = (el, t) => el.closest('[aria-busy="true"]') || (el.disabled && /\b\w+ing\b[^.…]*(…|\.\.\.)$/.test(t));
+    // Busy words lose their dots too (owner, 26 Oct 2026): a busy control is fine only without them.
     const dots = /(…|\.\.\.)$/;
     const ellipsis = [];
     for (const el of document.querySelectorAll('button, a, summary, option, [role="button"], [role="link"], [role="tab"], [role="menuitem"], [role="menuitemradio"], [role="menuitemcheckbox"], [role="option"], input[type="button"], input[type="submit"]')) {
       const t = (el.tagName === 'INPUT' ? el.value : el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ');
-      if (dots.test(t) && (el.tagName === 'OPTION' || shown(el)) && !busy(el, t)) ellipsis.push(t.slice(-40));
+      if (dots.test(t) && (el.tagName === 'OPTION' || shown(el))) ellipsis.push((el.closest('[aria-busy="true"]') || el.disabled ? 'busy ' : '') + t.slice(-40));
+    }
+    // Status and wait lines: "Signed in. Opening AXLE…" or "Syncing…" lose their dots; the inline loop carries the motion.
+    for (const el of document.querySelectorAll('[role="status"], [role="progressbar"], [aria-live]:not([aria-live="off"]), [aria-busy="true"]')) {
+      if (el.matches('button, a, [role="button"]')) continue;
+      const t = (el.innerText || '').trim().split('\n').map((l) => l.trim()).filter(Boolean);
+      for (const l of t) if (dots.test(l) && shown(el)) ellipsis.push(`wait line "${l.slice(-40)}"`);
     }
     for (const el of document.querySelectorAll('input[placeholder], textarea[placeholder]')) {
       const t = el.getAttribute('placeholder').trim();
@@ -150,7 +157,7 @@ async function measure(page, width) {
     report(found.viewport - found.account.right <= (flat ? 24 : 40), width, 'Nothing after the account', `${Math.round(found.viewport - found.account.right)}px from the account to the edge`);
   }
   report(!found.upper.length, width, 'No uppercase labels', found.upper.length ? found.upper.map((t) => `"${t}"`).join(', ') : 'none');
-  report(!found.ellipsis.length, width, 'No label ends in an ellipsis', found.ellipsis.length ? found.ellipsis.slice(0, 10).map((t) => t.startsWith('placeholder') ? t : `"${t}"`).join(', ') + ' (SPEC §11b)' : 'none');
+  report(!found.ellipsis.length, width, 'No label ends in an ellipsis', found.ellipsis.length ? found.ellipsis.slice(0, 10).map((t) => /^(placeholder|wait line)/.test(t) ? t : t.startsWith('busy ') ? `busy "${t.slice(5)}"` : `"${t}"`).join(', ') + ' (SPEC §11b; busy words and wait lines: actions §3)' : 'none');
   report(!found.nowhere.length, width, 'Links go somewhere', found.nowhere.length ? found.nowhere.slice(0, 10).join(', ') + ': an action is a button, a link has a real href (SPEC §11b)' : 'every <a> has a real href');
 }
 
