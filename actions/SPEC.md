@@ -1,6 +1,6 @@
 # Acting: confirmations, progress and results
 
-**Version 1.1, the standard (owner, 18 Oct 2026; Dashboard kit 1.8.0; 1.1 on 26 Oct 2026, Dashboard kit 1.9.0, adds the labels row to §7).** What happens when a person presses a button in any AntaraX customer app or AXLE: whether it asks first, what they see while it works, and how they learn it worked or failed. It gathers and replaces the short rules in [app/SPEC.md](../app/SPEC.md) §11 (confirming, toasts) and [axle/SPEC.md](../axle/SPEC.md) §14, and builds on the seven kinds of wait in app SPEC §12 and brand kit guide 14. ISO Generator is on hold.
+**Version 1.1, the standard (owner, 18 Oct 2026; Dashboard kit 1.8.0; 1.1 on 26 Oct 2026, Dashboard kit 1.10.0, adds the labels row to §7).** What happens when a person presses a button in any AntaraX customer app or AXLE: whether it asks first, what they see while it works, and how they learn it worked or failed. It gathers and replaces the short rules in [app/SPEC.md](../app/SPEC.md) §11 (confirming, toasts) and [axle/SPEC.md](../axle/SPEC.md) §14, and builds on the seven kinds of wait in app SPEC §12 and brand kit guide 14. ISO Generator is on hold.
 
 **Look and behaviour are separate.** How a dialog, a toast or a progress panel looks is the product's own (AXLE's is fixed by axle SPEC §4); what it holds, what it says and how it behaves are fixed here.
 

@@ -2,7 +2,7 @@
 
 The standard dashboards for everything REKA builds: AntaraX products, REKA's client projects, and the AXLE console both share. It sits beside the [AntaraX brand kit](https://github.com/haziqfaris/AntaraX-brand-kit), which stays the source of truth for names, colour, type and the AntaraX layer.
 
-**Version 1.9.0** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)).
+**Version 1.10.0** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)).
 
 ## Where it stands
 
@@ -15,7 +15,7 @@ The standard dashboards for everything REKA builds: AntaraX products, REKA's cli
 | 2c | Capacity | Every product and project lists what it runs on, every limit and how it is measured in `capacity.json`; AXLE → R8 → Capacity shows how close each is and when it runs out. Any provider, any kind of infrastructure: [capacity/README.md](capacity/README.md), check with `python3 capacity/check.py` |
 | 2d | Getting in | **The standard, v1.0 (18 Oct 2026).** Signing in, passwords, sign-in links, two-step sign-in, sessions and account changes for every customer app and AXLE: [getting-in/SPEC.md](getting-in/SPEC.md). Its §1 is the bare minimum (GI-01 to GI-20), §14 what each product has today; `PasswordField` in [app/reference/](app/reference/README.md); check with `node tools/check-signin.mjs` |
 | 2e | Acting | **The standard, v1.1 (26 Oct 2026).** Confirming, waiting and results for every customer app and AXLE: [actions/SPEC.md](actions/SPEC.md). Three levels of confirmation (undoable, consequential, irreversible with the name typed), what a person sees by how long an action takes, and how results and errors are told; §10 what each product does today. `ConfirmDialog`, `ProgressDialog` and `useAction` in [app/reference/](app/reference/README.md); check with `node tools/check-actions.mjs`; every state per product in `app/mock/Actions*.dc.html` |
-| 3 | Standard AXLE console and AXLE Central | **The standard, v1.4 (26 Oct 2026).** Build every AXLE from [axle/README.md](axle/README.md): the spec, the final mock of every page, and the tokens |
+| 3 | Standard AXLE console and AXLE Central | **The standard, v1.5 (26 Oct 2026).** Build every AXLE from [axle/README.md](axle/README.md): the spec, the final mock of every page, and the tokens. Its AI pages show the product's own share of AwanGan, AntaraX's AI control plane ([AGENTS.md](AGENTS.md#ai-apis-and-data)) |
 
 **Building or changing any product's AXLE? Start with [BRIEF.md](BRIEF.md)**, then [axle/README.md](axle/README.md). Agents: see [AGENTS.md](AGENTS.md).
 

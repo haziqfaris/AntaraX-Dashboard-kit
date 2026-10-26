@@ -43,6 +43,16 @@ Every product and client project keeps `capacity.json` at its root, listing ever
 
 No product, customer app or AXLE builds its own ticketing, feedback inbox or support form that stores anything (owner, 16 Oct 2026). Customers reach YaraOne's **front office** from Help; staff reach its **back office** in AXLE → Tickets. Follow `yaraone/EMBEDS.md` v1.0: `embed.js`, a token the product's server signs, nothing stored in the product. Wire it in once YaraOne's front office is built (its docs/19 phase W); never invent another embed mechanism or sign-in handover in a product.
 
+## AI, APIs and data
+
+Each has one owner (owner, 25 Oct 2026; AwanGan decision 0021). When you build a product's AXLE, take each to its owner; never build it in the product.
+
+- **AI** follows the AntaraX AI framework, Heuristiks (`haziqfaris/ai-framework-heuristiks`). Its provider keys, models and routing are **AwanGan**'s (`haziqfaris/AntaraX-AwanGan`), AntaraX's AI control plane. Once a product comes through AwanGan, it holds no provider key, only an AntaraX key for product `ai`; before that, AwanGan records the keys it still holds, watch only. Prompts, gates, checks and decisions stay in the product. In AXLE, Models & keys is a read-only view of AwanGan's keys and routes, and AI usage reads Lapisan's usage rows for product `ai` (`axle/SPEC.md` §10.6).
+- **APIs:** keys for callers, tenants, scopes, limits and usage rows are **Lapisan**'s (`haziqfaris/antarax-api`, `api.antarax.ai`).
+- **Data a business hands over** (files in, clean tables out) goes to **Cebis Loom** (`haziqfaris/antarax-cebis-loom`).
+- **Which framework governs what:** **RESAM**'s repository map (`haziqfaris/RESAM`).
+- **A client's own system** comes through AwanGan only with the client's written agreement; otherwise it keeps its own keys under Heuristiks, or runs BumiNyata on its own servers.
+
 ## On hold
 
 - **ISO Generator** (`haziqfaris/iso-generator`): do not change it in any way for this work (owner, 15 Oct 2026).

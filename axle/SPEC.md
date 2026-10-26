@@ -1,6 +1,6 @@
 # AXLE standard
 
-**Version 1.4, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0; 1.3 on 18 Oct 2026, Dashboard kit 1.8.0; 1.4 on 26 Oct 2026, Dashboard kit 1.9.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). 1.3 points §14 to [actions/SPEC.md](../actions/SPEC.md) and asks again for the password or a code on irreversible actions. 1.4 makes every action a button and takes the trailing "…" off every label (§14.2). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
+**Version 1.5, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0; 1.3 on 18 Oct 2026, Dashboard kit 1.8.0; 1.4 on 25 Oct 2026, Dashboard kit 1.9.0; 1.5 on 26 Oct 2026, Dashboard kit 1.10.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). 1.3 points §14 to [actions/SPEC.md](../actions/SPEC.md) and asks again for the password or a code on irreversible actions. 1.4 says who manages the AI: AwanGan holds the keys and routes, Lapisan records the usage, and the AI pages show this product's own share (§10.6). 1.5 makes every action a button and takes the trailing "…" off every label (§14.2). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
 
 It merges two sources:
 
@@ -140,7 +140,7 @@ Two axes:
 |---|---|---|
 | **Finance** | MRR, invoices, AI and infrastructure cost, budgets | Finance |
 | **Security** | Sign-in activity, sessions, staff access reviews, exports and deletion approvals | Security |
-| **AI** | Providers, keys, routes, prompts and their versions | |
+| **AI** | Prompts and their versions; this product's keys and routes, which change in AwanGan (§10.6) | |
 | **Library** | Publishing platform libraries (§10.7) | |
 
 Rules:
@@ -282,8 +282,8 @@ Product-only items sit at the end so that adding one never moves a standard item
 | | **Invitations** | Always | Single-use expiring links (D3) | Support |
 | | **Requests** | Orgs | Access requests, data export and deletion requests, pilot requests (C5, J3) | Admin, Security right |
 | | **Support** | Orgs | Internal notes per organisation, never shown to it (H4), and support sessions (§11). Tickets are in Tickets | Support |
-| **AI** | **Models & keys** | AI | Providers, keys (masked, test, rotate), model per task with default and fallback chain, automatic switch on outage (F1, F2). Provider *health* is R8 → Providers; this page is the configuration | AI right |
-| | **AI usage** | AI | Usage, performance and cost per organisation, task and model; budgets and alerts (F4) | Viewer; cost needs Finance |
+| **AI** | **Models & keys** | AI | Read only: this product's keys and the route for each feature (first model, then fallbacks) as AwanGan holds them, with a link to AwanGan's Routing. Before the product comes through AwanGan, the keys it still holds, recorded watch only (F1, F2, §10.6). Provider *health* is R8 → Providers | AI right; routes change in AwanGan |
+| | **AI usage** | AI | Usage, performance and cost per organisation, feature and model, from Lapisan's usage rows for product `ai`; budgets and alerts (F4) | Viewer; cost needs Finance |
 | | **Live trace** | AI | One run, diagnosis first, AXLE only (F5, §10.6) | Viewer; bodies need AI |
 | | **Prompts & quality** | AI | Prompt and configuration versions with a change log; feedback, evaluation scores, learning (F6) | AI right |
 | **Money** | **Plans & features** | Always | Plans or editions; features classified as core, configurable, module or flag; per-organisation switches; "why does it have this?"; quotas with logged overrides (E1–E4, §10.5) | Admin |
@@ -316,7 +316,7 @@ Every product has these pages at **Base**; **Full** adds Incidents. Observe page
 | | **Agents** | Full, and an agent on customer or REKA hosts exists | Enrolled, connected, offline, outdated; per agent version, last heartbeat, telemetry flowing or stopped; ping, rotate credentials, push config, revoke. Telemetry only at first (M8; agents come last, 6 Oct 2026) | Operator; revoke needs Admin |
 | | **Visual** | Full, and the product takes screenshots or renders pages | Captures, success rate, changes found, failures, queue, storage, provider quota; capture now, retry, pause (M7) | Operator |
 | **System** | **Jobs** | Base | Last run, result, duration, next run; per run eligible, processed, failed, skipped and the top failure reasons; run now, retry failures, pause, resume. Schedules in plain words, raw cron only in an advanced drawer (M4, H1) | Operator |
-| | **Providers** | Base | Every outside dependency (AI providers, email through AntaraX email (§10.14), storage, payments, any product API): state, calls in 24 hours, success rate, latency, quota exposure, latest error and latest success; Test provider. Credentials never shown (M5) | Operator tests; keys stay in Dashboard → Models & keys |
+| | **Providers** | Base | Every outside dependency (AI providers, email through AntaraX email (§10.14), storage, payments, any product API): state, calls in 24 hours, success rate, latency, quota exposure, latest error and latest success; Test provider. Credentials never shown (M5) | Operator tests; keys are AwanGan's, seen in Dashboard → Models & keys |
 | | **AI flow** | Base, and the product calls an AI model | How the product's AI is wired and what happened on each path, drawn from its AI manifest (§10.6.1) | Viewer: read only |
 | | **Services** | Base | REKA's own platform: API, database, workers, queues, storage, AI gateway, email, deployed version (B3) | Viewer |
 | | **Capacity** | Base | How close the product is to every limit of the plans it runs on, how fast it is growing, when it will reach each one, and what to do then. Any provider, any kind of infrastructure (§10.13) | Viewer; plans and limits are changed by Admin |
@@ -474,12 +474,20 @@ The page opens on **what is missing**: a readiness checklist ("Before Acme Plast
 
 ### 10.6 AI (std F1–F6)
 
+**AwanGan manages the AI; this AXLE shows the product's own share** (owner, 25 Oct 2026; AwanGan decision 0021). The product's AI follows the AntaraX AI framework, Heuristiks (`haziqfaris/ai-framework-heuristiks`).
+
+- **AwanGan** (`haziqfaris/AntaraX-AwanGan`), AntaraX's AI control plane, holds the provider keys, the models and each feature's route, and keeps a record and an outcome for every call that comes through it.
+- **Lapisan** (`haziqfaris/antarax-api`, `api.antarax.ai`) gives the product an AntaraX key for product `ai` and records each call as a usage row.
+- **The product** keeps its prompts, gates, checks and decisions.
+
+A product moves in two steps, and nothing is forced on a live one. **Watch only** first: it keeps its own keys, and AwanGan records them with their owner and totals from the provider's own usage report. Then **through AwanGan**: its keys move into AwanGan's vault, and the product holds only its AntaraX key. A client's own system comes through only with the client's written agreement; otherwise it keeps its own keys under Heuristiks, or runs BumiNyata on its own servers. Nothing in AwanGan is built yet (25 Oct 2026).
+
 | Page | Must show |
 |---|---|
-| Models & keys | Providers; keys kept in the vault, shown masked, test and rotate; the model per task with a default and a fallback chain; automatic switch on outage, with a toggle and a log of switches (F1, F2) |
+| Models & keys | Read only. This product's keys as AwanGan holds them: provider, last four characters, owner, when rotated, health; never a whole key. The route for each feature: the key and model it tries first, then its fallbacks; automatic switches and route changes, with who and when. **Open Routing in AwanGan** for any change; it takes effect at the gateway without a redeploy. Before the product comes through AwanGan: the keys it still holds, masked, each marked watch only (F1, F2) |
 | Per organisation | AI on or off; model override (F3) |
-| AI usage | Calls, errors, latency, cost by organisation, task and model; monthly budgets with alerts at 80% and 100% (F4) |
-| Live trace | One run: verdict → what to fix, worst first → steps (status, model, time, cost, findings) → raw events last. AXLE only (F5; ISO Generator) |
+| AI usage | From Lapisan's usage rows for product `ai`: calls, errors, latency, cost by organisation, feature and model; monthly budgets with alerts at 80% and 100% (F4). Only this product; AwanGan's own AXLE shows every product at once |
+| Live trace | One run, verdict first: verdict → what to fix, worst first → the five steps, Asked → Allowed → Answered → Checked → Decided (§10.6.1), each with status, model, time, cost and findings → raw events last. A prompt, an input or an answer appears only where the product's agreement keeps it, with personal data masked; opening one needs the AI right and is recorded in Audit. AXLE only (F5; ISO Generator) |
 | Prompts & quality | Versions of prompts and configuration, with a change log and who changed what; feedback captured; evaluation scores over time (F6) |
 
 ### 10.6.1 R8 → AI flow (owner, 15 Oct 2026)
@@ -491,7 +499,7 @@ Every product that calls an AI model has this page in R8 → System, after Provi
 - **Where every call ended**, in the framework's five outcome words: Used as is · Corrected by a person · Not used · Waiting · ‹Product›'s own logic.
 - **A row per AI feature** with its outcomes and its own measure of being right over 8 weeks.
 - **The feature's card**: the manifest's fields for the chosen feature (where people meet it, what it sends and never sends, models, what happens without AI, checks, who decides, switches, what is logged).
-- **Never shown:** prompts, photos, answers or personal data. One run, step by step, is Dashboard → Live trace; cost is Dashboard → AI usage; changes are Dashboard → Models & keys.
+- **Never shown:** prompts, photos, answers or personal data. One run, step by step, is Dashboard → Live trace; cost is Dashboard → AI usage; keys and routes are Dashboard → Models & keys, and change in AwanGan.
 - Read only. A failing provider links to Troubleshoot.
 
 **From framework 0.4 and 0.5 (owner, 16 Oct 2026).** The page also shows, still from the manifest and the call records only:
@@ -544,7 +552,7 @@ One problem, all its evidence. Every product has it, Base or Full. Opened in one
 | **Timeline** | Every signal, automatic switch and staff action on this problem, in order, mono times |
 | **AXLE's reading** | A plain-words diagnosis derived from the evidence, labelled as derived, naming the facts it rests on. Never a root cause the evidence does not show |
 | **Your conclusion** | The operator's own words, stored apart from the evidence and the reading (M11). An AI guess is never stored as a fact |
-| **Safe actions** | Only the actions that apply to this problem, each labelled with its level (§14.1): for example Test provider, Retry failed items, Suppress for 1 hour. Actions that live in the Dashboard (rotating a key) are links to the page where they are done, not buttons here (§14.2) |
+| **Safe actions** | Only the actions that apply to this problem, each labelled with its level (§14.1): for example Test provider, Retry failed items, Suppress for 1 hour. Actions that live elsewhere (rotating a key or moving a route, in AwanGan) are links to the page where they are done, not buttons here (§14.2) |
 
 ### 10.12 Tickets: YaraOne's back office (owner, 16 Oct 2026)
 
@@ -781,7 +789,8 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **Organisation life** | Create, suspend (member refused with a message), restore, request deletion: each step audited with a reason |
 | **Invitation** | The email arrives; the link works once, expires, and lands the person in the right organisation and role |
 | **Feature switch** | A module turned off for one organisation disappears from its menu and pages only; "why" names the deciding step |
-| **AI** | Switch provider, run one AI action, see usage and cost recorded; with AI off the member sees a clear message |
+| **AI** | Move a feature to another model in AwanGan's Routing and run one AI action: Models & keys shows the new route, and AI usage counts the call with its cost from Lapisan's usage rows; no whole key appears on the page or in its network responses; with AI off the member sees a clear message |
+| **Live trace** | The verdict comes first, then the run's five steps in order; a prompt, input or answer appears only where the agreement keeps it, masked, and opening one adds a line to Audit |
 | **Lists** | On every list: search, filter, sort, group, a bulk action on 2 rows, export; the stats strip updates |
 | **Audit** | Three staff changes each appear with who, what, when, reason, before and after |
 | **Rights** | A Viewer sees every page, disabled controls say what they need, and a missing right shows its gate card and dashes, never zeros |
@@ -824,7 +833,9 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 18. ~~**Capacity.**~~ Decided 16 Oct 2026: R8 → Capacity in every product, generic for any provider and any kind of infrastructure, described by each product's `capacity.json` (§10.13).
 19. ~~**Email.**~~ Decided 17 Oct 2026: every product sends through AntaraX email from `mail.antarax.ai`, behind a switch; AXLE reads it as Watch → Email (§10.14). Angka is deferred.
 20. ~~**Sign-in page.**~~ Decided 18 Oct 2026: one page for every AXLE, from AX Frame's, with Continue with Google and email, password and a code; its Sign in is AntaraX blue, the one place AXLE's main action is not orange (§5.1.1).
-21. ~~**Buttons and links.**~~ Decided 26 Oct 2026: an action is a button, a link only goes somewhere, Remove and Delete are destructive buttons, and no label ends in "…" (§14.2).
+21. ~~**Who manages the AI.**~~ Decided 25 Oct 2026: AwanGan manages AntaraX's AI (provider keys, models, routing, call records, outcomes, AI cost) and Lapisan the API keys, tenants, scopes, limits and usage rows; each AXLE shows its own AI usage from Lapisan's usage rows for product `ai` (§10.6; AwanGan decision 0021).
+22. **AI usage while watch only.** Lapisan has no usage rows for product `ai` until a product comes through AwanGan. Read the product's own call records until then, or AwanGan's watch-only totals? Until decided, a figure Lapisan does not have is a dash with the reason (§13.1).
+23. ~~**Buttons and links.**~~ Decided 26 Oct 2026: an action is a button, a link only goes somewhere, Remove and Delete are destructive buttons, and no label ends in "…" (§14.2).
 
 ## 21 What each console changes
 

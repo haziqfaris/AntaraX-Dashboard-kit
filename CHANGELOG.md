@@ -8,13 +8,13 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
-## 1.9.0 · 26 Oct 2026
+## 1.10.0 · 26 Oct 2026
 
 Minor: a rule tightened for every product (owner, 26 Oct 2026; the lead adds it to brand kit guide/10). The owner saw a blue text link reading "Remove…" in a product and asked that an action always be a button and that no label end in "…".
 
 - **The rule, in three specs:**
   - **app/SPEC.md 1.7, new §11b "Buttons and links":** an action is a button in one of the product's button styles (primary, secondary, ghost, destructive), 44px on touch; a link only goes somewhere and always has a real `href`; Remove and Delete are destructive buttons, never coloured link text; no button, menu item, link, tab or placeholder ends in "…" or "...". Text cut short by CSS, the "⋯" button, an ellipsis standing for something left out and a button's busy words ("Saving…") are not affected. Also in §16 Never and §17.
-  - **axle/SPEC.md 1.4, new §14.2:** the same in AXLE's button styles, with its destructive button in a dense row (white, `--axle-fault-line`, `--axle-fault-text`). Also in §15 Words, §19 and §20 (21).
+  - **axle/SPEC.md 1.5, new §14.2:** the same in AXLE's button styles, with its destructive button in a dense row (white, `--axle-fault-line`, `--axle-fault-text`). Also in §15 Words, §19 and §20 (23).
   - **project/SPEC.md v1.2, new §8a:** the same in shadcn/ui's terms: `link` only for navigation, Remove and Delete `destructive`. Also in §2 and §9.
   - **actions/SPEC.md 1.1:** §7 Words gains the labels row and points to the rule.
 - **`tools/check-shell.mjs`** now also reports, anywhere on the page and in both menus, a control, tab, menu item or placeholder whose label ends in "…" or "...", and any `<a>` with nowhere to go (no `href`, `href="#"`, `javascript:`). Busy controls and CSS truncation are skipped.
@@ -24,6 +24,19 @@ Minor: a rule tightened for every product (owner, 26 Oct 2026; the lead adds it 
   - project mocks: Start support session and Find in its AXLE; the kit's ghost button is no longer underlined; Choose files is a button.
   - `app/reference/`: `.ax-menu-link` is replaced by `.ax-ghost-button` (Switch organisation, Cancel, Clear filters); "Save view" is a plain menu item; the demo's navigation links have real fragments. A product that copied `.ax-menu-link` renames it.
   - `yaraone/EMBEDS.md`: "Start support session".
+
+## 1.9.0 · 25 Oct 2026
+
+Minor: a rule tightened with a recorded way out (owner, 25 Oct 2026; AwanGan decision 0021; brand kit guide/10). A product that still holds its own keys stays as it is, recorded watch only.
+
+- **AGENTS.md, "AI, APIs and data":** who owns what. AI follows Heuristiks, and its keys, models and routing are AwanGan's; API keys, tenants, scopes and usage rows are Lapisan's; data a business hands over goes to Cebis Loom; RESAM maps which framework governs what. A client's own system comes through AwanGan only with its written agreement.
+- **axle/SPEC.md 1.4, §10.6:** the AI pages show the product's own share of AwanGan.
+  - **Models & keys** is read only: the product's keys (last four only) and each feature's route as AwanGan holds them, with Open Routing in AwanGan. Before the product comes through AwanGan, the keys it still holds, marked watch only. No test or rotate in the product; Test provider stays in R8 → Providers.
+  - **AI usage** reads Lapisan's usage rows for product `ai`: calls, errors, latency, cost by organisation, feature and model; budgets with alerts at 80% and 100%.
+  - **Live trace** puts the verdict first, then the five steps (Asked, Allowed, Answered, Checked, Decided). A prompt, input or answer appears only where the agreement keeps it, masked, and opening one is recorded.
+  - §5.2, §7.3, §7.4, §10.6.1 and §10.11 follow; §19 updates the AI check and adds Live trace; §20 records the decision (21) and asks how AI usage reads while a product is watch only (22).
+- **Mocks:** `ModelsKeys.dc.html` is read only, with a tweak for Through AwanGan or Watch only; `LiveTrace.dc.html` shows the five steps and the rule for bodies; `Providers.dc.html` and `Configuration.dc.html` point keys to AwanGan, and Configuration lists the gateway address and the AntaraX key for product `ai`.
+- **BRIEF.md:** a row for AI, APIs and data and one for their owners; the versions brought up to date (app spec 1.6, AXLE spec 1.4, tokens 1.11.0).
 
 ## 1.8.0 · 18 Oct 2026
 

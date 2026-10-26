@@ -23,33 +23,31 @@ button,input,select,textarea{font-family:inherit}
     <dc-import name="TopBar" page-title="Models &amp; keys" hint-size="100%,80px"></dc-import>
     <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
       <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 10px">
-        <div><p style="margin: 0; color: #0B1B4F; font-size: 16px">Which AI providers Janka uses, which model does each task, and what happens when one fails.</p>
-        <p style="margin: 0; font-size: 12px; color: #5B6488">Keys live in the vault and are only ever shown masked. Needs the AI right to change.</p></div>
-        <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; cursor: pointer">Add a provider</button>
+        <div><p style="margin: 0; color: #0B1B4F; font-size: 16px">Which AI providers Janka uses, which key and model each feature tries first, and what happens when one fails.</p>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">{{lead}}</p></div>
+        <a href="https://awangan.antarax.ai" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; text-decoration: none">{{openLabel}}</a>
       </div>
 
       <section aria-labelledby="prov-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
         <h2 id="prov-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Providers and keys</h2>
         <sc-for list="{{providers}}" as="p" hint-placeholder-count="2">
           <div style="display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 12px 14px; border-radius: 14px; border: 1px solid {{p.border}}; background: {{p.bg}}">
-            <span style="flex: 1 1 200px; display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 600">{{p.name}}</span><span class="mono" style="font-size: 12px; color: #5B6488">key {{p.key}} · added {{p.added}}</span></span>
+            <span style="flex: 1 1 200px; display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 600">{{p.name}}</span><span class="mono" style="font-size: 12px; color: #5B6488">key {{p.key}} · {{p.added}}</span></span>
             <span style="flex: 1 1 220px; display: flex; flex-direction: column"><span style="font-weight: 600; color: {{p.stateColor}}">{{p.state}}</span><span class="mono" style="font-size: 12px; color: #5B6488">{{p.detail}}</span></span>
-            <span style="display: flex; gap: 8px"><button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Test</button><button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Rotate</button></span>
+            <span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: {{p.heldBg}}; color: {{p.heldInk}}">{{p.held}}</span>
           </div>
         </sc-for>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">A key shows its last four characters only. Test a provider in <a href="Providers.dc.html">R8 → Providers</a>.</p>
       </section>
 
       <section aria-labelledby="task-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: center">
-          <h2 id="task-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Model for each task</h2>
-          <label style="display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: #0B1B4F; cursor: pointer">
-            <button type="button" role="switch" aria-checked="{{autoAria}}" onClick="{{toggleAuto}}" style="width: 46px; height: 26px; border-radius: 999px; border: 0; padding: 3px; cursor: pointer; display: flex; justify-content: {{autoJustify}}; background: {{autoBg}}"><span style="width: 20px; height: 20px; border-radius: 50%; background: #FFFFFF; display: block"></span></button>
-            Switch to the next model automatically when a provider fails
-          </label>
+          <h2 id="task-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Route for each feature</h2>
+          <span style="font-size: 13px; color: #0B1B4F">Switch to the next model when a provider fails: <strong>On</strong> <span style="color: #5B6488">· {{autoWhere}}</span></span>
         </div>
         <div style="overflow-x: auto">
-          <table style="width: 100%; min-width: 760px; border-collapse: collapse; font-size: 13px">
-            <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Task</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Default, then fallbacks in order</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Running on now</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE"><span style="position: absolute; left: -9999px">Edit</span></th></tr></thead>
+          <table style="width: 100%; min-width: 680px; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Feature</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">First, then fallbacks in order</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Running on now</th></tr></thead>
             <tbody>
               <sc-for list="{{tasks}}" as="t" hint-placeholder-count="4">
                 <tr>
@@ -58,7 +56,6 @@ button,input,select,textarea{font-family:inherit}
                     <sc-for list="{{t.chain}}" as="c" hint-placeholder-count="3"><span class="mono" style="font-size: 12px; padding: 3px 9px; border-radius: 8px; {{c.style}}">{{c.label}}</span><sc-if value="{{c.more}}" hint-placeholder-val="{{true}}"><span aria-hidden="true" style="color: #5B6488">→</span></sc-if></sc-for>
                   </span></td>
                   <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6"><span style="font-size: 12px; font-weight: 600; color: {{t.nowColor}}">{{t.now}}</span></td>
-                  <td style="padding: 10px 8px; border-bottom: 1px solid #EEF1F6; text-align: right"><button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Change</button></td>
                 </tr>
               </sc-for>
             </tbody>
@@ -77,14 +74,14 @@ button,input,select,textarea{font-family:inherit}
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1400}}'>
+<script type="text/x-dc" data-dc-script data-props='{"stage":{"editor":"enum","options":["Through AwanGan","Watch only"],"default":"Through AwanGan","section":"Where Janka is"},"$preview":{"width":1440,"height":1400}}'>
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = { auto: true }; }
   renderVals() {
-    var self = this, auto = this.state.auto;
+    var through = (this.props.stage ?? 'Through AwanGan') === 'Through AwanGan';
+    var HELD = through ? { held: 'In AwanGan', heldBg: '#E7EEFE', heldInk: '#0B1B4F' } : { held: 'Watch only: held by Janka', heldBg: '#FEF4E6', heldInk: '#B54708' };
     var providers = [
-      { name: 'Google Gemini', key: '••••7Q2c', added: '3 Sep 2026', state: 'Failing: 429, rate limited', detail: 'since 13:52 · last success 13:51', stateColor: '#B42318', border: '#F6B5AF', bg: '#FFF8F7' },
-      { name: 'Anthropic Claude', key: '••••k9Ff', added: '11 Aug 2026', state: 'Working', detail: 'last success 14:29 · median 1.4 s', stateColor: '#067647', border: '#E5E8EE', bg: '#FFFFFF' }
+      Object.assign({ name: 'Google Gemini', key: '••••7Q2c', added: through ? 'rotated 3 Sep 2026 · owner Mei Lin' : 'added 3 Sep 2026 · owner Mei Lin', state: 'Failing: 429, rate limited', detail: 'since 13:52 · last success 13:51', stateColor: '#B42318', border: '#F6B5AF', bg: '#FFF8F7' }, HELD),
+      Object.assign({ name: 'Anthropic Claude', key: '••••k9Ff', added: 'added 11 Aug 2026 · owner Mei Lin', state: 'Working', detail: through ? 'last success 14:29 · median 1.4 s' : 'last success 14:29 · US$38.40 this month, from Anthropic\'s usage report', stateColor: '#067647', border: '#E5E8EE', bg: '#FFFFFF' }, HELD)
     ];
     function chain(names, failingIdx) {
       return names.map(function (n, i) {
@@ -94,20 +91,28 @@ class Component extends DCLogic {
       });
     }
     var tasks = [
-      { task: 'Explain a forecast', chain: chain(['Gemini 3 Flash', 'Claude Haiku 5.5'], 0), now: auto ? 'Claude Haiku 5.5 (fallback)' : 'Failing', nowColor: auto ? '#B54708' : '#B42318' },
-      { task: 'Photo identify', chain: chain(['Gemini 3 Pro', 'Claude Sonnet 5.5', 'Gemini 3 Flash'], 0), now: auto ? 'Claude Sonnet 5.5 (fallback)' : 'Failing', nowColor: auto ? '#B54708' : '#B42318' },
+      { task: 'Explain a forecast', chain: chain(['Gemini 3 Flash', 'Claude Haiku 5.5'], 0), now: 'Claude Haiku 5.5 (fallback)', nowColor: '#B54708' },
+      { task: 'Photo identify', chain: chain(['Gemini 3 Pro', 'Claude Sonnet 5.5', 'Gemini 3 Flash'], 0), now: 'Claude Sonnet 5.5 (fallback)', nowColor: '#B54708' },
       { task: 'Draft a purchase order', chain: chain(['Claude Sonnet 5.5', 'Gemini 3 Pro'], -1), now: 'Claude Sonnet 5.5', nowColor: '#067647' },
       { task: 'Answer a question (Ask)', chain: chain(['Claude Haiku 5.5', 'Gemini 3 Flash'], -1), now: 'Claude Haiku 5.5', nowColor: '#067647' }
     ];
+    var where = through ? 'AwanGan\'s gateway' : 'Janka';
     var log = [
-      { when: '15 Oct, 13:52', what: 'Automatic switch: Photo identify moved from Gemini 3 Pro to Claude Sonnet 5.5 (Gemini answered 429, rate limited)' },
-      { when: '15 Oct, 13:52', what: 'Automatic switch: Explain a forecast moved from Gemini 3 Flash to Claude Haiku 5.5' },
-      { when: '9 Oct, 10:20', what: 'Mei Lin (Admin) set Claude Sonnet 5.5 as the default for Draft a purchase order: better PO wording in review' },
-      { when: '3 Sep, 15:00', what: 'Mei Lin (Admin) added the Google Gemini key; the old key was rotated out' }
+      { when: '15 Oct, 13:52', what: 'Automatic switch in ' + where + ': Photo identify moved from Gemini 3 Pro to Claude Sonnet 5.5 (Gemini answered 429, rate limited)' },
+      { when: '15 Oct, 13:52', what: 'Automatic switch in ' + where + ': Explain a forecast moved from Gemini 3 Flash to Claude Haiku 5.5' },
+      through
+        ? { when: '9 Oct, 10:20', what: 'Mei Lin (Admin) put Claude Sonnet 5.5 first for Draft a purchase order, in AwanGan\'s Routing: better PO wording in review' }
+        : { when: '9 Oct, 10:20', what: 'Mei Lin (Admin) set Claude Sonnet 5.5 as the default for Draft a purchase order, in Janka: better PO wording in review' },
+      through
+        ? { when: '2 Oct, 09:00', what: 'Janka came through AwanGan: its Gemini and Claude keys moved into AwanGan\'s vault, and Janka now holds only its AntaraX key for product ai' }
+        : { when: '2 Oct, 09:00', what: 'AwanGan recorded Janka\'s Gemini and Claude keys, watch only. Nothing in Janka changed' }
     ];
     return { providers: providers, tasks: tasks, log: log,
-      autoAria: auto ? 'true' : 'false', autoJustify: auto ? 'flex-end' : 'flex-start', autoBg: auto ? '#0459F7' : '#B9C1D4',
-      toggleAuto: function () { self.setState({ auto: !self.state.auto }); } };
+      lead: through
+        ? 'Read only. AwanGan holds these keys and routes; a change is made in AwanGan\'s Routing and takes effect without a redeploy.'
+        : 'Read only. Janka still holds these keys; AwanGan records them, watch only, with totals from each provider\'s own usage report. Nothing in Janka changes until it comes through AwanGan.',
+      openLabel: through ? 'Open Routing in AwanGan' : 'Open in AwanGan',
+      autoWhere: through ? 'set in AwanGan\'s Routing' : 'set in Janka' };
   }
 }
 </script>
