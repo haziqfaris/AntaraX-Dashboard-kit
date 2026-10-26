@@ -128,6 +128,23 @@ button,input,select,textarea{font-family:inherit}
         </sc-for>
       </section>
 
+      <section aria-labelledby="run-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: space-between; align-items: baseline">
+          <h2 id="run-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">How it runs</h2>
+          <span style="font-size: 12px; color: #5B6488">From the manifest and the call records only (framework 0.4 and 0.5): never a prompt, photo, answer or source.</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px">
+          <sc-for list="{{runs}}" as="u" hint-placeholder-count="7">
+            <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: 14px; background: #F5F7FC">
+              <span style="display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: #5B6488"><span style="font-weight: 600; color: #0B1B4F">{{u.name}}</span><span>{{u.from}}</span></span>
+              <span class="mono" style="font-size: 18px; color: #0B1B4F; line-height: 1.3">{{u.figure}}</span>
+              <span style="font-size: 12px">{{u.text}}</span>
+            </div>
+          </sc-for>
+        </div>
+        <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 12px; color: #5B6488"><span>IDN-01's candidate route is a canary for 10% of organisations: <strong style="font-weight: 600; color: #0B1B4F">Hold</strong>, 140 of 400 calls so far, the bars written before it started.</span><button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #E5E8EE; background: #FFFFFF; color: #0B1B4F; font-size: 12px; font-weight: 600; cursor: pointer">Roll back</button></span>
+      </section>
+
       <section aria-labelledby="card-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 12px">
         <div style="display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: space-between; align-items: baseline">
           <h2 id="card-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">{{cardTitle}}</h2>
@@ -156,6 +173,15 @@ class Component extends DCLogic {
   constructor(props) { super(props); this.state = { f: 'all', stage: 'checked' }; }
   renderVals() {
     var self = this, st = this.state;
+    var RUNS = [
+      { name: 'Free first', from: 'call records · cards', figure: '31% no tokens', text: 'Answered by Janka\'s own forecast and rules, against 69% by a paid model. Every card\'s free_first verdict matches its route.' },
+      { name: 'Where answers came from', from: 'served_from', figure: '3,402 · 180 · 22', text: 'Asked a model · reused from the cache · shared with an identical call in flight. Reuse saved US$0.41.' },
+      { name: 'Traffic', from: 'traffic:busy', figure: '0.3% turned away', text: 'Claude Haiku 4.5, 11 of 3,604 calls ("AI was busy"). Over 1% in a week becomes a Needs-a-person row.' },
+      { name: 'Rollouts', from: 'variant', figure: '1 canary', text: 'IDN-01 tries a lighter vision model on 10% of organisations. Verdict: hold.' },
+      { name: 'Alerts', from: 'detectAnomalies', figure: 'None high', text: 'No canary token in any answer. One cost rise at Contoh Logistik, within its cap.' },
+      { name: 'Retrieval', from: 'the index', figure: '–', text: 'No Janka feature answers from an organisation\'s own sources, so there is no index to keep fresh.' },
+      { name: 'Where it runs', from: 'deployment', figure: 'Cloud', text: 'What may leave: client data to Google and Anthropic; photos only for DOC-01 and IDN-01.' }
+    ];
     var C = { used: '#2A78D6', corr: '#6250D6', not: '#8FD3FF', wait: '#D5DBE7', own: '#8A93AE' };
     var GATES = [['member', 'Member of the organisation', 'Checked from the session'], ['suspended', 'Organisation not suspended', 'Suspension stops all AI'], ['plan', 'Plan includes it', 'AXLE → Plans & features'],
       ['reka', 'REKA switch on', 'AXLE → Models & keys'], ['org', 'Organisation switch on', 'Janka → Settings → AI'], ['cap', 'Under the monthly AI cap', 'AXLE → Organisation']];
@@ -310,6 +336,7 @@ class Component extends DCLogic {
     ] : [];
 
     return {
+      runs: RUNS,
       tabs: tabs, stats: stats, stages: stages, outcome: outcome, outcomeLabel: outcomeLabel,
       flowTitle: all ? 'The path every AI call takes, all five features' : 'The path ' + one.id + ' ' + one.name + ' takes',
       detail: detail, detailTitle: detailTitle, detailLine: detailLine, hasInfo: !!info, info: info,

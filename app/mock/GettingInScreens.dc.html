@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Getting in: every screen</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+.gis :focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.gis input{font-family:inherit}
+.gis a{text-decoration:none}
+</style>
+</helmet>
+<div class="gis" style="width: 1440px; box-sizing: border-box; padding: 48px 56px 64px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 22px">
+  <header style="display: flex; align-items: flex-start; gap: 18px">
+    <span style="width: 64px; height: 64px; flex: none; border-radius: 18px; background: #FFFFFF; border: 1px solid #E5E8EE; display: flex; align-items: center; justify-content: center"><img src="{{mark}}" alt="" style="max-width: 44px; max-height: 44px"></span>
+    <span style="display: flex; flex-direction: column; gap: 6px; max-width: 1100px">
+      <h1 style="margin: 0; color: #0B1B4F; font-size: 32px; font-weight: 600; letter-spacing: -.01em">{{name}}: getting in, every screen</h1>
+      <span style="font-size: 15px">{{intro}}</span>
+      <span style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px">
+        <sc-for list="{{chips}}" as="c" hint-placeholder-count="4"><span style="font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: 999px; background: {{c.bg}}; color: {{c.fg}}">{{c.t}}</span></sc-for>
+      </span>
+    </span>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px 22px; align-items: start">
+    <sc-for list="{{items}}" as="it" hint-placeholder-count="12">
+      <sc-if value="{{it.isSection}}" hint-placeholder-val="{{false}}">
+        <div style="grid-column: 1 / -1; display: flex; align-items: baseline; gap: 12px; padding-top: 14px; border-top: 1px solid #E5E8EE">
+          <h2 style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">{{it.title}}</h2>
+          <span style="font-size: 13px; color: #5B6488">{{it.desc}}</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{it.isScreen}}" hint-placeholder-val="{{true}}">
+        <section aria-label="{{it.title}}" style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+          <span style="font-size: 12px; line-height: 1.4"><strong style="color: #0B1B4F; font-size: 13px">{{it.title}}</strong><span style="color: #5B6488"> · {{it.where}}</span></span>
+          <div style="{{it.frame}}">
+            <div style="{{it.card}}">
+              <sc-for list="{{it.rows}}" as="r" hint-placeholder-count="5">
+                <sc-if value="{{r.is_brand}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: center; gap: 10px"><img src="{{mark}}" alt="" style="width: 30px; height: 30px; object-fit: contain"><span style="display: flex; flex-direction: column; line-height: 1.2"><span style="color: #0B1B4F; font-size: 17px; font-weight: 600">{{name}}</span><span style="font-size: 11px; color: #5B6488">{{name}} by AntaraX, from REKA.</span></span></span></sc-if>
+                <sc-if value="{{r.is_h}}" hint-placeholder-val="{{false}}"><span style="color: #0B1B4F; font-size: 17px; font-weight: 600; line-height: 1.3">{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_p}}" hint-placeholder-val="{{false}}"><p style="margin: 0; font-size: 13px">{{r.t}}</p></sc-if>
+                <sc-if value="{{r.is_note}}" hint-placeholder-val="{{false}}"><span style="font-size: 11.5px; color: #5B6488">{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_alert}}" hint-placeholder-val="{{false}}"><p role="status" style="margin: 0; padding: 9px 11px; border-radius: 10px; font-size: 12.5px; background: {{r.bg}}; color: {{r.fg}}">{{r.t}}</p></sc-if>
+                <sc-if value="{{r.is_field}}" hint-placeholder-val="{{false}}">
+                  <span style="display: flex; flex-direction: column; gap: 4px">
+                    <span style="font-size: 12.5px; color: #0B1B4F">{{r.label}}</span>
+                    <span style="position: relative; display: flex"><span style="{{r.box}}">{{r.value}}</span><sc-if value="{{r.show}}" hint-placeholder-val="{{false}}"><span style="position: absolute; right: 10px; top: 0; bottom: 0; display: flex; align-items: center; font-size: 12.5px; font-weight: 500; color: {{link}}">Show</span></sc-if></span>
+                    <sc-if value="{{r.err}}" hint-placeholder-val="{{false}}"><span style="font-size: 11.5px; color: #B42318">{{r.err}}</span></sc-if>
+                  </span>
+                </sc-if>
+                <sc-if value="{{r.is_caps}}" hint-placeholder-val="{{false}}"><span style="font-size: 11.5px; color: #B54708; margin-top: -6px">Caps Lock is on</span></sc-if>
+                <sc-if value="{{r.is_meter}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; gap: 3px; margin-top: -4px"><span style="display: block; height: 4px; border-radius: 999px; background: {{line}}; overflow: hidden"><span style="display: block; height: 100%; width: {{r.w}}; background: {{r.c}}"></span></span><span style="font-size: 11.5px; color: #3B4469">{{r.t}}</span></span></sc-if>
+                <sc-if value="{{r.is_check}}" hint-placeholder-val="{{false}}"><span style="display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12.5px"><span style="display: flex; align-items: center; gap: 7px"><span style="width: 16px; height: 16px; border-radius: 4px; background: {{action}}; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 11px">✓</span>{{r.t}}</span><span style="color: {{link}}">{{r.right}}</span></span></sc-if>
+                <sc-if value="{{r.is_links}}" hint-placeholder-val="{{false}}"><span style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px"><span style="color: {{link}}">{{r.l}}</span><span style="color: {{link}}">{{r.r}}</span></span></sc-if>
+                <sc-if value="{{r.is_btn}}" hint-placeholder-val="{{false}}"><span style="{{r.style}}"><sc-if value="{{r.g}}" hint-placeholder-val="{{false}}"><svg width="16" height="16" viewBox="0 0 48 48" aria-hidden="true"><path fill="#0B1B4F" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"></path></svg></sc-if>{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_or}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: #5B6488"><span style="flex: 1; height: 1px; background: {{line}}"></span>or<span style="flex: 1; height: 1px; background: {{line}}"></span></span></sc-if>
+                <sc-if value="{{r.is_codes}}" hint-placeholder-val="{{false}}"><span style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 14px; padding: 10px 12px; border-radius: 10px; background: {{sunken}}; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; color: #0B1B4F"><sc-for list="{{codes}}" as="cd" hint-placeholder-count="10"><span>{{cd}}</span></sc-for></span></sc-if>
+                <sc-if value="{{r.is_qr}}" hint-placeholder-val="{{false}}"><span role="img" aria-label="QR code for your authenticator app" style="align-self: center; display: grid; grid-template-columns: repeat(21, 5px); padding: 8px; background: #FFFFFF; border: 1px solid {{line}}; border-radius: 10px"><sc-for list="{{qr}}" as="q" hint-placeholder-count="441"><span style="width: 5px; height: 5px; background: {{q}}"></span></sc-for></span></sc-if>
+                <sc-if value="{{r.is_people}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; gap: 6px"><sc-for list="{{workers}}" as="w" hint-placeholder-count="4"><span style="{{w.style}}"><span style="width: 30px; height: 30px; border-radius: 999px; background: {{subtle}}; color: {{onTint}}; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">{{w.i}}</span><span style="display: flex; flex-direction: column; line-height: 1.25"><span style="color: #0B1B4F; font-size: 13px">{{w.n}}</span><span style="font-size: 11px; color: #5B6488">{{w.u}}</span></span></span></sc-for></span></sc-if>
+                <sc-if value="{{r.is_foot}}" hint-placeholder-val="{{false}}"><span style="display: flex; gap: 12px; font-size: 11.5px; color: #5B6488; margin-top: 2px"><span>Help</span><span>Privacy</span><span>Terms</span></span></sc-if>
+                <sc-if value="{{r.is_mailmeta}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; gap: 2px; padding-bottom: 8px; border-bottom: 1px solid #E5E8EE; font-size: 11.5px; color: #5B6488"><span>From <span style="color: #0B1B4F">{{name}} &lt;{{local}}@mail.antarax.ai&gt;</span></span><span>Subject <span style="color: #0B1B4F; font-weight: 500">{{r.t}}</span></span></span></sc-if>
+                <sc-if value="{{r.is_mailhead}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: center; gap: 8px"><img src="{{mark}}" alt="" style="width: 26px; height: 26px; object-fit: contain"><span style="color: #0B1B4F; font-weight: 600">{{name}}</span><span style="font-size: 11px; color: #5B6488">by AntaraX</span></span></sc-if>
+                <sc-if value="{{r.is_mono}}" hint-placeholder-val="{{false}}"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: {{link}}; overflow-wrap: anywhere">{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_legal}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; gap: 2px; padding-top: 8px; border-top: 1px solid #E5E8EE; font-size: 10.5px; color: #5B6488"><span>{{name}} by AntaraX, from REKA.</span><span>Questions? support@go.antarax.ai</span><span>AntaraX, a product line of REKA Inisiatif Sdn Bhd.</span></span></sc-if>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"product":{"editor":"enum","options":["yara","yaraone","frame","janka","grid","crowd","angka","tinara"],"default":"janka"},"$preview":{"width":1440,"height":6400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    // Each product's colours from the brand kit's product palettes (brand/product-palettes.json), its card
+    // radius from the shell (app/tokens.css), and what is particular to it (getting-in/SPEC.md §2, §14).
+    var P = {
+      yara: { name: 'Yara', local: 'yara', host: 'yara.antarax.ai', mark: '/_blob/44c518a68fd732aff2ace614c736976b', action: '#098284', tint: '#EEF9F9', subtle: '#DAF3F3', onTint: '#044F51', line: '#E1EAEA', input: '#869696', sunken: '#F7FBFB', link: '#098284', radius: 24, ctrl: 12, org: 'Tegap Fabrication', domain: 'tegap', signup: false, workers: true },
+      yaraone: { name: 'YaraOne', local: 'yaraone', host: 'yo.antarax.ai', mark: '/_blob/bcaeecc00b01b4ba760ab062625b00b7', action: '#087F5B', tint: '#F0F9F5', subtle: '#DFF2E9', onTint: '#01523A', line: '#E3EAE6', input: '#89968F', sunken: '#F8FBF9', link: '#087F5B', radius: 24, ctrl: 12, org: 'Sinar Digital', domain: 'sinar-digital', signup: false, codeLabel: 'Password or code', extraNote: 'Clients sign in with the code their team set, or a sign-in link (YaraOne docs/16); there is no sign-up.' },
+      frame: { name: 'AX Frame', local: 'frame', host: 'frame.antarax.ai', mark: '/_blob/4465d40a6045e7213803d41ebd2d541f', action: '#074AF8', tint: '#F3F7FE', subtle: '#E4EDFF', onTint: '#002EB2', line: '#E5E8EE', input: '#8C929E', sunken: '#F9FAFD', link: '#074AF8', radius: 16, ctrl: 12, org: 'Studio Harapan', domain: 'harapan', signup: true },
+      janka: { name: 'Janka', local: 'janka', host: 'janka.antarax.ai', mark: '/_blob/e49267db52a49ce314f758e045b38dc1', action: '#077DA1', tint: '#EDF9FF', subtle: '#D7F2FE', onTint: '#004C64', line: '#E2E9ED', input: '#87959B', sunken: '#F7FBFC', link: '#077DA1', radius: 20, ctrl: 12, org: 'Contoh Logistik', domain: 'contoh-logistik', signup: false },
+      grid: { name: 'PLExyz Grid', local: 'grid', host: 'grid.antarax.ai', mark: '/_blob/bb69b049e48ccaa805e370586faa379e', action: '#2C09B2', tint: '#F4F6FE', subtle: '#E7ECFF', onTint: '#2C09B2', line: '#E6E7EE', input: '#8F929E', sunken: '#F9FAFD', link: '#2C09B2', radius: 24, ctrl: 12, org: 'Bumi Tenaga', domain: 'bumi-tenaga', signup: true },
+      crowd: { name: 'PLExyz Crowd', local: 'crowd', host: 'crowd.antarax.ai', mark: '/_blob/d37f06b86cdd2660baea27e9c481068a', action: '#6040CC', tint: '#F6F6FE', subtle: '#EBEBFF', onTint: '#442C95', line: '#E7E7EE', input: '#91919D', sunken: '#FAFAFD', link: '#6040CC', radius: 24, ctrl: 12, org: 'Dewan Seri Events', domain: 'dewan-seri', signup: false },
+      angka: { name: 'Angka', local: 'angka', host: 'angka.antarax.ai', mark: '/_blob/bb282ff0455686251e09bac778072b5a', action: '#6B3F6B', tint: '#FAF5FA', subtle: '#F4E9F4', onTint: '#593759', line: '#EBE6EB', input: '#988F98', sunken: '#FCF9FB', link: '#6B3F6B', radius: 28, ctrl: 14, org: 'Kedai Kopi Sinar', domain: 'kopi-sinar', signup: true },
+      tinara: { name: 'Tinara', local: 'tinara', host: 'tinara.antarax.ai', mark: '/_blob/e79eaf52cb4f6ccc588b86860ca53dcd', action: '#7A1E3C', tint: '#FEF4F6', subtle: '#FFE6EA', onTint: '#7A1E3C', line: '#EEE5E7', input: '#9D8E90', sunken: '#FDF9FA', link: '#7A1E3C', radius: 0, ctrl: 4, org: 'Harapan Ventures', domain: 'harapan-ventures', signup: false }
+    };
+    var props = this.props;
+    var c = Object.assign({}, P[props.product] || P.janka);
+    // A product whose palette is not in the brand kit yet may pass its colours as props.
+    ['local', 'host', 'mark', 'action', 'tint', 'subtle', 'onTint', 'line', 'input', 'sunken', 'link', 'org', 'domain', 'codeLabel', 'extraNote'].forEach(function (k) { if (props[k]) c[k] = props[k]; });
+    if (props.brand) c.name = props.brand;
+    if (props.radius != null && props.radius !== '') c.radius = Number(props.radius);
+    if (props.signup === 'true' || props.signup === true) c.signup = true;
+    var email = 'aina@' + c.domain + '.example', masked = 'a***@' + c.domain + '.example';
+    var ST = { warn: ['#FEF4E6', '#B54708'], fault: ['#FEECEB', '#B42318'], ok: ['#E7F8EF', '#067647'], info: [c.tint, c.onTint] };
+
+    function row(k, o) { var r = Object.assign({ k: k }, o || {}); r['is_' + k] = true; return r; }
+    var brand = function () { return row('brand'); };
+    var h = function (t) { return row('h', { t: t }); };
+    var p = function (t) { return row('p', { t: t }); };
+    var note = function (t) { return row('note', { t: t }); };
+    var alert = function (tone, t) { return row('alert', { t: t, bg: ST[tone][0], fg: ST[tone][1] }); };
+    function field(label, value, o) {
+      o = o || {};
+      var box = 'flex: 1; min-width: 0; display: flex; align-items: center; height: 40px; box-sizing: border-box; padding: 0 ' + (o.show ? '56px' : '11px') + ' 0 11px; border-radius: ' + c.ctrl + 'px; border: 1px solid ' + (o.err ? '#F04438' : (o.focus ? c.action : c.line)) + '; background: ' + (o.ro ? c.sunken : '#FFFFFF') + '; color: ' + (o.ro ? '#3B4469' : '#0B1B4F') + '; font-size: 13px; overflow: hidden; white-space: nowrap;' + (o.code ? " justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 17px; letter-spacing: .25em; height: 46px;" : '') + (o.mono ? " font-family: 'JetBrains Mono', monospace; font-size: 12px;" : '');
+      return row('field', { label: label, value: value, show: !!o.show, err: o.err || '', box: box });
+    }
+    var dots = '••••••••••••••••';
+    var caps = function () { return row('caps'); };
+    var meter = function (w, col, t) { return row('meter', { w: w, c: col, t: t }); };
+    var check = function (t, right) { return row('check', { t: t, right: right || '' }); };
+    var links = function (l, r) { return row('links', { l: l, r: r || '' }); };
+    function btn(t, kind, g) {
+      var base = 'display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 12px; border-radius: ' + c.ctrl + 'px; font-size: 13px; font-weight: 600; text-align: center;';
+      var k = { primary: 'background: ' + c.action + '; color: #FFFFFF;', secondary: 'background: #FFFFFF; color: #0B1B4F; border: 1px solid ' + c.line + '; font-weight: 500;', ghost: 'color: ' + c.link + '; font-weight: 500;', off: 'background: #EEF1F6; color: #5B6488;' }[kind || 'primary'];
+      return row('btn', { t: t, style: base + k, g: !!g });
+    }
+    var or = function () { return row('or'); };
+    var foot = function () { return row('foot'); };
+    var codes = function () { return row('codes'); };
+    var qr = function () { return row('qr'); };
+    var people = function () { return row('people'); };
+    var meta = function (t) { return row('mailmeta', { t: t }); };
+    var mhead = function () { return row('mailhead'); };
+    var mono = function (t) { return row('mono', { t: t }); };
+    var legal = function () { return row('legal'); };
+
+    var pwLabel = c.codeLabel || 'Password';
+    var url = 'https://' + c.host;
+    function screen(title, where, rows, o) {
+      o = o || {};
+      var frame = o.mail
+        ? 'padding: 12px; border-radius: 16px; background: #EEF1F6;'
+        : 'padding: 18px 14px; border-radius: ' + Math.min(c.radius, 20) + 'px; background: ' + c.sunken + '; border: 1px solid ' + c.line + ';';
+      var card = 'display: flex; flex-direction: column; gap: 10px; padding: ' + (o.mail ? '16px' : '18px') + '; background: #FFFFFF; border-radius: ' + (o.mail ? 8 : c.radius) + 'px; border: 1px solid ' + c.line + ';' + (c.radius === 0 && !o.mail ? ' border-top: 3px solid ' + c.action + ';' : '');
+      return { isScreen: true, isSection: false, title: title, where: where, rows: rows, frame: frame, card: card };
+    }
+    function section(title, desc) { return { isSection: true, isScreen: false, title: title, desc: desc, rows: [] }; }
+
+    var signIn = [brand(), btn('Continue with Google', 'secondary', true), or(), field('Email', email), field(pwLabel, dots, { show: true }), check('Keep me signed in', 'Forgot your password?'), btn('Sign in'), btn('Email me a sign-in link instead', 'ghost')].concat(c.signup ? [p('New to ' + c.name + '? Create an account')] : []).concat([foot()]);
+    var items = [
+      section('Signing in', 'GI-01, GI-02, GI-07, GI-08, GI-11'),
+      screen('Sign in', '/signin', signIn),
+      screen('Wrong email or password', '/signin', [brand(), alert('fault', "That email and password don't match."), field('Email', email), field(pwLabel, dots, { show: true, focus: true }), caps(), btn('Sign in'), links('Forgot your password?', 'Email me a sign-in link')]),
+      screen('Too many attempts', '/signin', [brand(), alert('fault', 'Too many attempts. Try again at 14:32.'), field('Email', email), field(pwLabel, dots, { show: true }), btn('Sign in', 'off'), note('The same message whether or not the account exists. The form stays filled.')]),
+      screen('Session ended', '/signin?ended', [brand(), alert('info', "You've been signed out because your password was changed. Sign in again to carry on."), btn('Continue with Google', 'secondary', true), field('Email', email), field(pwLabel, '', { show: true }), btn('Sign in'), note('After signing in you go back to the page you were on.')]),
+
+      section('Email me a sign-in link', 'Works once, for 15 minutes (GI-11, GI-12)'),
+      screen('Ask for a link', '/signin/link', [brand(), h('Email me a sign-in link'), p("We'll send a link that signs you in. It works once, for 15 minutes."), field('Email', email, { focus: true }), btn('Send link'), links('Use your password instead', '')]),
+      screen('Link sent', '/signin/link', [brand(), h('Check your email'), p("If an account exists for " + email + ", we've sent a sign-in link. It works once, for 15 minutes."), btn('Send it again in 0:42', 'off'), links('Back to sign in', '')]),
+      screen('The email', 'auth.sign_in.v1', [meta('Sign in to ' + c.name), mhead(), h('Sign in to ' + c.name), p('Hi Aina,'), p('Use the button to sign in. It works once.'), btn('Sign in to ' + c.name), mono(url + '/auth/link?t=8Hq2…'), note('It works for 15 minutes and only once.'), note("You're getting this because someone asked to sign in to " + c.name + " with this address. If that wasn't you, you can ignore it; nobody can sign in without it."), legal()], { mail: true }),
+      screen('Link expired or used', '/auth/link', [brand(), h('This link has expired or has already been used'), p('Ask for a new one. Each link works once, for 15 minutes.'), btn('Send a new link'), links('Back to sign in', '')]),
+
+      section('Forgot your password', 'The link works once, for 60 minutes (GI-01, GI-03 to GI-07, GI-19)'),
+      screen('Forgot your password', '/reset', [brand(), h('Forgot your password?'), p("Type your email. We'll send a link to choose a new password."), field('Email', email, { focus: true }), btn('Send reset link'), links('Back to sign in', '')]),
+      screen('Reset link sent', '/reset', [brand(), h('Check your email'), p("If an account exists for " + email + ", we've sent a link to reset your password. It works once, for 60 minutes."), btn('Send it again in 0:51', 'off'), links('Back to sign in', '')]),
+      screen('The email', 'auth.password_reset.v1', [meta('Reset your ' + c.name + ' password'), mhead(), h('Reset your password'), p('Hi Aina,'), p('Someone asked to reset the password for this ' + c.name + ' account. Choose a new one with the button.'), btn('Choose a new password'), mono(url + '/reset/q7Lm…'), note('This link works for 1 hour and only once.'), note("You're getting this because a password reset was asked for this address. If it wasn't you, ignore it: your password stays as it is."), legal()], { mail: true }),
+      screen('Choose a new password', '/reset/‹token›', [brand(), h('Choose a new password'), field('Email', email, { ro: true }), field('New password', 'Kopimanis2026', { show: true, focus: true }), caps(), meter('50%', '#F79009', 'Fair: Add another word or two'), btn('Save password'), note('12 to 64 characters, any kind. Saving signs you out on your other devices.')]),
+      screen('Breached password', '/reset/‹token›', [brand(), h('Choose a new password'), field('Email', email, { ro: true }), field('New password', 'Password1234', { show: true, err: 'This password has appeared in a data breach. Choose a different one.' }), meter('25%', '#F04438', 'Weak: This is a very common password'), btn('Save password')]),
+      screen('Password saved', 'after saving', [brand(), alert('ok', "Password saved. You've been signed out on your other devices."), p('You are signed in and back where you started.'), btn('Continue')]),
+      screen('The email', 'auth.password_changed.v1', [meta('Your ' + c.name + ' password was changed'), mhead(), h('Your password was changed'), p('Hi Aina,'), p('The password for your ' + c.name + ' account was changed today at 14:21.'), p("If you didn't do this, reset it now and tell us."), btn('Reset my password'), note("You're getting this because the password for this " + c.name + ' account changed. We always tell you.'), legal()], { mail: true }),
+
+      section('Two-step sign-in', 'Required for Owners and Admins; anyone may turn it on (GI-09)'),
+      screen('Enter a code', 'after the password', [brand(), h('Two-step sign-in'), p('Type the 6-digit code from your authenticator app.'), field('Code', '482 913', { code: true, focus: true }), btn('Sign in'), links('Use a backup code', 'Lost your phone?')]),
+      screen('Wrong code', 'after the password', [brand(), h('Two-step sign-in'), field('Code', '482 91', { code: true, err: "That code didn't match. Check your app and try again." }), btn('Sign in'), links('Use a backup code', 'Lost your phone?')]),
+      screen('Use a backup code', 'after the password', [brand(), h('Use a backup code'), p('Type one of the 10 codes you saved. Each works once.'), field('Backup code', 'k7rq-2m9x', { code: true }), btn('Sign in'), links('Use the app instead', '')]),
+      screen('Two-step required', 'first sign-in as an Owner or Admin', [brand(), alert('warn', 'Your role needs two-step sign-in. Set it up to continue.'), p('1. Scan this with your authenticator app.'), qr(), note('Or type this key: JBSW Y3DP EHPK 3PXP · Copy'), field('2. Type the 6-digit code it shows', '', { code: true }), btn('Turn on')]),
+      screen('Save your backup codes', 'after Turn on', [brand(), h('Save your backup codes'), p('If you lose your phone, each code signs you in once. This is the only time we show them.'), codes(), btn('Copy', 'secondary'), btn('Download as text', 'secondary'), check("I've saved them", ''), btn('Done')]),
+      screen('Lost your phone', 'from Enter a code', [brand(), h('Lost your phone?'), p("Use one of your backup codes. If you have none left, ask an Owner of " + c.org + " to reset your two-step sign-in. You'll set it up again at your next sign-in."), btn('Use a backup code'), p('An Owner yourself? Contact support and we will check who you are first.'), links('Contact support', '')])
+    ];
+
+    if (c.signup) items = items.concat([
+      section('Create an account', 'Where the product lets people sign themselves up'),
+      screen('Create an account', '/signup', [brand(), btn('Continue with Google', 'secondary', true), or(), field('Your name', 'Aina Rahman'), field('Email', email), field('Password', 'kopi o kurang manis', { show: true }), meter('100%', '#12B76A', 'Strong'), note('Starting on Seed, free to start.'), btn('Create an account'), note('By creating an account you agree to the Terms and Privacy.'), links('Already have an account? Sign in', '')]),
+      screen('Confirm your email', 'after sign-up', [brand(), h('Check your email'), p('We sent a link to ' + masked + '. It works for 24 hours.'), btn('Send it again in 0:37', 'off'), links('Use a different email', '')]),
+      screen('The email', 'auth.verify_email.v1', [meta('Confirm your email for ' + c.name), mhead(), h('Confirm your email address'), p('Hi Aina,'), p('Confirm this address to finish setting up ' + c.name + '.'), btn('Confirm email'), mono(url + '/confirm?t=Zx81…'), note('This link works for 1 day and only once.'), legal()], { mail: true }),
+      screen('Email already has an account', 'after sign-up', [brand(), h('Check your email'), p('We sent a link to ' + masked + '. It works for 24 hours.'), note('The same screen as a new account: the email tells them they already have one and links to sign in, so nobody learns which emails are taken.')])
+    ]);
+
+    if (c.workers) items = items.concat([
+      section("Workers on the floor", "Yara's recorded exception: names and passwords set by their supervisor (§2)"),
+      screen('Your organisation', '/worker-login', [brand(), h('Sign in to your workshop'), field('Organisation code', 'TEGAP', { mono: true }), btn('Continue'), note('Remembered on this phone.')]),
+      screen('Pick your name', '/worker-login/tegap', [brand(), h('Who are you?'), people(), note('Only the names of this workshop, after its code.')]),
+      screen('Your password', '/worker-login/tegap', [brand(), h('Hafiz Roslan'), field('Password', dots, { show: true, focus: true }), btn('Sign in'), links('Forgot your password?', 'Not you?')]),
+      screen('Asked your supervisor', '/worker-login/tegap', [brand(), alert('ok', "We've asked your supervisor to set a new password. They'll tell you when it's ready."), note('A password a supervisor sets is changed at your next sign-in (GI-18).'), btn('Back', 'secondary')])
+    ]);
+
+    items = items.concat([
+      section('Joining and leaving', 'Invitations work once, for 7 days (GI-12, GI-19, GI-20)'),
+      screen('Join from an invitation', '/invite/‹code›', [brand(), h('Hafiz Roslan invited you to join ' + c.org + ' on ' + c.name), alert('info', 'As a Member'), btn('Continue with Google', 'secondary', true), field('Email', email, { ro: true }), field('Choose a password', 'kopi o kurang manis', { show: true }), meter('100%', '#12B76A', 'Strong'), btn('Join ' + c.org), note('This invitation works once and ends on 25 Oct 2026.')]),
+      screen('Invitation expired', '/invite/‹code›', [brand(), h('This invitation has expired or has already been used'), p('Ask Hafiz Roslan for a new one.'), btn('Back to sign in', 'secondary')]),
+      screen('Signed out', 'after Sign out', [brand(), alert('info', "You've signed out on this device."), btn('Sign in'), note('Sign out everywhere is on Your account.')]),
+      screen('Organisation suspended', 'after sign-in', [brand(), alert('warn', c.org + ' is suspended.'), p('REKA said: "Payment is 30 days overdue."'), btn('Contact REKA support'), btn('Sign out', 'secondary')])
+    ]);
+
+    var seed = 7, qrCells = [];
+    for (var y = 0; y < 21; y++) for (var x = 0; x < 21; x++) {
+      var f = null;
+      [[0, 0], [14, 0], [0, 14]].forEach(function (o) { var dx = x - o[0], dy = y - o[1]; if (dx >= 0 && dy >= 0 && dx <= 6 && dy <= 6) f = dx === 0 || dy === 0 || dx === 6 || dy === 6 || (dx >= 2 && dx <= 4 && dy >= 2 && dy <= 4); });
+      seed = (seed * 9301 + 49297) % 233280;
+      qrCells.push((f === null ? seed / 233280 > 0.52 : f) ? '#0B1B4F' : '#FFFFFF');
+    }
+    var screensCount = items.filter(function (i) { return i.isScreen; }).length;
+    return {
+      name: c.name, mark: c.mark, local: c.local, action: c.action, link: c.link, line: c.line, sunken: c.sunken, subtle: c.subtle, onTint: c.onTint,
+      intro: screensCount + ' screens and emails, in ' + c.name + "'s colours and shape. What each holds and says is getting-in/SPEC.md; the look is " + c.name + "'s own, and a product may redraw it as long as the parts and words stay." + (c.extraNote ? ' ' + c.extraNote : ''),
+      chips: [
+        { t: 'Google', bg: c.subtle, fg: c.onTint }, { t: 'Email and ' + pwLabel.toLowerCase(), bg: c.subtle, fg: c.onTint }, { t: 'Sign-in link', bg: c.subtle, fg: c.onTint },
+        { t: 'Two-step for Owners and Admins', bg: c.subtle, fg: c.onTint }
+      ].concat(c.signup ? [{ t: 'Sign-up', bg: c.subtle, fg: c.onTint }] : [{ t: 'No sign-up: invited only', bg: '#EEF1F6', fg: '#3B4469' }]).concat(c.workers ? [{ t: 'Workers: names set by their supervisor', bg: '#EEF1F6', fg: '#3B4469' }] : []),
+      items: items, qr: qrCells,
+      codes: ['k7rq-2m9x', 'p4tz-8wd1', 'h2nc-6ve5', 'q9lb-3sy7', 'f5mj-1kx4', 'd8wa-7rq2', 'v3pe-9nh6', 'b6ty-4gc8', 'x1zu-5mf3', 'c7dk-2qa9'],
+      workers: [['Hafiz Roslan', 'hafiz', true], ['Nur Aina Hashim', 'nuraina', false], ['Daniel Ong', 'daniel', false], ['Siti Mariam', 'sitim', false]].map(function (w) {
+        return { n: w[0], u: w[1], i: w[0].split(' ').map(function (s) { return s[0]; }).slice(0, 2).join(''),
+          style: 'display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: ' + c.ctrl + 'px; border: 1px solid ' + (w[2] ? c.action : c.line) + '; background: ' + (w[2] ? c.tint : '#FFFFFF') + ';' };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

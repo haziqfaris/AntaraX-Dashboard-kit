@@ -148,7 +148,8 @@ class Component extends DCLogic {
     var self = this, st = this.state;
     var PLANS = [
       { id: 'appwrite', provider: 'Appwrite Cloud', service: 'Database, files, functions, sign-in', plan: 'Free', confirmed: true, cost: 'US$0', region: 'Singapore', rules: 'Pauses after a week with no activity · two functions per project' },
-      { id: 'resend', provider: 'Resend', service: 'Email', plan: 'Free', confirmed: false, cost: 'US$0', region: '–', rules: '100 emails a day, 3,000 a month' },
+      { id: 'axemail', provider: 'AntaraX email', service: 'Email, through email.antarax.ai', plan: 'Day\'s limit', confirmed: true, cost: 'Shared', region: '–', rules: '1,000 new emails a day; security emails twice that' },
+      { id: 'resend', provider: 'Resend', service: 'Delivery for every product, behind AntaraX email', plan: 'Free', confirmed: false, cost: 'US$0', region: '–', rules: '100 emails a day, 3,000 a month, shared by every product' },
       { id: 'gemini', provider: 'Google', service: 'Gemini API', plan: 'Pay as you go', confirmed: true, cost: 'by use', region: 'Not confirmed', rules: 'Daily quota per key' },
       { id: 'anthropic', provider: 'Anthropic', service: 'Claude API', plan: 'Pay as you go', confirmed: true, cost: 'by use', region: 'Not confirmed', rules: 'Monthly spend cap' }
     ];
@@ -159,8 +160,10 @@ class Component extends DCLogic {
         top: [['ai-proxy', 'in use'], ['nightly', 'in use']], decide: [['Upgrade the plan', 'Appwrite Pro: no function limit, daily backups, no idle pause · US$15 a month'], ['Change the architecture', 'Route new work through ai-proxy and the nightly function']] },
       { id: 'files', cls: 'Files', name: 'Photos and receipts', plan: 'appwrite', v: 1.62 * 1073741824, lim: 2 * 1073741824, fmt: gb, start: 0.70 * 1073741824, runway: 'Full in about 5 weeks (late Nov), at 11 MB a day', how: 'Measured nightly from Appwrite\'s usage API · 03:00',
         top: [['Contoh Logistik · receipts', '612 MB'], ['Harapan Pharma · reference photos', '388 MB'], ['Sinar Elektrik · receipts', '201 MB']], decide: [['Reduce the use', 'Resize photos to 1600 px on upload: about 70% smaller'], ['Upgrade the plan', 'Appwrite Pro · US$15 a month']] },
-      { id: 'email', cls: 'Messages', name: 'Emails today', plan: 'resend', v: 61, lim: 100, fmt: n, start: 40, runway: 'Peak 97 on 13 Oct (the low-stock digest)', how: 'Counted from email_log · live',
-        top: [['Low-stock digest', '44'], ['Sign-in links', '12'], ['Invitations', '5']], decide: [['Upgrade the plan', 'Resend Pro: 50,000 a month · US$20 a month']] },
+      { id: 'email', cls: 'Messages', name: 'Emails today', plan: 'axemail', v: 61, lim: 1000, fmt: n, start: 40, runway: 'Peak 97 on 13 Oct (the low-stock digest)', how: 'From AntaraX email\'s summary · live',
+        top: [['Low-stock digest', '44'], ['Sign-in links', '12'], ['Invitations', '5']], decide: [['Reduce the use', 'Send one digest a day, not an email per event'], ['Upgrade the plan', 'Ask for a higher day\'s limit in AntaraX email']] },
+      { id: 'email-shared', cls: 'Messages', name: 'Shared sending plan', plan: 'resend', v: null, lim: 3000, fmt: n, start: 0, runway: 'Measured once for every product, in AXLE Central', how: 'Janka sees only its own emails, so it does not count the shared plan',
+        top: [], decide: [['Upgrade the plan', 'Resend\'s next plan, decided once for every product']] },
       { id: 'egress', cls: 'Transfer', name: 'Bandwidth out, this month', plan: 'appwrite', v: 6.8 * 1073741824, lim: 10 * 1073741824, fmt: gb, start: 0, runway: 'On pace for 9.4 GB by 31 Oct', how: 'Measured nightly from Appwrite\'s usage API · 03:00',
         top: [['Photo thumbnails in lists', '4.1 GB'], ['Receipts opened', '1.9 GB'], ['App data', '0.8 GB']], decide: [['Reduce the use', 'Serve small thumbnails, not originals, in lists'], ['Upgrade the plan', 'Appwrite Pro']] },
       { id: 'ai', cls: 'AI', name: 'AI spend, this month', plan: 'gemini', v: 31.4, lim: 50, fmt: function (x) { return 'US$' + x.toFixed(2); }, start: 0, runway: 'On pace for US$61 by 31 Oct: over the budget', how: 'From ai_calls, priced in AXLE → AI models · live',

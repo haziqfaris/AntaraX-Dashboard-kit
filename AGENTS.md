@@ -12,7 +12,7 @@ Any work on a product's AXLE uses the template in `axle/`; that includes a new p
 
 ## When working in another repository on a customer app
 
-A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. Follow `app/README.md` and `app/SPEC.md` (v1.3, the standard). Everything the spec does not name is the product's own; a new shared rule goes into the spec first, never into one product.
+A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oct 2026). Only the AntaraX shell is shared: the words, the top bar, where Help and the account sit, the account menu, and the standard pages. Follow `app/README.md` and `app/SPEC.md` (v1.7, the standard). Everything the spec does not name is the product's own; a new shared rule goes into the spec first, never into one product.
 
 - **Before planning, write a gap table** (owner, 16 Oct 2026). Open the closest product's mock PNG (`app/mock/renders/AppBar-<product>-wide.png` and `-phone.png`, and the board for the page) and its `.values.md`. List every difference between the product, the mock and the spec, with what you will do about each. Where the spec says "the product's own", say what the product chose and why. Put the table in your plan before any code.
 - **Take values from `app/tokens.css`**, never from prose or by measuring a mock by eye. `app/reference/` shows them built.
@@ -22,6 +22,19 @@ A product's customer app is its own: identity, shape, theme and UI (owner, 15 Oc
 
 A client project carries the client's brand and must never look like an AntaraX product (owner, 16 Oct 2026). Follow `project/README.md` and `project/SPEC.md`: the shell's places from `app/SPEC.md`, the neutral base, "Built by REKA" in the footer, the stack in SPEC §5. Never use an AntaraX font, colour, mark or word; check with `python3 tools/sync-brand-kit.py --project PATH`. Its AXLE follows `axle/` like any product's.
 
+## Getting in and acting
+
+Every customer app and every AXLE meets two more standards (owner, 18 Oct 2026):
+
+- **`getting-in/SPEC.md`:** signing in, passwords, sign-in links, two-step sign-in, sessions and account changes. Its §1 (GI-01 to GI-20) is the bare minimum before release. §14 says what each product had on 18 Oct 2026 and §15 what each changes. Check with `node tools/check-signin.mjs` against the running product.
+- **`actions/SPEC.md`:** confirming, waiting and results. Its §1 (AC-01 to AC-12) is the bare minimum. Every action is at one of three levels, and what a person sees while it runs depends on how long it takes. §10 says what each product does today and §11 what each changes. Check with `node tools/check-actions.mjs PATH` on the product's source.
+
+The reference pieces are in `app/reference/`: `PasswordField`, `ConfirmDialog`, `ProgressDialog` and `useAction`. Each product's screens are drawn in `app/mock/GettingIn<Product>.dc.html` and `app/mock/Actions<Product>.dc.html`, with PNGs in `app/mock/renders/` and values beside them.
+
+## Buttons and links
+
+Every customer app, AXLE and client project (owner, 26 Oct 2026): **an action is a button**, in the product's button styles, and **a link only goes somewhere**. Remove and Delete are destructive buttons, never coloured link text. **No button, menu item, link, tab or placeholder ends in "…" or "..."**. The rule is app SPEC §11b, axle SPEC §14.2 and project SPEC §8a; `node tools/check-shell.mjs` reports what it can see on a running page.
+
 ## Capacity
 
 Every product and client project keeps `capacity.json` at its root, listing every plan it runs on and every limit it can reach, and passes `python3 capacity/check.py capacity.json` from this kit (owner, 16 Oct 2026). A new provider, plan, function, bucket or sending service is added there in the same piece of work. Never guess a limit: take it from the provider's plan page, or mark the plan not confirmed.
@@ -29,6 +42,16 @@ Every product and client project keeps `capacity.json` at its root, listing ever
 ## Tickets and feedback are YaraOne's
 
 No product, customer app or AXLE builds its own ticketing, feedback inbox or support form that stores anything (owner, 16 Oct 2026). Customers reach YaraOne's **front office** from Help; staff reach its **back office** in AXLE → Tickets. Follow `yaraone/EMBEDS.md` v1.0: `embed.js`, a token the product's server signs, nothing stored in the product. Wire it in once YaraOne's front office is built (its docs/19 phase W); never invent another embed mechanism or sign-in handover in a product.
+
+## AI, APIs and data
+
+Each has one owner (owner, 25 Oct 2026; AwanGan decision 0021). When you build a product's AXLE, take each to its owner; never build it in the product.
+
+- **AI** follows the AntaraX AI framework, Heuristiks (`haziqfaris/ai-framework-heuristiks`). Its provider keys, models and routing are **AwanGan**'s (`haziqfaris/AntaraX-AwanGan`), AntaraX's AI control plane. Once a product comes through AwanGan, it holds no provider key, only an AntaraX key for product `ai`; before that, AwanGan records the keys it still holds, watch only. Prompts, gates, checks and decisions stay in the product. In AXLE, Models & keys is a read-only view of AwanGan's keys and routes, and AI usage reads Lapisan's usage rows for product `ai` (`axle/SPEC.md` §10.6).
+- **APIs:** keys for callers, tenants, scopes, limits and usage rows are **Lapisan**'s (`haziqfaris/antarax-api`, `api.antarax.ai`).
+- **Data a business hands over** (files in, clean tables out) goes to **Cebis Loom** (`haziqfaris/antarax-cebis-loom`).
+- **Which framework governs what:** **RESAM**'s repository map (`haziqfaris/RESAM`).
+- **A client's own system** comes through AwanGan only with the client's written agreement; otherwise it keeps its own keys under Heuristiks, or runs BumiNyata on its own servers.
 
 ## On hold
 

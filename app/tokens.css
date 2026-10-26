@@ -1,7 +1,7 @@
 /*
   The AntaraX shell's tokens: the top bar every customer app shares (app/SPEC.md section 2).
   GENERATED from the AntaraX brand kit: do not edit.
-  Source: haziqfaris/AntaraX-brand-kit tokens/tokens.json "shell" and tokens/product-palettes.json, version 1.11.0 (2026-10-16), commit 3dc860e.
+  Source: haziqfaris/AntaraX-brand-kit tokens/tokens.json "shell" and tokens/product-palettes.json, version 1.11.0 (2026-10-16), commit 8f9b838.
   To change a value, change it in the brand kit (with an owner decision), then run tools/sync-brand-kit.py here.
 
   Use: put class="shell-root" and data-product="<product>" on the element that holds the bar (and
@@ -47,6 +47,8 @@
 /* Each product's slots, from its own palette (brand kit tokens/product-palettes.json), then its recorded exceptions. */
 .shell-root[data-product="yara"] { --shell-subtle-tint: #DAF3F3; --shell-on-tint: #044F51; --shell-action: #098284; --shell-on-action: #FFFFFF; --shell-well: #EFF5F5; --shell-line: #E1EAEA; --shell-surface: #FFFFFF; --shell-hover: #EFF5F5; --shell-ink: #0B1B4F; }
 .shell-root[data-product="yara"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #07A0A3 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #07A0A3; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }
+.shell-root[data-product="yaraone"] { --shell-subtle-tint: #DFF2E9; --shell-on-tint: #01523A; --shell-action: #087F5B; --shell-on-action: #FFFFFF; --shell-well: #F0F5F2; --shell-line: #E3EAE6; --shell-surface: #FFFFFF; --shell-hover: #F0F5F2; --shell-ink: #0B1B4F; }
+.shell-root[data-product="yaraone"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #3DA17B 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #3DA17B; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }
 .shell-root[data-product="frame"] { --shell-subtle-tint: #E4EDFF; --shell-on-tint: #002EB2; --shell-action: #074AF8; --shell-on-action: #FFFFFF; --shell-well: #F1F3F8; --shell-line: #E5E8EE; --shell-surface: #FFFFFF; --shell-hover: #F1F3F8; --shell-ink: #0B1B4F; --shell-bar-radius: 16px; }
 .shell-root[data-product="frame"][data-theme="dark"] { --shell-subtle-tint: color-mix(in srgb, #4D84FE 22%, #0C1B47); --shell-on-tint: #EAF0FF; --shell-action: #4D84FE; --shell-on-action: #071233; --shell-well: #050D26; --shell-line: rgba(157,184,255,.16); --shell-surface: #0C1B47; --shell-hover: color-mix(in srgb, #EAF0FF 6%, #0C1B47); --shell-ink: #EAF0FF; }
 .shell-root[data-product="janka"] { --shell-subtle-tint: #D7F2FE; --shell-on-tint: #004C64; --shell-action: #077DA1; --shell-on-action: #FFFFFF; --shell-well: #EFF4F7; --shell-line: #E2E9ED; --shell-surface: #FFFFFF; --shell-hover: #EFF4F7; --shell-ink: #0B1B4F; --shell-bar-radius: 20px; }

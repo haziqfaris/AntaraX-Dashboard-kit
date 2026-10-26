@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Email · AXLE · Janka</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Email" mode="dashboard" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Email" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+
+      <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; align-items: flex-end">
+        <div style="display: flex; flex-direction: column; gap: 4px; max-width: 860px">
+          <p style="margin: 0; color: #0B1B4F; font-size: 16px">Every email Janka sent, and what happened to each one.</p>
+          <p style="margin: 0; font-size: 12px; color: #5B6488">Sending as <span class="mono">Janka &lt;janka@mail.antarax.ai&gt;</span> · replies go to <span class="mono">support@go.antarax.ai</span> · through AntaraX email. Last 7 days, times in MYT. The service never keeps a body, subject, link, code or whole address, so none appears here.</p>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap">
+          <button type="button" onClick="{{exportCsv}}" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 13px; font-weight: 500; cursor: pointer">Export CSV</button>
+        </div>
+      </div>
+
+      <sc-if value="{{exported}}" hint-placeholder-val="{{false}}">
+        <p role="status" style="margin: 0; padding: 10px 12px; border-radius: 12px; background: #E7F8EF; border: 1px solid #A6E4C6; color: #067647; font-size: 13px">Downloaded <span class="mono">axle-janka-email-2026-10-17.csv</span>: {{shownCount}} rows, masked addresses only.</p>
+      </sc-if>
+
+      <section aria-labelledby="np-h" style="display: flex; flex-direction: column; gap: 8px; padding: 14px 18px; border-radius: 20px; background: #FEF4E6; border: 1px solid #F8CD92">
+        <h2 id="np-h" style="margin: 0; color: #0B1B4F; font-size: 15px; font-weight: 600">2 emails need a person</h2>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">Invitations and things to act on that did not arrive in the last 24 hours. Someone may be unable to get in.</p>
+        <sc-for list="{{needs}}" as="x" hint-placeholder-count="2">
+          <button type="button" onClick="{{x.open}}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 8px 12px; border-radius: 12px; border: 1px solid #F8CD92; background: #FFFFFF; cursor: pointer; text-align: left; font-size: 13px; color: #3B4469">
+            <span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{x.tint}}; color: {{x.ink}}">{{x.word}}</span>
+            <span style="color: #0B1B4F; font-weight: 500">{{x.what}}</span>
+            <span>{{x.org}}</span>
+            <span class="mono" style="font-size: 12px; color: #5B6488">{{x.when}}</span>
+            <span style="margin-left: auto; color: #0459F7">Open</span>
+          </button>
+        </sc-for>
+      </section>
+
+      <section aria-label="Emails by status, last 7 days" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px">
+        <sc-for list="{{stats}}" as="s" hint-placeholder-count="9">
+          <button type="button" onClick="{{s.pick}}" aria-pressed="{{s.pressed}}" style="{{s.style}}">
+            <span style="font-size: 12px; color: #5B6488">{{s.label}}</span>
+            <span class="mono" style="font-size: 22px; color: {{s.ink}}; line-height: 1.2">{{s.n}}</span>
+          </button>
+        </sc-for>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+        <section aria-labelledby="list-h" style="flex: 1.7 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center">
+            <h2 id="list-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600; margin-right: auto">{{listTitle}}</h2>
+            <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #5B6488">Email
+              <select onChange="{{pickTemplate}}" style="min-height: 34px; border-radius: 10px; border: 1px solid #D5DBE7; padding: 0 8px; font-size: 13px; color: #0B1B4F; background: #FFFFFF">
+                <sc-for list="{{templateOptions}}" as="o" hint-placeholder-count="5"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for>
+              </select>
+            </label>
+            <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #5B6488">Organisation
+              <select onChange="{{pickOrg}}" style="min-height: 34px; border-radius: 10px; border: 1px solid #D5DBE7; padding: 0 8px; font-size: 13px; color: #0B1B4F; background: #FFFFFF">
+                <sc-for list="{{orgOptions}}" as="o" hint-placeholder-count="5"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for>
+              </select>
+            </label>
+          </div>
+          <div role="table" aria-label="Emails" style="display: flex; flex-direction: column">
+            <div role="row" style="display: grid; grid-template-columns: 92px minmax(0, 1.3fr) minmax(0, 1.3fr) minmax(0, 1.1fr) 132px; gap: 10px; padding: 6px 8px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+              <span role="columnheader">When</span><span role="columnheader">Email</span><span role="columnheader">To</span><span role="columnheader">Organisation</span><span role="columnheader">Status</span>
+            </div>
+            <sc-for list="{{rows}}" as="r" hint-placeholder-count="10">
+              <button type="button" role="row" onClick="{{r.open}}" aria-pressed="{{r.pressed}}" style="{{r.style}}">
+                <span role="cell" class="mono" style="font-size: 12px; color: #0B1B4F">{{r.when}}</span>
+                <span role="cell" style="display: flex; flex-direction: column; min-width: 0"><span style="color: #0B1B4F; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.label}}</span><span style="font-size: 11px; color: #5B6488">{{r.cls}}</span></span>
+                <span role="cell" class="mono" style="font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.to}}</span>
+                <span role="cell" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.org}}</span>
+                <span role="cell"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{r.tint}}; color: {{r.ink}}; white-space: nowrap">{{r.word}}</span></span>
+              </button>
+            </sc-for>
+            <sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+              <p style="margin: 0; padding: 18px 8px; font-size: 13px; color: #5B6488">No email matches these filters. <button type="button" onClick="{{clear}}" style="min-height: 32px; margin-left: 8px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Clear filters</button></p>
+            </sc-if>
+          </div>
+          <p style="margin: 0; font-size: 11px; color: #5B6488">Showing the latest {{shownCount}} of {{totalWord}}. Older pages load as you scroll, 25 at a time. Emails are kept 90 days.</p>
+        </section>
+
+        <section aria-labelledby="one-h" style="flex: 1 1 340px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="display: flex; gap: 8px; align-items: center"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{one.tint}}; color: {{one.ink}}">{{one.word}}</span><span style="font-size: 12px; color: #5B6488">{{one.cls}}</span></span>
+            <h2 id="one-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">{{one.label}} to <span class="mono" style="font-size: 16px">{{one.to}}</span></h2>
+            <span style="font-size: 13px">{{one.reason}}</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+            <sc-for list="{{one.facts}}" as="f" hint-placeholder-count="6">
+              <div style="display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; background: #F5F7FC; min-width: 0">
+                <span style="font-size: 11px; color: #5B6488">{{f.label}}</span>
+                <span class="mono" style="font-size: 12px; color: #0B1B4F; overflow-wrap: anywhere">{{f.value}}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">What happened, oldest first</h3>
+            <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0">
+              <sc-for list="{{one.events}}" as="e" hint-placeholder-count="3">
+                <li style="display: grid; grid-template-columns: 72px 14px 1fr; gap: 8px; align-items: start; font-size: 13px">
+                  <span class="mono" style="font-size: 12px; color: #5B6488; padding-top: 1px">{{e.at}}</span>
+                  <span style="display: flex; flex-direction: column; align-items: center; height: 100%"><span style="width: 10px; height: 10px; border-radius: 50%; background: {{e.dot}}; margin-top: 5px"></span><span style="flex: 1; width: 2px; background: #E5E8EE; min-height: 14px"></span></span>
+                  <span style="display: flex; flex-direction: column; padding-bottom: 8px"><span style="color: #0B1B4F">{{e.what}}</span><span style="font-size: 11px; color: #5B6488">{{e.src}}</span></span>
+                </li>
+              </sc-for>
+            </ol>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <sc-if value="{{one.hasRecord}}" hint-placeholder-val="{{true}}"><a href="#" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; color: #0B1B4F; font-weight: 500; font-size: 13px">{{one.recordLabel}} <span class="mono" style="font-size: 10px; letter-spacing: .06em; color: #5B6488">JANKA</span></a></sc-if>
+            <a href="Organisation.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; color: #0B1B4F; font-weight: 500; font-size: 13px">Organisation 360</a>
+            <sc-if value="{{one.canCheck}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{one.check}}" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; font-size: 13px; cursor: pointer">Check this address</button></sc-if>
+          </div>
+        </section>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+        <section aria-labelledby="chk-h" style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+          <h2 id="chk-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Is this address blocked?</h2>
+          <p style="margin: 0; font-size: 12px; color: #5B6488">Type the address the person gave you. It is checked, not stored; Audit keeps it masked.</p>
+          <form onSubmit="{{lookup}}" style="display: flex; flex-wrap: wrap; gap: 8px">
+            <label for="addr" style="position: absolute; left: -9999px">Email address</label>
+            <input id="addr" type="email" inputmode="email" autocomplete="off" value="{{addr}}" onInput="{{typeAddr}}" placeholder="name@example.com" style="flex: 1 1 240px; min-height: 40px; border-radius: 12px; border: 1px solid #D5DBE7; padding: 0 12px; font-size: 14px; font-family: 'JetBrains Mono', monospace; color: #0B1B4F">
+            <button type="submit" style="min-height: 40px; padding: 0 16px; border-radius: 12px; border: 0; background: #FB9800; color: #071233; font-weight: 600; font-size: 14px; cursor: pointer">Check</button>
+          </form>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; color: #5B6488">Try:
+            <sc-for list="{{tries}}" as="t" hint-placeholder-count="3"><button type="button" onClick="{{t.pick}}" class="mono" style="border: 1px solid #E5E8EE; background: #F5F7FC; border-radius: 999px; padding: 1px 8px; font-size: 11px; color: #0B1B4F; cursor: pointer">{{t.addr}}</button></sc-for>
+          </div>
+          <sc-if value="{{hasAnswer}}" hint-placeholder-val="{{false}}">
+            <div role="status" style="display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border-radius: 14px; background: {{ans.bg}}; border: 1px solid {{ans.line}}">
+              <span style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: #FFFFFF; color: {{ans.ink}}">{{ans.word}}</span><span class="mono" style="font-size: 13px; color: #0B1B4F">{{ans.masked}}</span></span>
+              <span style="font-size: 13px; color: #0B1B4F">{{ans.line1}}</span>
+              <span style="font-size: 12px; color: #5B6488">{{ans.line2}}</span>
+              <sc-if value="{{ans.canLift}}" hint-placeholder-val="{{false}}">
+                <div style="display: flex; flex-direction: column; gap: 6px">
+                  <label for="why" style="font-size: 12px; color: #0B1B4F; font-weight: 500">Reason (the person's request)</label>
+                  <input id="why" value="{{why}}" onInput="{{typeWhy}}" placeholder="Asked on YO-1051 to get low-stock emails again" style="min-height: 38px; border-radius: 10px; border: 1px solid #D5DBE7; padding: 0 10px; font-size: 13px; color: #0B1B4F">
+                  <button type="button" onClick="{{lift}}" disabled="{{liftDisabled}}" style="{{liftStyle}}"><span>Let them hear from Janka again</span><span class="mono" style="font-size: 10px; letter-spacing: .06em; opacity: .8">SUPPORT</span></button>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </section>
+
+        <section aria-labelledby="tpl-h" style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px">
+          <h2 id="tpl-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Templates</h2>
+          <p style="margin: 0; font-size: 12px; color: #5B6488">What Janka may send, from AntaraX email. A new template or a change to one is a pull request to antarax-api, never an edit here.</p>
+          <sc-for list="{{templates}}" as="t" hint-placeholder-count="11">
+            <div style="display: grid; grid-template-columns: minmax(0, 1fr) 76px 92px; gap: 8px; align-items: center; padding: 5px 0; border-top: 1px solid #EEF1F6; font-size: 13px">
+              <span style="display: flex; flex-direction: column; min-width: 0"><span style="color: #0B1B4F">{{t.label}}</span><span class="mono" style="font-size: 11px; color: #5B6488">{{t.id}}</span></span>
+              <span style="font-size: 11px; font-weight: 600; text-align: center; padding: 1px 6px; border-radius: 999px; background: {{t.tint}}; color: {{t.ink}}">{{t.cls}}</span>
+              <span style="font-size: 11px; color: {{t.useInk}}; text-align: right">{{t.use}}</span>
+            </div>
+          </sc-for>
+        </section>
+      </div>
+
+      <p style="margin: 0; font-size: 12px; color: #5B6488">Read from AntaraX email through Janka's server, signed with Janka's service key; the key never reaches this page. AntaraX email's health and Test provider are in <a href="Providers.dc.html">R8 → Providers</a>; the day's limit is in <a href="Capacity.dc.html">R8 → Capacity</a>. Figures are illustrative.</p>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { status: 'all', template: 'all', org: 'all', sel: 'e1', addr: '', answer: null, why: '', lifted: false, exported: false };
+  }
+  renderVals() {
+    var self = this, st = this.state;
+    var S = {
+      delivered: { word: 'Delivered', ink: '#067647', tint: '#E7F8EF', dot: '#12B76A' },
+      sent: { word: 'Sent', ink: '#3B4469', tint: '#EEF1F6', dot: '#2A78D6' },
+      delayed: { word: 'Delayed', ink: '#B54708', tint: '#FEF4E6', dot: '#F79009' },
+      retryable: { word: 'Retrying', ink: '#B54708', tint: '#FEF4E6', dot: '#F79009' },
+      bounced: { word: 'Bounced', ink: '#B42318', tint: '#FEECEB', dot: '#F04438' },
+      complained: { word: 'Marked as spam', ink: '#B42318', tint: '#FEECEB', dot: '#F04438' },
+      suppressed: { word: 'Not sent: blocked', ink: '#B42318', tint: '#FEECEB', dot: '#F04438' },
+      failed: { word: 'Failed', ink: '#B42318', tint: '#FEECEB', dot: '#F04438' }
+    };
+    var T = {
+      'team.invitation.v1': { short: 'Invitation', cls: 'Service' },
+      'notice.v1': { short: 'Notification', cls: 'Activity' },
+      'system.action_required.v1': { short: 'Something to act on', cls: 'Service' },
+      'system.export_ready.v1': { short: 'Export ready', cls: 'Service' }
+    };
+    var ORGS = { contoh: 'Contoh Logistik', harapan: 'Harapan Pharma', sinar: 'Sinar Elektrik', bumi: 'Bumi Hijau Trading' };
+    var E = [
+      { id: 'e1', em: 'em_7c41a09e2b5d18f3c6a0e912', at: '14:22', tpl: 'team.invitation.v1', to: 'n***@sinar.example', org: 'sinar', s: 'bounced', attempts: 1, corr: 'inv_Q7m2Kp', record: 'Open the invitation',
+        reason: 'The receiving server says this mailbox does not exist. Every AntaraX product now stops mailing it.',
+        events: [['14:22:01', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['14:22:03', 'Handed to the provider', 'email.sent', '#2A78D6'], ['14:22:09', 'Bounced: the mailbox does not exist', 'email.bounced · Permanent', '#F04438']], needs: true },
+      { id: 'e2', em: 'em_2f90c3b17a6e4d05b8c1f7a3', at: '13:05', tpl: 'system.action_required.v1', to: 'a***@contoh.example', org: 'contoh', s: 'suppressed', attempts: 0, corr: 'po_88213', record: 'Open purchase order PO-88213',
+        reason: 'Not sent. This address bounced on 14 Oct, from another AntaraX product, so no product mails it until the person fixes it.',
+        events: [['13:05:12', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['13:05:12', 'Not sent: the address bounced before', 'suppressed · bounced', '#F04438']], needs: true },
+      { id: 'e3', em: 'em_91d4e6a2c08b37f5a1e2d4c6', at: '12:40', tpl: 'team.invitation.v1', to: 'r***@harapan.example', org: 'harapan', s: 'delivered', attempts: 1, corr: 'inv_Hc4tR9', record: 'Open the invitation',
+        reason: 'Delivered.', events: [['12:40:01', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['12:40:02', 'Handed to the provider', 'email.sent', '#2A78D6'], ['12:40:05', 'Delivered', 'email.delivered', '#12B76A']] },
+      { id: 'e4', em: 'em_c3b85f1e9a7d2046e8b3c1a5', at: '11:58', tpl: 'system.export_ready.v1', to: 'f***@bumihijau.example', org: 'bumi', s: 'delivered', attempts: 1, corr: 'exp_2209', record: 'Open the export',
+        reason: 'Delivered.', events: [['11:58:30', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['11:58:31', 'Handed to the provider', 'email.sent', '#2A78D6'], ['11:58:34', 'Delivered', 'email.delivered', '#12B76A']] },
+      { id: 'e5', em: 'em_5a17e0d3b94c6f28a0d5e7b1', at: '10:31', tpl: 'team.invitation.v1', to: 'k***@contoh.example', org: 'contoh', s: 'delayed', attempts: 1, corr: 'inv_Zp81Lw', record: 'Open the invitation',
+        reason: 'The receiving server asked the provider to try later. The provider keeps trying for up to 72 hours; nothing to do yet.',
+        events: [['10:31:00', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['10:31:01', 'Handed to the provider', 'email.sent', '#2A78D6'], ['10:35:40', 'Delayed: the receiving server asked to try later', 'email.delivery_delayed', '#F79009']] },
+      { id: 'e6', em: 'em_e8c26b4f1d03a97c5e2b8d40', at: '09:12', tpl: 'system.action_required.v1', to: 'm***@sinar.example', org: 'sinar', s: 'retryable', attempts: 2, corr: 'po_88190', record: 'Open purchase order PO-88190',
+        reason: 'The provider did not answer twice. Janka keeps it in its outbox and sends again with the same key, so it can never arrive twice.',
+        events: [['09:12:44', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['09:12:54', 'The provider did not answer', 'retryable · provider_503', '#F79009'], ['09:17:54', 'The provider did not answer', 'retryable · provider_503', '#F79009']] },
+      { id: 'e7', em: 'em_0b6f3a8d2e51c74b9f0a3c68', at: '07:00', tpl: 'notice.v1', to: 's***@harapan.example', org: 'harapan', s: 'complained', attempts: 1, corr: 'ntf_lowstock_1017', record: 'Open the low-stock digest',
+        reason: 'The person marked it as spam at 07:41. Janka\'s notifications and service emails to this address stop; a sign-in or reset they ask for still goes.',
+        events: [['07:00:02', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['07:00:03', 'Handed to the provider', 'email.sent', '#2A78D6'], ['07:00:06', 'Delivered', 'email.delivered', '#12B76A'], ['07:41:10', 'Marked as spam by the person', 'email.complained', '#F04438']] },
+      { id: 'e8', em: 'em_4d2a9c7e3f16b85d0c4e9a21', at: '07:00', tpl: 'notice.v1', to: 'a***@contoh.example', org: 'contoh', s: 'suppressed', attempts: 0, corr: 'ntf_lowstock_1017', record: 'Open the low-stock digest',
+        reason: 'Not sent. This address bounced on 14 Oct.', events: [['07:00:02', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['07:00:02', 'Not sent: the address bounced before', 'suppressed · bounced', '#F04438']] },
+      { id: 'e9', em: 'em_a9e1c5b7d3f08264e6a1b9c3', at: '07:00', tpl: 'notice.v1', to: 'j***@sinar.example', org: 'sinar', s: 'delivered', attempts: 1, corr: 'ntf_lowstock_1017', record: 'Open the low-stock digest',
+        reason: 'Delivered.', events: [['07:00:02', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['07:00:03', 'Handed to the provider', 'email.sent', '#2A78D6'], ['07:00:05', 'Delivered', 'email.delivered', '#12B76A']] },
+      { id: 'e10', em: 'em_f6b0d8a4c2e97135b7f0c4d2', at: '07:00', tpl: 'notice.v1', to: 't***@bumihijau.example', org: 'bumi', s: 'failed', attempts: 1, corr: 'ntf_lowstock_1017', record: 'Open the low-stock digest',
+        reason: 'The provider refused the address for good: it is not a valid address. Ask the organisation to correct it in Janka.',
+        events: [['07:00:02', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['07:00:03', 'Refused by the provider: not a valid address', 'failed · validation_error', '#F04438']] },
+      { id: 'e11', em: 'em_37c9e2a5f0b84d16c3e7a5f9', at: 'Yesterday 16:44', tpl: 'team.invitation.v1', to: 'h***@harapan.example', org: 'harapan', s: 'delivered', attempts: 1, corr: 'inv_Ka3vN2', record: 'Open the invitation',
+        reason: 'Delivered.', events: [['16:44:10', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['16:44:11', 'Handed to the provider', 'email.sent', '#2A78D6'], ['16:44:15', 'Delivered', 'email.delivered', '#12B76A']] },
+      { id: 'e12', em: 'em_b2d7f4e0a6c35918d2b6e0f4', at: 'Yesterday 07:00', tpl: 'notice.v1', to: 'w***@sinar.example', org: 'sinar', s: 'sent', attempts: 1, corr: 'ntf_lowstock_1016', record: 'Open the low-stock digest',
+        reason: 'Handed to the provider. The receiving server has not reported delivery; many do not.', events: [['07:00:02', 'Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'], ['07:00:03', 'Handed to the provider', 'email.sent', '#2A78D6']] }
+    ];
+    var COUNTS = { all: 1284, delivered: 1236, sent: 9, delayed: 4, retryable: 1, bounced: 6, complained: 1, suppressed: 22, failed: 5 };
+    function n(x) { return x.toLocaleString('en-GB'); }
+    var keys = ['all', 'delivered', 'sent', 'delayed', 'retryable', 'bounced', 'complained', 'suppressed', 'failed'];
+    var stats = keys.map(function (k) {
+      var on = st.status === k, bad = k === 'bounced' || k === 'complained' || k === 'suppressed' || k === 'failed';
+      return { label: k === 'all' ? 'All' : S[k].word, n: n(COUNTS[k]), ink: bad && COUNTS[k] ? '#B42318' : '#0B1B4F', pressed: on ? 'true' : 'false',
+        pick: function () { self.setState({ status: k }); },
+        style: 'display:flex;flex-direction:column;align-items:flex-start;padding:10px 12px;border-radius:14px;background:#FFFFFF;cursor:pointer;text-align:left;' + (on ? 'border:2px solid #FB9800;padding:9px 11px;' : 'border:1px solid #E5E8EE;') };
+    });
+    var shown = E.filter(function (e) {
+      return (st.status === 'all' || e.s === st.status) && (st.template === 'all' || e.tpl === st.template) && (st.org === 'all' || e.org === st.org);
+    });
+    var rows = shown.map(function (e) {
+      var s = S[e.s], on = st.sel === e.id;
+      return { when: e.at, label: T[e.tpl].short, cls: T[e.tpl].cls, to: e.to, org: ORGS[e.org], word: s.word, ink: s.ink, tint: s.tint, pressed: on ? 'true' : 'false',
+        open: function () { self.setState({ sel: e.id }); },
+        style: 'display:grid;grid-template-columns:92px minmax(0,1.3fr) minmax(0,1.3fr) minmax(0,1.1fr) 132px;gap:10px;align-items:center;padding:8px;border:0;border-bottom:1px solid #EEF1F6;cursor:pointer;text-align:left;font-size:13px;color:#3B4469;' +
+          (on ? 'background:#FEF4E6;box-shadow:inset 3px 0 0 #FB9800;' : 'background:transparent;') };
+    });
+    var e = E.filter(function (x) { return x.id === st.sel; })[0] || E[0];
+    var s = S[e.s];
+    var one = {
+      word: s.word, ink: s.ink, tint: s.tint, cls: T[e.tpl].cls + ' · ' + e.tpl, label: T[e.tpl].short, to: e.to, reason: e.reason,
+      facts: [
+        { label: 'Email', value: e.em }, { label: 'Organisation', value: ORGS[e.org] },
+        { label: 'Accepted', value: (e.at.indexOf('Yesterday') === 0 ? '16 Oct ' + e.at.slice(10) : '17 Oct ' + e.at) + ' MYT' }, { label: 'Attempts', value: String(e.attempts) },
+        { label: 'Janka\'s event', value: e.corr }, { label: 'Template', value: e.tpl }
+      ],
+      events: e.events.map(function (v) { return { at: v[0], what: v[1], src: v[2], dot: v[3] }; }),
+      hasRecord: true, recordLabel: e.record,
+      canCheck: e.s === 'bounced' || e.s === 'complained' || e.s === 'suppressed',
+      check: function () { self.setState({ addr: '', answer: e.s === 'complained' ? 'spam' : 'bounce', lifted: false, why: '' }); }
+    };
+    var needs = E.filter(function (x) { return x.needs; }).map(function (x) {
+      var s2 = S[x.s];
+      return { word: s2.word, ink: s2.ink, tint: s2.tint, what: T[x.tpl].short + ' to ' + x.to, org: ORGS[x.org], when: x.at, open: function () { self.setState({ sel: x.id, status: 'all', template: 'all', org: 'all' }); } };
+    });
+    function mask(a) { var at = a.indexOf('@'); return at > 0 ? a[0] + '***' + a.slice(at) : a; }
+    var A = {
+      spam: { word: 'Marked as spam', ink: '#B42318', bg: '#FEECEB', line: '#F6B5AF', masked: st.addr ? mask(st.addr) : 's***@harapan.example', line1: 'Marked a Janka email as spam on 17 Oct at 07:41. Janka\'s notifications and service emails to this address stop. Other AntaraX products still email it, and a sign-in or reset still goes.', line2: 'Lift it only when the person asks to hear from Janka again.', canLift: true },
+      bounce: { word: 'Bounced', ink: '#B42318', bg: '#FEECEB', line: '#F6B5AF', masked: st.addr ? mask(st.addr) : 'a***@contoh.example', line1: 'Bounced on 14 Oct: the mailbox does not exist. No AntaraX product mails this address.', line2: 'Ask the person to check their mailbox or give another address. A bounce is shared by every product, so it is lifted in AXLE Central once fixed, not here.', canLift: false },
+      clear: { word: 'Not blocked', ink: '#067647', bg: '#E7F8EF', line: '#A6E4C6', masked: mask(st.addr || 'new@sinar.example'), line1: 'Every Janka email can reach this address.', line2: 'If they still get nothing, look for their email in the list above, or check their spam folder with them.', canLift: false },
+      lifted: { word: 'Lifted', ink: '#067647', bg: '#E7F8EF', line: '#A6E4C6', masked: st.addr ? mask(st.addr) : 's***@harapan.example', line1: 'Janka can email this address again.', line2: 'Recorded in Audit by Aisyah Rahman at 14:36, with the reason and the masked address.', canLift: false }
+    };
+    var ansKey = st.lifted ? 'lifted' : st.answer;
+    var ans = ansKey ? A[ansKey] : A.clear;
+    var why = st.why.trim();
+    function opts(list, cur) { return list.map(function (o) { return { v: o[0], label: o[1], sel: o[0] === cur }; }); }
+    var TPL = [
+      ['auth.verify_email.v1', 'Confirm an email address', 'Security'], ['auth.sign_in.v1', 'Sign in with a link or a code', 'Security'], ['auth.password_reset.v1', 'Reset a password', 'Security'],
+      ['auth.password_changed.v1', 'Password changed', 'Security'], ['auth.email_changed.v1', 'Email address changed', 'Security'], ['auth.invite.v1', 'An account made for someone', 'Security'],
+      ['team.invitation.v1', 'Join an organisation', 'Service'], ['onboarding.welcome.v1', 'Welcome', 'Service'], ['system.action_required.v1', 'Something needs a person', 'Service'],
+      ['system.export_ready.v1', 'An export is ready', 'Service'], ['notice.v1', 'A notification people may turn off', 'Activity']
+    ];
+    var CT = { Security: ['#E4EDFF', '#0B1B4F'], Service: ['#EEF1F6', '#0B1B4F'], Activity: ['#EEF1F6', '#5B6488'] };
+    return {
+      stats: stats, rows: rows, empty: rows.length === 0, one: one, needs: needs,
+      listTitle: st.status === 'all' ? 'Emails, newest first' : S[st.status].word + ', newest first',
+      shownCount: rows.length, totalWord: n(COUNTS[st.status]),
+      templateOptions: opts([['all', 'Every email']].concat(Object.keys(T).map(function (k) { return [k, T[k].short]; })), st.template),
+      orgOptions: opts([['all', 'Every organisation']].concat(Object.keys(ORGS).map(function (k) { return [k, ORGS[k]]; })), st.org),
+      pickTemplate: function (ev) { self.setState({ template: ev.target.value }); },
+      pickOrg: function (ev) { self.setState({ org: ev.target.value }); },
+      clear: function () { self.setState({ status: 'all', template: 'all', org: 'all' }); },
+      exported: st.exported, exportCsv: function () { self.setState({ exported: true }); },
+      addr: st.addr, typeAddr: function (ev) { self.setState({ addr: ev.target.value }); },
+      lookup: function (ev) {
+        if (ev && ev.preventDefault) ev.preventDefault();
+        var a = (st.addr || '').toLowerCase().trim();
+        self.setState({ answer: a.indexOf('siti') === 0 ? 'spam' : (a.indexOf('ahmad') === 0 ? 'bounce' : 'clear'), lifted: false, why: '' });
+      },
+      tries: ['siti@harapan.example', 'ahmad@contoh.example', 'new@sinar.example'].map(function (a) {
+        return { addr: a, pick: function () { self.setState({ addr: a, answer: a.indexOf('siti') === 0 ? 'spam' : (a.indexOf('ahmad') === 0 ? 'bounce' : 'clear'), lifted: false, why: '' }); } };
+      }),
+      hasAnswer: !!ansKey, ans: ans,
+      why: st.why, typeWhy: function (ev) { self.setState({ why: ev.target.value }); },
+      liftDisabled: !why, lift: function () { if (why) self.setState({ lifted: true }); },
+      liftStyle: 'display:inline-flex;align-items:center;gap:8px;align-self:flex-start;min-height:44px;padding:0 16px;border-radius:12px;border:0;font-weight:600;font-size:14px;' +
+        (why ? 'background:#FB9800;color:#071233;cursor:pointer;' : 'background:#EEF1F6;color:#5B6488;cursor:not-allowed;'),
+      templates: TPL.map(function (t) {
+        var used = ['team.invitation.v1', 'notice.v1', 'system.action_required.v1', 'system.export_ready.v1'].indexOf(t[0]) >= 0;
+        return { id: t[0], label: t[1], cls: t[2], tint: CT[t[2]][0], ink: CT[t[2]][1], use: used ? 'Janka sends' : 'Available', useInk: used ? '#067647' : '#5B6488' };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

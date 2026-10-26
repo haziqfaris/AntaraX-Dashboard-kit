@@ -38,8 +38,8 @@ button,input,select,textarea{font-family:inherit}
           </div>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <a href="SupportSession.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; text-decoration: none">Start support session…</a>
-          <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-weight: 500; cursor: pointer">Suspend…</button>
+          <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; cursor: pointer">Start support session</button>
+          <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-weight: 500; cursor: pointer">Suspend</button>
         </div>
       </section>
 
@@ -69,7 +69,7 @@ button,input,select,textarea{font-family:inherit}
       </div>
 
       <div role="tablist" aria-label="Organisation" style="display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid #E5E8EE">
-        <sc-for list="{{tabs}}" as="t" hint-placeholder-count="9">
+        <sc-for list="{{tabs}}" as="t" hint-placeholder-count="10">
           <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}<sc-if value="{{t.hasN}}" hint-placeholder-val="{{false}}"><span class="mono" style="font-size: 11px; padding: 0 6px; border-radius: 999px; background: #EEF1F6; color: #3B4469">{{t.n}}</span></sc-if></button>
         </sc-for>
       </div>
@@ -106,14 +106,14 @@ button,input,select,textarea{font-family:inherit}
         <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
           <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: center">
             <p style="margin: 0; font-size: 13px">An organisation always keeps at least one Owner. Transferring ownership is recorded in Audit.</p>
-            <button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Transfer ownership…</button>
+            <button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Transfer ownership</button>
           </div>
           <div style="overflow-x: auto">
             <table style="width: 100%; min-width: 760px; border-collapse: collapse; font-size: 13px">
               <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Member</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Role</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Last sign-in</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Status</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE; text-align: right">Actions</th></tr></thead>
               <tbody>
                 <sc-for list="{{members}}" as="m" hint-placeholder-count="5">
-                  <tr><td style="padding: 8px; border-bottom: 1px solid #EEF1F6"><span style="color: #0B1B4F">{{m.name}}</span><div class="mono" style="font-size: 11px; color: #5B6488">{{m.email}}</div></td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6">{{m.role}}</td><td class="mono" style="padding: 8px; border-bottom: 1px solid #EEF1F6; font-size: 12px">{{m.last}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6">{{m.status}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6; text-align: right; white-space: nowrap"><button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Resend sign-in</button> <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Revoke sessions</button> <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-size: 12px; cursor: pointer">Lock…</button></td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #EEF1F6"><span style="color: #0B1B4F">{{m.name}}</span><div class="mono" style="font-size: 11px; color: #5B6488">{{m.email}}</div></td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6">{{m.role}}</td><td class="mono" style="padding: 8px; border-bottom: 1px solid #EEF1F6; font-size: 12px">{{m.last}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6">{{m.status}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6; text-align: right; white-space: nowrap"><button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Resend sign-in</button> <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Revoke sessions</button> <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-size: 12px; cursor: pointer">Lock</button></td></tr>
                 </sc-for>
               </tbody>
             </table>
@@ -174,12 +174,27 @@ button,input,select,textarea{font-family:inherit}
         </section>
       </sc-if>
 
+      <sc-if value="{{is.Email}}" hint-placeholder-val="{{false}}">
+        <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px; font-size: 13px">
+          <p style="margin: 0; font-size: 12px; color: #5B6488">Emails Janka sent to Contoh Logistik's people, last 7 days: Watch → Email filtered to this organisation.</p>
+          <sc-for list="{{emails}}" as="m" hint-placeholder-count="4">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; padding: 8px 0; border-bottom: 1px solid #EEF1F6">
+              <span class="mono" style="flex: 0 0 64px; color: #5B6488; font-size: 12px">{{m.when}}</span>
+              <span style="flex: 1 1 160px; color: #0B1B4F">{{m.what}}</span>
+              <span class="mono" style="flex: 1 1 160px; font-size: 12px">{{m.to}}</span>
+              <span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{m.tint}}; color: {{m.ink}}">{{m.word}}</span>
+            </div>
+          </sc-for>
+          <a href="Email.dc.html" style="display: inline-block; margin-top: 6px">Open in Watch → Email</a>
+        </section>
+      </sc-if>
+
       <sc-if value="{{is.Branding}}" hint-placeholder-val="{{false}}">
         <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-wrap: wrap; gap: 20px; font-size: 13px">
           <div style="width: 120px; height: 120px; border-radius: 16px; border: 1px dashed #D5DBE7; display: flex; align-items: center; justify-content: center; color: #5B6488; text-align: center; font-size: 12px">[ORGANISATION LOGO]</div>
           <dl style="margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 8px 14px">
             <dt style="color: #5B6488">Sign-in page</dt><dd style="margin: 0">Their name and logo, never another client's</dd>
-            <dt style="color: #5B6488">Email sender</dt><dd style="margin: 0">Contoh Logistik via Janka</dd>
+            <dt style="color: #5B6488">Email sender</dt><dd style="margin: 0"><span class="mono">Janka &lt;janka@mail.antarax.ai&gt;</span>, always the product (AntaraX email)</dd>
             <dt style="color: #5B6488">Colour</dt><dd style="margin: 0">Janka's own (no override)</dd>
           </dl>
         </section>
@@ -202,7 +217,7 @@ class Component extends DCLogic {
   constructor(props) { super(props); this.state = { tab: 'Summary' }; }
   renderVals() {
     var self = this;
-    var tabDefs = [['Summary', 'Summary'], ['Members', 'Members', 18], ['Plan', 'Plan & features'], ['Usage', 'Usage & AI'], ['Integrations', 'Integrations'], ['Health', 'Errors & health', 1], ['Notes', 'Notes', 3], ['Branding', 'Branding'], ['Audit', 'Audit']];
+    var tabDefs = [['Summary', 'Summary'], ['Members', 'Members', 18], ['Plan', 'Plan & features'], ['Usage', 'Usage & AI'], ['Integrations', 'Integrations'], ['Health', 'Errors & health', 1], ['Notes', 'Notes', 3], ['Email', 'Email', 1], ['Branding', 'Branding'], ['Audit', 'Audit']];
     var is = {};
     var tabs = tabDefs.map(function (t) {
       var on = self.state.tab === t[0]; is[t[0]] = on;
@@ -214,6 +229,12 @@ class Component extends DCLogic {
     function r(ok, label, detail) { return { label: label, detail: detail, mark: ok ? '✓' : '!', bg: ok ? '#E7F8EF' : '#FEF4E6', fg: ok ? '#067647' : '#B54708' }; }
     return {
       tabs: tabs, is: is,
+      emails: [
+        { when: '13:05', what: 'Something to act on', to: 'a***@contoh.example', word: 'Not sent: blocked', tint: '#FEECEB', ink: '#B42318' },
+        { when: '10:31', what: 'Invitation', to: 'k***@contoh.example', word: 'Delayed', tint: '#FEF4E6', ink: '#B54708' },
+        { when: '07:00', what: 'Notification', to: 'a***@contoh.example', word: 'Not sent: blocked', tint: '#FEECEB', ink: '#B42318' },
+        { when: '16 Oct', what: 'Invitation', to: 'z***@contoh.example', word: 'Delivered', tint: '#E7F8EF', ink: '#067647' }
+      ],
       ready: [
         r(true, 'Owner accepted the invitation', 'Nur Aina Hashim, 21 May'),
         r(true, 'Second admin added', 'Rahul Menon'),

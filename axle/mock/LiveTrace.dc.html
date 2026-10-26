@@ -60,7 +60,7 @@ button,input,select,textarea{font-family:inherit}
           </section>
 
           <section aria-labelledby="steps-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 8px">
-            <h3 id="steps-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Step by step</h3>
+            <h3 id="steps-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">The five steps</h3>
             <div style="overflow-x: auto">
               <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13px">
                 <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Step</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Status</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Model</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE; text-align: right">Time</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE; text-align: right">Cost</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Findings</th></tr></thead>
@@ -77,7 +77,7 @@ button,input,select,textarea{font-family:inherit}
             <button type="button" onClick="{{toggleRaw}}" aria-expanded="{{rawAria}}" style="border: 0; background: transparent; padding: 6px 0; color: #0459F7; font-size: 14px; cursor: pointer">Raw events {{rawArrow}}</button>
             <sc-if value="{{rawOpen}}" hint-placeholder-val="{{false}}">
               <pre class="mono" style="margin: 8px 0 0; padding: 12px 14px; border-radius: 12px; background: #0B1B4F; color: #EAF0FF; font-size: 12px; overflow-x: auto; white-space: pre">{{run.raw}}</pre>
-              <p style="margin: 6px 0 0; font-size: 12px; color: #5B6488">Prompt and reply bodies need the AI right. Keys never appear here.</p>
+              <p style="margin: 6px 0 0; font-size: 12px; color: #5B6488">A prompt, an input or an answer appears only where Janka's agreement keeps it, with personal data masked. Opening one needs the AI right and is recorded in Audit. Keys never appear here.</p>
             </sc-if>
           </section>
         </div>
@@ -97,12 +97,13 @@ class Component extends DCLogic {
         verdictWord: 'Finished with a fallback', verdict: 'The item was named, but on the second model', vBg: '#FEF4E6', vBorder: '#F8CD92', vFg: '#B54708',
         meaning: 'Gemini refused the call (rate limited), so the run moved to Claude Sonnet 5.5 as the fallback chain says. The member saw the answer 3 s later than usual.',
         facts: 'req_3e91c2 · 2 model calls · US$0.021 · member: Siti (Member)',
-        fixes: [Object.assign({ level: 'Failing', what: 'Gemini key is rate limited since 13:52: raise the quota or rotate the key', fix: 'Open Models & keys', href: 'ModelsKeys.dc.html' }, FAULT)],
+        fixes: [Object.assign({ level: 'Failing', what: 'Gemini key is rate limited since 13:52: raise its quota, or move Photo identify to another key in AwanGan', fix: 'Open Models & keys', href: 'ModelsKeys.dc.html' }, FAULT)],
         steps: [
-          { name: 'Read the photo', status: 'Done', color: '#067647', model: '–', time: '0.2 s', cost: '–', findings: '1 image, 1.1 MB' },
-          { name: 'Identify the item', status: 'Refused', color: '#B42318', model: 'Gemini 3 Pro', time: '0.4 s', cost: 'US$0.000', findings: '429, rate limited' },
-          { name: 'Identify the item (fallback)', status: 'Done', color: '#067647', model: 'Claude Sonnet 5.5', time: '3.9 s', cost: 'US$0.021', findings: 'Match: RM-RSN-003 ABS Resin Pellets, 0.91' },
-          { name: 'Save the suggestion', status: 'Done', color: '#067647', model: '–', time: '0.3 s', cost: '–', findings: 'Waiting for the member to confirm' }
+          { name: 'Asked', status: 'Done', color: '#067647', model: '–', time: '0.2 s', cost: '–', findings: 'Siti sent 1 photo, 1.1 MB' },
+          { name: 'Allowed', status: 'Done', color: '#067647', model: '–', time: '0.0 s', cost: '–', findings: 'Member, plan, switches and monthly cap all passed' },
+          { name: 'Answered', status: 'After a fallback', color: '#B54708', model: 'Gemini 3 Pro → Claude Sonnet 5.5', time: '4.3 s', cost: 'US$0.021', findings: 'Gemini answered 429, rate limited; Claude replied' },
+          { name: 'Checked', status: 'Done', color: '#067647', model: '–', time: '0.1 s', cost: '–', findings: 'Match: RM-RSN-003 ABS Resin Pellets, 0.91' },
+          { name: 'Decided', status: 'Waiting', color: '#B54708', model: '–', time: '0.3 s', cost: '–', findings: 'Saved as a suggestion for the member to confirm' }
         ],
         raw: '13:52:04.112  run.start      task=photo_identify org=acme-plastics\n13:52:04.330  model.call     provider=gemini model=gemini-3-pro\n13:52:04.731  model.error    status=429 reason=rate_limited\n13:52:04.733  fallback       next=claude-sonnet-5-5\n13:52:08.640  model.reply    tokens_in=1840 tokens_out=96\n13:52:08.902  run.finish     status=ok_with_fallback' },
       nightly: { title: 'Nightly forecast', org: 'All organisations', when: '15 Oct, 03:10 · 6 min', dot: '#F79009',
@@ -111,10 +112,11 @@ class Component extends DCLogic {
         facts: 'run_0915 · 12,480 SKUs · 17 new alerts · US$4.10',
         fixes: [Object.assign({ level: 'Due', what: 'Contoh Logistik has no stock movements in 30 days (stock count until 20 Oct, per staff note)', fix: 'Open the organisation', href: 'Organisation.dc.html' }, WARN)],
         steps: [
-          { name: 'Load movements', status: 'Done', color: '#067647', model: '–', time: '48 s', cost: '–', findings: '48 organisations, 1 with none in 30 days' },
-          { name: 'Forecast demand', status: 'Done', color: '#067647', model: 'Janka forecaster', time: '4 min 10 s', cost: '–', findings: '12,480 SKUs' },
-          { name: 'Explain changes', status: 'Done', color: '#067647', model: 'Gemini 3 Flash', time: '52 s', cost: 'US$4.10', findings: '312 explanations' },
-          { name: 'Raise alerts', status: 'Done', color: '#067647', model: '–', time: '9 s', cost: '–', findings: '17 new alerts' }
+          { name: 'Asked', status: 'Done', color: '#067647', model: '–', time: '48 s', cost: '–', findings: 'The nightly job, 48 organisations; movements loaded' },
+          { name: 'Allowed', status: '1 skipped', color: '#B54708', model: '–', time: '0.1 s', cost: '–', findings: '47 of 48: Contoh Logistik has no stock movements in 30 days' },
+          { name: 'Answered', status: 'Done', color: '#067647', model: 'Janka forecaster, Gemini 3 Flash', time: '5 min 2 s', cost: 'US$4.10', findings: '12,480 SKUs forecast; 312 explanations' },
+          { name: 'Checked', status: 'Done', color: '#067647', model: '–', time: '3 s', cost: '–', findings: '312 of 312 explanations passed' },
+          { name: 'Decided', status: 'Done', color: '#067647', model: '–', time: '6 s', cost: '–', findings: 'Janka\'s own logic raised 17 new alerts' }
         ],
         raw: '03:10:00.004  run.start      task=nightly_forecast orgs=48\n03:10:48.220  skip           org=contoh-logistik reason=no_movements_30d\n03:14:58.910  forecast.done  skus=12480\n03:15:50.402  explain.done   n=312\n03:15:59.871  run.finish     status=ok problems=1' },
       po: { title: 'Draft a purchase order', org: 'Mawar Textiles Sdn Bhd', when: '15 Oct, 14:10 · 2.1 s', dot: '#12B76A',
@@ -122,8 +124,11 @@ class Component extends DCLogic {
         meaning: 'Three lines drafted for the supplier Benang Jaya; nothing is sent until a member approves it.',
         facts: 'req_9b07aa · 1 model call · US$0.008', fixes: [],
         steps: [
-          { name: 'Pick items below reorder point', status: 'Done', color: '#067647', model: '–', time: '0.3 s', cost: '–', findings: '3 items' },
-          { name: 'Write the draft', status: 'Done', color: '#067647', model: 'Claude Sonnet 5.5', time: '1.8 s', cost: 'US$0.008', findings: 'Clean' }
+          { name: 'Asked', status: 'Done', color: '#067647', model: '–', time: '0.3 s', cost: '–', findings: '3 items below their reorder point' },
+          { name: 'Allowed', status: 'Done', color: '#067647', model: '–', time: '0.0 s', cost: '–', findings: 'Member, plan, switches and monthly cap all passed' },
+          { name: 'Answered', status: 'Done', color: '#067647', model: 'Claude Sonnet 5.5', time: '1.6 s', cost: 'US$0.008', findings: 'Three lines for Benang Jaya' },
+          { name: 'Checked', status: 'Done', color: '#067647', model: '–', time: '0.1 s', cost: '–', findings: 'Clean' },
+          { name: 'Decided', status: 'Waiting', color: '#B54708', model: '–', time: '0.1 s', cost: '–', findings: 'Nothing is sent until a member approves it' }
         ],
         raw: '14:10:11.020  run.start      task=po_draft org=mawar-textiles\n14:10:12.840  model.reply    tokens_in=920 tokens_out=210\n14:10:13.101  run.finish     status=ok' }
     };

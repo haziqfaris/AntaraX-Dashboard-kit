@@ -1,25 +1,28 @@
 # AXLE mock
 
-The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.0, the standard, with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
+The final design of every standard AXLE page, drawn to [SPEC.md](../SPEC.md) v1.5, the standard, with AXLE · Janka as the example product and fictional data throughout. Dark sidebar and AntaraX top bar, light page.
 
 - Live canvas (private until shared): https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr. Press Play on any page; the sidebar links move between pages.
 - The logos load from the canvas's asset store, so open the pages there rather than from disk.
 
 | File | Page | Shows |
 |---|---|---|
+| `SignIn.dc.html` | Sign in to AXLE | The one sign-in page every AXLE shares (§5.1.1), from AX Frame's: navy ground with the dotted blueprint, the AntaraX A and AXLE, Continue with Google, or email and password, then a six-digit code, and one AntaraX-blue Sign in. Tweaks: the product, and the state to start in (sign in, two-step, wrong door). Try: Sign in, then Use a backup code |
+| `SignInScreens.dc.html` | Getting in, every screen | Every AXLE sign-in screen and email (axle SPEC §5.1.1, getting-in/SPEC.md): sign in, wrong password, too many attempts, couldn't reach Google, wrong door, session ended after 12 hours, signed out; two-step (enter a code, wrong code, backup code, required set-up, save your codes, lost your phone); forgot your password, its email, choose a new password, saved. No sign-in link. Tweak: the product |
 | `Main.dc.html` | Overview | The standard landing page (§8). Tweaks: Finance right, Open access |
 | `Phone.dc.html` | Overview at 390px | The phone top bar and the drawer: the Dashboard · R8 switch (it changes only the menu), the AXLE standard groups, the dashed Janka-only box. Tweak: start with the drawer open |
 | `Tickets.dc.html` | Tickets | YaraOne's back office embedded in Janka's AXLE (§10.12): the desk's views (Triage, Mine, Open, Waiting on client, Overdue, Resolved), an assignee and two clocks per ticket, support requests and feedback, a ticket with what the product sent, the customer thread and the internal one apart, the state the customer sees, and AXLE's own tools one click away (support session, Troubleshoot, Organisation 360). Try: reply to Kumar on YO-1042, switch to Internal, change a state |
+| `Email.dc.html` | Email | Watch → Email for AntaraX email (§10.14): the sending line, two emails that need a person, the last 7 days by status as filters, every email newest first (masked address, organisation, template and its class, status in a word), one email opened with its attempts and what the provider reported, Is this address blocked? (a spam mark can be lifted with the person's request as the reason; a shared bounce cannot, here), and the templates Janka may send. Try: open the Marked as spam row, then Check this address, then lift it. Figures are illustrative |
 | `Organisations.dc.html` | Organisations | Every list (§9): stats strip as filters, search, sort, group, bulk actions, export |
-| `Organisation.dc.html` | Organisation 360 | Readiness checklist, stage stepper, tabs: summary and timeline, members, plan and features, usage, integrations, errors and health, internal notes, branding, audit (§10.3) |
+| `Organisation.dc.html` | Organisation 360 | Readiness checklist, stage stepper, tabs: summary and timeline, members, plan and features, usage, integrations, errors and health, internal notes, email, branding, audit (§10.3) |
 | `CreateOrganisation.dc.html` | New organisation | The five-step guided flow (§10.1) |
 | `PlansFeatures.dc.html` | Plans & features | Plans, feature kinds, "why does this organisation have it?", quota overrides with a reason (§10.5) |
-| `ModelsKeys.dc.html` | Models & keys | Masked keys, test and rotate, model per task with fallbacks, automatic switching and its log (§10.6) |
-| `LiveTrace.dc.html` | Live trace | Verdict, what to fix, steps, raw events last (§10.6) |
+| `ModelsKeys.dc.html` | Models & keys | A read-only view of Janka's keys (last four only) and the route for each feature, first model then fallbacks, as AwanGan holds them, with Open Routing in AwanGan, automatic switches and the change log (§10.6). Tweak: Through AwanGan, or Watch only (Janka still holds its keys) |
+| `LiveTrace.dc.html` | Live trace | Verdict first, what to fix, the five steps (Asked, Allowed, Answered, Checked, Decided), raw events last; bodies only where the agreement keeps them, masked, with opening one recorded (§10.6) |
 | `Health.dc.html` | R8 · Services | Services, jobs with retry and cancel, backups and restore drills, alert rules (§7.4, §10.9). Every product has it, Base or Full |
 | `Audit.dc.html` | Audit | Filters, export, before and after on every row (§10.8) |
 | `Staff.dc.html` | Staff | The ladder, rights, two-step sign-in, controls disabled with "Needs Admin" (§5.2) |
-| `SupportSession.dc.html` | Support session, start to finish | Both sides of one session (§11): the start dialog in AXLE (a reason, the member's feedback it answers, 30 minutes, 1 hour or 4 hours); Janka's Owner approving the request; the staff view under the navy AXLE banner, read only, with every change disabled; the organisation's "REKA support is here" banner; the trail in AXLE Audit and the organisation's Support access history. Opened from Organisation 360's "Start support session…". Uses Janka's own palette for Janka's side |
+| `SupportSession.dc.html` | Support session, start to finish | Both sides of one session (§11): the start dialog in AXLE (a reason, the member's feedback it answers, 30 minutes, 1 hour or 4 hours); Janka's Owner approving the request; the staff view under the navy AXLE banner, read only, with every change disabled; the organisation's "REKA support is here" banner; the trail in AXLE Audit and the organisation's Support access history. Opened from Organisation 360's "Start support session". Uses Janka's own palette for Janka's side |
 | `Settings.dc.html` | Settings | Platform switches, each asking for a reason first (§8.6, §13.2) |
 | `R8.dc.html` | R8 Overview | One overall state, needs an operator (each opens Troubleshoot), platform services, Janka's machinery, incidents, recent operations (§8.1, std M3) |
 | `Troubleshoot.dc.html` | R8 · Troubleshoot | INC-0412: evidence in layers (outside, inside, application), timeline, AXLE's reading kept apart from your conclusion, Level 1 safe actions only (§10.11, §14.1, std M10–M12) |

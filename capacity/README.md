@@ -8,7 +8,7 @@ Every AntaraX product and REKA client project describes what it runs on in **`ca
 |---|---|
 | [`capacity.schema.json`](capacity.schema.json) | The shape of `capacity.json` |
 | [`check.py`](check.py) | Checks a `capacity.json`. Plain Python, no packages |
-| [`examples/janka.capacity.json`](examples/janka.capacity.json) | A product on managed cloud: Appwrite Free, Resend, two AI providers |
+| [`examples/janka.capacity.json`](examples/janka.capacity.json) | A product on managed cloud: Appwrite Free, AntaraX email, two AI providers |
 | [`examples/self-hosted.capacity.json`](examples/self-hosted.capacity.json) | A client project on one VM in a local data centre, with SES and S3 |
 
 The figures in the examples are illustrative. A real `capacity.json` takes every limit from the provider's own plan page, and marks a plan `"confirmed": false` until someone has checked it there.
@@ -16,6 +16,29 @@ The figures in the examples are illustrative. A real `capacity.json` takes every
 ## With AX Frame
 
 AX Frame is where REKA records what it pays for: domains, hosting, cloud accounts, SaaS and licences, with their cost and renewal date, and the source of truth for any asset (owner, 16 Oct 2026; YaraOne docs/21). A plan in `capacity.json` is often the same thing. When it is in Frame, give the plan its Frame id in `asset` (`ast_…`): the cost and renewal come from Frame, and `capacity.json` adds only what Frame does not hold, the limits and how each is measured. Never keep a plan's cost in two places.
+
+## Email, through AntaraX email
+
+Every product sends its email through AntaraX email (axle SPEC §10.14; antarax-api docs/15), so every `capacity.json` describes email the same way: two plans and two `messages` resources. Copy these and change only the `product` and, once the owner raises it, the day's limit.
+
+```json
+"plans": [
+  { "id": "antarax-email", "provider": "AntaraX email (REKA)", "service": "Email, through email.antarax.ai", "plan": "Day's limit for this product", "confirmed": true, "cost": "Shared",
+    "rules": ["1,000 new emails a day by default (DAILY_LIMITS); security emails have twice the room", "Over it, new emails are refused with cap_reached until 00:00 UTC (08:00 MYT)"] },
+  { "id": "resend", "provider": "Resend", "service": "Delivery for every AntaraX product, behind AntaraX email", "plan": "Free, until the owner chooses", "confirmed": false,
+    "rules": ["100 emails a day, 3,000 a month", "One account shared by every product: its quota runs out for all of them at once"] }
+],
+"resources": [
+  { "id": "email-day", "class": "messages", "name": "Emails today", "plan": "antarax-email", "unit": "emails/day", "limit": 1000, "per": "day",
+    "measure": { "how": "provider-api", "source": "AntaraX email GET /v1/emails/summary?days=1, every status counted" },
+    "decide": [{ "action": "reduce-use", "what": "Send one digest instead of an email per event" }, { "action": "upgrade-plan", "what": "Ask for a higher DAILY_LIMITS in AntaraX email" }] },
+  { "id": "email-shared", "class": "messages", "name": "Shared sending plan (every product)", "plan": "resend", "unit": "emails/month", "limit": 3000, "per": "month",
+    "measure": { "how": "none", "why_not": "Read in AXLE Central from Resend's usage; a product sees only its own emails" },
+    "decide": [{ "action": "upgrade-plan", "what": "Resend's next plan, decided once for every product" }] }
+]
+```
+
+The shared plan is measured once, in AXLE Central; a product shows it with a dash and the reason, never a guess, so the same quota is never counted twice. Angka is deferred and keeps its own email resources until the owner decides.
 
 ## The classes
 
