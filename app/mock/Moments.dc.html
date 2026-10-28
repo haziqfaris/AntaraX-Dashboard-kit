@@ -30,7 +30,7 @@ body{margin:0;background:#F5F7FC}
         <div role="status" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; background: #DAF3F3; color: #044F51; font-size: 13px">
           <span class="mono" style="font-size: 10px; font-weight: 600; letter-spacing: .08em">1</span>
           <span style="flex: 1"><strong style="font-weight: 600">REKA support is here.</strong> Farid Osman from REKA support is looking at your organisation until 16:00, as you asked.</span>
-          <a href="#" style="color: #044F51; font-weight: 600; text-decoration: underline">End session</a>
+          <button type="button" style="min-height: 32px; padding: 0 12px; border-radius: 10px; border: 1px solid #044F51; background: transparent; color: #044F51; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer">End session</button>
         </div>
         <div role="status" style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; background: #FEF4E6; color: #B54708; font-size: 13px">
           <span class="mono" style="font-size: 10px; font-weight: 600; letter-spacing: .08em">4</span>
@@ -51,7 +51,7 @@ body{margin:0;background:#F5F7FC}
       <div style="background: #FFFFFF; border: 1px solid #E1EAEA; border-radius: 18px; box-shadow: 0 18px 40px -24px rgba(11,27,79,.35); display: flex; flex-direction: column">
         <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-bottom: 1px solid #E1EAEA">
           <span style="color: #0B1B4F; font-weight: 600">Notifications</span>
-          <a href="#" style="font-size: 13px; color: #098284; font-weight: 500">Mark all as read</a>
+          <button type="button" style="min-height: 32px; padding: 0 10px; border: 0; border-radius: 10px; background: #EFF5F5; color: #0B1B4F; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Mark all as read</button>
         </div>
         <sc-for list="{{notes}}" as="n" hint-placeholder-count="3">
           <a href="#" style="display: flex; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #EFF5F5; color: #3B4469">

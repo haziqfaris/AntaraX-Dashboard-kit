@@ -44,6 +44,7 @@ import { AppBar, useBarSize } from './reference';
 - The slot is the product's own: `.ax-slot-button` gives the 40px size and the 44px hit area; restyle the rest.
 - Navigation is the product's own; put `.ax-nav-item` on its links (or copy its two rules) for the current item and hover (§2.5).
 - The list toolbar's look is the product's own; its parts are not (§11a).
+- An action is a button, never link text, and no label ends in "…" (§11b). `.ax-ghost-button` is the quiet one the menus and the toolbar use (Switch organisation, Cancel, Clear filters); restyle it, but keep it a button.
 
 ## Run the demo
 

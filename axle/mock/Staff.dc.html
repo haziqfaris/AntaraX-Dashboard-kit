@@ -27,7 +27,7 @@ button,input,select,textarea{font-family:inherit}
         <p style="margin: 0; font-size: 12px; color: #5B6488">Only REKA staff appear here. Customers' members are under Members.</p></div>
         <span style="display: flex; align-items: center; gap: 10px">
           <span style="font-size: 12px; color: #5B6488">Needs Admin</span>
-          <button type="button" disabled style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #E5E8EE; background: #F5F7FC; color: #8A93AE; font-weight: 600; cursor: not-allowed">Add staff…</button>
+          <button type="button" disabled style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #E5E8EE; background: #F5F7FC; color: #8A93AE; font-weight: 600; cursor: not-allowed">Add staff</button>
         </span>
       </div>
 
@@ -60,7 +60,7 @@ button,input,select,textarea{font-family:inherit}
                   <td style="padding: 10px; border-bottom: 1px solid #EEF1F6"><span style="display: flex; flex-wrap: wrap; gap: 4px"><sc-for list="{{s.rights}}" as="r" hint-placeholder-count="2"><span style="font-size: 12px; padding: 1px 8px; border-radius: 999px; background: #E7EEFE; color: #0B1B4F">{{r}}</span></sc-for><sc-if value="{{s.noRights}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #5B6488">None</span></sc-if></span></td>
                   <td style="padding: 10px; border-bottom: 1px solid #EEF1F6; font-weight: 600; color: {{s.mfaColor}}">{{s.mfa}}</td>
                   <td class="mono" style="padding: 10px; border-bottom: 1px solid #EEF1F6; font-size: 12px">{{s.last}}</td>
-                  <td style="padding: 10px 16px 10px 10px; border-bottom: 1px solid #EEF1F6; text-align: right; white-space: nowrap"><span style="font-size: 11px; color: #5B6488; margin-right: 6px">{{s.note}}</span><button type="button" disabled style="min-height: 34px; padding: 0 12px; border-radius: 10px; border: 1px solid #E5E8EE; background: #F5F7FC; color: #8A93AE; font-size: 12px; cursor: not-allowed">Change…</button></td>
+                  <td style="padding: 10px 16px 10px 10px; border-bottom: 1px solid #EEF1F6; text-align: right; white-space: nowrap"><span style="font-size: 11px; color: #5B6488; margin-right: 6px">{{s.note}}</span><button type="button" disabled style="min-height: 34px; padding: 0 12px; border-radius: 10px; border: 1px solid #E5E8EE; background: #F5F7FC; color: #8A93AE; font-size: 12px; cursor: not-allowed">Change</button></td>
                 </tr>
               </sc-for>
             </tbody>

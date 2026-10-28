@@ -1,4 +1,4 @@
-<!-- values for AppBar.dc.html, source 3bc44ea8d889edf2 -->
+<!-- values for AppBar.dc.html, source a68e4ea462a65602 -->
 # AppBar: values
 
 The top bar every customer app shares (SPEC §2). Renders: `renders/AppBar-<product>-<wide|phone>[-dark].png`. All of it is **shell**: tokens in `app/tokens.css`, built in `reference/`.

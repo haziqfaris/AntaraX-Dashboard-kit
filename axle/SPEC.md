@@ -1,6 +1,6 @@
 # AXLE standard
 
-**Version 1.4, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0; 1.3 on 18 Oct 2026, Dashboard kit 1.8.0; 1.4 on 25 Oct 2026, Dashboard kit 1.9.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). 1.3 points §14 to [actions/SPEC.md](../actions/SPEC.md) and asks again for the password or a code on irreversible actions. 1.4 says who manages the AI: AwanGan holds the keys and routes, Lapisan records the usage, and the AI pages show this product's own share (§10.6). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
+**Version 1.5, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0; 1.3 on 18 Oct 2026, Dashboard kit 1.8.0; 1.4 on 25 Oct 2026, Dashboard kit 1.9.0; 1.5 on 26 Oct 2026, Dashboard kit 1.10.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). 1.3 points §14 to [actions/SPEC.md](../actions/SPEC.md) and asks again for the password or a code on irreversible actions. 1.4 says who manages the AI: AwanGan holds the keys and routes, Lapisan records the usage, and the AI pages show this product's own share (§10.6). 1.5 makes every action a button and takes the trailing "…" off every label (§14.2). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
 
 It merges two sources:
 
@@ -170,7 +170,7 @@ AXLE keeps the **AntaraX top bar** every product already ships (adopted 12 Oct 2
 ```
   ╭──────────────────────────────────────────────────────────────────────────────────╮
   │ ╭──┬─────────────╮                                                               │
-  │ │A │ ▣ Janka     │ AXLE │ Overview     [Organisation: All ▾] [Find… ⌘K] (♥1) (AR) │  64px card
+  │ │A │ ▣ Janka     │ AXLE │ Overview     [Organisation: All ▾] [Find ⌘K]  (♥1) (AR) │  64px card
   │ ╰──┴─────────────╯                                                               │
   ╰──────────────────────────────────────────────────────────────────────────────────╯
     ▲ Open access is on since 1 Oct 2026: every organisation has paid limits. Settings     state banner
@@ -552,7 +552,7 @@ One problem, all its evidence. Every product has it, Base or Full. Opened in one
 | **Timeline** | Every signal, automatic switch and staff action on this problem, in order, mono times |
 | **AXLE's reading** | A plain-words diagnosis derived from the evidence, labelled as derived, naming the facts it rests on. Never a root cause the evidence does not show |
 | **Your conclusion** | The operator's own words, stored apart from the evidence and the reading (M11). An AI guess is never stored as a fact |
-| **Safe actions** | Only the actions that apply to this problem, each labelled with its level (§14.1): for example Test provider, Retry failed items, Suppress for 1 hour. Actions that live elsewhere (rotating a key or moving a route, in AwanGan) are links, not buttons |
+| **Safe actions** | Only the actions that apply to this problem, each labelled with its level (§14.1): for example Test provider, Retry failed items, Suppress for 1 hour. Actions that live elsewhere (rotating a key or moving a route, in AwanGan) are links to the page where they are done, not buttons here (§14.2) |
 
 ### 10.12 Tickets: YaraOne's back office (owner, 16 Oct 2026)
 
@@ -560,7 +560,7 @@ Every support request and piece of feedback from every product lives in **YaraOn
 
 - **Watch → Tickets** embeds YaraOne's back office, showing this product's tickets only. Staff never sign in to YaraOne separately. The embed sits in a dashed frame labelled "YaraOne · back office", so it is clear where AXLE ends.
 - **What staff do there:** filter by state and kind (Support request, Feedback); open a ticket; read what the product sent with it (page, version, person, role, error reference); reply to the customer; add an internal note in a separate thread that never reaches the organisation; change the state the customer sees (Received, Reviewing, Need more information, Planned, In progress, Resolved, Closed).
-- **What stays AXLE's**, one click from a ticket: Start support session… (§11), Troubleshoot when it carries an error reference or matches an incident, Organisation 360.
+- **What stays AXLE's**, one click from a ticket: Start support session (§11), Troubleshoot when it carries an error reference or matches an incident, Organisation 360.
 - **Organisation 360 → Tickets** shows the same embed filtered to that organisation.
 - **Needs a person** (§8) counts tickets waiting on a reply.
 - **No product stores tickets or feedback**, and no AXLE builds its own inbox for them. YaraOne's own dashboard is where REKA's support team works across products.
@@ -712,6 +712,22 @@ Each banner says what is on, since when, and links to Settings.
 - Every R8 action asks for a reason when it changes anything, and lands in the operations audit with who, what, target and reason (M13).
 - A suppression always has an end time.
 
+### 14.2 Buttons and links (owner, 26 Oct 2026)
+
+Decided after a blue text link reading "Remove…" in a product. It covers every control in AXLE.
+
+- **An action is a button,** in AXLE's button styles. That covers run, retry, suspend, remove, delete, revoke, invite, export, and opening a dialog that leads to an action ("Start support session").
+  - **Primary:** REKA orange with navy text, the one main action on a page (§4).
+  - **Secondary:** white, a 1px `--axle-control-line` border, navy text.
+  - **Ghost:** no fill or border until hovered, padded to the button's size, never underlined.
+  - **Destructive:** the fault colours. In a dense row, white with a `--axle-fault-line` border and `--axle-fault-text` text, as Organisation 360 draws Suspend and Lock.
+  - Buttons are 44px (§16). A dense table row may draw one smaller, with a 44px hit area.
+  - In a menu, an action is a menu item (`<button role="menuitem">`), never link text.
+- **A link only goes somewhere:** another page, another address, a record. Link text (`#0459F7` on the page, §4) is only ever an `<a>` with a real `href`, never `href="#"` or an `<a>` that only runs a script.
+- **Remove and Delete are destructive buttons,** never coloured link text.
+- **No trailing ellipsis.** No button, menu item, link, tab or placeholder ends in "…" or "...": "Suspend", "Start support session", "Find". The dots come from an old desktop convention (Apple's and Microsoft's guidelines), where "…" means a dialog will ask for more first. Staff don't read it that way, so the dots are clutter; the dialog that follows explains itself.
+  - Not affected: text cut short by CSS (`text-overflow: ellipsis`), the "⋯" more-actions button, an ellipsis that stands for something left out (`req_…`, "R8 Base · …"), and a button's words while it works ("Opening Google…", actions/SPEC.md §3).
+
 ## 15 Words and formats
 
 | Thing | Write | Never |
@@ -722,6 +738,7 @@ Each banner says what is on, since when, and links to Settings.
 | REKA helping a customer, as the customer reads it | REKA support | AXLE, REKA admin |
 | Staff rungs | Viewer · Support · Operator · Admin · Owner | Super Admin, ADMIN MODE |
 | In and out | Sign in · Sign out | Log in, Log out |
+| Labels on controls | Suspend · Start support session · Find | Suspend… · Start support session... · Find… (§14.2) |
 | Money | RM1,200 · US$45, grouped by currency | RM 1,200 · $45 · USD · converted totals |
 | Dates | 11 Oct 2026 · 14:30 MYT | 10/11/2026 · 2:30 PM |
 | Spelling | British | US |
@@ -790,6 +807,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **R8 AI flow** | Every AI feature in the code appears in the manifest and on the page; the five steps add up (asked = every outcome together), and so do model, cache and shared answers; turn-aways are counted; no prompt, photo, answer, reused answer or source text appears on the page or in its network responses |
 | **R8 troubleshoot** | From a Dashboard alert, Troubleshoot opens R8 on that organisation and asset with outside evidence, a timeline and only safe actions; the reading and the conclusion are stored apart |
 | **R8 safety** | No Level 3 action exists; every R8 action appears in the audit log with a reason |
+| **Buttons and links** | `node tools/check-shell.mjs` on three AXLE pages finds no control, menu item, tab or placeholder ending in "…" or "...", and no `<a>` without a real `href`; by hand, every action is a button and Remove, Delete and Suspend are destructive buttons (§14.2) |
 | **Backend exists** | No R8 page or Observe item is empty or "coming soon"; a Base product shows no Incidents or Observe |
 | **Look** | Dark sidebar and top bar, light page, the orange `AXLE` tag and accent, the AntaraX A, "AXLE · Product" in the page title; the focus ring is visible on every control in both; axe passes |
 
@@ -817,6 +835,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 20. ~~**Sign-in page.**~~ Decided 18 Oct 2026: one page for every AXLE, from AX Frame's, with Continue with Google and email, password and a code; its Sign in is AntaraX blue, the one place AXLE's main action is not orange (§5.1.1).
 21. ~~**Who manages the AI.**~~ Decided 25 Oct 2026: AwanGan manages AntaraX's AI (provider keys, models, routing, call records, outcomes, AI cost) and Lapisan the API keys, tenants, scopes, limits and usage rows; each AXLE shows its own AI usage from Lapisan's usage rows for product `ai` (§10.6; AwanGan decision 0021).
 22. **AI usage while watch only.** Lapisan has no usage rows for product `ai` until a product comes through AwanGan. Read the product's own call records until then, or AwanGan's watch-only totals? Until decided, a figure Lapisan does not have is a dash with the reason (§13.1).
+23. ~~**Buttons and links.**~~ Decided 26 Oct 2026: an action is a button, a link only goes somewhere, Remove and Delete are destructive buttons, and no label ends in "…" (§14.2).
 
 ## 21 What each console changes
 
