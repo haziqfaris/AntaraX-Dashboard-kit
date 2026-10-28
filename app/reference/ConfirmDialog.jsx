@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from 'react';
+import { BusyLabel } from './InlineLoop.jsx';
 
 // A Level 2 or Level 3 confirmation, to actions/SPEC.md §2 and §5. Level 1 (undoable) actions never use it:
 // they act at once and offer Undo in the toast.
@@ -8,12 +9,13 @@ import { useEffect, useId, useRef, useState } from 'react';
 //     level={3}
 //     title="Delete Tegap Fabrication?"
 //     body={<>This deletes 3 projects and 1,240 work orders. Owners can undo it for 30 days, then it is gone.</>}
-//     action="Delete Tegap Fabrication" busyLabel="Deleting…" destructive
+//     action="Delete Tegap Fabrication" busyLabel="Deleting" destructive   // busy words have no dots (actions §3)
+//     loop={<ProductLoop />}                    // the product's own inline loop; AntaraX's Assemble without one
 //     confirmName="Tegap Fabrication"           // Level 3: the name to type
 //     askAgain={<PasswordField label="Your password" … />}  // Level 3: getting-in GI-13
 //     onConfirm={async () => { await api.deleteOrganisation(id); }}   // throw an Error with a written message to show it here
 //   />
-export function ConfirmDialog({ open, onCancel, level = 2, title, body, action, busyLabel = 'Working…', destructive = false, confirmName, askAgain, askAgainReady = true, onConfirm }) {
+export function ConfirmDialog({ open, onCancel, level = 2, title, body, action, busyLabel = 'Working', loop, destructive = false, confirmName, askAgain, askAgainReady = true, onConfirm }) {
   const id = useId();
   const dialogRef = useRef(null);
   const openerRef = useRef(null);
@@ -68,7 +70,7 @@ export function ConfirmDialog({ open, onCancel, level = 2, title, body, action, 
         <div className="ax-dialog-actions">
           <button type="button" data-cancel onClick={onCancel} disabled={busy}>Cancel</button>
           <button type="button" className={destructive ? 'is-danger' : 'is-action'} onClick={confirm} disabled={!ready} aria-busy={busy}>
-            {busy ? busyLabel : action}
+            <BusyLabel busy={busy} label={action} busyLabel={busyLabel} loop={loop} />
           </button>
         </div>
       </div>

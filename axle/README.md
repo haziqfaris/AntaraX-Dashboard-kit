@@ -40,4 +40,4 @@ The live mock is a private claude.ai canvas (https://claude.ai/artifact/NbWWVFko
 - Use orange for anything except "needs a person" and "you are here".
 - Use a status colour without a real signal, or a group colour as a status.
 - Show a secret's value, or a `0` where the true figure is hidden or unknown.
-- Draw an action as link text, or end a label with "…" (§14.2).
+- Draw an action as link text, or end a label or a busy word with "…" (§14.2): a working button says "Running check" with AntaraX's Assemble.
