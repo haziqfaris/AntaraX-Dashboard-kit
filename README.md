@@ -157,6 +157,7 @@ Nothing needs installing to read the kit. To run its checks you need Python 3 an
 | [app/README.md](app/README.md) | Building a customer app inside the AntaraX shell, before you plan, before you ship, pinning the kit |
 | [axle/README.md](axle/README.md) | Building an AXLE from the template, step by step |
 | [project/README.md](project/README.md) | Building a REKA client project |
+| [FRAMEWORKS.md](FRAMEWORKS.md) | How Dashboard Kit fits with the other REKA frameworks, and who governs what |
 
 **The standards**
 
