@@ -259,7 +259,7 @@ button,input,select,textarea{font-family:inherit}
       <section aria-labelledby="svc-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
         <div style="display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; justify-content: space-between">
           <h2 id="svc-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">The service</h2>
-          <span class="mono" style="font-size: 12px; color: #5B6488">antarax-api 0.7.5 · checked 14:34 MYT</span>
+          <span class="mono" style="font-size: 12px; color: #5B6488">antarax-api 0.8.1 · checked 14:34 MYT</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px">
           <sc-for list="{{service}}" as="v" hint-placeholder-count="6">
@@ -272,16 +272,191 @@ button,input,select,textarea{font-family:inherit}
         </div>
       </section>
 
+      <section aria-labelledby="tm-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; justify-content: space-between">
+          <h2 id="tm-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Teams</h2>
+          <span style="font-size: 12px; color: #5B6488">Each team is its own Resend account: its own domain, day's cap, bill and reputation. One team's bounces or quota never stop another's.</span>
+        </div>
+        <div style="overflow-x: auto">
+          <div role="table" aria-label="Teams" style="display: flex; flex-direction: column; min-width: 980px">
+            <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.2fr) 150px 190px 190px 170px 230px; gap: 10px; padding: 6px 8px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+              <span role="columnheader">Team</span><span role="columnheader">Sending domain</span><span role="columnheader">Key</span><span role="columnheader">Delivery reports</span><span role="columnheader">Standby</span><span role="columnheader">Today, against its day's cap</span>
+            </div>
+            <sc-for list="{{teams}}" as="t" hint-placeholder-count="3">
+              <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.2fr) 150px 190px 190px 170px 230px; gap: 10px; align-items: start; padding: 10px 8px; border-bottom: 1px solid #EEF1F6; font-size: 13px">
+                <span role="cell" style="display: flex; flex-direction: column; min-width: 0"><span class="mono" style="color: #0B1B4F; font-weight: 600">{{t.id}}</span><span style="font-size: 12px; color: #5B6488">{{t.what}}</span></span>
+                <span role="cell" class="mono" style="font-size: 12px; color: #0B1B4F">{{t.domain}}</span>
+                <span role="cell" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{t.keyTint}}; color: {{t.keyInk}}; white-space: nowrap">{{t.keyWord}}</span><span class="mono" style="font-size: 11px; color: #5B6488; overflow-wrap: anywhere">{{t.keyHint}}</span></span>
+                <span role="cell" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{t.hookTint}}; color: {{t.hookInk}}; white-space: nowrap">{{t.hookWord}}</span><span class="mono" style="font-size: 11px; color: #5B6488; overflow-wrap: anywhere">{{t.hookHint}}</span></span>
+                <span role="cell" style="display: flex; flex-direction: column; min-width: 0"><span class="mono" style="font-size: 12px; color: {{t.standbyInk}}">{{t.standby}}</span><span style="font-size: 11px; color: #5B6488; overflow-wrap: anywhere">{{t.standbyHint}}</span></span>
+                <span role="cell" style="display: flex; flex-direction: column; gap: 4px">
+                  <span style="font-size: 12px; color: #0B1B4F"><span class="mono">{{t.used}}</span> of <span class="mono">{{t.cap}}</span> · <span class="mono">{{t.reserve}}</span> kept for security</span>
+                  <span aria-hidden="true" style="position: relative; height: 8px; border-radius: 999px; background: #EEF1F6; overflow: hidden"><span style="position: absolute; top: 0; bottom: 0; right: 0; width: {{t.reservePct}}; background: #D5DBE7"></span><span style="position: absolute; top: 0; bottom: 0; left: 0; width: {{t.usedPct}}; background: {{t.bar}}; border-radius: 999px"></span></span>
+                  <span style="font-size: 11px; color: #5B6488">{{t.capNote}}</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 11px; color: #5B6488">A key is a Worker secret, <span class="mono">RESEND_KEY_&lt;TEAM&gt;</span>, set with <span class="mono">npx wrangler secret put</span>. This page shows only whether it is set, never its value. The grey end of each bar is the security reserve: past it only sign-in, reset and email-changed emails go, and at the cap nothing new does. A new team is declared in <span class="mono">TEAMS</span> on the Worker, not here.</p>
+      </section>
+
+      <section aria-labelledby="sd-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center">
+          <div style="display: flex; flex-direction: column; margin-right: auto">
+            <h2 id="sd-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Senders</h2>
+            <span style="font-size: 12px; color: #5B6488">Who sends, as whom, from which address, and where its links may go. AntaraX's products are in code; anyone else is registered here.</span>
+          </div>
+          <span style="display: inline-flex; align-items: center; gap: 10px">
+            <span style="font-size: 12px; color: #5B6488">{{adminNote}}</span>
+            <button type="button" onClick="{{newSender}}" disabled="{{notAdmin}}" style="{{mainStyle}}">Register a sender</button>
+          </span>
+        </div>
+        <div style="overflow-x: auto">
+          <div role="table" aria-label="Senders" style="display: flex; flex-direction: column; min-width: 1000px">
+            <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.1fr) 84px minmax(0, 1.2fr) minmax(0, 1.6fr) 104px 96px 96px; gap: 10px; padding: 6px 8px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+              <span role="columnheader">Sender and service id</span><span role="columnheader">Team</span><span role="columnheader">Address</span><span role="columnheader">Links may go to</span><span role="columnheader">Source</span><span role="columnheader">State</span><span role="columnheader"><span style="position: absolute; left: -9999px">Change</span></span>
+            </div>
+            <sc-for list="{{senders}}" as="s" hint-placeholder-count="14">
+              <div role="row" style="{{s.style}}">
+                <span role="cell" style="display: flex; flex-direction: column; min-width: 0"><span style="color: #0B1B4F; font-weight: 500">{{s.name}}</span><span class="mono" style="font-size: 11px; color: #5B6488">{{s.service}}</span></span>
+                <span role="cell" class="mono" style="font-size: 12px">{{s.team}}</span>
+                <span role="cell" class="mono" style="font-size: 12px; color: #0B1B4F; overflow-wrap: anywhere">{{s.address}}</span>
+                <span role="cell" class="mono" style="font-size: 11px; overflow-wrap: anywhere">{{s.origins}}</span>
+                <span role="cell"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{s.srcTint}}; color: {{s.srcInk}}; white-space: nowrap">{{s.source}}</span></span>
+                <span role="cell" style="font-size: 12px; color: {{s.stateInk}}">{{s.state}}</span>
+                <span role="cell">
+                  <sc-if value="{{s.editable}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{s.edit}}" disabled="{{notAdmin}}" aria-label="Edit {{s.service}}" style="{{smallStyle}}">Edit</button></sc-if>
+                  <sc-if value="{{s.readOnly}}" hint-placeholder-val="{{true}}"><span style="font-size: 12px; color: #5B6488">Read only</span></sc-if>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 11px; color: #5B6488">A sender in code is changed by a pull request to antarax-api, never here, and data can never override one. Angka's is in code and deferred: it sends its own email.</p>
+
+        <sc-if value="{{formOpen}}" hint-placeholder-val="{{true}}">
+          <form onSubmit="{{saveSender}}" aria-labelledby="sf-h" style="display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 16px; border: 1px solid #E5E8EE; background: #F5F7FC">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; justify-content: space-between">
+              <h3 id="sf-h" style="margin: 0; color: #0B1B4F; font-size: 15px; font-weight: 600">{{form.title}}</h3>
+              <span class="mono" style="font-size: 11px; color: #5B6488">PUT /internal/axle/v1/email/senders/{{form.serviceShown}}</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px 16px">
+              <sc-for list="{{form.fields}}" as="f" hint-placeholder-count="11">
+                <label style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+                  <span style="font-size: 12px; color: #0B1B4F; font-weight: 500">{{f.label}} <span style="font-weight: 400; color: #5B6488">{{f.optional}}</span></span>
+                  <span style="display: flex; align-items: center; gap: 8px">
+                    <sc-if value="{{f.swatch}}" hint-placeholder-val="{{false}}"><span aria-hidden="true" style="flex: none; width: 22px; height: 22px; border-radius: 6px; border: 1px solid #D5DBE7; background: {{f.value}}"></span></sc-if>
+                    <sc-if value="{{f.isInput}}" hint-placeholder-val="{{true}}"><input value="{{f.value}}" onInput="{{f.type}}" disabled="{{f.locked}}" placeholder="{{f.placeholder}}" aria-invalid="{{f.invalid}}" style="flex: 1 1 auto; min-width: 0; min-height: 38px; border-radius: 10px; border: 1px solid {{f.line}}; padding: 0 10px; font-size: 13px; font-family: {{f.font}}; color: #0B1B4F; background: {{f.ground}}"></sc-if>
+                    <sc-if value="{{f.isSelect}}" hint-placeholder-val="{{false}}"><select onChange="{{f.type}}" disabled="{{f.locked}}" style="flex: 1 1 auto; min-width: 0; min-height: 38px; border-radius: 10px; border: 1px solid #D5DBE7; padding: 0 8px; font-size: 13px; font-family: {{f.font}}; color: #0B1B4F; background: #FFFFFF"><sc-for list="{{f.options}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for></select></sc-if>
+                  </span>
+                  <span style="font-size: 11px; color: {{f.helpInk}}">{{f.help}}</span>
+                </label>
+              </sc-for>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+              <button type="submit" disabled="{{notAdmin}}" style="{{mainStyle}}">{{form.saveWord}}</button>
+              <button type="button" onClick="{{closeForm}}" style="{{secondStyle}}">Cancel</button>
+              <span style="font-size: 12px; color: {{form.noteInk}}">{{form.note}}</span>
+            </div>
+            <sc-if value="{{form.saved}}" hint-placeholder-val="{{true}}">
+              <div role="status" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 14px; background: #E7F8EF; border: 1px solid #A6E4C6">
+                <span style="font-size: 13px; color: #067647; font-weight: 600">{{form.savedLine}}</span>
+                <span style="font-size: 13px; color: #0B1B4F">Put <span class="mono">{{form.secret}}</span> on the Worker: <span class="mono">npx wrangler secret put {{form.secret}}</span>. The app keeps the same value as <span class="mono">AX_SVC_KEY</span>. Until the Worker has it, every call signed as <span class="mono">{{form.serviceShown}}</span> is refused.</span>
+                <sc-if value="{{form.teamWaits}}" hint-placeholder-val="{{true}}"><span style="font-size: 13px; color: #B54708">{{form.teamWaitLine}}</span></sc-if>
+                <span style="font-size: 12px; color: #5B6488">The key is made and copied outside AXLE, so it never appears on this page. Recorded in Audit by Mei Lin.</span>
+              </div>
+            </sc-if>
+          </form>
+        </sc-if>
+      </section>
+
+      <section aria-labelledby="dm-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; flex-direction: column">
+          <h2 id="dm-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Client domains</h2>
+          <span style="font-size: 12px; color: #5B6488">A client who sends from its own domain adds these records at its DNS host. Once the domain is verified, a sender on it can be registered on the same team.</span>
+        </div>
+        <form onSubmit="{{addDomain}}" style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 12px">
+          <label style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 260px">
+            <span style="font-size: 12px; color: #0B1B4F; font-weight: 500">Domain</span>
+            <input value="{{dName}}" onInput="{{typeDName}}" disabled="{{notAdmin}}" placeholder="mail.client.example" class="mono" style="min-height: 40px; border-radius: 12px; border: 1px solid #D5DBE7; padding: 0 12px; font-size: 13px; color: #0B1B4F; background: #FFFFFF">
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 4px; flex: 0 1 220px">
+            <span style="font-size: 12px; color: #0B1B4F; font-weight: 500">Team</span>
+            <select onChange="{{pickDTeam}}" disabled="{{notAdmin}}" style="min-height: 40px; border-radius: 12px; border: 1px solid #D5DBE7; padding: 0 8px; font-size: 13px; color: #0B1B4F; background: #FFFFFF">
+              <sc-for list="{{dTeamOptions}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for>
+            </select>
+          </label>
+          <button type="submit" disabled="{{addDisabled}}" style="{{addStyle}}">Add a domain</button>
+          <span style="flex: 1 1 100%; font-size: 12px; color: {{dNoteInk}}">{{dNote}}</span>
+        </form>
+
+        <div style="overflow-x: auto">
+          <div role="table" aria-label="Client domains" style="display: flex; flex-direction: column; min-width: 760px">
+            <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.4fr) 110px 120px 130px 130px; gap: 10px; padding: 6px 8px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+              <span role="columnheader">Domain</span><span role="columnheader">Team</span><span role="columnheader">Status</span><span role="columnheader">Added</span><span role="columnheader">Last checked</span>
+            </div>
+            <sc-for list="{{domains}}" as="d" hint-placeholder-count="1">
+              <button type="button" role="row" onClick="{{d.pick}}" aria-pressed="{{d.pressed}}" style="{{d.style}}">
+                <span role="cell" class="mono" style="font-size: 13px; color: #0B1B4F">{{d.name}}</span>
+                <span role="cell" class="mono" style="font-size: 12px">{{d.team}}</span>
+                <span role="cell"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{d.tint}}; color: {{d.ink}}; white-space: nowrap">{{d.word}}</span></span>
+                <span role="cell" class="mono" style="font-size: 12px">{{d.added}}</span>
+                <span role="cell" class="mono" style="font-size: 12px">{{d.checked}}</span>
+              </button>
+            </sc-for>
+            <sc-if value="{{noDomains}}" hint-placeholder-val="{{false}}">
+              <p style="margin: 0; padding: 14px 8px; font-size: 13px; color: #5B6488">No client domains yet. The first one is added above, on the team that will send for it.</p>
+            </sc-if>
+          </div>
+        </div>
+
+        <sc-if value="{{hasDomain}}" hint-placeholder-val="{{true}}">
+          <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 16px; border: 1px solid #E5E8EE; background: #F5F7FC">
+            <div style="display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center">
+              <div style="display: flex; flex-direction: column; gap: 2px; margin-right: auto; min-width: 0">
+                <span style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{dom.tint}}; color: {{dom.ink}}">{{dom.word}}</span><span style="font-size: 12px; color: #5B6488">on <span class="mono">{{dom.team}}</span></span></span>
+                <h3 style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600"><span class="mono">{{dom.name}}</span>: DNS records for the client to add</h3>
+              </div>
+              <span style="display: inline-flex; align-items: center; gap: 10px">
+                <span style="font-size: 12px; color: #5B6488">{{verifyNote}}</span>
+                <button type="button" onClick="{{verify}}" disabled="{{verifyDisabled}}" style="{{verifyStyle}}">Verify</button>
+              </span>
+            </div>
+            <p role="status" style="margin: 0; font-size: 13px; color: #0B1B4F">{{dom.line}}</p>
+            <div style="overflow-x: auto">
+              <div role="table" aria-label="DNS records for {{dom.name}}" style="display: flex; flex-direction: column; min-width: 900px; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 14px; padding: 4px 8px">
+                <div role="row" style="display: grid; grid-template-columns: 76px minmax(0, 1.1fr) minmax(0, 2fr) 70px 110px; gap: 10px; padding: 6px 4px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+                  <span role="columnheader">Type</span><span role="columnheader">Name</span><span role="columnheader">Value</span><span role="columnheader">Priority</span><span role="columnheader">Status</span>
+                </div>
+                <sc-for list="{{dom.records}}" as="r" hint-placeholder-count="3">
+                  <div role="row" style="display: grid; grid-template-columns: 76px minmax(0, 1.1fr) minmax(0, 2fr) 70px 110px; gap: 10px; align-items: center; padding: 8px 4px; border-bottom: 1px solid #EEF1F6; font-size: 13px">
+                    <span role="cell" style="display: flex; flex-direction: column"><span class="mono" style="color: #0B1B4F; font-weight: 600">{{r.type}}</span><span style="font-size: 11px; color: #5B6488">{{r.record}}</span></span>
+                    <span role="cell" style="display: flex; align-items: center; gap: 8px; min-width: 0"><span class="mono" style="font-size: 12px; color: #0B1B4F; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0">{{r.name}}</span><button type="button" onClick="{{r.copyName}}" aria-label="Copy the name of the {{r.record}} record" style="{{r.nameBtn}}">{{r.nameWord}}</button></span>
+                    <span role="cell" style="display: flex; align-items: center; gap: 8px; min-width: 0"><span class="mono" style="font-size: 12px; color: #0B1B4F; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0">{{r.value}}</span><button type="button" onClick="{{r.copyValue}}" aria-label="Copy the value of the {{r.record}} record" style="{{r.valueBtn}}">{{r.valueWord}}</button></span>
+                    <span role="cell" class="mono" style="font-size: 12px">{{r.priority}}</span>
+                    <span role="cell"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{r.tint}}; color: {{r.ink}}; white-space: nowrap">{{r.word}}</span></span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <p style="margin: 0; font-size: 11px; color: #5B6488">Names are under <span class="mono">{{dom.root}}</span>, as Resend gives them. Copy each one exactly; a value cut short on screen is copied whole. DNS can take up to 72 hours; Resend stops looking after that and the domain reads Failed until it is verified again.</p>
+          </div>
+        </sc-if>
+      </section>
+
       <p style="margin: 0; font-size: 12px; color: #5B6488">Read from AntaraX email through AXLE Central's server, on the operator-only routes under <span class="mono">/internal/axle/v1/email/</span>, signed with Central's own key; the key never reaches this page, and no product's AXLE can call these routes. Each product's own page is its Watch → Email; the shared Resend plan is in each product's R8 → Capacity. Figures are illustrative.</p>
     </main>
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"rung":{"editor":"enum","options":["Admin","Operator"],"default":"Admin","section":"Who is looking"},"$preview":{"width":1440,"height":2700}}'>
+<script type="text/x-dc" data-dc-script data-props='{"rung":{"editor":"enum","options":["Admin","Operator"],"default":"Admin","section":"Who is looking"},"rekatech":{"editor":"enum","options":["No key yet","Key set, domain pending","Domain verified","Domain failed"],"default":"No key yet","section":"The rekatech team"},"$preview":{"width":1440,"height":6200}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { product: 'all', status: 'all', template: 'all', org: 'all', sel: 'c1', addr: '', answer: null, why: '', lifted: false, exported: false };
+    this.state = { product: 'all', status: 'all', template: 'all', org: 'all', sel: 'c1', addr: '', answer: null, why: '', lifted: false, exported: false,
+      sForm: 'pe', sVals: { service: 'pe', team: 'reka', name: 'REKA PE', address: 'pe@mail.reka.re', origins: 'https://pe.reka.re', action: '#0B1B4F', ground: '#F5F7FC', reply: 'pe-team@reka.example', byline: '', legal: 'REKA Inisiatif Sdn Bhd.', support: 'Questions: pe-team@reka.example' },
+      sSaved: true, sTried: false, extraSenders: [], dName: null, dTeam: 'rekatech', dAdded: [], dSel: null, dStep: {}, copied: null };
   }
   renderVals() {
     var self = this, st = this.state;
@@ -474,7 +649,204 @@ class Component extends DCLogic {
     function pickAddr(a) { var x = a.toLowerCase().trim(); return x.indexOf('ahmad') === 0 ? 'c4' : (x.indexOf('siti') === 0 ? 'c6' : 'clear'); }
     function opts(list, cur) { return list.map(function (o) { return { v: o[0], label: o[1], sel: o[0] === cur }; }); }
     var canLiftNow = admin && !!why;
-    return {
+    // Teams, senders and client domains (antarax-api 0.8.0, docs/15 section 15.11). The tweak "The rekatech team" tells the story:
+    // today no key (rekatech cannot add a domain), then the key set and mail.client.example added (pending), verified, or failed.
+    var story = this.props.rekatech ?? 'No key yet';
+    var techReady = story !== 'No key yet';
+    var TEAMS = [
+      { id: 'antarax', what: 'AntaraX\'s products', domain: 'mail.antarax.ai', ready: true, hook: true, standby: 'mailer.antarax.ai', standbyHint: 'Brevo, when Resend is down or full; reports signed', used: 12, cap: 80, reserve: 20 },
+      { id: 'reka', what: 'REKA\'s own apps (proposals, hand-overs)', domain: 'mail.reka.re', ready: false, hook: false, standby: null, used: 0, cap: 80, reserve: 20 },
+      { id: 'rekatech', what: 'The client apps REKA builds and hosts', domain: 'mail.reka.tech', ready: techReady, hook: techReady, standby: null, used: 0, cap: 80, reserve: 20 }
+    ];
+    var TBY = {}; TEAMS.forEach(function (t) { TBY[t.id] = t; });
+    var teams = TEAMS.map(function (t) {
+      var up = t.id.toUpperCase(), share = t.used / t.cap, warn = share >= 0.8;
+      return { id: t.id, what: t.what, domain: t.domain,
+        keyWord: t.ready ? 'Ready' : 'Not ready', keyTint: t.ready ? '#E7F8EF' : '#FEF4E6', keyInk: t.ready ? '#067647' : '#B54708',
+        keyHint: t.ready ? 'key set' : 'Add RESEND_KEY_' + up,
+        hookWord: t.hook ? 'Signed' : 'Not set', hookTint: t.hook ? '#E7F8EF' : '#EEF1F6', hookInk: t.hook ? '#067647' : '#5B6488',
+        hookHint: t.hook ? 'last heard 14:31' : 'RESEND_WEBHOOK_SECRET_' + up,
+        standby: t.standby || 'None', standbyInk: t.standby ? '#0B1B4F' : '#5B6488', standbyHint: t.standby ? t.standbyHint : (t.ready ? 'Resend only' : 'Optional: BREVO_KEY_' + up),
+        used: n(t.used), cap: n(t.cap), reserve: n(t.reserve), usedPct: Math.round(share * 100) + '%', reservePct: Math.round(100 * t.reserve / t.cap) + '%', bar: warn ? '#F79009' : '#2A78D6',
+        capNote: t.ready ? (t.cap - t.reserve - t.used) + ' left for any email, then ' + t.reserve + ' for security' : 'Cannot send until its key is set: its senders get 503' };
+    });
+
+    // Client domains: what the rekatech account asked Resend for, and each record's state.
+    var REC = [
+      { record: 'DKIM', type: 'TXT', name: 'resend._domainkey.mail', value: 'p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDF3k9vQ2m8xR7tLwP1cJ0aYbN4hE6uZ2sV5oK8gT1rW3yM7nB0fA9jC4dX6pS2qL5eH8iU3zG1vT0kR7wY4oN6bM9cQ2xJ5aD8fK1hP3sE0uL7gB2vW4yZ6tI9rO1mC5nX3qA8kF0jS7dIDAQAB', priority: '' },
+      { record: 'SPF', type: 'MX', name: 'send.mail', value: 'feedback-smtp.ap-northeast-1.amazonses.com', priority: '10' },
+      { record: 'SPF', type: 'TXT', name: 'send.mail', value: '"v=spf1 include:amazonses.com ~all"', priority: '' }
+    ];
+    var DW = { pending: ['Pending', '#FEF4E6', '#B54708'], verified: ['Verified', '#E7F8EF', '#067647'], failed: ['Failed', '#FEECEB', '#B42318'], not_started: ['Not checked', '#EEF1F6', '#5B6488'] };
+    var base = story === 'No key yet' ? [] : [{ name: 'mail.client.example', team: 'rekatech', added: story === 'Domain failed' ? '15 Oct 10:05' : '18 Oct 14:10',
+      start: story === 'Domain verified' ? 2 : (story === 'Domain failed' ? -1 : 0) }];
+    var allDomains = base.concat(st.dAdded);
+    // A domain's step: -1 failed, 0 nothing found yet, 1 DKIM found, 2 every record found. Verify moves it on.
+    function stepOf(d) { return st.dStep[d.name] !== undefined ? st.dStep[d.name] : d.start; }
+    function recState(step, i) { return step === -1 ? (i === 0 ? 'failed' : 'verified') : (step >= 2 || (step === 1 && i === 0) ? 'verified' : 'pending'); }
+    function domStatus(step) { return step === -1 ? 'failed' : (step >= 2 ? 'verified' : 'pending'); }
+    var CHECKED = { '-1': '18 Oct 10:05', '0': 'not yet', '1': '18 Oct 14:36', '2': '18 Oct 14:38' };
+    var selName = st.dSel || (allDomains[0] && allDomains[0].name);
+    var DROW = 'display:grid;grid-template-columns:minmax(0,1.4fr) 110px 120px 130px 130px;gap:10px;align-items:center;padding:8px;border:0;border-bottom:1px solid #EEF1F6;cursor:pointer;text-align:left;font-size:13px;color:#3B4469;width:100%;';
+    var domains = allDomains.map(function (d) {
+      var w = DW[domStatus(stepOf(d))], on = d.name === selName;
+      return { name: d.name, team: d.team, word: w[0], tint: w[1], ink: w[2], added: d.added, checked: CHECKED[String(stepOf(d))] || 'not yet', pressed: on ? 'true' : 'false',
+        style: DROW + (on ? 'background:#FFF6E8;box-shadow:inset 0 0 0 1px #FB9800;border-radius:10px;' : 'background:transparent;'),
+        pick: function () { self.setState({ dSel: d.name }); } };
+    });
+    var cur = allDomains.filter(function (d) { return d.name === selName; })[0];
+    var dom = null;
+    if (cur) {
+      var step = stepOf(cur), ds = domStatus(step), w = DW[ds];
+      var LINE = {
+        '0': 'Resend gave these records for ' + cur.name + '. Send them to whoever runs the client\'s DNS, then press Verify once they are in.',
+        '1': 'Checked 14:36: the DKIM record is in; the MX and SPF records are not yet. DNS can take up to 72 hours.',
+        '2': 'Verified 14:38: every record is in. A sender on ' + cur.name + ' can now be registered on ' + cur.team + '.',
+        '-1': 'Failed: Resend stopped looking after 72 hours and did not find the DKIM record. Check it with the client\'s DNS host, then Verify again.'
+      };
+      var root = cur.name.split('.').slice(1).join('.');
+      dom = { name: cur.name, team: cur.team, root: root, word: w[0], tint: w[1], ink: w[2], line: LINE[String(step)] || LINE['0'],
+        records: REC.map(function (r, i) {
+          var rs = DW[recState(step, i)], kn = cur.name + i + 'n', kv = cur.name + i + 'v';
+          function btn(k) { return 'flex:none;min-height:28px;padding:0 10px;border-radius:8px;border:1px solid #D5DBE7;background:' + (st.copied === k ? '#E7F8EF' : '#FFFFFF') + ';color:' + (st.copied === k ? '#067647' : '#0B1B4F') + ';font-size:12px;font-weight:500;cursor:pointer;'; }
+          return { record: r.record, type: r.type, name: r.name, value: r.value, priority: r.priority || '–', word: rs[0], tint: rs[1], ink: rs[2],
+            nameWord: st.copied === kn ? 'Copied' : 'Copy', valueWord: st.copied === kv ? 'Copied' : 'Copy', nameBtn: btn(kn), valueBtn: btn(kv),
+            copyName: function () { self.setState({ copied: kn }); }, copyValue: function () { self.setState({ copied: kv }); } };
+        }) };
+    }
+    // Senders: AntaraX's own from code (read only), then those registered as data.
+    var CODE = [
+      ['frame', 'AX Frame', 'frame.antarax.ai, frame-axle.antarax.ai'], ['yaraone', 'YaraOne', 'yo.antarax.ai, axle.yo.antarax.ai'],
+      ['yara', 'Yara', 'yara.antarax.ai, axle.yara.antarax.ai'], ['janka', 'Janka', 'janka.antarax.ai, axle.janka.antarax.ai'],
+      ['grid', 'PLExyz Grid', 'grid.antarax.ai, axle.grid.antarax.ai'], ['crowd', 'PLExyz Crowd', 'crowd.antarax.ai, axle.crowd.antarax.ai'],
+      ['tinara', 'Tinara', 'tinara.antarax.ai, axle.tinara.antarax.ai'], ['lapisan', 'Lapisan', 'lapisan.antarax.ai'],
+      ['ai', 'AwanGan', 'awangan.antarax.ai, axle-awangan.antarax.ai'], ['cebis', 'Cebis', 'cebis.antarax.ai, axle-cebis.antarax.ai'],
+      ['gauge', 'Gauge', 'gauge.antarax.ai'], ['discovery', 'REKA Discovery', 'ripple.antarax.ai'], ['angka', 'Angka', 'angka.antarax.ai, axle.angka.antarax.ai', 'deferred']
+    ];
+    var PE = { service: 'pe', team: 'reka', name: 'REKA PE', address: 'pe@mail.reka.re', origins: 'https://pe.reka.re', action: '#0B1B4F', ground: '#F5F7FC',
+      reply: 'pe-team@reka.example', byline: '', legal: 'REKA Inisiatif Sdn Bhd.', support: 'Questions: pe-team@reka.example' };
+    var registered = [PE].concat(st.extraSenders);
+    var SROW = 'display:grid;grid-template-columns:minmax(0,1.1fr) 84px minmax(0,1.2fr) minmax(0,1.6fr) 104px 96px 96px;gap:10px;align-items:center;padding:8px;border-bottom:1px solid #EEF1F6;font-size:13px;';
+    var senders = CODE.map(function (c) {
+      var deferred = c[3] === 'deferred';
+      return { name: c[1], service: c[0], team: 'antarax', address: c[0] === 'discovery' ? 'discovery@mail.antarax.ai' : c[0] + '@mail.antarax.ai', origins: c[2],
+        source: 'In code', srcTint: '#EEF1F6', srcInk: '#5B6488', state: deferred ? 'Deferred' : 'Sending', stateInk: deferred ? '#5B6488' : '#0B1B4F',
+        editable: false, readOnly: true, edit: function () {}, style: SROW };
+    }).concat(registered.map(function (r) {
+      var on = st.sForm === r.service;
+      return { name: r.name, service: r.service, team: r.team, address: r.address, origins: r.origins.split(/\s*[,\n]\s*/).map(function (o) { return o.replace('https://', ''); }).join(', '),
+        source: 'Registered', srcTint: '#E7EEFE', srcInk: '#002EB2',
+        state: TBY[r.team].ready ? 'Sending' : 'Waits for its team', stateInk: TBY[r.team].ready ? '#0B1B4F' : '#B54708',
+        editable: true, readOnly: false, style: SROW + (on ? 'background:#FFF6E8;box-shadow:inset 0 0 0 1px #FB9800;border-radius:10px;' : ''),
+        edit: function () { self.setState({ sForm: r.service, sVals: Object.assign({}, r), sSaved: false, sTried: false }); } };
+    }));
+
+    // The register form, with the service's own rules as help text and as errors.
+    var editing = st.sForm && st.sForm !== 'new';
+    var v = st.sVals || {};
+    var team = TBY[v.team] || TBY.reka;
+    var verifiedHere = allDomains.filter(function (d) { return d.team === v.team && domStatus(stepOf(d)) === 'verified'; }).map(function (d) { return d.name; });
+    var svc = (v.service || '').trim();
+    var addr = (v.address || '').trim().toLowerCase();
+    var addrDomain = addr.split('@')[1] || '';
+    var origins = (v.origins || '').split(/\s*[,\n]\s*/).filter(Boolean);
+    var HEX6 = /^#[0-9A-Fa-f]{6}$/;
+    var E1 = {
+      service: !/^[a-z]{2,30}$/.test(svc) ? '2 to 30 lowercase letters.' : (CODE.some(function (c) { return c[0] === svc; }) ? svc + ' is one of AntaraX\'s own senders, kept in code.' : ''),
+      name: !(v.name || '').trim() ? 'A name, up to 60 characters.' : '',
+      address: addr && addrDomain !== team.domain && verifiedHere.indexOf(addrDomain) < 0 ? 'Must be on ' + team.domain + ', or on a domain the ' + team.id + ' team has verified.' : '',
+      origins: !origins.length ? 'At least one origin.' : (origins.length > 5 ? 'Five at most.' : (origins.some(function (o) { return o.indexOf('https://') !== 0; }) ? 'https origins only.' : '')),
+      action: !HEX6.test(v.action || '') ? 'A colour as #RRGGBB.' : '',
+      ground: !HEX6.test(v.ground || '') ? 'A colour as #RRGGBB.' : '',
+      reply: !(v.reply || '').trim() ? 'Required: the ' + team.id + ' team names no reply-to, and replies must reach a mailbox someone reads.' : ''
+    };
+    var errs = Object.keys(E1).filter(function (k) { return E1[k]; });
+    function setV(k) { return function (ev2) { var o = Object.assign({}, st.sVals); o[k] = ev2.target.value; self.setState({ sVals: o, sSaved: false }); }; }
+    function fld(k, label, help, opt, extra) {
+      var bad = st.sTried && E1[k];
+      return Object.assign({ label: label, optional: opt ? '(optional)' : '', value: v[k] || '', type: setV(k), isInput: true, isSelect: false, options: [], locked: !admin || (k === 'service' && editing),
+        placeholder: '', swatch: false, font: 'Poppins, sans-serif', invalid: bad ? 'true' : 'false', line: bad ? '#F04438' : '#D5DBE7', ground: '#FFFFFF',
+        help: bad ? E1[k] : help, helpInk: bad ? '#B42318' : '#5B6488' }, extra || {});
+    }
+    var MONO = '"JetBrains Mono", monospace';
+    var defAddr = (svc || 'service') + '@' + team.domain;
+    var form = {
+      title: editing ? 'Edit ' + st.sForm : 'Register a sender',
+      serviceShown: svc || '{service}',
+      saveWord: editing ? 'Save sender' : 'Register sender',
+      fields: [
+        fld('service', 'Service id', 'The AntaraX-Service it signs as: 2 to 30 lowercase letters. Fixed once registered.', false, { font: MONO, placeholder: 'pe' }),
+        fld('team', 'Team', 'The Resend account it sends through. ' + team.id + (team.ready ? ' is ready.' : ' is not ready yet: its emails get 503 until RESEND_KEY_' + team.id.toUpperCase() + ' is set.'), false, { isSelect: true, isInput: false, options: TEAMS.map(function (t) { return { v: t.id, label: t.id + ' · ' + t.domain, sel: t.id === v.team }; }) }),
+        fld('name', 'Name', 'Shown as the sender\'s name, up to 60 characters.', false, { placeholder: 'REKA PE' }),
+        fld('address', 'Address', 'Empty means ' + defAddr + '. Must be on the team\'s domain or on one it has verified.', true, { font: MONO, placeholder: defAddr }),
+        fld('origins', 'Links may go to', 'https origins only, one to five, separated by commas. Every link in its emails must be on one.', false, { font: MONO, placeholder: 'https://pe.reka.re' }),
+        fld('action', 'Action colour', 'Buttons and links in its emails, as #RRGGBB.', false, { font: MONO, swatch: HEX6.test(v.action || '') }),
+        fld('ground', 'Ground colour', 'The email\'s background, as #RRGGBB.', false, { font: MONO, swatch: HEX6.test(v.ground || '') }),
+        fld('reply', 'Reply-to', 'A mailbox someone reads. Required here: the ' + team.id + ' team names none of its own.', false, { font: MONO, placeholder: 'pe-team@reka.example' }),
+        fld('byline', 'Byline', 'Empty: no "by AntaraX" line. Only a sender AntaraX makes carries one.', true, { placeholder: 'None' }),
+        fld('legal', 'Legal line', 'Empty uses the team\'s: REKA Inisiatif Sdn Bhd.', true),
+        fld('support', 'Support line', 'Where people get help, in words.', true)
+      ],
+      note: !admin ? 'Needs Admin. Operators read this page.' : (st.sTried && errs.length ? errs.length + (errs.length === 1 ? ' field needs' : ' fields need') + ' a change before it can be saved.' : 'Saved to the service at once and recorded in Audit.'),
+      noteInk: st.sTried && errs.length ? '#B42318' : '#5B6488',
+      saved: !!st.sSaved, savedLine: 'Saved ' + svc + ' on ' + team.id + ', sending as ' + (v.name || svc) + ' <' + (addr || defAddr) + '>.',
+      secret: 'SVC_KEY_' + svc.toUpperCase(),
+      teamWaits: !team.ready, teamWaitLine: 'The ' + team.id + ' team is not ready yet: ' + svc + '\'s emails are refused with 503 until RESEND_KEY_' + team.id.toUpperCase() + ' is set.'
+    };
+
+    var verifyReady = !!cur && TBY[cur.team].ready && admin && domStatus(stepOf(cur)) !== 'verified';
+
+    // Adding a domain: the service's refusals, in words, before anything is asked of Resend.
+    var dName = (st.dName === null ? (allDomains.length ? '' : 'mail.client.example') : st.dName).trim().toLowerCase();
+    var dTeam = TBY[st.dTeam];
+    var DOM = /^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/;
+    var own = TEAMS.some(function (t) { return t.domain === dName || t.standby === dName; });
+    var there = allDomains.filter(function (d) { return d.name === dName; })[0];
+    var dWhy = !admin ? 'Needs Admin. Operators read this page.'
+      : (!dName ? 'Type the domain the client will send from, usually a subdomain such as mail.client.example.'
+      : (!DOM.test(dName) ? 'A domain such as mail.client.example.'
+      : (own ? 'That domain is already a team\'s own.'
+      : (there && there.team !== dTeam.id ? 'That domain belongs to the ' + there.team + ' team.'
+      : (!dTeam.ready ? 'The ' + dTeam.id + ' team has no key yet, so it cannot ask Resend for the records. Add RESEND_KEY_' + dTeam.id.toUpperCase() + ' on the Worker first.'
+      : (dTeam.id === 'antarax' ? 'Client domains never go on the antarax team: one client\'s bounces must not stop AntaraX\'s sign-in. Choose rekatech.'
+      : (there ? 'Already added: Add a domain opens its records.' : 'Resend answers with the DNS records at once. Nothing is sent from the domain until it is verified.')))))));
+    var canAdd = admin && dName && DOM.test(dName) && !own && !(there && there.team !== dTeam.id) && dTeam.ready && dTeam.id !== 'antarax';
+    var MAIN = 'display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:12px;font-weight:600;font-size:14px;';
+    var ON = 'border:0;background:#FB9800;color:#071233;cursor:pointer;', OFF = 'border:1px solid #E5E8EE;background:#F5F7FC;color:#8A93AE;cursor:not-allowed;';
+
+    var tc = {
+      teams: teams, senders: senders, form: form, formOpen: !!st.sForm,
+      notAdmin: !admin, adminNote: admin ? '' : 'Needs Admin',
+      mainStyle: MAIN + (admin ? ON : OFF),
+      secondStyle: 'display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:12px;border:1px solid #D5DBE7;background:#FFFFFF;color:#0B1B4F;font-weight:500;font-size:14px;cursor:pointer;',
+      smallStyle: 'display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:10px;font-size:13px;font-weight:500;' + (admin ? 'border:1px solid #D5DBE7;background:#FFFFFF;color:#0B1B4F;cursor:pointer;' : OFF),
+      newSender: function () { if (admin) self.setState({ sForm: 'new', sVals: { team: 'reka', service: '', name: '', address: '', origins: '', action: '', ground: '', reply: '', byline: '', legal: '', support: '' }, sSaved: false, sTried: false }); },
+      closeForm: function () { self.setState({ sForm: null, sSaved: false, sTried: false }); },
+      saveSender: function (ev2) {
+        if (ev2 && ev2.preventDefault) ev2.preventDefault();
+        if (!admin) return;
+        if (errs.length) { self.setState({ sTried: true, sSaved: false }); return; }
+        var row = Object.assign({}, v, { address: addr || defAddr });
+        var extra = st.sForm === 'new' && svc !== 'pe' ? st.extraSenders.filter(function (x) { return x.service !== svc; }).concat([row]) : st.extraSenders;
+        self.setState({ sTried: false, sSaved: true, sForm: svc, sVals: row, extraSenders: extra });
+      },
+      dName: st.dName === null ? (allDomains.length ? '' : 'mail.client.example') : st.dName,
+      typeDName: function (ev2) { self.setState({ dName: ev2.target.value }); },
+      dTeamOptions: TEAMS.map(function (t) { return { v: t.id, label: t.id + ' · ' + (t.ready ? 'ready' : 'not ready'), sel: t.id === st.dTeam }; }),
+      pickDTeam: function (ev2) { self.setState({ dTeam: ev2.target.value }); },
+      addDisabled: !canAdd, addStyle: MAIN + (canAdd ? ON : OFF), dNote: dWhy, dNoteInk: admin && dName && !canAdd && !(there && there.team === dTeam.id) ? '#B54708' : '#5B6488',
+      addDomain: function (ev2) {
+        if (ev2 && ev2.preventDefault) ev2.preventDefault();
+        if (!canAdd) return;
+        if (there) { self.setState({ dSel: dName }); return; }
+        self.setState({ dAdded: st.dAdded.concat([{ name: dName, team: dTeam.id, added: '18 Oct 14:36', start: 0 }]), dSel: dName, dName: '' });
+      },
+      domains: domains, noDomains: domains.length === 0, hasDomain: !!dom, dom: dom || { records: [] },
+      verify: function () { if (!verifyReady) return; var o = Object.assign({}, st.dStep); var s0 = stepOf(cur); o[cur.name] = s0 === -1 ? 0 : s0 + 1; self.setState({ dStep: o }); },
+      verifyDisabled: !verifyReady, verifyStyle: MAIN + (verifyReady ? ON : OFF),
+      verifyNote: !admin ? 'Needs Admin' : (cur && domStatus(stepOf(cur)) === 'verified' ? 'Nothing left to check' : 'Asks Resend again')
+    };
+    return Object.assign(tc, {
       staffName: admin ? 'Mei Lin' : 'Aisyah Rahman', staffRung: admin ? 'ADMIN' : 'OPERATOR', initials: admin ? 'ML' : 'AR',
       needs: needs, needsCount: openAlerts.length, prodRows: prodRows, sum: sum, stats: stats, rows: rows, empty: rows.length === 0, one: one, alerts: alerts,
       listTitle: (st.product === 'all' ? 'Every product' : PN[st.product]) + ': ' + (st.status === 'all' ? 'emails' : S[st.status].word.toLowerCase()) + ', newest first',
@@ -506,7 +878,7 @@ class Component extends DCLogic {
         { label: 'Replies', word: 'Set', tint: '#EEF1F6', ink: '#3B4469', value: 'support@go.antarax.ai', detail: 'Every product\'s replies go here, into YaraOne.' },
         { label: 'Delivery reports', word: 'Heard 14:31', tint: '#E7F8EF', ink: '#067647', value: 'Resend webhook', detail: 'Last report 3 minutes ago. Silent for 30 minutes opens an alert.' }
       ]
-    };
+    });
   }
 }
 </script>

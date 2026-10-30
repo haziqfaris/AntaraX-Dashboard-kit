@@ -8,6 +8,20 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.12.0 · 30 Oct 2026
+
+Minor: something new to adopt in AXLE Central. AntaraX email 0.8.0 (antarax-api docs/15 §15.11, built 30 Oct 2026) has provider accounts ("teams"), senders registered as data and domains clients bring, managed only from AXLE Central; this designs its pages, as §15.11 "Still to come" asks.
+
+- **axle/SPEC.md 1.7, §10.14 In AXLE Central**, four new parts:
+  - **Teams** (`GET /internal/axle/v1/email/teams`): each team's sending domain, Ready or Not ready with the secret to add ("Add RESEND_KEY_REKA"), delivery reports, standby (`mailer.antarax.ai` or None), and today's emails against its day's cap with the security reserve. No key value ever appears;
+  - **Senders** (`GET /internal/axle/v1/email/senders`): AntaraX's products In code and read only; senders Registered as data, with Edit;
+  - **Register a sender** (`PUT /internal/axle/v1/email/senders/{service}`): service id, team, name, address (defaults to service@ the team's domain), origins, action and ground colours, reply-to, byline (optional), legal and support lines. The service's rules are the help text: address on the team's domain or a verified one; https origins only; reply-to a mailbox someone reads. After saving, "Put SVC_KEY_‹SERVICE› on the Worker";
+  - **Client domains** (`GET` and `POST /internal/axle/v1/email/domains`, `POST …/domains/{name}/verify`): Add a domain (name and team) returns the DNS records (type, name, value, priority, status, each with Copy); Verify; Pending, Verified and Failed in words, never by colour alone. A team with no key, a team's own domain, another team's domain and the antarax team are refused in words.
+
+  Only Admin registers senders and adds or verifies domains; Operator reads.
+- **Mock:** `CentralEmail.dc.html` gains the three sections after The service, with `pe` on reka (`pe@mail.reka.re`, links on `https://pe.reka.re`) just saved, and `mail.client.example` on rekatech with a DKIM TXT, an MX and an SPF TXT. A new tweak, "The rekatech team", steps through no key yet, pending, verified and failed. The service card reads antarax-api 0.8.1. Canvas board 6200px tall.
+- **Known gap, not changed here:** the Products figures (per-product limit of 1,000 and sends in the hundreds) predate the shared account cap of 0.7.6 (80 a day on Resend Free), so they disagree with the antarax team's "12 of 80". Figures are illustrative; bringing them in line is a later patch.
+
 ## 1.11.0 · 30 Oct 2026
 
 Minor: a new page to adopt in AXLE Central (owner, 18 Oct 2026; drafted as 1.6.0 on its branch and renumbered when main, at 1.10.0, was merged in; brand kit guide/10, the email look decided on 18 Oct 2026). AntaraX email is live with AXLE Central's operator-only routes (antarax-api 0.7.5, docs/15 §15.10), so Central gets its Email page.
