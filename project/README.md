@@ -4,7 +4,7 @@ Dashboards REKA builds for a client carry the client's brand and never look like
 
 | File | What it is |
 |---|---|
-| [SPEC.md](SPEC.md) | The standard, v1.1: what is kept from the shell, what makes it not AntaraX, the neutral base, the credit, the framework, YaraOne, the project's AXLE, the building blocks |
+| [SPEC.md](SPEC.md) | The standard, v1.2: what is kept from the shell, what makes it not AntaraX, the neutral base, the credit, the framework, YaraOne, the project's AXLE, the building blocks, buttons and links |
 | [BRANDING.md](BRANDING.md) | Client branding, written for REKA's SOP: adopt the client's brand kit, or REKA's default without one; the bare minimum stays |
 | [mock/](mock/README.md) | The complete set drawn for a fictional client: overview, workspace, sign-in, the base kit, the branding SOP, the building blocks, and the project's AXLE (Dashboard and R8) |
 

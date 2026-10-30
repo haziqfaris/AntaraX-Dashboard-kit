@@ -219,13 +219,13 @@ class Component extends DCLogic {
     if (k === 'deletion') {
       actions.push(btn('Run now', 'LEVEL 1', false, null, true, 'A deletion runs only on its date'));
     } else if (res === 'running') {
-      actions.push(btn('Cancel the stuck item…', 'LEVEL 1', true, function () { self.setState({ cancelled: true }); }));
+      actions.push(btn('Cancel the stuck item', 'LEVEL 1', true, function () { self.setState({ cancelled: true }); }));
       actions.push(btn('Run now', 'LEVEL 1', false, null, true, 'Already running'));
     } else {
       actions.push(btn('Retry failures (' + failed + ')', 'LEVEL 1', failed > 0, function () { self.setState({ retried: true }); }, failed === 0, failed === 0 ? 'Nothing failed in the latest run' : ''));
-      actions.push(btn(st.ranNow[k] ? 'Queued' : 'Run now…', 'LEVEL 1', false, function () { var o = Object.assign({}, st.ranNow); o[k] = true; self.setState({ ranNow: o }); }, !!st.ranNow[k] || k === 'webhook', k === 'webhook' ? 'Runs when an event arrives' : ''));
+      actions.push(btn(st.ranNow[k] ? 'Queued' : 'Run now', 'LEVEL 1', false, function () { var o = Object.assign({}, st.ranNow); o[k] = true; self.setState({ ranNow: o }); }, !!st.ranNow[k] || k === 'webhook', k === 'webhook' ? 'Runs when an event arrives' : ''));
     }
-    if (k !== 'webhook' && k !== 'deletion') actions.push(btn(st.paused[k] ? 'Resume' : 'Pause…', 'LEVEL 1', false, flip('paused')));
+    if (k !== 'webhook' && k !== 'deletion') actions.push(btn(st.paused[k] ? 'Resume' : 'Pause', 'LEVEL 1', false, flip('paused')));
     var BK = { warn: ['#FEF4E6', '#F8CD92', '#B54708'], ok: ['#E7F8EF', '#A6E4C6', '#067647'], info: ['#F5F7FC', '#E5E8EE', '#3B4469'] }[j.bannerKind || 'info'];
     var running = jobs.filter(function (x) { return x.result === 'Running'; }).length;
     return {

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Acting: every state</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+.acs :focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+</style>
+</helmet>
+<div class="acs" style="width: 1440px; box-sizing: border-box; padding: 48px 56px 64px; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; gap: 22px">
+  <header style="display: flex; align-items: flex-start; gap: 18px">
+    <span style="width: 64px; height: 64px; flex: none; border-radius: 18px; background: #FFFFFF; border: 1px solid #E5E8EE; display: flex; align-items: center; justify-content: center"><img src="{{mark}}" alt="" style="max-width: 44px; max-height: 44px"></span>
+    <span style="display: flex; flex-direction: column; gap: 6px; max-width: 1100px">
+      <h1 style="margin: 0; color: #0B1B4F; font-size: 32px; font-weight: 600; letter-spacing: -.01em">{{name}}: acting, every state</h1>
+      <span style="font-size: 15px">{{count}} states, in {{name}}'s colours and shape, with its own records. Undoable actions just happen and offer Undo; consequential ones ask in a dialog; irreversible ones ask for the name and your password. What a person sees while it runs depends on how long it takes. actions/SPEC.md decides what each holds and says; the look is {{name}}'s own.</span>
+    </span>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px 22px; align-items: start">
+    <sc-for list="{{items}}" as="it" hint-placeholder-count="12">
+      <sc-if value="{{it.isSection}}" hint-placeholder-val="{{false}}">
+        <div style="grid-column: 1 / -1; display: flex; align-items: baseline; gap: 12px; padding-top: 14px; border-top: 1px solid #E5E8EE">
+          <h2 style="margin: 0; color: #0B1B4F; font-size: 20px; font-weight: 600">{{it.title}}</h2>
+          <span style="font-size: 13px; color: #5B6488">{{it.desc}}</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{it.isScreen}}" hint-placeholder-val="{{true}}">
+        <section aria-label="{{it.title}}" style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+          <span style="font-size: 12px; line-height: 1.4"><strong style="color: #0B1B4F; font-size: 13px">{{it.title}}</strong><span style="color: #5B6488"> · {{it.where}}</span></span>
+          <div style="{{it.frame}}">
+            <sc-if value="{{it.page}}" hint-placeholder-val="{{false}}">
+              <span style="position: absolute; inset: 0; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+                <span style="display: flex; align-items: center; gap: 8px"><img src="{{mark}}" alt="" style="width: 18px; height: 18px; object-fit: contain"><span style="height: 8px; width: 90px; border-radius: 4px; background: {{line}}"></span></span>
+                <sc-for list="{{bg}}" as="b" hint-placeholder-count="6"><span style="display: flex; gap: 8px; align-items: center; padding: 7px 8px; border-radius: 8px; background: #FFFFFF; border: 1px solid {{line}}"><span style="height: 7px; width: {{b}}; border-radius: 4px; background: {{line}}"></span></span></sc-for>
+              </span>
+            </sc-if>
+            <sc-if value="{{it.dim}}" hint-placeholder-val="{{false}}"><span style="position: absolute; inset: 0; background: rgba(11,27,79,.42)"></span></sc-if>
+            <div style="{{it.card}}">
+              <sc-for list="{{it.rows}}" as="r" hint-placeholder-count="5">
+                <sc-if value="{{r.is_h}}" hint-placeholder-val="{{false}}"><span style="color: #0B1B4F; font-size: 16px; font-weight: 600; line-height: 1.3">{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_p}}" hint-placeholder-val="{{false}}"><p style="margin: 0; font-size: 12.5px">{{r.t}}</p></sc-if>
+                <sc-if value="{{r.is_note}}" hint-placeholder-val="{{false}}"><span style="font-size: 11.5px; color: #5B6488">{{r.t}}</span></sc-if>
+                <sc-if value="{{r.is_alert}}" hint-placeholder-val="{{false}}"><p role="status" style="margin: 0; padding: 8px 10px; border-radius: 10px; font-size: 12px; background: {{r.bg}}; color: {{r.fg}}">{{r.t}}</p></sc-if>
+                <sc-if value="{{r.is_field}}" hint-placeholder-val="{{false}}">
+                  <span style="display: flex; flex-direction: column; gap: 4px">
+                    <span style="font-size: 12px; color: #0B1B4F">{{r.label}}</span>
+                    <span style="position: relative; display: flex"><span style="{{r.box}}">{{r.value}}</span><sc-if value="{{r.show}}" hint-placeholder-val="{{false}}"><span style="position: absolute; right: 10px; top: 0; bottom: 0; display: flex; align-items: center; font-size: 12px; color: {{link}}">Show</span></sc-if></span>
+                    <sc-if value="{{r.err}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; color: #B42318">{{r.err}}</span></sc-if>
+                  </span>
+                </sc-if>
+                <sc-if value="{{r.is_btns}}" hint-placeholder-val="{{false}}"><span style="display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 6px"><sc-for list="{{r.list}}" as="bt" hint-placeholder-count="2"><span style="{{bt.style}}"><sc-if value="{{bt.spin}}" hint-placeholder-val="{{false}}"><span style="display: inline-flex; gap: 2px; margin-right: 6px"><span style="width: 4px; height: 4px; border-radius: 99px; background: currentColor; opacity: .5"></span><span style="width: 4px; height: 4px; border-radius: 99px; background: currentColor; opacity: .8"></span><span style="width: 4px; height: 4px; border-radius: 99px; background: currentColor"></span></span></sc-if>{{bt.t}}</span></sc-for></span></sc-if>
+                <sc-if value="{{r.is_bar}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; gap: 4px"><span style="display: block; height: 6px; border-radius: 999px; background: {{line}}; overflow: hidden"><span style="display: block; height: 100%; width: {{r.w}}; background: {{action}}"></span></span><span style="font-size: 12px"><span style="font-family: 'JetBrains Mono', monospace; color: #0B1B4F">{{r.done}}</span> of <span style="font-family: 'JetBrains Mono', monospace; color: #0B1B4F">{{r.total}}</span></span></span></sc-if>
+                <sc-if value="{{r.is_steps}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; gap: 6px"><sc-for list="{{r.list}}" as="st" hint-placeholder-count="3"><span style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: {{st.ink}}"><span style="width: 10px; height: 10px; border-radius: 99px; border: 2px solid {{st.ring}}; background: {{st.fill}}"></span>{{st.t}}</span></sc-for></span></sc-if>
+                <sc-if value="{{r.is_loader}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: center; gap: 10px"><span style="display: inline-flex; align-items: flex-end; gap: 3px; height: 20px"><span style="width: 4px; height: 8px; border-radius: 2px; background: {{action}}; opacity: .5"></span><span style="width: 4px; height: 14px; border-radius: 2px; background: {{action}}; opacity: .75"></span><span style="width: 4px; height: 20px; border-radius: 2px; background: {{action}}"></span><span style="width: 4px; height: 12px; border-radius: 2px; background: {{action}}; opacity: .6"></span></span><span style="color: #0B1B4F; font-size: 15px; font-weight: 600">{{r.t}}</span></span></sc-if>
+                <sc-if value="{{r.is_rows}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; gap: 6px"><sc-for list="{{r.list}}" as="x" hint-placeholder-count="3"><span style="display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 7px 9px; border-radius: 9px; border: 1px solid {{line}}; font-size: 12px"><span style="display: flex; flex-direction: column; min-width: 0"><span style="color: #0B1B4F; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{x.a}}</span><span style="font-size: 11px; color: #5B6488">{{x.b}}</span></span><span style="flex: none; display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid {{line}}; background: #FFFFFF; color: {{x.ink}}; font-weight: 500">{{x.c}}</span></span></sc-for></span></sc-if>
+              </sc-for>
+            </div>
+            <sc-if value="{{it.toast}}" hint-placeholder-val="{{false}}">
+              <span style="{{it.toastStyle}}"><span style="flex: 1">{{it.toast}}</span><sc-if value="{{it.toastAction}}" hint-placeholder-val="{{false}}"><span style="display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid {{it.toastLink}}; font-weight: 600; color: {{it.toastLink}}">{{it.toastAction}}</span></sc-if></span>
+            </sc-if>
+          </div>
+        </section>
+      </sc-if>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"product":{"editor":"enum","options":["yara","yaraone","frame","janka","grid","crowd","angka","tinara"],"default":"janka"},"$preview":{"width":1440,"height":2950}}'>
+class Component extends DCLogic {
+  renderVals() {
+    // Colours from brand/product-palettes.json, as GettingInScreens; the records are each product's own (fictional).
+    var P = {
+      yara: { name: 'Yara', mark: '/_blob/44c518a68fd732aff2ace614c736976b', action: '#098284', tint: '#EEF9F9', onTint: '#044F51', line: '#E1EAEA', sunken: '#F7FBFB', link: '#098284', radius: 24, ctrl: 12, org: 'Tegap Fabrication',
+        rec: 'WO-2026-0412', recs: 'work orders', recDesc: 'Bracket set, 40 units', member: 'Hafiz Roslan', key: 'Status API key “Floor display”', imp: 'job cards', impN: '1,240', exportName: 'Work orders, October 2026', counts: '3 workshops, 1,240 work orders and 6,812 job cards', bulk: '120', field: 'Due date', fieldErr: 'Choose a date after 18 Oct 2026, the start date.', fieldVal: '18 Nov 2026', ai: 'Estimating hours for 48 job cards' },
+      yaraone: { name: 'YaraOne', mark: '/_blob/bcaeecc00b01b4ba760ab062625b00b7', action: '#087F5B', tint: '#F0F9F5', onTint: '#01523A', line: '#E3EAE6', sunken: '#F8FBF9', link: '#087F5B', radius: 24, ctrl: 12, org: 'Sinar Digital',
+        rec: 'PRJ-0087 Sinar website', recs: 'projects', recDesc: 'Delivery, 12 milestones', member: 'Daniel Ong', key: 'Embed key “AX Frame help”', imp: 'contacts', impN: '312', exportName: 'Tickets, October 2026', counts: '18 projects, 412 tickets and 96 client contacts', bulk: '64', field: 'Milestone date', fieldErr: 'Choose a date before the project ends on 30 Nov 2026.', fieldVal: '28 Nov 2026', ai: 'Summarising 64 tickets' },
+      frame: { name: 'AX Frame', mark: '/_blob/4465d40a6045e7213803d41ebd2d541f', action: '#074AF8', tint: '#F3F7FE', onTint: '#002EB2', line: '#E5E8EE', sunken: '#F9FAFD', link: '#074AF8', radius: 16, ctrl: 12, org: 'Studio Harapan',
+        rec: 'Cloudflare DNS', recs: 'assets', recDesc: 'Domain service, renews 2 Mar 2027', member: 'Nur Aina Hashim', key: 'API token “CI deploys”', imp: 'assets from Sheets', impN: '214', exportName: 'Estate, October 2026', counts: '4 projects, 214 assets and 38 stacks', bulk: '72', field: 'Renewal date', fieldErr: 'Choose a date in the future.', fieldVal: '2 Mar 2027', ai: 'Mapping 214 assets' },
+      janka: { name: 'Janka', mark: '/_blob/e49267db52a49ce314f758e045b38dc1', action: '#077DA1', tint: '#EDF9FF', onTint: '#004C64', line: '#E2E9ED', sunken: '#F7FBFC', link: '#077DA1', radius: 20, ctrl: 12, org: 'Contoh Logistik',
+        rec: 'SKU 10442 Bolt M8 × 40', recs: 'items', recDesc: 'Hardware, 2,400 in stock', member: 'Siti Mariam', key: 'Integration key “Warehouse scanner”', imp: 'items', impN: '1,240', exportName: 'Stock levels, October 2026', counts: '2 sites, 1,240 items and 18,604 stock movements', bulk: '120', field: 'Reorder point', fieldErr: 'Use a whole number of at least 0.', fieldVal: '200', ai: 'Forecasting 1,240 items' },
+      grid: { name: 'PLExyz Grid', mark: '/_blob/bb69b049e48ccaa805e370586faa379e', action: '#2C09B2', tint: '#F4F6FE', onTint: '#2C09B2', line: '#E6E7EE', sunken: '#F9FAFD', link: '#2C09B2', radius: 24, ctrl: 12, org: 'Bumi Tenaga',
+        rec: 'Site Bangsar South', recs: 'sites', recDesc: '4 zones, 48 meters', member: 'Aisyah Rahman', key: 'Meter feed key “Bangsar gateway”', imp: 'meters', impN: '48', exportName: 'Energy use, October 2026', counts: '6 sites, 288 meters and 2.1 million readings', bulk: '60', field: 'Alert threshold', fieldErr: 'Use a number between 1 and 100 percent.', fieldVal: '85%', ai: 'Finding anomalies in 288 meters' },
+      crowd: { name: 'PLExyz Crowd', mark: '/_blob/d37f06b86cdd2660baea27e9c481068a', action: '#6040CC', tint: '#F6F6FE', onTint: '#442C95', line: '#E7E7EE', sunken: '#FAFAFD', link: '#6040CC', radius: 24, ctrl: 12, org: 'Dewan Seri Events',
+        rec: 'Event Merdeka Run 2026', recs: 'events', recDesc: '31 Aug 2026, 12,400 check-ins', member: 'Daniel Ong', key: 'Alert webhook “Ops channel”', imp: 'attendees', impN: '12,400', exportName: 'Check-ins, Merdeka Run 2026', counts: '14 events, 86,200 check-ins and 32 venues', bulk: '90', field: 'Capacity', fieldErr: 'Use a whole number up to the venue limit, 15,000.', fieldVal: '12,000', ai: 'Predicting crowd peaks for 14 events' },
+      angka: { name: 'Angka', mark: '/_blob/bb282ff0455686251e09bac778072b5a', action: '#6B3F6B', tint: '#FAF5FA', onTint: '#593759', line: '#EBE6EB', sunken: '#FCF9FB', link: '#6B3F6B', radius: 28, ctrl: 14, org: 'Kedai Kopi Sinar',
+        rec: 'Transaction #4821 · RM 1,240.00', recs: 'transactions', recDesc: 'Supplier payment, 14 Oct 2026', member: 'Farah Kamal', key: 'Bank feed “Maybank current”', imp: 'statement lines', impN: '1,240', exportName: 'Transactions, Q3 2026', counts: '2 accounts, 3,904 transactions and 12 months of reports', bulk: '75', field: 'Amount', fieldErr: 'Use an amount above RM 0.00.', fieldVal: 'RM 1,240.00', ai: 'Categorising 1,240 transactions' },
+      tinara: { name: 'Tinara', mark: '/_blob/e79eaf52cb4f6ccc588b86860ca53dcd', action: '#7A1E3C', tint: '#FEF4F6', onTint: '#7A1E3C', line: '#EEE5E7', sunken: '#FDF9FA', link: '#7A1E3C', radius: 0, ctrl: 4, org: 'Harapan Ventures',
+        rec: 'Prospect Sinar Tech', recs: 'prospects', recDesc: 'Score 82, updated today', member: 'Nur Aina Hashim', key: 'Data source “Companies registry”', imp: 'companies', impN: '840', exportName: 'Scored prospects, October 2026', counts: '840 prospects, 3 pipelines and 6 months of scores', bulk: '84', field: 'Score threshold', fieldErr: 'Use a number from 0 to 100.', fieldVal: '70', ai: 'Scoring 840 companies' }
+    };
+    var c = P[this.props.product] || P.janka;
+    // Only AX Frame names its plans (Seed, Nova; brand kit 13); the others say "your plan".
+    var pl = this.props.product === 'frame' ? { it: 'Nova', free: 'Seed', limits: 'Seed\'s limits' } : { it: 'your plan', free: 'the free plan', limits: 'its limits' };
+    var en = function (n) { return n.toLocaleString('en-GB'); };
+    var impTotal = Number(c.impN.replace(/,/g, '')), impDone = en(Math.round(impTotal / 4)), bulkN = Number(c.bulk);
+    var ST = { warn: ['#FEF4E6', '#B54708'], fault: ['#FEECEB', '#B42318'], ok: ['#E7F8EF', '#067647'], info: [c.tint, c.onTint] };
+    function row(k, o) { var r = Object.assign({ k: k }, o || {}); r['is_' + k] = true; return r; }
+    var h = function (t) { return row('h', { t: t }); }, p = function (t) { return row('p', { t: t }); }, note = function (t) { return row('note', { t: t }); };
+    var alert = function (tone, t) { return row('alert', { t: t, bg: ST[tone][0], fg: ST[tone][1] }); };
+    function field(label, value, o) {
+      o = o || {};
+      var box = 'flex: 1; min-width: 0; display: flex; align-items: center; height: 38px; box-sizing: border-box; padding: 0 ' + (o.show ? '52px' : '10px') + ' 0 10px; border-radius: ' + c.ctrl + 'px; border: 1px solid ' + (o.err ? '#F04438' : (o.focus ? c.action : c.line)) + '; background: #FFFFFF; color: ' + (value ? '#0B1B4F' : '#5B6488') + '; font-size: 12.5px; overflow: hidden; white-space: nowrap;' + (o.mono ? " font-family: 'JetBrains Mono', monospace; font-size: 12px;" : '');
+      return row('field', { label: label, value: value, show: !!o.show, err: o.err || '', box: box });
+    }
+    function b(t, kind, spin) {
+      var base = 'display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0 12px; border-radius: ' + c.ctrl + 'px; font-size: 12.5px; font-weight: 600;';
+      var k = { primary: 'background: ' + c.action + '; color: #FFFFFF;', danger: 'background: #B42318; color: #FFFFFF;', secondary: 'background: #FFFFFF; color: #0B1B4F; border: 1px solid ' + c.line + '; font-weight: 500;', off: 'background: #EEF1F6; color: #5B6488;', offDanger: 'background: #FEECEB; color: #B42318; opacity: .6;' }[kind || 'primary'];
+      return { t: t, style: base + k, spin: !!spin };
+    }
+    var btns = function () { return row('btns', { list: Array.prototype.slice.call(arguments) }); };
+    var bar = function (done, total, w) { return row('bar', { done: done, total: total, w: w }); };
+    var steps = function (list) { return row('steps', { list: list.map(function (s) { return { t: s[0], ink: s[1] === 'to come' ? '#5B6488' : '#0B1B4F', ring: s[1] === 'done' ? '#12B76A' : (s[1] === 'now' ? c.action : c.line), fill: s[1] === 'done' ? '#12B76A' : (s[1] === 'now' ? c.tint : '#FFFFFF') }; }) }); };
+    var loader = function (t) { return row('loader', { t: t }); };
+    var rows = function (list) { return row('rows', { list: list.map(function (x) { return { a: x[0], b: x[1], c: x[2] || '', ink: x[3] || '#0B1B4F' }; }) }); };
+
+    function dialogScreen(title, where, rs) {
+      return { isScreen: true, isSection: false, title: title, where: where, rows: rs, page: true, dim: true, toast: '',
+        frame: 'position: relative; min-height: 330px; border-radius: ' + Math.min(c.radius, 20) + 'px; background: ' + c.sunken + '; border: 1px solid ' + c.line + '; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 18px 12px;',
+        card: 'position: relative; z-index: 2; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; padding: 16px; background: #FFFFFF; border-radius: ' + Math.max(c.radius - 4, 0) + 'px; box-shadow: 0 18px 40px -14px rgba(11,27,79,.45);' + (c.radius === 0 ? ' border-top: 3px solid ' + c.action + ';' : '') };
+    }
+    function pageScreen(title, where, rs, toast, toastAction, tone) {
+      var dark = tone !== 'fault';
+      return { isScreen: true, isSection: false, title: title, where: where, rows: rs, page: !rs.length, dim: false, toast: toast || '', toastAction: toastAction || '', toastLink: dark ? '#9FC2FF' : '#B42318',
+        toastStyle: 'position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 3; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; font-size: 12px; ' + (dark ? 'background: #0B1B4F; color: #FFFFFF;' : 'background: #FEECEB; color: #B42318; border: 1px solid #F6B5AF;') + ' box-shadow: 0 10px 24px -10px rgba(11,27,79,.5);',
+        frame: 'position: relative; min-height: ' + (rs.length ? 0 : 250) + 'px; border-radius: ' + Math.min(c.radius, 20) + 'px; background: ' + c.sunken + '; border: 1px solid ' + c.line + '; overflow: hidden; padding: ' + (rs.length ? '14px 12px ' + (toast ? '64px' : '14px') : '0') + ';',
+        card: rs.length ? 'position: relative; display: flex; flex-direction: column; gap: 10px; padding: 16px; background: #FFFFFF; border-radius: ' + Math.max(c.radius - 4, 0) + 'px; border: 1px solid ' + c.line + ';' : 'display: none;' };
+    }
+    function section(title, desc) { return { isSection: true, isScreen: false, title: title, desc: desc, rows: [] }; }
+
+    var items = [
+      section('Level 1 · Undoable', 'No question: it happens, and the toast offers Undo for 8 seconds (AC-02, AC-08)'),
+      pageScreen('Deleted, with Undo', 'any list', [], c.rec + ' deleted', 'Undo'),
+      pageScreen('Archived, with Undo', 'any list', [], c.rec + ' archived', 'Undo'),
+      pageScreen('Trash', 'list → Trash', [h('Trash'), p('Deleted ' + c.recs + ' stay here for 30 days, then they are gone.'), rows([[c.rec, 'Deleted today at 14:21 by you', 'Restore'], [c.recDesc, 'Deleted 3 days ago', 'Restore']]), btns(b('Empty trash', 'secondary'))]),
+      pageScreen('Restored', 'Trash', [], c.rec + ' restored', 'Open'),
+
+      section('Level 2 · Consequential', 'A dialog that says what happens; the button names the action and the thing (AC-04)'),
+      dialogScreen('Remove a member', 'Members', [h('Remove ' + c.member + '?'), p(c.member + ' loses access to ' + c.org + ' at once. Their work stays, under their name.'), btns(b('Cancel', 'secondary'), b('Remove ' + c.member, 'danger'))]),
+      dialogScreen('Revoke a key', 'Settings → API', [h('Revoke ' + c.key + '?'), p('Anything using it stops working at once. You can make a new key afterwards.'), btns(b('Cancel', 'secondary'), b('Revoke ' + (c.key.match(/“[^”]+”/) || [c.key])[0], 'danger'))]),
+      dialogScreen('Cancel the plan', 'Plan and billing', [h('Cancel ' + pl.it + '?'), p('You keep ' + pl.it + ' until 14 Nov 2026, then move to ' + pl.free + '. Nothing is deleted; anything over ' + pl.limits + ' becomes read-only.'), btns(b('Keep ' + pl.it, 'secondary'), b('Cancel ' + pl.it, 'danger'))]),
+      dialogScreen('It failed, inside the dialog', 'Members', [h('Remove ' + c.member + '?'), p(c.member + ' loses access to ' + c.org + ' at once.'), alert('fault', "Couldn't remove " + c.member + ". You're offline. Try again when you're back."), btns(b('Cancel', 'secondary'), b('Remove ' + c.member, 'danger'))]),
+
+      section('Level 3 · Irreversible', 'Type the name, then your password or a code (AC-03); the safe choice is focused first'),
+      dialogScreen('Delete the organisation', 'Settings → Your data', [h('Delete ' + c.org + '?'), p('This deletes ' + c.counts + '. Owners can undo it for 30 days, then it is gone for good.'), field('Type ' + c.org + ' to confirm', '', { focus: true }), btns(b('Cancel', 'secondary'), b('Delete ' + c.org, 'offDanger'))]),
+      dialogScreen('Name typed, asking again', 'Settings → Your data', [h('Delete ' + c.org + '?'), field('Type ' + c.org + ' to confirm', c.org), field('Your password', '••••••••••••••', { show: true, focus: true }), btns(b('Cancel', 'secondary'), b('Delete ' + c.org, 'danger'))]),
+      dialogScreen('Deleting', 'Settings → Your data', [h('Delete ' + c.org + '?'), field('Type ' + c.org + ' to confirm', c.org), field('Your password', '••••••••••••••', { show: true }), btns(b('Cancel', 'off'), b('Deleting…', 'danger', true))]),
+      dialogScreen('Delete ' + c.bulk + ' at once', c.recs + ', ' + c.bulk + ' selected', [h('Delete ' + c.bulk + ' ' + c.recs + '?'), p('More than 50 at once cannot be undone from the toast. They stay in Trash for 30 days.'), field('Type ' + c.bulk + ' to confirm', c.bulk, { mono: true }), btns(b('Cancel', 'secondary'), b('Delete ' + c.bulk + ' ' + c.recs, 'danger'))]),
+
+      section('While it runs', 'By how long it takes: the button under 2 seconds, a progress dialog over, a background job for long ones (AC-05, AC-06, AC-07)'),
+      pageScreen('Button busy', 'under 2 seconds', [h('Edit ' + c.rec), field(c.field, c.fieldVal), btns(b('Cancel', 'off'), b('Saving…', 'primary', true)), note('Disabled while it runs; a second press does nothing.')]),
+      dialogScreen('Progress, with a count', 'over 2 seconds', [loader('Importing ' + c.impN + ' ' + c.imp), bar(impDone, c.impN, '25%'), note('You can keep this open, or carry on and we\'ll tell you when it\'s done.'), btns(b('Cancel', 'secondary'), b('Run in background'))]),
+      dialogScreen('Progress, in steps', 'several steps', [loader('Exporting ' + c.exportName), steps([['Gathering ' + c.recs, 'done'], ['Building the file', 'now'], ['Preparing the download', 'to come']]), btns(b('Run in background'))]),
+      pageScreen('Background job', 'over 30 seconds', [h('Jobs'), rows([['Importing ' + c.impN + ' ' + c.imp, impDone + ' of ' + c.impN + ' · about 4 minutes left', 'Cancel'], [c.ai, 'Started 14:02', 'Cancel'], ['Export: ' + c.exportName, 'Done at 13:55', 'Download', '#067647']])], 'Import started', 'See progress'),
+
+      section('The result', 'A toast naming the thing; errors where they happened, with Retry (AC-08, AC-09, AC-12)'),
+      pageScreen('Saved', 'after Save', [], c.rec + ' saved', ''),
+      pageScreen('It failed, Retry', 'from a page', [], "Couldn't save " + c.rec + ". Check your connection.", 'Retry', 'fault'),
+      pageScreen('Field errors', 'a form', [h('Edit ' + c.rec), field(c.field, '', { err: c.fieldErr, focus: true }), btns(b('Cancel', 'secondary'), b('Save'))]),
+      pageScreen('Some of many failed', 'bulk', [alert('warn', en(bulkN - 2) + ' of ' + c.bulk + ' ' + c.recs + ' updated. 2 couldn\'t be.'), rows([[c.rec, 'Someone else changed it a moment ago', 'Retry'], [c.recDesc, 'You no longer have access', 'Remove', '#5B6488']])]),
+      pageScreen('Offline', 'any action', [alert('info', "You're offline. Your changes are kept and will send when you're back."), field(c.field, c.fieldVal), btns(b('Save'))]),
+      dialogScreen('Discard changes?', 'leaving a form', [h('Discard changes?'), p('Your changes to ' + c.rec + ' haven\'t been saved.'), btns(b('Discard', 'secondary'), b('Keep editing'))])
+    ];
+    return {
+      name: c.name, mark: c.mark, action: c.action, link: c.link, line: c.line,
+      count: items.filter(function (i) { return i.isScreen; }).length,
+      bg: ['80%', '62%', '74%', '55%', '68%', '60%'], items: items
+    };
+  }
+}
+</script>
+</body>
+</html>

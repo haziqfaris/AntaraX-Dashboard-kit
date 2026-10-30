@@ -1,10 +1,10 @@
 # AXLE brief for product work
 
-**Read this first in any chat that builds or changes a product's AXLE.** It sums up what was decided on 15 Oct 2026, where everything is, and how a product chat should work. The detail lives in the files it links; when they disagree with this page, the files win. Last updated 18 Oct 2026.
+**Read this first in any chat that builds or changes a product's AXLE.** It sums up what was decided on 15 Oct 2026, where everything is, and how a product chat should work. The detail lives in the files it links; when they disagree with this page, the files win. Last updated 30 Oct 2026.
 
 **Client projects are different again:** the client's brand, never AntaraX's look, with the shell's places and "Built by REKA" in the footer. Start with [project/README.md](project/README.md). Their AXLE is this same AXLE.
 
-**Customer apps are different:** each product's own, apart from the AntaraX shell (top bar with Help and the account at the right, the account menu, standard pages under `/settings`, shared roles and moments). Start with [app/README.md](app/README.md); spec v1.3: the bar's exact sizes are tokens (`app/tokens.css`), every mock is rendered to PNG, and `tools/check-shell.mjs` measures a product against them. Products pin the kit version in `antarax-kit.lock` ([CHANGELOG](CHANGELOG.md)).
+**Customer apps are different:** each product's own, apart from the AntaraX shell (top bar with Help and the account at the right, the account menu, standard pages under `/settings`, shared roles and moments). Start with [app/README.md](app/README.md); spec v1.7: the bar's exact sizes are tokens (`app/tokens.css`), every mock is rendered to PNG, and `tools/check-shell.mjs` measures a product against them. Products pin the kit version in `antarax-kit.lock` ([CHANGELOG](CHANGELOG.md)).
 
 ## How to use it in another chat
 
@@ -28,22 +28,25 @@ The product chat builds in the product's own repository. If it needs something t
 | Staff | A ladder (Viewer, Support, Operator, Admin, Owner) plus rights (Finance, Security, AI, Library). Every rung sees every page; what they cannot do is disabled, with "Needs ‹rung›" | §5.2 |
 | R8 actions | Level 1 (run, retry, pause, test, acknowledge, suppress) from Operator. Level 2 (drain, restart, scale) from Admin, later. Level 3 (shell, deploy, restart a customer's machine) never. Each asks for a reason and is audited | §14.1 |
 | R8 → AI flow | Every product with AI features has it, after Providers: the product's AI drawn from its AI manifest, through the five steps (Asked, Allowed, Answered, Checked, Decided) and the five outcomes. Read only; never prompts or answers. The rules for the AI itself are the [AntaraX AI framework](https://github.com/haziqfaris/ai-framework-heuristiks) | §7.4, §10.6.1 |
+| AI, APIs and data | AI follows Heuristiks; its keys, models and routing are **AwanGan**'s. Models & keys is a read-only view of them; AI usage reads **Lapisan**'s usage rows for product `ai`. API keys, tenants, scopes and usage rows are Lapisan's. Data a business hands over goes to **Cebis Loom**. **RESAM** maps which framework governs what | §10.6, [AGENTS.md](AGENTS.md#ai-apis-and-data) |
 | Tickets and feedback | They live in **YaraOne**. AXLE embeds YaraOne's back office as Watch → Tickets; the customer app embeds its front office from Help. No product builds its own ticketing or feedback; AXLE runs everything else | §10.12, [yaraone/EMBEDS.md](yaraone/EMBEDS.md) |
 | Capacity | R8 → Capacity in every product: every plan it runs on, every limit, the trend and when it runs out, what to do, and an outside availability check. Generic for any infrastructure, from the product's `capacity.json` | §10.13, [capacity/](capacity/README.md) |
 | Email | Every product sends through **AntaraX email** (`email.antarax.ai`, from `product@mail.antarax.ai`). AXLE shows Watch → Email, read from the service with the product's service key, and never holds templates, a sender or an address. AXLE Central → Email shows every product's email, the service's alerts and health, and is the only place a shared bounce is lifted (Admin). Every email looks the same everywhere: the brand kit's layout with the family's BaTech band and, on first emails, the product's motif. Angka is deferred | [SPEC §10.14](axle/SPEC.md#1014-email-antarax-email-as-this-product-sees-it-owner-17-oct-2026); brand kit `guide/13` §4 and `assets/email/`; antarax-api `docs/15` |
+| Buttons and links | An action is a button (primary, secondary, ghost, destructive), a link only goes somewhere, Remove and Delete are destructive buttons, and no label ends in "…" (owner, 26 Oct 2026) | §14.2 |
 | Figures | Real and clickable. Money is grouped by currency. A hidden or unknown figure is a dash with the reason, never `0` | §3, §13.1 |
-| Values | Every colour and size comes from [`axle/tokens.css`](axle/tokens.css), generated from the brand kit (tokens 1.9.0) | [README](README.md#connected-to-the-brand-kit) |
+| Values | Every colour and size comes from [`axle/tokens.css`](axle/tokens.css), generated from the brand kit (tokens 1.11.0) | [README](README.md#connected-to-the-brand-kit) |
 
 ## Where everything is
 
 | What | Where |
 |---|---|
 | Step-by-step for building an AXLE | [axle/README.md](axle/README.md) |
-| The standard, v1.0 | [axle/SPEC.md](axle/SPEC.md) |
+| The standard, v1.6 | [axle/SPEC.md](axle/SPEC.md) |
 | The final design of every page (AXLE · Janka) | [axle/mock/](axle/mock/README.md), and the private canvas https://claude.ai/artifact/NbWWVFkowB1rKddfSS5hmr |
 | Tokens to copy into the product | [axle/tokens.css](axle/tokens.css) |
 | What each product's AXLE looks like today, with screenshots | [inventory/](inventory/README.md), [inventory/gallery.html](inventory/gallery.html) |
 | How a product's AI must work, its manifest and its AI document | [AntaraX AI framework](https://github.com/haziqfaris/ai-framework-heuristiks): `BRIEF.md` for a product chat |
+| Who owns AI, APIs and data | AI keys, models and routing: [AwanGan](https://github.com/haziqfaris/AntaraX-AwanGan) (its decision 0021). API keys, tenants, scopes and usage rows: [Lapisan](https://github.com/haziqfaris/antarax-api). Data handed over: [Cebis Loom](https://github.com/haziqfaris/antarax-cebis-loom). The map: [RESAM](https://github.com/haziqfaris/RESAM) |
 | Brand decisions, names, colours | [AntaraX brand kit](https://github.com/haziqfaris/AntaraX-brand-kit): `guide/10-decisions-log.md`, `guide/13-shared-product-standards.md` §6 |
 | Every email template, rendered, and how a new product joins | [AntaraX brand kit](https://github.com/haziqfaris/AntaraX-brand-kit) `assets/email/`; the code is antarax-api `packages/lapisan-email` |
 

@@ -37,7 +37,7 @@ button,input,select,textarea{font-family:inherit}
         <p role="status" style="margin: 0; padding: 10px 12px; border-radius: 12px; background: #E7F8EF; border: 1px solid #A6E4C6; color: #067647; font-size: 13px">Downloaded <span class="mono">axle-janka-email-2026-10-17.csv</span>: {{shownCount}} rows, masked addresses only.</p>
       </sc-if>
 
-      <section aria-labelledby="np-h" style="display: flex; flex-direction: column; gap: 8px; padding: 14px 18px; border-radius: 20px; background: #FFFBF4; border: 1px solid #F8CD92">
+      <section aria-labelledby="np-h" style="display: flex; flex-direction: column; gap: 8px; padding: 14px 18px; border-radius: 20px; background: #FEF4E6; border: 1px solid #F8CD92">
         <h2 id="np-h" style="margin: 0; color: #0B1B4F; font-size: 15px; font-weight: 600">2 emails need a person</h2>
         <p style="margin: 0; font-size: 12px; color: #5B6488">Invitations and things to act on that did not arrive in the last 24 hours. Someone may be unable to get in.</p>
         <sc-for list="{{needs}}" as="x" hint-placeholder-count="2">
@@ -89,7 +89,7 @@ button,input,select,textarea{font-family:inherit}
               </button>
             </sc-for>
             <sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
-              <p style="margin: 0; padding: 18px 8px; font-size: 13px; color: #5B6488">No email matches these filters. <button type="button" onClick="{{clear}}" style="border: 0; background: transparent; color: #0459F7; cursor: pointer; padding: 0; font-size: 13px">Clear filters</button></p>
+              <p style="margin: 0; padding: 18px 8px; font-size: 13px; color: #5B6488">No email matches these filters. <button type="button" onClick="{{clear}}" style="min-height: 32px; margin-left: 8px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Clear filters</button></p>
             </sc-if>
           </div>
           <p style="margin: 0; font-size: 11px; color: #5B6488">Showing the latest {{shownCount}} of {{totalWord}}. Older pages load as you scroll, 25 at a time. Emails are kept 90 days.</p>
@@ -286,7 +286,7 @@ class Component extends DCLogic {
       ['team.invitation.v1', 'Join an organisation', 'Service'], ['onboarding.welcome.v1', 'Welcome', 'Service'], ['system.action_required.v1', 'Something needs a person', 'Service'],
       ['system.export_ready.v1', 'An export is ready', 'Service'], ['notice.v1', 'A notification people may turn off', 'Activity']
     ];
-    var CT = { Security: ['#E7EEFE', '#002EB2'], Service: ['#F3F7FE', '#0459F7'], Activity: ['#EEF1F6', '#3B4469'] };
+    var CT = { Security: ['#E4EDFF', '#0B1B4F'], Service: ['#EEF1F6', '#0B1B4F'], Activity: ['#EEF1F6', '#5B6488'] };
     return {
       stats: stats, rows: rows, empty: rows.length === 0, one: one, needs: needs,
       listTitle: st.status === 'all' ? 'Emails, newest first' : S[st.status].word + ', newest first',
@@ -310,7 +310,7 @@ class Component extends DCLogic {
       why: st.why, typeWhy: function (ev) { self.setState({ why: ev.target.value }); },
       liftDisabled: !why, lift: function () { if (why) self.setState({ lifted: true }); },
       liftStyle: 'display:inline-flex;align-items:center;gap:8px;align-self:flex-start;min-height:44px;padding:0 16px;border-radius:12px;border:0;font-weight:600;font-size:14px;' +
-        (why ? 'background:#FB9800;color:#071233;cursor:pointer;' : 'border:1px solid #E5E8EE;background:#F5F7FC;color:#8A93AE;cursor:not-allowed;'),
+        (why ? 'background:#FB9800;color:#071233;cursor:pointer;' : 'background:#EEF1F6;color:#5B6488;cursor:not-allowed;'),
       templates: TPL.map(function (t) {
         var used = ['team.invitation.v1', 'notice.v1', 'system.action_required.v1', 'system.export_ready.v1'].indexOf(t[0]) >= 0;
         return { id: t[0], label: t[1], cls: t[2], tint: CT[t[2]][0], ink: CT[t[2]][1], use: used ? 'Janka sends' : 'Available', useInk: used ? '#067647' : '#5B6488' };

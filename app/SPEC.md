@@ -1,6 +1,6 @@
 # The AntaraX shell for customer apps
 
-**Version 1.4, the standard (owner, 16 Oct 2026; 1.4 on 17 Oct 2026, Dashboard kit 1.5.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17). 1.3 adds named saved views to every long list (§11a). 1.4 says where email comes from and which emails a person can turn off (§8).
+**Version 1.7, the standard (owner, 16 Oct 2026; 1.4 on 17 Oct 2026, Dashboard kit 1.5.0; 1.5 on 18 Oct 2026, Dashboard kit 1.7.0; 1.6 on 18 Oct 2026, Dashboard kit 1.8.0; 1.7 on 26 Oct 2026, Dashboard kit 1.10.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17). 1.3 adds named saved views to every long list (§11a). 1.4 says where email comes from and which emails a person can turn off (§8). 1.5 moves signing in and passwords (§15.1) into their own standard, [getting-in/SPEC.md](../getting-in/SPEC.md). 1.6 moves confirming, waiting and results (§11) into [actions/SPEC.md](../actions/SPEC.md). 1.7 makes every action a button and takes the trailing "…" off every label (§11b).
 
 **The rule (owner, 15 Oct 2026).** AXLE is the same in every product ([axle/](../axle/README.md)). A customer app is the opposite: each product has its own identity, shape, theme and UI. A small shell is the exception. It stays the same in every product so that a customer who uses two AntaraX products, or moves from one to another, always finds the same things in the same places:
 
@@ -205,7 +205,7 @@ Every product has these pages at these addresses. What each holds first is fixed
 
 ## 6 Getting in
 
-The words and what each screen holds are shared. How they look is the product's own.
+The words and what each screen holds are shared. How they look is the product's own. **The full standard, with every screen, state, rule and message, is [getting-in/SPEC.md](../getting-in/SPEC.md)** (owner, 18 Oct 2026); this table is its summary, and where they differ, that file wins.
 
 | Screen | Address | Holds |
 |---|---|---|
@@ -296,11 +296,10 @@ Every product embeds **YaraOne's front office** for feedback and support request
 
 What they say and how they behave are shared; how they look is the product's own.
 
-- **Confirming a destructive action:**
-  - name the thing and the consequence;
-  - the button names the action ("Delete Tegap Fabrication");
-  - deleting an organisation asks for its name to be typed.
-- **Toasts:** past tense, one line ("Invitation sent"), with Undo where it can be undone, at the bottom of the page, away from the top bar.
+- **Confirming, waiting and results** are their own standard: [actions/SPEC.md](../actions/SPEC.md) (kit 1.8.0). In short:
+  - every action is at one of three levels: undoable (no question, Undo), consequential (a dialog naming the action and the thing), irreversible (type the name and ask again);
+  - what a person sees while it runs depends on how long it takes: the button under 2 seconds, a progress dialog over, a background job for long ones;
+  - every action ends in a past-tense toast naming the thing, with Undo where it can be undone, at the bottom of the page, away from the top bar; errors say what failed and what to do, with Retry.
 - **Error pages:**
   - "We can't find that page" (404) or "Something went wrong on our side" (500);
   - with a link home, Help, and the request id in small mono type.
@@ -328,13 +327,30 @@ Any list that can grow past one screen (work orders, stock, invoices, members, r
 | **Group** | Where it helps | By status, owner, customer or date, with counts |
 | **View** | Where the data fits | List, board or table. A choice only where the data really suits more than one |
 | **Remembered** | Always | Per person, or kept in the address so a view can be shared. Coming back finds the list as it was left. Views are chosen on the page, never in Settings |
-| **Saved views** | Always | A person can save the list as it is (search, filters, sort, group and view) under a name, and pick it again from a **Views** menu beside search. The menu starts with "All ‹records›", which cannot be deleted, then their own views; **Save view…** names the current one, and each view is renamed or deleted from the same menu. A saved view is per person; its address can still be shared. Chosen on the page, never in Settings |
+| **Saved views** | Always | A person can save the list as it is (search, filters, sort, group and view) under a name, and pick it again from a **Views** menu beside search. The menu starts with "All ‹records›", which cannot be deleted, then their own views; **Save view** names the current one, and each view is renamed or deleted from the same menu. A saved view is per person; its address can still be shared. Chosen on the page, never in Settings |
 | **Empty** | Always | Says what will appear and how to start (§11) |
 | **No match** | Always | "No work orders match these filters", with Clear filters. Never the empty state, never a blank table |
 | **CSV export** | When it is tabular | What is on screen, filters applied: `‹product›-‹list›-‹YYYY-MM-DD›.csv`, UTF-8, ISO dates, plain numbers, currency in its own column. Hidden figures stay hidden (§16) |
 | **Counts and bulk actions** | Optional | AXLE's stats strip and bulk actions, where they help. A bulk action that deletes or sends asks first, as the single one does |
 
 Paging is the product's own (pages, more, or an endless list), as long as search, filters and export cover every record, not only those loaded.
+
+## 11b Buttons and links
+
+Decided by the owner on 26 Oct 2026, after a blue text link reading "Remove…" in a product. It covers every control in the product, not only the shell's, in every product's own look.
+
+- **An action is a button.** Anything that does something is a button in one of the product's button styles: primary, secondary, ghost or destructive.
+  - That covers save, start, remove, delete, revoke, invite, export, and opening a dialog that leads to an action.
+  - Size: 44px on a touch screen, as every control. A dense row may draw a button smaller, with a 44px hit area, as the bar's slot buttons are (§2.2).
+  - A ghost button is still a button: padded to the button's size, a fill on hover, never underlined.
+  - In a menu, an action is a menu item (`<button role="menuitem">`), drawn like the items around it.
+- **A link only goes somewhere.** Link text (the link colour, or underlined) is only for navigation: another page, another address, a file to open. It is an `<a>` with a real `href`, never `href="#"`, `javascript:` or an `<a>` that only runs a script.
+- **Remove and Delete are destructive buttons,** never coloured link text. In a dense row, that is the product's quiet destructive button: its secondary button with the fault colour for text and border, as the Settings board draws Delete. Use the closest style the product already has; never invent a colour for it.
+- **No trailing ellipsis.** No button, menu item, link, tab or placeholder ends in "…" or "...". Write "Remove", "Save view", "Start support session", "Search cargo".
+  - Why: the dots come from an old desktop convention (Apple's and Microsoft's guidelines), where "…" means a dialog will ask for more before anything happens. People who use our products don't know that convention, so the dots read as clutter. The dialog that follows explains itself.
+  - Not affected: text cut short by CSS (`text-overflow: ellipsis` on a long page title or email address), and the "⋯" more-actions button.
+  - Not affected either: an ellipsis inside example or quoted text that stands for something left out, such as "Signed in as …" in a description or `req_…` in a hint. The rule is about labels on controls and placeholders.
+  - A button's words while it works ("Saving…", [actions/SPEC.md](../actions/SPEC.md) §3) are a state, not its label, and stay as that standard sets them.
 
 ## 12 Logo, loading and motion
 
@@ -393,30 +409,7 @@ These are not cosmetic, so no product varies them. They follow the usual industr
 
 ### 15.1 Signing in and passwords
 
-- **Show password:** every password field has a "Show" toggle (an eye button with a name), and paste always works.
-- **Password managers work:** fields carry the right `autocomplete` (`username`, `current-password`, `new-password`, `one-time-code`).
-- **Passwords:**
-  - at least 12 characters, and up to 128;
-  - any characters, spaces and emoji included;
-  - no rules like "one capital and one symbol";
-  - checked against known breached passwords;
-  - a strength meter while typing, and a Caps Lock warning;
-  - never emailed, never shown back, stored only as a slow salted hash.
-- **Emails:** compared without case and trimmed.
-- **One-time codes:**
-  - six digits, typed or pasted whole, with the phone's code autofill;
-  - expire after 10 minutes.
-- **Email sign-in links:** single-use, expire after 15 minutes.
-- **Invitations:** single-use, expire after 7 days.
-- **Two-step sign-in:** an authenticator app, with 10 backup codes; an Owner can require it for everyone (§13).
-- **Too many attempts:**
-  - slow down after 5 failures and pause sign-in for 15 minutes after 10, telling the person when they can try again;
-  - the same message whether or not the account exists.
-- **Sessions:**
-  - secure, HTTP-only, same-site cookies;
-  - "Keep me signed in" lasts 30 days, otherwise until the browser closes;
-  - "Sign out everywhere" in `/account`.
-- **Asking again:** changing an email, password or two-step method, deleting an organisation, and changing billing all ask for the password or a code first.
+**Moved to [getting-in/SPEC.md](../getting-in/SPEC.md)** (owner, 18 Oct 2026), the standard for signing in, passwords, sign-in links, two-step sign-in, sessions and account changes in every customer app and AXLE. Its §1 is the bare minimum (GI-01 to GI-20); `node tools/check-signin.mjs` checks what can be seen from outside.
 
 ### 15.2 Forms and input
 
@@ -524,6 +517,7 @@ In every customer app, whatever its own design:
   - other organisations' names or data.
 - **Waits:** never "Loading…" alone, a static placeholder, a spinner, or a loader over data.
 - **False information:** never a false zero, or a number that is not real.
+- **Buttons and links:** never an action drawn as link text, never an `<a>` with nowhere to go, and never a label or placeholder ending in "…" (§11b).
 - **Interruptions:**
   - never a browser pop-up (`alert`, `confirm`, `prompt`);
   - never a floating chat bubble over Help or the account;
@@ -559,10 +553,11 @@ In every customer app, whatever its own design:
 | **Admin area** | An Admin finds Roles, Security, Activity log and Usage; changing a member's role appears in the Activity log with before and after |
 | **Sign-in** | Show password works; a password manager fills sign-in and saves a new password; paste works in every field; an 11-character password is refused and a 12-character one with spaces is accepted |
 | **Forms** | A failed submit keeps everything typed; a double click submits once; leaving with unsaved changes asks first |
+| **Buttons and links** | `node tools/check-shell.mjs` finds no control, menu item, tab or placeholder ending in "…" or "...", and no `<a>` without a real `href`. By hand, on the longest list and a record page: every action is a button, Remove and Delete are destructive buttons, and every link goes to another page or address (§11b) |
 | **Speed** | Lighthouse on a mid-range phone profile: LCP under 2.5 s, INP under 200 ms, CLS under 0.1; a reload shows data at once from cache |
 | **Security** | Security headers present (HSTS, CSP, frame-ancestors); sign-in slows after 5 failures; personal data absent from logs and analytics |
 | **Accessibility** | The brand kit 13 §10 baseline; every shell control has a name; the account menu traps focus and closes on Escape |
-| **The bar, measured** | `node tools/check-shell.mjs URL` passes on three pages at 1280px and 390px: bar height, control sizes, Help and the account at the far right, no uppercase labels. Its screenshot, beside the product's reference PNG, shows no difference the product has not recorded |
+| **The bar, measured** | `node tools/check-shell.mjs URL` passes on three pages at 1280px and 390px: bar height, control sizes, Help and the account at the far right, no uppercase labels, no label ending in "…" and no `<a>` with nowhere to go. Its screenshot, beside the product's reference PNG, shows no difference the product has not recorded |
 | **Where you are** | The current item in the navigation has `aria-current="page"`, the subtle tint and on-tint text; hovering another item looks different |
 | **Lists** | On the longest list: search, a filter and a sort survive a reload; a filter that matches nothing says so and offers Clear filters; the CSV holds what was on screen |
 | **Pinned** | `antarax-kit.lock` names the kit version built against, and every difference from §2.2 is in its `exceptions` with a reason |
@@ -611,5 +606,7 @@ All decided by the owner on 15 Oct 2026:
   - mocks readable off the canvas, reference components, a conformance check, a gap table before any work, and one kit version that products pin (§17, `README.md`).
 
 - **16 Oct 2026, v1.3:** every long list has named saved views, per person, from a Views menu beside search (§11a). It completes the owner's list baseline (search, filters, sort and saved views on every list page, brand kit guide/10).
+
+- **26 Oct 2026, v1.7:** an action is a button and a link only goes somewhere; Remove and Delete are destructive buttons; no label or placeholder ends in "…" (§11b). Asked for by the owner after a blue "Remove…" link in a product.
 
 New questions go here.

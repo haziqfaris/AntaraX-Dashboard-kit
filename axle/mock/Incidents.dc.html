@@ -233,7 +233,7 @@ class Component extends DCLogic {
     var actions = [];
     if (inc.now === 'open') actions.push(btn('Acknowledge', 'LEVEL 1', true, set('acked')));
     if (live || inc.now === 'suppressed') actions.push(link('Troubleshoot', 'Troubleshoot.dc.html'));
-    if (live) actions.push(btn('Suppress…', 'LEVEL 1', false, function () { self.setState({ suppressOpen: true }); }));
+    if (live) actions.push(btn('Suppress', 'LEVEL 1', false, function () { self.setState({ suppressOpen: true }); }));
     if (inc.now === 'recovered') actions.push(btn('Close with this evidence', 'LEVEL 1', true, set('closed')));
     if (live) actions.push(btn('Close', 'LEVEL 1', false, null, true, 'Closes once it has recovered, with the evidence'));
     if (inc.now !== 'closed') actions.push(btn('Add a note', '', false, null));

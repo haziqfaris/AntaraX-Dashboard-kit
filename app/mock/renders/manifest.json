@@ -1,10 +1,58 @@
 {
   "renders": {
+    "ActionsAXFrame.png": {
+      "mock": "ActionsAXFrame.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "14c696ceae89fad9"
+    },
+    "ActionsAngka.png": {
+      "mock": "ActionsAngka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "bb813037f24b7106"
+    },
+    "ActionsJanka.png": {
+      "mock": "ActionsJanka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "8c6976645902718d"
+    },
+    "ActionsPLExyzCrowd.png": {
+      "mock": "ActionsPLExyzCrowd.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "12fd349b49586e23"
+    },
+    "ActionsPLExyzGrid.png": {
+      "mock": "ActionsPLExyzGrid.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "ed8effc4ee162a23"
+    },
+    "ActionsTinara.png": {
+      "mock": "ActionsTinara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "3cac4f28a172646c"
+    },
+    "ActionsYara.png": {
+      "mock": "ActionsYara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "1185bb4d9c0674d4"
+    },
+    "ActionsYaraOne.png": {
+      "mock": "ActionsYaraOne.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "6f9a4f812fb7314a"
+    },
     "Admin.png": {
       "mock": "Admin.dc.html",
       "props": {},
       "width": 1440,
-      "source": "9951bb017418c979"
+      "source": "5bd612f3d8e3ad7d"
     },
     "AppBar-angka-phone-dark.png": {
       "mock": "AppBar.dc.html",
@@ -15,7 +63,7 @@
         "dark": true
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-angka-phone.png": {
       "mock": "AppBar.dc.html",
@@ -25,7 +73,7 @@
         "open": "account"
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-angka-wide-dark.png": {
       "mock": "AppBar.dc.html",
@@ -36,7 +84,7 @@
         "dark": true
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-angka-wide.png": {
       "mock": "AppBar.dc.html",
@@ -46,7 +94,7 @@
         "open": "account"
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-frame-phone-dark.png": {
       "mock": "AppBar.dc.html",
@@ -57,7 +105,7 @@
         "dark": true
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-frame-phone.png": {
       "mock": "AppBar.dc.html",
@@ -67,7 +115,7 @@
         "open": "account"
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-frame-wide-dark.png": {
       "mock": "AppBar.dc.html",
@@ -78,7 +126,7 @@
         "dark": true
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-frame-wide.png": {
       "mock": "AppBar.dc.html",
@@ -88,7 +136,7 @@
         "open": "account"
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-grid-phone-dark.png": {
       "mock": "AppBar.dc.html",
@@ -99,7 +147,7 @@
         "dark": true
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-grid-phone.png": {
       "mock": "AppBar.dc.html",
@@ -109,7 +157,7 @@
         "open": "account"
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-grid-wide-dark.png": {
       "mock": "AppBar.dc.html",
@@ -120,7 +168,7 @@
         "dark": true
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-grid-wide.png": {
       "mock": "AppBar.dc.html",
@@ -130,7 +178,7 @@
         "open": "account"
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-janka-phone-dark.png": {
       "mock": "AppBar.dc.html",
@@ -141,7 +189,7 @@
         "dark": true
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-janka-phone.png": {
       "mock": "AppBar.dc.html",
@@ -151,7 +199,7 @@
         "open": "account"
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-janka-wide-dark.png": {
       "mock": "AppBar.dc.html",
@@ -162,7 +210,7 @@
         "dark": true
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-janka-wide.png": {
       "mock": "AppBar.dc.html",
@@ -172,7 +220,7 @@
         "open": "account"
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-tinara-phone-dark.png": {
       "mock": "AppBar.dc.html",
@@ -183,7 +231,7 @@
         "dark": true
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-tinara-phone.png": {
       "mock": "AppBar.dc.html",
@@ -193,7 +241,7 @@
         "open": "account"
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-tinara-wide-dark.png": {
       "mock": "AppBar.dc.html",
@@ -204,7 +252,7 @@
         "dark": true
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-tinara-wide.png": {
       "mock": "AppBar.dc.html",
@@ -214,7 +262,7 @@
         "open": "account"
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-yara-phone-dark.png": {
       "mock": "AppBar.dc.html",
@@ -225,7 +273,7 @@
         "dark": true
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-yara-phone.png": {
       "mock": "AppBar.dc.html",
@@ -235,7 +283,7 @@
         "open": "account"
       },
       "width": 390,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-yara-wide-dark.png": {
       "mock": "AppBar.dc.html",
@@ -246,7 +294,7 @@
         "dark": true
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
     },
     "AppBar-yara-wide.png": {
       "mock": "AppBar.dc.html",
@@ -256,13 +304,67 @@
         "open": "account"
       },
       "width": 1280,
-      "source": "3bc44ea8d889edf2"
+      "source": "a68e4ea462a65602"
+    },
+    "GettingIn.png": {
+      "mock": "GettingIn.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "c1b2907e68a76654"
+    },
+    "GettingInAXFrame.png": {
+      "mock": "GettingInAXFrame.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "2615aecf338bd362"
+    },
+    "GettingInAngka.png": {
+      "mock": "GettingInAngka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "078aa0582be9d8dd"
+    },
+    "GettingInJanka.png": {
+      "mock": "GettingInJanka.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "86226d12f9b5d2d5"
+    },
+    "GettingInPLExyzCrowd.png": {
+      "mock": "GettingInPLExyzCrowd.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "7985efd74032d27e"
+    },
+    "GettingInPLExyzGrid.png": {
+      "mock": "GettingInPLExyzGrid.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "d6bd44580e0fe32a"
+    },
+    "GettingInTinara.png": {
+      "mock": "GettingInTinara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "1e321d2ebd13fa42"
+    },
+    "GettingInYara.png": {
+      "mock": "GettingInYara.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "a66ab4e187ba69ca"
+    },
+    "GettingInYaraOne.png": {
+      "mock": "GettingInYaraOne.dc.html",
+      "props": {},
+      "width": 1440,
+      "source": "4cae20980ca7dd92"
     },
     "Lists.png": {
       "mock": "Lists.dc.html",
       "props": {},
       "width": 1440,
-      "source": "2ea01e84e86eb6c8"
+      "source": "72ba2b7976b6762f"
     },
     "Loading.png": {
       "mock": "Loading.dc.html",
@@ -274,25 +376,25 @@
       "mock": "Main.dc.html",
       "props": {},
       "width": 1440,
-      "source": "6e16a08171cd9d06"
+      "source": "3b023efd47653310"
     },
     "Moments.png": {
       "mock": "Moments.dc.html",
       "props": {},
       "width": 1440,
-      "source": "3f78279ba6217382"
+      "source": "b854c255daada627"
     },
     "Products.png": {
       "mock": "Products.dc.html",
       "props": {},
       "width": 1480,
-      "source": "314881abae443a49"
+      "source": "9a8d879c38e33711"
     },
     "Settings.png": {
       "mock": "Settings.dc.html",
       "props": {},
       "width": 1440,
-      "source": "d0e645528cfd8b84"
+      "source": "c5b17aa5fcf9e26d"
     },
     "SignIn.png": {
       "mock": "SignIn.dc.html",
@@ -304,7 +406,7 @@
       "mock": "Support.dc.html",
       "props": {},
       "width": 1440,
-      "source": "8649e20fd3b8a18a"
+      "source": "75e21cdf03ff02cd"
     }
   },
   "note": "Written by tools/render-mocks.mjs. Each PNG with the hash of the mocks it was drawn from."

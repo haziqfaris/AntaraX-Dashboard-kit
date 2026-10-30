@@ -1,6 +1,6 @@
 # Reference implementation
 
-The shell's top bar, its two menus and the list toolbar in plain React and CSS variables, built only from [`app/tokens.css`](../tokens.css). Copy what you need into a product; the only dependency is React (18 or later). It is a reference, not a package: a product may rebuild every part in its own stack, as long as the result measures the same (`tools/check-shell.mjs`).
+The shell's top bar, its two menus, the list toolbar and the password field in plain React and CSS variables, built only from [`app/tokens.css`](../tokens.css). Copy what you need into a product; the only dependency is React (18 or later). It is a reference, not a package: a product may rebuild every part in its own stack, as long as the result measures the same (`tools/check-shell.mjs`).
 
 | File | What it is |
 |---|---|
@@ -11,6 +11,10 @@ The shell's top bar, its two menus and the list toolbar in plain React and CSS v
 | `AccountMenu.jsx` | The account button and menu in §3's order; Sign out asks first |
 | `ListToolbar.jsx` | Saved views, search, filters, sort, group, view and CSV for a long list (§11a), and `NoMatch` |
 | `useListState.js` | A list's state kept in the address and per person; `useSavedViews` for its named views; `toCsv`, `csvName`, `downloadCsv` |
+| `PasswordField.jsx` | A password field to [getting-in/SPEC.md](../../getting-in/SPEC.md) §4: Show, the Caps Lock warning, `autocomplete`, and for a new password the strength meter in words (pass zxcvbn-ts as `estimate`) |
+| `ConfirmDialog.jsx` | A Level 2 or 3 confirmation ([actions/SPEC.md](../../actions/SPEC.md) §2, §5): the title as the question, the button naming the action, the safe choice focused first, a typed name and asking again for Level 3, busy and error inside the dialog |
+| `ProgressDialog.jsx` | The progress dialog for actions over 2 seconds (actions §3): the product's loader, a count or steps, Cancel and Run in background |
+| `useAction.js` | One action's busy state, no double submit, its result and its error in words, Retry (actions AC-05, AC-08, AC-09) |
 | `useMenu.js` | Focus, arrow keys, Tab kept inside, Escape and a click outside, for both menus |
 | `icons.jsx` | The six icons, inline |
 | `shell.css` | Every style, from `--shell-*` variables only |
@@ -40,6 +44,7 @@ import { AppBar, useBarSize } from './reference';
 - The slot is the product's own: `.ax-slot-button` gives the 40px size and the 44px hit area; restyle the rest.
 - Navigation is the product's own; put `.ax-nav-item` on its links (or copy its two rules) for the current item and hover (§2.5).
 - The list toolbar's look is the product's own; its parts are not (§11a).
+- An action is a button, never link text, and no label ends in "…" (§11b). `.ax-ghost-button` is the quiet one the menus and the toolbar use (Switch organisation, Cancel, Clear filters); restyle it, but keep it a button.
 
 ## Run the demo
 

@@ -81,9 +81,9 @@ class Component extends DCLogic {
     var self = this, on = this.state.on;
     var D = {
       access: ['Open access', 'Every organisation gets paid limits while it is on', 'Mei Lin, 14 Oct, 09:03: pilot extended to 31 Oct', 'Switch open access off', 'Switch open access on'],
-      maint: ['Maintenance', 'Members see the maintenance page instead of Janka', 'Last on 2 Sep, 22:00 to 22:40: database upgrade', 'Start maintenance…', 'End maintenance'],
-      pause: ['Pause AI work', 'Forecasts, explanations and photo identify stop; nothing else changes', 'Never used', 'Pause AI work…', 'Resume AI work'],
-      sim: ['Simulation module, everywhere', 'Off for every organisation, whatever its plan', 'Mei Lin, 9 Oct: rebuilding the model', 'Switch on everywhere…', 'Switch off everywhere…']
+      maint: ['Maintenance', 'Members see the maintenance page instead of Janka', 'Last on 2 Sep, 22:00 to 22:40: database upgrade', 'Start maintenance', 'End maintenance'],
+      pause: ['Pause AI work', 'Forecasts, explanations and photo identify stop; nothing else changes', 'Never used', 'Pause AI work', 'Resume AI work'],
+      sim: ['Simulation module, everywhere', 'Off for every organisation, whatever its plan', 'Mei Lin, 9 Oct: rebuilding the model', 'Switch on everywhere', 'Switch off everywhere']
     };
     var switches = Object.keys(D).map(function (k) {
       var d = D[k], isOn = on[k];

@@ -144,6 +144,149 @@
         "dark-accent-on-dark": 5.74
       }
     },
+    "yaraone": {
+      "name": "YaraOne",
+      "kind": "A-mark",
+      "character": "Jade and navy: the Ripple family's colour for delivery, client service and tickets (owner, 16 Oct 2026)",
+      "anchor": "#087F5B",
+      "anchor-step": 600,
+      "scale": {
+        "50": "#F0F9F5",
+        "100": "#DFF2E9",
+        "200": "#BEE6D2",
+        "300": "#95D4B7",
+        "400": "#67BC98",
+        "500": "#3DA17B",
+        "600": "#087F5B",
+        "700": "#016C4C",
+        "800": "#01523A",
+        "900": "#013A28",
+        "950": "#012619"
+      },
+      "secondary-scale": {
+        "50": "#F4F7FE",
+        "100": "#E6EDFC",
+        "200": "#CDDBF9",
+        "300": "#AFC4F2",
+        "400": "#8EA7E0",
+        "500": "#708AC8",
+        "600": "#576FAB",
+        "700": "#43598D",
+        "800": "#31436F",
+        "900": "#212F51",
+        "950": "#0B1B4F"
+      },
+      "neutral": {
+        "50": "#F8FBF9",
+        "100": "#F0F5F2",
+        "200": "#E3EAE6",
+        "300": "#D1DAD5",
+        "400": "#AFBBB5",
+        "500": "#89968F",
+        "600": "#67756F",
+        "700": "#4A5952",
+        "800": "#32413A",
+        "900": "#1A2B23",
+        "950": "#091A13"
+      },
+      "roles": {
+        "action": "#087F5B",
+        "action-hover": "#016C4C",
+        "action-pressed": "#01523A",
+        "accent": "#087F5B",
+        "accent-text": "#087F5B",
+        "tint": "#F0F9F5",
+        "subtle": "#DFF2E9",
+        "accent-border": "#BEE6D2",
+        "on-tint": "#01523A",
+        "secondary": "#0B1B4F",
+        "dark-accent": "#3DA17B",
+        "focus": "#0459F7"
+      },
+      "ui": {
+        "surface": {
+          "ground": "#FFFFFF",
+          "raised": "#FFFFFF",
+          "sunken": "#F8FBF9",
+          "hover": "#F0F5F2",
+          "selected": "#F0F9F5",
+          "overlay": "rgba(11,27,79,.48)"
+        },
+        "text": {
+          "strong": "#0B1B4F",
+          "body": "#3B4469",
+          "muted": "#5B6488",
+          "disabled": "#AFBBB5",
+          "on-action": "#FFFFFF",
+          "link": "#087F5B"
+        },
+        "border": {
+          "subtle": "#F0F5F2",
+          "default": "#E3EAE6",
+          "strong": "#AFBBB5",
+          "input": "#89968F"
+        },
+        "status": {
+          "ok": [
+            "#12B76A",
+            "#E7F8EF",
+            "#067647"
+          ],
+          "warn": [
+            "#F79009",
+            "#FEF4E6",
+            "#B54708"
+          ],
+          "fault": [
+            "#F04438",
+            "#FEECEB",
+            "#B42318"
+          ],
+          "info": [
+            "#0459F7",
+            "#E6EEFE",
+            "#0347C8"
+          ]
+        },
+        "dark": {
+          "ground": "#071233",
+          "raised": "#0C1B47",
+          "sunken": "#050D26",
+          "border": "rgba(157,184,255,.16)",
+          "strong": "#EAF0FF",
+          "body": "#B6C3EA",
+          "muted": "#8E9CC8",
+          "accent": "#3DA17B",
+          "action": "#3DA17B",
+          "on-action": "#071233"
+        }
+      },
+      "chart": [
+        "#087F5B",
+        "#2A78D6",
+        "#EB6834",
+        "#D9579C",
+        "#6250D6"
+      ],
+      "chart-dark": [
+        "#3DA17B",
+        "#2A78D6",
+        "#E76530",
+        "#D9579C",
+        "#6857DE"
+      ],
+      "chart-after-product": [
+        "blue",
+        "orange",
+        "magenta",
+        "violet"
+      ],
+      "contrast": {
+        "action-on-white": 5,
+        "accent-text-on-white": 5,
+        "dark-accent-on-dark": 5.76
+      }
+    },
     "frame": {
       "name": "AX Frame",
       "kind": "A-mark",
