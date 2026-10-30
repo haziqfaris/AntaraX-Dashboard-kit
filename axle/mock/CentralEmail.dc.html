@@ -66,7 +66,7 @@ button,input,select,textarea{font-family:inherit}
         <div style="overflow-x: auto">
           <div role="table" aria-label="Email by product" style="display: flex; flex-direction: column; min-width: 900px">
             <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(5, 76px) 84px 140px 140px; gap: 10px; padding: 6px 8px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
-              <span role="columnheader">Product and sender</span><span role="columnheader" style="text-align: right">Sent</span><span role="columnheader" style="text-align: right">Delivered</span><span role="columnheader" style="text-align: right">Bounced</span><span role="columnheader" style="text-align: right">Spam</span><span role="columnheader" style="text-align: right">Failed</span><span role="columnheader" style="text-align: right">Delivery rate</span><span role="columnheader">Day's limit used</span><span role="columnheader">Alert</span>
+              <span role="columnheader">Product and sender</span><span role="columnheader" style="text-align: right">Sent</span><span role="columnheader" style="text-align: right">Delivered</span><span role="columnheader" style="text-align: right">Bounced</span><span role="columnheader" style="text-align: right">Spam</span><span role="columnheader" style="text-align: right">Failed</span><span role="columnheader" style="text-align: right">Delivery rate</span><span role="columnheader">Today, of the team's 80</span><span role="columnheader">Alert</span>
             </div>
             <sc-for list="{{prodRows}}" as="p" hint-placeholder-count="10">
               <button type="button" role="row" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="{{p.style}}">
@@ -93,12 +93,12 @@ button,input,select,textarea{font-family:inherit}
               <span role="cell" class="mono" style="text-align: right; font-weight: 600">{{sum.spam}}</span>
               <span role="cell" class="mono" style="text-align: right; font-weight: 600">{{sum.failed}}</span>
               <span role="cell" class="mono" style="text-align: right; color: #0B1B4F; font-weight: 600">{{sum.rate}}</span>
-              <span role="cell" style="font-size: 12px; color: #5B6488">1,000 a day each</span>
+              <span role="cell" style="font-size: 12px; color: #0B1B4F"><span class="mono">{{sum.today}}</span> of <span class="mono">80</span> · <span class="mono">20</span> kept for security</span>
               <span role="cell" style="font-size: 12px; color: #5B6488">{{needsCount}} open</span>
             </div>
           </div>
         </div>
-        <p style="margin: 0; font-size: 11px; color: #5B6488">Sent counts every email a product asked for; the next columns are what happened to them. Each product may send 1,000 a day, and security emails get twice the room. A product's alert opens at 2% bounces, 0.1% spam reports, 80% of its day's limit, or any security email that failed.</p>
+        <p style="margin: 0; font-size: 11px; color: #5B6488">Sent counts every email a product asked for; the next columns are what happened to them. Every product here sends through the antarax team, which allows 80 emails a day across all of them together; past 60, only sign-in, reset and email-changed emails go (Teams, below). A product's alert opens at any security email that failed, 2% bounces once it has sent 20 in a day, or 0.1% spam reports; the team's opens at 80% of its cap.</p>
       </section>
 
       <section aria-label="Emails by status, last 7 days" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px">
@@ -472,18 +472,18 @@ class Component extends DCLogic {
       failed: { word: 'Failed', ink: '#B42318', tint: '#FEECEB', dot: '#F04438' }
     };
     var KEYS = ['delivered', 'sent', 'delayed', 'retryable', 'bounced', 'complained', 'suppressed', 'failed'];
-    // One row per product on AntaraX email: counts by status over 7 days, in KEYS order, and today's sends against its day's limit (1,000).
+    // One row per product on AntaraX email: counts by status over 7 days, in KEYS order, and today's emails. Every product shares the antarax team's 80 a day (20 kept for security); today's add up to 12.
     var P = [
-      { k: 'frame', name: 'AX Frame', from: 'frame', c: [2371, 14, 3, 0, 9, 1, 12, 2], today: 412 },
-      { k: 'yaraone', name: 'YaraOne', from: 'yaraone', c: [3842, 10, 2, 0, 6, 0, 19, 1], today: 630 },
-      { k: 'yara', name: 'Yara', from: 'yara', c: [5902, 17, 4, 0, 11, 2, 21, 3], today: 820, alert: 'a3' },
-      { k: 'janka', name: 'Janka', from: 'janka', c: [1236, 9, 4, 1, 6, 1, 22, 5], today: 380 },
-      { k: 'grid', name: 'PLExyz Grid', from: 'grid', c: [628, 3, 1, 0, 4, 0, 4, 0], today: 120 },
-      { k: 'crowd', name: 'PLExyz Crowd', from: 'crowd', c: [2098, 8, 2, 0, 58, 2, 19, 2], today: 470, alert: 'a2' },
-      { k: 'tinara', name: 'Tinara', from: 'tinara', c: [884, 2, 1, 2, 3, 0, 4, 14], today: 210, alert: 'a1' },
-      { k: 'lapisan', name: 'Lapisan', from: 'lapisan', c: [418, 1, 0, 0, 1, 0, 0, 0], today: 90 },
-      { k: 'gauge', name: 'Gauge', from: 'gauge', c: [155, 1, 0, 0, 0, 0, 0, 0], today: 40 },
-      { k: 'discovery', name: 'REKA Discovery', from: 'discovery', c: [86, 0, 0, 0, 1, 0, 1, 0], today: 30 }
+      { k: 'frame', name: 'AX Frame', from: 'frame', c: [6, 1, 0, 0, 0, 0, 0, 0], today: 1 },
+      { k: 'yaraone', name: 'YaraOne', from: 'yaraone', c: [9, 1, 0, 0, 0, 0, 1, 0], today: 1 },
+      { k: 'yara', name: 'Yara', from: 'yara', c: [10, 1, 0, 0, 0, 1, 0, 0], today: 2, alert: 'a2' },
+      { k: 'janka', name: 'Janka', from: 'janka', c: [4, 0, 0, 0, 0, 0, 1, 0], today: 1 },
+      { k: 'grid', name: 'PLExyz Grid', from: 'grid', c: [2, 0, 0, 1, 0, 0, 0, 0], today: 1 },
+      { k: 'crowd', name: 'PLExyz Crowd', from: 'crowd', c: [5, 0, 0, 0, 1, 0, 0, 0], today: 1 },
+      { k: 'tinara', name: 'Tinara', from: 'tinara', c: [3, 0, 0, 0, 0, 0, 0, 2], today: 2, alert: 'a1' },
+      { k: 'lapisan', name: 'Lapisan', from: 'lapisan', c: [2, 0, 1, 0, 0, 0, 0, 0], today: 1 },
+      { k: 'gauge', name: 'Gauge', from: 'gauge', c: [1, 1, 0, 0, 0, 0, 0, 0], today: 1 },
+      { k: 'discovery', name: 'REKA Discovery', from: 'discovery', c: [1, 0, 0, 0, 0, 0, 0, 0], today: 1 }
     ];
     var PN = {}; P.forEach(function (p) { PN[p.k] = p.name; });
     function n(x) { return x.toLocaleString('en-GB'); }
@@ -494,20 +494,16 @@ class Component extends DCLogic {
     var RANK = { security_failed: 1, provider: 2, webhook_silent: 3, complaint_rate: 4, bounce_rate: 5, day_limit: 6 };
     var FAULT = { security_failed: true, provider: true };
     var AL = [
-      { id: 'a1', kind: 'security_failed', p: 'tinara', open: true, first: '18 Oct 13:40', last: '18 Oct 14:30', cleared: '–', short: 'Security failing', go: 'Show the failed emails', status: 'failed', sel: 'c1',
-        detail: '14 sign-in and reset emails failed since 13:40. The provider refused each address as not valid: Tinara\'s member import that morning added addresses ending in a space.' },
-      { id: 'a2', kind: 'bounce_rate', p: 'crowd', open: true, first: '18 Oct 09:15', last: '18 Oct 14:15', cleared: '–', short: 'Bounces high', go: 'Show the bounces', status: 'bounced', sel: 'c2',
-        detail: '2.6% of the last 24 hours\' emails bounced (31 of 1,190), most to addresses Teratai Events imported on 16 Oct.' },
-      { id: 'a3', kind: 'day_limit', p: 'yara', open: true, first: '18 Oct 12:05', last: '18 Oct 14:00', cleared: '–', short: 'Near limit', go: 'Show Yara\'s emails', status: 'all', sel: 'c3',
-        detail: '820 of its 1,000 emails today (82%). At this pace it reaches the limit around 17:30; security emails still have room.' },
-      { id: 'a4', kind: 'webhook_silent', p: null, open: false, first: '15 Oct 02:10', last: '15 Oct 02:50', cleared: '15 Oct 02:52',
-        detail: 'No delivery reports from Resend for 40 minutes. Emails were still sent, and the reports caught up.' },
-      { id: 'a5', kind: 'day_limit', p: 'yaraone', open: false, first: '14 Oct 16:20', last: '14 Oct 23:50', cleared: '15 Oct 00:00',
-        detail: 'Reached 84% of its day\'s limit with the month-end statements; back under 80% at midnight.' },
+      { id: 'a1', kind: 'security_failed', p: 'tinara', open: true, first: '18 Oct 13:41', last: '18 Oct 14:31', cleared: '–', short: 'Security failing', go: 'Show the failed emails', status: 'failed', sel: 'c1',
+        detail: '2 sign-in and reset emails failed today. The provider refused each address as not valid: Tinara\'s member import that morning added addresses ending in a space. People may be unable to sign in.' },
+      { id: 'a2', kind: 'complaint_rate', p: 'yara', open: true, first: '18 Oct 13:21', last: '18 Oct 14:21', cleared: '–', short: 'Spam reports', go: 'Show the spam report', status: 'complained', sel: 'c9',
+        detail: '1 of its 2 emails in the last 24 hours was marked as spam (50%), the daily work-order notice. At this volume one report opens the alert; check what it sends, and to whom.' },
+      { id: 'a4', kind: 'webhook_silent', p: null, open: false, first: '15 Oct 02:10', last: '15 Oct 09:30', cleared: '15 Oct 09:40',
+        detail: '11 emails went out in 24 hours and Resend reported nothing back: the webhook\'s signing secret had been rotated. Reports caught up once it was set again.' },
       { id: 'a6', kind: 'provider', p: null, open: false, first: '13 Oct 22:05', last: '13 Oct 22:31', cleared: '13 Oct 22:34',
-        detail: 'Resend answered 503 to 18% of sends for 26 minutes. Products kept each email and sent it again with the same key; none arrived twice.' },
+        detail: 'Resend answered 503 to 5 sends in an hour. Products kept each email and sent it again with the same key; none arrived twice.' },
       { id: 'a7', kind: 'complaint_rate', p: 'janka', open: false, first: '12 Oct 09:00', last: '12 Oct 18:00', cleared: '13 Oct 09:00',
-        detail: '2 of 1,412 emails in 24 hours were marked as spam (0.14%), both on the low-stock digest.' }
+        detail: '1 of its 3 emails in 24 hours was marked as spam, on the low-stock digest.' }
     ];
     var ALBY = {}; AL.forEach(function (a) { ALBY[a.id] = a; });
 
@@ -556,10 +552,7 @@ class Component extends DCLogic {
         reason: 'Delivered.', events: [at('12:40:12'), ev('12:40:13', 'Handed to the provider', 'email.sent', '#2A78D6'), ev('12:40:15', 'Delivered', 'email.delivered', '#12B76A')] },
       { id: 'c12', em: 'em_b8f4d0a6c2e95371b8d4f0a2', at: '12:15', p: 'grid', tpl: 'team.invitation.v1', to: 't***@tenagahijau.example', org: 'tenaga', s: 'retryable', attempts: 2, corr: 'inv_Gd3kP8', code: 'provider_503',
         reason: 'The provider did not answer twice. PLExyz Grid keeps it in its outbox and sends again with the same key, so it can never arrive twice.',
-        events: [at('12:15:40'), ev('12:15:50', 'The provider did not answer', 'retryable · provider_503', '#F79009'), ev('12:20:50', 'The provider did not answer', 'retryable · provider_503', '#F79009')] },
-      { id: 'c13', em: 'em_2e6c0a8f4d17b593e2c6a0f8', at: '11:52', p: 'crowd', tpl: 'notice.v1', to: 'l***@teratai.example', org: 'teratai', s: 'bounced', attempts: 1, corr: 'ntf_event_reminder_1018', code: 'bounce_permanent', chk: { k: 'bounce', on: '18 Oct, on a PLExyz Crowd email', marks: [] },
-        reason: 'The receiving server says this mailbox does not exist. Every AntaraX product now stops mailing it.',
-        events: [at('11:52:00'), ev('11:52:01', 'Handed to the provider', 'email.sent', '#2A78D6'), ev('11:52:07', 'Bounced: the mailbox does not exist', 'email.bounced · Permanent', '#F04438')] }
+        events: [at('12:15:40'), ev('12:15:50', 'The provider did not answer', 'retryable · provider_503', '#F79009'), ev('12:20:50', 'The provider did not answer', 'retryable · provider_503', '#F79009')] }
     ];
 
     var inScope = st.product === 'all' ? P : P.filter(function (p) { return p.k === st.product; });
@@ -574,15 +567,15 @@ class Component extends DCLogic {
     var ROWGRID = 'display:grid;grid-template-columns:minmax(0,1.6fr) repeat(5,76px) 84px 140px 140px;gap:10px;align-items:center;padding:8px;border:0;border-bottom:1px solid #EEF1F6;cursor:pointer;text-align:left;font-size:13px;color:#3B4469;width:100%;';
     var SEL = 'background:#FFF6E8;box-shadow:inset 0 0 0 1px #FB9800;border-radius:10px;';
     var prodRows = P.map(function (p) {
-      var tot = count(p, 'all'), on = st.product === p.k, a = p.alert ? ALBY[p.alert] : null, lim = p.today / 1000, warn = lim >= 0.8;
+      var tot = count(p, 'all'), on = st.product === p.k, a = p.alert ? ALBY[p.alert] : null, lim = p.today / 80, warn = lim >= 0.8;
       return { name: p.name, sender: p.from + '@mail.antarax.ai', total: n(tot), delivered: n(count(p, 'delivered')), bounced: n(count(p, 'bounced')), spam: n(count(p, 'complained')), failed: n(count(p, 'failed')),
-        rate: pct(count(p, 'delivered'), tot), limWord: Math.round(lim * 100) + '% · ' + n(p.today), limPct: Math.round(lim * 100) + '%', limBar: warn ? '#F79009' : '#2A78D6', limInk: warn ? '#B54708' : '#0B1B4F',
+        rate: pct(count(p, 'delivered'), tot), limWord: n(p.today) + ' of 80', limPct: Math.max(Math.round(lim * 100), p.today ? 2 : 0) + '%', limBar: warn ? '#F79009' : '#2A78D6', limInk: warn ? '#B54708' : '#0B1B4F',
         aWord: a ? a.short : 'No alert', aTint: a ? (FAULT[a.kind] ? '#FEECEB' : '#FEF4E6') : '#EEF1F6', aInk: a ? (FAULT[a.kind] ? '#B42318' : '#B54708') : '#5B6488',
         pressed: on ? 'true' : 'false', style: ROWGRID + (on ? SEL : 'background:transparent;'),
         pick: function () { self.setState({ product: on ? 'all' : p.k, status: 'all', template: 'all', org: 'all' }); } };
     });
     function sumOf(key) { return P.reduce(function (a, p) { return a + count(p, key); }, 0); }
-    var sum = { total: n(sumOf('all')), delivered: n(sumOf('delivered')), bounced: n(sumOf('bounced')), spam: n(sumOf('complained')), failed: n(sumOf('failed')), rate: pct(sumOf('delivered'), sumOf('all')) };
+    var sum = { today: n(P.reduce(function (a, p) { return a + p.today; }, 0)), total: n(sumOf('all')), delivered: n(sumOf('delivered')), bounced: n(sumOf('bounced')), spam: n(sumOf('complained')), failed: n(sumOf('failed')), rate: pct(sumOf('delivered'), sumOf('all')) };
 
     var openAlerts = AL.filter(function (a) { return a.open; }).sort(function (x, y) { return RANK[x.kind] - RANK[y.kind]; });
     var needs = openAlerts.map(function (a) {

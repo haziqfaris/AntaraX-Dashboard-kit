@@ -20,7 +20,7 @@ Minor: something new to adopt in AXLE Central. AntaraX email 0.8.0 (antarax-api 
 
   Only Admin registers senders and adds or verifies domains; Operator reads.
 - **Mock:** `CentralEmail.dc.html` gains the three sections after The service, with `pe` on reka (`pe@mail.reka.re`, links on `https://pe.reka.re`) just saved, and `mail.client.example` on rekatech with a DKIM TXT, an MX and an SPF TXT. A new tweak, "The rekatech team", steps through no key yet, pending, verified and failed. The service card reads antarax-api 0.8.1. Canvas board 6200px tall.
-- **Known gap, not changed here:** the Products figures (per-product limit of 1,000 and sends in the hundreds) predate the shared account cap of 0.7.6 (80 a day on Resend Free), so they disagree with the antarax team's "12 of 80". Figures are illustrative; bringing them in line is a later patch.
+- **Products figures follow the real limits:** every product shares the antarax team's 80 a day (20 kept for security), so the column reads each product's emails today of the team's 80, and the total row "12 of 80 · 20 kept for security", as on Teams. The example volumes are small (55 in 7 days, 12 today), the open alerts are Tinara's security emails failing and Yara's one spam report, and the cleared ones fit those volumes; the near-limit and bounce-rate examples are gone (a bounce-rate alert needs 20 sent in a day).
 
 ## 1.11.0 · 30 Oct 2026
 
