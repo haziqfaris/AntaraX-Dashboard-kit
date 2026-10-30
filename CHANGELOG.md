@@ -8,6 +8,73 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.12.0 · 30 Oct 2026
+
+Minor: something new to adopt in AXLE Central. AntaraX email 0.8.0 (antarax-api docs/15 §15.11, built 30 Oct 2026) has provider accounts ("teams"), senders registered as data and domains clients bring, managed only from AXLE Central; this designs its pages, as §15.11 "Still to come" asks.
+
+- **axle/SPEC.md 1.7, §10.14 In AXLE Central**, four new parts:
+  - **Teams** (`GET /internal/axle/v1/email/teams`): each team's sending domain, Ready or Not ready with the secret to add ("Add RESEND_KEY_REKA"), delivery reports, standby (`mailer.antarax.ai` or None), and today's emails against its day's cap with the security reserve. No key value ever appears;
+  - **Senders** (`GET /internal/axle/v1/email/senders`): AntaraX's products In code and read only; senders Registered as data, with Edit;
+  - **Register a sender** (`PUT /internal/axle/v1/email/senders/{service}`): service id, team, name, address (defaults to service@ the team's domain), origins, action and ground colours, reply-to, byline (optional), legal and support lines. The service's rules are the help text: address on the team's domain or a verified one; https origins only; reply-to a mailbox someone reads. After saving, "Put SVC_KEY_‹SERVICE› on the Worker";
+  - **Client domains** (`GET` and `POST /internal/axle/v1/email/domains`, `POST …/domains/{name}/verify`): Add a domain (name and team) returns the DNS records (type, name, value, priority, status, each with Copy); Verify; Pending, Verified and Failed in words, never by colour alone. A team with no key, a team's own domain, another team's domain and the antarax team are refused in words.
+
+  Only Admin registers senders and adds or verifies domains; Operator reads.
+- **Mock:** `CentralEmail.dc.html` gains the three sections after The service, with `pe` on reka (`pe@mail.reka.re`, links on `https://pe.reka.re`) just saved, and `mail.client.example` on rekatech with a DKIM TXT, an MX and an SPF TXT. A new tweak, "The rekatech team", steps through no key yet, pending, verified and failed. The service card reads antarax-api 0.8.1. Canvas board 6200px tall.
+- **Products figures follow the real limits:** every product shares the antarax team's 80 a day (20 kept for security), so the column reads each product's emails today of the team's 80, and the total row "12 of 80 · 20 kept for security", as on Teams. The example volumes are small (55 in 7 days, 12 today), the open alerts are Tinara's security emails failing and Yara's one spam report, and the cleared ones fit those volumes; the near-limit and bounce-rate examples are gone (a bounce-rate alert needs 20 sent in a day).
+
+## 1.11.0 · 30 Oct 2026
+
+Minor: a new page to adopt in AXLE Central (owner, 18 Oct 2026; drafted as 1.6.0 on its branch and renumbered when main, at 1.10.0, was merged in; brand kit guide/10, the email look decided on 18 Oct 2026). AntaraX email is live with AXLE Central's operator-only routes (antarax-api 0.7.5, docs/15 §15.10), so Central gets its Email page.
+
+- **axle/SPEC.md 1.6, §10.14 In AXLE Central.** Email across every product, read through `/internal/axle/v1/email/` with Central's own key:
+  - the sending line for the whole service;
+  - **Needs a person** first: open alerts, worst first, each naming the product, in words, with since when, opening the list filtered to it;
+  - a row per product: sent, delivered, bounced, spam, failed, delivery rate, its day's limit used, its alert in a word; Angka as "Deferred: sends its own email";
+  - the last 7 days by status as filters, and every email across products with a product column and filter;
+  - one email opened, with attempts and provider events, and a link into the product's AXLE;
+  - **Is this address blocked?** across every product: **Lift the bounce** only here, Admin rung, the person's request as the reason, audited with the masked address; spam marks listed with their product and lifted in that product's AXLE;
+  - the alerts, open and cleared in 7 days, also emailed hourly to the operators;
+  - the service: production and staging, Resend, the sending domain, replies, delivery reports last heard.
+
+  The old "AXLE Central (later)" bullet is replaced; product AXLEs are unchanged.
+- **Mocks:**
+  - new `axle/mock/CentralEmail.dc.html`, on the canvas beside Email. It imports the product sidebar and top bar, as no Central variant exists yet (the mock README says so);
+  - `Email.dc.html`: main had already brought its colours to brand tokens (1.7.0); the selected row keeps the orange border with no side stripe (axle/README.md, Never).
+
+Also in 1.11.0 (drafted as 1.5.1):
+
+- `BRIEF.md`: Email is in what is decided, and the rendered email reference in where things are. AntaraX email is live (antarax-api 0.7.4) and every email now carries the brand kit's layout with the family's BaTech band (brand kit, decisions of 18 Oct 2026). Nothing for a product to change in its AXLE.
+
+## 1.10.0 · 26 Oct 2026
+
+Minor: a rule tightened for every product (owner, 26 Oct 2026; the lead adds it to brand kit guide/10). The owner saw a blue text link reading "Remove…" in a product and asked that an action always be a button and that no label end in "…".
+
+- **The rule, in three specs:**
+  - **app/SPEC.md 1.7, new §11b "Buttons and links":** an action is a button in one of the product's button styles (primary, secondary, ghost, destructive), 44px on touch; a link only goes somewhere and always has a real `href`; Remove and Delete are destructive buttons, never coloured link text; no button, menu item, link, tab or placeholder ends in "…" or "...". Text cut short by CSS, the "⋯" button, an ellipsis standing for something left out and a button's busy words ("Saving…") are not affected. Also in §16 Never and §17.
+  - **axle/SPEC.md 1.5, new §14.2:** the same in AXLE's button styles, with its destructive button in a dense row (white, `--axle-fault-line`, `--axle-fault-text`). Also in §15 Words, §19 and §20 (23).
+  - **project/SPEC.md v1.2, new §8a:** the same in shadcn/ui's terms: `link` only for navigation, Remove and Delete `destructive`. Also in §2 and §9.
+  - **actions/SPEC.md 1.1:** §7 Words gains the labels row and points to the rule.
+- **`tools/check-shell.mjs`** now also reports, anywhere on the page and in both menus, a control, tab, menu item or placeholder whose label ends in "…" or "...", and any `<a>` with nowhere to go (no `href`, `href="#"`, `javascript:`). Busy controls and CSS truncation are skipped.
+- **The kit brought into line:**
+  - app mocks: Lists ("Save view" is a menu item; Clear filters a button), Settings ("Delete"), Moments (End session and Mark all as read are buttons), Support (Choose files is a button), AppBar (Sign out is a `<button role="menuitem">`, drawn as before), and every Actions board (Undo, Restore, Cancel, Retry and Download are small outlined buttons, not link text). Renders and values tables updated.
+  - AXLE mocks: Start support session is a button on Organisation 360 and Tickets; End session in the support banner is a button; Email's Clear filters is a button; the dots are gone from Find, Suspend, Lock, Transfer ownership, Rotate, Roll back, Run now, Pause, Suppress, Change, Add staff, Switch for ‹organisation›, Start maintenance, Pause AI work, Switch on or off everywhere and Record a restore drill.
+  - project mocks: Start support session and Find in its AXLE; the kit's ghost button is no longer underlined; Choose files is a button.
+  - `app/reference/`: `.ax-menu-link` is replaced by `.ax-ghost-button` (Switch organisation, Cancel, Clear filters); "Save view" is a plain menu item; the demo's navigation links have real fragments. A product that copied `.ax-menu-link` renames it.
+  - `yaraone/EMBEDS.md`: "Start support session".
+
+## 1.9.0 · 25 Oct 2026
+
+Minor: a rule tightened with a recorded way out (owner, 25 Oct 2026; AwanGan decision 0021; brand kit guide/10). A product that still holds its own keys stays as it is, recorded watch only.
+
+- **AGENTS.md, "AI, APIs and data":** who owns what. AI follows Heuristiks, and its keys, models and routing are AwanGan's; API keys, tenants, scopes and usage rows are Lapisan's; data a business hands over goes to Cebis Loom; RESAM maps which framework governs what. A client's own system comes through AwanGan only with its written agreement.
+- **axle/SPEC.md 1.4, §10.6:** the AI pages show the product's own share of AwanGan.
+  - **Models & keys** is read only: the product's keys (last four only) and each feature's route as AwanGan holds them, with Open Routing in AwanGan. Before the product comes through AwanGan, the keys it still holds, marked watch only. No test or rotate in the product; Test provider stays in R8 → Providers.
+  - **AI usage** reads Lapisan's usage rows for product `ai`: calls, errors, latency, cost by organisation, feature and model; budgets with alerts at 80% and 100%.
+  - **Live trace** puts the verdict first, then the five steps (Asked, Allowed, Answered, Checked, Decided). A prompt, input or answer appears only where the agreement keeps it, masked, and opening one is recorded.
+  - §5.2, §7.3, §7.4, §10.6.1 and §10.11 follow; §19 updates the AI check and adds Live trace; §20 records the decision (21) and asks how AI usage reads while a product is watch only (22).
+- **Mocks:** `ModelsKeys.dc.html` is read only, with a tweak for Through AwanGan or Watch only; `LiveTrace.dc.html` shows the five steps and the rule for bodies; `Providers.dc.html` and `Configuration.dc.html` point keys to AwanGan, and Configuration lists the gateway address and the AntaraX key for product `ai`.
+- **BRIEF.md:** a row for AI, APIs and data and one for their owners; the versions brought up to date (app spec 1.6, AXLE spec 1.4, tokens 1.11.0).
+
 ## 1.8.0 · 18 Oct 2026
 
 Minor: something new to adopt (owner, 18 Oct 2026; brand kit guide/10).

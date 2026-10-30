@@ -52,7 +52,7 @@ function Demo() {
       <main className="shell-root content" data-product={key} data-theme={theme === 'dark' ? 'dark' : undefined}>
         <nav aria-label={p.name} className="nav">
           {['List', 'Board', 'People'].map((n) => (
-            <a key={n} href="#" className="ax-nav-item" aria-current={current === n ? 'page' : undefined} onClick={(e) => { e.preventDefault(); setCurrent(n); }}>{n}</a>
+            <a key={n} href={`#${n.toLowerCase().replace(/\s+/g, '-')}`} className="ax-nav-item" aria-current={current === n ? 'page' : undefined} onClick={(e) => { e.preventDefault(); setCurrent(n); }}>{n}</a>
           ))}
         </nav>
         <section className="list">

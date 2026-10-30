@@ -4,7 +4,7 @@ Every AntaraX customer app is the product's own: its identity, colours, shape, n
 
 | File | What it is |
 |---|---|
-| [SPEC.md](SPEC.md) | The shell, v1.3: what is shared, its exact sizes, the standards beneath the look, what never to do, and that everything else is the product's own |
+| [SPEC.md](SPEC.md) | The shell, v1.7: what is shared, its exact sizes, the standards beneath the look, what never to do, and that everything else is the product's own |
 | [tokens.css](tokens.css) | Every size and colour slot of the bar, for every product, light and dark. Generated from the brand kit: never edit, never retype |
 | [mock/](mock/README.md) | The shell drawn in six products' own colours, as a canvas and as PNG renders (`mock/renders/`), with a values table beside each mock |
 | [reference/](reference/README.md) | The bar, its menus and the list toolbar in plain React and CSS variables |
@@ -35,6 +35,7 @@ The live mock is a private claude.ai canvas (https://claude.ai/artifact/BnCgM4zv
   - Assist (§9);
   - feedback and support requests, through YaraOne (§10);
   - dialogs, toasts, errors and empty states (§11);
+  - buttons and links: an action is a button, a link only goes somewhere, no label ends in "…" (§11b);
   - the footer on public share pages (§14).
 
 ## Before you plan
@@ -51,6 +52,7 @@ Open the closest product's render (`mock/renders/AppBar-<product>-wide.png` and 
 - [ ] The longest list has search, filters, sort, saved views, honest empty and no-match states, CSV if tabular, and survives a reload (§11a).
 - [ ] At 390px, Help and the account are one tap away on every page, and nothing in the bar overlaps.
 - [ ] No uppercase labels, and none of brand kit 13 §1's banned words.
+- [ ] Every action is a button and every link goes somewhere; Remove and Delete are destructive buttons; no label or placeholder ends in "…" (§11b).
 - [ ] `antarax-kit.lock` names this kit's version and commit, and every exception has a reason.
 - [ ] The rest of §17.
 

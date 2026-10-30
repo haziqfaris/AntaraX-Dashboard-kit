@@ -89,7 +89,7 @@ button,input,select,textarea{font-family:inherit}
               </button>
             </sc-for>
             <sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
-              <p style="margin: 0; padding: 18px 8px; font-size: 13px; color: #5B6488">No email matches these filters. <button type="button" onClick="{{clear}}" style="border: 0; background: transparent; color: #0459F7; cursor: pointer; padding: 0; font-size: 13px">Clear filters</button></p>
+              <p style="margin: 0; padding: 18px 8px; font-size: 13px; color: #5B6488">No email matches these filters. <button type="button" onClick="{{clear}}" style="min-height: 32px; margin-left: 8px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer">Clear filters</button></p>
             </sc-if>
           </div>
           <p style="margin: 0; font-size: 11px; color: #5B6488">Showing the latest {{shownCount}} of {{totalWord}}. Older pages load as you scroll, 25 at a time. Emails are kept 90 days.</p>
@@ -249,7 +249,7 @@ class Component extends DCLogic {
       return { when: e.at, label: T[e.tpl].short, cls: T[e.tpl].cls, to: e.to, org: ORGS[e.org], word: s.word, ink: s.ink, tint: s.tint, pressed: on ? 'true' : 'false',
         open: function () { self.setState({ sel: e.id }); },
         style: 'display:grid;grid-template-columns:92px minmax(0,1.3fr) minmax(0,1.3fr) minmax(0,1.1fr) 132px;gap:10px;align-items:center;padding:8px;border:0;border-bottom:1px solid #EEF1F6;cursor:pointer;text-align:left;font-size:13px;color:#3B4469;' +
-          (on ? 'background:#FEF4E6;box-shadow:inset 3px 0 0 #FB9800;' : 'background:transparent;') };
+          (on ? 'background:#FFF6E8;box-shadow:inset 0 0 0 1px #FB9800;border-radius:10px;' : 'background:transparent;') };
     });
     var e = E.filter(function (x) { return x.id === st.sel; })[0] || E[0];
     var s = S[e.s];

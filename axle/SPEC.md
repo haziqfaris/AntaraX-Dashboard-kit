@@ -1,6 +1,6 @@
 # AXLE standard
 
-**Version 1.3, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0; 1.3 on 18 Oct 2026, Dashboard kit 1.8.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). 1.3 points §14 to [actions/SPEC.md](../actions/SPEC.md) and asks again for the password or a code on irreversible actions. This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
+**Version 1.7, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0; 1.3 on 18 Oct 2026, Dashboard kit 1.8.0; 1.4 on 25 Oct 2026, Dashboard kit 1.9.0; 1.5 on 26 Oct 2026, Dashboard kit 1.10.0; 1.6 on 30 Oct 2026, Dashboard kit 1.11.0; 1.7 on 30 Oct 2026, Dashboard kit 1.12.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). 1.3 points §14 to [actions/SPEC.md](../actions/SPEC.md) and asks again for the password or a code on irreversible actions. 1.4 says who manages the AI: AwanGan holds the keys and routes, Lapisan records the usage, and the AI pages show this product's own share (§10.6). 1.5 makes every action a button and takes the trailing "…" off every label (§14.2). 1.6 adds AXLE Central → Email, the same service seen across every product (§10.14, In AXLE Central). 1.7 adds its Teams, Senders and Client domains (§10.14, In AXLE Central). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
 
 It merges two sources:
 
@@ -140,7 +140,7 @@ Two axes:
 |---|---|---|
 | **Finance** | MRR, invoices, AI and infrastructure cost, budgets | Finance |
 | **Security** | Sign-in activity, sessions, staff access reviews, exports and deletion approvals | Security |
-| **AI** | Providers, keys, routes, prompts and their versions | |
+| **AI** | Prompts and their versions; this product's keys and routes, which change in AwanGan (§10.6) | |
 | **Library** | Publishing platform libraries (§10.7) | |
 
 Rules:
@@ -170,7 +170,7 @@ AXLE keeps the **AntaraX top bar** every product already ships (adopted 12 Oct 2
 ```
   ╭──────────────────────────────────────────────────────────────────────────────────╮
   │ ╭──┬─────────────╮                                                               │
-  │ │A │ ▣ Janka     │ AXLE │ Overview     [Organisation: All ▾] [Find… ⌘K] (♥1) (AR) │  64px card
+  │ │A │ ▣ Janka     │ AXLE │ Overview     [Organisation: All ▾] [Find ⌘K]  (♥1) (AR) │  64px card
   │ ╰──┴─────────────╯                                                               │
   ╰──────────────────────────────────────────────────────────────────────────────────╯
     ▲ Open access is on since 1 Oct 2026: every organisation has paid limits. Settings     state banner
@@ -282,8 +282,8 @@ Product-only items sit at the end so that adding one never moves a standard item
 | | **Invitations** | Always | Single-use expiring links (D3) | Support |
 | | **Requests** | Orgs | Access requests, data export and deletion requests, pilot requests (C5, J3) | Admin, Security right |
 | | **Support** | Orgs | Internal notes per organisation, never shown to it (H4), and support sessions (§11). Tickets are in Tickets | Support |
-| **AI** | **Models & keys** | AI | Providers, keys (masked, test, rotate), model per task with default and fallback chain, automatic switch on outage (F1, F2). Provider *health* is R8 → Providers; this page is the configuration | AI right |
-| | **AI usage** | AI | Usage, performance and cost per organisation, task and model; budgets and alerts (F4) | Viewer; cost needs Finance |
+| **AI** | **Models & keys** | AI | Read only: this product's keys and the route for each feature (first model, then fallbacks) as AwanGan holds them, with a link to AwanGan's Routing. Before the product comes through AwanGan, the keys it still holds, recorded watch only (F1, F2, §10.6). Provider *health* is R8 → Providers | AI right; routes change in AwanGan |
+| | **AI usage** | AI | Usage, performance and cost per organisation, feature and model, from Lapisan's usage rows for product `ai`; budgets and alerts (F4) | Viewer; cost needs Finance |
 | | **Live trace** | AI | One run, diagnosis first, AXLE only (F5, §10.6) | Viewer; bodies need AI |
 | | **Prompts & quality** | AI | Prompt and configuration versions with a change log; feedback, evaluation scores, learning (F6) | AI right |
 | **Money** | **Plans & features** | Always | Plans or editions; features classified as core, configurable, module or flag; per-organisation switches; "why does it have this?"; quotas with logged overrides (E1–E4, §10.5) | Admin |
@@ -316,7 +316,7 @@ Every product has these pages at **Base**; **Full** adds Incidents. Observe page
 | | **Agents** | Full, and an agent on customer or REKA hosts exists | Enrolled, connected, offline, outdated; per agent version, last heartbeat, telemetry flowing or stopped; ping, rotate credentials, push config, revoke. Telemetry only at first (M8; agents come last, 6 Oct 2026) | Operator; revoke needs Admin |
 | | **Visual** | Full, and the product takes screenshots or renders pages | Captures, success rate, changes found, failures, queue, storage, provider quota; capture now, retry, pause (M7) | Operator |
 | **System** | **Jobs** | Base | Last run, result, duration, next run; per run eligible, processed, failed, skipped and the top failure reasons; run now, retry failures, pause, resume. Schedules in plain words, raw cron only in an advanced drawer (M4, H1) | Operator |
-| | **Providers** | Base | Every outside dependency (AI providers, email through AntaraX email (§10.14), storage, payments, any product API): state, calls in 24 hours, success rate, latency, quota exposure, latest error and latest success; Test provider. Credentials never shown (M5) | Operator tests; keys stay in Dashboard → Models & keys |
+| | **Providers** | Base | Every outside dependency (AI providers, email through AntaraX email (§10.14), storage, payments, any product API): state, calls in 24 hours, success rate, latency, quota exposure, latest error and latest success; Test provider. Credentials never shown (M5) | Operator tests; keys are AwanGan's, seen in Dashboard → Models & keys |
 | | **AI flow** | Base, and the product calls an AI model | How the product's AI is wired and what happened on each path, drawn from its AI manifest (§10.6.1) | Viewer: read only |
 | | **Services** | Base | REKA's own platform: API, database, workers, queues, storage, AI gateway, email, deployed version (B3) | Viewer |
 | | **Capacity** | Base | How close the product is to every limit of the plans it runs on, how fast it is growing, when it will reach each one, and what to do then. Any provider, any kind of infrastructure (§10.13) | Viewer; plans and limits are changed by Admin |
@@ -474,12 +474,20 @@ The page opens on **what is missing**: a readiness checklist ("Before Acme Plast
 
 ### 10.6 AI (std F1–F6)
 
+**AwanGan manages the AI; this AXLE shows the product's own share** (owner, 25 Oct 2026; AwanGan decision 0021). The product's AI follows the AntaraX AI framework, Heuristiks (`haziqfaris/ai-framework-heuristiks`).
+
+- **AwanGan** (`haziqfaris/AntaraX-AwanGan`), AntaraX's AI control plane, holds the provider keys, the models and each feature's route, and keeps a record and an outcome for every call that comes through it.
+- **Lapisan** (`haziqfaris/antarax-api`, `api.antarax.ai`) gives the product an AntaraX key for product `ai` and records each call as a usage row.
+- **The product** keeps its prompts, gates, checks and decisions.
+
+A product moves in two steps, and nothing is forced on a live one. **Watch only** first: it keeps its own keys, and AwanGan records them with their owner and totals from the provider's own usage report. Then **through AwanGan**: its keys move into AwanGan's vault, and the product holds only its AntaraX key. A client's own system comes through only with the client's written agreement; otherwise it keeps its own keys under Heuristiks, or runs BumiNyata on its own servers. Nothing in AwanGan is built yet (25 Oct 2026).
+
 | Page | Must show |
 |---|---|
-| Models & keys | Providers; keys kept in the vault, shown masked, test and rotate; the model per task with a default and a fallback chain; automatic switch on outage, with a toggle and a log of switches (F1, F2) |
+| Models & keys | Read only. This product's keys as AwanGan holds them: provider, last four characters, owner, when rotated, health; never a whole key. The route for each feature: the key and model it tries first, then its fallbacks; automatic switches and route changes, with who and when. **Open Routing in AwanGan** for any change; it takes effect at the gateway without a redeploy. Before the product comes through AwanGan: the keys it still holds, masked, each marked watch only (F1, F2) |
 | Per organisation | AI on or off; model override (F3) |
-| AI usage | Calls, errors, latency, cost by organisation, task and model; monthly budgets with alerts at 80% and 100% (F4) |
-| Live trace | One run: verdict → what to fix, worst first → steps (status, model, time, cost, findings) → raw events last. AXLE only (F5; ISO Generator) |
+| AI usage | From Lapisan's usage rows for product `ai`: calls, errors, latency, cost by organisation, feature and model; monthly budgets with alerts at 80% and 100% (F4). Only this product; AwanGan's own AXLE shows every product at once |
+| Live trace | One run, verdict first: verdict → what to fix, worst first → the five steps, Asked → Allowed → Answered → Checked → Decided (§10.6.1), each with status, model, time, cost and findings → raw events last. A prompt, an input or an answer appears only where the product's agreement keeps it, with personal data masked; opening one needs the AI right and is recorded in Audit. AXLE only (F5; ISO Generator) |
 | Prompts & quality | Versions of prompts and configuration, with a change log and who changed what; feedback captured; evaluation scores over time (F6) |
 
 ### 10.6.1 R8 → AI flow (owner, 15 Oct 2026)
@@ -491,7 +499,7 @@ Every product that calls an AI model has this page in R8 → System, after Provi
 - **Where every call ended**, in the framework's five outcome words: Used as is · Corrected by a person · Not used · Waiting · ‹Product›'s own logic.
 - **A row per AI feature** with its outcomes and its own measure of being right over 8 weeks.
 - **The feature's card**: the manifest's fields for the chosen feature (where people meet it, what it sends and never sends, models, what happens without AI, checks, who decides, switches, what is logged).
-- **Never shown:** prompts, photos, answers or personal data. One run, step by step, is Dashboard → Live trace; cost is Dashboard → AI usage; changes are Dashboard → Models & keys.
+- **Never shown:** prompts, photos, answers or personal data. One run, step by step, is Dashboard → Live trace; cost is Dashboard → AI usage; keys and routes are Dashboard → Models & keys, and change in AwanGan.
 - Read only. A failing provider links to Troubleshoot.
 
 **From framework 0.4 and 0.5 (owner, 16 Oct 2026).** The page also shows, still from the manifest and the call records only:
@@ -544,7 +552,7 @@ One problem, all its evidence. Every product has it, Base or Full. Opened in one
 | **Timeline** | Every signal, automatic switch and staff action on this problem, in order, mono times |
 | **AXLE's reading** | A plain-words diagnosis derived from the evidence, labelled as derived, naming the facts it rests on. Never a root cause the evidence does not show |
 | **Your conclusion** | The operator's own words, stored apart from the evidence and the reading (M11). An AI guess is never stored as a fact |
-| **Safe actions** | Only the actions that apply to this problem, each labelled with its level (§14.1): for example Test provider, Retry failed items, Suppress for 1 hour. Actions that live in the Dashboard (rotating a key) are links, not buttons |
+| **Safe actions** | Only the actions that apply to this problem, each labelled with its level (§14.1): for example Test provider, Retry failed items, Suppress for 1 hour. Actions that live elsewhere (rotating a key or moving a route, in AwanGan) are links to the page where they are done, not buttons here (§14.2) |
 
 ### 10.12 Tickets: YaraOne's back office (owner, 16 Oct 2026)
 
@@ -552,7 +560,7 @@ Every support request and piece of feedback from every product lives in **YaraOn
 
 - **Watch → Tickets** embeds YaraOne's back office, showing this product's tickets only. Staff never sign in to YaraOne separately. The embed sits in a dashed frame labelled "YaraOne · back office", so it is clear where AXLE ends.
 - **What staff do there:** filter by state and kind (Support request, Feedback); open a ticket; read what the product sent with it (page, version, person, role, error reference); reply to the customer; add an internal note in a separate thread that never reaches the organisation; change the state the customer sees (Received, Reviewing, Need more information, Planned, In progress, Resolved, Closed).
-- **What stays AXLE's**, one click from a ticket: Start support session… (§11), Troubleshoot when it carries an error reference or matches an incident, Organisation 360.
+- **What stays AXLE's**, one click from a ticket: Start support session (§11), Troubleshoot when it carries an error reference or matches an incident, Organisation 360.
 - **Organisation 360 → Tickets** shows the same embed filtered to that organisation.
 - **Needs a person** (§8) counts tickets waiting on a reply.
 - **No product stores tickets or feedback**, and no AXLE builds its own inbox for them. YaraOne's own dashboard is where REKA's support team works across products.
@@ -621,7 +629,31 @@ Every support request and piece of feedback from every product lives in **YaraOn
 - **R8 → Capacity (§10.13):** two `messages` resources. One is the product's day's limit in AntaraX email (1,000 by default; security emails get twice the room), measured from the summary. The other is the shared Resend plan, the same in every product's `capacity.json` ([`capacity/README.md`](../capacity/README.md)).
 - **R8 → Configuration (§7.4):** `ANTARAX_EMAIL_URL` and `AX_SVC_KEY`, set or missing, never their values.
 - **Platform → Settings** holds no email templates or sender.
-- **AXLE Central** (later, `axle.antarax.ai`) holds what is shared across products: the service's own health, the Resend plan, the shared bounce list with Lift, and the template catalogue. Until it exists, no product AXLE shows those.
+- **AXLE Central** holds what is shared across products; see below. No product AXLE shows the service's own health, other products' emails or Lift the bounce.
+
+**In AXLE Central** (owner, 18 Oct 2026; Teams, Senders and Client domains added 30 Oct 2026; mock `CentralEmail`). **Email** is the cross-product page for AntaraX email at `axle.antarax.ai`, in Central's Watch group. Central reads the service through operator-only routes under `/internal/axle/v1/email/`, signed with Central's own key (antarax-api 0.7.5, docs/15 §15.10; teams, senders and domains 0.8.0, §15.11). The key never reaches the browser, and no product's AXLE can call these routes. The same never-shown rule applies: no body, subject, link, code or whole address.
+
+| Part | Holds | From |
+|---|---|---|
+| **Sending line** | The whole service: how many products send from `mail.antarax.ai`, each as itself; replies to `support@go.antarax.ai`; Resend behind the service; Angka deferred | The senders, as in each product |
+| **Needs a person** | First on the page: the open alerts, worst first (security emails failed, then Resend failing, no delivery reports, spam reports, bounces, the day's limit). Each names the product (or every product), says what happened in words, gives since when and last seen, and opens the list filtered to that product and status | `GET /internal/axle/v1/email/alerts` |
+| **Products** | One row per product: sent, delivered, bounced, spam, failed, delivery rate, its emails today against the antarax team's shared cap ("2 of 80"; every product shares the team's 80 a day, 20 kept for security; a bar that turns warn at 80%), with the total row matching the Teams row ("12 of 80 · 20 kept for security"), and its alert in a word ("No alert", "Bounces high"). Choosing a row filters the list. Angka has a row reading "Deferred: sends its own email". A total row adds up every product | `GET /internal/axle/v1/email/summary?days=` (`by_product`, `alerts_open`) |
+| **Stats strip** | The last 7 days by status, each a filter (§9), for every product or the one chosen | The same summary |
+| **The list** (§9) | Every product's emails, newest first: when, **product**, template and its class, to (masked), organisation, status in a word. Filters: product, status, template, organisation, since; the service's cursor; CSV export (`axle-central-email-<date>.csv`) | `GET /internal/axle/v1/email/emails?service=&status=&template=&tenant_id=&since=&cursor=` |
+| **One email, opened** | As in a product (its attempts and what the provider reported, oldest first, the reason in words, then the code), plus the product, and **Open in ‹Product›'s AXLE** at the same email (§18) | `GET /internal/axle/v1/email/emails/{id}` |
+| **Is this address blocked?** | Across every product. A **shared bounce** stops every product; **Lift the bounce** is allowed only here, needs the **Admin** rung and the person's request as the reason, and is audited with the masked address. Each **spam mark** is listed with the product it belongs to and what it stops; it is lifted in that product's AXLE by Support, not here | `GET` and `DELETE /internal/axle/v1/email/suppressions?email=&scope=` (`scope=all` lifts the bounce) |
+| **Alerts** | Open alerts and those cleared in the last 7 days: state in a word, the alert, the product or every product, what happened, first seen, last seen, cleared | `GET /internal/axle/v1/email/alerts` |
+| **The service** | Production (`email.antarax.ai`) and staging (`email-staging.antarax.ai`, team addresses only), each in a word; Resend; the sending domain verified; the reply address; when the delivery reports (Resend's webhook) were last heard; the deployed version | The service's health |
+| **Teams** | One row per provider account ("team", a Resend account of its own: domain, day's cap, bill and reputation): `antarax` (AntaraX's products, `mail.antarax.ai`), `reka` (REKA's own apps, `mail.reka.re`), `rekatech` (the client apps REKA hosts, `mail.reka.tech`). For each: the sending domain; **Ready** or **Not ready** in a word, with the secret to add when it is not ("Add RESEND_KEY_REKA"); its delivery reports, Signed or Not set; its standby domain (`mailer.antarax.ai`) or None; today's emails against its day's cap, with the security reserve drawn as the grey end of the bar and said in words ("12 of 80 · 20 kept for security"). A key's value never appears, only whether it is set. A team is declared on the Worker (`TEAMS`), never here | `GET /internal/axle/v1/email/teams` (`ready`, `webhook`, `standby`, `used_today`, `daily_limit`, `security_reserve`) |
+| **Senders** | Every sender: name and service id, team, address, where its links may go, its source and its state. AntaraX's products are **In code** and read only: a change is a pull request to antarax-api, and data can never override one (Angka's reads Deferred). Anyone else is **Registered** as data, with **Edit**. A registered sender whose team is not ready reads "Waits for its team" | `GET /internal/axle/v1/email/senders` (`source`: `code` or `data`) |
+| **Register a sender** | A form: service id (the `AntaraX-Service` it signs as, 2 to 30 lowercase letters, fixed once saved), team, name, address (empty means `service@` the team's domain), the origins its links may go to, action and ground colours (`#RRGGBB`, with a swatch), reply-to, byline (optional; empty means no "by AntaraX"), legal and support lines (empty takes the team's). The service's rules are the help text, and become the error under the field when broken: **the address is on the team's domain or on a domain that team has verified; https origins only, one to five; reply-to must be a mailbox someone reads** (required when the team names none). After saving: **"Put SVC_KEY_‹SERVICE› on the Worker"**, with the `wrangler secret put` line and that the app keeps the same value as `AX_SVC_KEY`; the key is made outside AXLE and never appears here. Audited | `PUT /internal/axle/v1/email/senders/{service}` (answers with `key_secret`, the secret's name) |
+| **Client domains** | **Add a domain**: the name and the team. The service asks that team's Resend account at once and answers with the DNS records, shown as a table: type (with what it is for, DKIM or SPF), name, value, priority, status, each name and value with a **Copy** button (a value cut short on screen is copied whole). **Verify** asks Resend again. A domain and each record read **Pending**, **Verified** or **Failed** (Resend stops looking after 72 hours), always in words, never by colour alone. Refused in words before anything is asked: not a domain, already a team's own, another team's, a team with no key yet ("Add RESEND_KEY_REKATECH on the Worker first"), or the `antarax` team (one client's bounces must never stop AntaraX's sign-in; docs/15 §15.11). Once verified, a sender on the domain can be registered on the same team | `GET` and `POST /internal/axle/v1/email/domains` (`{ name, team }`); `POST /internal/axle/v1/email/domains/{name}/verify` |
+
+**Who may change them.** Only the **Admin** rung registers or edits a sender, adds a domain or verifies one; Operator and below read the three parts, with each action disabled and "Needs Admin" (§5.2). Teams, senders and domains are antarax-api 0.8.0 (docs/15 §15.11); a team's usage is 0.8.1. Bounces stay shared across every team; spam marks stay per sender.
+
+**The alerts** are the service's own: **Security emails failed** (any), **Bounces above 2%**, **Spam reports above 0.1%**, **Near its day's limit** (80%), **Resend is failing**, **No delivery reports**. Each is for one product or for every product. The service also emails every open alert to the operators every hour until it clears, so no one has to keep this page open.
+
+The template catalogue is not on this page: the templates are antarax-api's, and their rendered look is the brand kit's `assets/email/` (brand kit, 18 Oct 2026). Until Central's shared sidebar exists, the mock imports the product sidebar; Central's own menu adds the Products group and has no product box (§7.2).
 
 ## 11 Support sessions (std H7)
 
@@ -704,6 +736,22 @@ Each banner says what is on, since when, and links to Settings.
 - Every R8 action asks for a reason when it changes anything, and lands in the operations audit with who, what, target and reason (M13).
 - A suppression always has an end time.
 
+### 14.2 Buttons and links (owner, 26 Oct 2026)
+
+Decided after a blue text link reading "Remove…" in a product. It covers every control in AXLE.
+
+- **An action is a button,** in AXLE's button styles. That covers run, retry, suspend, remove, delete, revoke, invite, export, and opening a dialog that leads to an action ("Start support session").
+  - **Primary:** REKA orange with navy text, the one main action on a page (§4).
+  - **Secondary:** white, a 1px `--axle-control-line` border, navy text.
+  - **Ghost:** no fill or border until hovered, padded to the button's size, never underlined.
+  - **Destructive:** the fault colours. In a dense row, white with a `--axle-fault-line` border and `--axle-fault-text` text, as Organisation 360 draws Suspend and Lock.
+  - Buttons are 44px (§16). A dense table row may draw one smaller, with a 44px hit area.
+  - In a menu, an action is a menu item (`<button role="menuitem">`), never link text.
+- **A link only goes somewhere:** another page, another address, a record. Link text (`#0459F7` on the page, §4) is only ever an `<a>` with a real `href`, never `href="#"` or an `<a>` that only runs a script.
+- **Remove and Delete are destructive buttons,** never coloured link text.
+- **No trailing ellipsis.** No button, menu item, link, tab or placeholder ends in "…" or "...": "Suspend", "Start support session", "Find". The dots come from an old desktop convention (Apple's and Microsoft's guidelines), where "…" means a dialog will ask for more first. Staff don't read it that way, so the dots are clutter; the dialog that follows explains itself.
+  - Not affected: text cut short by CSS (`text-overflow: ellipsis`), the "⋯" more-actions button, an ellipsis that stands for something left out (`req_…`, "R8 Base · …"), and a button's words while it works ("Opening Google…", actions/SPEC.md §3).
+
 ## 15 Words and formats
 
 | Thing | Write | Never |
@@ -714,6 +762,7 @@ Each banner says what is on, since when, and links to Settings.
 | REKA helping a customer, as the customer reads it | REKA support | AXLE, REKA admin |
 | Staff rungs | Viewer · Support · Operator · Admin · Owner | Super Admin, ADMIN MODE |
 | In and out | Sign in · Sign out | Log in, Log out |
+| Labels on controls | Suspend · Start support session · Find | Suspend… · Start support session... · Find… (§14.2) |
 | Money | RM1,200 · US$45, grouped by currency | RM 1,200 · $45 · USD · converted totals |
 | Dates | 11 Oct 2026 · 14:30 MYT | 10/11/2026 · 2:30 PM |
 | Spelling | British | US |
@@ -764,7 +813,8 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **Organisation life** | Create, suspend (member refused with a message), restore, request deletion: each step audited with a reason |
 | **Invitation** | The email arrives; the link works once, expires, and lands the person in the right organisation and role |
 | **Feature switch** | A module turned off for one organisation disappears from its menu and pages only; "why" names the deciding step |
-| **AI** | Switch provider, run one AI action, see usage and cost recorded; with AI off the member sees a clear message |
+| **AI** | Move a feature to another model in AwanGan's Routing and run one AI action: Models & keys shows the new route, and AI usage counts the call with its cost from Lapisan's usage rows; no whole key appears on the page or in its network responses; with AI off the member sees a clear message |
+| **Live trace** | The verdict comes first, then the run's five steps in order; a prompt, input or answer appears only where the agreement keeps it, masked, and opening one adds a line to Audit |
 | **Lists** | On every list: search, filter, sort, group, a bulk action on 2 rows, export; the stats strip updates |
 | **Audit** | Three staff changes each appear with who, what, when, reason, before and after |
 | **Rights** | A Viewer sees every page, disabled controls say what they need, and a missing right shows its gate card and dashes, never zeros |
@@ -781,6 +831,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **R8 AI flow** | Every AI feature in the code appears in the manifest and on the page; the five steps add up (asked = every outcome together), and so do model, cache and shared answers; turn-aways are counted; no prompt, photo, answer, reused answer or source text appears on the page or in its network responses |
 | **R8 troubleshoot** | From a Dashboard alert, Troubleshoot opens R8 on that organisation and asset with outside evidence, a timeline and only safe actions; the reading and the conclusion are stored apart |
 | **R8 safety** | No Level 3 action exists; every R8 action appears in the audit log with a reason |
+| **Buttons and links** | `node tools/check-shell.mjs` on three AXLE pages finds no control, menu item, tab or placeholder ending in "…" or "...", and no `<a>` without a real `href`; by hand, every action is a button and Remove, Delete and Suspend are destructive buttons (§14.2) |
 | **Backend exists** | No R8 page or Observe item is empty or "coming soon"; a Base product shows no Incidents or Observe |
 | **Look** | Dark sidebar and top bar, light page, the orange `AXLE` tag and accent, the AntaraX A, "AXLE · Product" in the page title; the focus ring is visible on every control in both; axe passes |
 
@@ -806,6 +857,9 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 18. ~~**Capacity.**~~ Decided 16 Oct 2026: R8 → Capacity in every product, generic for any provider and any kind of infrastructure, described by each product's `capacity.json` (§10.13).
 19. ~~**Email.**~~ Decided 17 Oct 2026: every product sends through AntaraX email from `mail.antarax.ai`, behind a switch; AXLE reads it as Watch → Email (§10.14). Angka is deferred.
 20. ~~**Sign-in page.**~~ Decided 18 Oct 2026: one page for every AXLE, from AX Frame's, with Continue with Google and email, password and a code; its Sign in is AntaraX blue, the one place AXLE's main action is not orange (§5.1.1).
+21. ~~**Who manages the AI.**~~ Decided 25 Oct 2026: AwanGan manages AntaraX's AI (provider keys, models, routing, call records, outcomes, AI cost) and Lapisan the API keys, tenants, scopes, limits and usage rows; each AXLE shows its own AI usage from Lapisan's usage rows for product `ai` (§10.6; AwanGan decision 0021).
+22. **AI usage while watch only.** Lapisan has no usage rows for product `ai` until a product comes through AwanGan. Read the product's own call records until then, or AwanGan's watch-only totals? Until decided, a figure Lapisan does not have is a dash with the reason (§13.1).
+23. ~~**Buttons and links.**~~ Decided 26 Oct 2026: an action is a button, a link only goes somewhere, Remove and Delete are destructive buttons, and no label ends in "…" (§14.2).
 
 ## 21 What each console changes
 

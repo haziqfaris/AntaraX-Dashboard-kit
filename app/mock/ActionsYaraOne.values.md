@@ -1,4 +1,4 @@
-<!-- values for ActionsYaraOne.dc.html, source a28218774efe1925 -->
+<!-- values for ActionsYaraOne.dc.html, source 6f9a4f812fb7314a -->
 Every value below is read from the mock, which draws `ActionsScreens.dc.html` for YaraOne. **Standard** rows hold in every product (actions/SPEC.md section in brackets). **Own** rows are how this board draws YaraOne's side, from its palette in `brand/product-palettes.json` and its own records.
 
 | Part | Value | Kind |
@@ -9,6 +9,7 @@ Every value below is read from the mock, which draws `ActionsScreens.dc.html` fo
 | Level 3 | The body lists what goes (18 projects, 412 tickets and 96 client contacts); "Type Sinar Digital to confirm"; the button stays pale until the name is typed; then "Your password" with Show; while it runs, Cancel is off and the button reads "Deleting…" with the dots loader. Bulk: "Type 64 to confirm", no password because the items go to Trash | Standard (§2, AC-03) |
 | While it runs | Button: "Saving…" with dots, Cancel off. Progress dialog: "Importing 312 contacts", a 6px bar at 25% with the count in mono, Cancel and Run in background. Steps: done `#12B76A`, now in the action colour, to come grey. Jobs panel: Cancel on each running job, Download when done, toast "Import started · See progress" | Standard (§3) |
 | The result | Saved: dark toast. Failed: a toast on `#FEECEB` in `#B42318` with Retry that stays. Field: a 1px `#B42318` border with the message under it. Bulk: `#FEF4E6` alert "62 of 64 projects updated. 2 couldn't be." with Retry per item. Offline: a note on the tint. Discard changes? with Keep editing as the main button | Standard (§4, §6) |
+| Actions in toasts and rows | Undo, Open, See progress, Restore, Cancel, Retry and Download are small outlined buttons (28px drawn, radius 8px): a 1px line in the toast's text colour on a toast, `line` with ink text in a row; never link text, and no label ends in "…" | Standard (§7; app SPEC §11b) |
 | Action colour | `#087F5B` with white text; tint `#F0F9F5` | Own (YaraOne) |
 | Card radius | 24px; frames at most 20px | Own (YaraOne) |
 | Buttons and fields | 36px and 38px drawn (44px in the product), radius 12px | Own (YaraOne); 44px standard |

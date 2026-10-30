@@ -76,7 +76,7 @@ export function ListToolbar({
               <button type="button" aria-label={`Remove ${f.label}: ${name(f)}`} onClick={() => onFilter(f.id, '')}><CloseIcon /></button>
             </span>
           ))}
-          <button type="button" className="ax-menu-link" onClick={onClear}>Clear filters</button>
+          <button type="button" className="ax-ghost-button" onClick={onClear}>Clear filters</button>
         </div>
       ) : null}
     </div>
@@ -84,7 +84,7 @@ export function ListToolbar({
 }
 
 // Named saved views (SPEC §11a): a Views menu first in the toolbar. "All ‹records›" comes first and cannot be
-// deleted; then the person's own views, each renamed or deleted from its ⋯; Save view… names the list as it is.
+// deleted; then the person's own views, each renamed or deleted from its ⋯; Save view names the list as it is.
 function SavedViews({ noun, items = [], current = null, onPick, onSave, onRename, onDelete }) {
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState(null); // null, { kind: 'save' }, { kind: 'rename' | 'actions' | 'delete', id }
@@ -148,7 +148,7 @@ function SavedViews({ noun, items = [], current = null, onPick, onSave, onRename
           ))}
           <div className="ax-views-divider" />
           {mode?.kind === 'save' ? form : (
-            <button type="button" role="menuitem" className="ax-menu-item ax-views-save" onClick={() => { setDraft(''); setMode({ kind: 'save' }); }}>Save view…</button>
+            <button type="button" role="menuitem" className="ax-menu-item ax-views-save" onClick={() => { setDraft(''); setMode({ kind: 'save' }); }}>Save view</button>
           )}
         </div>
       ) : null}

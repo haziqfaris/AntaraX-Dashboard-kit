@@ -38,8 +38,8 @@ button,input,select,textarea{font-family:inherit}
           </div>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 8px">
-          <a href="SupportSession.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; text-decoration: none">Start support session…</a>
-          <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-weight: 500; cursor: pointer">Suspend…</button>
+          <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; cursor: pointer">Start support session</button>
+          <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-weight: 500; cursor: pointer">Suspend</button>
         </div>
       </section>
 
@@ -106,14 +106,14 @@ button,input,select,textarea{font-family:inherit}
         <section style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 22px; display: flex; flex-direction: column; gap: 10px">
           <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: center">
             <p style="margin: 0; font-size: 13px">An organisation always keeps at least one Owner. Transferring ownership is recorded in Audit.</p>
-            <button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Transfer ownership…</button>
+            <button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; cursor: pointer">Transfer ownership</button>
           </div>
           <div style="overflow-x: auto">
             <table style="width: 100%; min-width: 760px; border-collapse: collapse; font-size: 13px">
               <thead><tr style="text-align: left; color: #5B6488; font-size: 12px"><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Member</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Role</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Last sign-in</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE">Status</th><th scope="col" style="font-weight: 500; padding: 8px; border-bottom: 1px solid #E5E8EE; text-align: right">Actions</th></tr></thead>
               <tbody>
                 <sc-for list="{{members}}" as="m" hint-placeholder-count="5">
-                  <tr><td style="padding: 8px; border-bottom: 1px solid #EEF1F6"><span style="color: #0B1B4F">{{m.name}}</span><div class="mono" style="font-size: 11px; color: #5B6488">{{m.email}}</div></td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6">{{m.role}}</td><td class="mono" style="padding: 8px; border-bottom: 1px solid #EEF1F6; font-size: 12px">{{m.last}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6">{{m.status}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6; text-align: right; white-space: nowrap"><button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Resend sign-in</button> <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Revoke sessions</button> <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-size: 12px; cursor: pointer">Lock…</button></td></tr>
+                  <tr><td style="padding: 8px; border-bottom: 1px solid #EEF1F6"><span style="color: #0B1B4F">{{m.name}}</span><div class="mono" style="font-size: 11px; color: #5B6488">{{m.email}}</div></td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6">{{m.role}}</td><td class="mono" style="padding: 8px; border-bottom: 1px solid #EEF1F6; font-size: 12px">{{m.last}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6">{{m.status}}</td><td style="padding: 8px; border-bottom: 1px solid #EEF1F6; text-align: right; white-space: nowrap"><button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Resend sign-in</button> <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 12px; cursor: pointer">Revoke sessions</button> <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 8px; border: 1px solid #F6B5AF; background: #FFFFFF; color: #B42318; font-size: 12px; cursor: pointer">Lock</button></td></tr>
                 </sc-for>
               </tbody>
             </table>

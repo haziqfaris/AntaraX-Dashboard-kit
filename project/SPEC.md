@@ -1,6 +1,6 @@
 # REKA project template
 
-**v1.1 · 16 Oct 2026.** The standard for dashboards REKA builds for a client: bespoke work carrying the client's brand, and the AXLE REKA runs it from. Decided by the owner on 16 Oct 2026. The mock: [`mock/`](mock/README.md); the branding SOP: [`BRANDING.md`](BRANDING.md).
+**v1.2 · 26 Oct 2026** (v1.1 on 16 Oct 2026). The standard for dashboards REKA builds for a client: bespoke work carrying the client's brand, and the AXLE REKA runs it from. Decided by the owner on 16 Oct 2026. The mock: [`mock/`](mock/README.md); the branding SOP: [`BRANDING.md`](BRANDING.md).
 
 ## 1 Three dashboards
 
@@ -25,6 +25,7 @@ Everything in [`app/SPEC.md`](../app/SPEC.md) that is about **places, words and 
 | §4 Standard pages | `/account`, `/settings` (and its standard sections), `/guide`, `/help`, `/legal/privacy`, `/legal/terms`. The legal pages are the client's, under the client's name |
 | §4 Roles | Owner, Admin, Member, Viewer mean the same; the project may add roles named for a job |
 | §6 to §11 | Getting in, banners in order, notifications, feedback and support through YaraOne (§6 here), dialogs, toasts, errors and empty states: the same words and behaviour |
+| §11b | Buttons and links: an action is a button, a link only goes somewhere, no label ends in "…" (§8a here) |
 | §12 | Every wait animated, in the project's own quiet style; never "Loading…" alone, a static placeholder or a spinner |
 | §13 | The organisation's admin area, including Support access for REKA support sessions |
 | §15 Built right | All of it: passwords, forms, PDPA data handling, speed and caching, reliability, security, time and language, devices |
@@ -142,6 +143,16 @@ Patterns that come back in nearly every client project. Each is built once in th
 
 A pattern a second project needs and this list lacks is added here first, mocked, then built into the starter.
 
+## 8a Buttons and links (owner, 26 Oct 2026)
+
+App SPEC §11b, in shadcn/ui's terms. Decided after a blue text link reading "Remove…" in a product.
+
+- **An action is a button:** shadcn/ui's `Button` in its `default`, `secondary`, `outline`, `ghost` or `destructive` variant. That covers save, start, remove, delete, revoke, invite, export, and opening a dialog that leads to an action. 44px on a touch screen; size `sm` in a dense row, with a 44px hit area.
+- **A link only goes somewhere.** The `link` variant and link-coloured text are for navigation only: another page, another address, a file to open, always a real `href` (Next.js `Link`, or `Button asChild` around one).
+- **Remove and Delete use `destructive`,** never the `link` variant or coloured link text.
+- **In a menu,** an action is a `DropdownMenuItem`, drawn like the items around it.
+- **No trailing ellipsis.** No button, menu item, link, tab or placeholder ends in "…" or "...": "Remove", "Save view", "Search assets". The dots are an old desktop convention (Apple's and Microsoft's guidelines) for "a dialog will ask for more first"; the client's people don't read them that way, and the dialog explains itself. Not affected: text cut short by CSS, the "⋯" more-actions button, an ellipsis standing for something left out, and a button's words while it works ("Saving…").
+
 ## 9 How to prove it
 
 | Check | Passes when |
@@ -152,6 +163,7 @@ A pattern a second project needs and this list lacks is added here first, mocked
 | **Places** | Help second from the right and the account at the far right on every page; the account menu in app SPEC §3's order |
 | **Credit** | "Built by REKA" on the sign-in foot, the account menu foot and the footer, and nowhere else |
 | **Legal** | The legal pages name the client, not REKA or AntaraX |
+| **Buttons and links** | `node tools/check-shell.mjs` finds no label or placeholder ending in "…" or "..." and no `<a>` without a real `href`; a search of the code finds no `variant="link"` on an action; Remove and Delete are `destructive` (§8a) |
 | **Shell checks** | app SPEC §17's checks, except the ones about AntaraX's look |
 
 ## 10 Decisions
@@ -165,5 +177,6 @@ All by the owner, 16 Oct 2026:
 - The stack: Next.js, TypeScript, Tailwind, shadcn/ui, TanStack, React Hook Form with Zod, Supabase, Refine where it fits.
 - **v1.1:** the template includes the project's AXLE, and the building blocks (§8).
 - **v1.1, client branding for REKA's SOP:** a client's brand kit is adopted; without one, REKA's default (§3a, `BRANDING.md`). The bare minimum stays either way.
+- **v1.2, 26 Oct 2026:** buttons and links (§8a): an action is a button, a link only goes somewhere, Remove and Delete are destructive, no label ends in "…".
 
 New questions go here.

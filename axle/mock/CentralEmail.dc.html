@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Email · AXLE</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0;background:#F5F7FC}
+a{color:#0459F7;text-decoration:none}a:hover{color:#002EB2;text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+:focus-visible{outline:2px solid #0459F7;outline-offset:2px}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #F5F7FC; color: #3B4469; font-family: Poppins, ui-sans-serif, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-wrap: wrap; align-items: stretch">
+  <div style="flex: 1 0 240px; max-width: 100%; background: #0C1B47; display: flex"><dc-import name="Sidebar" active="Email" mode="dashboard" staff-name="{{staffName}}" staff-rung="{{staffRung}}" initials="{{initials}}" hint-size="240px,1400px"></dc-import></div>
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <dc-import name="TopBar" page-title="Email" initials="{{initials}}" hint-size="100%,80px"></dc-import>
+    <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
+
+      <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; align-items: flex-end">
+        <div style="display: flex; flex-direction: column; gap: 4px; max-width: 900px">
+          <span class="mono" style="align-self: flex-start; font-size: 10px; font-weight: 600; letter-spacing: .1em; color: #5B6488; border: 1px solid #D5DBE7; border-radius: 999px; padding: 1px 8px">AXLE CENTRAL · EVERY PRODUCT</span>
+          <p style="margin: 0; color: #0B1B4F; font-size: 16px">Every AntaraX product's email, what needs a person, and whether an address is blocked.</p>
+          <p style="margin: 0; font-size: 12px; color: #5B6488">10 products send from <span class="mono">mail.antarax.ai</span>, each as itself (<span class="mono">AX Frame &lt;frame@mail.antarax.ai&gt;</span> and so on) · replies go to <span class="mono">support@go.antarax.ai</span> · through AntaraX email, on Resend. Angka is deferred. Last 7 days, times in MYT. The service never keeps a body, subject, link, code or whole address, so none appears here.</p>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap">
+          <button type="button" onClick="{{exportCsv}}" style="display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-size: 13px; font-weight: 500; cursor: pointer">Export CSV</button>
+        </div>
+      </div>
+
+      <sc-if value="{{exported}}" hint-placeholder-val="{{false}}">
+        <p role="status" style="margin: 0; padding: 10px 12px; border-radius: 12px; background: #E7F8EF; border: 1px solid #A6E4C6; color: #067647; font-size: 13px">Downloaded <span class="mono">axle-central-email-2026-10-18.csv</span>: {{shownCount}} rows with their product, masked addresses only.</p>
+      </sc-if>
+
+      <section aria-labelledby="np-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 12px">
+          <h2 id="np-h" style="margin: 0; color: #0B1B4F; font-size: 17px; font-weight: 600; display: flex; align-items: center; gap: 10px"><span style="width: 9px; height: 9px; transform: rotate(45deg); background: #FB9800; border-radius: 1px"></span>Needs a person</h2>
+          <span class="mono" style="font-size: 12px; color: #5B6488">{{needsCount}} open alerts · worst first · emailed to the operators every hour until they clear</span>
+        </div>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+          <sc-for list="{{needs}}" as="x" hint-placeholder-count="3">
+            <li style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 14px; border-radius: 14px; background: {{x.bg}}; border: 1px solid {{x.line}}">
+              <span style="font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: {{x.tint}}; color: {{x.ink}}; flex: none">{{x.level}}</span>
+              <span style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column">
+                <span style="color: #0B1B4F; font-weight: 500">{{x.kind}} · {{x.product}}</span>
+                <span style="font-size: 13px">{{x.detail}}</span>
+                <span class="mono" style="font-size: 11px; color: #5B6488">since {{x.first}} · last seen {{x.last}}</span>
+              </span>
+              <button type="button" onClick="{{x.open}}" style="flex: none; min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0459F7; font-size: 13px; font-weight: 500; cursor: pointer">{{x.go}}</button>
+            </li>
+          </sc-for>
+        </ul>
+      </section>
+
+      <section aria-labelledby="pt-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; justify-content: space-between">
+          <h2 id="pt-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Products</h2>
+          <span style="font-size: 12px; color: #5B6488">Last 7 days. Choose a product to see its emails below.</span>
+        </div>
+        <div style="overflow-x: auto">
+          <div role="table" aria-label="Email by product" style="display: flex; flex-direction: column; min-width: 900px">
+            <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(5, 76px) 84px 140px 140px; gap: 10px; padding: 6px 8px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+              <span role="columnheader">Product and sender</span><span role="columnheader" style="text-align: right">Sent</span><span role="columnheader" style="text-align: right">Delivered</span><span role="columnheader" style="text-align: right">Bounced</span><span role="columnheader" style="text-align: right">Spam</span><span role="columnheader" style="text-align: right">Failed</span><span role="columnheader" style="text-align: right">Delivery rate</span><span role="columnheader">Today, of the team's 80</span><span role="columnheader">Alert</span>
+            </div>
+            <sc-for list="{{prodRows}}" as="p" hint-placeholder-count="10">
+              <button type="button" role="row" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="{{p.style}}">
+                <span role="cell" style="display: flex; flex-direction: column; min-width: 0"><span style="color: #0B1B4F; font-weight: 500">{{p.name}}</span><span class="mono" style="font-size: 11px; color: #5B6488; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.sender}}</span></span>
+                <span role="cell" class="mono" style="text-align: right; color: #0B1B4F">{{p.total}}</span>
+                <span role="cell" class="mono" style="text-align: right">{{p.delivered}}</span>
+                <span role="cell" class="mono" style="text-align: right">{{p.bounced}}</span>
+                <span role="cell" class="mono" style="text-align: right">{{p.spam}}</span>
+                <span role="cell" class="mono" style="text-align: right">{{p.failed}}</span>
+                <span role="cell" class="mono" style="text-align: right; color: #0B1B4F">{{p.rate}}</span>
+                <span role="cell" style="display: flex; flex-direction: column; gap: 3px"><span class="mono" style="font-size: 12px; color: {{p.limInk}}">{{p.limWord}}</span><span style="height: 6px; border-radius: 999px; background: #EEF1F6; overflow: hidden"><span style="display: block; height: 100%; width: {{p.limPct}}; background: {{p.limBar}}; border-radius: 999px"></span></span></span>
+                <span role="cell"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{p.aTint}}; color: {{p.aInk}}; white-space: nowrap">{{p.aWord}}</span></span>
+              </button>
+            </sc-for>
+            <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.6fr) 1fr; gap: 10px; align-items: center; padding: 8px; border-bottom: 1px solid #EEF1F6; font-size: 13px">
+              <span role="cell" style="display: flex; flex-direction: column"><span style="color: #0B1B4F; font-weight: 500">Angka</span><span class="mono" style="font-size: 11px; color: #5B6488">not on AntaraX email</span></span>
+              <span role="cell" style="color: #5B6488">Deferred: sends its own email</span>
+            </div>
+            <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.6fr) repeat(5, 76px) 84px 140px 140px; gap: 10px; align-items: center; padding: 8px; font-size: 13px">
+              <span role="cell" style="color: #0B1B4F; font-weight: 600">Every product</span>
+              <span role="cell" class="mono" style="text-align: right; color: #0B1B4F; font-weight: 600">{{sum.total}}</span>
+              <span role="cell" class="mono" style="text-align: right; font-weight: 600">{{sum.delivered}}</span>
+              <span role="cell" class="mono" style="text-align: right; font-weight: 600">{{sum.bounced}}</span>
+              <span role="cell" class="mono" style="text-align: right; font-weight: 600">{{sum.spam}}</span>
+              <span role="cell" class="mono" style="text-align: right; font-weight: 600">{{sum.failed}}</span>
+              <span role="cell" class="mono" style="text-align: right; color: #0B1B4F; font-weight: 600">{{sum.rate}}</span>
+              <span role="cell" style="font-size: 12px; color: #0B1B4F"><span class="mono">{{sum.today}}</span> of <span class="mono">80</span> · <span class="mono">20</span> kept for security</span>
+              <span role="cell" style="font-size: 12px; color: #5B6488">{{needsCount}} open</span>
+            </div>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 11px; color: #5B6488">Sent counts every email a product asked for; the next columns are what happened to them. Every product here sends through the antarax team, which allows 80 emails a day across all of them together; past 60, only sign-in, reset and email-changed emails go (Teams, below). A product's alert opens at any security email that failed, 2% bounces once it has sent 20 in a day, or 0.1% spam reports; the team's opens at 80% of its cap.</p>
+      </section>
+
+      <section aria-label="Emails by status, last 7 days" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px">
+        <sc-for list="{{stats}}" as="s" hint-placeholder-count="9">
+          <button type="button" onClick="{{s.pick}}" aria-pressed="{{s.pressed}}" style="{{s.style}}">
+            <span style="font-size: 12px; color: #5B6488">{{s.label}}</span>
+            <span class="mono" style="font-size: 22px; color: {{s.ink}}; line-height: 1.2">{{s.n}}</span>
+          </button>
+        </sc-for>
+      </section>
+
+      <section aria-labelledby="list-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center">
+          <h2 id="list-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600; margin-right: auto">{{listTitle}}</h2>
+          <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #5B6488">Product
+            <select onChange="{{pickProduct}}" style="min-height: 34px; border-radius: 10px; border: 1px solid #D5DBE7; padding: 0 8px; font-size: 13px; color: #0B1B4F; background: #FFFFFF">
+              <sc-for list="{{productOptions}}" as="o" hint-placeholder-count="11"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for>
+            </select>
+          </label>
+          <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #5B6488">Email
+            <select onChange="{{pickTemplate}}" style="min-height: 34px; border-radius: 10px; border: 1px solid #D5DBE7; padding: 0 8px; font-size: 13px; color: #0B1B4F; background: #FFFFFF">
+              <sc-for list="{{templateOptions}}" as="o" hint-placeholder-count="7"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for>
+            </select>
+          </label>
+          <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #5B6488">Organisation
+            <select onChange="{{pickOrg}}" style="min-height: 34px; border-radius: 10px; border: 1px solid #D5DBE7; padding: 0 8px; font-size: 13px; color: #0B1B4F; background: #FFFFFF">
+              <sc-for list="{{orgOptions}}" as="o" hint-placeholder-count="8"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for>
+            </select>
+          </label>
+        </div>
+        <div style="overflow-x: auto">
+          <div role="table" aria-label="Emails across products" style="display: flex; flex-direction: column; min-width: 820px">
+            <div role="row" style="display: grid; grid-template-columns: 70px 128px minmax(0, 1.2fr) minmax(0, 1.3fr) minmax(0, 1.1fr) 132px; gap: 10px; padding: 6px 8px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+              <span role="columnheader">When</span><span role="columnheader">Product</span><span role="columnheader">Email</span><span role="columnheader">To</span><span role="columnheader">Organisation</span><span role="columnheader">Status</span>
+            </div>
+            <sc-for list="{{rows}}" as="r" hint-placeholder-count="12">
+              <button type="button" role="row" onClick="{{r.open}}" aria-pressed="{{r.pressed}}" style="{{r.style}}">
+                <span role="cell" class="mono" style="font-size: 12px; color: #0B1B4F">{{r.when}}</span>
+                <span role="cell" style="color: #0B1B4F; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.product}}</span>
+                <span role="cell" style="display: flex; flex-direction: column; min-width: 0"><span style="color: #0B1B4F; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.label}}</span><span style="font-size: 11px; color: #5B6488">{{r.cls}}</span></span>
+                <span role="cell" class="mono" style="font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.to}}</span>
+                <span role="cell" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.org}}</span>
+                <span role="cell"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{r.tint}}; color: {{r.ink}}; white-space: nowrap">{{r.word}}</span></span>
+              </button>
+            </sc-for>
+            <sc-if value="{{empty}}" hint-placeholder-val="{{false}}">
+              <p style="margin: 0; padding: 18px 8px; font-size: 13px; color: #5B6488">No email matches these filters. <button type="button" onClick="{{clear}}" style="border: 0; background: transparent; color: #0459F7; cursor: pointer; padding: 0; font-size: 13px">Clear filters</button></p>
+            </sc-if>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 11px; color: #5B6488">Showing the latest {{shownCount}} of {{totalWord}}. Older pages load as you scroll, 25 at a time. Emails are kept 90 days.</p>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+        <section aria-labelledby="one-h" style="flex: 1 1 460px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{one.tint}}; color: {{one.ink}}">{{one.word}}</span><span style="font-size: 12px; color: #5B6488">{{one.cls}}</span></span>
+            <h2 id="one-h" style="margin: 0; color: #0B1B4F; font-size: 18px; font-weight: 600">{{one.product}}: {{one.label}} to <span class="mono" style="font-size: 16px">{{one.to}}</span></h2>
+            <span style="font-size: 13px">{{one.reason}}</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+            <sc-for list="{{one.facts}}" as="f" hint-placeholder-count="8">
+              <div style="display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; background: #F5F7FC; min-width: 0">
+                <span style="font-size: 11px; color: #5B6488">{{f.label}}</span>
+                <span class="mono" style="font-size: 12px; color: #0B1B4F; overflow-wrap: anywhere">{{f.value}}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px">
+            <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Attempts and what the provider reported, oldest first</h3>
+            <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0">
+              <sc-for list="{{one.events}}" as="e" hint-placeholder-count="3">
+                <li style="display: grid; grid-template-columns: 72px 14px 1fr; gap: 8px; align-items: start; font-size: 13px">
+                  <span class="mono" style="font-size: 12px; color: #5B6488; padding-top: 1px">{{e.at}}</span>
+                  <span style="display: flex; flex-direction: column; align-items: center; height: 100%"><span style="width: 10px; height: 10px; border-radius: 50%; background: {{e.dot}}; margin-top: 5px"></span><span style="flex: 1; width: 2px; background: #E5E8EE; min-height: 14px"></span></span>
+                  <span style="display: flex; flex-direction: column; padding-bottom: 8px"><span style="color: #0B1B4F">{{e.what}}</span><span class="mono" style="font-size: 11px; color: #5B6488">{{e.src}}</span></span>
+                </li>
+              </sc-for>
+            </ol>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <a href="Email.dc.html" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; color: #0B1B4F; font-weight: 500; font-size: 13px">Open in {{one.product}}'s AXLE</a>
+            <sc-if value="{{one.canCheck}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{one.check}}" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; font-size: 13px; cursor: pointer">Check this address</button></sc-if>
+          </div>
+        </section>
+
+        <section aria-labelledby="chk-h" style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+          <h2 id="chk-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Is this address blocked?</h2>
+          <p style="margin: 0; font-size: 12px; color: #5B6488">Across every product. Type the address the person gave you. It is checked, not stored; Audit keeps it masked.</p>
+          <form onSubmit="{{lookup}}" style="display: flex; flex-wrap: wrap; gap: 8px">
+            <label for="addr" style="position: absolute; left: -9999px">Email address</label>
+            <input id="addr" type="email" inputmode="email" autocomplete="off" value="{{addr}}" onInput="{{typeAddr}}" placeholder="name@example.com" style="flex: 1 1 240px; min-height: 40px; border-radius: 12px; border: 1px solid #D5DBE7; padding: 0 12px; font-size: 14px; font-family: 'JetBrains Mono', monospace; color: #0B1B4F">
+            <button type="submit" style="min-height: 40px; padding: 0 16px; border-radius: 12px; border: 0; background: #FB9800; color: #071233; font-weight: 600; font-size: 14px; cursor: pointer">Check</button>
+          </form>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; color: #5B6488">Try:
+            <sc-for list="{{tries}}" as="t" hint-placeholder-count="3"><button type="button" onClick="{{t.pick}}" class="mono" style="border: 1px solid #E5E8EE; background: #F5F7FC; border-radius: 999px; padding: 1px 8px; font-size: 11px; color: #0B1B4F; cursor: pointer">{{t.addr}}</button></sc-for>
+          </div>
+          <sc-if value="{{hasAnswer}}" hint-placeholder-val="{{false}}">
+            <div role="status" style="display: flex; flex-direction: column; gap: 10px">
+              <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 14px; background: {{ans.bg}}; border: 1px solid {{ans.line}}">
+                <span style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: #FFFFFF; color: {{ans.ink}}">{{ans.word}}</span><span class="mono" style="font-size: 13px; color: #0B1B4F">{{ans.masked}}</span></span>
+                <span style="font-size: 13px; color: #0B1B4F">{{ans.line1}}</span>
+                <span style="font-size: 12px; color: #5B6488">{{ans.line2}}</span>
+                <sc-if value="{{ans.canLift}}" hint-placeholder-val="{{false}}">
+                  <div style="display: flex; flex-direction: column; gap: 6px; padding-top: 4px">
+                    <label for="why" style="font-size: 12px; color: #0B1B4F; font-weight: 500">Reason (the person's request)</label>
+                    <input id="why" value="{{why}}" onInput="{{typeWhy}}" disabled="{{whyDisabled}}" placeholder="Asked on YO-1063: mailbox fixed, wants Contoh Logistik's emails again" style="min-height: 38px; border-radius: 10px; border: 1px solid #D5DBE7; padding: 0 10px; font-size: 13px; color: #0B1B4F; background: #FFFFFF">
+                    <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+                      <button type="button" onClick="{{lift}}" disabled="{{liftDisabled}}" style="{{liftStyle}}"><span>Lift the bounce</span><span class="mono" style="font-size: 10px; letter-spacing: .06em; opacity: .8">ADMIN</span></button>
+                      <span style="font-size: 12px; color: #5B6488">{{liftNote}}</span>
+                    </span>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 4px">
+                <h3 style="margin: 0; font-size: 13px; font-weight: 600; color: #0B1B4F">Spam marks, by product</h3>
+                <sc-for list="{{ans.marks}}" as="m" hint-placeholder-count="2">
+                  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; padding: 6px 0; border-top: 1px solid #EEF1F6; font-size: 13px">
+                    <span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: #FEECEB; color: #B42318">Marked as spam</span>
+                    <span style="color: #0B1B4F; font-weight: 500">{{m.product}}</span>
+                    <span class="mono" style="font-size: 12px; color: #5B6488">{{m.when}}</span>
+                    <span style="flex: 1 1 200px; font-size: 12px; color: #5B6488">{{m.stops}}</span>
+                    <a href="Email.dc.html" style="font-size: 12px">Lift in {{m.product}}'s AXLE</a>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ans.noMarks}}" hint-placeholder-val="{{false}}"><p style="margin: 0; padding: 6px 0; border-top: 1px solid #EEF1F6; font-size: 13px; color: #5B6488">None. No product has a spam mark for this address.</p></sc-if>
+              </div>
+            </div>
+          </sc-if>
+        </section>
+      </div>
+
+      <section aria-labelledby="al-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; justify-content: space-between">
+          <h2 id="al-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Alerts</h2>
+          <span style="font-size: 12px; color: #5B6488">Open, and cleared in the last 7 days. An open alert is emailed to the operators every hour until it clears.</span>
+        </div>
+        <div style="overflow-x: auto">
+          <div role="table" aria-label="Alerts" style="display: flex; flex-direction: column; min-width: 820px">
+            <div role="row" style="display: grid; grid-template-columns: 96px minmax(0, 1fr) 118px minmax(0, 2fr) 104px 104px 104px; gap: 10px; padding: 6px 8px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+              <span role="columnheader">State</span><span role="columnheader">Alert</span><span role="columnheader">Product</span><span role="columnheader">What happened</span><span role="columnheader">First seen</span><span role="columnheader">Last seen</span><span role="columnheader">Cleared</span>
+            </div>
+            <sc-for list="{{alerts}}" as="a" hint-placeholder-count="7">
+              <div role="row" style="display: grid; grid-template-columns: 96px minmax(0, 1fr) 118px minmax(0, 2fr) 104px 104px 104px; gap: 10px; align-items: start; padding: 8px; border-bottom: 1px solid #EEF1F6; font-size: 13px">
+                <span role="cell"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{a.tint}}; color: {{a.ink}}; white-space: nowrap">{{a.state}}</span></span>
+                <span role="cell" style="color: #0B1B4F; font-weight: 500">{{a.kind}}</span>
+                <span role="cell">{{a.product}}</span>
+                <span role="cell">{{a.detail}}</span>
+                <span role="cell" class="mono" style="font-size: 12px">{{a.first}}</span>
+                <span role="cell" class="mono" style="font-size: 12px">{{a.last}}</span>
+                <span role="cell" class="mono" style="font-size: 12px">{{a.cleared}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="svc-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; justify-content: space-between">
+          <h2 id="svc-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">The service</h2>
+          <span class="mono" style="font-size: 12px; color: #5B6488">antarax-api 0.8.1 · checked 14:34 MYT</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px">
+          <sc-for list="{{service}}" as="v" hint-placeholder-count="6">
+            <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: 14px; background: #F5F7FC; min-width: 0">
+              <span style="font-size: 12px; color: #5B6488">{{v.label}}</span>
+              <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{v.tint}}; color: {{v.ink}}">{{v.word}}</span><span class="mono" style="font-size: 12px; color: #0B1B4F; overflow-wrap: anywhere">{{v.value}}</span></span>
+              <span style="font-size: 12px">{{v.detail}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section aria-labelledby="tm-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; justify-content: space-between">
+          <h2 id="tm-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Teams</h2>
+          <span style="font-size: 12px; color: #5B6488">Each team is its own Resend account: its own domain, day's cap, bill and reputation. One team's bounces or quota never stop another's.</span>
+        </div>
+        <div style="overflow-x: auto">
+          <div role="table" aria-label="Teams" style="display: flex; flex-direction: column; min-width: 980px">
+            <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.2fr) 150px 190px 190px 170px 230px; gap: 10px; padding: 6px 8px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+              <span role="columnheader">Team</span><span role="columnheader">Sending domain</span><span role="columnheader">Key</span><span role="columnheader">Delivery reports</span><span role="columnheader">Standby</span><span role="columnheader">Today, against its day's cap</span>
+            </div>
+            <sc-for list="{{teams}}" as="t" hint-placeholder-count="3">
+              <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.2fr) 150px 190px 190px 170px 230px; gap: 10px; align-items: start; padding: 10px 8px; border-bottom: 1px solid #EEF1F6; font-size: 13px">
+                <span role="cell" style="display: flex; flex-direction: column; min-width: 0"><span class="mono" style="color: #0B1B4F; font-weight: 600">{{t.id}}</span><span style="font-size: 12px; color: #5B6488">{{t.what}}</span></span>
+                <span role="cell" class="mono" style="font-size: 12px; color: #0B1B4F">{{t.domain}}</span>
+                <span role="cell" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{t.keyTint}}; color: {{t.keyInk}}; white-space: nowrap">{{t.keyWord}}</span><span class="mono" style="font-size: 11px; color: #5B6488; overflow-wrap: anywhere">{{t.keyHint}}</span></span>
+                <span role="cell" style="display: flex; flex-direction: column; gap: 3px; align-items: flex-start"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{t.hookTint}}; color: {{t.hookInk}}; white-space: nowrap">{{t.hookWord}}</span><span class="mono" style="font-size: 11px; color: #5B6488; overflow-wrap: anywhere">{{t.hookHint}}</span></span>
+                <span role="cell" style="display: flex; flex-direction: column; min-width: 0"><span class="mono" style="font-size: 12px; color: {{t.standbyInk}}">{{t.standby}}</span><span style="font-size: 11px; color: #5B6488; overflow-wrap: anywhere">{{t.standbyHint}}</span></span>
+                <span role="cell" style="display: flex; flex-direction: column; gap: 4px">
+                  <span style="font-size: 12px; color: #0B1B4F"><span class="mono">{{t.used}}</span> of <span class="mono">{{t.cap}}</span> · <span class="mono">{{t.reserve}}</span> kept for security</span>
+                  <span aria-hidden="true" style="position: relative; height: 8px; border-radius: 999px; background: #EEF1F6; overflow: hidden"><span style="position: absolute; top: 0; bottom: 0; right: 0; width: {{t.reservePct}}; background: #D5DBE7"></span><span style="position: absolute; top: 0; bottom: 0; left: 0; width: {{t.usedPct}}; background: {{t.bar}}; border-radius: 999px"></span></span>
+                  <span style="font-size: 11px; color: #5B6488">{{t.capNote}}</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 11px; color: #5B6488">A key is a Worker secret, <span class="mono">RESEND_KEY_&lt;TEAM&gt;</span>, set with <span class="mono">npx wrangler secret put</span>. This page shows only whether it is set, never its value. The grey end of each bar is the security reserve: past it only sign-in, reset and email-changed emails go, and at the cap nothing new does. A new team is declared in <span class="mono">TEAMS</span> on the Worker, not here.</p>
+      </section>
+
+      <section aria-labelledby="sd-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center">
+          <div style="display: flex; flex-direction: column; margin-right: auto">
+            <h2 id="sd-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Senders</h2>
+            <span style="font-size: 12px; color: #5B6488">Who sends, as whom, from which address, and where its links may go. AntaraX's products are in code; anyone else is registered here.</span>
+          </div>
+          <span style="display: inline-flex; align-items: center; gap: 10px">
+            <span style="font-size: 12px; color: #5B6488">{{adminNote}}</span>
+            <button type="button" onClick="{{newSender}}" disabled="{{notAdmin}}" style="{{mainStyle}}">Register a sender</button>
+          </span>
+        </div>
+        <div style="overflow-x: auto">
+          <div role="table" aria-label="Senders" style="display: flex; flex-direction: column; min-width: 1000px">
+            <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.1fr) 84px minmax(0, 1.2fr) minmax(0, 1.6fr) 104px 96px 96px; gap: 10px; padding: 6px 8px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+              <span role="columnheader">Sender and service id</span><span role="columnheader">Team</span><span role="columnheader">Address</span><span role="columnheader">Links may go to</span><span role="columnheader">Source</span><span role="columnheader">State</span><span role="columnheader"><span style="position: absolute; left: -9999px">Change</span></span>
+            </div>
+            <sc-for list="{{senders}}" as="s" hint-placeholder-count="14">
+              <div role="row" style="{{s.style}}">
+                <span role="cell" style="display: flex; flex-direction: column; min-width: 0"><span style="color: #0B1B4F; font-weight: 500">{{s.name}}</span><span class="mono" style="font-size: 11px; color: #5B6488">{{s.service}}</span></span>
+                <span role="cell" class="mono" style="font-size: 12px">{{s.team}}</span>
+                <span role="cell" class="mono" style="font-size: 12px; color: #0B1B4F; overflow-wrap: anywhere">{{s.address}}</span>
+                <span role="cell" class="mono" style="font-size: 11px; overflow-wrap: anywhere">{{s.origins}}</span>
+                <span role="cell"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{s.srcTint}}; color: {{s.srcInk}}; white-space: nowrap">{{s.source}}</span></span>
+                <span role="cell" style="font-size: 12px; color: {{s.stateInk}}">{{s.state}}</span>
+                <span role="cell">
+                  <sc-if value="{{s.editable}}" hint-placeholder-val="{{false}}"><button type="button" onClick="{{s.edit}}" disabled="{{notAdmin}}" aria-label="Edit {{s.service}}" style="{{smallStyle}}">Edit</button></sc-if>
+                  <sc-if value="{{s.readOnly}}" hint-placeholder-val="{{true}}"><span style="font-size: 12px; color: #5B6488">Read only</span></sc-if>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <p style="margin: 0; font-size: 11px; color: #5B6488">A sender in code is changed by a pull request to antarax-api, never here, and data can never override one. Angka's is in code and deferred: it sends its own email.</p>
+
+        <sc-if value="{{formOpen}}" hint-placeholder-val="{{true}}">
+          <form onSubmit="{{saveSender}}" aria-labelledby="sf-h" style="display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 16px; border: 1px solid #E5E8EE; background: #F5F7FC">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; justify-content: space-between">
+              <h3 id="sf-h" style="margin: 0; color: #0B1B4F; font-size: 15px; font-weight: 600">{{form.title}}</h3>
+              <span class="mono" style="font-size: 11px; color: #5B6488">PUT /internal/axle/v1/email/senders/{{form.serviceShown}}</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px 16px">
+              <sc-for list="{{form.fields}}" as="f" hint-placeholder-count="11">
+                <label style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+                  <span style="font-size: 12px; color: #0B1B4F; font-weight: 500">{{f.label}} <span style="font-weight: 400; color: #5B6488">{{f.optional}}</span></span>
+                  <span style="display: flex; align-items: center; gap: 8px">
+                    <sc-if value="{{f.swatch}}" hint-placeholder-val="{{false}}"><span aria-hidden="true" style="flex: none; width: 22px; height: 22px; border-radius: 6px; border: 1px solid #D5DBE7; background: {{f.value}}"></span></sc-if>
+                    <sc-if value="{{f.isInput}}" hint-placeholder-val="{{true}}"><input value="{{f.value}}" onInput="{{f.type}}" disabled="{{f.locked}}" placeholder="{{f.placeholder}}" aria-invalid="{{f.invalid}}" style="flex: 1 1 auto; min-width: 0; min-height: 38px; border-radius: 10px; border: 1px solid {{f.line}}; padding: 0 10px; font-size: 13px; font-family: {{f.font}}; color: #0B1B4F; background: {{f.ground}}"></sc-if>
+                    <sc-if value="{{f.isSelect}}" hint-placeholder-val="{{false}}"><select onChange="{{f.type}}" disabled="{{f.locked}}" style="flex: 1 1 auto; min-width: 0; min-height: 38px; border-radius: 10px; border: 1px solid #D5DBE7; padding: 0 8px; font-size: 13px; font-family: {{f.font}}; color: #0B1B4F; background: #FFFFFF"><sc-for list="{{f.options}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for></select></sc-if>
+                  </span>
+                  <span style="font-size: 11px; color: {{f.helpInk}}">{{f.help}}</span>
+                </label>
+              </sc-for>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+              <button type="submit" disabled="{{notAdmin}}" style="{{mainStyle}}">{{form.saveWord}}</button>
+              <button type="button" onClick="{{closeForm}}" style="{{secondStyle}}">Cancel</button>
+              <span style="font-size: 12px; color: {{form.noteInk}}">{{form.note}}</span>
+            </div>
+            <sc-if value="{{form.saved}}" hint-placeholder-val="{{true}}">
+              <div role="status" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: 14px; background: #E7F8EF; border: 1px solid #A6E4C6">
+                <span style="font-size: 13px; color: #067647; font-weight: 600">{{form.savedLine}}</span>
+                <span style="font-size: 13px; color: #0B1B4F">Put <span class="mono">{{form.secret}}</span> on the Worker: <span class="mono">npx wrangler secret put {{form.secret}}</span>. The app keeps the same value as <span class="mono">AX_SVC_KEY</span>. Until the Worker has it, every call signed as <span class="mono">{{form.serviceShown}}</span> is refused.</span>
+                <sc-if value="{{form.teamWaits}}" hint-placeholder-val="{{true}}"><span style="font-size: 13px; color: #B54708">{{form.teamWaitLine}}</span></sc-if>
+                <span style="font-size: 12px; color: #5B6488">The key is made and copied outside AXLE, so it never appears on this page. Recorded in Audit by Mei Lin.</span>
+              </div>
+            </sc-if>
+          </form>
+        </sc-if>
+      </section>
+
+      <section aria-labelledby="dm-h" style="background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; flex-direction: column">
+          <h2 id="dm-h" style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600">Client domains</h2>
+          <span style="font-size: 12px; color: #5B6488">A client who sends from its own domain adds these records at its DNS host. Once the domain is verified, a sender on it can be registered on the same team.</span>
+        </div>
+        <form onSubmit="{{addDomain}}" style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 12px">
+          <label style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 260px">
+            <span style="font-size: 12px; color: #0B1B4F; font-weight: 500">Domain</span>
+            <input value="{{dName}}" onInput="{{typeDName}}" disabled="{{notAdmin}}" placeholder="mail.client.example" class="mono" style="min-height: 40px; border-radius: 12px; border: 1px solid #D5DBE7; padding: 0 12px; font-size: 13px; color: #0B1B4F; background: #FFFFFF">
+          </label>
+          <label style="display: flex; flex-direction: column; gap: 4px; flex: 0 1 220px">
+            <span style="font-size: 12px; color: #0B1B4F; font-weight: 500">Team</span>
+            <select onChange="{{pickDTeam}}" disabled="{{notAdmin}}" style="min-height: 40px; border-radius: 12px; border: 1px solid #D5DBE7; padding: 0 8px; font-size: 13px; color: #0B1B4F; background: #FFFFFF">
+              <sc-for list="{{dTeamOptions}}" as="o" hint-placeholder-count="3"><option value="{{o.v}}" selected="{{o.sel}}">{{o.label}}</option></sc-for>
+            </select>
+          </label>
+          <button type="submit" disabled="{{addDisabled}}" style="{{addStyle}}">Add a domain</button>
+          <span style="flex: 1 1 100%; font-size: 12px; color: {{dNoteInk}}">{{dNote}}</span>
+        </form>
+
+        <div style="overflow-x: auto">
+          <div role="table" aria-label="Client domains" style="display: flex; flex-direction: column; min-width: 760px">
+            <div role="row" style="display: grid; grid-template-columns: minmax(0, 1.4fr) 110px 120px 130px 130px; gap: 10px; padding: 6px 8px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+              <span role="columnheader">Domain</span><span role="columnheader">Team</span><span role="columnheader">Status</span><span role="columnheader">Added</span><span role="columnheader">Last checked</span>
+            </div>
+            <sc-for list="{{domains}}" as="d" hint-placeholder-count="1">
+              <button type="button" role="row" onClick="{{d.pick}}" aria-pressed="{{d.pressed}}" style="{{d.style}}">
+                <span role="cell" class="mono" style="font-size: 13px; color: #0B1B4F">{{d.name}}</span>
+                <span role="cell" class="mono" style="font-size: 12px">{{d.team}}</span>
+                <span role="cell"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{d.tint}}; color: {{d.ink}}; white-space: nowrap">{{d.word}}</span></span>
+                <span role="cell" class="mono" style="font-size: 12px">{{d.added}}</span>
+                <span role="cell" class="mono" style="font-size: 12px">{{d.checked}}</span>
+              </button>
+            </sc-for>
+            <sc-if value="{{noDomains}}" hint-placeholder-val="{{false}}">
+              <p style="margin: 0; padding: 14px 8px; font-size: 13px; color: #5B6488">No client domains yet. The first one is added above, on the team that will send for it.</p>
+            </sc-if>
+          </div>
+        </div>
+
+        <sc-if value="{{hasDomain}}" hint-placeholder-val="{{true}}">
+          <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 16px; border: 1px solid #E5E8EE; background: #F5F7FC">
+            <div style="display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center">
+              <div style="display: flex; flex-direction: column; gap: 2px; margin-right: auto; min-width: 0">
+                <span style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{dom.tint}}; color: {{dom.ink}}">{{dom.word}}</span><span style="font-size: 12px; color: #5B6488">on <span class="mono">{{dom.team}}</span></span></span>
+                <h3 style="margin: 0; color: #0B1B4F; font-size: 16px; font-weight: 600"><span class="mono">{{dom.name}}</span>: DNS records for the client to add</h3>
+              </div>
+              <span style="display: inline-flex; align-items: center; gap: 10px">
+                <span style="font-size: 12px; color: #5B6488">{{verifyNote}}</span>
+                <button type="button" onClick="{{verify}}" disabled="{{verifyDisabled}}" style="{{verifyStyle}}">Verify</button>
+              </span>
+            </div>
+            <p role="status" style="margin: 0; font-size: 13px; color: #0B1B4F">{{dom.line}}</p>
+            <div style="overflow-x: auto">
+              <div role="table" aria-label="DNS records for {{dom.name}}" style="display: flex; flex-direction: column; min-width: 900px; background: #FFFFFF; border: 1px solid #E5E8EE; border-radius: 14px; padding: 4px 8px">
+                <div role="row" style="display: grid; grid-template-columns: 76px minmax(0, 1.1fr) minmax(0, 2fr) 70px 110px; gap: 10px; padding: 6px 4px; font-size: 11px; color: #5B6488; border-bottom: 1px solid #E5E8EE">
+                  <span role="columnheader">Type</span><span role="columnheader">Name</span><span role="columnheader">Value</span><span role="columnheader">Priority</span><span role="columnheader">Status</span>
+                </div>
+                <sc-for list="{{dom.records}}" as="r" hint-placeholder-count="3">
+                  <div role="row" style="display: grid; grid-template-columns: 76px minmax(0, 1.1fr) minmax(0, 2fr) 70px 110px; gap: 10px; align-items: center; padding: 8px 4px; border-bottom: 1px solid #EEF1F6; font-size: 13px">
+                    <span role="cell" style="display: flex; flex-direction: column"><span class="mono" style="color: #0B1B4F; font-weight: 600">{{r.type}}</span><span style="font-size: 11px; color: #5B6488">{{r.record}}</span></span>
+                    <span role="cell" style="display: flex; align-items: center; gap: 8px; min-width: 0"><span class="mono" style="font-size: 12px; color: #0B1B4F; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0">{{r.name}}</span><button type="button" onClick="{{r.copyName}}" aria-label="Copy the name of the {{r.record}} record" style="{{r.nameBtn}}">{{r.nameWord}}</button></span>
+                    <span role="cell" style="display: flex; align-items: center; gap: 8px; min-width: 0"><span class="mono" style="font-size: 12px; color: #0B1B4F; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0">{{r.value}}</span><button type="button" onClick="{{r.copyValue}}" aria-label="Copy the value of the {{r.record}} record" style="{{r.valueBtn}}">{{r.valueWord}}</button></span>
+                    <span role="cell" class="mono" style="font-size: 12px">{{r.priority}}</span>
+                    <span role="cell"><span style="font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: {{r.tint}}; color: {{r.ink}}; white-space: nowrap">{{r.word}}</span></span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <p style="margin: 0; font-size: 11px; color: #5B6488">Names are under <span class="mono">{{dom.root}}</span>, as Resend gives them. Copy each one exactly; a value cut short on screen is copied whole. DNS can take up to 72 hours; Resend stops looking after that and the domain reads Failed until it is verified again.</p>
+          </div>
+        </sc-if>
+      </section>
+
+      <p style="margin: 0; font-size: 12px; color: #5B6488">Read from AntaraX email through AXLE Central's server, on the operator-only routes under <span class="mono">/internal/axle/v1/email/</span>, signed with Central's own key; the key never reaches this page, and no product's AXLE can call these routes. Each product's own page is its Watch → Email; the shared Resend plan is in each product's R8 → Capacity. Figures are illustrative.</p>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"rung":{"editor":"enum","options":["Admin","Operator"],"default":"Admin","section":"Who is looking"},"rekatech":{"editor":"enum","options":["No key yet","Key set, domain pending","Domain verified","Domain failed"],"default":"No key yet","section":"The rekatech team"},"$preview":{"width":1440,"height":6200}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { product: 'all', status: 'all', template: 'all', org: 'all', sel: 'c1', addr: '', answer: null, why: '', lifted: false, exported: false,
+      sForm: 'pe', sVals: { service: 'pe', team: 'reka', name: 'REKA PE', address: 'pe@mail.reka.re', origins: 'https://pe.reka.re', action: '#0B1B4F', ground: '#F5F7FC', reply: 'pe-team@reka.example', byline: '', legal: 'REKA Inisiatif Sdn Bhd.', support: 'Questions: pe-team@reka.example' },
+      sSaved: true, sTried: false, extraSenders: [], dName: null, dTeam: 'rekatech', dAdded: [], dSel: null, dStep: {}, copied: null };
+  }
+  renderVals() {
+    var self = this, st = this.state;
+    var admin = (this.props.rung ?? 'Admin') === 'Admin';
+    var S = {
+      delivered: { word: 'Delivered', ink: '#067647', tint: '#E7F8EF', dot: '#12B76A' },
+      sent: { word: 'Sent', ink: '#3B4469', tint: '#EEF1F6', dot: '#2A78D6' },
+      delayed: { word: 'Delayed', ink: '#B54708', tint: '#FEF4E6', dot: '#F79009' },
+      retryable: { word: 'Retrying', ink: '#B54708', tint: '#FEF4E6', dot: '#F79009' },
+      bounced: { word: 'Bounced', ink: '#B42318', tint: '#FEECEB', dot: '#F04438' },
+      complained: { word: 'Marked as spam', ink: '#B42318', tint: '#FEECEB', dot: '#F04438' },
+      suppressed: { word: 'Not sent: blocked', ink: '#B42318', tint: '#FEECEB', dot: '#F04438' },
+      failed: { word: 'Failed', ink: '#B42318', tint: '#FEECEB', dot: '#F04438' }
+    };
+    var KEYS = ['delivered', 'sent', 'delayed', 'retryable', 'bounced', 'complained', 'suppressed', 'failed'];
+    // One row per product on AntaraX email: counts by status over 7 days, in KEYS order, and today's emails. Every product shares the antarax team's 80 a day (20 kept for security); today's add up to 12.
+    var P = [
+      { k: 'frame', name: 'AX Frame', from: 'frame', c: [6, 1, 0, 0, 0, 0, 0, 0], today: 1 },
+      { k: 'yaraone', name: 'YaraOne', from: 'yaraone', c: [9, 1, 0, 0, 0, 0, 1, 0], today: 1 },
+      { k: 'yara', name: 'Yara', from: 'yara', c: [10, 1, 0, 0, 0, 1, 0, 0], today: 2, alert: 'a2' },
+      { k: 'janka', name: 'Janka', from: 'janka', c: [4, 0, 0, 0, 0, 0, 1, 0], today: 1 },
+      { k: 'grid', name: 'PLExyz Grid', from: 'grid', c: [2, 0, 0, 1, 0, 0, 0, 0], today: 1 },
+      { k: 'crowd', name: 'PLExyz Crowd', from: 'crowd', c: [5, 0, 0, 0, 1, 0, 0, 0], today: 1 },
+      { k: 'tinara', name: 'Tinara', from: 'tinara', c: [3, 0, 0, 0, 0, 0, 0, 2], today: 2, alert: 'a1' },
+      { k: 'lapisan', name: 'Lapisan', from: 'lapisan', c: [2, 0, 1, 0, 0, 0, 0, 0], today: 1 },
+      { k: 'gauge', name: 'Gauge', from: 'gauge', c: [1, 1, 0, 0, 0, 0, 0, 0], today: 1 },
+      { k: 'discovery', name: 'REKA Discovery', from: 'discovery', c: [1, 0, 0, 0, 0, 0, 0, 0], today: 1 }
+    ];
+    var PN = {}; P.forEach(function (p) { PN[p.k] = p.name; });
+    function n(x) { return x.toLocaleString('en-GB'); }
+    function count(p, key) { return key === 'all' ? p.c.reduce(function (a, b) { return a + b; }, 0) : p.c[KEYS.indexOf(key)]; }
+    function pct(a, b) { return b ? (100 * a / b).toFixed(1) + '%' : '–'; }
+
+    var KIND = { security_failed: 'Security emails failed', provider: 'Resend is failing', webhook_silent: 'No delivery reports', complaint_rate: 'Spam reports above 0.1%', bounce_rate: 'Bounces above 2%', day_limit: 'Near its day\'s limit' };
+    var RANK = { security_failed: 1, provider: 2, webhook_silent: 3, complaint_rate: 4, bounce_rate: 5, day_limit: 6 };
+    var FAULT = { security_failed: true, provider: true };
+    var AL = [
+      { id: 'a1', kind: 'security_failed', p: 'tinara', open: true, first: '18 Oct 13:41', last: '18 Oct 14:31', cleared: '–', short: 'Security failing', go: 'Show the failed emails', status: 'failed', sel: 'c1',
+        detail: '2 sign-in and reset emails failed today. The provider refused each address as not valid: Tinara\'s member import that morning added addresses ending in a space. People may be unable to sign in.' },
+      { id: 'a2', kind: 'complaint_rate', p: 'yara', open: true, first: '18 Oct 13:21', last: '18 Oct 14:21', cleared: '–', short: 'Spam reports', go: 'Show the spam report', status: 'complained', sel: 'c9',
+        detail: '1 of its 2 emails in the last 24 hours was marked as spam (50%), the daily work-order notice. At this volume one report opens the alert; check what it sends, and to whom.' },
+      { id: 'a4', kind: 'webhook_silent', p: null, open: false, first: '15 Oct 02:10', last: '15 Oct 09:30', cleared: '15 Oct 09:40',
+        detail: '11 emails went out in 24 hours and Resend reported nothing back: the webhook\'s signing secret had been rotated. Reports caught up once it was set again.' },
+      { id: 'a6', kind: 'provider', p: null, open: false, first: '13 Oct 22:05', last: '13 Oct 22:31', cleared: '13 Oct 22:34',
+        detail: 'Resend answered 503 to 5 sends in an hour. Products kept each email and sent it again with the same key; none arrived twice.' },
+      { id: 'a7', kind: 'complaint_rate', p: 'janka', open: false, first: '12 Oct 09:00', last: '12 Oct 18:00', cleared: '13 Oct 09:00',
+        detail: '1 of its 3 emails in 24 hours was marked as spam, on the low-stock digest.' }
+    ];
+    var ALBY = {}; AL.forEach(function (a) { ALBY[a.id] = a; });
+
+    var T = {
+      'auth.sign_in.v1': { short: 'Sign-in code', cls: 'Security' },
+      'auth.password_reset.v1': { short: 'Reset a password', cls: 'Security' },
+      'team.invitation.v1': { short: 'Invitation', cls: 'Service' },
+      'onboarding.welcome.v1': { short: 'Welcome', cls: 'Service' },
+      'system.action_required.v1': { short: 'Something to act on', cls: 'Service' },
+      'system.export_ready.v1': { short: 'Export ready', cls: 'Service' },
+      'notice.v1': { short: 'Notification', cls: 'Activity' }
+    };
+    var ORGS = { reka: 'REKA Studio', teratai: 'Teratai Events', seri: 'Kilang Seri Maju', contoh: 'Contoh Logistik', harapan: 'Harapan Pharma', bumi: 'Bumi Hijau Trading', sinar: 'Sinar Elektrik', nusantara: 'Nusantara Ventures', tenaga: 'Tenaga Hijau' };
+    var ACC = ['Accepted by AntaraX email', 'POST /v1/emails', '#2A78D6'];
+    function at(t) { return [t].concat(ACC); }
+    function ev(t, what, src, dot) { return [t, what, src, dot]; }
+    var E = [
+      { id: 'c1', em: 'em_3e71b0c9d2a54f86b1c7e0a4', at: '14:31', p: 'tinara', tpl: 'auth.sign_in.v1', to: 'n***@rekastudio.example', org: 'reka', s: 'failed', attempts: 1, corr: 'signin_8f21c', code: 'validation_error',
+        reason: 'The provider refused the address for good: it ends in a space. Nur Aina cannot sign in to Tinara until Tinara corrects her address.',
+        events: [at('14:31:02'), ev('14:31:03', 'Refused by the provider: not a valid address', 'failed · validation_error', '#F04438')] },
+      { id: 'c2', em: 'em_8a20f4c6e1b937d5a0c2f6e8', at: '14:28', p: 'crowd', tpl: 'notice.v1', to: 'm***@teratai.example', org: 'teratai', s: 'bounced', attempts: 1, corr: 'ntf_event_reminder_1018', code: 'bounce_permanent', chk: { k: 'bounce', on: '18 Oct, on a PLExyz Crowd email', marks: [] },
+        reason: 'The receiving server says this mailbox does not exist. Every AntaraX product now stops mailing it.',
+        events: [at('14:28:10'), ev('14:28:11', 'Handed to the provider', 'email.sent', '#2A78D6'), ev('14:28:16', 'Bounced: the mailbox does not exist', 'email.bounced · Permanent', '#F04438')] },
+      { id: 'c3', em: 'em_c5d19e2b07f84a63c9e1b5d7', at: '14:20', p: 'yara', tpl: 'system.action_required.v1', to: 'h***@seri.example', org: 'seri', s: 'delivered', attempts: 1, corr: 'wo_31877', code: '–',
+        reason: 'Delivered.', events: [at('14:20:40'), ev('14:20:41', 'Handed to the provider', 'email.sent', '#2A78D6'), ev('14:20:44', 'Delivered', 'email.delivered', '#12B76A')] },
+      { id: 'c4', em: 'em_1b84e7a3c6d02f95b8e4a1c3', at: '14:12', p: 'yaraone', tpl: 'notice.v1', to: 'a***@contoh.example', org: 'contoh', s: 'suppressed', attempts: 0, corr: 'ntf_ticket_reply_YO1063', code: 'suppressed_bounce', chk: { k: 'bounce', on: '14 Oct, on a YaraOne email', marks: [['Janka', '9 Oct 07:12']] },
+        reason: 'Not sent. This address bounced on 14 Oct, so no AntaraX product mails it until the bounce is lifted here.',
+        events: [at('14:12:05'), ev('14:12:05', 'Not sent: the address bounced before', 'suppressed · bounced', '#F04438')] },
+      { id: 'c5', em: 'em_6f02a9d4b8e15c37f6a0d9b2', at: '14:05', p: 'frame', tpl: 'team.invitation.v1', to: 'f***@harapan.example', org: 'harapan', s: 'delivered', attempts: 1, corr: 'inv_Fr7mQ2', code: '–',
+        reason: 'Delivered.', events: [at('14:05:31'), ev('14:05:32', 'Handed to the provider', 'email.sent', '#2A78D6'), ev('14:05:35', 'Delivered', 'email.delivered', '#12B76A')] },
+      { id: 'c6', em: 'em_d7a35c1f9e0b48a2d7c3f1e9', at: '13:58', p: 'janka', tpl: 'notice.v1', to: 's***@harapan.example', org: 'harapan', s: 'suppressed', attempts: 0, corr: 'ntf_lowstock_1018', code: 'suppressed_complaint', chk: { k: 'spam', marks: [['Janka', '17 Oct 07:41'], ['Yara', '2 Oct 10:15']] },
+        reason: 'Not sent. The person marked a Janka email as spam on 17 Oct, so Janka\'s notifications to this address stop. Other products still email it.',
+        events: [at('13:58:00'), ev('13:58:00', 'Not sent: marked as spam in Janka', 'suppressed · complained', '#F04438')] },
+      { id: 'c7', em: 'em_49e8b2d6a1c07f53e9b4d2a6', at: '13:41', p: 'tinara', tpl: 'auth.password_reset.v1', to: 'z***@rekastudio.example', org: 'reka', s: 'failed', attempts: 1, corr: 'reset_2c90a', code: 'validation_error',
+        reason: 'The provider refused the address for good: it ends in a space. The first of today\'s Tinara security failures.',
+        events: [at('13:41:15'), ev('13:41:16', 'Refused by the provider: not a valid address', 'failed · validation_error', '#F04438')] },
+      { id: 'c8', em: 'em_a2c6f0e8d4b19357a2e6c0f4', at: '13:30', p: 'lapisan', tpl: 'system.action_required.v1', to: 'k***@bumihijau.example', org: 'bumi', s: 'delayed', attempts: 1, corr: 'key_expiry_0411', code: '–',
+        reason: 'The receiving server asked the provider to try later. The provider keeps trying for up to 72 hours; nothing to do yet.',
+        events: [at('13:30:00'), ev('13:30:01', 'Handed to the provider', 'email.sent', '#2A78D6'), ev('13:34:40', 'Delayed: the receiving server asked to try later', 'email.delivery_delayed', '#F79009')] },
+      { id: 'c9', em: 'em_f1d8c4a0e6b23975f1c8a4e0', at: '13:02', p: 'yara', tpl: 'notice.v1', to: 'w***@seri.example', org: 'seri', s: 'complained', attempts: 1, corr: 'ntf_daily_wo_1018', code: 'complaint', chk: { k: 'spam', marks: [['Yara', '18 Oct 13:20']] },
+        reason: 'The person marked it as spam at 13:20. Yara\'s notifications and service emails to this address stop; a sign-in or reset they ask for still goes.',
+        events: [at('13:02:04'), ev('13:02:05', 'Handed to the provider', 'email.sent', '#2A78D6'), ev('13:02:08', 'Delivered', 'email.delivered', '#12B76A'), ev('13:20:51', 'Marked as spam by the person', 'email.complained', '#F04438')] },
+      { id: 'c10', em: 'em_07b3e9f5c1a84d26b0e3f9c5', at: '12:47', p: 'gauge', tpl: 'system.export_ready.v1', to: 'j***@sinar.example', org: 'sinar', s: 'sent', attempts: 1, corr: 'exp_5531', code: '–',
+        reason: 'Handed to the provider. The receiving server has not reported delivery; many do not.', events: [at('12:47:20'), ev('12:47:21', 'Handed to the provider', 'email.sent', '#2A78D6')] },
+      { id: 'c11', em: 'em_5c9a1e7d3f06b482c5a9e1d7', at: '12:40', p: 'discovery', tpl: 'onboarding.welcome.v1', to: 'r***@nusantara.example', org: 'nusantara', s: 'delivered', attempts: 1, corr: 'acct_welcome_77', code: '–',
+        reason: 'Delivered.', events: [at('12:40:12'), ev('12:40:13', 'Handed to the provider', 'email.sent', '#2A78D6'), ev('12:40:15', 'Delivered', 'email.delivered', '#12B76A')] },
+      { id: 'c12', em: 'em_b8f4d0a6c2e95371b8d4f0a2', at: '12:15', p: 'grid', tpl: 'team.invitation.v1', to: 't***@tenagahijau.example', org: 'tenaga', s: 'retryable', attempts: 2, corr: 'inv_Gd3kP8', code: 'provider_503',
+        reason: 'The provider did not answer twice. PLExyz Grid keeps it in its outbox and sends again with the same key, so it can never arrive twice.',
+        events: [at('12:15:40'), ev('12:15:50', 'The provider did not answer', 'retryable · provider_503', '#F79009'), ev('12:20:50', 'The provider did not answer', 'retryable · provider_503', '#F79009')] }
+    ];
+
+    var inScope = st.product === 'all' ? P : P.filter(function (p) { return p.k === st.product; });
+    function scoped(key) { return inScope.reduce(function (a, p) { return a + count(p, key); }, 0); }
+    var stats = ['all'].concat(KEYS).map(function (k) {
+      var on = st.status === k, bad = k === 'bounced' || k === 'complained' || k === 'suppressed' || k === 'failed', v = scoped(k);
+      return { label: k === 'all' ? 'All' : S[k].word, n: n(v), ink: bad && v ? '#B42318' : '#0B1B4F', pressed: on ? 'true' : 'false',
+        pick: function () { self.setState({ status: k }); },
+        style: 'display:flex;flex-direction:column;align-items:flex-start;padding:10px 12px;border-radius:14px;background:#FFFFFF;cursor:pointer;text-align:left;' + (on ? 'border:2px solid #FB9800;padding:9px 11px;' : 'border:1px solid #E5E8EE;') };
+    });
+
+    var ROWGRID = 'display:grid;grid-template-columns:minmax(0,1.6fr) repeat(5,76px) 84px 140px 140px;gap:10px;align-items:center;padding:8px;border:0;border-bottom:1px solid #EEF1F6;cursor:pointer;text-align:left;font-size:13px;color:#3B4469;width:100%;';
+    var SEL = 'background:#FFF6E8;box-shadow:inset 0 0 0 1px #FB9800;border-radius:10px;';
+    var prodRows = P.map(function (p) {
+      var tot = count(p, 'all'), on = st.product === p.k, a = p.alert ? ALBY[p.alert] : null, lim = p.today / 80, warn = lim >= 0.8;
+      return { name: p.name, sender: p.from + '@mail.antarax.ai', total: n(tot), delivered: n(count(p, 'delivered')), bounced: n(count(p, 'bounced')), spam: n(count(p, 'complained')), failed: n(count(p, 'failed')),
+        rate: pct(count(p, 'delivered'), tot), limWord: n(p.today) + ' of 80', limPct: Math.max(Math.round(lim * 100), p.today ? 2 : 0) + '%', limBar: warn ? '#F79009' : '#2A78D6', limInk: warn ? '#B54708' : '#0B1B4F',
+        aWord: a ? a.short : 'No alert', aTint: a ? (FAULT[a.kind] ? '#FEECEB' : '#FEF4E6') : '#EEF1F6', aInk: a ? (FAULT[a.kind] ? '#B42318' : '#B54708') : '#5B6488',
+        pressed: on ? 'true' : 'false', style: ROWGRID + (on ? SEL : 'background:transparent;'),
+        pick: function () { self.setState({ product: on ? 'all' : p.k, status: 'all', template: 'all', org: 'all' }); } };
+    });
+    function sumOf(key) { return P.reduce(function (a, p) { return a + count(p, key); }, 0); }
+    var sum = { today: n(P.reduce(function (a, p) { return a + p.today; }, 0)), total: n(sumOf('all')), delivered: n(sumOf('delivered')), bounced: n(sumOf('bounced')), spam: n(sumOf('complained')), failed: n(sumOf('failed')), rate: pct(sumOf('delivered'), sumOf('all')) };
+
+    var openAlerts = AL.filter(function (a) { return a.open; }).sort(function (x, y) { return RANK[x.kind] - RANK[y.kind]; });
+    var needs = openAlerts.map(function (a) {
+      var f = FAULT[a.kind];
+      return { level: f ? 'Failing' : 'Watch', tint: f ? '#FEECEB' : '#FEF4E6', ink: f ? '#B42318' : '#B54708', bg: f ? '#FFF8F7' : '#FFFBF4', line: f ? '#F6B5AF' : '#F8CD92',
+        kind: KIND[a.kind], product: a.p ? PN[a.p] : 'Every product', detail: a.detail, first: a.first.slice(7), last: a.last.slice(7), go: a.go,
+        open: function () { self.setState({ product: a.p || 'all', status: a.status, template: 'all', org: 'all', sel: a.sel }); } };
+    });
+    var alerts = AL.map(function (a) {
+      var f = FAULT[a.kind];
+      return { state: a.open ? 'Open' : 'Cleared', tint: a.open ? (f ? '#FEECEB' : '#FEF4E6') : '#E7F8EF', ink: a.open ? (f ? '#B42318' : '#B54708') : '#067647',
+        kind: KIND[a.kind], product: a.p ? PN[a.p] : 'Every product', detail: a.detail, first: a.first, last: a.last, cleared: a.cleared };
+    });
+
+    var shown = E.filter(function (e) {
+      return (st.product === 'all' || e.p === st.product) && (st.status === 'all' || e.s === st.status) && (st.template === 'all' || e.tpl === st.template) && (st.org === 'all' || e.org === st.org);
+    });
+    var LISTGRID = 'display:grid;grid-template-columns:70px 128px minmax(0,1.2fr) minmax(0,1.3fr) minmax(0,1.1fr) 132px;gap:10px;align-items:center;padding:8px;border:0;border-bottom:1px solid #EEF1F6;cursor:pointer;text-align:left;font-size:13px;color:#3B4469;width:100%;';
+    var rows = shown.map(function (e) {
+      var s = S[e.s], on = st.sel === e.id;
+      return { when: e.at, product: PN[e.p], label: T[e.tpl].short, cls: T[e.tpl].cls, to: e.to, org: ORGS[e.org], word: s.word, ink: s.ink, tint: s.tint, pressed: on ? 'true' : 'false',
+        open: function () { self.setState({ sel: e.id }); },
+        style: LISTGRID + (on ? SEL : 'background:transparent;') };
+    });
+    var e = E.filter(function (x) { return x.id === st.sel; })[0] || E[0];
+    var s = S[e.s];
+    var one = {
+      word: s.word, ink: s.ink, tint: s.tint, cls: T[e.tpl].cls + ' · ' + e.tpl, product: PN[e.p], label: T[e.tpl].short, to: e.to, reason: e.reason,
+      facts: [
+        { label: 'Email', value: e.em }, { label: 'Product', value: PN[e.p] + ' · ' + P.filter(function (p) { return p.k === e.p; })[0].from + '@' },
+        { label: 'Organisation', value: ORGS[e.org] }, { label: 'Accepted', value: '18 Oct ' + e.at + ' MYT' },
+        { label: 'Attempts', value: String(e.attempts) }, { label: 'Error code', value: e.code },
+        { label: 'The product\'s event', value: e.corr }, { label: 'Template', value: e.tpl }
+      ],
+      events: e.events.map(function (v) { return { at: v[0], what: v[1], src: v[2], dot: v[3] }; }),
+      canCheck: !!e.chk,
+      check: function () { self.setState({ addr: '', answer: e.id, lifted: false, why: '' }); }
+    };
+
+    function mask(a) { var i = a.indexOf('@'); return i > 0 ? a[0] + '***' + a.slice(i) : a; }
+    var why = st.why.trim();
+    var EBY = {}; E.forEach(function (x) { EBY[x.id] = x; });
+    // st.answer is the email whose address is being checked, or 'clear'. A typed address shows masked; a checked row shows its own masked address.
+    var src = EBY[st.answer], chk = src ? src.chk : null;
+    var masked = st.addr ? mask(st.addr) : (src ? src.to : 'n***@sinar.example');
+    function marks(stillThere) {
+      return (chk ? chk.marks : []).map(function (m) {
+        return { product: m[0], when: m[1], stops: (stillThere ? 'Still there: ' : '') + m[0] + '\'s notifications and service emails stop; sign-in and reset still go.' };
+      });
+    }
+    var ans;
+    if (st.lifted) ans = { word: 'Lifted', ink: '#067647', bg: '#E7F8EF', line: '#A6E4C6', masked: masked, canLift: false, marks: marks(true),
+      line1: 'Every AntaraX product can email this address again.',
+      line2: 'Recorded in Audit by Mei Lin at 14:36 with the reason "' + why + '" and the masked address. If it bounces again, it is blocked again.' };
+    else if (chk && chk.k === 'bounce') ans = { word: 'Bounced: every product', ink: '#B42318', bg: '#FEECEB', line: '#F6B5AF', masked: masked, canLift: true, marks: marks(false),
+      line1: 'Bounced on ' + chk.on + ': the mailbox did not exist. No AntaraX product mails this address.',
+      line2: 'Lift it only once the person says the mailbox works again. If the next email bounces, it is blocked again.' };
+    else if (chk) ans = { word: 'Not bounced', ink: '#067647', bg: '#E7F8EF', line: '#A6E4C6', masked: masked, canLift: false, marks: marks(false),
+      line1: 'No bounce, so every product can reach this address, except where the person marked a product\'s email as spam, below.',
+      line2: 'A spam mark belongs to one product. It is lifted in that product\'s AXLE, by Support, with the person\'s request as the reason.' };
+    else ans = { word: 'Not blocked', ink: '#067647', bg: '#E7F8EF', line: '#A6E4C6', masked: masked, canLift: false, marks: [],
+      line1: 'Every AntaraX product can email this address.', line2: 'If they still get nothing, look for their email in the list above, or check their spam folder with them.' };
+    ans.noMarks = ans.marks.length === 0;
+    function pickAddr(a) { var x = a.toLowerCase().trim(); return x.indexOf('ahmad') === 0 ? 'c4' : (x.indexOf('siti') === 0 ? 'c6' : 'clear'); }
+    function opts(list, cur) { return list.map(function (o) { return { v: o[0], label: o[1], sel: o[0] === cur }; }); }
+    var canLiftNow = admin && !!why;
+    // Teams, senders and client domains (antarax-api 0.8.0, docs/15 section 15.11). The tweak "The rekatech team" tells the story:
+    // today no key (rekatech cannot add a domain), then the key set and mail.client.example added (pending), verified, or failed.
+    var story = this.props.rekatech ?? 'No key yet';
+    var techReady = story !== 'No key yet';
+    var TEAMS = [
+      { id: 'antarax', what: 'AntaraX\'s products', domain: 'mail.antarax.ai', ready: true, hook: true, standby: 'mailer.antarax.ai', standbyHint: 'Brevo, when Resend is down or full; reports signed', used: 12, cap: 80, reserve: 20 },
+      { id: 'reka', what: 'REKA\'s own apps (proposals, hand-overs)', domain: 'mail.reka.re', ready: false, hook: false, standby: null, used: 0, cap: 80, reserve: 20 },
+      { id: 'rekatech', what: 'The client apps REKA builds and hosts', domain: 'mail.reka.tech', ready: techReady, hook: techReady, standby: null, used: 0, cap: 80, reserve: 20 }
+    ];
+    var TBY = {}; TEAMS.forEach(function (t) { TBY[t.id] = t; });
+    var teams = TEAMS.map(function (t) {
+      var up = t.id.toUpperCase(), share = t.used / t.cap, warn = share >= 0.8;
+      return { id: t.id, what: t.what, domain: t.domain,
+        keyWord: t.ready ? 'Ready' : 'Not ready', keyTint: t.ready ? '#E7F8EF' : '#FEF4E6', keyInk: t.ready ? '#067647' : '#B54708',
+        keyHint: t.ready ? 'key set' : 'Add RESEND_KEY_' + up,
+        hookWord: t.hook ? 'Signed' : 'Not set', hookTint: t.hook ? '#E7F8EF' : '#EEF1F6', hookInk: t.hook ? '#067647' : '#5B6488',
+        hookHint: t.hook ? 'last heard 14:31' : 'RESEND_WEBHOOK_SECRET_' + up,
+        standby: t.standby || 'None', standbyInk: t.standby ? '#0B1B4F' : '#5B6488', standbyHint: t.standby ? t.standbyHint : (t.ready ? 'Resend only' : 'Optional: BREVO_KEY_' + up),
+        used: n(t.used), cap: n(t.cap), reserve: n(t.reserve), usedPct: Math.round(share * 100) + '%', reservePct: Math.round(100 * t.reserve / t.cap) + '%', bar: warn ? '#F79009' : '#2A78D6',
+        capNote: t.ready ? (t.cap - t.reserve - t.used) + ' left for any email, then ' + t.reserve + ' for security' : 'Cannot send until its key is set: its senders get 503' };
+    });
+
+    // Client domains: what the rekatech account asked Resend for, and each record's state.
+    var REC = [
+      { record: 'DKIM', type: 'TXT', name: 'resend._domainkey.mail', value: 'p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDF3k9vQ2m8xR7tLwP1cJ0aYbN4hE6uZ2sV5oK8gT1rW3yM7nB0fA9jC4dX6pS2qL5eH8iU3zG1vT0kR7wY4oN6bM9cQ2xJ5aD8fK1hP3sE0uL7gB2vW4yZ6tI9rO1mC5nX3qA8kF0jS7dIDAQAB', priority: '' },
+      { record: 'SPF', type: 'MX', name: 'send.mail', value: 'feedback-smtp.ap-northeast-1.amazonses.com', priority: '10' },
+      { record: 'SPF', type: 'TXT', name: 'send.mail', value: '"v=spf1 include:amazonses.com ~all"', priority: '' }
+    ];
+    var DW = { pending: ['Pending', '#FEF4E6', '#B54708'], verified: ['Verified', '#E7F8EF', '#067647'], failed: ['Failed', '#FEECEB', '#B42318'], not_started: ['Not checked', '#EEF1F6', '#5B6488'] };
+    var base = story === 'No key yet' ? [] : [{ name: 'mail.client.example', team: 'rekatech', added: story === 'Domain failed' ? '15 Oct 10:05' : '18 Oct 14:10',
+      start: story === 'Domain verified' ? 2 : (story === 'Domain failed' ? -1 : 0) }];
+    var allDomains = base.concat(st.dAdded);
+    // A domain's step: -1 failed, 0 nothing found yet, 1 DKIM found, 2 every record found. Verify moves it on.
+    function stepOf(d) { return st.dStep[d.name] !== undefined ? st.dStep[d.name] : d.start; }
+    function recState(step, i) { return step === -1 ? (i === 0 ? 'failed' : 'verified') : (step >= 2 || (step === 1 && i === 0) ? 'verified' : 'pending'); }
+    function domStatus(step) { return step === -1 ? 'failed' : (step >= 2 ? 'verified' : 'pending'); }
+    var CHECKED = { '-1': '18 Oct 10:05', '0': 'not yet', '1': '18 Oct 14:36', '2': '18 Oct 14:38' };
+    var selName = st.dSel || (allDomains[0] && allDomains[0].name);
+    var DROW = 'display:grid;grid-template-columns:minmax(0,1.4fr) 110px 120px 130px 130px;gap:10px;align-items:center;padding:8px;border:0;border-bottom:1px solid #EEF1F6;cursor:pointer;text-align:left;font-size:13px;color:#3B4469;width:100%;';
+    var domains = allDomains.map(function (d) {
+      var w = DW[domStatus(stepOf(d))], on = d.name === selName;
+      return { name: d.name, team: d.team, word: w[0], tint: w[1], ink: w[2], added: d.added, checked: CHECKED[String(stepOf(d))] || 'not yet', pressed: on ? 'true' : 'false',
+        style: DROW + (on ? 'background:#FFF6E8;box-shadow:inset 0 0 0 1px #FB9800;border-radius:10px;' : 'background:transparent;'),
+        pick: function () { self.setState({ dSel: d.name }); } };
+    });
+    var cur = allDomains.filter(function (d) { return d.name === selName; })[0];
+    var dom = null;
+    if (cur) {
+      var step = stepOf(cur), ds = domStatus(step), w = DW[ds];
+      var LINE = {
+        '0': 'Resend gave these records for ' + cur.name + '. Send them to whoever runs the client\'s DNS, then press Verify once they are in.',
+        '1': 'Checked 14:36: the DKIM record is in; the MX and SPF records are not yet. DNS can take up to 72 hours.',
+        '2': 'Verified 14:38: every record is in. A sender on ' + cur.name + ' can now be registered on ' + cur.team + '.',
+        '-1': 'Failed: Resend stopped looking after 72 hours and did not find the DKIM record. Check it with the client\'s DNS host, then Verify again.'
+      };
+      var root = cur.name.split('.').slice(1).join('.');
+      dom = { name: cur.name, team: cur.team, root: root, word: w[0], tint: w[1], ink: w[2], line: LINE[String(step)] || LINE['0'],
+        records: REC.map(function (r, i) {
+          var rs = DW[recState(step, i)], kn = cur.name + i + 'n', kv = cur.name + i + 'v';
+          function btn(k) { return 'flex:none;min-height:28px;padding:0 10px;border-radius:8px;border:1px solid #D5DBE7;background:' + (st.copied === k ? '#E7F8EF' : '#FFFFFF') + ';color:' + (st.copied === k ? '#067647' : '#0B1B4F') + ';font-size:12px;font-weight:500;cursor:pointer;'; }
+          return { record: r.record, type: r.type, name: r.name, value: r.value, priority: r.priority || '–', word: rs[0], tint: rs[1], ink: rs[2],
+            nameWord: st.copied === kn ? 'Copied' : 'Copy', valueWord: st.copied === kv ? 'Copied' : 'Copy', nameBtn: btn(kn), valueBtn: btn(kv),
+            copyName: function () { self.setState({ copied: kn }); }, copyValue: function () { self.setState({ copied: kv }); } };
+        }) };
+    }
+    // Senders: AntaraX's own from code (read only), then those registered as data.
+    var CODE = [
+      ['frame', 'AX Frame', 'frame.antarax.ai, frame-axle.antarax.ai'], ['yaraone', 'YaraOne', 'yo.antarax.ai, axle.yo.antarax.ai'],
+      ['yara', 'Yara', 'yara.antarax.ai, axle.yara.antarax.ai'], ['janka', 'Janka', 'janka.antarax.ai, axle.janka.antarax.ai'],
+      ['grid', 'PLExyz Grid', 'grid.antarax.ai, axle.grid.antarax.ai'], ['crowd', 'PLExyz Crowd', 'crowd.antarax.ai, axle.crowd.antarax.ai'],
+      ['tinara', 'Tinara', 'tinara.antarax.ai, axle.tinara.antarax.ai'], ['lapisan', 'Lapisan', 'lapisan.antarax.ai'],
+      ['ai', 'AwanGan', 'awangan.antarax.ai, axle-awangan.antarax.ai'], ['cebis', 'Cebis', 'cebis.antarax.ai, axle-cebis.antarax.ai'],
+      ['gauge', 'Gauge', 'gauge.antarax.ai'], ['discovery', 'REKA Discovery', 'ripple.antarax.ai'], ['angka', 'Angka', 'angka.antarax.ai, axle.angka.antarax.ai', 'deferred']
+    ];
+    var PE = { service: 'pe', team: 'reka', name: 'REKA PE', address: 'pe@mail.reka.re', origins: 'https://pe.reka.re', action: '#0B1B4F', ground: '#F5F7FC',
+      reply: 'pe-team@reka.example', byline: '', legal: 'REKA Inisiatif Sdn Bhd.', support: 'Questions: pe-team@reka.example' };
+    var registered = [PE].concat(st.extraSenders);
+    var SROW = 'display:grid;grid-template-columns:minmax(0,1.1fr) 84px minmax(0,1.2fr) minmax(0,1.6fr) 104px 96px 96px;gap:10px;align-items:center;padding:8px;border-bottom:1px solid #EEF1F6;font-size:13px;';
+    var senders = CODE.map(function (c) {
+      var deferred = c[3] === 'deferred';
+      return { name: c[1], service: c[0], team: 'antarax', address: c[0] === 'discovery' ? 'discovery@mail.antarax.ai' : c[0] + '@mail.antarax.ai', origins: c[2],
+        source: 'In code', srcTint: '#EEF1F6', srcInk: '#5B6488', state: deferred ? 'Deferred' : 'Sending', stateInk: deferred ? '#5B6488' : '#0B1B4F',
+        editable: false, readOnly: true, edit: function () {}, style: SROW };
+    }).concat(registered.map(function (r) {
+      var on = st.sForm === r.service;
+      return { name: r.name, service: r.service, team: r.team, address: r.address, origins: r.origins.split(/\s*[,\n]\s*/).map(function (o) { return o.replace('https://', ''); }).join(', '),
+        source: 'Registered', srcTint: '#E7EEFE', srcInk: '#002EB2',
+        state: TBY[r.team].ready ? 'Sending' : 'Waits for its team', stateInk: TBY[r.team].ready ? '#0B1B4F' : '#B54708',
+        editable: true, readOnly: false, style: SROW + (on ? 'background:#FFF6E8;box-shadow:inset 0 0 0 1px #FB9800;border-radius:10px;' : ''),
+        edit: function () { self.setState({ sForm: r.service, sVals: Object.assign({}, r), sSaved: false, sTried: false }); } };
+    }));
+
+    // The register form, with the service's own rules as help text and as errors.
+    var editing = st.sForm && st.sForm !== 'new';
+    var v = st.sVals || {};
+    var team = TBY[v.team] || TBY.reka;
+    var verifiedHere = allDomains.filter(function (d) { return d.team === v.team && domStatus(stepOf(d)) === 'verified'; }).map(function (d) { return d.name; });
+    var svc = (v.service || '').trim();
+    var addr = (v.address || '').trim().toLowerCase();
+    var addrDomain = addr.split('@')[1] || '';
+    var origins = (v.origins || '').split(/\s*[,\n]\s*/).filter(Boolean);
+    var HEX6 = /^#[0-9A-Fa-f]{6}$/;
+    var E1 = {
+      service: !/^[a-z]{2,30}$/.test(svc) ? '2 to 30 lowercase letters.' : (CODE.some(function (c) { return c[0] === svc; }) ? svc + ' is one of AntaraX\'s own senders, kept in code.' : ''),
+      name: !(v.name || '').trim() ? 'A name, up to 60 characters.' : '',
+      address: addr && addrDomain !== team.domain && verifiedHere.indexOf(addrDomain) < 0 ? 'Must be on ' + team.domain + ', or on a domain the ' + team.id + ' team has verified.' : '',
+      origins: !origins.length ? 'At least one origin.' : (origins.length > 5 ? 'Five at most.' : (origins.some(function (o) { return o.indexOf('https://') !== 0; }) ? 'https origins only.' : '')),
+      action: !HEX6.test(v.action || '') ? 'A colour as #RRGGBB.' : '',
+      ground: !HEX6.test(v.ground || '') ? 'A colour as #RRGGBB.' : '',
+      reply: !(v.reply || '').trim() ? 'Required: the ' + team.id + ' team names no reply-to, and replies must reach a mailbox someone reads.' : ''
+    };
+    var errs = Object.keys(E1).filter(function (k) { return E1[k]; });
+    function setV(k) { return function (ev2) { var o = Object.assign({}, st.sVals); o[k] = ev2.target.value; self.setState({ sVals: o, sSaved: false }); }; }
+    function fld(k, label, help, opt, extra) {
+      var bad = st.sTried && E1[k];
+      return Object.assign({ label: label, optional: opt ? '(optional)' : '', value: v[k] || '', type: setV(k), isInput: true, isSelect: false, options: [], locked: !admin || (k === 'service' && editing),
+        placeholder: '', swatch: false, font: 'Poppins, sans-serif', invalid: bad ? 'true' : 'false', line: bad ? '#F04438' : '#D5DBE7', ground: '#FFFFFF',
+        help: bad ? E1[k] : help, helpInk: bad ? '#B42318' : '#5B6488' }, extra || {});
+    }
+    var MONO = '"JetBrains Mono", monospace';
+    var defAddr = (svc || 'service') + '@' + team.domain;
+    var form = {
+      title: editing ? 'Edit ' + st.sForm : 'Register a sender',
+      serviceShown: svc || '{service}',
+      saveWord: editing ? 'Save sender' : 'Register sender',
+      fields: [
+        fld('service', 'Service id', 'The AntaraX-Service it signs as: 2 to 30 lowercase letters. Fixed once registered.', false, { font: MONO, placeholder: 'pe' }),
+        fld('team', 'Team', 'The Resend account it sends through. ' + team.id + (team.ready ? ' is ready.' : ' is not ready yet: its emails get 503 until RESEND_KEY_' + team.id.toUpperCase() + ' is set.'), false, { isSelect: true, isInput: false, options: TEAMS.map(function (t) { return { v: t.id, label: t.id + ' · ' + t.domain, sel: t.id === v.team }; }) }),
+        fld('name', 'Name', 'Shown as the sender\'s name, up to 60 characters.', false, { placeholder: 'REKA PE' }),
+        fld('address', 'Address', 'Empty means ' + defAddr + '. Must be on the team\'s domain or on one it has verified.', true, { font: MONO, placeholder: defAddr }),
+        fld('origins', 'Links may go to', 'https origins only, one to five, separated by commas. Every link in its emails must be on one.', false, { font: MONO, placeholder: 'https://pe.reka.re' }),
+        fld('action', 'Action colour', 'Buttons and links in its emails, as #RRGGBB.', false, { font: MONO, swatch: HEX6.test(v.action || '') }),
+        fld('ground', 'Ground colour', 'The email\'s background, as #RRGGBB.', false, { font: MONO, swatch: HEX6.test(v.ground || '') }),
+        fld('reply', 'Reply-to', 'A mailbox someone reads. Required here: the ' + team.id + ' team names none of its own.', false, { font: MONO, placeholder: 'pe-team@reka.example' }),
+        fld('byline', 'Byline', 'Empty: no "by AntaraX" line. Only a sender AntaraX makes carries one.', true, { placeholder: 'None' }),
+        fld('legal', 'Legal line', 'Empty uses the team\'s: REKA Inisiatif Sdn Bhd.', true),
+        fld('support', 'Support line', 'Where people get help, in words.', true)
+      ],
+      note: !admin ? 'Needs Admin. Operators read this page.' : (st.sTried && errs.length ? errs.length + (errs.length === 1 ? ' field needs' : ' fields need') + ' a change before it can be saved.' : 'Saved to the service at once and recorded in Audit.'),
+      noteInk: st.sTried && errs.length ? '#B42318' : '#5B6488',
+      saved: !!st.sSaved, savedLine: 'Saved ' + svc + ' on ' + team.id + ', sending as ' + (v.name || svc) + ' <' + (addr || defAddr) + '>.',
+      secret: 'SVC_KEY_' + svc.toUpperCase(),
+      teamWaits: !team.ready, teamWaitLine: 'The ' + team.id + ' team is not ready yet: ' + svc + '\'s emails are refused with 503 until RESEND_KEY_' + team.id.toUpperCase() + ' is set.'
+    };
+
+    var verifyReady = !!cur && TBY[cur.team].ready && admin && domStatus(stepOf(cur)) !== 'verified';
+
+    // Adding a domain: the service's refusals, in words, before anything is asked of Resend.
+    var dName = (st.dName === null ? (allDomains.length ? '' : 'mail.client.example') : st.dName).trim().toLowerCase();
+    var dTeam = TBY[st.dTeam];
+    var DOM = /^([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/;
+    var own = TEAMS.some(function (t) { return t.domain === dName || t.standby === dName; });
+    var there = allDomains.filter(function (d) { return d.name === dName; })[0];
+    var dWhy = !admin ? 'Needs Admin. Operators read this page.'
+      : (!dName ? 'Type the domain the client will send from, usually a subdomain such as mail.client.example.'
+      : (!DOM.test(dName) ? 'A domain such as mail.client.example.'
+      : (own ? 'That domain is already a team\'s own.'
+      : (there && there.team !== dTeam.id ? 'That domain belongs to the ' + there.team + ' team.'
+      : (!dTeam.ready ? 'The ' + dTeam.id + ' team has no key yet, so it cannot ask Resend for the records. Add RESEND_KEY_' + dTeam.id.toUpperCase() + ' on the Worker first.'
+      : (dTeam.id === 'antarax' ? 'Client domains never go on the antarax team: one client\'s bounces must not stop AntaraX\'s sign-in. Choose rekatech.'
+      : (there ? 'Already added: Add a domain opens its records.' : 'Resend answers with the DNS records at once. Nothing is sent from the domain until it is verified.')))))));
+    var canAdd = admin && dName && DOM.test(dName) && !own && !(there && there.team !== dTeam.id) && dTeam.ready && dTeam.id !== 'antarax';
+    var MAIN = 'display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:12px;font-weight:600;font-size:14px;';
+    var ON = 'border:0;background:#FB9800;color:#071233;cursor:pointer;', OFF = 'border:1px solid #E5E8EE;background:#F5F7FC;color:#8A93AE;cursor:not-allowed;';
+
+    var tc = {
+      teams: teams, senders: senders, form: form, formOpen: !!st.sForm,
+      notAdmin: !admin, adminNote: admin ? '' : 'Needs Admin',
+      mainStyle: MAIN + (admin ? ON : OFF),
+      secondStyle: 'display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:12px;border:1px solid #D5DBE7;background:#FFFFFF;color:#0B1B4F;font-weight:500;font-size:14px;cursor:pointer;',
+      smallStyle: 'display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:10px;font-size:13px;font-weight:500;' + (admin ? 'border:1px solid #D5DBE7;background:#FFFFFF;color:#0B1B4F;cursor:pointer;' : OFF),
+      newSender: function () { if (admin) self.setState({ sForm: 'new', sVals: { team: 'reka', service: '', name: '', address: '', origins: '', action: '', ground: '', reply: '', byline: '', legal: '', support: '' }, sSaved: false, sTried: false }); },
+      closeForm: function () { self.setState({ sForm: null, sSaved: false, sTried: false }); },
+      saveSender: function (ev2) {
+        if (ev2 && ev2.preventDefault) ev2.preventDefault();
+        if (!admin) return;
+        if (errs.length) { self.setState({ sTried: true, sSaved: false }); return; }
+        var row = Object.assign({}, v, { address: addr || defAddr });
+        var extra = st.sForm === 'new' && svc !== 'pe' ? st.extraSenders.filter(function (x) { return x.service !== svc; }).concat([row]) : st.extraSenders;
+        self.setState({ sTried: false, sSaved: true, sForm: svc, sVals: row, extraSenders: extra });
+      },
+      dName: st.dName === null ? (allDomains.length ? '' : 'mail.client.example') : st.dName,
+      typeDName: function (ev2) { self.setState({ dName: ev2.target.value }); },
+      dTeamOptions: TEAMS.map(function (t) { return { v: t.id, label: t.id + ' · ' + (t.ready ? 'ready' : 'not ready'), sel: t.id === st.dTeam }; }),
+      pickDTeam: function (ev2) { self.setState({ dTeam: ev2.target.value }); },
+      addDisabled: !canAdd, addStyle: MAIN + (canAdd ? ON : OFF), dNote: dWhy, dNoteInk: admin && dName && !canAdd && !(there && there.team === dTeam.id) ? '#B54708' : '#5B6488',
+      addDomain: function (ev2) {
+        if (ev2 && ev2.preventDefault) ev2.preventDefault();
+        if (!canAdd) return;
+        if (there) { self.setState({ dSel: dName }); return; }
+        self.setState({ dAdded: st.dAdded.concat([{ name: dName, team: dTeam.id, added: '18 Oct 14:36', start: 0 }]), dSel: dName, dName: '' });
+      },
+      domains: domains, noDomains: domains.length === 0, hasDomain: !!dom, dom: dom || { records: [] },
+      verify: function () { if (!verifyReady) return; var o = Object.assign({}, st.dStep); var s0 = stepOf(cur); o[cur.name] = s0 === -1 ? 0 : s0 + 1; self.setState({ dStep: o }); },
+      verifyDisabled: !verifyReady, verifyStyle: MAIN + (verifyReady ? ON : OFF),
+      verifyNote: !admin ? 'Needs Admin' : (cur && domStatus(stepOf(cur)) === 'verified' ? 'Nothing left to check' : 'Asks Resend again')
+    };
+    return Object.assign(tc, {
+      staffName: admin ? 'Mei Lin' : 'Aisyah Rahman', staffRung: admin ? 'ADMIN' : 'OPERATOR', initials: admin ? 'ML' : 'AR',
+      needs: needs, needsCount: openAlerts.length, prodRows: prodRows, sum: sum, stats: stats, rows: rows, empty: rows.length === 0, one: one, alerts: alerts,
+      listTitle: (st.product === 'all' ? 'Every product' : PN[st.product]) + ': ' + (st.status === 'all' ? 'emails' : S[st.status].word.toLowerCase()) + ', newest first',
+      shownCount: rows.length, totalWord: n(scoped(st.status)),
+      productOptions: opts([['all', 'Every product']].concat(P.map(function (p) { return [p.k, p.name]; })), st.product),
+      templateOptions: opts([['all', 'Every email']].concat(Object.keys(T).map(function (k) { return [k, T[k].short]; })), st.template),
+      orgOptions: opts([['all', 'Every organisation']].concat(Object.keys(ORGS).map(function (k) { return [k, ORGS[k]]; })), st.org),
+      pickProduct: function (ev2) { self.setState({ product: ev2.target.value }); },
+      pickTemplate: function (ev2) { self.setState({ template: ev2.target.value }); },
+      pickOrg: function (ev2) { self.setState({ org: ev2.target.value }); },
+      clear: function () { self.setState({ product: 'all', status: 'all', template: 'all', org: 'all' }); },
+      exported: st.exported, exportCsv: function () { self.setState({ exported: true }); },
+      addr: st.addr, typeAddr: function (ev2) { self.setState({ addr: ev2.target.value }); },
+      lookup: function (ev2) { if (ev2 && ev2.preventDefault) ev2.preventDefault(); self.setState({ answer: pickAddr(st.addr || ''), lifted: false, why: '' }); },
+      tries: ['ahmad@contoh.example', 'siti@harapan.example', 'new@sinar.example'].map(function (a) {
+        return { addr: a, pick: function () { self.setState({ addr: a, answer: pickAddr(a), lifted: false, why: '' }); } };
+      }),
+      hasAnswer: !!st.answer, ans: ans,
+      why: st.why, typeWhy: function (ev2) { self.setState({ why: ev2.target.value }); }, whyDisabled: !admin,
+      liftDisabled: !canLiftNow, lift: function () { if (canLiftNow) self.setState({ lifted: true }); },
+      liftNote: admin ? (why ? 'Audited with the masked address.' : 'Write the person\'s request first.') : 'Needs Admin',
+      liftStyle: 'display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:12px;font-weight:600;font-size:14px;' +
+        (canLiftNow ? 'border:0;background:#FB9800;color:#071233;cursor:pointer;' : 'border:1px solid #E5E8EE;background:#F5F7FC;color:#8A93AE;cursor:not-allowed;'),
+      service: [
+        { label: 'AntaraX email, production', word: 'Working', tint: '#E7F8EF', ink: '#067647', value: 'email.antarax.ai', detail: 'Answered in 84 ms. Sending, not recording.' },
+        { label: 'Staging', word: 'Working', tint: '#E7F8EF', ink: '#067647', value: 'email-staging.antarax.ai', detail: 'Sends to team addresses only; anything else is recorded, not sent.' },
+        { label: 'Provider', word: 'Working', tint: '#E7F8EF', ink: '#067647', value: 'Resend', detail: 'Behind the service; no product talks to it. Last send accepted 14:31.' },
+        { label: 'Sending domain', word: 'Verified', tint: '#E7F8EF', ink: '#067647', value: 'mail.antarax.ai', detail: 'SPF, DKIM and DMARC pass. Checked 06:00.' },
+        { label: 'Replies', word: 'Set', tint: '#EEF1F6', ink: '#3B4469', value: 'support@go.antarax.ai', detail: 'Every product\'s replies go here, into YaraOne.' },
+        { label: 'Delivery reports', word: 'Heard 14:31', tint: '#E7F8EF', ink: '#067647', value: 'Resend webhook', detail: 'Last report 3 minutes ago. Silent for 30 minutes opens an alert.' }
+      ]
+    });
+  }
+}
+</script>
+</body>
+</html>
