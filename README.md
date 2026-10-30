@@ -12,7 +12,7 @@
 <p align="center"><a href="BRIEF.md">Start here (AXLE)</a> · <a href="app/README.md">Customer apps</a> · <a href="axle/README.md">AXLE</a> · <a href="project/README.md">Client projects</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="https://github.com/haziqfaris/AntaraX-brand-kit">Brand kit</a></p>
 
 > [!NOTE]
-> **A reference, not an app.** Nothing here is deployed; products copy from it and check themselves against it. This is version **1.10.0** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)). Tickets and feedback through YaraOne are agreed but not built yet ([yaraone/EMBEDS.md](yaraone/EMBEDS.md)).
+> **A reference, not an app.** Nothing here is deployed; products copy from it and check themselves against it. This is version **1.12.0** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)). Tickets and feedback through YaraOne are agreed but not built yet ([yaraone/EMBEDS.md](yaraone/EMBEDS.md)).
 
 ## What it is
 
