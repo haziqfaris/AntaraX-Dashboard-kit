@@ -2,7 +2,7 @@
 
 <p align="center">
 <img alt="status: reference" src="https://img.shields.io/badge/status-reference-4F46E5?style=flat-square">
-<img alt="version 1.10.0" src="https://img.shields.io/badge/version-1.10.0-4F46E5?style=flat-square">
+<img alt="version 1.10.1" src="https://img.shields.io/badge/version-1.10.1-4F46E5?style=flat-square">
 <img alt="covers: customer apps, AXLE, client projects" src="https://img.shields.io/badge/covers-customer%20apps%20%C2%B7%20AXLE%20%C2%B7%20client%20projects-0B1B4F?style=flat-square">
 <img alt="values from the AntaraX brand kit" src="https://img.shields.io/badge/values-from%20the%20brand%20kit-0B1B4F?style=flat-square">
 </p>
@@ -12,7 +12,7 @@
 <p align="center"><a href="BRIEF.md">Start here (AXLE)</a> · <a href="app/README.md">Customer apps</a> · <a href="axle/README.md">AXLE</a> · <a href="project/README.md">Client projects</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="https://github.com/haziqfaris/AntaraX-brand-kit">Brand kit</a></p>
 
 > [!NOTE]
-> **A reference, not an app.** Nothing here is deployed; products copy from it and check themselves against it. This is version **1.10.0** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)). Tickets and feedback through YaraOne are agreed but not built yet ([yaraone/EMBEDS.md](yaraone/EMBEDS.md)).
+> **A reference, not an app.** Nothing here is deployed; products copy from it and check themselves against it. This is version **1.10.1** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)). Tickets and feedback through YaraOne are agreed but not built yet ([yaraone/EMBEDS.md](yaraone/EMBEDS.md)).
 
 ## What it is
 
