@@ -2,7 +2,7 @@
 
 <p align="center">
 <img alt="status: reference" src="https://img.shields.io/badge/status-reference-4F46E5?style=flat-square">
-<img alt="version 1.10.0" src="https://img.shields.io/badge/version-1.10.0-4F46E5?style=flat-square">
+<img alt="version 1.11.0" src="https://img.shields.io/badge/version-1.11.0-4F46E5?style=flat-square">
 <img alt="covers: customer apps, AXLE, client projects" src="https://img.shields.io/badge/covers-customer%20apps%20%C2%B7%20AXLE%20%C2%B7%20client%20projects-0B1B4F?style=flat-square">
 <img alt="values from the AntaraX brand kit" src="https://img.shields.io/badge/values-from%20the%20brand%20kit-0B1B4F?style=flat-square">
 </p>
@@ -29,7 +29,7 @@ It is not a component library every product must install, and it does not decide
 | Building or changing a product's AXLE | [BRIEF.md](BRIEF.md), then [axle/README.md](axle/README.md) | The spec, the final mock of every page, and the only colours and sizes AXLE may use |
 | Building a product's customer app | [app/README.md](app/README.md) | The AntaraX shell: the top bar, the account menu, standard pages, exact sizes, reference components and a check |
 | Building a dashboard for a REKA client | [project/README.md](project/README.md) | The shell's places in the client's own brand, never AntaraX's look, with "Built by REKA" in the footer |
-| Adding sign-in, or a button that does something | [getting-in/SPEC.md](getting-in/SPEC.md), [actions/SPEC.md](actions/SPEC.md) | One standard for signing in and passwords, and one for confirming, waiting and results. An action is always a button, and no label ends in "…" |
+| Adding sign-in, or a button that does something | [getting-in/SPEC.md](getting-in/SPEC.md), [actions/SPEC.md](actions/SPEC.md) | One standard for signing in and passwords, and one for confirming, waiting and results. An action is always a button, and no label ends in "…", busy words included ("Saving", with the inline loop) |
 | Setting up what a product runs on | [capacity/README.md](capacity/README.md) | `capacity.json`: every plan and limit, so AXLE can warn before a limit is reached |
 | A coding agent in a product repository | [AGENTS.md](AGENTS.md) | Short rules: what to read first, what never to invent |
 
@@ -38,13 +38,13 @@ It is not a component library every product must install, and it does not decide
 | Step | What | State |
 |---|---|---|
 | 1 | Inventory of every product's navigation and dashboards, with screenshots | Done: [inventory/](inventory/README.md), browsable in [inventory/gallery.html](inventory/gallery.html) |
-| 2 | The AntaraX shell for customer apps | **The standard, v1.7 (26 Oct 2026).** Start with [app/README.md](app/README.md); spec [app/SPEC.md](app/SPEC.md), tokens [app/tokens.css](app/tokens.css), mock and PNG renders [app/mock/](app/mock/README.md), reference components [app/reference/](app/reference/README.md), conformance check `tools/check-shell.mjs`. Each product's app is its own; only the shell is shared: names, the top bar (account at the far right, Help its own button), the account menu, standard pages, getting in, banners, notifications, Assist, feedback, dialogs and errors |
-| 2a | REKA client projects | **The standard, v1.2 (26 Oct 2026).** Start with [project/README.md](project/README.md); spec [project/SPEC.md](project/SPEC.md), mock [project/mock/](project/mock/README.md). The client's brand on a neutral base, never AntaraX's look; the shell's places; "Built by REKA" in the footer; one stack (Next.js, shadcn/ui, Supabase) |
+| 2 | The AntaraX shell for customer apps | **The standard, v1.8 (26 Oct 2026).** Start with [app/README.md](app/README.md); spec [app/SPEC.md](app/SPEC.md), tokens [app/tokens.css](app/tokens.css), mock and PNG renders [app/mock/](app/mock/README.md), reference components [app/reference/](app/reference/README.md), conformance check `tools/check-shell.mjs`. Each product's app is its own; only the shell is shared: names, the top bar (account at the far right, Help its own button), the account menu, standard pages, getting in, banners, notifications, Assist, feedback, dialogs and errors |
+| 2a | REKA client projects | **The standard, v1.3 (26 Oct 2026).** Start with [project/README.md](project/README.md); spec [project/SPEC.md](project/SPEC.md), mock [project/mock/](project/mock/README.md). The client's brand on a neutral base, never AntaraX's look; the shell's places; "Built by REKA" in the footer; one stack (Next.js, shadcn/ui, Supabase) |
 | 2b | Tickets and feedback | In YaraOne, for products and projects alike: [yaraone/EMBEDS.md](yaraone/EMBEDS.md). Embed contract v1.0, settled with YaraOne (its docs/19); YaraOne is building it |
 | 2c | Capacity | Every product and project lists what it runs on, every limit and how it is measured in `capacity.json`; AXLE → R8 → Capacity shows how close each is and when it runs out. Any provider, any kind of infrastructure: [capacity/README.md](capacity/README.md), check with `python3 capacity/check.py` |
 | 2d | Getting in | **The standard, v1.0 (18 Oct 2026).** Signing in, passwords, sign-in links, two-step sign-in, sessions and account changes for every customer app and AXLE: [getting-in/SPEC.md](getting-in/SPEC.md). Its §1 is the bare minimum (GI-01 to GI-20), §14 what each product has today; `PasswordField` in [app/reference/](app/reference/README.md); check with `node tools/check-signin.mjs` |
-| 2e | Acting | **The standard, v1.1 (26 Oct 2026).** Confirming, waiting and results for every customer app and AXLE: [actions/SPEC.md](actions/SPEC.md). Three levels of confirmation (undoable, consequential, irreversible with the name typed), what a person sees by how long an action takes, and how results and errors are told; §10 what each product does today. `ConfirmDialog`, `ProgressDialog` and `useAction` in [app/reference/](app/reference/README.md); check with `node tools/check-actions.mjs`; every state per product in `app/mock/Actions*.dc.html` |
-| 3 | Standard AXLE console and AXLE Central | **The standard, v1.5 (26 Oct 2026).** Build every AXLE from [axle/README.md](axle/README.md): the spec, the final mock of every page, and the tokens. Its AI pages show the product's own share of AwanGan, AntaraX's AI control plane ([AGENTS.md](AGENTS.md#ai-apis-and-data)) |
+| 2e | Acting | **The standard, v1.2 (26 Oct 2026).** Confirming, waiting and results for every customer app and AXLE: [actions/SPEC.md](actions/SPEC.md). Three levels of confirmation (undoable, consequential, irreversible with the name typed), what a person sees by how long an action takes, and how results and errors are told; §10 what each product does today. `ConfirmDialog`, `ProgressDialog` and `useAction` in [app/reference/](app/reference/README.md); check with `node tools/check-actions.mjs`; every state per product in `app/mock/Actions*.dc.html` |
+| 3 | Standard AXLE console and AXLE Central | **The standard, v1.6 (26 Oct 2026).** Build every AXLE from [axle/README.md](axle/README.md): the spec, the final mock of every page, and the tokens. Its AI pages show the product's own share of AwanGan, AntaraX's AI control plane ([AGENTS.md](AGENTS.md#ai-apis-and-data)) |
 
 **Building or changing any product's AXLE? Start with [BRIEF.md](BRIEF.md)**, then [axle/README.md](axle/README.md). Agents: see [AGENTS.md](AGENTS.md).
 
@@ -163,11 +163,11 @@ Nothing needs installing to read the kit. To run its checks you need Python 3 an
 
 | Doc | What it holds |
 |---|---|
-| [app/SPEC.md](app/SPEC.md) | The shell, v1.7, with buttons and links in §11b |
-| [axle/SPEC.md](axle/SPEC.md) | AXLE, v1.5, with open questions in §20 |
+| [app/SPEC.md](app/SPEC.md) | The shell, v1.8, with buttons and links in §11b |
+| [axle/SPEC.md](axle/SPEC.md) | AXLE, v1.6, with open questions in §20 |
 | [getting-in/SPEC.md](getting-in/SPEC.md) | Getting in, v1.0 |
-| [actions/SPEC.md](actions/SPEC.md) | Acting, v1.1 |
-| [project/SPEC.md](project/SPEC.md), [project/BRANDING.md](project/BRANDING.md) | Client projects, v1.2, and adopting a client's brand |
+| [actions/SPEC.md](actions/SPEC.md) | Acting, v1.2 |
+| [project/SPEC.md](project/SPEC.md), [project/BRANDING.md](project/BRANDING.md) | Client projects, v1.3, and adopting a client's brand |
 | [capacity/README.md](capacity/README.md) | `capacity.json`, thresholds and decisions |
 | [yaraone/EMBEDS.md](yaraone/EMBEDS.md) | YaraOne embeds, v1.0 |
 

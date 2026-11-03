@@ -8,6 +8,24 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.11.0 · 26 Oct 2026
+
+Minor: a rule tightened for every product (owner, 26 Oct 2026; brand kit guide/10). 1.10.0 kept busy words such as "Saving…" as a state; the owner asked for those dots gone too: "if it is busy animation, replace it with a different loading like our sparkle but different from AI."
+
+- **The rule:** a busy button never shows "…". Its words are the action in progress without dots ("Saving", "Deleting", "Signing in"); its inline loop, 16 to 20px in the button's text colour, takes the place of its leading icon or sits before its words; it keeps its width and has `aria-busy="true"`; with reduced motion, the loop's still frame and the words. Status and wait lines follow ("Signed in. Opening AXLE · Janka"). Quoting a forbidden example (never "Loading…" alone) is unaffected.
+- **Which loop:** the product's own inline loop (brand kit 14). Where there is no product (AXLE in every product, the kit's neutral reference) it is AntaraX's new loop, **Assemble**: the A's three pieces light in turn, hold whole, then rest (brand kit `assets/antarax/antarax-busy.svg`). Never the sparkle, which means AI. YaraOne has no inline loop drawn yet and uses Assemble until it has (brand kit 11, question 27).
+- **Specs:**
+  - **actions/SPEC.md 1.2:** §3 says exactly what a busy button shows and that wait lines follow; §5, §7 (Saving, not Saving…), §8, §9 and §11 (a seventh step for every product) follow.
+  - **app/SPEC.md 1.8:** §11b drops the busy-word exemption and says what replaces it; §12 adds busy buttons and wait lines; §16, §17 and §19 follow.
+  - **axle/SPEC.md 1.6:** §13.3 adds Busy (Assemble in every AXLE); §14.2 drops the exemption ("Opening Google" without dots); §15 gains a Busy words row; §19 and §20 (24) follow.
+  - **project/SPEC.md v1.3:** §8a, with the project's own small loop; §9 and §10 follow.
+- **`app/reference/InlineLoop.jsx`** (new): `InlineLoop` draws Assemble in `currentColor`, or the product's own passed as `loop`; `BusyLabel` stacks a button's label and its busy words with the loop so the button keeps its width; `noDots` takes trailing dots off. `useAction` defaults to "Saving" and returns its busy words without dots; `ConfirmDialog` shows `BusyLabel` (default "Working", takes `loop`); `ProgressDialog` falls back to the loop when no loader is passed, shows it on the step under way (`stepLoop`), and drops dots from its title and steps. `shell.css` adds the loop, the kept width, a busy button at full colour, and the reduced-motion still frame.
+- **`tools/check-shell.mjs`** no longer skips busy controls: one is fine only without dots. It also reports status and wait lines (`role="status"`, `aria-live`, `aria-busy`) that end in "…".
+- **Mocks:**
+  - app: every Actions board shows "Saving" and "Deleting" with the product's own inline loop at its still frame (Yara's dots on a wave, AX Frame's corners, Janka's ticks, PLExyz Grid's zones, PLExyz Crowd's dots, Angka's seed, Tinara's lattice, Assemble for YaraOne) in place of the three dots; Loading gains Assemble and a row of busy buttons and a wait line. Renders and values tables updated.
+  - AXLE: SignIn says "Opening Google" with Assemble in place of the Google mark while it works, and "Signed in. Opening AXLE · Janka" with Assemble before it.
+- README, BRIEF, AGENTS.md, app/README.md and axle/README.md say the same, with the spec versions brought up to date.
+
 ## 1.10.0 · 26 Oct 2026
 
 Minor: a rule tightened for every product (owner, 26 Oct 2026; the lead adds it to brand kit guide/10). The owner saw a blue text link reading "Remove…" in a product and asked that an action always be a button and that no label end in "…".

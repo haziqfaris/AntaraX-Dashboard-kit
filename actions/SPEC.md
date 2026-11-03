@@ -1,6 +1,6 @@
 # Acting: confirmations, progress and results
 
-**Version 1.1, the standard (owner, 18 Oct 2026; Dashboard kit 1.8.0; 1.1 on 26 Oct 2026, Dashboard kit 1.10.0, adds the labels row to §7).** What happens when a person presses a button in any AntaraX customer app or AXLE: whether it asks first, what they see while it works, and how they learn it worked or failed. It gathers and replaces the short rules in [app/SPEC.md](../app/SPEC.md) §11 (confirming, toasts) and [axle/SPEC.md](../axle/SPEC.md) §14, and builds on the seven kinds of wait in app SPEC §12 and brand kit guide 14. ISO Generator is on hold.
+**Version 1.2, the standard (owner, 18 Oct 2026; Dashboard kit 1.8.0; 1.1 on 26 Oct 2026, Dashboard kit 1.10.0, adds the labels row to §7; 1.2 on 26 Oct 2026, Dashboard kit 1.11.0, takes the dots off busy words and puts the inline loop in their place, §3 and §7).** What happens when a person presses a button in any AntaraX customer app or AXLE: whether it asks first, what they see while it works, and how they learn it worked or failed. It gathers and replaces the short rules in [app/SPEC.md](../app/SPEC.md) §11 (confirming, toasts) and [axle/SPEC.md](../axle/SPEC.md) §14, and builds on the seven kinds of wait in app SPEC §12 and brand kit guide 14. ISO Generator is on hold.
 
 **Look and behaviour are separate.** How a dialog, a toast or a progress panel looks is the product's own (AXLE's is fixed by axle SPEC §4); what it holds, what it says and how it behaves are fixed here.
 
@@ -47,10 +47,18 @@ Each action has an **expected duration**, set when it is designed, which decides
 | Expected | What the person sees | Kind of wait (app SPEC §12) |
 |---|---|---|
 | **Under 400ms** | The button's pressed state; nothing else | None |
-| **400ms to 2 seconds** | **The button is busy:** disabled, its label in the present ("Saving…", "Sending invitation…") beside the product's inline loader; other buttons that would clash are disabled; the form stays editable only if a change would not be lost | Inline |
+| **400ms to 2 seconds** | **The button is busy:** disabled, its words the action in progress without dots ("Saving", "Sending invitation"), with the product's inline loop in place of its leading icon or before its words (below); other buttons that would clash are disabled; the form stays editable only if a change would not be lost | Inline |
 | **Over 2 seconds, or changing many records, or several steps** | **A progress dialog:** the action as its title ("Importing 1,240 items"), the product's progress loader, a count ("312 of 1,240") or the steps with their state (done, now, to come), and **Cancel** when it can stop safely, **Run in background** when it can carry on without the page. Escape does not close it while it runs. It closes into the result (§4) | Progress |
 | **Over 30 seconds, or anything that keeps running if the person leaves** (imports, exports, AI over many records, reports) | **A background job:** a toast "Import started · see progress", a jobs panel (a count on the bell or a tray) with each job's progress and Cancel, the page stays usable, and a notification (and for exports, the `system.export_ready.v1` email) when it ends | Progress, in the panel |
 
+- **A busy button, exactly** (owner, 26 Oct 2026; brand kit 14):
+  - **No dots.** The words are the action in progress, never ending in "…" or "...": "Saving", "Deleting", "Signing in", "Opening Google". The motion is the loop's job, not the words'.
+  - **The inline loop,** 16 to 20px, takes the place of the button's leading icon, or sits before its words when it has none. It is the product's own inline loop (brand kit 14); where there is no product (AXLE, the kit's neutral reference) it is AntaraX's, Assemble. It draws in the button's text colour, so it works on primary, secondary and destructive buttons.
+  - **The button keeps its width,** so nothing jumps: it is as wide as the wider of its label and its busy words, with the loop.
+  - **`aria-busy="true"`** while it runs; a screen reader hears the busy words ("Saving").
+  - **Reduced motion:** the loop's still frame and the words, never the words alone.
+  - **Never the sparkle.** The sparkle means AI; an AI action shows the thinking state instead (below).
+- **Status and wait lines** follow the same rule: "Signed in. Opening AXLE · Janka", "Syncing 12 items", with the loop before the words and no dots.
 - **After 10 seconds**, any wait says what is happening and offers a way out (app SPEC §12): Cancel, Run in background, or "We'll tell you when it's done".
 - **AI actions** use the thinking state (brand kit 13 §6b) instead of a progress loader, with the same rows by duration.
 - **Optimistic changes** are allowed for Level 1 actions under 2 seconds: the change shows at once, and if the server refuses, it goes back with a toast that says so and offers Retry.
@@ -84,7 +92,7 @@ Each action has an **expected duration**, set when it is designed, which decides
 - **Body** says what will happen, in plain words, with counts ("3 projects and 1,240 work orders"), and what stays.
 - **Buttons:** Cancel first and focused in anything destructive; the action button names the action and the thing, in the product's fault colour when it destroys something; a Level 3 button is disabled until the name is typed exactly (case and spaces as shown; paste allowed).
 - **Behaviour:** focus moves into the dialog and stays there, Escape and Cancel close it (not while a progress dialog runs), focus returns to the button that opened it, the page behind cannot be used, and the dialog is labelled by its title.
-- **Busy inside a dialog:** the action button follows §3 ("Deleting…"); Cancel stays available until the request is sent.
+- **Busy inside a dialog:** the action button follows §3 ("Deleting", with the loop); Cancel stays available until the request is sent.
 
 ## 6 Unsaved changes
 
@@ -98,24 +106,25 @@ Each action has an **expected duration**, set when it is designed, which decides
 |---|---|
 | Delete Tegap Fabrication · Remove Aina Rahman · Revoke key "Production" | OK · Yes · Confirm · Submit |
 | Delete Tegap Fabrication? | Are you sure? |
-| Saving… · Sending invitation… · Importing 312 of 1,240 | Loading… on its own · Please wait |
+| Saving · Sending invitation · Importing 312 of 1,240, each with the product's loop | Saving… · Sending invitation... · Loading… on its own · Please wait |
 | Invitation sent · WO-2026-0412 deleted · Undo | Success! · Operation completed |
 | Couldn't send the invitation. Check the email address and try again. | Something went wrong · Error 500 · An unexpected error occurred |
 | Discard changes? · Keep editing · Discard | Leave page? · You have unsaved changes (with no choice) |
 | Type **Tegap Fabrication** to confirm | Type DELETE |
 | Remove · Save view · Start support session, each a button | Remove… · Save view... · a text link that does something |
 
-Sentence case; the brand kit's voice (03). What starts an action is a button, never link text, and no label on a control ends in "…" (owner, 26 Oct 2026; [app SPEC §11b](../app/SPEC.md#11b-buttons-and-links), [axle SPEC §14.2](../axle/SPEC.md#142-buttons-and-links-owner-26-oct-2026)). The busy words above ("Saving…") are a state while the action runs (§3), not a label.
+Sentence case; the brand kit's voice (03). What starts an action is a button, never link text, and no label on a control ends in "…" (owner, 26 Oct 2026; [app SPEC §11b](../app/SPEC.md#11b-buttons-and-links), [axle SPEC §14.2](../axle/SPEC.md#142-buttons-and-links-owner-26-oct-2026)). Busy words lose their dots too (owner, 26 Oct 2026): "Saving", with the inline loop carrying the motion (§3).
 
 ## 8 Reference components
 
-[`app/reference/ConfirmDialog.jsx`](../app/reference/ConfirmDialog.jsx) (levels 2 and 3, typed name, busy and error states), [`app/reference/ProgressDialog.jsx`](../app/reference/ProgressDialog.jsx) (count or steps, Cancel, Run in background) and [`app/reference/useAction.js`](../app/reference/useAction.js) (busy state, no double submit, result and error, Retry). Plain React with the shell tokens; the look is the product's own.
+[`app/reference/ConfirmDialog.jsx`](../app/reference/ConfirmDialog.jsx) (levels 2 and 3, typed name, busy and error states), [`app/reference/ProgressDialog.jsx`](../app/reference/ProgressDialog.jsx) (count or steps, Cancel, Run in background) and [`app/reference/useAction.js`](../app/reference/useAction.js) (busy state, no double submit, result and error, Retry), with [`app/reference/InlineLoop.jsx`](../app/reference/InlineLoop.jsx) (`InlineLoop`, AntaraX's Assemble unless the product passes its own, and `BusyLabel`, the button's words and loop at a kept width, dots taken off). Plain React with the shell tokens; the look is the product's own.
 
 ## 9 How to prove it
 
 - `node tools/check-actions.mjs PATH` scans a product's source for `alert(`, `confirm(` and `prompt(` (AC-01), for buttons that call a request without a busy state where it can tell, and for generic error strings ("Something went wrong", "An error occurred"). It lists each with file and line.
 - Each product keeps **a list of its actions** with their level and expected duration (a table in its docs), and its tests cover each Level 3 action: the button stays disabled until the name is typed, and the password or code is asked again.
 - By hand, on the longest action: the progress dialog appears, counts, cancels; the result names the thing; a failure keeps the form and offers Retry.
+- `node tools/check-shell.mjs URL` reports a busy control or a status line whose words end in "…" (§3); by hand, throttle the network and press Save: the button keeps its width, shows the product's loop and says "Saving".
 
 ## 10 Today
 
@@ -177,6 +186,7 @@ In this order in every product: first what says one thing and does another (§10
 4. Map server and provider errors to written messages in one place (AC-09). Keep the raw text for the log and a request id on screen.
 5. Add "Discard changes?" to forms that do not save as the person types (AC-10).
 6. Make the longest action cancellable, with a progress dialog (§3).
+7. Take the dots off every busy word and wait line ("Saving…" becomes "Saving") and show the product's inline loop with it, keeping the button's width (§3).
 
 **Per product**
 
@@ -190,5 +200,5 @@ In this order in every product: first what says one thing and does another (§10
 | PLExyz Grid | Confirm deleting a zone, building or section, with what goes with it · show a failed sync where it happened, with Retry | A confirm component replacing the 8 native pop-ups · toasts on every page · focus trap in `useDialogA11y` · warn before a form closes with typed input |
 | PLExyz Crowd | Check every answer: a failure must say so · errors in the fault colour · stop reporting dropped import batches as done | Confirm the deletes in §10 · busy states on every submit · a dialog component for adding a device · cancel on the import |
 | Tinara | Make the archive true (soft delete with Restore) or change the words · correct the re-run cost · end the spinner and refund credits when briefs are off | Confirm credit spending (30-credit brief, 5-credit deep scan) · `Modal`: role, label, Escape, focus · `aria-live` and close on toasts · confirm the admin data-mode switch |
-| Lapisan Console | Replace `window.confirm` in `forms.tsx` with a dialog that names the endpoint or account · add `error.tsx` | Confirm taking back an invitation, a role change and signing out everywhere · say what is happening instead of "Working…" · Undo on pausing an endpoint |
+| Lapisan Console | Replace `window.confirm` in `forms.tsx` with a dialog that names the endpoint or account · add `error.tsx` | Confirm taking back an invitation, a role change and signing out everywhere · say what is happening, without dots ("Pausing endpoint"), instead of "Working…" · Undo on pausing an endpoint |
 | ISO Generator | On hold | — |

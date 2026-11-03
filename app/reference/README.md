@@ -15,6 +15,7 @@ The shell's top bar, its two menus, the list toolbar and the password field in p
 | `ConfirmDialog.jsx` | A Level 2 or 3 confirmation ([actions/SPEC.md](../../actions/SPEC.md) §2, §5): the title as the question, the button naming the action, the safe choice focused first, a typed name and asking again for Level 3, busy and error inside the dialog |
 | `ProgressDialog.jsx` | The progress dialog for actions over 2 seconds (actions §3): the product's loader, a count or steps, Cancel and Run in background |
 | `useAction.js` | One action's busy state, no double submit, its result and its error in words, Retry (actions AC-05, AC-08, AC-09) |
+| `InlineLoop.jsx` | `InlineLoop`: AntaraX's inline loop, Assemble, in `currentColor`, or the product's own passed as `loop`; `BusyLabel`: a button's words and its loop at a kept width, busy words without dots (actions §3, §11b, §12) |
 | `useMenu.js` | Focus, arrow keys, Tab kept inside, Escape and a click outside, for both menus |
 | `icons.jsx` | The six icons, inline |
 | `shell.css` | Every style, from `--shell-*` variables only |
@@ -44,7 +45,7 @@ import { AppBar, useBarSize } from './reference';
 - The slot is the product's own: `.ax-slot-button` gives the 40px size and the 44px hit area; restyle the rest.
 - Navigation is the product's own; put `.ax-nav-item` on its links (or copy its two rules) for the current item and hover (§2.5).
 - The list toolbar's look is the product's own; its parts are not (§11a).
-- An action is a button, never link text, and no label ends in "…" (§11b). `.ax-ghost-button` is the quiet one the menus and the toolbar use (Switch organisation, Cancel, Clear filters); restyle it, but keep it a button.
+- An action is a button, never link text, and no label ends in "…" (§11b). A busy button says "Saving" with `BusyLabel`, never "Saving…"; pass the product's inline loop as `loop`. `.ax-ghost-button` is the quiet one the menus and the toolbar use (Switch organisation, Cancel, Clear filters); restyle it, but keep it a button.
 
 ## Run the demo
 

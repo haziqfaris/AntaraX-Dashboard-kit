@@ -1,6 +1,6 @@
 # REKA project template
 
-**v1.2 · 26 Oct 2026** (v1.1 on 16 Oct 2026). The standard for dashboards REKA builds for a client: bespoke work carrying the client's brand, and the AXLE REKA runs it from. Decided by the owner on 16 Oct 2026. The mock: [`mock/`](mock/README.md); the branding SOP: [`BRANDING.md`](BRANDING.md).
+**v1.3 · 26 Oct 2026** (v1.1 on 16 Oct 2026; v1.2 on 26 Oct 2026, Dashboard kit 1.10.0; v1.3 on 26 Oct 2026, Dashboard kit 1.11.0). The standard for dashboards REKA builds for a client: bespoke work carrying the client's brand, and the AXLE REKA runs it from. Decided by the owner on 16 Oct 2026. The mock: [`mock/`](mock/README.md); the branding SOP: [`BRANDING.md`](BRANDING.md).
 
 ## 1 Three dashboards
 
@@ -151,7 +151,8 @@ App SPEC §11b, in shadcn/ui's terms. Decided after a blue text link reading "Re
 - **A link only goes somewhere.** The `link` variant and link-coloured text are for navigation only: another page, another address, a file to open, always a real `href` (Next.js `Link`, or `Button asChild` around one).
 - **Remove and Delete use `destructive`,** never the `link` variant or coloured link text.
 - **In a menu,** an action is a `DropdownMenuItem`, drawn like the items around it.
-- **No trailing ellipsis.** No button, menu item, link, tab or placeholder ends in "…" or "...": "Remove", "Save view", "Search assets". The dots are an old desktop convention (Apple's and Microsoft's guidelines) for "a dialog will ask for more first"; the client's people don't read them that way, and the dialog explains itself. Not affected: text cut short by CSS, the "⋯" more-actions button, an ellipsis standing for something left out, and a button's words while it works ("Saving…").
+- **No trailing ellipsis.** No button, menu item, link, tab or placeholder ends in "…" or "...": "Remove", "Save view", "Search assets". The dots are an old desktop convention (Apple's and Microsoft's guidelines) for "a dialog will ask for more first"; the client's people don't read them that way, and the dialog explains itself. Not affected: text cut short by CSS, the "⋯" more-actions button, and an ellipsis standing for something left out.
+- **Busy words lose their dots too** (owner, 26 Oct 2026; actions/SPEC.md §3). A working `Button` says "Saving", never "Saving…", with the project's own small loop, 16 to 20px in `currentColor`, in place of its icon or before its words (the project's quiet style, §2: never an AntaraX loop or mark, never a spinner); it keeps its width and has `aria-busy="true"`. A status or wait line does the same. With reduced motion, the loop's still frame and the words.
 
 ## 9 How to prove it
 
@@ -163,7 +164,7 @@ App SPEC §11b, in shadcn/ui's terms. Decided after a blue text link reading "Re
 | **Places** | Help second from the right and the account at the far right on every page; the account menu in app SPEC §3's order |
 | **Credit** | "Built by REKA" on the sign-in foot, the account menu foot and the footer, and nowhere else |
 | **Legal** | The legal pages name the client, not REKA or AntaraX |
-| **Buttons and links** | `node tools/check-shell.mjs` finds no label or placeholder ending in "…" or "..." and no `<a>` without a real `href`; a search of the code finds no `variant="link"` on an action; Remove and Delete are `destructive` (§8a) |
+| **Buttons and links** | `node tools/check-shell.mjs` finds no label, busy word, placeholder or status line ending in "…" or "..." and no `<a>` without a real `href`; a search of the code finds no `variant="link"` on an action; Remove and Delete are `destructive` (§8a) |
 | **Shell checks** | app SPEC §17's checks, except the ones about AntaraX's look |
 
 ## 10 Decisions
@@ -178,5 +179,6 @@ All by the owner, 16 Oct 2026:
 - **v1.1:** the template includes the project's AXLE, and the building blocks (§8).
 - **v1.1, client branding for REKA's SOP:** a client's brand kit is adopted; without one, REKA's default (§3a, `BRANDING.md`). The bare minimum stays either way.
 - **v1.2, 26 Oct 2026:** buttons and links (§8a): an action is a button, a link only goes somewhere, Remove and Delete are destructive, no label ends in "…".
+- **v1.3, 26 Oct 2026:** busy words lose their dots too (§8a); the project's own small loop carries the motion.
 
 New questions go here.

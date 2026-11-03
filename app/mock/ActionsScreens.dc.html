@@ -55,7 +55,7 @@ body{margin:0;background:#F5F7FC}
                     <sc-if value="{{r.err}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; color: #B42318">{{r.err}}</span></sc-if>
                   </span>
                 </sc-if>
-                <sc-if value="{{r.is_btns}}" hint-placeholder-val="{{false}}"><span style="display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 6px"><sc-for list="{{r.list}}" as="bt" hint-placeholder-count="2"><span style="{{bt.style}}"><sc-if value="{{bt.spin}}" hint-placeholder-val="{{false}}"><span style="display: inline-flex; gap: 2px; margin-right: 6px"><span style="width: 4px; height: 4px; border-radius: 99px; background: currentColor; opacity: .5"></span><span style="width: 4px; height: 4px; border-radius: 99px; background: currentColor; opacity: .8"></span><span style="width: 4px; height: 4px; border-radius: 99px; background: currentColor"></span></span></sc-if>{{bt.t}}</span></sc-for></span></sc-if>
+                <sc-if value="{{r.is_btns}}" hint-placeholder-val="{{false}}"><span style="display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 6px"><sc-for list="{{r.list}}" as="bt" hint-placeholder-count="2"><span style="{{bt.style}}"><sc-if value="{{bt.spin}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="{{loop.w}}" height="16" viewBox="{{loop.vb}}" style="flex: none; margin-right: 7px"><path d="{{loop.faint}}" fill="currentColor" fill-opacity=".3"></path><path d="{{loop.lineFaint}}" fill="none" stroke="currentColor" stroke-opacity=".3" stroke-width="{{loop.sw}}" stroke-linecap="round" stroke-linejoin="round"></path><path d="{{loop.solid}}" fill="currentColor"></path><path d="{{loop.line}}" fill="none" stroke="currentColor" stroke-width="{{loop.sw}}" stroke-linecap="round" stroke-linejoin="round"></path></svg></sc-if>{{bt.t}}</span></sc-for></span></sc-if>
                 <sc-if value="{{r.is_bar}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; gap: 4px"><span style="display: block; height: 6px; border-radius: 999px; background: {{line}}; overflow: hidden"><span style="display: block; height: 100%; width: {{r.w}}; background: {{action}}"></span></span><span style="font-size: 12px"><span style="font-family: 'JetBrains Mono', monospace; color: #0B1B4F">{{r.done}}</span> of <span style="font-family: 'JetBrains Mono', monospace; color: #0B1B4F">{{r.total}}</span></span></span></sc-if>
                 <sc-if value="{{r.is_steps}}" hint-placeholder-val="{{false}}"><span style="display: flex; flex-direction: column; gap: 6px"><sc-for list="{{r.list}}" as="st" hint-placeholder-count="3"><span style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: {{st.ink}}"><span style="width: 10px; height: 10px; border-radius: 99px; border: 2px solid {{st.ring}}; background: {{st.fill}}"></span>{{st.t}}</span></sc-for></span></sc-if>
                 <sc-if value="{{r.is_loader}}" hint-placeholder-val="{{false}}"><span style="display: flex; align-items: center; gap: 10px"><span style="display: inline-flex; align-items: flex-end; gap: 3px; height: 20px"><span style="width: 4px; height: 8px; border-radius: 2px; background: {{action}}; opacity: .5"></span><span style="width: 4px; height: 14px; border-radius: 2px; background: {{action}}; opacity: .75"></span><span style="width: 4px; height: 20px; border-radius: 2px; background: {{action}}"></span><span style="width: 4px; height: 12px; border-radius: 2px; background: {{action}}; opacity: .6"></span></span><span style="color: #0B1B4F; font-size: 15px; font-weight: 600">{{r.t}}</span></span></sc-if>
@@ -95,6 +95,23 @@ class Component extends DCLogic {
         rec: 'Prospect Sinar Tech', recs: 'prospects', recDesc: 'Score 82, updated today', member: 'Nur Aina Hashim', key: 'Data source “Companies registry”', imp: 'companies', impN: '840', exportName: 'Scored prospects, October 2026', counts: '840 prospects, 3 pipelines and 6 months of scores', bulk: '84', field: 'Score threshold', fieldErr: 'Use a number from 0 to 100.', fieldVal: '70', ai: 'Scoring 840 companies' }
     };
     var c = P[this.props.product] || P.janka;
+    // Each product's inline loop (brand kit 14) at its still frame, in the button's text colour; it moves in the product.
+    // YaraOne has none drawn yet, so it takes AntaraX's Assemble (brand kit 11, question 27).
+    var dot = function (x, y, r) { return 'M' + (x - r) + ' ' + y + 'a' + r + ' ' + r + ' 0 1 0 ' + (2 * r) + ' 0a' + r + ' ' + r + ' 0 1 0 ' + (-2 * r) + ' 0Z'; };
+    var dia = function (x, y) { return 'M' + x + ' ' + (y - 4) + 'l4 4-4 4-4-4Z'; };
+    var sq = function (x, y) { return 'M' + (x + 2) + ' ' + y + 'h5a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2Z'; };
+    var ASSEMBLE = { name: "AntaraX's Assemble", vb: '0 0 24 24', w: 16, solid: 'M9.9 19.1 9.9 18.5 9.8 18.3 8.7 17.3 2.8 21.3 3.7 21.9 5 22.4 6.1 22.5 7.3 22.2 8.1 21.8 8.9 21 9.8 19.6ZM11.7 1.5 10.7 1.7 9.8 2.2 9.1 2.9 8.6 3.7 1.9 16.5 1.7 17.1 1.6 18 1.6 18.8 1.8 19.7 7.7 15.6 7.6 14.9 7.5 14.3 7.6 13.4 7.8 12.7 8.1 12 8.6 11.4 9 10.9 9.6 10.5 10.2 10.2 10.9 10 11.6 9.8 12.3 9.8 13.1 9.9 13.8 10.1 14.5 10.5 15 10.9 18.2 8.8 15.4 3.4 14.9 2.7 14.1 2.1 13.4 1.7 12.6 1.5ZM22.4 17.9 22.3 17.1 22 16.2 19.1 10.4 16.1 12.4 16.4 13.2 16.6 14.1 16.5 15 16.3 15.7 16.1 16.4 15.8 16.9 15.2 17.5 14.4 18.3 14.1 18.8 14.2 19.4 15 20.8 15.6 21.5 15.9 21.7 16.6 22.2 17.8 22.5 19 22.4 20.2 22 21.2 21.2 21.8 20.5 22.2 19.7 22.3 19.2Z' };
+    var LOOP = {
+      yara: { name: "Yara's dots on a wave", vb: '0 0 36 20', w: 29, sw: 2.4, lineFaint: 'M2 10C8 2 12 2 18 10S28 18 34 10', solid: dot(10, 4, 2.8) + dot(18, 10, 2.8) + dot(26, 16, 2.8) },
+      yaraone: ASSEMBLE,
+      frame: { name: "AX Frame's corners", vb: '0 0 24 24', w: 16, sw: 2.4, line: 'M3 8V3h5M16 3h5v5M21 16v5h-5M8 21H3v-5' },
+      janka: { name: "Janka's ticks", vb: '0 0 30 20', w: 24, sw: 2.6, line: 'M2.3 3.3V16.7M7.3 3.3V16.7M12.3 3.3V16.7M17.3 3.3V16.7M22.3 3.3V16.7M27.3 3.3V16.7' },
+      grid: { name: "PLExyz Grid's zones", vb: '0 0 24 24', w: 16, solid: sq(2, 2) + sq(13, 2) + sq(13, 13) + sq(2, 13) },
+      crowd: { name: "PLExyz Crowd's dots", vb: '0 0 24 24', w: 16, solid: dot(4, 5, 2.2) + dot(19, 4, 2.2) + dot(20, 18, 2.2) + dot(5, 19, 2.2) + dot(12, 2, 2.2) },
+      angka: { name: "Angka's seed", vb: '0 0 30 20', w: 24, faint: 'M2 12a5 5 0 0 0 10 0ZM18 12a5 5 0 0 0 10 0Z', solid: dot(7, 11, 2.6) },
+      tinara: { name: "Tinara's lattice", vb: '0 0 30 30', w: 16, solid: [5, 15, 25].map(function (y) { return [5, 15, 25].map(function (x) { return dia(x, y); }).join(''); }).join('') }
+    };
+    var loop = Object.assign({ sw: 2, faint: 'M0 0', lineFaint: 'M0 0', solid: 'M0 0', line: 'M0 0' }, LOOP[this.props.product] || LOOP.janka);
     // Only AX Frame names its plans (Seed, Nova; brand kit 13); the others say "your plan".
     var pl = this.props.product === 'frame' ? { it: 'Nova', free: 'Seed', limits: 'Seed\'s limits' } : { it: 'your plan', free: 'the free plan', limits: 'its limits' };
     var en = function (n) { return n.toLocaleString('en-GB'); };
@@ -149,11 +166,11 @@ class Component extends DCLogic {
       section('Level 3 · Irreversible', 'Type the name, then your password or a code (AC-03); the safe choice is focused first'),
       dialogScreen('Delete the organisation', 'Settings → Your data', [h('Delete ' + c.org + '?'), p('This deletes ' + c.counts + '. Owners can undo it for 30 days, then it is gone for good.'), field('Type ' + c.org + ' to confirm', '', { focus: true }), btns(b('Cancel', 'secondary'), b('Delete ' + c.org, 'offDanger'))]),
       dialogScreen('Name typed, asking again', 'Settings → Your data', [h('Delete ' + c.org + '?'), field('Type ' + c.org + ' to confirm', c.org), field('Your password', '••••••••••••••', { show: true, focus: true }), btns(b('Cancel', 'secondary'), b('Delete ' + c.org, 'danger'))]),
-      dialogScreen('Deleting', 'Settings → Your data', [h('Delete ' + c.org + '?'), field('Type ' + c.org + ' to confirm', c.org), field('Your password', '••••••••••••••', { show: true }), btns(b('Cancel', 'off'), b('Deleting…', 'danger', true))]),
+      dialogScreen('Deleting', 'Settings → Your data', [h('Delete ' + c.org + '?'), field('Type ' + c.org + ' to confirm', c.org), field('Your password', '••••••••••••••', { show: true }), btns(b('Cancel', 'off'), b('Deleting', 'danger', true))]),
       dialogScreen('Delete ' + c.bulk + ' at once', c.recs + ', ' + c.bulk + ' selected', [h('Delete ' + c.bulk + ' ' + c.recs + '?'), p('More than 50 at once cannot be undone from the toast. They stay in Trash for 30 days.'), field('Type ' + c.bulk + ' to confirm', c.bulk, { mono: true }), btns(b('Cancel', 'secondary'), b('Delete ' + c.bulk + ' ' + c.recs, 'danger'))]),
 
       section('While it runs', 'By how long it takes: the button under 2 seconds, a progress dialog over, a background job for long ones (AC-05, AC-06, AC-07)'),
-      pageScreen('Button busy', 'under 2 seconds', [h('Edit ' + c.rec), field(c.field, c.fieldVal), btns(b('Cancel', 'off'), b('Saving…', 'primary', true)), note('Disabled while it runs; a second press does nothing.')]),
+      pageScreen('Button busy', 'under 2 seconds', [h('Edit ' + c.rec), field(c.field, c.fieldVal), btns(b('Cancel', 'off'), b('Saving', 'primary', true)), note('Disabled while it runs, at the same width; ' + loop.name + ' in place of the dots; a second press does nothing.')]),
       dialogScreen('Progress, with a count', 'over 2 seconds', [loader('Importing ' + c.impN + ' ' + c.imp), bar(impDone, c.impN, '25%'), note('You can keep this open, or carry on and we\'ll tell you when it\'s done.'), btns(b('Cancel', 'secondary'), b('Run in background'))]),
       dialogScreen('Progress, in steps', 'several steps', [loader('Exporting ' + c.exportName), steps([['Gathering ' + c.recs, 'done'], ['Building the file', 'now'], ['Preparing the download', 'to come']]), btns(b('Run in background'))]),
       pageScreen('Background job', 'over 30 seconds', [h('Jobs'), rows([['Importing ' + c.impN + ' ' + c.imp, impDone + ' of ' + c.impN + ' · about 4 minutes left', 'Cancel'], [c.ai, 'Started 14:02', 'Cancel'], ['Export: ' + c.exportName, 'Done at 13:55', 'Download', '#067647']])], 'Import started', 'See progress'),
@@ -167,7 +184,7 @@ class Component extends DCLogic {
       dialogScreen('Discard changes?', 'leaving a form', [h('Discard changes?'), p('Your changes to ' + c.rec + ' haven\'t been saved.'), btns(b('Discard', 'secondary'), b('Keep editing'))])
     ];
     return {
-      name: c.name, mark: c.mark, action: c.action, link: c.link, line: c.line,
+      name: c.name, mark: c.mark, action: c.action, link: c.link, line: c.line, loop: loop,
       count: items.filter(function (i) { return i.isScreen; }).length,
       bg: ['80%', '62%', '74%', '55%', '68%', '60%'], items: items
     };
