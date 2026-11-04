@@ -8,6 +8,12 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.10.1 · 3 Nov 2026
+
+Patch: the brand kit snapshot moves to tokens 1.12.0 (owner, 3 Nov 2026, brand kit guide/10). Nalar, the sixth family, has its colour: deep gold `#B48B02`, tint `#F9EED4`, dark `#7E6105` (`color.family.nalar`), and its icon (Cabang). No existing token, spec, mock or size changes.
+
+- `brand/tokens.json` and `brand/brand-kit.lock` updated by `tools/sync-brand-kit.py`; the headers of `axle/tokens.css` and `app/tokens.css` name the new source. Their values are unchanged: the family colours are not in the `axle` or `shell` sections.
+
 ## 1.10.0 · 26 Oct 2026
 
 Minor: a rule tightened for every product (owner, 26 Oct 2026; the lead adds it to brand kit guide/10). The owner saw a blue text link reading "Remove…" in a product and asked that an action always be a button and that no label end in "…".
