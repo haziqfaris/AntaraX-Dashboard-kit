@@ -8,6 +8,10 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.12.1 · 5 Nov 2026
+
+Patch: tokens only. Synced from the brand kit 1.13.0 (commit `df35bf2`), which registers **Tiko** (`tiko`, private pilot) as a product (owner, 5 Nov 2026; brand kit guide/10 and Tiko's DECISIONS D-040). `app/tokens.css` gains the `.shell-root[data-product="tiko"]` slots, generated from Tiko's palette; `brand/` is the new snapshot. Tiko's text colour stays the shared navy until its open question Q-05 is decided (brand kit open question 31). Nothing else in the kit changes.
+
 ## 1.12.0 · 30 Oct 2026
 
 Minor: something new to adopt in AXLE Central. AntaraX email 0.8.0 (antarax-api docs/15 §15.11, built 30 Oct 2026) has provider accounts ("teams"), senders registered as data and domains clients bring, managed only from AXLE Central; this designs its pages, as §15.11 "Still to come" asks.

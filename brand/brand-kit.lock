@@ -2,7 +2,7 @@
   "source": "haziqfaris/AntaraX-brand-kit",
   "file": "tokens/tokens.json",
   "palettes": "tokens/product-palettes.json",
-  "version": "1.11.0",
-  "updated": "2026-10-16",
-  "commit": "8f9b838"
+  "version": "1.13.0",
+  "updated": "2026-11-05",
+  "commit": "df35bf2"
 }
