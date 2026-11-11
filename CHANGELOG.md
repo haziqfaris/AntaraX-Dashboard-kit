@@ -10,9 +10,9 @@ Every change needs an owner decision, recorded in the brand kit's `guide/10-deci
 
 ## 1.15.0 · 11 Nov 2026
 
-Minor: something new to adopt. The brand kit snapshot moves to tokens 1.15.0 (owner, 11 Nov 2026, the first picks from the Nalar and Tiko options board: "AwanGan should be cloud and orbit. for palettes use rec. tiko use H2"; brand kit guide/10).
+Minor: something new to adopt. The brand kit snapshot moves to tokens 1.15.0 (owner, 11 Nov 2026, from the Nalar and Tiko options board: "AwanGan should be cloud and orbit. for palettes use rec. tiko use H2", then "rec for the rest, then merge"; brand kit guide/10, PR #44).
 
-- **Brand kit tokens 1.15.0** (commit `18bf8d5`): AwanGan and BumiNyata have palettes (AwanGan in Nalar gold, acting in `#8D6C01`; BumiNyata in clay `#8A5A2E`), so `app/tokens.css` has shell slots for `data-product="awangan"` and `"buminyata"`, light and dark, and `astryx/themes/` has an `awangan` and a `buminyata` theme. Tiko's secondary is Tide pink `#E9579D` in place of REKA orange, which changes its secondary scale. AwanGan's own mark is the cloud in orbit (brand kit `assets/product-logos/awangan.svg`). No AXLE value changed; `axle/tokens.css` changes only in its source line.
+- **Brand kit tokens 1.15.0** (commit `a95b0af`, the merge of brand kit PR #44): AwanGan and BumiNyata have palettes (AwanGan in Nalar gold, acting in `#8D6C01`; BumiNyata in clay `#8A5A2E`), so `app/tokens.css` has shell slots for `data-product="awangan"` and `"buminyata"`, light and dark, and `astryx/themes/` has an `awangan` and a `buminyata` theme. Tiko's secondary is Tide pink `#E9579D` in place of REKA orange, which changes its secondary scale. AwanGan's own mark is the cloud in orbit, BumiNyata's two peaks over the ground, and Tiko's Tiko Classic's head (brand kit `assets/product-logos/`); Nalar's BaTech is sky and ground. Tiko's text, status and figures follow the shared core. No AXLE value changed; `axle/tokens.css` changes only in its source line.
 - `brand/` synced; every Astryx theme regenerated: AwanGan's and BumiNyata's are new, and the others change only their source line (Tiko's theme does not use its secondary).
 - **Pointers:** README (v1.15.0), BRIEF, `astryx/SPEC.md` §4.
 
