@@ -18,7 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # The brand kit's default branch. If the brand kit is private, add a read-only token
+      # The brand kit's main branch (both kits work from main, brand kit guide/10, 11 November 2026),
+      # named here because the repository's GitHub default branch is not main. If the brand kit is private, add a read-only token
       # as the BRAND_KIT_TOKEN secret; without one this step is skipped and the check
       # runs against the pinned snapshot in brand/ only.
       - name: Fetch the brand kit
@@ -27,6 +28,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: haziqfaris/AntaraX-brand-kit
+          ref: main
           path: brand-kit
           token: ${{ secrets.BRAND_KIT_TOKEN || github.token }}
 
