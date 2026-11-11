@@ -8,6 +8,10 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.12.1 · 11 Nov 2026
+
+Patch: tokens only (drafted 5 Nov 2026 on Tiko's branch, merged 11 Nov). Synced from the brand kit 1.13.0, which registers **Tiko** (`tiko`, private pilot) as a product (owner, 5 Nov 2026; brand kit guide/10 and Tiko's DECISIONS D-040). `app/tokens.css` gains the `.shell-root[data-product="tiko"]` slots, generated from Tiko's palette; `brand/` is the new snapshot. Tiko's text colour stays the shared navy until its open question Q-05 is decided (brand kit open question 31). Nothing else in the kit changes.
+
 ## 1.12.0 · 11 Nov 2026
 
 Minor: AXLE Central → Email, restored. Drafted on 18 and 30 Oct 2026 (as 1.6.0, then 1.11.0 and 1.12.0) and merged by the owner as PR #23 on 30 Oct 2026, into a branch that was later reused for the Astryx work, so it never reached main; it is restored here on top of 1.11.0 unchanged in substance, and AXLE spec 1.7 now carries it. Two parts, as drafted.
