@@ -8,6 +8,47 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.12.0 · 11 Nov 2026
+
+Minor: AXLE Central → Email, restored. Drafted on 18 and 30 Oct 2026 (as 1.6.0, then 1.11.0 and 1.12.0) and merged by the owner as PR #23 on 30 Oct 2026, into a branch that was later reused for the Astryx work, so it never reached main; it is restored here on top of 1.11.0 unchanged in substance, and AXLE spec 1.7 now carries it. Two parts, as drafted.
+
+### Part 1: Teams, Senders and Client domains (30 Oct 2026)
+
+Something new to adopt in AXLE Central. AntaraX email 0.8.0 (antarax-api docs/15 §15.11, built 30 Oct 2026) has provider accounts ("teams"), senders registered as data and domains clients bring, managed only from AXLE Central; this designs its pages, as §15.11 "Still to come" asks.
+
+- **axle/SPEC.md 1.7 (with Part 2), §10.14 In AXLE Central**, four new parts:
+  - **Teams** (`GET /internal/axle/v1/email/teams`): each team's sending domain, Ready or Not ready with the secret to add ("Add RESEND_KEY_REKA"), delivery reports, standby (`mailer.antarax.ai` or None), and today's emails against its day's cap with the security reserve. No key value ever appears;
+  - **Senders** (`GET /internal/axle/v1/email/senders`): AntaraX's products In code and read only; senders Registered as data, with Edit;
+  - **Register a sender** (`PUT /internal/axle/v1/email/senders/{service}`): service id, team, name, address (defaults to service@ the team's domain), origins, action and ground colours, reply-to, byline (optional), legal and support lines. The service's rules are the help text: address on the team's domain or a verified one; https origins only; reply-to a mailbox someone reads. After saving, "Put SVC_KEY_‹SERVICE› on the Worker";
+  - **Client domains** (`GET` and `POST /internal/axle/v1/email/domains`, `POST …/domains/{name}/verify`): Add a domain (name and team) returns the DNS records (type, name, value, priority, status, each with Copy); Verify; Pending, Verified and Failed in words, never by colour alone. A team with no key, a team's own domain, another team's domain and the antarax team are refused in words.
+
+  Only Admin registers senders and adds or verifies domains; Operator reads.
+- **Mock:** `CentralEmail.dc.html` gains the three sections after The service, with `pe` on reka (`pe@mail.reka.re`, links on `https://pe.reka.re`) just saved, and `mail.client.example` on rekatech with a DKIM TXT, an MX and an SPF TXT. A new tweak, "The rekatech team", steps through no key yet, pending, verified and failed. The service card reads antarax-api 0.8.1. Canvas board 6200px tall.
+- **Products figures follow the real limits:** every product shares the antarax team's 80 a day (20 kept for security), so the column reads each product's emails today of the team's 80, and the total row "12 of 80 · 20 kept for security", as on Teams. The example volumes are small (55 in 7 days, 12 today), the open alerts are Tinara's security emails failing and Yara's one spam report, and the cleared ones fit those volumes; the near-limit and bounce-rate examples are gone (a bounce-rate alert needs 20 sent in a day).
+
+### Part 2: AXLE Central → Email (18 and 30 Oct 2026)
+
+A new page to adopt in AXLE Central (owner, 18 Oct 2026; drafted as 1.6.0 on its branch and renumbered when main, at 1.10.0, was merged in; brand kit guide/10, the email look decided on 18 Oct 2026). AntaraX email is live with AXLE Central's operator-only routes (antarax-api 0.7.5, docs/15 §15.10), so Central gets its Email page.
+
+- **axle/SPEC.md 1.7, §10.14 In AXLE Central.** Email across every product, read through `/internal/axle/v1/email/` with Central's own key:
+  - the sending line for the whole service;
+  - **Needs a person** first: open alerts, worst first, each naming the product, in words, with since when, opening the list filtered to it;
+  - a row per product: sent, delivered, bounced, spam, failed, delivery rate, its day's limit used, its alert in a word; Angka as "Deferred: sends its own email";
+  - the last 7 days by status as filters, and every email across products with a product column and filter;
+  - one email opened, with attempts and provider events, and a link into the product's AXLE;
+  - **Is this address blocked?** across every product: **Lift the bounce** only here, Admin rung, the person's request as the reason, audited with the masked address; spam marks listed with their product and lifted in that product's AXLE;
+  - the alerts, open and cleared in 7 days, also emailed hourly to the operators;
+  - the service: production and staging, Resend, the sending domain, replies, delivery reports last heard.
+
+  The old "AXLE Central (later)" bullet is replaced; product AXLEs are unchanged.
+- **Mocks:**
+  - new `axle/mock/CentralEmail.dc.html`, on the canvas beside Email. It imports the product sidebar and top bar, as no Central variant exists yet (the mock README says so);
+  - `Email.dc.html`: main had already brought its colours to brand tokens (1.7.0); the selected row keeps the orange border with no side stripe (axle/README.md, Never).
+
+Also in this part (drafted as 1.5.1):
+
+- `BRIEF.md`: Email is in what is decided, and the rendered email reference in where things are. AntaraX email is live (antarax-api 0.7.4) and every email now carries the brand kit's layout with the family's BaTech band (brand kit, decisions of 18 Oct 2026). Nothing for a product to change in its AXLE.
+
 ## 1.11.0 · 11 Nov 2026
 
 Minor: something new to adopt (owner, 11 Nov 2026; brand kit guide/10). Until now nothing named what AntaraX's own products build their interface with; the checks of 18 Oct 2026 found most failures in hand-built dialogs and toasts.

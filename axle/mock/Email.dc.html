@@ -249,7 +249,7 @@ class Component extends DCLogic {
       return { when: e.at, label: T[e.tpl].short, cls: T[e.tpl].cls, to: e.to, org: ORGS[e.org], word: s.word, ink: s.ink, tint: s.tint, pressed: on ? 'true' : 'false',
         open: function () { self.setState({ sel: e.id }); },
         style: 'display:grid;grid-template-columns:92px minmax(0,1.3fr) minmax(0,1.3fr) minmax(0,1.1fr) 132px;gap:10px;align-items:center;padding:8px;border:0;border-bottom:1px solid #EEF1F6;cursor:pointer;text-align:left;font-size:13px;color:#3B4469;' +
-          (on ? 'background:#FEF4E6;box-shadow:inset 3px 0 0 #FB9800;' : 'background:transparent;') };
+          (on ? 'background:#FFF6E8;box-shadow:inset 0 0 0 1px #FB9800;border-radius:10px;' : 'background:transparent;') };
     });
     var e = E.filter(function (x) { return x.id === st.sel; })[0] || E[0];
     var s = S[e.s];
