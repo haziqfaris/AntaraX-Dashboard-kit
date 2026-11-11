@@ -1,4 +1,4 @@
-# Lapisan Console and AXLE Central: nav and dashboard inventory
+# Lapisan Console and R8: nav and dashboard inventory
 
 Repository `haziqfaris/antarax-api` at commit `05ea388` (12 Oct 2026). Stack: Next.js 16.3.8 App Router, React 19.2.8, server actions, plain CSS with custom properties (no Tailwind, no icon library). The console lives in `apps/console` and will be served at `lapisan.antarax.ai` (built, not yet deployed).
 
@@ -6,7 +6,7 @@ Three surfaces:
 
 1. **Developer**: the signed-in Lapisan Console, where a developer team manages its sandbox, keys, apps, webhooks, usage, logs and live access.
 2. **Public frame** (surface "other"): landing, sign-up, sign-in and invite pages, using the antarax.ai floating bar.
-3. **AXLE Central** (surface "axle"): planned at `axle.antarax.ai`, **not built**. No AXLE screen exists in this repo. Its requirements from the docs are summarised below and in full in [axle-central-requirements.md](axle-central-requirements.md).
+3. **R8** (surface "axle"): planned at `r8.antarax.ai`, **not built**. No AXLE screen exists in this repo. Its requirements from the docs are summarised below and in full in [axle-central-requirements.md](axle-central-requirements.md).
 
 All screenshots were taken from a local run in the console's own **demo mode** (no Supabase keys, so everything runs in memory with a stand-in Lapis API). The data is fictional (team "Demo Sdn Bhd", person "Aisyah Rahman").
 
@@ -108,15 +108,15 @@ Other screens worth seeing: the first-visit Welcome ([08](screenshots/08-develop
 |---|---|
 | ![Sign in, desktop](screenshots/05-developer-signin-desktop.png) | ![Sign in, mobile](screenshots/05-developer-signin-mobile.png) |
 
-## 3 AXLE Central (planned, not built)
+## 3 R8 (planned, not built)
 
 There is no AXLE screen in this repository, so there is nothing to screenshot. What exists is the internal contract it will read through (AXLE Link, `packages/lapisan-core/src/link/`) and a demo-only "decide it as AXLE would" panel inside the developer Go live page. Real access-request decisions happen today in Angka's AXLE (`axle.angka.antarax.ai`).
 
-### What docs/07 says AXLE Central should contain
+### What docs/07 says R8 should contain
 
 Full version with file and line references: [axle-central-requirements.md](axle-central-requirements.md).
 
-**What it is.** One operator view across every AntaraX product at `axle.antarax.ai`, on its own host and never under `api.antarax.ai` (docs/07:17, decision 0009:10). Stage 2, built in the same app as the AntaraX Hub (docs/08:100, roadmap 12:39). It does not replace the product AXLEs (Angka, Yara, YARA One, Janka, Frame); it links into them for depth (docs/07:7-17).
+**What it is.** One operator view across every AntaraX product at `r8.antarax.ai`, on its own host and never under `api.antarax.ai` (docs/07:17, decision 0009:10). Stage 2, built in the same app as the AntaraX Hub (docs/08:100, roadmap 12:39). It does not replace the product AXLEs (Angka, Yara, YaraOne, Janka, Frame); it links into them for depth (docs/07:7-17).
 
 **Where its data comes from.** Only through AXLE Link, four signed endpoints every product serves: tenants, usage totals (at most 92 days per read), health (`ok`, `degraded`, `down` and a list of problems) and switches (docs/07:31-52). A product can be "not connected" (404 until it has a service key) or refuse central switches (403), and the UI needs a state for each.
 
@@ -161,7 +161,7 @@ Full version with file and line references: [axle-central-requirements.md](axle-
 - **Targets and motion.** Nav links about 38px and small buttons 32px, under the 44px target; reduced motion covers only buttons in the console.
 - **Missing shared pieces.** No icons, user menu, team switcher in the bar, product switcher or app tile.
 - **Blueprint.** The brand kit says Lapisan uses the dark blueprint for developer material; the console is light only. Worth a decision.
-- **AXLE.** Not built. The demo-only panel shows the name AXLE on a customer screen; keep it demo-only. When AXLE Central is designed, docs/07 says "tenant" but the screen word is organisation, and the staff role "support" should not be confused with "REKA support".
+- **AXLE.** Not built. The demo-only panel shows the name AXLE on a customer screen; keep it demo-only. When R8 is designed, docs/07 says "tenant" but the screen word is organisation, and the staff role "support" should not be confused with "REKA support".
 
 ## Screenshots
 

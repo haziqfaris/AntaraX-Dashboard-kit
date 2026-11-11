@@ -256,7 +256,7 @@ They are fresh: `tour.jpg` matches today's UI, including the 12 Oct top bar. It 
 - **Old zone colours.** The logo and `--zone-*` tokens still use the original colours, not the approved AntaraX versions.
 - **Status colours are not the shared core.** The violet focus ring and missing outlines on inputs conflict with the AntaraX-blue ring rule. There is no reduced-motion handling.
 - **No Help item or /help, and the guide is not at /guide.**
-- **AXLE does not have the AXLE look.** It should be dark `#071233`, with REKA orange and the AntaraX A, named "AXLE · PLExyz Grid" at axle.antarax.ai. Today it is a light violet "PLExyz Grid AXLE".
+- **AXLE does not have the AXLE look.** It should be dark `#071233`, with REKA orange and the AntaraX A, named "AXLE · PLExyz Grid" at r8.antarax.ai. Today it is a light violet "PLExyz Grid AXLE".
 - **Words:**
   - US "organization"
   - "workspace" used for the account

@@ -1083,7 +1083,7 @@
     "Credit line reads 'Powered by AntaraX Ripple' in the sidebar head, sign-in panels, worker sign-in, splash and AXLE sign-in; the kit wants 'Yara · by AntaraX' in chrome and 'Yara by AntaraX, from REKA.' on sign-in (src/lib/brand.ts:3, Sidebar.tsx:198, LoginCard.tsx:51 and :63, SplashScreen.tsx:11, BrandLockup.tsx:30, axle/login/page.tsx:47).",
     "AXLE is named 'Yara AXLE' (wordmark, page H1, page title via brand.adminLayerName); kit 13 §6 wants 'AXLE · Yara'.",
     "AXLE look uses ink #0B0E14 / #12151E; kit 13 §6 specifies the dark product ground #071233, raised #0C1B47. Orange #FB9800 accent matches. AXLE primary button 'Invite someone' is teal, not orange.",
-    "AXLE lives at axle.yara.antarax.ai; kit target is axle.antarax.ai (one console for every product).",
+    "AXLE lives at axle.yara.antarax.ai; kit target is r8.antarax.ai (one console for every product).",
     "US spelling 'Organization' in the nav (Sidebar.tsx:73 and AXLE 'Organizations'), sign-in copy 'Every organization runs its own process' and worker sign-in 'Organization code'; kit wants organisation.",
     "Role labels 'Owner / CEO / MD', 'Operation Manager', 'REKA staff' (constants.ts:11-17); kit wants Owner, Admin, REKA support (Supervisor and Worker stay).",
     "'Log out' / 'Log in' everywhere; kit 13 §1 wants Sign in / Sign out.",

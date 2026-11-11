@@ -8,6 +8,82 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.14.0 · 11 Nov 2026
+
+Minor: something new to adopt, and the brand kit snapshot moves to tokens 1.14.0 (owner, 11 Nov 2026: "go do all", after the kit audit of that day; brand kit guide/10).
+
+- **practice/SPEC.md v1.0, a new standard: shared practice.** What several products had each worked out on their own, now one rule each, with the product it came from as the reference:
+  - **§1 AntaraX email:** one call, the template ids (`auth.*.v1`, `team.invitation.v1`, `onboarding.welcome.v1`, `system.action_required.v1`, `system.export_ready.v1`, `system.announcement.v1`, `notice.v1`, `digest.v1`), reading the send's status, Supabase Auth's email and its send-email hook, sender houses with "‹Tool› by REKA, powered by AntaraX" for REKA's own tools and REKA Tech's team for client apps, and the one exception (monitoring alerts by Grafana's own email).
+  - **§2 Legal text** from REKA's legal repository, pinned in `legal.lock.json` with a test; the personal-data rules and their shared cases.
+  - **§3 One part per job, one word per thing, one tone per meaning** (YaraOne docs/24, `lint-parts.mjs`, `words.ts`, `status.ts`).
+  - **§4 Who sees money**, by role, on the server; billing is Owners only.
+  - **§5 Waiting and AI thinking**, with AX Frame's and Tinara's loaders as the reference.
+  - **§6 Guided tours**, **§7 the deploy check** (`/api/version` against `main`), **§8 how AI usage is shown**, **§9 the kit lock**, **§10 checks run on the machine**, **§11 how to prove it**.
+- **`tools/check-lock.mjs`:** fails when a product's `antarax-kit.lock` pins a version or commit that is not on this kit's `main`, or follows a standard the kit doesn't have; reports how far behind it is.
+- **app/SPEC.md 1.9:** §15.3 gains who sees money (brand kit 13 §3 points here); §15 points to the practice; §9 lets the assistant in a client's support conversation carry one name from TriageNT's approved list, always saying it is an AI (owner, 11 Nov 2026).
+- **yaraone/EMBEDS.md 1.1:** what YaraOne has built (docs/23): the support link, the panel in an app, the developer key with its handoff, the API and webhooks; the words on screen; TriageNT. The back office in AXLE is still the plan.
+- **Brand kit tokens 1.14.0** (commit `4caeaba`): Tide's verb is Decide and Loom's is Structure; `color.family.frame` is gone as a family (AX Frame keeps its colours as a product; CSS variables unchanged); the `loom` palette is named Cebis Loom. `brand/` synced; the Astryx themes regenerated (Cebis Loom's theme takes the new name). No value an AXLE or shell uses changed.
+- **`tools/sync-brand-kit.py`** finds `../antarax-brand-kit` as well as `../AntaraX-brand-kit`, and `--check` now fails when no brand kit is found, instead of saying "In step" after checking only its own snapshot. `--snapshot-only` checks the snapshot alone; CI passes it when it cannot reach the brand kit.
+- **Pointers:** README (v1.14.0, the standards table), BRIEF, AGENTS.
+
+## 1.13.0 · 11 Nov 2026
+
+Minor: a rule tightened and a name changed (owner, 11 Nov 2026; antarax-api decision 0018; brand kit guide/10).
+
+- **axle/SPEC.md 1.8. AXLE Central is now R8, the central console, at `r8.antarax.ai`** (staging `r8-staging.antarax.ai`). `axle.antarax.ai` is kept free; "Shen" is reserved for a future command centre over everything. Each product's R8 mode is unchanged, and the spec says which R8 is meant. Renamed through the spec, the mocks' visible text, BRIEF, README, the inventory, capacity and the gallery; file names such as `CentralEmail.dc.html` stay.
+  - **R8's staff on the same ladder** (§5.2): super admin is Owner, admin is Admin, developer is Operator (std M14 Engineering).
+  - **Product AXLEs are at `axle-<product>.antarax.ai`** (§1): Cloudflare's free certificate covers one level under `antarax.ai`. Addresses already live stay until that AXLE is reworked.
+  - **Staff sign in with Google, or email and a one-time code** (§5.1): a password with an authenticator code, or Cloudflare Access's emailed code. **Never a sign-in link**; AwanGan's and Cebis Loom's AXLEs move off links the next time their sign-in is touched.
+  - §20: question 5 (the focus ring on the bars) is settled by the brand kit's `axle.bar-focus`; 24 and 25 record today's decisions.
+- **astryx/SPEC.md:** AX Frame's cards are 20px (page 16, cards 20, controls 12), in the spec and in `tools/build-astryx-themes.mjs`; every theme file exports `quietDestructive`, the style for the quiet destructive button in a dense row (app SPEC §11b); Tiko, Cebis Loom, AwanGan and BumiNyata are in the product lists.
+- **inventory/README.md:** the products built since the inventory was taken; AX Loom is retired as a name.
+- "YARA One" is written YaraOne everywhere outside the verbatim reference copies; BRIEF and the AXLE AI page point at Heuristiks 0.8.0 and REKA's profile.
+
+## 1.12.1 · 11 Nov 2026
+
+Patch: tokens only (drafted 5 Nov 2026 on Tiko's branch, merged 11 Nov). Synced from the brand kit 1.13.0, which registers **Tiko** (`tiko`, private pilot) as a product (owner, 5 Nov 2026; brand kit guide/10 and Tiko's DECISIONS D-040). `app/tokens.css` gains the `.shell-root[data-product="tiko"]` slots, generated from Tiko's palette; `brand/` is the new snapshot. Tiko's text colour stays the shared navy until its open question Q-05 is decided (brand kit open question 31). Nothing else in the kit changes.
+
+## 1.12.0 · 11 Nov 2026
+
+Minor: AXLE Central → Email, restored. Drafted on 18 and 30 Oct 2026 (as 1.6.0, then 1.11.0 and 1.12.0) and merged by the owner as PR #23 on 30 Oct 2026, into a branch that was later reused for the Astryx work, so it never reached main; it is restored here on top of 1.11.0 unchanged in substance, and AXLE spec 1.7 now carries it. Two parts, as drafted.
+
+### Part 1: Teams, Senders and Client domains (30 Oct 2026)
+
+Something new to adopt in AXLE Central. AntaraX email 0.8.0 (antarax-api docs/15 §15.11, built 30 Oct 2026) has provider accounts ("teams"), senders registered as data and domains clients bring, managed only from AXLE Central; this designs its pages, as §15.11 "Still to come" asks.
+
+- **axle/SPEC.md 1.7 (with Part 2), §10.14 In AXLE Central**, four new parts:
+  - **Teams** (`GET /internal/axle/v1/email/teams`): each team's sending domain, Ready or Not ready with the secret to add ("Add RESEND_KEY_REKA"), delivery reports, standby (`mailer.antarax.ai` or None), and today's emails against its day's cap with the security reserve. No key value ever appears;
+  - **Senders** (`GET /internal/axle/v1/email/senders`): AntaraX's products In code and read only; senders Registered as data, with Edit;
+  - **Register a sender** (`PUT /internal/axle/v1/email/senders/{service}`): service id, team, name, address (defaults to service@ the team's domain), origins, action and ground colours, reply-to, byline (optional), legal and support lines. The service's rules are the help text: address on the team's domain or a verified one; https origins only; reply-to a mailbox someone reads. After saving, "Put SVC_KEY_‹SERVICE› on the Worker";
+  - **Client domains** (`GET` and `POST /internal/axle/v1/email/domains`, `POST …/domains/{name}/verify`): Add a domain (name and team) returns the DNS records (type, name, value, priority, status, each with Copy); Verify; Pending, Verified and Failed in words, never by colour alone. A team with no key, a team's own domain, another team's domain and the antarax team are refused in words.
+
+  Only Admin registers senders and adds or verifies domains; Operator reads.
+- **Mock:** `CentralEmail.dc.html` gains the three sections after The service, with `pe` on reka (`pe@mail.reka.re`, links on `https://pe.reka.re`) just saved, and `mail.client.example` on rekatech with a DKIM TXT, an MX and an SPF TXT. A new tweak, "The rekatech team", steps through no key yet, pending, verified and failed. The service card reads antarax-api 0.8.1. Canvas board 6200px tall.
+- **Products figures follow the real limits:** every product shares the antarax team's 80 a day (20 kept for security), so the column reads each product's emails today of the team's 80, and the total row "12 of 80 · 20 kept for security", as on Teams. The example volumes are small (55 in 7 days, 12 today), the open alerts are Tinara's security emails failing and Yara's one spam report, and the cleared ones fit those volumes; the near-limit and bounce-rate examples are gone (a bounce-rate alert needs 20 sent in a day).
+
+### Part 2: AXLE Central → Email (18 and 30 Oct 2026)
+
+A new page to adopt in AXLE Central (owner, 18 Oct 2026; drafted as 1.6.0 on its branch and renumbered when main, at 1.10.0, was merged in; brand kit guide/10, the email look decided on 18 Oct 2026). AntaraX email is live with AXLE Central's operator-only routes (antarax-api 0.7.5, docs/15 §15.10), so Central gets its Email page.
+
+- **axle/SPEC.md 1.7, §10.14 In AXLE Central.** Email across every product, read through `/internal/axle/v1/email/` with Central's own key:
+  - the sending line for the whole service;
+  - **Needs a person** first: open alerts, worst first, each naming the product, in words, with since when, opening the list filtered to it;
+  - a row per product: sent, delivered, bounced, spam, failed, delivery rate, its day's limit used, its alert in a word; Angka as "Deferred: sends its own email";
+  - the last 7 days by status as filters, and every email across products with a product column and filter;
+  - one email opened, with attempts and provider events, and a link into the product's AXLE;
+  - **Is this address blocked?** across every product: **Lift the bounce** only here, Admin rung, the person's request as the reason, audited with the masked address; spam marks listed with their product and lifted in that product's AXLE;
+  - the alerts, open and cleared in 7 days, also emailed hourly to the operators;
+  - the service: production and staging, Resend, the sending domain, replies, delivery reports last heard.
+
+  The old "AXLE Central (later)" bullet is replaced; product AXLEs are unchanged.
+- **Mocks:**
+  - new `axle/mock/CentralEmail.dc.html`, on the canvas beside Email. It imports the product sidebar and top bar, as no Central variant exists yet (the mock README says so);
+  - `Email.dc.html`: main had already brought its colours to brand tokens (1.7.0); the selected row keeps the orange border with no side stripe (axle/README.md, Never).
+
+Also in this part (drafted as 1.5.1):
+
+- `BRIEF.md`: Email is in what is decided, and the rendered email reference in where things are. AntaraX email is live (antarax-api 0.7.4) and every email now carries the brand kit's layout with the family's BaTech band (brand kit, decisions of 18 Oct 2026). Nothing for a product to change in its AXLE.
+
 ## 1.11.0 · 11 Nov 2026
 
 Minor: something new to adopt (owner, 11 Nov 2026; brand kit guide/10). Until now nothing named what AntaraX's own products build their interface with; the checks of 18 Oct 2026 found most failures in hand-built dialogs and toasts.

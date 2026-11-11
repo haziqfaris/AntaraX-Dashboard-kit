@@ -11,7 +11,7 @@ PRODUCTS = [
   ('ax-frame','AX Frame','#074AF8','Ledger (desktop) · Insight (phone) · AXLE'),
   ('angka','Angka','#6B3F6B','Customer app (light and dark) · AXLE · Lapis'),
   ('tinara','Tinara','#7A1E3C','Partner app · Tinara Admin'),
-  ('lapisan-console','Lapisan Console','#0459F7','Developer console · AXLE Central (not built)'),
+  ('lapisan-console','Lapisan Console','#0459F7','Developer console · R8 (not built)'),
   ('iso-generator','ISO Generator','#0C1F30','Workspace app · REKA Admin (its AXLE) · a REKA product, not in the brand kit'),
 ]
 OTHER = {'iso-generator':'Other','plexyz-grid':'Tenant portal','plexyz-crowd':'Client view','angka':'Lapis','lapisan-console':'Public site'}

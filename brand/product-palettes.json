@@ -1146,7 +1146,7 @@
       }
     },
     "loom": {
-      "name": "AX Loom",
+      "name": "Cebis Loom",
       "kind": "A-mark",
       "character": "Loom violet",
       "anchor": "#4904B3",
@@ -1429,6 +1429,149 @@
         "action-on-white": 5.23,
         "accent-text-on-white": 5.23,
         "dark-accent-on-dark": 5.87
+      }
+    },
+    "tiko": {
+      "name": "Tiko",
+      "kind": "own-mark",
+      "character": "Friendly purple with an orange dot on a soft lavender ground: quiet surfaces, one purposeful accent",
+      "anchor": "#7A5FFF",
+      "anchor-step": 500,
+      "scale": {
+        "50": "#F6F6FE",
+        "100": "#EDEBFF",
+        "200": "#D6D6FE",
+        "300": "#BDBCFE",
+        "400": "#9F99FF",
+        "500": "#7A5FFF",
+        "600": "#6A4DF5",
+        "700": "#5B3FE0",
+        "800": "#4B2FC9",
+        "900": "#2F1776",
+        "950": "#1E0C53"
+      },
+      "secondary-scale": {
+        "50": "#FEF5EC",
+        "100": "#FEE9D4",
+        "200": "#FFD1A5",
+        "300": "#F9B46C",
+        "400": "#FB9800",
+        "500": "#C67700",
+        "600": "#A16006",
+        "700": "#824D04",
+        "800": "#643A00",
+        "900": "#482800",
+        "950": "#301900"
+      },
+      "neutral": {
+        "50": "#FAF9FC",
+        "100": "#F4F2FA",
+        "200": "#E7E4F0",
+        "300": "#D6D2E4",
+        "400": "#B6B6C2",
+        "500": "#91919D",
+        "600": "#70707D",
+        "700": "#545461",
+        "800": "#3C3C4A",
+        "900": "#252533",
+        "950": "#151422"
+      },
+      "roles": {
+        "action": "#6A4DF5",
+        "action-hover": "#5B3FE0",
+        "action-pressed": "#4B2FC9",
+        "accent": "#7A5FFF",
+        "accent-text": "#6A4DF5",
+        "tint": "#F6F6FE",
+        "subtle": "#EDEBFF",
+        "accent-border": "#D6D6FE",
+        "on-tint": "#4B2FC9",
+        "secondary": "#FB9800",
+        "dark-accent": "#9F99FF",
+        "focus": "#0459F7"
+      },
+      "ui": {
+        "surface": {
+          "ground": "#FAF9FC",
+          "raised": "#FFFFFF",
+          "sunken": "#FAF9FC",
+          "hover": "#F4F2FA",
+          "selected": "#F6F6FE",
+          "overlay": "rgba(11,27,79,.48)"
+        },
+        "text": {
+          "strong": "#0B1B4F",
+          "body": "#3B4469",
+          "muted": "#5B6488",
+          "disabled": "#B6B6C2",
+          "on-action": "#FFFFFF",
+          "link": "#6A4DF5"
+        },
+        "border": {
+          "subtle": "#F4F2FA",
+          "default": "#E7E4F0",
+          "strong": "#B6B6C2",
+          "input": "#91919D"
+        },
+        "status": {
+          "ok": [
+            "#12B76A",
+            "#E7F8EF",
+            "#067647"
+          ],
+          "warn": [
+            "#F79009",
+            "#FEF4E6",
+            "#B54708"
+          ],
+          "fault": [
+            "#F04438",
+            "#FEECEB",
+            "#B42318"
+          ],
+          "info": [
+            "#0459F7",
+            "#E6EEFE",
+            "#0347C8"
+          ]
+        },
+        "dark": {
+          "ground": "#071233",
+          "raised": "#0C1B47",
+          "sunken": "#050D26",
+          "border": "rgba(157,184,255,.16)",
+          "strong": "#EAF0FF",
+          "body": "#B6C3EA",
+          "muted": "#8E9CC8",
+          "accent": "#9F99FF",
+          "action": "#9F99FF",
+          "on-action": "#071233"
+        }
+      },
+      "chart": [
+        "#6A4DF5",
+        "#EB6834",
+        "#13A8A0",
+        "#2A78D6",
+        "#D9579C"
+      ],
+      "chart-dark": [
+        "#7A5FFF",
+        "#E76530",
+        "#12A8A0",
+        "#2A78D6",
+        "#D9579C"
+      ],
+      "chart-after-product": [
+        "orange",
+        "aqua",
+        "blue",
+        "magenta"
+      ],
+      "contrast": {
+        "action-on-white": 5.26,
+        "accent-text-on-white": 5.26,
+        "dark-accent-on-dark": 7.41
       }
     }
   }

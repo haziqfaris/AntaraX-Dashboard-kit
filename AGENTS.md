@@ -37,6 +37,8 @@ Every customer app, AXLE and client project (owner, 26 Oct 2026): **an action is
 
 ## Building with Astryx
 
+The practice beneath the look that every product shares (AntaraX email, legal text from REKA's legal repository, one part per job and one word per thing, who sees money, waiting, tours, the deploy check, AI usage, the kit lock) is `practice/SPEC.md`. Check a product's pin with `node tools/check-lock.mjs PRODUCT_PATH`: its version and commit must be on this kit's `main`.
+
 New and reworked screens in every customer app and every AXLE are built from Astryx (owner, 11 Nov 2026). Follow `astryx/SPEC.md`:
 - Pin the tested version exactly.
 - Copy the product's generated theme from `astryx/themes/<key>/` and build it with `npx astryx theme build`. Never edit a colour.

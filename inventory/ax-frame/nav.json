@@ -1468,7 +1468,7 @@
     "AXLE mobile bug: the <=860px rule `.adm-main{padding:64px 16px 40px}` (admin.css:62) is overridden by the later `.adm-main{padding:28px 34px 48px}` (admin.css:106), so the fixed hamburger sits on top of every page title on phones (see 03c).",
     "AXLE nav has no icons while the customer nav does; AXLE shell has no sign-out (only 'Back to AX Frame').",
     "AXLE sign-in and denied page say 'AUTHORIZED STAFF ONLY' (US spelling; British is 'authorised', 13 §7).",
-    "AXLE host is axle-antarax.vercel.app, not axle.antarax.ai (13 §2). §6 asks for 'the AntaraX A in the corner'; AXLE shows the Frame mark (A + Frame icon), which is close.",
+    "AXLE host is axle-antarax.vercel.app, not r8.antarax.ai (13 §2). §6 asks for 'the AntaraX A in the corner'; AXLE shows the Frame mark (A + Frame icon), which is close.",
     "Accessibility: no aria-current on desktop nav, mobile tabs or AXLE links; the mobile '+' tab button has no accessible name; no axe check in CI (13 §10).",
     "Em dashes throughout page descriptions in pageMeta.ts and AXLE subtitles (the brand voice audit flags em dashes).",
     "Docs drift: AXF-AXLE-THEME.md (12 Jul 2026) still describes a dark rail over a light canvas, ink #0E1420 and 'REKA operator console'; the shipped AXLE is dark-only (#071233). The brand kit's products/frame.md 'Gaps' list (#0062FB primary, orange accent) is also out of date: the repo already uses Frame blue #074AF8 and keeps orange in AXLE only."

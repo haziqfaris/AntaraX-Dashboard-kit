@@ -1,16 +1,16 @@
-# AXLE Central: what the antarax-api docs say it must contain
+# R8: what the antarax-api docs say it must contain
 
-Source: `haziqfaris/antarax-api` at commit `05ea388` (12 Oct 2026). All references are `file:line` in that repository unless marked "brand kit". AXLE Central is **planned, not built**: there is no AXLE user interface anywhere in the repo. What exists is the internal contract it will read through (AXLE Link) and the shared code it will run on.
+Source: `haziqfaris/antarax-api` at commit `05ea388` (12 Oct 2026). All references are `file:line` in that repository unless marked "brand kit". R8 is **planned, not built**: there is no AXLE user interface anywhere in the repo. What exists is the internal contract it will read through (AXLE Link) and the shared code it will run on.
 
 ## 1 What it is, and what it is not
 
 | Point | Reference |
 |---|---|
-| One operator view across every AntaraX product, at `axle.antarax.ai` | `docs/07-operations-and-axle.md:17`, `registry/registry.json:22-24`, `README.md:5` |
+| One operator view across every AntaraX product, at `r8.antarax.ai` | `docs/07-operations-and-axle.md:17`, `registry/registry.json:22-24`, `README.md:5` |
 | Its own host, never under the API host (`api.antarax.ai`): own cookies, firewall and rate rules; an admin surface is not advertised | `docs/07-operations-and-axle.md:17`, `docs/decisions/0009-lapisan-platform-name.md:10,23`, `docs/11-dos-and-donts.md:72` |
 | Stage 2 item 15: "every product on one screen, links into product AXLEs", built in the same app as the AntaraX Hub | `docs/12-roadmap.md:39`, `docs/08-infrastructure.md:100` |
-| It does **not** replace the product AXLEs. Each product keeps its own AXLE for depth; Central links back to them | `docs/07-operations-and-axle.md:17`, `docs/08-infrastructure.md:100`, `docs/11-dos-and-donts.md:71` |
-| The AXLE upgrade (API section and shared staff roles in each product AXLE) runs alongside, with Central as its centre; its own plan lives in the Angka repository | `docs/12-roadmap.md:59-61` |
+| It does **not** replace the product AXLEs. Each product keeps its own AXLE for depth; R8 links back to them | `docs/07-operations-and-axle.md:17`, `docs/08-infrastructure.md:100`, `docs/11-dos-and-donts.md:71` |
+| The AXLE upgrade (API section and shared staff roles in each product AXLE) runs alongside, with R8 as its centre; its own plan lives in the Angka repository | `docs/12-roadmap.md:59-61` |
 | Built from the same `@lapisan/core` and `@lapisan/postgres` packages the products vendor | `docs/08-infrastructure.md:124`, `docs/decisions/0011-lapisan-code-lives-here.md:16` |
 
 ### The product AXLEs it must link into today
@@ -19,15 +19,15 @@ Source: `haziqfaris/antarax-api` at commit `05ea388` (12 Oct 2026). All referenc
 |---|---|---|---|
 | Angka and Lapis | `axle.angka.antarax.ai` | Next.js pages in the Angka app | Full AXLE → API section (the pattern) |
 | Yara | `axle.yara.antarax.ai` | Next.js pages in the Yara app | Status API flag per company |
-| YARA One | `axle.yo.antarax.ai` | Next.js, SECURITY DEFINER RPCs | None |
+| YaraOne | `axle.yo.antarax.ai` | Next.js, SECURITY DEFINER RPCs | None |
 | Janka | `axle.janka.antarax.ai` | Separate Vite SPA, Appwrite `admin-api` | None |
-| Frame | `frame-axle.antarax.ai` | Next.js `/admin` | Context API rate limit, tokens per workspace |
+| Frame | `frame-r8.antarax.ai` | Next.js `/admin` | Context API rate limit, tokens per workspace |
 
-Reference: `docs/07-operations-and-axle.md:9-15`, also `docs/08-infrastructure.md:16`. Brand kit note: these become "AXLE · <product>" and, when the single console exists, `axle.antarax.ai` (brand kit `guide/13-shared-product-standards.md:30,105-112`).
+Reference: `docs/07-operations-and-axle.md:9-15`, also `docs/08-infrastructure.md:16`. Brand kit note: these become "AXLE · <product>" and, when the single console exists, `r8.antarax.ai` (brand kit `guide/13-shared-product-standards.md:30,105-112`).
 
 ## 2 How it gets its data: AXLE Link
 
-Central never reads a product's database. Each product serves four signed internal endpoints (`docs/07-operations-and-axle.md:31-52`; contract in `packages/lapisan-core/src/link/contract.ts:11-91`):
+R8 never reads a product's database. Each product serves four signed internal endpoints (`docs/07-operations-and-axle.md:31-52`; contract in `packages/lapisan-core/src/link/contract.ts:11-91`):
 
 | Endpoint | Returns | Shape reference |
 |---|---|---|
@@ -38,14 +38,14 @@ Central never reads a product's database. Each product serves four signed intern
 
 Rules that shape the UI:
 
-- A product's AXLE Link is absent (404) until it has a service key, and while an owner has switched it off. Central must show "not connected" per product, not an error (`docs/07-operations-and-axle.md:46`).
-- A product may refuse central switches (403 `switches_refused`, "an owner turned that off in AXLE Settings"). Central needs a per-product "takes switches: yes/no" state (`docs/07-operations-and-axle.md:49`, `packages/lapisan-core/src/link/handlers.ts:40,105`).
-- Every signed call lands in the product's audit trail as the service, with summaries such as "AXLE Central read health: degraded (jobs_stuck)" and "AXLE Central switched lapis off (reason)" (`docs/07-operations-and-axle.md:50`, `handlers.ts:69,88,98,122`).
+- A product's AXLE Link is absent (404) until it has a service key, and while an owner has switched it off. R8 must show "not connected" per product, not an error (`docs/07-operations-and-axle.md:46`).
+- A product may refuse central switches (403 `switches_refused`, "an owner turned that off in AXLE Settings"). R8 needs a per-product "takes switches: yes/no" state (`docs/07-operations-and-axle.md:49`, `packages/lapisan-core/src/link/handlers.ts:40,105`).
+- Every signed call lands in the product's audit trail as the service, with summaries such as "R8 read health: degraded (jobs_stuck)" and "R8 switched lapis off (reason)" (`docs/07-operations-and-axle.md:50`, `handlers.ts:69,88,98,122`).
 - Products already shipping usage to the Hub may skip `/usage`, so usage may come from the Hub instead (`docs/07-operations-and-axle.md:42`).
 
-## 3 Sections Central should hold
+## 3 Sections R8 should hold
 
-Each product AXLE gets the same **API section**; Lapis has it all except a lookup box and is the pattern to copy (`docs/07-operations-and-axle.md:19-29`, `docs/10-adding-a-product.md:42`). Central summarises these across products and deep-links to the product AXLE for the rest.
+Each product AXLE gets the same **API section**; Lapis has it all except a lookup box and is the pattern to copy (`docs/07-operations-and-axle.md:19-29`, `docs/10-adding-a-product.md:42`). R8 summarises these across products and deep-links to the product AXLE for the rest.
 
 | Section | What an operator can do | Audited | Reference |
 |---|---|---|---|
@@ -103,7 +103,7 @@ Every switch answers callers with the typed reason, so the reason field must be 
 
 ## 6 Look and words (brand kit, for the design)
 
-- Name "AXLE", product as context ("AXLE · Janka"); address `axle.antarax.ai`; dark only: ground `#071233`, raised `#0C1B47`, REKA orange `#FB9800` accent, Poppins and JetBrains Mono, the AntaraX A in the corner (brand kit `guide/13-shared-product-standards.md:105-112,136`).
+- Name "AXLE", product as context ("AXLE · Janka"); address `r8.antarax.ai`; dark only: ground `#071233`, raised `#0C1B47`, REKA orange `#FB9800` accent, Poppins and JetBrains Mono, the AntaraX A in the corner (brand kit `guide/13-shared-product-standards.md:105-112,136`).
 - On screen, the customer account is an **organisation**, not a tenant (brand kit `guide/13-shared-product-standards.md:3,13`); the docs say "tenant" throughout, which is fine in code.
 - The staff role `support` should not be confused with "REKA support", the customer-facing phrase for REKA people helping inside an organisation (brand kit `guide/13-shared-product-standards.md:20`).
 - Customers never see AXLE's name. The Lapisan Console demo's "Demo mode: decide it as AXLE would" panel (`apps/console/app/t/[team]/[product]/live/page.tsx:47-55`) is demo-only and must stay so.
@@ -116,4 +116,4 @@ Every switch answers callers with the typed reason, so the reason field must be 
 | AXLE Link handlers (tenants, usage, health, switches, audit summaries) | `packages/lapisan-core/src/link/handlers.ts` | Built |
 | Service signature check (`AntaraX-Service-Signature`) | `packages/lapisan-core/src/service-auth.ts` (header comment: "THE HUB AND AXLE CENTRAL DO NOT EXIST YET") | Built |
 | Angka's AXLE Link wiring | `haziqfaris/angka` `lib/axle/link` (off until `AX_SVC_KEY` is set) | Built, per `docs/09-products.md:37` |
-| AXLE Central UI, Hub | none | Not started |
+| R8 UI, Hub | none | Not started |

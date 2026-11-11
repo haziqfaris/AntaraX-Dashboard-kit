@@ -45,4 +45,4 @@ jobs:
 
       - name: Check against the pinned snapshot
         if: steps.kit.outcome != 'success'
-        run: python3 tools/sync-brand-kit.py --check
+        run: python3 tools/sync-brand-kit.py --check --snapshot-only

@@ -1,5 +1,5 @@
 {
-  "product": "Lapisan Console (Lapisan by AntaraX) and AXLE Central (planned)",
+  "product": "Lapisan Console (Lapisan by AntaraX) and R8 (planned)",
   "repo": "haziqfaris/antarax-api",
   "commit": "05ea388",
   "stack": "Next.js 16.3.8 (App Router, Turbopack), React 19.2.8, server actions, plain CSS with custom properties (no Tailwind, no icon library), Supabase via @lapisan/postgres or in-memory demo stores, Resend email, Vercel sin1",
@@ -396,8 +396,8 @@
     },
     {
       "surface": "axle",
-      "name": "AXLE Central (planned, not built in this repo)",
-      "host_or_route": "axle.antarax.ai (planned, Stage 2)",
+      "name": "R8 (planned, not built in this repo)",
+      "host_or_route": "r8.antarax.ai (planned, Stage 2)",
       "entry_files": [
         "docs/07-operations-and-axle.md:5-99",
         "docs/08-infrastructure.md:100",
@@ -412,10 +412,10 @@
       "layout": null,
       "brand": {
         "logo": null,
-        "name_text": "AXLE Central",
+        "name_text": "R8",
         "eyebrow": null,
         "credit_line": null,
-        "other": "No UI exists. Only the internal AXLE Link contract (four signed endpoints every product serves) and audit wording ('AXLE Central read health: ...') are built."
+        "other": "No UI exists. Only the internal AXLE Link contract (four signed endpoints every product serves) and audit wording ('R8 read health: ...') are built."
       },
       "nav_groups": [],
       "global_controls": {
@@ -571,8 +571,8 @@
     "Targets below 44px: nav links about 38px, btn-sm 32px (brand kit 13 §10). Reduced motion only switches off button transitions in the console (the public frame handles it fully).",
     "No icons anywhere in the nav, no user/avatar menu, no org/team switcher in the bar, no product switcher or app tile.",
     "Brand kit products/README.md:24 and 05-colour-and-type.md:38 say Lapisan uses the dark blueprint for developer material; the console is light only (acceptable for an app, but worth a decision).",
-    "AXLE Central does not exist yet. Brand kit 13 §6 fixes its look (dark #071233, raised #0C1B47, REKA orange #FB9800, Poppins + JetBrains Mono, AntaraX A, 'AXLE · <product>'), while docs/07 uses 'tenant' throughout; on screen the brand kit word is 'organisation'. The staff role 'support' should not clash with the customer-facing phrase 'REKA support'.",
+    "R8 does not exist yet. Brand kit 13 §6 fixes its look (dark #071233, raised #0C1B47, REKA orange #FB9800, Poppins + JetBrains Mono, AntaraX A, 'AXLE · <product>'), while docs/07 uses 'tenant' throughout; on screen the brand kit word is 'organisation'. The staff role 'support' should not clash with the customer-facing phrase 'REKA support'.",
     "Demo-only 'decide it as AXLE would' panel shows the internal name AXLE on a customer-facing screen; harmless in demo, but the brand kit says AXLE is never shown to customers (13 §6), so keep it demo-only."
   ],
-  "notes": "AXLE Central requirements, from docs/07-operations-and-axle.md (full write-up with file:line refs in axle-central-requirements.md). WHAT IT IS: one operator view across every AntaraX product at axle.antarax.ai, its own host, never under api.antarax.ai (07:17; decision 0009:10); Stage 2, same app as the AntaraX Hub (08:100; roadmap 12:39). It does NOT replace product AXLEs: each product keeps its own AXLE (axle.angka/yara/yo/janka, frame-axle) for depth and AXLE Central deep-links into them (07:7-17). DATA: reads each product only through AXLE Link, four signed internal endpoints: tenants (id, label, owner email, plan, API on, stopped), usage totals by tenant/route/unit/day (max 92 days), health (ok/degraded/down + problems), and POST switches (07:31-52). A product may refuse central switches (403 switches_refused) and every call is audited on the product side (07:49-50). SECTIONS each product's AXLE API section has, which Central should summarise across products: Tenants (API on/off, plan, limit overrides, stop with reason, notes), Keys (every key: prefix, mode, scopes, made by, last used; stop one / all of a tenant), Switches (all / product / tenant / key, each with a reason callers see), Calls (calls, errors, p50/p95 by day, route, tenant; latest failed calls with request ids), Lookup (one call by request id) (07:19-29). Also access requests for Lapisan Console (approve with plan / decline with reason, email owners) and sandbox/partner tenants shown as such (13:57, 13:173). OPERATOR TASKS: incident playbook (flooding key: switch off key; bad release: switch off product; leaked key: stop it, search usage by key id; everything: switch off all) with typed customer-facing reasons (07:80-90); watch signals: calls/errors/latency, one failed call by request id, unknown errors, operator audit, tenants near cap (07:68-76); alerts to build: error rate >5% for 5 min, tenant >80% of daily cap, door p95 >300 ms, usage writes failing, email first (07:78). CROSS-PRODUCT NEEDS: one staff role ladder viewer < support < operator < admin < owner, two people for irreversible actions once >2 operators (07:54-66); link tenants of different products into one AntaraX account by owner email or company registration number (08:110); cross-product usage statements and one invoice later (12:42); one sign-in for REKA staff (brand kit 13 §6); data protection rules (no bodies, 13-month usage retention, Singapore region) (07:92-99). In this repo there is no AXLE UI: only the AXLE Link contract/handlers in packages/lapisan-core/src/link and a demo-only Approve/Decline stand-in on the console's Go live page."
+  "notes": "R8 requirements, from docs/07-operations-and-axle.md (full write-up with file:line refs in axle-central-requirements.md). WHAT IT IS: one operator view across every AntaraX product at r8.antarax.ai, its own host, never under api.antarax.ai (07:17; decision 0009:10); Stage 2, same app as the AntaraX Hub (08:100; roadmap 12:39). It does NOT replace product AXLEs: each product keeps its own AXLE (axle.angka/yara/yo/janka, frame-axle) for depth and R8 deep-links into them (07:7-17). DATA: reads each product only through AXLE Link, four signed internal endpoints: tenants (id, label, owner email, plan, API on, stopped), usage totals by tenant/route/unit/day (max 92 days), health (ok/degraded/down + problems), and POST switches (07:31-52). A product may refuse central switches (403 switches_refused) and every call is audited on the product side (07:49-50). SECTIONS each product's AXLE API section has, which R8 should summarise across products: Tenants (API on/off, plan, limit overrides, stop with reason, notes), Keys (every key: prefix, mode, scopes, made by, last used; stop one / all of a tenant), Switches (all / product / tenant / key, each with a reason callers see), Calls (calls, errors, p50/p95 by day, route, tenant; latest failed calls with request ids), Lookup (one call by request id) (07:19-29). Also access requests for Lapisan Console (approve with plan / decline with reason, email owners) and sandbox/partner tenants shown as such (13:57, 13:173). OPERATOR TASKS: incident playbook (flooding key: switch off key; bad release: switch off product; leaked key: stop it, search usage by key id; everything: switch off all) with typed customer-facing reasons (07:80-90); watch signals: calls/errors/latency, one failed call by request id, unknown errors, operator audit, tenants near cap (07:68-76); alerts to build: error rate >5% for 5 min, tenant >80% of daily cap, door p95 >300 ms, usage writes failing, email first (07:78). CROSS-PRODUCT NEEDS: one staff role ladder viewer < support < operator < admin < owner, two people for irreversible actions once >2 operators (07:54-66); link tenants of different products into one AntaraX account by owner email or company registration number (08:110); cross-product usage statements and one invoice later (12:42); one sign-in for REKA staff (brand kit 13 §6); data protection rules (no bodies, 13-month usage retention, Singapore region) (07:92-99). In this repo there is no AXLE UI: only the AXLE Link contract/handlers in packages/lapisan-core/src/link and a demo-only Approve/Decline stand-in on the console's Go live page."
 }

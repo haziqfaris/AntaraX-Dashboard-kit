@@ -33,12 +33,12 @@ Every product sends its email through AntaraX email (axle SPEC §10.14; antarax-
     "measure": { "how": "provider-api", "source": "AntaraX email GET /v1/emails/summary?days=1, every status counted" },
     "decide": [{ "action": "reduce-use", "what": "Send one digest instead of an email per event" }, { "action": "upgrade-plan", "what": "Ask for a higher DAILY_LIMITS in AntaraX email" }] },
   { "id": "email-shared", "class": "messages", "name": "Shared sending plan (every product)", "plan": "resend", "unit": "emails/month", "limit": 3000, "per": "month",
-    "measure": { "how": "none", "why_not": "Read in AXLE Central from Resend's usage; a product sees only its own emails" },
+    "measure": { "how": "none", "why_not": "Read in R8 from Resend's usage; a product sees only its own emails" },
     "decide": [{ "action": "upgrade-plan", "what": "Resend's next plan, decided once for every product" }] }
 ]
 ```
 
-The shared plan is measured once, in AXLE Central; a product shows it with a dash and the reason, never a guess, so the same quota is never counted twice. Angka is deferred and keeps its own email resources until the owner decides.
+The shared plan is measured once, in R8; a product shows it with a dash and the reason, never a guess, so the same quota is never counted twice. Angka is deferred and keeps its own email resources until the owner decides.
 
 ## The classes
 

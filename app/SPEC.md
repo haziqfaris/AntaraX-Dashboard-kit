@@ -1,6 +1,6 @@
 # The AntaraX shell for customer apps
 
-**Version 1.8, the standard (owner, 16 Oct 2026; 1.4 on 17 Oct 2026, Dashboard kit 1.5.0; 1.5 on 18 Oct 2026, Dashboard kit 1.7.0; 1.6 on 18 Oct 2026, Dashboard kit 1.8.0; 1.7 on 26 Oct 2026, Dashboard kit 1.10.0; 1.8 on 11 Nov 2026, Dashboard kit 1.11.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17). 1.3 adds named saved views to every long list (§11a). 1.4 says where email comes from and which emails a person can turn off (§8). 1.5 moves signing in and passwords (§15.1) into their own standard, [getting-in/SPEC.md](../getting-in/SPEC.md). 1.6 moves confirming, waiting and results (§11) into [actions/SPEC.md](../actions/SPEC.md). 1.7 makes every action a button and takes the trailing "…" off every label (§11b). 1.8 says what new and reworked screens are built with: Astryx, in the product's own theme ([astryx/SPEC.md](../astryx/SPEC.md); §11).
+**Version 1.9, the standard (owner, 16 Oct 2026; 1.4 on 17 Oct 2026, Dashboard kit 1.5.0; 1.5 on 18 Oct 2026, Dashboard kit 1.7.0; 1.6 on 18 Oct 2026, Dashboard kit 1.8.0; 1.7 on 26 Oct 2026, Dashboard kit 1.10.0; 1.8 on 11 Nov 2026, Dashboard kit 1.11.0; 1.9 on 11 Nov 2026, Dashboard kit 1.14.0).** Every AntaraX customer app is built inside this shell; everything it does not name is the product's own. A new shared element is added here first, with the owner's decision, and never invented inside one product. 1.1 added logo, loading and motion (§12), the customer's own admin area (§13), the standards beneath the look (§15) and what never to do (§16). 1.2 makes the floating bar the default with exact values (§2.2), makes the current navigation item shared (§2.5), adds a baseline for long lists (§11a), and adds what a builder measures against: tokens (`app/tokens.css`), reference components (`reference/`), PNG renders of every mock with their values, and a conformance check (§17). 1.3 adds named saved views to every long list (§11a). 1.4 says where email comes from and which emails a person can turn off (§8). 1.5 moves signing in and passwords (§15.1) into their own standard, [getting-in/SPEC.md](../getting-in/SPEC.md). 1.6 moves confirming, waiting and results (§11) into [actions/SPEC.md](../actions/SPEC.md). 1.7 makes every action a button and takes the trailing "…" off every label (§11b). 1.8 says what new and reworked screens are built with: Astryx, in the product's own theme ([astryx/SPEC.md](../astryx/SPEC.md); §11). 1.9 lets the assistant in a client's support conversation carry one name from TriageNT's approved list (§9), and points to the practice beneath the look that every product shares ([practice/SPEC.md](../practice/SPEC.md); §15).
 
 **The rule (owner, 15 Oct 2026).** AXLE is the same in every product ([axle/](../axle/README.md)). A customer app is the opposite: each product has its own identity, shape, theme and UI. A small shell is the exception. It stays the same in every product so that a customer who uses two AntaraX products, or moves from one to another, always finds the same things in the same places:
 
@@ -268,6 +268,7 @@ For products with AI (brand kit 12, 13 §1):
   - offers "Helpful" and "Not helpful", which reach AXLE.
 - **One line at the foot:** "Assist can make mistakes. Check anything important."
 - **Never in the panel:** model or provider names, prompts, or costs (axle SPEC §12).
+- **One exception to the name: a support assistant in a client's support conversation** (owner, 11 Nov 2026; TriageNT decisions T-002, T-014). Where YaraOne's front office answers a client through TriageNT (§10), each conversation may give the assistant one name from TriageNT's approved list (`docs/PERSONA-NAMES.md`: twenty Malay nature words such as Bayu, Embun, Senja), shown as "‹Name›, REKA's support assistant", with the sparkle. It always says it is an AI when asked, and never claims to be a person. Nowhere else does an AI get a name of its own: the team's tools and every product screen keep **Assist**, and a new name per product is still never used.
 - **AI anywhere else in the product** uses the shared pieces in brand kit 13 §6b (owner, 16 Oct 2026). That covers a suggestion, a document read by AI, or a forecast. The look is the product's own:
   - the sparkle with "AI" in words;
   - **Accept**, **Change** and **Dismiss**, each reporting its outcome so AXLE's R8 → AI flow counts it;
@@ -405,6 +406,8 @@ What AXLE gives REKA staff, an organisation's Owners and Admins get for their ow
 
 ## 15 Built right: the standards beneath the look
 
+The practice several products had each worked out (AntaraX email, legal text from REKA's legal repository, one part per job and one word per thing, who sees money, waiting, tours, the deploy check, AI usage and the kit lock) is [practice/SPEC.md](../practice/SPEC.md), which applies here as much as this section does.
+
 These are not cosmetic, so no product varies them. They follow the usual industry references: NIST SP 800-63B for passwords and sign-in, OWASP ASVS level 2 for application security, WCAG 2.2 AA for accessibility, Core Web Vitals for speed, and Malaysia's Personal Data Protection Act 2010 (PDPA) for personal data.
 
 ### 15.1 Signing in and passwords
@@ -449,6 +452,11 @@ These are not cosmetic, so no product varies them. They follow the usual industr
   - images lose their location data;
   - files are scanned before anyone else can open them.
 - **Analytics:** first-party only, without advertising trackers; any optional cookie asks first.
+- **Who sees money** (brand kit 13 §3; owner, 11 Nov 2026): set by role, on the server, never by hiding a column.
+  - The roles that may see prices, order values, invoices and costs are named in **one place** in the product, and every figure, table, chart, alert and export reads it (Yara's `MONEY_VISIBLE_ROLES`).
+  - Billing (plan, checkout, the billing portal, invoices, payment method) is **Owners only** (§4; AX Frame `billingAuthority.ts`).
+  - A role without money sees counts, never amounts; where an amount would be, it sees "–" and the reason, so a total never leaks through a sum, an alert or a CSV.
+  - The detail and the references: [practice/SPEC.md](../practice/SPEC.md) §4.
 
 ### 15.4 Speed and caching
 

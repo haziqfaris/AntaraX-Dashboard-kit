@@ -253,9 +253,9 @@ class Component extends DCLogic {
         best: 'a few power users live in AXLE all day.' },
       { letter: 'E', name: 'Rail and panel', width: '268px', isImport: false, isList: false, isRail: true,
         idea: 'A narrow rail of the same seven areas plus Janka, each with its own count; the panel shows one area\'s pages.',
-        pros: L(['Every area and its count is visible at once, without scrolling', 'Scales to many pages and to AXLE Central\'s Products', 'The panel can fold away for wide tables']),
+        pros: L(['Every area and its count is visible at once, without scrolling', 'Scales to many pages and to R8\'s Products', 'The panel can fold away for wide tables']),
         cons: L(['Two clicks to reach a page in another area', 'Icons need learning; labels under them help', 'Wider: 268px against 240px']),
-        best: 'pages keep growing, or for AXLE Central across every product.' }
+        best: 'pages keep growing, or for R8 across every product.' }
     ];
     variants.forEach(function (v) { v.hid = 'var-' + v.letter; v.hasFind = v.letter === 'D'; v.sections = v.sections || []; });
     return { variants: variants, rail: rail, panel: panel };

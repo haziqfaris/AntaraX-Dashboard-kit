@@ -248,7 +248,7 @@ The footer reads "Terms · Privacy · REKA Inisiatif Sdn Bhd". There is no help 
 ## What conflicts with the brand kit
 
 - **Credit line:** no "Angka · by AntaraX" in the chrome. "REKA Inisiatif Sdn Bhd" on sign-in and "Run by REKA Inisiatif Sdn Bhd" in AXLE are used as product credits.
-- **AXLE look:** it is the app's light plum shell with a theme toggle and the Angka mascot. The kit wants a dark-only `#071233` console with REKA orange `#FB9800` and the AntaraX A, named "AXLE · Angka", on `axle.antarax.ai`.
+- **AXLE look:** it is the app's light plum shell with a theme toggle and the Angka mascot. The kit wants a dark-only `#071233` console with REKA orange `#FB9800` and the AntaraX A, named "AXLE · Angka", on `r8.antarax.ai`.
 - **Focus ring:** plum `#9B6F9B`, not AntaraX blue `#0459F7`.
 - **Type:** Caveat and Geist Mono are in use; the target is Poppins plus JetBrains Mono.
 - **Taglines:** three run at once ("Simpler together.", "Less busywork. More forward.", "Business clarity for what's next").

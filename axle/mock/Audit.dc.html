@@ -24,12 +24,12 @@ button,input,select,textarea{font-family:inherit}
     <main style="padding: 22px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1320px; width: 100%; box-sizing: border-box">
       <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 10px">
         <div><p style="margin: 0; color: #0B1B4F; font-size: 16px">Every action staff took in AXLE, with the reason, and what it changed.</p>
-        <p style="margin: 0; font-size: 12px; color: #5B6488">Nothing here can be edited or deleted. Calls from AXLE Central appear as the service.</p></div>
+        <p style="margin: 0; font-size: 12px; color: #5B6488">Nothing here can be edited or deleted. Calls from R8 appear as the service.</p></div>
         <button type="button" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; color: #0B1B4F; font-weight: 500; cursor: pointer">Export CSV</button>
       </div>
 
       <div style="display: flex; flex-wrap: wrap; gap: 8px">
-        <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">Staff <select style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"><option>Anyone</option><option>Aisyah Rahman</option><option>Farid Osman</option><option>Mei Lin</option><option>AXLE Central</option></select></label>
+        <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">Staff <select style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"><option>Anyone</option><option>Aisyah Rahman</option><option>Farid Osman</option><option>Mei Lin</option><option>R8</option></select></label>
         <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">Organisation <select style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"><option>Any</option><option>Acme Plastics Sdn Bhd</option><option>Contoh Logistik Sdn Bhd</option></select></label>
         <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">Action <select style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"><option>Any</option><option>Suspend or restore</option><option>Quota override</option><option>Support session</option><option>Plan change</option><option>Switch</option><option>Staff change</option></select></label>
         <label style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #D5DBE7; background: #FFFFFF; font-size: 13px">From <input type="date" value="2026-10-08" style="border: 0; background: transparent; color: #0B1B4F; font-size: 14px"></label>
@@ -70,7 +70,7 @@ class Component extends DCLogic {
     var data = [
       ['15 Oct, 14:05', 'Aisyah Rahman', 'OPERATOR', 'raised the AI quota', 'Acme Plastics Sdn Bhd', 'month-end stock count', 'ai_calls_month: 8,000 (plan)', 'ai_calls_month: 12,000 until 31 Oct'],
       ['15 Oct, 11:42', 'Farid Osman', 'SUPPORT', 'started a support session, 30 min, read only', 'Contoh Logistik Sdn Bhd', 'member reported a missing forecast', 'no session', 'session until 12:12, ended 11:58'],
-      ['15 Oct, 09:31', 'AXLE Central', 'SERVICE', 'read health: degraded (jobs_stuck)', 'Platform', 'scheduled check', '–', 'health: degraded'],
+      ['15 Oct, 09:31', 'R8', 'SERVICE', 'read health: degraded (jobs_stuck)', 'Platform', 'scheduled check', '–', 'health: degraded'],
       ['14 Oct, 17:20', 'Aisyah Rahman', 'OPERATOR', 'scheduled deletion after the cooling-off', 'Kedai Runcit Maju', 'owner asked to close the account', 'status: active', 'status: pending deletion, cooling-off to 18 Oct'],
       ['14 Oct, 09:03', 'Mei Lin', 'ADMIN', 'switched open access on', 'All organisations', 'pilot extended to 31 Oct', 'open_access: off', 'open_access: on'],
       ['13 Oct, 16:48', 'Mei Lin', 'ADMIN', 'gave Farid Osman the Support rung', 'Staff', 'joined the support rota', 'rung: Viewer', 'rung: Support'],

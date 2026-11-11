@@ -8,9 +8,10 @@ version and commit they came from in brand/brand-kit.lock, and generates axle/to
 from the "axle" section and app/tokens.css (the customer apps' shell) from the "shell" section,
 with each product's slots filled from its palette. Never edit either file by hand.
 
-  python3 tools/sync-brand-kit.py                     sync from ../AntaraX-brand-kit
+  python3 tools/sync-brand-kit.py                     sync from ../AntaraX-brand-kit (or ../antarax-brand-kit)
   python3 tools/sync-brand-kit.py --brand-kit PATH    sync from a brand kit checkout elsewhere
-  python3 tools/sync-brand-kit.py --check             change nothing; fail if anything has drifted
+  python3 tools/sync-brand-kit.py --check             change nothing; fail if anything has drifted, or if no brand kit is found
+  python3 tools/sync-brand-kit.py --check --snapshot-only   the same against the snapshot alone (CI without access to the brand kit)
   python3 tools/sync-brand-kit.py --project PATH      check a REKA client project: no AntaraX colour may appear in it
 
 --check fails when:
@@ -18,7 +19,9 @@ with each product's slots filled from its palette. Never edit either file by han
   - a mock in axle/mock/ uses a hex colour that is in neither the brand kit tokens nor a product
     palette (a board that shows a product's own side, such as a support session, uses that
     product's palette);
-  - a brand kit checkout is available (--brand-kit, or ../AntaraX-brand-kit) and its tokens or
+  - no brand kit checkout is found (--brand-kit, ../AntaraX-brand-kit or ../antarax-brand-kit), unless
+    --snapshot-only is passed: a check that cannot see the brand kit cannot say it is in step;
+  - a brand kit checkout is available and its tokens or
     product palettes differ from the snapshot (the brand kit changed and this kit has not been synced);
   - a mock in project/mock/ uses any AntaraX colour (project SPEC §3), except a board marked
     "antarax-comparison", which shows an AntaraX product beside a project on purpose, and a board
@@ -43,7 +46,8 @@ PROJECT_MOCK = os.path.join(HERE, 'project', 'mock')
 NEUTRAL = {'#FFFFFF', '#000000'}
 CODE_EXT = ('.css', '.scss', '.ts', '.tsx', '.js', '.jsx', '.html', '.json')
 SKIP_DIRS = {'node_modules', '.next', '.open-next', 'dist', 'build', 'out', '.git', '.vercel'}
-DEFAULT_KIT = os.path.join(os.path.dirname(HERE), 'AntaraX-brand-kit')
+DEFAULT_KITS = [os.path.join(os.path.dirname(HERE), n) for n in ('AntaraX-brand-kit', 'antarax-brand-kit')]
+DEFAULT_KIT = next((k for k in DEFAULT_KITS if os.path.isdir(k)), DEFAULT_KITS[0])
 HEX = re.compile(r'#[0-9a-fA-F]{6}\b')
 
 
@@ -233,6 +237,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--brand-kit', help='path to a checkout of haziqfaris/AntaraX-brand-kit')
     ap.add_argument('--check', action='store_true', help='change nothing; exit 1 on any drift')
+    ap.add_argument('--snapshot-only', action='store_true', help='with --check: check the snapshot alone, without a brand kit checkout')
     ap.add_argument('--project', help='check a REKA client project at PATH for AntaraX colours; change nothing')
     args = ap.parse_args()
     if args.project:
@@ -288,12 +293,14 @@ def main():
                 problems.append('The brand kit has changed (now %s, snapshot %s). Run tools/sync-brand-kit.py and commit the result.' % (upstream['version'], tokens['version']))
         elif not os.path.isfile(PALETTES) or read(kit_palettes_path) != read(PALETTES):
             problems.append('The brand kit product palettes differ from the snapshot. Run tools/sync-brand-kit.py and commit the result.')
+    elif args.snapshot_only:
+        print('Checked against the snapshot only (%s, commit %s), as --snapshot-only asked.' % (lock['version'], lock['commit']))
     else:
-        print('No brand kit checkout found: checked against the snapshot only (%s, commit %s).' % (lock['version'], lock['commit']))
+        problems.append('No brand kit checkout found, so this check cannot say the kit is in step. Clone the brand kit beside this repo, pass --brand-kit PATH, or pass --snapshot-only to check the snapshot alone.')
     for p in problems:
         print('DRIFT: ' + p)
     if not problems:
-        print('In step with the brand kit %s (commit %s).' % (lock['version'], lock['commit']))
+        print(('Snapshot in order (%s, commit %s).' if args.snapshot_only and not (kit_tokens_path and os.path.isfile(kit_tokens_path)) else 'In step with the brand kit %s (commit %s).') % (lock['version'], lock['commit']))
     return 1 if problems else 0
 
 

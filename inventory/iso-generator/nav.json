@@ -850,7 +850,7 @@
     "AXLE is light (#F7F6F3 ground, white sidebar, navy accent); kit 13 §6 wants dark #071233 / raised #0C1B47 with REKA orange #FB9800; Tailwind orange is even remapped to navy (tailwind.config.js:15-26)",
     "Fonts are DM Sans / Bricolage Grotesque / DM Mono, not Poppins + JetBrains Mono (tailwind.config.js:9-12)",
     "No AntaraX A or any AntaraX naming in either surface; credit is 'by REKA · for NexusTAC' (SignIn.tsx:98)",
-    "Host is axle.nexustac.reka.tech, not axle.antarax.ai; customer host iso.nexustac.reka.tech (hosts.ts:9-10)",
+    "Host is axle.nexustac.reka.tech, not r8.antarax.ai; customer host iso.nexustac.reka.tech (hosts.ts:9-10)",
     "No AXLE Link endpoints (/internal/axle/v1/tenants|usage|health|switches); ISO Generator is not in antarax-api registry/registry.json",
     "Staff rights are eight independent capabilities, not the viewer<support<operator<admin<owner ladder of antarax-api docs/07 §7.4",
     "No separate AXLE sign-in; same SignIn component as the workspace app with the product name",

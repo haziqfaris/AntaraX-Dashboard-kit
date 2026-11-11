@@ -35,7 +35,7 @@
       "measure": { "how": "provider-api", "source": "AntaraX email GET /v1/emails/summary?days=1, every status counted" },
       "decide": [{ "action": "reduce-use", "what": "Send one digest instead of an email per event" }, { "action": "upgrade-plan", "what": "Ask for a higher DAILY_LIMITS in AntaraX email" }] },
     { "id": "email-shared", "class": "messages", "name": "Shared sending plan (every product)", "plan": "resend", "unit": "emails/month", "limit": 3000, "per": "month",
-      "measure": { "how": "none", "why_not": "Read in AXLE Central from Resend's usage; a product sees only its own emails" },
+      "measure": { "how": "none", "why_not": "Read in R8 from Resend's usage; a product sees only its own emails" },
       "decide": [{ "action": "upgrade-plan", "what": "Resend's next plan, decided once for every product" }] },
     { "id": "ai", "class": "ai", "name": "AI spend", "plan": "gemini", "unit": "money/month", "limit": null, "budget": 50, "per": "month",
       "measure": { "how": "log", "source": "ai_calls cost, priced in AXLE" },

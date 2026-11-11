@@ -24,7 +24,7 @@ No production or staging system was signed in to.
 | AX Frame | `haziqfaris/axframe` @ `a0ae746` | Ledger (desktop) · Insight (phone) · AXLE (Dashboard and R8 modes) | 18 | [ax-frame/](ax-frame/README.md) |
 | Angka (with Lapis) | `haziqfaris/angka` @ `58f3adf` | Customer app (light and dark) · AXLE · Lapis shell (from source) | 28 | [angka/](angka/README.md) |
 | Tinara | `haziqfaris/tinara` @ `02d53b7` | Partner app · Tinara Admin | 23 | [tinara/](tinara/README.md) |
-| Lapisan Console | `haziqfaris/antarax-api` @ `05ea388` | Developer console · AXLE Central (planned, not built) | 14 | [lapisan-console/](lapisan-console/README.md) |
+| Lapisan Console | `haziqfaris/antarax-api` @ `05ea388` | Developer console · R8, the central console (planned then; built since 11 Nov 2026, Email only) | 14 | [lapisan-console/](lapisan-console/README.md) |
 | ISO Generator (REKA, added 15 Oct) | `haziqfaris/iso-generator` @ `8dbf32e` | Workspace app · REKA Admin (its AXLE) | 34 | [iso-generator/](iso-generator/README.md) |
 
 Each folder has:
@@ -33,11 +33,12 @@ Each folder has:
 - `nav.json`: the same data, structured, for building the matrices below.
 - `screenshots/`
 
-The full AXLE Central requirements from the antarax-api docs are in [lapisan-console/axle-central-requirements.md](lapisan-console/axle-central-requirements.md).
+The full R8 requirements from the antarax-api docs are in [lapisan-console/axle-central-requirements.md](lapisan-console/axle-central-requirements.md).
 
 Not covered:
 
-- **AX Loom and AX Motion:** no repository yet.
+- **Built since this inventory was taken (15 Oct 2026), and not yet crawled:** Cebis Loom (`haziqfaris/antarax-cebis-loom`, Loom; its own AXLE on its own host, decision 0014), AwanGan (`haziqfaris/AntaraX-AwanGan`, Nalar; AXLE at `axle-awangan.antarax.ai`, decision 0024), BumiNyata (`haziqfaris/AntaraX-BumiNyata`, Nalar), Tiko (`haziqfaris/antarax-tiko`, Tide, private pilot; AXLE at `axle.tiko.antarax.ai`), Gauge (`haziqfaris/antarax-ripple-monitoring`), REKA Discovery (`haziqfaris/ripple-workflow`) and R8, the central console (antarax-api `apps/central`, Email only). Crawl each the next time the inventory is refreshed.
+- **AX Motion:** no repository yet. AX Loom is retired as a product name: Cebis Loom is the Loom product (brand kit, 25 Oct 2026).
 - **ISO Generator** is a REKA product for its client NexusTAC, on `*.nexustac.reka.tech`. It is not in the brand kit's product list or the Lapisan registry, and was added for its AXLE. Decide whether it joins the AntaraX standard.
 - **YaraOne** (one word since 16 Oct 2026): in scope (owner, 16 Oct 2026). An AntaraX product, A-mark in the Ripple family with its own colour, jade `#087F5B`; the home of every product's tickets and feedback ([yaraone/EMBEDS.md](../yaraone/EMBEDS.md)). Its customer app and AXLE were rebuilt to this kit on 16 Oct (YaraOne docs/20). Its brand kit entry waits on the owner's go.
 
@@ -72,10 +73,10 @@ Not covered:
 
 ## AXLE: console matrix
 
-| | Yara | Janka | PLExyz Grid | AX Frame | Angka | Tinara | AXLE Central | ISO Generator |
+| | Yara | Janka | PLExyz Grid | AX Frame | Angka | Tinara | R8 | ISO Generator |
 |---|---|---|---|---|---|---|---|---|
 | **Name on screen** | Yara AXLE | Janka AXLE | PLExyz Grid AXLE — Platform Admin | AXLE · AX Frame | AXLE · the console for Angka | Tinara Admin | (planned) | REKA Admin |
-| **Where it lives** | same app `/axle`, own host | separate entry `axle.html` | separate app `apps/axle` | same app `/admin`, own host | same app `/axle`, own host | in-app `/#/admin` | `axle.antarax.ai` | same build, own host `axle.nexustac.reka.tech` |
+| **Where it lives** | same app `/axle`, own host | separate entry `axle.html` | separate app `apps/axle` | same app `/admin`, own host | same app `/axle`, own host | in-app `/#/admin` | `r8.antarax.ai` | same build, own host `axle.nexustac.reka.tech` |
 | **Look** | dark sidebar `#0B0E14`, light page, orange | dark rail `#0B0E14`, light page, orange | light, violet | dark only `#071233`, orange (closest to kit 13 §6) | light plum, theme toggle | light, plum | dark `#071233`, REKA orange (kit 13 §6) | light `#F7F6F3`, navy, DM Sans |
 | **Nav items** | 12 | 11 | 5 | 15 + 6 (two modes) | 28 | 12 | (see requirements) | 13 |
 | **Groups** | Tenants · Platform · Monitoring | Platform · AI · System | Tenants · Platform | Pulse · Customers · Commerce · Console / Operations · Setup | Watch · Products · Run · Trail | Control Tower · Business Logic · Intelligence & Data · Oversight | Overview · Organisations · Keys · Switches · Calls · Lookup · Health · Audit · Access · Staff | Service · Workspaces & people · AI · Library · System |
@@ -129,7 +130,7 @@ Not covered:
    - Announcements or broadcast (2)
    - Analytics or growth (3)
 
-   With the AXLE Central list from antarax-api (Keys, Switches, Calls, Lookup, Access requests, Connect apps, Accounts, Staff), this is enough to define one standard AXLE nav with optional product sections.
+   With the R8 list from antarax-api (Keys, Switches, Calls, Lookup, Access requests, Connect apps, Accounts, Staff), this is enough to define one standard AXLE nav with optional product sections.
 4. **The landing pages already agree on a shape:**
    - platform counts at the top,
    - a "needs a human" or "needs an operator" list,
@@ -137,8 +138,8 @@ Not covered:
    - a health or run status.
 
    Grid has no landing page; its console opens on a table. Tinara's figures are hard-coded.
-5. **Staff roles:** Angka's five rungs (viewer < support < operator < admin < owner) match the antarax-api AXLE Central ladder, and AX Frame uses three of them. The other consoles have one admin role. Kit 13 reserves "REKA support" as a customer-facing phrase, so the staff role "support" may need another name.
-6. **No console has global search.** AXLE Central plans "Lookup" by request id. Cross-product search for organisations and people would be new.
+5. **Staff roles:** Angka's five rungs (viewer < support < operator < admin < owner) match the antarax-api R8 ladder, and AX Frame uses three of them. The other consoles have one admin role. Kit 13 reserves "REKA support" as a customer-facing phrase, so the staff role "support" may need another name.
+6. **No console has global search.** R8 plans "Lookup" by request id. Cross-product search for organisations and people would be new.
 
 ### ISO Generator's AXLE (added 15 Oct)
 
@@ -198,5 +199,5 @@ Fix first: "View workspace as" shows no banner and still offers "New project", e
    - one nav skeleton: Overview · Organisations · People · Staff · Plans & features · AI & cost · Health · Audit · Help content, with product sections slotted in;
    - one landing page: counts, needs an operator, health, recent staff actions;
    - one staff role ladder;
-   - an Overview that can roll up into AXLE Central.
+   - an Overview that can roll up into R8.
 4. Record the open choices in the brand kit's `11-open-questions.md`. Examples: bottom bar or drawer on phones; whether "Workspace" survives in AX Frame; what the "support" staff role should be called.
