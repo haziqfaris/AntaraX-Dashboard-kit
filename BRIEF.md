@@ -34,7 +34,7 @@ The product chat builds in the product's own repository. If it needs something t
 | Email | Every product sends through **AntaraX email** (`email.antarax.ai`, from `product@mail.antarax.ai`). AXLE shows Watch → Email, read from the service with the product's service key, and never holds templates, a sender or an address. R8 → Email shows every product's email, the service's alerts and health, and is the only place a shared bounce is lifted (Admin). It also holds the service's teams (Resend accounts: antarax, reka, rekatech), senders registered as data beside the products in code, and client domains with their DNS records; only Admin changes them. Every email looks the same everywhere: the brand kit's layout with the family's BaTech band and, on first emails, the product's motif. Angka is deferred | [SPEC §10.14](axle/SPEC.md#1014-email-antarax-email-as-this-product-sees-it-owner-17-oct-2026); brand kit `guide/13` §4 and `assets/email/`; antarax-api `docs/15` |
 | Buttons and links | An action is a button (primary, secondary, ghost, destructive), a link only goes somewhere, Remove and Delete are destructive buttons, and no label ends in "…" (owner, 26 Oct 2026) | §14.2 |
 | Figures | Real and clickable. Money is grouped by currency. A hidden or unknown figure is a dash with the reason, never `0` | §3, §13.1 |
-| Values | Every colour and size comes from [`axle/tokens.css`](axle/tokens.css), generated from the brand kit (tokens 1.14.0) | [README](README.md#connected-to-the-brand-kit) |
+| Values | Every colour and size comes from [`axle/tokens.css`](axle/tokens.css), generated from the brand kit (tokens 1.15.0) | [README](README.md#connected-to-the-brand-kit) |
 
 ## Where everything is
 

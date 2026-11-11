@@ -55,7 +55,7 @@ Astryx is in beta, with breaking changes between minor versions, so every produc
 
 Each product's theme is **generated from the brand kit**, never written by hand:
 
-- `astryx/themes/<key>/<key>Theme.ts` holds one per product: Yara, YaraOne, AX Frame, Janka, PLExyz Grid, PLExyz Crowd, Angka, Tinara, Cebis Loom, Motion and Tiko (Tiko's colours are provisional until its branding is settled).
+- `astryx/themes/<key>/<key>Theme.ts` holds one per product: Yara, YaraOne, AX Frame, Janka, PLExyz Grid, PLExyz Crowd, Angka, Tinara, Cebis Loom, Motion, Tiko, AwanGan and BumiNyata (Tiko's colours are provisional until its branding is settled; its highlight is Tide pink since brand kit tokens 1.15.0).
 - `astryx/themes/axle/axleTheme.ts` holds the one for AXLE.
 - Each extends Astryx's Neutral theme and sets only what the brand kit decides.
 
