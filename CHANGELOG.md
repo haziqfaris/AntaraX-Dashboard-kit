@@ -8,6 +8,20 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.11.0 · 11 Nov 2026
+
+Minor: something new to adopt (owner, 11 Nov 2026; brand kit guide/10). Until now nothing named what AntaraX's own products build their interface with; the checks of 18 Oct 2026 found most failures in hand-built dialogs and toasts.
+
+- **astryx/SPEC.md v1.0, a new standard: building with Astryx.** Every customer app and every AXLE builds new and reworked screens from [Astryx](https://github.com/meta/astryx), Meta's open-source design system (MIT, React 19).
+  - **Scope:** new products, new screens, and screens being reworked or fixed for a kit standard. Existing screens move when touched; no rewrite only to adopt it. Client projects keep shadcn/ui. YaraOne goes first.
+  - **Version:** pinned exactly at 0.7.13 (still beta), recorded in `antarax-kit.lock` as `"astryx"`. Updates go in a pull request of their own, through `npx astryx upgrade`.
+  - **Themes:** generated per product, and for AXLE, from the brand kit snapshot. The generator covers colours (light and dark), Poppins and JetBrains Mono, each product's radii, the AntaraX blue focus ring, 44px controls on touch, and solid destructive buttons. A product copies its file and builds it with `npx astryx theme build`.
+  - **§5, where the kit wins:** the product's own loaders, not Astryx's spinners; Level 2 and 3 confirmations; toast timing; buttons and links; words; the shell and the AXLE template; charts; numbers in mono.
+  - **§6:** which Astryx component meets which kit rule. **§9:** each product's front end today.
+- **`tools/build-astryx-themes.mjs`** writes `astryx/themes/<key>/<key>Theme.ts` for the ten product palettes and AXLE. `--check` fails on drift, and CI now runs it.
+- **`astryx/example/`:** a Level 2 confirm, a Level 3 confirm and a progress dialog in YaraOne's theme, built with Astryx 0.7.13 and rendered without errors.
+- **Pointers:** app/SPEC.md 1.8 (§11), axle/SPEC.md 1.6, AGENTS.md, README, and `antarax-kit.lock.example` (`"astryx"`).
+
 ## 1.10.1 · 3 Nov 2026
 
 Patch: the brand kit snapshot moves to tokens 1.12.0 (owner, 3 Nov 2026, brand kit guide/10). Nalar, the sixth family, has its colour: deep gold `#B48B02`, tint `#F9EED4`, dark `#7E6105` (`color.family.nalar`), and its icon (Cabang). No existing token, spec, mock or size changes.

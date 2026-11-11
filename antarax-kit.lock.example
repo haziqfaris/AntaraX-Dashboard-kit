@@ -4,7 +4,14 @@
   "commit": "REPLACE_WITH_KIT_COMMIT",
   "pinned": "2026-10-16",
   "product": "yara",
-  "follows": ["app", "axle", "embeds", "capacity"],
+  "follows": [
+    "app",
+    "axle",
+    "embeds",
+    "capacity",
+    "astryx"
+  ],
+  "astryx": "0.7.13",
   "exceptions": [
     {
       "what": "Bar radius",
