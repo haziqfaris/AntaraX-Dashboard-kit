@@ -1431,10 +1431,296 @@
         "dark-accent-on-dark": 5.87
       }
     },
+    "awangan": {
+      "name": "AwanGan",
+      "kind": "own-mark",
+      "character": "Nalar gold with navy: the cloud in orbit, our own AI in the cloud",
+      "anchor": "#B48B02",
+      "anchor-step": 500,
+      "scale": {
+        "50": "#FBF6ED",
+        "100": "#F5ECD7",
+        "200": "#ECD9AE",
+        "300": "#DEC17C",
+        "400": "#C8A343",
+        "500": "#B48B02",
+        "600": "#8D6C01",
+        "700": "#715702",
+        "800": "#574201",
+        "900": "#3E2E01",
+        "950": "#291D01"
+      },
+      "secondary-scale": {
+        "50": "#F4F7FE",
+        "100": "#E6EDFC",
+        "200": "#CDDBF9",
+        "300": "#AFC4F2",
+        "400": "#8EA7E0",
+        "500": "#708AC8",
+        "600": "#576FAB",
+        "700": "#43598D",
+        "800": "#31436F",
+        "900": "#212F51",
+        "950": "#0B1B4F"
+      },
+      "neutral": {
+        "50": "#FBFAF7",
+        "100": "#F5F3EF",
+        "200": "#EAE8E1",
+        "300": "#DBD7CF",
+        "400": "#BCB7AC",
+        "500": "#979286",
+        "600": "#767165",
+        "700": "#5A5548",
+        "800": "#423D2F",
+        "900": "#2C2618",
+        "950": "#1B1507"
+      },
+      "roles": {
+        "action": "#8D6C01",
+        "action-hover": "#715702",
+        "action-pressed": "#574201",
+        "accent": "#B48B02",
+        "accent-text": "#8D6C01",
+        "tint": "#FBF6ED",
+        "subtle": "#F5ECD7",
+        "accent-border": "#ECD9AE",
+        "on-tint": "#574201",
+        "secondary": "#0B1B4F",
+        "dark-accent": "#B48B02",
+        "focus": "#0459F7"
+      },
+      "ui": {
+        "surface": {
+          "ground": "#FFFFFF",
+          "raised": "#FFFFFF",
+          "sunken": "#FBFAF7",
+          "hover": "#F5F3EF",
+          "selected": "#FBF6ED",
+          "overlay": "rgba(11,27,79,.48)"
+        },
+        "text": {
+          "strong": "#0B1B4F",
+          "body": "#3B4469",
+          "muted": "#5B6488",
+          "disabled": "#BCB7AC",
+          "on-action": "#FFFFFF",
+          "link": "#8D6C01"
+        },
+        "border": {
+          "subtle": "#F5F3EF",
+          "default": "#EAE8E1",
+          "strong": "#BCB7AC",
+          "input": "#979286"
+        },
+        "status": {
+          "ok": [
+            "#12B76A",
+            "#E7F8EF",
+            "#067647"
+          ],
+          "warn": [
+            "#F79009",
+            "#FEF4E6",
+            "#B54708"
+          ],
+          "fault": [
+            "#F04438",
+            "#FEECEB",
+            "#B42318"
+          ],
+          "info": [
+            "#0459F7",
+            "#E6EEFE",
+            "#0347C8"
+          ]
+        },
+        "dark": {
+          "ground": "#071233",
+          "raised": "#0C1B47",
+          "sunken": "#050D26",
+          "border": "rgba(157,184,255,.16)",
+          "strong": "#EAF0FF",
+          "body": "#B6C3EA",
+          "muted": "#8E9CC8",
+          "accent": "#B48B02",
+          "action": "#B48B02",
+          "on-action": "#071233"
+        }
+      },
+      "chart": [
+        "#B48B02",
+        "#2A78D6",
+        "#EB6834",
+        "#D9579C",
+        "#6250D6"
+      ],
+      "chart-dark": [
+        "#B48B02",
+        "#2A78D6",
+        "#E76530",
+        "#D9579C",
+        "#6857DE"
+      ],
+      "chart-after-product": [
+        "blue",
+        "orange",
+        "magenta",
+        "violet"
+      ],
+      "contrast": {
+        "action-on-white": 4.91,
+        "accent-text-on-white": 4.91,
+        "dark-accent-on-dark": 5.8
+      }
+    },
+    "buminyata": {
+      "name": "BumiNyata",
+      "kind": "own-mark",
+      "character": "Clay (tanah liat) with Nalar gold: our own AI, kept on your own ground",
+      "anchor": "#8A5A2E",
+      "anchor-step": 600,
+      "scale": {
+        "50": "#FBF6F1",
+        "100": "#F7EAE0",
+        "200": "#EFD6C1",
+        "300": "#E2BC9D",
+        "400": "#CC9D75",
+        "500": "#B38054",
+        "600": "#8A5A2E",
+        "700": "#7B5028",
+        "800": "#603C1A",
+        "900": "#45290E",
+        "950": "#2E1A06"
+      },
+      "secondary-scale": {
+        "50": "#FBF6ED",
+        "100": "#F5ECD7",
+        "200": "#ECD9AE",
+        "300": "#DEC17C",
+        "400": "#C8A343",
+        "500": "#B48B02",
+        "600": "#8D6C01",
+        "700": "#715702",
+        "800": "#574201",
+        "900": "#3E2E01",
+        "950": "#291D01"
+      },
+      "neutral": {
+        "50": "#FCF9F7",
+        "100": "#F7F3EF",
+        "200": "#ECE7E2",
+        "300": "#DED6D0",
+        "400": "#BFB5AD",
+        "500": "#9B9087",
+        "600": "#7B6F66",
+        "700": "#5F5349",
+        "800": "#473A30",
+        "900": "#302419",
+        "950": "#1F1308"
+      },
+      "roles": {
+        "action": "#8A5A2E",
+        "action-hover": "#7B5028",
+        "action-pressed": "#603C1A",
+        "accent": "#8A5A2E",
+        "accent-text": "#8A5A2E",
+        "tint": "#FBF6F1",
+        "subtle": "#F7EAE0",
+        "accent-border": "#EFD6C1",
+        "on-tint": "#603C1A",
+        "secondary": "#B48B02",
+        "dark-accent": "#B38054",
+        "focus": "#0459F7"
+      },
+      "ui": {
+        "surface": {
+          "ground": "#FFFFFF",
+          "raised": "#FFFFFF",
+          "sunken": "#FCF9F7",
+          "hover": "#F7F3EF",
+          "selected": "#FBF6F1",
+          "overlay": "rgba(11,27,79,.48)"
+        },
+        "text": {
+          "strong": "#0B1B4F",
+          "body": "#3B4469",
+          "muted": "#5B6488",
+          "disabled": "#BFB5AD",
+          "on-action": "#FFFFFF",
+          "link": "#8A5A2E"
+        },
+        "border": {
+          "subtle": "#F7F3EF",
+          "default": "#ECE7E2",
+          "strong": "#BFB5AD",
+          "input": "#9B9087"
+        },
+        "status": {
+          "ok": [
+            "#12B76A",
+            "#E7F8EF",
+            "#067647"
+          ],
+          "warn": [
+            "#F79009",
+            "#FEF4E6",
+            "#B54708"
+          ],
+          "fault": [
+            "#F04438",
+            "#FEECEB",
+            "#B42318"
+          ],
+          "info": [
+            "#0459F7",
+            "#E6EEFE",
+            "#0347C8"
+          ]
+        },
+        "dark": {
+          "ground": "#071233",
+          "raised": "#0C1B47",
+          "sunken": "#050D26",
+          "border": "rgba(157,184,255,.16)",
+          "strong": "#EAF0FF",
+          "body": "#B6C3EA",
+          "muted": "#8E9CC8",
+          "accent": "#B38054",
+          "action": "#B38054",
+          "on-action": "#071233"
+        }
+      },
+      "chart": [
+        "#94591E",
+        "#2A78D6",
+        "#EB6834",
+        "#D9579C",
+        "#6250D6"
+      ],
+      "chart-dark": [
+        "#B47132",
+        "#2A78D6",
+        "#E76530",
+        "#D9579C",
+        "#6857DE"
+      ],
+      "chart-after-product": [
+        "blue",
+        "orange",
+        "magenta",
+        "violet"
+      ],
+      "contrast": {
+        "action-on-white": 5.86,
+        "accent-text-on-white": 5.86,
+        "dark-accent-on-dark": 5.36
+      }
+    },
     "tiko": {
       "name": "Tiko",
       "kind": "own-mark",
-      "character": "Friendly purple with an orange dot on a soft lavender ground: quiet surfaces, one purposeful accent",
+      "character": "Friendly purple with a Tide pink highlight on a soft lavender ground: quiet surfaces, one purposeful accent",
       "anchor": "#7A5FFF",
       "anchor-step": 500,
       "scale": {
@@ -1451,17 +1737,17 @@
         "950": "#1E0C53"
       },
       "secondary-scale": {
-        "50": "#FEF5EC",
-        "100": "#FEE9D4",
-        "200": "#FFD1A5",
-        "300": "#F9B46C",
-        "400": "#FB9800",
-        "500": "#C67700",
-        "600": "#A16006",
-        "700": "#824D04",
-        "800": "#643A00",
-        "900": "#482800",
-        "950": "#301900"
+        "50": "#FFF3F7",
+        "100": "#FEE5EE",
+        "200": "#FECADE",
+        "300": "#FFA5C9",
+        "400": "#F874AF",
+        "500": "#E9579D",
+        "600": "#BF2E79",
+        "700": "#9F1962",
+        "800": "#7D094B",
+        "900": "#5B0135",
+        "950": "#3F0022"
       },
       "neutral": {
         "50": "#FAF9FC",
@@ -1486,7 +1772,7 @@
         "subtle": "#EDEBFF",
         "accent-border": "#D6D6FE",
         "on-tint": "#4B2FC9",
-        "secondary": "#FB9800",
+        "secondary": "#E9579D",
         "dark-accent": "#9F99FF",
         "focus": "#0459F7"
       },
