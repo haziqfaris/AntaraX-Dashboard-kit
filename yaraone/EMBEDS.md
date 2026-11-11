@@ -1,6 +1,22 @@
 # YaraOne embeds: what every product expects
 
-**v1.0 · 16 Oct 2026 · resynced with YaraOne (its `1949e49`).** Decided by the owner on 16 Oct 2026. The six points this file left open are settled in YaraOne's `docs/19_EMBEDDED_TICKETS_PLAN.md` (decisions 1 to 14), from YaraOne's code; they are summed up under **How it works** below. **Built:** not yet. YaraOne builds it in phases V (hosts and identity), W (front office) and X (back office); a product wires it in once phase W lands. The first host is one REKA client app, end to end, before any AntaraX product (YaraOne `docs/22_ROADMAP.md`, Phase 2).
+**v1.1 · 11 Nov 2026, from what YaraOne has built (its docs/23, "Ways in", phases 1 to 3, to 1 Nov 2026).** v1.0 (16 Oct 2026) was settled from YaraOne's `docs/19_EMBEDDED_TICKETS_PLAN.md`; **How it works** below is still that plan, and **What is built** says where YaraOne has got to and where its words have changed. A product wires it in from **What is built**, not from the plan.
+
+## What is built (YaraOne docs/23)
+
+| Way | What the client gets | Built |
+|---|---|---|
+| **Support link** | `yo.antarax.ai/support/<key>`: YaraOne's help panel as its own page | Phase 1 |
+| **In their app** | One script tag (`public/embed.js`). A Help button, or the app's own Help menu, opens the same panel in a frame at the side of the app. `frame-ancestors` lists only the sites the team allowed (production, staging, localhost) | Phase 1 |
+| **Direct integration** | The app's server holds a **developer key** (`ya_live_…`, kept by YaraOne only as a hash) and mints a single-use handoff for its signed-in person, so nobody signs in twice; an API (`/api/v1/yaraone/*`) reads and writes requests; **webhooks**, signed, report replies and moves | Phase 2 |
+
+- **Support belongs to a project** (owner, 1 Nov 2026): one per project, on a project of that client, with its own list of people. A client's dashboard lists all their projects.
+- **The words on screen** are **support link**, **developer key** ("For their developers (API)") and **sign-in code**; never "way in", "key" or "portal" (YaraOne `src/domain/words.ts`; practice SPEC §3).
+- **Signing in** is with a code the team sets (and can email) or a one-time code sent to the person's email; only people of that client with dashboard access get in, and each sees what their reach allows. The default reach is their requests and feedback only.
+- **The count on Help**: once `identify()` is called, the panel tells the app how many requests have something new (`YaraOne.onUnread(count => …)`, or the `yaraone:unread` event), only to the origin that answered.
+- **Templates on the support card:** server code for the handoff (Next.js route handler) and a brief for a developer or AI: the snippet, the Help menu, the handoff, `identify()` / `signOut()`, the API.
+- **TriageNT**, YaraOne's AI triage, answers a client in plain words when they describe a problem (clarify, then a person takes it); it never writes to a repository or deploys. Its support assistant may carry one name from TriageNT's approved list (app SPEC §9). YaraOne is its front door; TriageNT has no screens of its own (owner, 11 Nov 2026).
+- **Not built yet:** joining by the client's email domain; the back office inside each product's AXLE (still the plan below).
 
 ## The decision
 
@@ -95,7 +111,7 @@ From a ticket in the back office, staff reach the product's own tools: **Start s
 
 ## Later
 
-An API through Lapisan (`haziqfaris/antarax-api`) beside the embeds, and a shared AntaraX sign-in that removes the token (YaraOne phase Y).
+The API exists in YaraOne itself (phase 2, above); one through Lapisan (`haziqfaris/antarax-api`) may sit beside it, and a shared AntaraX sign-in may remove the handoff (YaraOne phase Y).
 
 ## Tests YaraOne will run
 

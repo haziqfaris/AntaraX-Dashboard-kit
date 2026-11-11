@@ -2,7 +2,7 @@
 
 <p align="center">
 <img alt="status: reference" src="https://img.shields.io/badge/status-reference-4F46E5?style=flat-square">
-<img alt="version 1.11.0" src="https://img.shields.io/badge/version-1.11.0-4F46E5?style=flat-square">
+<img alt="version 1.14.0" src="https://img.shields.io/badge/version-1.14.0-4F46E5?style=flat-square">
 <img alt="covers: customer apps, AXLE, client projects" src="https://img.shields.io/badge/covers-customer%20apps%20%C2%B7%20AXLE%20%C2%B7%20client%20projects-0B1B4F?style=flat-square">
 <img alt="values from the AntaraX brand kit" src="https://img.shields.io/badge/values-from%20the%20brand%20kit-0B1B4F?style=flat-square">
 </p>
@@ -12,7 +12,7 @@
 <p align="center"><a href="BRIEF.md">Start here (AXLE)</a> · <a href="app/README.md">Customer apps</a> · <a href="axle/README.md">AXLE</a> · <a href="project/README.md">Client projects</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="https://github.com/haziqfaris/AntaraX-brand-kit">Brand kit</a></p>
 
 > [!NOTE]
-> **A reference, not an app.** Nothing here is deployed; products copy from it and check themselves against it. This is version **1.12.1** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)). Tickets and feedback through YaraOne are agreed but not built yet ([yaraone/EMBEDS.md](yaraone/EMBEDS.md)).
+> **A reference, not an app.** Nothing here is deployed; products copy from it and check themselves against it. This is version **1.14.0** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)). Tickets and feedback through YaraOne are agreed but not built yet ([yaraone/EMBEDS.md](yaraone/EMBEDS.md)).
 
 ## What it is
 
@@ -38,14 +38,15 @@ It is not a component library every product must install, and it does not decide
 | Step | What | State |
 |---|---|---|
 | 1 | Inventory of every product's navigation and dashboards, with screenshots | Done: [inventory/](inventory/README.md), browsable in [inventory/gallery.html](inventory/gallery.html) |
-| 2 | The AntaraX shell for customer apps | **The standard, v1.7 (26 Oct 2026).** Start with [app/README.md](app/README.md); spec [app/SPEC.md](app/SPEC.md), tokens [app/tokens.css](app/tokens.css), mock and PNG renders [app/mock/](app/mock/README.md), reference components [app/reference/](app/reference/README.md), conformance check `tools/check-shell.mjs`. Each product's app is its own; only the shell is shared: names, the top bar (account at the far right, Help its own button), the account menu, standard pages, getting in, banners, notifications, Assist, feedback, dialogs and errors |
+| 2 | The AntaraX shell for customer apps | **The standard, v1.9 (11 Nov 2026).** Start with [app/README.md](app/README.md); spec [app/SPEC.md](app/SPEC.md), tokens [app/tokens.css](app/tokens.css), mock and PNG renders [app/mock/](app/mock/README.md), reference components [app/reference/](app/reference/README.md), conformance check `tools/check-shell.mjs`. Each product's app is its own; only the shell is shared: names, the top bar (account at the far right, Help its own button), the account menu, standard pages, getting in, banners, notifications, Assist, feedback, dialogs and errors |
 | 2a | REKA client projects | **The standard, v1.2 (26 Oct 2026).** Start with [project/README.md](project/README.md); spec [project/SPEC.md](project/SPEC.md), mock [project/mock/](project/mock/README.md). The client's brand on a neutral base, never AntaraX's look; the shell's places; "Built by REKA" in the footer; one stack (Next.js, shadcn/ui, Supabase) |
-| 2b | Tickets and feedback | In YaraOne, for products and projects alike: [yaraone/EMBEDS.md](yaraone/EMBEDS.md). Embed contract v1.0, settled with YaraOne (its docs/19); YaraOne is building it |
+| 2b | Tickets and feedback | In YaraOne, for products and projects alike: [yaraone/EMBEDS.md](yaraone/EMBEDS.md). Embed contract v1.1 (11 Nov 2026): the support link, the panel in an app and direct integration are built (YaraOne docs/23); the back office in AXLE is still the plan |
 | 2c | Capacity | Every product and project lists what it runs on, every limit and how it is measured in `capacity.json`; AXLE → R8 → Capacity shows how close each is and when it runs out. Any provider, any kind of infrastructure: [capacity/README.md](capacity/README.md), check with `python3 capacity/check.py` |
 | 2d | Getting in | **The standard, v1.0 (18 Oct 2026).** Signing in, passwords, sign-in links, two-step sign-in, sessions and account changes for every customer app and AXLE: [getting-in/SPEC.md](getting-in/SPEC.md). Its §1 is the bare minimum (GI-01 to GI-20), §14 what each product has today; `PasswordField` in [app/reference/](app/reference/README.md); check with `node tools/check-signin.mjs` |
 | 2e | Acting | **The standard, v1.1 (26 Oct 2026).** Confirming, waiting and results for every customer app and AXLE: [actions/SPEC.md](actions/SPEC.md). Three levels of confirmation (undoable, consequential, irreversible with the name typed), what a person sees by how long an action takes, and how results and errors are told; §10 what each product does today. `ConfirmDialog`, `ProgressDialog` and `useAction` in [app/reference/](app/reference/README.md); check with `node tools/check-actions.mjs`; every state per product in `app/mock/Actions*.dc.html` |
 | 2f | Building with Astryx | **The standard, v1.0 (11 Nov 2026).** Every customer app and AXLE builds new and reworked screens from [Astryx](https://github.com/meta/astryx), pinned at 0.7.13, with a theme per product generated from the brand kit: [astryx/SPEC.md](astryx/SPEC.md). Themes in `astryx/themes/`, made by `node tools/build-astryx-themes.mjs`; a worked example in `astryx/example/`. Client projects keep shadcn/ui |
-| 3 | Standard AXLE console and R8 | **The standard, v1.5 (26 Oct 2026).** Build every AXLE from [axle/README.md](axle/README.md): the spec, the final mock of every page, and the tokens. Its AI pages show the product's own share of AwanGan, AntaraX's AI control plane ([AGENTS.md](AGENTS.md#ai-apis-and-data)) |
+| 2g | Shared practice | **The standard, v1.0 (11 Nov 2026).** What every product does the same way underneath: AntaraX email, legal text from REKA's legal repository, one part per job and one word per thing, who sees money, waiting, tours, the deploy check, AI usage and the kit lock (`node tools/check-lock.mjs`): [practice/SPEC.md](practice/SPEC.md) |
+| 3 | Standard AXLE console and R8, the central console | **The standard, v1.8 (11 Nov 2026).** Build every AXLE from [axle/README.md](axle/README.md): the spec, the final mock of every page, and the tokens. Its AI pages show the product's own share of AwanGan, AntaraX's AI control plane ([AGENTS.md](AGENTS.md#ai-apis-and-data)) |
 
 **Building or changing any product's AXLE? Start with [BRIEF.md](BRIEF.md)**, then [axle/README.md](axle/README.md). Agents: see [AGENTS.md](AGENTS.md).
 
@@ -164,13 +165,15 @@ Nothing needs installing to read the kit. To run its checks you need Python 3 an
 
 | Doc | What it holds |
 |---|---|
-| [app/SPEC.md](app/SPEC.md) | The shell, v1.7, with buttons and links in §11b |
-| [axle/SPEC.md](axle/SPEC.md) | AXLE, v1.5, with open questions in §20 |
+| [app/SPEC.md](app/SPEC.md) | The shell, v1.9, with buttons and links in §11b |
+| [axle/SPEC.md](axle/SPEC.md) | AXLE, v1.8, and R8, the central console; open questions in §20 |
 | [getting-in/SPEC.md](getting-in/SPEC.md) | Getting in, v1.0 |
 | [actions/SPEC.md](actions/SPEC.md) | Acting, v1.1 |
 | [project/SPEC.md](project/SPEC.md), [project/BRANDING.md](project/BRANDING.md) | Client projects, v1.2, and adopting a client's brand |
 | [capacity/README.md](capacity/README.md) | `capacity.json`, thresholds and decisions |
-| [yaraone/EMBEDS.md](yaraone/EMBEDS.md) | YaraOne embeds, v1.0 |
+| [yaraone/EMBEDS.md](yaraone/EMBEDS.md) | YaraOne embeds, v1.1 |
+| [practice/SPEC.md](practice/SPEC.md) | Shared practice, v1.0 |
+| [astryx/SPEC.md](astryx/SPEC.md) | Building with Astryx, v1.0 |
 
 **Mocks and reference code**
 

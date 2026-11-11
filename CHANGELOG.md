@@ -8,6 +8,37 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.14.0 · 11 Nov 2026
+
+Minor: something new to adopt, and the brand kit snapshot moves to tokens 1.14.0 (owner, 11 Nov 2026: "go do all", after the kit audit of that day; brand kit guide/10).
+
+- **practice/SPEC.md v1.0, a new standard: shared practice.** What several products had each worked out on their own, now one rule each, with the product it came from as the reference:
+  - **§1 AntaraX email:** one call, the template ids (`auth.*.v1`, `team.invitation.v1`, `onboarding.welcome.v1`, `system.action_required.v1`, `system.export_ready.v1`, `system.announcement.v1`, `notice.v1`, `digest.v1`), reading the send's status, Supabase Auth's email and its send-email hook, sender houses with "‹Tool› by REKA, powered by AntaraX" for REKA's own tools and REKA Tech's team for client apps, and the one exception (monitoring alerts by Grafana's own email).
+  - **§2 Legal text** from REKA's legal repository, pinned in `legal.lock.json` with a test; the personal-data rules and their shared cases.
+  - **§3 One part per job, one word per thing, one tone per meaning** (YaraOne docs/24, `lint-parts.mjs`, `words.ts`, `status.ts`).
+  - **§4 Who sees money**, by role, on the server; billing is Owners only.
+  - **§5 Waiting and AI thinking**, with AX Frame's and Tinara's loaders as the reference.
+  - **§6 Guided tours**, **§7 the deploy check** (`/api/version` against `main`), **§8 how AI usage is shown**, **§9 the kit lock**, **§10 checks run on the machine**, **§11 how to prove it**.
+- **`tools/check-lock.mjs`:** fails when a product's `antarax-kit.lock` pins a version or commit that is not on this kit's `main`, or follows a standard the kit doesn't have; reports how far behind it is.
+- **app/SPEC.md 1.9:** §15.3 gains who sees money (brand kit 13 §3 points here); §15 points to the practice; §9 lets the assistant in a client's support conversation carry one name from TriageNT's approved list, always saying it is an AI (owner, 11 Nov 2026).
+- **yaraone/EMBEDS.md 1.1:** what YaraOne has built (docs/23): the support link, the panel in an app, the developer key with its handoff, the API and webhooks; the words on screen; TriageNT. The back office in AXLE is still the plan.
+- **Brand kit tokens 1.14.0** (commit `4caeaba`): Tide's verb is Decide and Loom's is Structure; `color.family.frame` is gone as a family (AX Frame keeps its colours as a product; CSS variables unchanged); the `loom` palette is named Cebis Loom. `brand/` synced; the Astryx themes regenerated (Cebis Loom's theme takes the new name). No value an AXLE or shell uses changed.
+- **`tools/sync-brand-kit.py`** finds `../antarax-brand-kit` as well as `../AntaraX-brand-kit`, and `--check` now fails when no brand kit is found, instead of saying "In step" after checking only its own snapshot. `--snapshot-only` checks the snapshot alone; CI passes it when it cannot reach the brand kit.
+- **Pointers:** README (v1.14.0, the standards table), BRIEF, AGENTS.
+
+## 1.13.0 · 11 Nov 2026
+
+Minor: a rule tightened and a name changed (owner, 11 Nov 2026; antarax-api decision 0018; brand kit guide/10).
+
+- **axle/SPEC.md 1.8. AXLE Central is now R8, the central console, at `r8.antarax.ai`** (staging `r8-staging.antarax.ai`). `axle.antarax.ai` is kept free; "Shen" is reserved for a future command centre over everything. Each product's R8 mode is unchanged, and the spec says which R8 is meant. Renamed through the spec, the mocks' visible text, BRIEF, README, the inventory, capacity and the gallery; file names such as `CentralEmail.dc.html` stay.
+  - **R8's staff on the same ladder** (§5.2): super admin is Owner, admin is Admin, developer is Operator (std M14 Engineering).
+  - **Product AXLEs are at `axle-<product>.antarax.ai`** (§1): Cloudflare's free certificate covers one level under `antarax.ai`. Addresses already live stay until that AXLE is reworked.
+  - **Staff sign in with Google, or email and a one-time code** (§5.1): a password with an authenticator code, or Cloudflare Access's emailed code. **Never a sign-in link**; AwanGan's and Cebis Loom's AXLEs move off links the next time their sign-in is touched.
+  - §20: question 5 (the focus ring on the bars) is settled by the brand kit's `axle.bar-focus`; 24 and 25 record today's decisions.
+- **astryx/SPEC.md:** AX Frame's cards are 20px (page 16, cards 20, controls 12), in the spec and in `tools/build-astryx-themes.mjs`; every theme file exports `quietDestructive`, the style for the quiet destructive button in a dense row (app SPEC §11b); Tiko, Cebis Loom, AwanGan and BumiNyata are in the product lists.
+- **inventory/README.md:** the products built since the inventory was taken; AX Loom is retired as a name.
+- "YARA One" is written YaraOne everywhere outside the verbatim reference copies; BRIEF and the AXLE AI page point at Heuristiks 0.8.0 and REKA's profile.
+
 ## 1.12.1 · 11 Nov 2026
 
 Patch: tokens only (drafted 5 Nov 2026 on Tiko's branch, merged 11 Nov). Synced from the brand kit 1.13.0, which registers **Tiko** (`tiko`, private pilot) as a product (owner, 5 Nov 2026; brand kit guide/10 and Tiko's DECISIONS D-040). `app/tokens.css` gains the `.shell-root[data-product="tiko"]` slots, generated from Tiko's palette; `brand/` is the new snapshot. Tiko's text colour stays the shared navy until its open question Q-05 is decided (brand kit open question 31). Nothing else in the kit changes.
