@@ -1,11 +1,11 @@
 # AXLE standard
 
-**Version 1.7, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0; 1.3 on 18 Oct 2026, Dashboard kit 1.8.0; 1.4 on 25 Oct 2026, Dashboard kit 1.9.0; 1.5 on 26 Oct 2026, Dashboard kit 1.10.0; 1.6 on 11 Nov 2026, Dashboard kit 1.11.0; 1.7 on 11 Nov 2026, Dashboard kit 1.12.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). 1.3 points §14 to [actions/SPEC.md](../actions/SPEC.md) and asks again for the password or a code on irreversible actions. 1.4 says who manages the AI: AwanGan holds the keys and routes, Lapisan records the usage, and the AI pages show this product's own share (§10.6). 1.5 makes every action a button and takes the trailing "…" off every label (§14.2). 1.6 builds what is on each page from Astryx in AXLE's generated theme, while the sidebar, bars and page patterns stay this template's ([astryx/SPEC.md](../astryx/SPEC.md)). 1.7 adds AXLE Central → Email, the same service seen across every product, with its Teams, Senders and Client domains (§10.14, In AXLE Central; drafted 30 Oct 2026 and restored 11 Nov 2026). This is the console every AntaraX product gives REKA staff, and the base for AXLE Central at `axle.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
+**Version 1.7, the standard (owner, 15 Oct 2026; 1.1 on 17 Oct 2026, Dashboard kit 1.5.0; 1.2 on 18 Oct 2026, Dashboard kit 1.6.0; 1.3 on 18 Oct 2026, Dashboard kit 1.8.0; 1.4 on 25 Oct 2026, Dashboard kit 1.9.0; 1.5 on 26 Oct 2026, Dashboard kit 1.10.0; 1.6 on 11 Nov 2026, Dashboard kit 1.11.0; 1.7 on 11 Nov 2026, Dashboard kit 1.12.0).** 1.1 adds Watch → Email for AntaraX email (§10.14). 1.2 adds the sign-in page every AXLE shares (§5.1.1). 1.3 points §14 to [actions/SPEC.md](../actions/SPEC.md) and asks again for the password or a code on irreversible actions. 1.4 says who manages the AI: AwanGan holds the keys and routes, Lapisan records the usage, and the AI pages show this product's own share (§10.6). 1.5 makes every action a button and takes the trailing "…" off every label (§14.2). 1.6 builds what is on each page from Astryx in AXLE's generated theme, while the sidebar, bars and page patterns stay this template's ([astryx/SPEC.md](../astryx/SPEC.md)). 1.7 adds R8 → Email, the same service seen across every product, with its Teams, Senders and Client domains (§10.14, In R8; drafted 30 Oct 2026 and restored 11 Nov 2026). This is the console every AntaraX product gives REKA staff, and the base for R8 at `r8.antarax.ai`. Every product's AXLE is built from it, with the final design in [mock/](mock/README.md) and the values in [tokens.css](tokens.css); [README.md](README.md) is the step-by-step. Questions still open in §20 are settled one at a time; until then, this text applies.
 
 It merges two sources:
 
 - **The REKA AXLE Admin Console Standard v0.2** ([reference copy](reference/axle-admin-console-standard-v0.2.md), cited as **std A1** to **std M17**; [v0.1](reference/axle-admin-console-standard-v0.1.md) kept for history). It says *what* AXLE must be able to do, in tiers, built from the owner's corrections across nine REKA projects. v0.2 adds section M, **AXLE R8**, from the AXLE R8 Operations Brief and the R8 mode built in AX Frame. One owner decision departs from it: **every product has R8**, at Base or Full (§2, 15 Oct 2026).
-- **The AXLE inventory.** These are the seven AXLE consoles in [the inventory](../inventory/README.md), the AXLE Central plan in antarax-api ([summary](../inventory/lapisan-console/axle-central-requirements.md)) and the brand kit (03, 12, 13 §1, §2, §6, §10). It says *how* AXLE looks, is organised and behaves, and which console already does each thing best.
+- **The AXLE inventory.** These are the seven AXLE consoles in [the inventory](../inventory/README.md), the R8 plan in antarax-api ([summary](../inventory/lapisan-console/axle-central-requirements.md)) and the brand kit (03, 12, 13 §1, §2, §6, §10). It says *how* AXLE looks, is organised and behaves, and which console already does each thing best.
 
 Every std item has a place here; the [coverage table](#appendix-a-coverage-of-the-reka-standard) proves it. Where the two sources disagree, this draft takes a side and lists the choice in [§20](#20-open-questions) for the owner. Once decided, decisions go into the brand kit's decisions log before products build them.
 
@@ -32,8 +32,10 @@ There are two levels of AXLE:
 
 | Level | Address | Notes |
 |---|---|---|
-| **Product AXLE**, one per product | `axle.<product>.antarax.ai` | Has the depth only that product knows |
-| **AXLE Central** | `axle.antarax.ai` | One screen across every product. It reads each product AXLE through AXLE Link (§18) and links back for depth. It never replaces a product AXLE |
+| **Product AXLE**, one per product | `axle-<product>.antarax.ai` | Has the depth only that product knows. **The address is `axle-<product>.antarax.ai`** (owner, 11 Nov 2026): Cloudflare's free certificate covers one level under `antarax.ai`, so `axle.<product>.antarax.ai` needs a paid one. Addresses already live (`axle.yo.antarax.ai`, `axle.tiko.antarax.ai`, `axle-awangan.antarax.ai`, `frame-axle.antarax.ai`) stay until that AXLE is reworked |
+| **R8, the central console** | `r8.antarax.ai` (staging `r8-staging.antarax.ai`) | REKA's staff console across every product (owner, 11 Nov 2026; antarax-api decision 0018). It was planned as "AXLE Central" at `axle.antarax.ai`, which is now kept free for something else. It reads each product AXLE through AXLE Link (§18) and links back for depth; it never replaces a product AXLE. Built so far: Email (§10.14, In R8) |
+
+**Two meanings of R8.** Inside every product's AXLE, **the R8 mode** is the machinery half of the Dashboard · R8 switch (§7.1). On its own, at `r8.antarax.ai`, **R8** is the central console. Where both could be meant, write "the R8 mode" or "R8, the central console". **Shen** is kept for a future command centre over everything (owner, 11 Nov 2026); it is neither of these and has no design yet. Code that still says "AXLE Central" (antarax-api `apps/central`, `hosts.axle_central`, the email service's `axle` id) reads as R8.
 
 ## 2 Tiers
 
@@ -68,7 +70,7 @@ Every item carries a tier (std):
 
 | Element | Standard | Tier |
 |---|---|---|
-| **Name** | `AXLE` in the sidebar, with the product as context: `AXLE · Janka`. Page titles: `<Page> · AXLE · Janka`. Central: `AXLE` | Always |
+| **Name** | `AXLE` in the sidebar, with the product as context: `AXLE · Janka`. Page titles: `<Page> · AXLE · Janka`. R8, the central console: `R8`, with "REKA STAFF CONSOLE" under it | Always |
 | **Never** | "REKA Admin", "Platform Admin", "Tinara Admin", "Yara AXLE", "Janka AXLE" | |
 | **Mark** | The AntaraX A in the sidebar corner. The product's own mark appears as a small chip beside the product name | Always |
 | **Theme** | **Dark bars, light page** (owner, 15 Oct 2026). The sidebar and the top bar are dark; the page between them is light. No theme toggle. This is what Yara's and Janka's AXLE already do | Always |
@@ -92,9 +94,10 @@ Every item carries a tier (std):
 | AXLE is on its own host, with its own cookies and its own "Sign in to AXLE" page. Members of an organisation can never reach it; any AXLE address returns 404 to them. `/axle` on one host is allowed only in local development | Always |
 | Staff need two-step sign-in (MFA) | Always |
 | At least two staff can sign in as Owner on company accounts, never personal ones, so access is never lost (std A5) | Always |
-| Staff sign in with Continue with Google (REKA's company accounts) or with email, password and a code; both in every product AXLE (owner, 18 Oct 2026; §5.1.1) | Always |
+| Staff sign in with Continue with Google (REKA's company accounts) or with email and a one-time code: a password with an authenticator code (§5.1.1), or an emailed one-time code from Cloudflare Access in front of the host, which is how R8, the central console, signs staff in (owner, 18 Oct and 11 Nov 2026) | Always |
+| **Never a sign-in link.** No AXLE signs staff in by an emailed link: a link can be forwarded and opened by whoever holds it. AwanGan's and Cebis Loom's AXLEs, which use links today, move to a code the next time their sign-in is touched (owner, 11 Nov 2026) | Always |
 | Someone who signs in and is not staff is signed out at once and sees "This account isn't on the REKA staff list, so you've been signed out", with a link to the product's own sign-in | Always |
-| One staff sign-in for every product AXLE, once AXLE Central exists | Later |
+| One staff sign-in for every product AXLE, once R8 exists | Later |
 | On the organisation plane, sign-in is company-first: the organisation's own name and logo, never another client's (std A6). This is a product rule, listed here because AXLE configures it | Orgs |
 
 ### 5.1.1 The sign-in page (owner, 18 Oct 2026)
@@ -163,6 +166,16 @@ Rules:
 
 A Viewer reads R8 and acts on nothing. Level 3 is not a permission anyone holds (§14.1).
 
+**R8, the central console, uses the same ladder** (antarax-api `apps/central/src/staff.ts`, owner 11 Nov 2026). The staff list is a Worker secret, never in a repository, and a person is added to Cloudflare Access's policy and the list together. The words REKA used for its first staff map onto the rungs, so no second role system starts:
+
+| Said | Rung | May do in R8, the central console |
+|---|---|---|
+| Super admin | **Owner** | Everything |
+| Admin | **Admin** | Register and edit apps, take an app's first key, add and check client domains, lift a bounce, decide what others asked for (never their own) |
+| Developer | **Operator** | Ask for an app, a client domain or a new key (std M14 Engineering) |
+| (support staff) | **Support** | Notes and look-ups |
+| (auditors) | **Viewer** | Read everything except secrets |
+
 ## 6 Shell (std L1, L5)
 
 AXLE keeps the **AntaraX top bar** every product already ships (adopted 12 Oct 2026 from the Angka dashboard; built in Yara `Topbar.tsx`, Janka `TopBar.tsx` and `BrandPill.tsx`, AX Frame `BrandPill.tsx` and `brandpill.css`, PLExyz Grid `App.tsx`). AXLE uses its dark variant, which Yara's AXLE already has. AXLE does not get its own bar.
@@ -214,6 +227,8 @@ One picker sets the organisation for every page that can be scoped. Its value is
 ## 7 Navigation
 
 ### 7.1 Two modes: Dashboard and R8 (std M1, M2, M17)
+
+This is the R8 mode inside each product's AXLE, not R8, the central console (§1).
 
 AXLE is one product with two modes (std v0.2; AX Frame's AXLE, owner 7 Oct 2026: "full mode switch").
 
@@ -338,7 +353,7 @@ Each product's R8 level, and what each product's box holds. Anything here that a
 | PLExyz Grid | Base: nothing of its own to run yet | Nothing | None: its AXLE is covered by the standard | None |
 | YaraOne | Base: jobs, email, backups | Nothing | Email (the outbox and a test send), Hosts (the products whose tickets it holds, docs/19) | None yet |
 
-AXLE Central adds a **Products** group at the top of each mode, one item per product with its health dot, and keeps no product-only box of its own.
+R8 adds a **Products** group at the top of each mode, one item per product with its health dot, and keeps no product-only box of its own.
 
 **Counters** count only what needs a person: new errors, open requests, failing keys, unread feedback. They are loud (orange) when action is due and grey when they are only a count.
 
@@ -494,7 +509,7 @@ A product moves in two steps, and nothing is forced on a live one. **Watch only*
 
 Every product that calls an AI model has this page in R8 → System, after Providers. It answers "how does this product's AI work, and what actually happened?" without reading code.
 
-- **Drawn from the product's AI manifest**, never by hand. The manifest is the machine-readable list of the product's AI features, in the form the AntaraX AI framework sets (`haziqfaris/ai-framework-heuristiks`). The page says which manifest version it shows and whether it matches the deployed prompts; a mismatch is a Needs-a-person row.
+- **Drawn from the product's AI manifest**, never by hand. The manifest is the machine-readable list of the product's AI features, in the form the AntaraX AI framework sets (`haziqfaris/ai-framework-heuristiks`, 0.8.0: the Heuristiks core with REKA's profile in `profiles/reka`). The page says which manifest version it shows and whether it matches the deployed prompts; a mismatch is a Needs-a-person row.
 - **The five steps**, the same in every product: **Asked** (a person or a job asked for AI) → **Allowed** (membership, suspension, plan, REKA switch, organisation switch, monthly cap) → **Answered** (a model replied, after failover if needed) → **Checked** (the answer passed the server's checks) → **Decided** (a guardrail or a person decided). Each step shows how many calls reached it and how many left it, and why.
 - **Where every call ended**, in the framework's five outcome words: Used as is · Corrected by a person · Not used · Waiting · ‹Product›'s own logic.
 - **A row per AI feature** with its outcomes and its own measure of being right over 8 weeks.
@@ -523,7 +538,7 @@ Templates, catalogues and device types the platform owns. Each has versions and 
 - **Each row:** when (mono, MYT), who, rung, what, which organisation, reason, before and after.
 - **Filters and export:** by staff, organisation, action and date range.
 - **Never editable** from AXLE.
-- **Central's calls** through AXLE Link appear as the service.
+- **R8's calls** through AXLE Link appear as the service.
 
 ### 10.9 Jobs, alerts and backups (std H1–H3)
 
@@ -614,7 +629,7 @@ Every support request and piece of feedback from every product lives in **YaraOn
 | **Stats strip** | The last 7 days by status, each a filter (§9): Delivered, Sent, Delayed, Retrying, Bounced, Marked as spam, Not sent (blocked), Failed. A range of 1 to 90 days | `GET /v1/emails/summary?days=` |
 | **The list** (§9) | When (mono, MYT); the template's label with its class as a chip (Security, Service, Activity); to, masked (`n***@contoh.example`, mono); organisation; status as a chip with a word; why it failed, in words. Filters: status, template, organisation, since; paged with the service's cursor; CSV export. No bulk actions: nothing here is done to many emails at once | `GET /v1/emails?status=&template=&tenant_id=&since=&cursor=` |
 | **One email, opened** | Its id, template, class, organisation and when; its attempts; what the provider reported, oldest first, with times (sent, delivered, delayed, bounced with its kind, marked as spam); the reason in words, then the code in mono; a link to the product's own record when the email carries its event id (`correlation_id`) | `GET /v1/emails/{id}` |
-| **Is this address blocked?** | Staff type the address a person gave them. The answer is one of: not blocked; **bounced**, which stops every AntaraX product (the person fixes their mailbox, then AXLE Central lifts it); **marked as spam** for this product, which stops this product's service and activity emails only (sign-in and reset still go). **Let them hear from us again** lifts this product's own block, needs the Support rung and the person's request as the reason, and is audited with the masked address | `GET` and `DELETE /v1/suppressions?email=` |
+| **Is this address blocked?** | Staff type the address a person gave them. The answer is one of: not blocked; **bounced**, which stops every AntaraX product (the person fixes their mailbox, then R8 lifts it); **marked as spam** for this product, which stops this product's service and activity emails only (sign-in and reset still go). **Let them hear from us again** lifts this product's own block, needs the Support rung and the person's request as the reason, and is audited with the masked address | `GET` and `DELETE /v1/suppressions?email=` |
 | **Templates** | The templates this product may send, read only: label, class, and the words each needs. A new template, or a change to one, is a pull request to antarax-api, never an edit in AXLE | `GET /v1/templates` |
 
 **Never shown, because the service never keeps them:** an email's body, subject, links, codes, or a whole address. Staff can find an email by the person's organisation, the template and the time, and confirm an address only by typing it in.
@@ -629,9 +644,9 @@ Every support request and piece of feedback from every product lives in **YaraOn
 - **R8 → Capacity (§10.13):** two `messages` resources. One is the product's day's limit in AntaraX email (1,000 by default; security emails get twice the room), measured from the summary. The other is the shared Resend plan, the same in every product's `capacity.json` ([`capacity/README.md`](../capacity/README.md)).
 - **R8 → Configuration (§7.4):** `ANTARAX_EMAIL_URL` and `AX_SVC_KEY`, set or missing, never their values.
 - **Platform → Settings** holds no email templates or sender.
-- **AXLE Central** holds what is shared across products; see below. No product AXLE shows the service's own health, other products' emails or Lift the bounce.
+- **R8** holds what is shared across products; see below. No product AXLE shows the service's own health, other products' emails or Lift the bounce.
 
-**In AXLE Central** (owner, 18 Oct 2026; Teams, Senders and Client domains added 30 Oct 2026; mock `CentralEmail`). **Email** is the cross-product page for AntaraX email at `axle.antarax.ai`, in Central's Watch group. Central reads the service through operator-only routes under `/internal/axle/v1/email/`, signed with Central's own key (antarax-api 0.7.5, docs/15 §15.10; teams, senders and domains 0.8.0, §15.11). The key never reaches the browser, and no product's AXLE can call these routes. The same never-shown rule applies: no body, subject, link, code or whole address.
+**In R8** (owner, 18 Oct 2026; Teams, Senders and Client domains added 30 Oct 2026; mock `CentralEmail`). **Email** is the cross-product page for AntaraX email at `r8.antarax.ai`, in R8's Watch group. R8 reads the service through operator-only routes under `/internal/axle/v1/email/`, signed with R8's own key (antarax-api 0.7.5, docs/15 §15.10; teams, senders and domains 0.8.0, §15.11). The key never reaches the browser, and no product's AXLE can call these routes. The same never-shown rule applies: no body, subject, link, code or whole address.
 
 | Part | Holds | From |
 |---|---|---|
@@ -653,7 +668,7 @@ Every support request and piece of feedback from every product lives in **YaraOn
 
 **The alerts** are the service's own: **Security emails failed** (any), **Bounces above 2%**, **Spam reports above 0.1%**, **Near its day's limit** (80%), **Resend is failing**, **No delivery reports**. Each is for one product or for every product. The service also emails every open alert to the operators every hour until it clears, so no one has to keep this page open.
 
-The template catalogue is not on this page: the templates are antarax-api's, and their rendered look is the brand kit's `assets/email/` (brand kit, 18 Oct 2026). Until Central's shared sidebar exists, the mock imports the product sidebar; Central's own menu adds the Products group and has no product box (§7.2).
+The template catalogue is not on this page: the templates are antarax-api's, and their rendered look is the brand kit's `assets/email/` (brand kit, 18 Oct 2026). Until R8's shared sidebar exists, the mock imports the product sidebar; R8's own menu adds the Products group and has no product box (§7.2).
 
 ## 11 Support sessions (std H7)
 
@@ -691,8 +706,8 @@ How REKA support sees an organisation exactly as its people see it, to solve a p
 |---|---|
 | Hidden by a rung or right | "–" and "Needs the Finance right" |
 | Not measured yet | "–" and "No run recorded yet" |
-| AXLE Link not set up (Central) | "Not connected", grey |
-| Product refuses central switches (Central) | "Takes switches: no" |
+| AXLE Link not set up (R8) | "Not connected", grey |
+| Product refuses central switches (R8) | "Takes switches: no" |
 | Live-only data in a preview | "Only on the live database" |
 | Truly zero | 0 |
 
@@ -783,18 +798,18 @@ Decided after a blue text link reading "Remove…" in a product. It covers every
 - Overview blocks stack in order; figure tiles go two across.
 - Tables scroll inside their own container.
 
-## 18 AXLE Link and AXLE Central
+## 18 AXLE Link and R8, the central console
 
-Before a product joins Central, its AXLE serves AXLE Link's four endpoints from `@lapisan/core`:
+Before a product joins R8, the central console, its AXLE serves AXLE Link's four endpoints from `@lapisan/core`:
 
-| Endpoint | Feeds in Central |
+| Endpoint | Feeds in R8 |
 |---|---|
 | `GET /internal/axle/v1/tenants` | Organisations list and plans |
 | `GET /internal/axle/v1/usage` | Figures and trends |
 | `GET /internal/axle/v1/health` | Health dot and strip |
 | `POST /internal/axle/v1/switches` | Switches, each with a reason |
 
-- Central's Overview is §8 with one row per product.
+- R8's Overview is §8 with one row per product.
 - Every list gets a product filter.
 - Every row deep-links into the product AXLE at the same organisation and range.
 
@@ -841,10 +856,10 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 2. **Roles (std A2 against antarax-api docs/07).** std A2 lists functional roles that one person may combine; antarax-api and Angka use a ladder. This draft maps them onto one model: a ladder for how much, rights for which area. Confirm the rungs and the four rights.
 3. ~~**Support sessions.**~~ Decided 15 Oct 2026: in every product now, with the organisation's consent (§11).
 4. **Acting as a member.** Allowed at all (§11)?
-5. **Focus ring on the dark bars.** `#4D84FE` there, AntaraX blue `#0459F7` on the light page (§4). Confirm for the brand kit.
+5. ~~**Focus ring on the dark bars.**~~ Settled by the brand kit's `axle.bar-focus` token (`--axle-bar-focus`, `#4D84FE`): that ring on the bars, AntaraX blue `#0459F7` on the light page (§4).
 6. ~~**The primary action colour.**~~ Decided 15 Oct 2026: REKA orange `#FB9800` with navy text, in every product's AXLE.
 7. **The "Support" rung name.** The brand kit reserves "REKA support" for customers. The rung is never shown to them, so is it fine to keep?
-8. **Scope.** The std draws on YARA One, Entangled Particles and KITAR AI, which the inventory has not covered, and ISO Generator, which the brand kit doesn't list. Which products must meet this standard? **ISO Generator is on hold** (owner, 15 Oct 2026): nothing in this standard applies to it until the owner says so, and nobody changes its AXLE.
+8. **Scope.** The std draws on YaraOne, Entangled Particles and KITAR AI, which the inventory has not covered, and ISO Generator, which the brand kit doesn't list. Which products must meet this standard? **ISO Generator is on hold** (owner, 15 Oct 2026): nothing in this standard applies to it until the owner says so, and nobody changes its AXLE.
 9. **Lifecycle words.** std C3's statuses (trial, active, restricted, suspended, cancelled, pending deletion) alongside a rollout stage (sandbox, pilot, live): confirm both are wanted.
 10. **Cooling-off and invitation expiry defaults** (30 days, 7 days).
 11. ~~**R8 for every product.**~~ Decided 15 Oct 2026: every product has R8, Base or Full (§2, §7.1). This departs from std v0.2, which gives R8 only to products with machinery; the standard should take it in v0.3.
@@ -860,6 +875,8 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 21. ~~**Who manages the AI.**~~ Decided 25 Oct 2026: AwanGan manages AntaraX's AI (provider keys, models, routing, call records, outcomes, AI cost) and Lapisan the API keys, tenants, scopes, limits and usage rows; each AXLE shows its own AI usage from Lapisan's usage rows for product `ai` (§10.6; AwanGan decision 0021).
 22. **AI usage while watch only.** Lapisan has no usage rows for product `ai` until a product comes through AwanGan. Read the product's own call records until then, or AwanGan's watch-only totals? Until decided, a figure Lapisan does not have is a dash with the reason (§13.1).
 23. ~~**Buttons and links.**~~ Decided 26 Oct 2026: an action is a button, a link only goes somewhere, Remove and Delete are destructive buttons, and no label ends in "…" (§14.2).
+24. ~~**Staff sign-in by link; AXLE addresses.**~~ Decided 11 Nov 2026: never a sign-in link, an emailed one-time code from Cloudflare Access counts as email and a code (§5.1); product AXLEs are at `axle-<product>.antarax.ai` (§1).
+25. ~~**What R8 means; AXLE Central.**~~ Decided 11 Nov 2026: R8, the central console, at `r8.antarax.ai`, beside the R8 mode inside each AXLE; "AXLE Central" and `axle.antarax.ai` are retired as its name and address; Shen is reserved (§1).
 
 ## 21 What each console changes
 

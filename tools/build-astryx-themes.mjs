@@ -28,7 +28,7 @@ const SANS = tokens.font.sans.value, MONO = tokens.font.mono.value;
 
 // Each product's shape, as its shell bar and its mocks draw it (app SPEC §2.2; app/mock/ActionsScreens P map):
 // [page radius, card radius, control radius]. A product not listed takes the default.
-const SHAPE = { default: [24, 20, 12], frame: [16, 16, 12], janka: [20, 20, 12], angka: [28, 20, 14], tinara: [0, 0, 4] };
+const SHAPE = { default: [24, 20, 12], frame: [16, 20, 12], janka: [20, 20, 12], angka: [28, 20, 14], tinara: [0, 0, 4] };
 const alpha = (hex, a) => hex + a;
 
 function lines(obj) {
@@ -154,6 +154,10 @@ ${lines(toks)}
     },
   },
 });
+
+// The quiet destructive button for a dense row (app SPEC §11b): the secondary button with the fault
+// colour for its text and border. Use it on a \`variant="secondary"\` Button; Astryx has no variant of its own for it.
+export const quietDestructive = {color: 'var(--color-error)', borderColor: 'var(--color-error)', backgroundColor: 'transparent'};
 `;
 }
 

@@ -301,7 +301,7 @@ The tenant-branded sign-in (`/login/<org>`) shows the organisation name as the h
 ## What conflicts with the brand kit
 
 - Credit line "Powered by AntaraX Ripple" in the sidebar, sign-in, worker sign-in, splash and AXLE sign-in. The kit wants "Yara · by AntaraX" in chrome and "Yara by AntaraX, from REKA." on sign-in.
-- "Yara AXLE" naming. The kit wants "AXLE · Yara", at `axle.antarax.ai` in time.
+- "Yara AXLE" naming. The kit wants "AXLE · Yara", at `r8.antarax.ai` in time.
 - AXLE ground `#0B0E14` / `#12151E` instead of the kit's `#071233` / `#0C1B47`. The AXLE primary button is teal, not orange.
 - US spelling: "Organization", "Organizations", "Organization code", "Every organization runs its own process".
 - Words: "Log in" / "Log out" instead of Sign in / Sign out; "Users" and "Tenant users" instead of members; role labels "Owner / CEO / MD", "Operation Manager", "REKA staff" instead of Owner, Admin, REKA support.

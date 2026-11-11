@@ -220,6 +220,6 @@ The customer sign-in shows the closed-pilot copy and "AX Frame by AntaraX". AXLE
 - **AXLE phone bug.** A later CSS rule cancels the phone top padding, so the hamburger covers each page title (`admin.css:62` vs `:106`).
 - **AXLE has no icons and no sign-out** in its shell.
 - **US spelling.** AXLE says "Authorized staff only"; British spelling is "authorised".
-- **AXLE address** is `axle-antarax.vercel.app`, not `axle.antarax.ai`.
+- **AXLE address** is `axle-antarax.vercel.app`, not `r8.antarax.ai`.
 - **Accessibility.** No `aria-current` on any nav, the phone "+" button has no name, and there is no axe check.
 - **Out-of-date docs.** `AXF-AXLE-THEME.md` (July) describes a light canvas and old colours. The brand kit's Frame sheet still lists the old `#0062FB` primary and orange accent as gaps, but the repo already moved to Frame blue and keeps orange in AXLE only.

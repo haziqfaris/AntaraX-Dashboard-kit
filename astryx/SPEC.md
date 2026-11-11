@@ -55,7 +55,7 @@ Astryx is in beta, with breaking changes between minor versions, so every produc
 
 Each product's theme is **generated from the brand kit**, never written by hand:
 
-- `astryx/themes/<key>/<key>Theme.ts` holds one per product: Yara, YaraOne, AX Frame, Janka, PLExyz Grid, PLExyz Crowd, Angka, Tinara, Cebis Loom and Motion.
+- `astryx/themes/<key>/<key>Theme.ts` holds one per product: Yara, YaraOne, AX Frame, Janka, PLExyz Grid, PLExyz Crowd, Angka, Tinara, Cebis Loom, Motion and Tiko (Tiko's colours are provisional until its branding is settled).
 - `astryx/themes/axle/axleTheme.ts` holds the one for AXLE.
 - Each extends Astryx's Neutral theme and sets only what the brand kit decides.
 
@@ -77,10 +77,11 @@ Each product's theme is **generated from the brand kit**, never written by hand:
 | `--color-border`, `-emphasized` | `border.default`, `border.strong`; dark `border` |
 | `--color-success`, `-warning`, `-error`, `-info` (with `-muted`, `text-`, `icon-`, `on-…-muted`) | `status.ok`, `warn`, `fault`, `info`: the text colour as the fill, the tint as muted |
 | `--focus-outline-color` | AntaraX blue `#0459F7` (dark `#4D84FE`), the focus ring everywhere |
-| `--radius-element`, `-container`, `-page` | the product's control, card and bar radius (Tinara square, Angka 28, AX Frame 16, Janka 20, the rest 24) |
+| `--radius-element`, `-container`, `-page` | the product's control, card and page radius. Page · card · control: the default 24 · 20 · 12; AX Frame 16 · 20 · 12 (its bar 16, cards 20, buttons 12); Janka 20 · 20 · 12; Angka 28 · 20 · 14; Tinara 0 · 0 · 4 (square) |
 | Typography | Poppins for body and headings (600), JetBrains Mono for code |
 | `--size-element-md`, `-lg` on a touch screen | 44px; dense rows stay compact with a mouse |
 | `button` `variant:destructive` | solid in `--color-error` with white text |
+| the quiet destructive button (app SPEC §11b) | a `variant="secondary"` Button given the theme file's `quietDestructive` style: the fault colour for text and border on no fill. For Remove and Delete in a dense row; Astryx has no variant of its own for it |
 
 **AXLE's theme** paints the page inside AXLE: the light page, REKA orange `#FB9800` as the main action with navy text, and AntaraX blue links and focus. The dark sidebar and top bar stay as `axle/tokens.css` and the AXLE template draw them.
 
@@ -138,7 +139,7 @@ Astryx's own themes (Butter, Chocolate, Matcha, Stone, Gothic, Y2K) are never us
 
 ## 9 Today
 
-On 11 Nov 2026 no product uses Astryx. Every front end runs React 19, so each can adopt it. YaraOne goes first.
+On 11 Nov 2026 no product uses Astryx. Every React front end runs React 19, so each can adopt it; the server-rendered ones below (Cebis Loom, AwanGan) and BumiNyata have nothing for it to replace yet. YaraOne goes first.
 
 | Product | Front end |
 |---|---|
@@ -151,3 +152,7 @@ On 11 Nov 2026 no product uses Astryx. Every front end runs React 19, so each ca
 | PLExyz Crowd | Next.js 16, Tailwind 4 |
 | Tinara | Vite 6, Tailwind 4 |
 | Lapisan Console | Next.js 16 |
+| Tiko (private pilot) | Next.js 16, React 19, Tailwind 4 |
+| Cebis Loom | Python, server-rendered pages (`app.py`, `online.py`, `axle.py`); no React, so Astryx does not apply. Its pages follow the kit's rules and tokens by hand |
+| AwanGan | TypeScript server-rendered pages (its test app `src/try/`, its AXLE `src/axle/`); no React, so Astryx does not apply until a page moves to React |
+| BumiNyata | An API service with no customer screens of its own yet |

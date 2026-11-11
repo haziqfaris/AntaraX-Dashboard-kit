@@ -1022,7 +1022,7 @@
     "Focus ring is violet --navy and only on header buttons; inputs remove the outline (apps/grid/src/index.css:81, apps/axle/src/index.css:58); 13 §10 asks for a visible AntaraX-blue #0459F7 ring everywhere.",
     "No prefers-reduced-motion handling in either app (motion/react transitions, pulsing dots).",
     "No Help item or /help route; guide is a modal, not /guide (13 §8).",
-    "AXLE is named 'PLExyz Grid AXLE — Platform Admin', light and violet with the Grid mark; 13 §6 asks for 'AXLE · PLExyz Grid', dark ground #071233, REKA orange #FB9800 and the AntaraX A, at axle.antarax.ai.",
+    "AXLE is named 'PLExyz Grid AXLE — Platform Admin', light and violet with the Grid mark; 13 §6 asks for 'AXLE · PLExyz Grid', dark ground #071233, REKA orange #FB9800 and the AntaraX A, at r8.antarax.ai.",
     "Words: 'Organization'/'organization' (US spelling) on sign-in, AXLE and upgrade copy; 'workspace' also used for the account; 'Sign Out' in title case; roles shown as Superadmin/Admin/Operations Manager etc. (13 §1).",
     "Plans shown as free/trial/standard/advanced/intelligent (AXLE tier select, UpgradeRequired) instead of Seed, Nova, Galaxy, Quantum with descriptors (13 §3).",
     "Money written 'RM 656,379.00' and 'RM 139,227' with a space; 13 §3 wants 'RM656,379.00'. Dates shown as US locale '9/2/2026' and '10/14/2026, 3:00:00 AM' in AXLE.",

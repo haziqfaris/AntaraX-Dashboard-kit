@@ -268,6 +268,7 @@ For products with AI (brand kit 12, 13 §1):
   - offers "Helpful" and "Not helpful", which reach AXLE.
 - **One line at the foot:** "Assist can make mistakes. Check anything important."
 - **Never in the panel:** model or provider names, prompts, or costs (axle SPEC §12).
+- **One exception to the name: a support assistant in a client's support conversation** (owner, 11 Nov 2026; TriageNT decisions T-002, T-014). Where YaraOne's front office answers a client through TriageNT (§10), each conversation may give the assistant one name from TriageNT's approved list (`docs/PERSONA-NAMES.md`: twenty Malay nature words such as Bayu, Embun, Senja), shown as "‹Name›, REKA's support assistant", with the sparkle. It always says it is an AI when asked, and never claims to be a person. Nowhere else does an AI get a name of its own: the team's tools and every product screen keep **Assist**, and a new name per product is still never used.
 - **AI anywhere else in the product** uses the shared pieces in brand kit 13 §6b (owner, 16 Oct 2026). That covers a suggestion, a document read by AI, or a forecast. The look is the product's own:
   - the sparkle with "AI" in words;
   - **Accept**, **Change** and **Dismiss**, each reporting its outcome so AXLE's R8 → AI flow counts it;

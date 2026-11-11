@@ -445,7 +445,7 @@ button,input,select,textarea{font-family:inherit}
         </sc-if>
       </section>
 
-      <p style="margin: 0; font-size: 12px; color: #5B6488">Read from AntaraX email through AXLE Central's server, on the operator-only routes under <span class="mono">/internal/axle/v1/email/</span>, signed with Central's own key; the key never reaches this page, and no product's AXLE can call these routes. Each product's own page is its Watch → Email; the shared Resend plan is in each product's R8 → Capacity. Figures are illustrative.</p>
+      <p style="margin: 0; font-size: 12px; color: #5B6488">Read from AntaraX email through R8's server, on the operator-only routes under <span class="mono">/internal/axle/v1/email/</span>, signed with R8's own key; the key never reaches this page, and no product's AXLE can call these routes. Each product's own page is its Watch → Email; the shared Resend plan is in each product's R8 → Capacity. Figures are illustrative.</p>
     </main>
   </div>
 </div>
@@ -709,7 +709,7 @@ class Component extends DCLogic {
     }
     // Senders: AntaraX's own from code (read only), then those registered as data.
     var CODE = [
-      ['frame', 'AX Frame', 'frame.antarax.ai, frame-axle.antarax.ai'], ['yaraone', 'YaraOne', 'yo.antarax.ai, axle.yo.antarax.ai'],
+      ['frame', 'AX Frame', 'frame.antarax.ai, frame-r8.antarax.ai'], ['yaraone', 'YaraOne', 'yo.antarax.ai, axle.yo.antarax.ai'],
       ['yara', 'Yara', 'yara.antarax.ai, axle.yara.antarax.ai'], ['janka', 'Janka', 'janka.antarax.ai, axle.janka.antarax.ai'],
       ['grid', 'PLExyz Grid', 'grid.antarax.ai, axle.grid.antarax.ai'], ['crowd', 'PLExyz Crowd', 'crowd.antarax.ai, axle.crowd.antarax.ai'],
       ['tinara', 'Tinara', 'tinara.antarax.ai, axle.tinara.antarax.ai'], ['lapisan', 'Lapisan', 'lapisan.antarax.ai'],

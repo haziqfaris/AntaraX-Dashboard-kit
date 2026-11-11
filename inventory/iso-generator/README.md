@@ -267,7 +267,7 @@ One sign-in screen serves both hosts (`src/app/SignIn.tsx`). A navy panel on the
 
 - The name is "REKA Admin"; kit 13 §6 says "AXLE · ISO Generator" and bans "REKA Admin".
 - The look is light and navy, with orange remapped away; §6 wants a dark `#071233` ground, `#0C1B47` raised surfaces, `#FB9800` accent, Poppins and JetBrains Mono, and the AntaraX A. §10 says AXLE is dark-only.
-- The host is `axle.nexustac.reka.tech`, not `axle.antarax.ai`. There is no shared staff sign-in and no AXLE Link endpoints.
+- The host is `axle.nexustac.reka.tech`, not `r8.antarax.ai`. There is no shared staff sign-in and no AXLE Link endpoints.
 - The rights do not follow the viewer < support < operator < admin < owner ladder (antarax-api docs/07 §7.4).
 - There is no AntaraX mark or credit in either surface. The credit reads "by REKA · for NexusTAC".
 - The Bahasa Malaysia toggle is live, while kit 13 §7 parks BM. The focus ring is navy, not AntaraX blue.
