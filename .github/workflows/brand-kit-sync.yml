@@ -33,6 +33,9 @@ jobs:
       - name: Shell mock renders and values tables match their mocks
         run: node tools/render-mocks.mjs app/mock --check
 
+      - name: Astryx themes match the brand kit snapshot
+        run: node tools/build-astryx-themes.mjs --check
+
       - name: Capacity examples follow the standard
         run: python3 capacity/check.py capacity/examples/*.json
 

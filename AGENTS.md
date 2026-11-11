@@ -35,6 +35,16 @@ The reference pieces are in `app/reference/`: `PasswordField`, `ConfirmDialog`, 
 
 Every customer app, AXLE and client project (owner, 26 Oct 2026): **an action is a button**, in the product's button styles, and **a link only goes somewhere**. Remove and Delete are destructive buttons, never coloured link text. **No button, menu item, link, tab or placeholder ends in "…" or "..."**. The rule is app SPEC §11b, axle SPEC §14.2 and project SPEC §8a; `node tools/check-shell.mjs` reports what it can see on a running page.
 
+## Building with Astryx
+
+New and reworked screens in every customer app and every AXLE are built from Astryx (owner, 11 Nov 2026). Follow `astryx/SPEC.md`:
+- Pin the tested version exactly.
+- Copy the product's generated theme from `astryx/themes/<key>/` and build it with `npx astryx theme build`. Never edit a colour.
+- Keep the product's own loaders instead of Astryx's spinners.
+- Where Astryx's defaults differ, the kit's standards win (§5).
+
+Existing screens move when they are touched; nothing is rewritten only to adopt it. Client projects keep shadcn/ui. YaraOne goes first.
+
 ## Capacity
 
 Every product and client project keeps `capacity.json` at its root, listing every plan it runs on and every limit it can reach, and passes `python3 capacity/check.py capacity.json` from this kit (owner, 16 Oct 2026). A new provider, plan, function, bucket or sending service is added there in the same piece of work. Never guess a limit: take it from the provider's plan page, or mark the plan not confirmed.
