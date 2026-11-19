@@ -27,13 +27,13 @@ A client project carries the client's brand and must never look like an AntaraX 
 Every customer app and every AXLE meets two more standards (owner, 18 Oct 2026):
 
 - **`getting-in/SPEC.md`:** signing in, passwords, sign-in links, two-step sign-in, sessions and account changes. Its §1 (GI-01 to GI-20) is the bare minimum before release. §14 says what each product had on 18 Oct 2026 and §15 what each changes. Check with `node tools/check-signin.mjs` against the running product.
-- **`actions/SPEC.md`:** confirming, waiting and results. Its §1 (AC-01 to AC-12) is the bare minimum. Every action is at one of three levels, and what a person sees while it runs depends on how long it takes. §10 says what each product does today and §11 what each changes. Check with `node tools/check-actions.mjs PATH` on the product's source.
+- **`actions/SPEC.md`:** confirming, waiting and results. Its §1 (AC-01 to AC-13) is the bare minimum. Every action is at one of three levels, and what a person sees while it runs depends on how long it takes. §10 says what each product does today and §11 what each changes. Check with `node tools/check-actions.mjs PATH` on the product's source.
 
 The reference pieces are in `app/reference/`: `PasswordField`, `ConfirmDialog`, `ProgressDialog` and `useAction`. Each product's screens are drawn in `app/mock/GettingIn<Product>.dc.html` and `app/mock/Actions<Product>.dc.html`, with PNGs in `app/mock/renders/` and values beside them.
 
 ## Buttons and links
 
-Every customer app, AXLE and client project (owner, 26 Oct 2026): **an action is a button**, in the product's button styles, and **a link only goes somewhere**. Remove and Delete are destructive buttons, never coloured link text. **No button, menu item, link, tab or placeholder ends in "…" or "..."**. The rule is app SPEC §11b, axle SPEC §14.2 and project SPEC §8a; `node tools/check-shell.mjs` reports what it can see on a running page.
+Every customer app, AXLE and client project (owner, 26 Oct 2026): **an action is a button**, in the product's button styles, and **a link only goes somewhere**. Remove and Delete are destructive buttons, never coloured link text. **No button, menu item, link, tab or placeholder ends in "…" or "..."** (restated by the owner, 19 Nov 2026, after ~176 labels such as "Switch Briefs off…" and "Change…" were found in Tinara; `node tools/check-actions.mjs` finds them in source as AC-13). The rule is app SPEC §11b, axle SPEC §14.2 and project SPEC §8a; `node tools/check-shell.mjs` reports what it can see on a running page.
 
 ## Building with Astryx
 
