@@ -8,6 +8,16 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.14.1 · 19 Nov 2026
+
+Patch: wording and a tool only (owner, 19 Nov 2026, restating the 26 Oct 2026 decision; brand kit guide/10).
+
+- **The rule already stood** (app SPEC §11b, axle SPEC §14.2, project SPEC §8a, 1.10.0): no button, menu item, link, tab or placeholder ends in "…" or "...". The owner restated it on 19 Nov 2026 after Tinara was found with about 176 such labels ("Switch Briefs off…", "Change…", "Remove…"): a label names the action, and the dialog it opens says what comes next. No new exceptions: CSS truncation, the "⋯" button, ellipses in example or quoted text, and busy words while an action runs ("Saving…", actions/SPEC.md §3) stay as §11b has them.
+- **actions/SPEC.md 1.2: AC-13**, "no action label ends in an ellipsis", joins the bare minimum (§1), and §7 and §9 point to it. app SPEC §11b says where a product finds its labels.
+- **`tools/check-actions.mjs` gains AC-13:** scans source for a `<button>`, `<a>`, `<Button>`, `<Link>`, `<MenuItem>`, `<Tab>` or `role="menuitem"` whose text ends in "…" or "...", and for `label`, `aria-label`, `placeholder` and `title` values that do. It fails the run (exit 1), like AC-01 and AC-04. A busy label whose first word ends in "-ing" ("Saving…") is let through. `check-shell.mjs` still reports the same on a running page.
+- **Mocks:** scanned `app/mock` and `axle/mock`; no action label ends in an ellipsis, so no mock or render changes.
+- **Pointers:** AGENTS (AC-01 to AC-13), README (v1.14.1).
+
 ## 1.14.0 · 11 Nov 2026
 
 Minor: something new to adopt, and the brand kit snapshot moves to tokens 1.14.0 (owner, 11 Nov 2026: "go do all", after the kit audit of that day; brand kit guide/10).
