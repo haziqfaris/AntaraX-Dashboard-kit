@@ -16,7 +16,8 @@
   It checks: the bar's height (64, 58 on phones); every control in it 44px, product-slot buttons at least
   40px drawn; Help second from the right and the account at the far right; whether the bar floats with its
   radius, gutter and shadow; labels set in uppercase anywhere on the page; Help's and the account's menu
-  items. Anywhere on the page, and in both menus (SPEC §11b): controls, tabs, menu items and placeholders
+  items. Scrollbars (SPEC §11c): every area that scrolls on the page has a thin scrollbar, hidden at rest (not the browser's default,
+  not removed); where the system asks for forced colours it passes. Anywhere on the page, and in both menus (SPEC §11b): controls, tabs, menu items and placeholders
   whose label ends in "…" or "...", and <a> elements with nowhere to go (no href, href="#" or javascript:),
   which are actions dressed as links. A busy control (aria-busy, or disabled with "Saving…"-style words) and
   text cut short by CSS are not counted. It saves each width's screenshot and, with --product, the matching reference PNG beside it in
@@ -154,6 +155,35 @@ async function measure(page, width) {
   report(!found.nowhere.length, width, 'Links go somewhere', found.nowhere.length ? found.nowhere.slice(0, 10).join(', ') + ': an action is a button, a link has a real href (SPEC §11b)' : 'every <a> has a real href');
 }
 
+// SPEC §11c (owner, 19 Nov 2026): every scrollable area has a thin scrollbar that is hidden at rest. Measured on the areas that scroll
+// right now (a menu or dialog that is closed is not measured; open it and run again, or add --open CSS to click something first).
+async function scrollbars(page, width) {
+  await page.mouse.move(0, 0);
+  const found = await page.evaluate(() => {
+    if (matchMedia('(forced-colors: active)').matches) return { forced: true };
+    const clear = (c) => /^(rgba\(0, 0, 0, 0\)|transparent)$/.test(c.trim());
+    const label = (el) => (el === document.documentElement ? 'the page' : el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (el.getAttribute('aria-label') ? ` "${el.getAttribute('aria-label').slice(0, 24)}"` : el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/)[0] : ''));
+    const bad = []; let seen = 0;
+    for (const el of [document.documentElement, ...document.querySelectorAll('body *')]) {
+      const cs = getComputedStyle(el);
+      const root = el === document.documentElement;
+      const scrolls = (/(auto|scroll)/.test(cs.overflowY) && el.scrollHeight > el.clientHeight + 1) || (/(auto|scroll)/.test(cs.overflowX) && el.scrollWidth > el.clientWidth + 1)
+        || (root && (el.scrollHeight > el.clientHeight + 1));
+      if (!scrolls || cs.display === 'none' || cs.visibility === 'hidden') continue;
+      seen++;
+      const w = cs.scrollbarWidth, c = cs.scrollbarColor;
+      if (w === 'none') bad.push(`${label(el)}: scrollbar removed (scrollbar-width: none); keep it, thin and hidden at rest`);
+      else if (w === 'auto' && c === 'auto') bad.push(`${label(el)}: the browser's default scrollbar`);
+      else if (w === 'auto') bad.push(`${label(el)}: scrollbar-width is auto, not thin`);
+      else if (c === 'auto') bad.push(`${label(el)}: scrollbar-color is auto`);
+      else if (!root && !el.matches(':hover, :focus-within, [data-scrolling]') && !clear(c.match(/^(rgba?\([^)]*\)|\S+)/)[0])) bad.push(`${label(el)}: the thumb shows at rest (${c})`);
+    }
+    return { seen, bad: bad.slice(0, 10) };
+  });
+  if (found.forced) { report(true, width, 'Scrollbars', 'forced colours: the system scrollbars show (SPEC §11c)'); return; }
+  report(!found.bad.length, width, 'Scrollbars (thin, hidden at rest)', found.bad.length ? found.bad.join('; ') + ' (SPEC §11c)' : `${found.seen} scrollable area(s), all thin and hidden at rest`);
+}
+
 async function menus(page, width) {
   const bar = page.locator(opt('bar') || 'header, [role="banner"]').first();
   const open = async (sel, name) => {
@@ -194,6 +224,7 @@ for (const width of widths) {
   await page.goto(url, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
   await measure(page, width);
+  await scrollbars(page, width);
   const shot = join(out, `shell-${width}.png`);
   await page.screenshot({ path: shot, clip: { x: 0, y: 0, width, height: width < 768 ? 120 : 110 } });
   await menus(page, width);

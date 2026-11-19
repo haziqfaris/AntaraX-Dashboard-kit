@@ -354,6 +354,22 @@ Decided by the owner on 26 Oct 2026, after a blue text link reading "Remove…" 
   - A label names the action; the dialog it opens says what comes next. Restated by the owner on 19 Nov 2026, after Tinara was found with about 176 labels such as "Switch Briefs off…", "Change…" and "Remove…". `node tools/check-actions.mjs PATH` finds them in a product's source (actions/SPEC.md AC-13).
   - A button's words while it works ("Saving…", [actions/SPEC.md](../actions/SPEC.md) §3) are a state, not its label, and stay as that standard sets them.
 
+## 11c Scrollbars
+
+Decided by the owner on 19 Nov 2026 (haziqfaris: "make the scrollbar hidden and make it look and fit the color scheme of the dashboard and make sure this applies to all scrollbars"), after the browser's default grey scrollbar showed on AXLE's dark sidebar. **This is the one source of the rule**; AXLE (axle/SPEC.md §6.3) and client projects (project/SPEC.md §8a) point here.
+
+Every scrollable area in every AntaraX product (the page, the sidebar and AXLE bar, menus, dialogs, drawers, tables, code panes, any `overflow: auto` box) has the same scrollbar:
+
+- **Thin, about 8px, hidden at rest.** No thumb shows until the area is **hovered**, has **keyboard focus** inside it, or is **scrolling** (touch and trackpad scrolling have no hover; `app/reference/scrollbars.js` marks the area `data-scrolling` while it moves). The track is always transparent.
+- **Never removed.** No `scrollbar-width: none`, no `display: none` on the scrollbar: content must stay discoverable and scrollable by wheel, touch, keyboard and drag.
+- **Colours are tokens** (`--shell-scroll-*` in app/tokens.css, `--axle-scroll-*` in axle/tokens.css; brand kit tokens 1.16.0): on **dark surfaces** (the AXLE sidebar and bar, dark menus, a dark theme, code panes) a light thumb at low opacity; on **light surfaces** a neutral navy thumb. Hover and drag use the stronger value. No colour of the product's own: the thumb follows the surface, not the accent.
+- **Firefox and current Chromium and Safari** use `scrollbar-width: thin` and `scrollbar-color`; older WebKit and Blink use `::-webkit-scrollbar*` with the same tokens (width and radius from the tokens).
+- **Reduced motion:** with `prefers-reduced-motion: reduce` the thumb appears and disappears without a fade.
+- **Forced colours:** with `forced-colors: active` the system's scrollbars show; the rule does not apply.
+- **Where it goes:** put `shell-root` on `<html>` or the app's outermost element so everything under it is covered, and `data-scroll-surface="dark"` on any dark area that is not the whole app. `app/reference/shell.css` holds the CSS; a product that copies it gets the rule. A scrollable area outside `shell-root` (a portal, a third-party widget) is wrapped in it or restyled the same way.
+- **Keyboard:** a scrollable area that holds nothing focusable has `tabindex="0"` and a name (`aria-label`), so it can be scrolled with the keys and its scrollbar shows.
+- Checked by `node tools/check-shell.mjs` (every area that scrolls has a thin scrollbar, hidden at rest); in an area the check cannot open (a closed menu or dialog), by hand (§17).
+
 ## 12 Logo, loading and motion
 
 The brand kit decides the motion system (guide 04 animations, guide 12 signature moments, guide 14 loading). In the shell:
@@ -563,6 +579,7 @@ In every customer app, whatever its own design:
 | **Sign-in** | Show password works; a password manager fills sign-in and saves a new password; paste works in every field; an 11-character password is refused and a 12-character one with spaces is accepted |
 | **Forms** | A failed submit keeps everything typed; a double click submits once; leaving with unsaved changes asks first |
 | **Buttons and links** | `node tools/check-shell.mjs` finds no control, menu item, tab or placeholder ending in "…" or "...", and no `<a>` without a real `href`. By hand, on the longest list and a record page: every action is a button, Remove and Delete are destructive buttons, and every link goes to another page or address (§11b) |
+| **Scrollbars** | `node tools/check-shell.mjs` finds every scrolling area thin and hidden at rest. By hand: open the longest menu, a dialog with a long body and a table wider than its card; each shows no scrollbar until hovered, focused or scrolled, the thumb fits the surface (light on dark, navy on light), and with forced colours on the system's scrollbars show (§11c) |
 | **Speed** | Lighthouse on a mid-range phone profile: LCP under 2.5 s, INP under 200 ms, CLS under 0.1; a reload shows data at once from cache |
 | **Security** | Security headers present (HSTS, CSP, frame-ancestors); sign-in slows after 5 failures; personal data absent from logs and analytics |
 | **Accessibility** | The brand kit 13 §10 baseline; every shell control has a name; the account menu traps focus and closes on Escape |

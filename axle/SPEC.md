@@ -216,6 +216,14 @@ AXLE keeps the **AntaraX top bar** every product already ships (adopted 12 Oct 2
 | **Page header** | The title is in the top bar. Under it: one line saying what the page is for, the state line, the "How this page works" disclosure, and the page's range picker or primary action | Always |
 | **Phones** | Below 1024px the sidebar becomes a drawer with its groups and counters (Yara), not a chip strip. AXLE on a phone shows AXLE, never the customer app (std L1). The title is never covered | Always |
 
+### 6.3 Scrollbars (owner, 19 Nov 2026)
+
+Every scrollable area in AXLE has the shell's scrollbar, decided in [../app/SPEC.md](../app/SPEC.md) §11c (the one source of the rule): thin (about 8px), hidden at rest, shown while the area is hovered, focused or scrolling, a transparent track, never removed, system scrollbars in forced colours. In AXLE:
+
+- **Dark surfaces** (the sidebar, the top bar, the phone drawer, dark menus, code and log panes) carry `data-scroll-surface="dark"` and use `--axle-scroll-thumb-dark` and `-hover`: a light thumb at low opacity. This is what the default grey scrollbar on the sidebar was replaced by.
+- **Light surfaces** (the page, cards, tables, dialogs) use `--axle-scroll-thumb-light` and `-hover`: a neutral navy thumb.
+- Width and radius are `--axle-scroll-width` and `--axle-scroll-radius`. The CSS is `axle/reference/scrollbars.css`; `axle/mock/Phone.dc.html` draws the dark drawer with it.
+
 ### 6.1 Organisation scope
 
 One picker sets the organisation for every page that can be scoped. Its value is in the address (`?org=acme-plastics`), and "All organisations" is the default. Staff see no organisation's data on scoped pages until they pick one, or choose "All", which shows only platform-level rows (std QA "Separation"; ISO Generator).
@@ -821,6 +829,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 
 | Check | Passes when |
 |---|---|
+| **Scrollbars** | Every scrollable area, including the sidebar and the phone drawer, has a thin scrollbar that is hidden at rest and shows while hovered, focused or scrolling; light thumb on the dark bars, navy on the light page; `node tools/check-shell.mjs` passes its scrollbar check on the AXLE page (§6.3) |
 | **Sign-in** | The page matches §5.1.1 at 1440px and 390px; Google and email, password and code both get a staff member in; a non-staff account is signed out at once with the wrong-door message; with reduced motion the dots and scan stand still |
 | **Separation** | A member opens every AXLE address and gets 404; staff see no organisation's data on a scoped page until they pick one |
 | **Nothing leaks** | Signed in as a member, searching the screens and the network responses finds no model name, trace, cost, AXLE, staff rung or other organisation |
