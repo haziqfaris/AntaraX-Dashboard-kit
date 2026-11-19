@@ -351,6 +351,7 @@ Decided by the owner on 26 Oct 2026, after a blue text link reading "Remove…" 
   - Why: the dots come from an old desktop convention (Apple's and Microsoft's guidelines), where "…" means a dialog will ask for more before anything happens. People who use our products don't know that convention, so the dots read as clutter. The dialog that follows explains itself.
   - Not affected: text cut short by CSS (`text-overflow: ellipsis` on a long page title or email address), and the "⋯" more-actions button.
   - Not affected either: an ellipsis inside example or quoted text that stands for something left out, such as "Signed in as …" in a description or `req_…` in a hint. The rule is about labels on controls and placeholders.
+  - A label names the action; the dialog it opens says what comes next. Restated by the owner on 19 Nov 2026, after Tinara was found with about 176 labels such as "Switch Briefs off…", "Change…" and "Remove…". `node tools/check-actions.mjs PATH` finds them in a product's source (actions/SPEC.md AC-13).
   - A button's words while it works ("Saving…", [actions/SPEC.md](../actions/SPEC.md) §3) are a state, not its label, and stay as that standard sets them.
 
 ## 12 Logo, loading and motion

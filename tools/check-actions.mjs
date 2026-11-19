@@ -9,8 +9,11 @@
     AC-09  generic or raw error messages: "Something went wrong" (alone), "An error occurred", "Error:" + err,
            error.message or err.message shown straight to the screen (toast, alert, setError, innerText)
     AC-04  confirm buttons labelled OK, Yes, Confirm or Submit
+    AC-13  action labels ending in "…" or "...": the text of a <button>, <a>, <Button>, <Link>, <MenuItem>, <Tab>
+           or role="menuitem" element, and label, aria-label, placeholder or title attributes and `label:` keys;
+           a busy label ("Saving…", "Deleting…": first word ends in -ing) is a state, not a label, and is let through
     AC-05  (a hint) a <button> whose onClick awaits a call with no disabled/aria-busy/isPending nearby
-  Skips node_modules, build output, tests and stories. Exit 1 when AC-01 or AC-04 is found; the rest are listed
+  Skips node_modules, build output, tests and stories. Exit 1 when AC-01, AC-04 or AC-13 is found; the rest are listed
   for a person to read, because a pattern cannot tell a written message from a raw one every time.
 */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
@@ -28,6 +31,19 @@ const RULES = [
   { id: 'AC-09', fail: false, what: 'generic error message', re: /(['"`])(Something went wrong\.?|An error occurred\.?|An unexpected error occurred\.?|Oops[^'"`]*|Error)\1/g },
   { id: 'AC-09', fail: false, what: 'raw error message on screen', re: /(toast[\w.]*|alert|setError|setMessage|showError|innerText\s*=|textContent\s*=)\s*\(?\s*(?:`[^`]*\$\{)?\s*(err|error|e)(\??\.)message/g },
 ];
+
+const ELL = '(?:…|\\.\\.\\.)';
+// A busy label is a state while an action runs (actions/SPEC.md §3), so "Saving…" and "Sending invitation…" pass.
+const isBusy = (text) => /^[A-Z]?[a-z]+ing\b/.test(text.trim());
+const labelsWithEllipsis = (line) => {
+  if (/^\s*(\/\/|\*|\/\*|\{\/\*)/.test(line)) return [];
+  const out = [];
+  const add = (t) => { if (!isBusy(t)) out.push(t); };
+  for (const m of line.matchAll(new RegExp('<(?:button|Button|a|A|Link|MenuItem|DropdownMenuItem|Tab)\\b[^>]*>\\s*([^<>{}]*?' + ELL + ')\\s*</', 'g'))) add(m[1]);
+  for (const m of line.matchAll(new RegExp('role=["\']menuitem["\'][^>]*>\\s*([^<>{}]*?' + ELL + ')\\s*<', 'g'))) add(m[1]);
+  for (const m of line.matchAll(new RegExp('\\b(?:label|aria-label|placeholder|title)\\s*[=:]\\s*\\{?\\s*([\'"`])([^\'"`]*?' + ELL + ')\\1', 'g'))) add(m[2]);
+  return [...new Set(out)];
+};
 
 const found = [];
 function walk(dir) {
@@ -47,6 +63,7 @@ function scan(p, rel) {
       r.re.lastIndex = 0;
       if (r.re.test(line) && (!r.keep || r.keep(line))) found.push({ id: r.id, fail: r.fail, what: r.what, file: rel, line: i + 1, text: line.trim().slice(0, 140) });
     }
+    for (const t of labelsWithEllipsis(line)) found.push({ id: 'AC-13', fail: true, what: 'action label ends in an ellipsis: "' + t + '"', file: rel, line: i + 1, text: line.trim().slice(0, 140) });
     // AC-05 hint: an awaited call in an onClick on a button with no busy state on the same or next lines
     if (/<button[^>]*onClick=\{[^}]*\b(async|await)\b/.test(line)) {
       const near = lines.slice(Math.max(0, i - 2), i + 4).join(' ');
@@ -60,6 +77,6 @@ if (argv.includes('--json')) { console.log(JSON.stringify(found, null, 2)); }
 else {
   for (const f of found) console.log(`${f.fail ? 'FAIL ' : 'CHECK'} ${f.id}  ${f.file}:${f.line}  ${f.what}\n        ${f.text}`);
   const by = (id) => found.filter((f) => f.id === id).length;
-  console.log(`\nAC-01 browser pop-ups: ${by('AC-01')} · AC-04 OK/Yes/Confirm buttons: ${by('AC-04')} · AC-09 error messages to read: ${by('AC-09')} · AC-05 buttons to check: ${by('AC-05')}`);
+  console.log(`\nAC-01 browser pop-ups: ${by('AC-01')} · AC-04 OK/Yes/Confirm buttons: ${by('AC-04')} · AC-09 error messages to read: ${by('AC-09')} · AC-05 buttons to check: ${by('AC-05')} · AC-13 labels ending in an ellipsis: ${by('AC-13')}`);
 }
 process.exit(found.some((f) => f.fail) ? 1 : 0);

@@ -1,6 +1,6 @@
 # Acting: confirmations, progress and results
 
-**Version 1.1, the standard (owner, 18 Oct 2026; Dashboard kit 1.8.0; 1.1 on 26 Oct 2026, Dashboard kit 1.10.0, adds the labels row to §7).** What happens when a person presses a button in any AntaraX customer app or AXLE: whether it asks first, what they see while it works, and how they learn it worked or failed. It gathers and replaces the short rules in [app/SPEC.md](../app/SPEC.md) §11 (confirming, toasts) and [axle/SPEC.md](../axle/SPEC.md) §14, and builds on the seven kinds of wait in app SPEC §12 and brand kit guide 14. ISO Generator is on hold.
+**Version 1.2, the standard (owner, 18 Oct 2026; Dashboard kit 1.8.0; 1.1 on 26 Oct 2026, Dashboard kit 1.10.0, adds the labels row to §7; 1.2 on 19 Nov 2026, Dashboard kit 1.14.1, adds AC-13 and its check).** What happens when a person presses a button in any AntaraX customer app or AXLE: whether it asks first, what they see while it works, and how they learn it worked or failed. It gathers and replaces the short rules in [app/SPEC.md](../app/SPEC.md) §11 (confirming, toasts) and [axle/SPEC.md](../axle/SPEC.md) §14, and builds on the seven kinds of wait in app SPEC §12 and brand kit guide 14. ISO Generator is on hold.
 
 **Look and behaviour are separate.** How a dialog, a toast or a progress panel looks is the product's own (AXLE's is fixed by axle SPEC §4); what it holds, what it says and how it behaves are fixed here.
 
@@ -24,6 +24,7 @@
 | AC-10 | **Leaving unsaved changes asks first** ("Discard changes?"), unless the form saves as the person types |
 | AC-11 | **Dialogs are accessible**: focus moves in and is kept there, Escape cancels, focus returns to the button that opened it, the safe choice is focused first in anything destructive (§5) |
 | AC-12 | **Many at once reports each**: a bulk action names the count, shows progress, and says which items failed (§4) |
+| AC-13 | **No action label ends in an ellipsis** ("…" or "..."). A button, menu item, link or placeholder names the action ("Remove", "Change", "Switch Briefs off"); the dialog it opens says what comes next (§7). Busy words while it runs ("Saving…") are a state (§3), not a label |
 
 ## 2 Three levels of confirmation
 
@@ -105,7 +106,7 @@ Each action has an **expected duration**, set when it is designed, which decides
 | Type **Tegap Fabrication** to confirm | Type DELETE |
 | Remove · Save view · Start support session, each a button | Remove… · Save view... · a text link that does something |
 
-Sentence case; the brand kit's voice (03). What starts an action is a button, never link text, and no label on a control ends in "…" (owner, 26 Oct 2026; [app SPEC §11b](../app/SPEC.md#11b-buttons-and-links), [axle SPEC §14.2](../axle/SPEC.md#142-buttons-and-links-owner-26-oct-2026)). The busy words above ("Saving…") are a state while the action runs (§3), not a label.
+Sentence case; the brand kit's voice (03). What starts an action is a button, never link text, and no label on a control ends in "…" (AC-13; owner, 26 Oct 2026, restated 19 Nov 2026; [app SPEC §11b](../app/SPEC.md#11b-buttons-and-links), [axle SPEC §14.2](../axle/SPEC.md#142-buttons-and-links-owner-26-oct-2026)). The busy words above ("Saving…") are a state while the action runs (§3), not a label.
 
 ## 8 Reference components
 
@@ -113,7 +114,7 @@ Sentence case; the brand kit's voice (03). What starts an action is a button, ne
 
 ## 9 How to prove it
 
-- `node tools/check-actions.mjs PATH` scans a product's source for `alert(`, `confirm(` and `prompt(` (AC-01), for buttons that call a request without a busy state where it can tell, and for generic error strings ("Something went wrong", "An error occurred"). It lists each with file and line.
+- `node tools/check-actions.mjs PATH` scans a product's source for `alert(`, `confirm(` and `prompt(` (AC-01), for buttons that call a request without a busy state where it can tell, for generic error strings ("Something went wrong", "An error occurred"), and for action labels that end in "…" or "..." (AC-13: the text of a button, link, menu item or tab, and `label`, `aria-label`, `placeholder` and `title` values; busy words such as "Saving…" are let through). AC-01, AC-04 and AC-13 fail the run; it lists each with file and line.
 - Each product keeps **a list of its actions** with their level and expected duration (a table in its docs), and its tests cover each Level 3 action: the button stays disabled until the name is typed, and the password or code is asked again.
 - By hand, on the longest action: the progress dialog appears, counts, cancels; the result names the thing; a failure keeps the form and offers Retry.
 

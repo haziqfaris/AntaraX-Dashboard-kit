@@ -8,6 +8,15 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.15.1 · 19 Nov 2026
+
+Patch: no new rule. Reconciles the two lines of the kit so one line on `main` holds both 1.15.0 and 1.14.1.
+
+- **Why:** 1.14.1 (the no-ellipsis rule restated, check AC-13) merged into the repository's GitHub default branch, `claude/beautiful-newton-siixyo`, while `main` moved on to 1.15.0 without it. `tools/check-lock.mjs` checks pins against `main`, so a product pinned to 1.14.1 failed. This release merges that branch into `main`; nothing in 1.14.1 or 1.15.0 changed in substance.
+- **1.14.1 stays a valid release** for products pinned to it: its entry and its commits are now on `main`. A product on 1.14.1 gets the tokens of 1.15.0 only by moving to 1.15.0 or later.
+- **Adopt:** a product on 1.15.0 reads the 1.14.1 entry below (AC-13, `tools/check-actions.mjs`) and moves its pin to 1.15.1.
+- **Recommended to the owner:** set the GitHub default branch back to `main` (Settings, Branches), so new clones and the branch list agree with the rule in AGENTS.md.
+
 ## 1.15.0 · 11 Nov 2026
 
 Minor: something new to adopt. The brand kit snapshot moves to tokens 1.15.0 (owner, 11 Nov 2026, from the Nalar and Tiko options board: "AwanGan should be cloud and orbit. for palettes use rec. tiko use H2", then "rec for the rest, then merge"; brand kit guide/10, PR #44).
@@ -15,6 +24,16 @@ Minor: something new to adopt. The brand kit snapshot moves to tokens 1.15.0 (ow
 - **Brand kit tokens 1.15.0** (commit `a95b0af`, the merge of brand kit PR #44): AwanGan and BumiNyata have palettes (AwanGan in Nalar gold, acting in `#8D6C01`; BumiNyata in clay `#8A5A2E`), so `app/tokens.css` has shell slots for `data-product="awangan"` and `"buminyata"`, light and dark, and `astryx/themes/` has an `awangan` and a `buminyata` theme. Tiko's secondary is Tide pink `#E9579D` in place of REKA orange, which changes its secondary scale. AwanGan's own mark is the cloud in orbit, BumiNyata's two peaks over the ground, and Tiko's Tiko Classic's head (brand kit `assets/product-logos/`); Nalar's BaTech is sky and ground. Tiko's text, status and figures follow the shared core. No AXLE value changed; `axle/tokens.css` changes only in its source line.
 - `brand/` synced; every Astryx theme regenerated: AwanGan's and BumiNyata's are new, and the others change only their source line (Tiko's theme does not use its secondary).
 - **Pointers:** README (v1.15.0), BRIEF, `astryx/SPEC.md` §4.
+
+## 1.14.1 · 19 Nov 2026
+
+Patch: wording and a tool only (owner, 19 Nov 2026, restating the 26 Oct 2026 decision; brand kit guide/10).
+
+- **The rule already stood** (app SPEC §11b, axle SPEC §14.2, project SPEC §8a, 1.10.0): no button, menu item, link, tab or placeholder ends in "…" or "...". The owner restated it on 19 Nov 2026 after Tinara was found with about 176 such labels ("Switch Briefs off…", "Change…", "Remove…"): a label names the action, and the dialog it opens says what comes next. No new exceptions: CSS truncation, the "⋯" button, ellipses in example or quoted text, and busy words while an action runs ("Saving…", actions/SPEC.md §3) stay as §11b has them.
+- **actions/SPEC.md 1.2: AC-13**, "no action label ends in an ellipsis", joins the bare minimum (§1), and §7 and §9 point to it. app SPEC §11b says where a product finds its labels.
+- **`tools/check-actions.mjs` gains AC-13:** scans source for a `<button>`, `<a>`, `<Button>`, `<Link>`, `<MenuItem>`, `<Tab>` or `role="menuitem"` whose text ends in "…" or "...", and for `label`, `aria-label`, `placeholder` and `title` values that do. It fails the run (exit 1), like AC-01 and AC-04. A busy label whose first word ends in "-ing" ("Saving…") is let through. `check-shell.mjs` still reports the same on a running page.
+- **Mocks:** scanned `app/mock` and `axle/mock`; no action label ends in an ellipsis, so no mock or render changes.
+- **Pointers:** AGENTS (AC-01 to AC-13), README (v1.14.1).
 
 ## 1.14.0 · 11 Nov 2026
 
