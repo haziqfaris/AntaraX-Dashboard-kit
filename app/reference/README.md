@@ -17,7 +17,8 @@ The shell's top bar, its two menus, the list toolbar and the password field in p
 | `useAction.js` | One action's busy state, no double submit, its result and its error in words, Retry (actions AC-05, AC-08, AC-09) |
 | `useMenu.js` | Focus, arrow keys, Tab kept inside, Escape and a click outside, for both menus |
 | `icons.jsx` | The six icons, inline |
-| `shell.css` | Every style, from `--shell-*` variables only |
+| `shell.css` | Every style, from `--shell-*` variables only, ending with the scrollbar rule (app SPEC §11c) |
+| `scrollbars.js` | Optional: marks the area that is scrolling (`data-scrolling`) so its scrollbar shows while it moves. Import once at the app's root |
 | `demo/` | All of it on one page, in any product's colours |
 
 ## Use

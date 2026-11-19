@@ -153,6 +153,10 @@ App SPEC §11b, in shadcn/ui's terms. Decided after a blue text link reading "Re
 - **In a menu,** an action is a `DropdownMenuItem`, drawn like the items around it.
 - **No trailing ellipsis.** No button, menu item, link, tab or placeholder ends in "…" or "...": "Remove", "Save view", "Search assets". The dots are an old desktop convention (Apple's and Microsoft's guidelines) for "a dialog will ask for more first"; the client's people don't read them that way, and the dialog explains itself. Not affected: text cut short by CSS, the "⋯" more-actions button, an ellipsis standing for something left out, and a button's words while it works ("Saving…").
 
+## 8b Scrollbars (owner, 19 Nov 2026)
+
+App SPEC §11c, in the client's colours: every scrollable area has a thin (about 8px) scrollbar, hidden at rest and shown while hovered, focused or scrolling, with a transparent track, never removed, and the system's scrollbars in forced colours. The thumb is a neutral or the client's own ink at low opacity on light surfaces and a light thumb on dark ones, taken from the client's tokens; never an AntaraX colour (§3).
+
 ## 9 How to prove it
 
 | Check | Passes when |

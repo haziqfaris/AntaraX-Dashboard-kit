@@ -1,7 +1,7 @@
 /*
   The AntaraX shell's tokens: the top bar every customer app shares (app/SPEC.md section 2).
   GENERATED from the AntaraX brand kit: do not edit.
-  Source: haziqfaris/AntaraX-brand-kit tokens/tokens.json "shell" and tokens/product-palettes.json, version 1.15.0 (2026-11-11), commit a95b0af.
+  Source: haziqfaris/AntaraX-brand-kit tokens/tokens.json "shell" and tokens/product-palettes.json, version 1.16.0 (2026-11-19), commit 6064117.
   To change a value, change it in the brand kit (with an owner decision), then run tools/sync-brand-kit.py here.
 
   Use: put class="shell-root" and data-product="<product>" on the element that holds the bar (and
@@ -38,6 +38,11 @@
   /* the Help and account menus */
   --shell-menu-width-help: 280px; --shell-menu-width-account: 300px; --shell-menu-radius: 16px; --shell-menu-padding: 6px; --shell-menu-item-height: 44px; --shell-menu-item-radius: 10px;
   --shell-menu-shadow: 0 18px 40px -18px rgba(11, 27, 79, .35);
+
+  /* scrollbars: every scrollable area; thin, hidden at rest, shown while hovered, focused or scrolling (app/SPEC.md section 11c) */
+  --shell-scroll-width: 8px; --shell-scroll-radius: 999px;
+  --shell-scroll-thumb-light: rgba(11, 27, 79, .30); --shell-scroll-thumb-light-hover: rgba(11, 27, 79, .50);
+  --shell-scroll-thumb-dark: rgba(234, 240, 255, .28); --shell-scroll-thumb-dark-hover: rgba(234, 240, 255, .46);
 
   /* navigation: its shape is the product's own; the current item and hover are shell */
   --shell-nav-current-bg: var(--shell-subtle-tint); --shell-nav-current-ink: var(--shell-on-tint); --shell-nav-current-weight: 600;

@@ -238,3 +238,41 @@
 .ax-progress-steps li[data-state="to-come"] { color: color-mix(in srgb, var(--shell-ink) 55%, transparent); }
 .ax-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .ax-progress-bar span { transition: none; } }
+
+
+/*
+  Scrollbars (app/SPEC.md section 11c; owner, 19 Nov 2026): every scrollable area under .shell-root is thin, hidden at rest, and shown while
+  hovered, focused (keyboard) or scrolling. The track is transparent. Light surfaces take a neutral thumb, dark ones a light thumb at low opacity.
+  Put .shell-root on <html> or the app's outermost element so the page, sidebars, menus, dialogs, tables and code panes are all covered.
+  Mark a dark area (a dark menu, a code pane) data-scroll-surface="dark"; data-theme="dark" on .shell-root makes the whole app dark.
+  Optional: scrollbars.js sets data-scrolling while an area scrolls (touch, trackpad, wheel). Forced colours: the system's scrollbars show.
+*/
+.shell-root {
+  --ax-scroll-thumb: var(--shell-scroll-thumb-light);
+  --ax-scroll-thumb-hover: var(--shell-scroll-thumb-light-hover);
+}
+.shell-root[data-theme="dark"], .shell-root [data-scroll-surface="dark"] {
+  --ax-scroll-thumb: var(--shell-scroll-thumb-dark);
+  --ax-scroll-thumb-hover: var(--shell-scroll-thumb-dark-hover);
+}
+.shell-root [data-scroll-surface="light"] {
+  --ax-scroll-thumb: var(--shell-scroll-thumb-light);
+  --ax-scroll-thumb-hover: var(--shell-scroll-thumb-light-hover);
+}
+@media (forced-colors: none) {
+  /* standard properties: Firefox, Chromium 121+, Safari 26.2+. The thumb is transparent until the area is hovered, has focus inside it, or is scrolling */
+  .shell-root, .shell-root * { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+  .shell-root:is(:hover, :focus-within, [data-scrolling]),
+  .shell-root :is(:hover, :focus-within, [data-scrolling]) { scrollbar-color: var(--ax-scroll-thumb) transparent; }
+  @media (prefers-reduced-motion: no-preference) { .shell-root, .shell-root * { transition: scrollbar-color .2s ease; } }
+  /* older WebKit and Blink */
+  @supports not (scrollbar-color: auto) {
+    .shell-root::-webkit-scrollbar, .shell-root ::-webkit-scrollbar { width: var(--shell-scroll-width); height: var(--shell-scroll-width); background: transparent; }
+    .shell-root::-webkit-scrollbar-track, .shell-root ::-webkit-scrollbar-track, .shell-root ::-webkit-scrollbar-corner { background: transparent; }
+    .shell-root::-webkit-scrollbar-thumb, .shell-root ::-webkit-scrollbar-thumb { background-color: transparent; border-radius: var(--shell-scroll-radius); border: 2px solid transparent; background-clip: padding-box; transition: background-color .2s ease; }
+    .shell-root:is(:hover, :focus-within, [data-scrolling])::-webkit-scrollbar-thumb,
+    .shell-root :is(:hover, :focus-within, [data-scrolling])::-webkit-scrollbar-thumb { background-color: var(--ax-scroll-thumb); }
+    .shell-root ::-webkit-scrollbar-thumb:hover, .shell-root ::-webkit-scrollbar-thumb:active { background-color: var(--ax-scroll-thumb-hover); }
+    @media (prefers-reduced-motion: reduce) { .shell-root ::-webkit-scrollbar-thumb { transition: none; } }
+  }
+}

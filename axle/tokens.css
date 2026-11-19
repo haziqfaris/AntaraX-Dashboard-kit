@@ -1,6 +1,6 @@
 /*
   AXLE tokens. GENERATED from the AntaraX brand kit: do not edit.
-  Source: haziqfaris/AntaraX-brand-kit tokens/tokens.json "axle", version 1.15.0 (2026-11-11), commit a95b0af.
+  Source: haziqfaris/AntaraX-brand-kit tokens/tokens.json "axle", version 1.16.0 (2026-11-19), commit 6064117.
   To change a value, change it in the brand kit (with an owner decision), then run tools/sync-brand-kit.py here.
   Use these names only. A colour that is not here is not part of AXLE: raise it, do not add it in a product.
 */
@@ -76,6 +76,12 @@
   --axle-fault-line: #F6B5AF;
   --axle-fault-card: #FFF8F7; /* A card in a fault state */
 
+  /* scroll: Scrollbars: thin, hidden at rest, shown while the area is hovered, focused or scrolling (owner, 19 November 2026). Light thumb on the dark bars and menus, neutral thumb on the light page; the track is always transparent */
+  --axle-scroll-thumb-dark: rgba(234, 240, 255, .28); /* Thumb on a dark surface (sidebar, AXLE bar, dark menus, dark code panes) */
+  --axle-scroll-thumb-dark-hover: rgba(234, 240, 255, .46); /* That thumb while the pointer is over it or it is dragged */
+  --axle-scroll-thumb-light: rgba(11, 27, 79, .30); /* Thumb on a light surface (the page, cards, tables, dialogs) */
+  --axle-scroll-thumb-light-hover: rgba(11, 27, 79, .50); /* That thumb while the pointer is over it or it is dragged */
+
   /* chart: Charts on the light page (validated for contrast and colour-blind separation) */
   --axle-chart-1: #2A78D6;
   --axle-chart-2: #1BAF7A;
@@ -91,4 +97,6 @@
   --axle-nav-card-radius: 12px;
   --axle-control-radius: 12px;
   --axle-target: 44px;
+  --axle-scroll-width: 8px;
+  --axle-scroll-radius: 999px;
 }

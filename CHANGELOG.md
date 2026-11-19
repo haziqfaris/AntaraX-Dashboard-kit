@@ -8,6 +8,21 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.16.0 · 19 Nov 2026
+
+Minor: something new to adopt (owner, haziqfaris, 19 Nov 2026: "make the scrollbar hidden and make it look and fit the color scheme of the dashboard and make sure this applies to all scrollbars", seen on AXLE's dark sidebar; brand kit guide/10). Builds on 1.15.1 and the brand kit's tokens 1.16.0.
+
+- **The rule: app/SPEC.md §11c Scrollbars** (the one source; axle/SPEC.md §6.3 and project/SPEC.md §8b point to it). Every scrollable area in every product (page, sidebars, AXLE bar, menus, dialogs, tables, code panes) has a thin (about 8px) scrollbar, hidden at rest and shown while hovered, focused (keyboard) or scrolling, with a transparent track. Light thumb at low opacity on dark surfaces, neutral navy on light ones. Never removed; `prefers-reduced-motion` drops the fade; `forced-colors: active` shows the system's scrollbars.
+- **Tokens (brand kit 1.16.0, synced):** `--shell-scroll-*` in `app/tokens.css`, `--axle-scroll-*` in `axle/tokens.css` (thumb per surface with hover, width 8px, radius 999px). `tools/sync-brand-kit.py` now generates the shell's scrollbar block; the Astryx themes changed only in their source line.
+- **Reference CSS:** `app/reference/shell.css` ends with the rule (standard `scrollbar-width` and `scrollbar-color`; `::-webkit-scrollbar*` for browsers without `scrollbar-color`); `axle/reference/scrollbars.css` is the same rule on `--axle-scroll-*`; `app/reference/scrollbars.js` (optional) marks the area that is scrolling. `axle/mock/Phone.dc.html` draws the dark drawer with the rule; no other mock draws a scrollbar, and no render changed.
+- **Checker:** `tools/check-shell.mjs` gains a "Scrollbars" check: every area that scrolls on the page has `scrollbar-width: thin` and a `scrollbar-color`, no scrollbar removed, and no thumb showing at rest; it passes under forced colours. It can only measure areas that scroll when it runs: a closed menu or dialog is a by-hand check (app SPEC §17).
+- **Adopt (every customer app and AXLE):**
+  1. Re-copy `app/tokens.css` / `axle/tokens.css` (or sync from brand kit 1.16.0), and re-copy `app/reference/shell.css` (customer apps) or `axle/reference/scrollbars.css` (AXLE) byte for byte; optionally `app/reference/scrollbars.js`, imported once.
+  2. Put `shell-root` (or `axle-root`) on `<html>` or the app's outermost element; mark dark areas that are not the whole app (the AXLE sidebar, top bar and drawer, dark menus, code panes) `data-scroll-surface="dark"`.
+  3. Remove any product CSS that styles scrollbars differently (`::-webkit-scrollbar`, `scrollbar-color`, `scrollbar-width: none`).
+  4. Run `node tools/check-shell.mjs URL` and update the pin in `antarax-kit.lock` to 1.16.0.
+- **Pointers:** AGENTS, README (v1.16.0), app/reference/README.
+
 ## 1.15.1 · 19 Nov 2026
 
 Patch: no new rule. Reconciles the two lines of the kit so one line on `main` holds both 1.15.0 and 1.14.1.

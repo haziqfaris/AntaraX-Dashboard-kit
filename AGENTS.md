@@ -35,6 +35,10 @@ The reference pieces are in `app/reference/`: `PasswordField`, `ConfirmDialog`, 
 
 Every customer app, AXLE and client project (owner, 26 Oct 2026): **an action is a button**, in the product's button styles, and **a link only goes somewhere**. Remove and Delete are destructive buttons, never coloured link text. **No button, menu item, link, tab or placeholder ends in "…" or "..."** (restated by the owner, 19 Nov 2026, after ~176 labels such as "Switch Briefs off…" and "Change…" were found in Tinara; `node tools/check-actions.mjs` finds them in source as AC-13). The rule is app SPEC §11b, axle SPEC §14.2 and project SPEC §8a; `node tools/check-shell.mjs` reports what it can see on a running page.
 
+## Scrollbars
+
+Every scrollable area in every customer app and AXLE has a thin scrollbar that is hidden at rest and fits the surface (owner, 19 Nov 2026): app SPEC §11c, axle SPEC §6.3, tokens `--shell-scroll-*` and `--axle-scroll-*`, CSS in `app/reference/shell.css` and `axle/reference/scrollbars.css`. Never remove a scrollbar or leave the browser's default; `node tools/check-shell.mjs` measures it.
+
 ## Building with Astryx
 
 The practice beneath the look that every product shares (AntaraX email, legal text from REKA's legal repository, one part per job and one word per thing, who sees money, waiting, tours, the deploy check, AI usage, the kit lock) is `practice/SPEC.md`. Check a product's pin with `node tools/check-lock.mjs PRODUCT_PATH`: its version and commit must be on this kit's `main`.

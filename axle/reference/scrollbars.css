@@ -1,0 +1,36 @@
+/*
+  AXLE scrollbars (axle/SPEC.md section 6.3, rule in app/SPEC.md section 11c; owner, 19 Nov 2026).
+  Import axle/tokens.css first. Every scrollable area under .axle-root is thin, hidden at rest, and shown while hovered, focused (keyboard) or
+  scrolling; the track is transparent. The sidebar, the top bar, the phone drawer and any dark menu or code pane carry
+  data-scroll-surface="dark" and get the light thumb; the light page and its cards, tables and dialogs get the neutral one.
+  Optional: app/reference/scrollbars.js sets data-scrolling while an area scrolls. Forced colours: the system's scrollbars show.
+*/
+.axle-root {
+  --ax-scroll-thumb: var(--axle-scroll-thumb-light);
+  --ax-scroll-thumb-hover: var(--axle-scroll-thumb-light-hover);
+}
+.axle-root [data-scroll-surface="dark"] {
+  --ax-scroll-thumb: var(--axle-scroll-thumb-dark);
+  --ax-scroll-thumb-hover: var(--axle-scroll-thumb-dark-hover);
+}
+.axle-root [data-scroll-surface="light"] {
+  --ax-scroll-thumb: var(--axle-scroll-thumb-light);
+  --ax-scroll-thumb-hover: var(--axle-scroll-thumb-light-hover);
+}
+@media (forced-colors: none) {
+  /* standard properties: Firefox, Chromium 121+, Safari 26.2+. The thumb is transparent until the area is hovered, has focus inside it, or is scrolling */
+  .axle-root, .axle-root * { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+  .axle-root:is(:hover, :focus-within, [data-scrolling]),
+  .axle-root :is(:hover, :focus-within, [data-scrolling]) { scrollbar-color: var(--ax-scroll-thumb) transparent; }
+  @media (prefers-reduced-motion: no-preference) { .axle-root, .axle-root * { transition: scrollbar-color .2s ease; } }
+  /* older WebKit and Blink */
+  @supports not (scrollbar-color: auto) {
+    .axle-root::-webkit-scrollbar, .axle-root ::-webkit-scrollbar { width: var(--axle-scroll-width); height: var(--axle-scroll-width); background: transparent; }
+    .axle-root::-webkit-scrollbar-track, .axle-root ::-webkit-scrollbar-track, .axle-root ::-webkit-scrollbar-corner { background: transparent; }
+    .axle-root::-webkit-scrollbar-thumb, .axle-root ::-webkit-scrollbar-thumb { background-color: transparent; border-radius: var(--axle-scroll-radius); border: 2px solid transparent; background-clip: padding-box; transition: background-color .2s ease; }
+    .axle-root:is(:hover, :focus-within, [data-scrolling])::-webkit-scrollbar-thumb,
+    .axle-root :is(:hover, :focus-within, [data-scrolling])::-webkit-scrollbar-thumb { background-color: var(--ax-scroll-thumb); }
+    .axle-root ::-webkit-scrollbar-thumb:hover, .axle-root ::-webkit-scrollbar-thumb:active { background-color: var(--ax-scroll-thumb-hover); }
+    @media (prefers-reduced-motion: reduce) { .axle-root ::-webkit-scrollbar-thumb { transition: none; } }
+  }
+}

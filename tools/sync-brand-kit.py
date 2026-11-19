@@ -106,6 +106,7 @@ def kebab(name):
 def generate_shell(tokens, palettes, lock):
     s = tokens['shell']
     bar, pill, ctl, title, menu, nav = s['bar'], s['pill'], s['control'], s['title'], s['menu'], s['nav']
+    sb = s.get('scrollbar')
     out = [
         '/*',
         "  The AntaraX shell's tokens: the top bar every customer app shares (app/SPEC.md section 2).",
@@ -147,6 +148,13 @@ def generate_shell(tokens, palettes, lock):
         '  /* the Help and account menus */',
         '  --shell-menu-width-help: %s; --shell-menu-width-account: %s; --shell-menu-radius: %s; --shell-menu-padding: %s; --shell-menu-item-height: %s; --shell-menu-item-radius: %s;' % (menu['width']['help'], menu['width']['account'], menu['radius']['value'], menu['padding']['value'], menu['itemHeight']['value'], menu['itemRadius']['value']),
         '  --shell-menu-shadow: %s;' % menu['shadow']['value'],
+    ] + ([
+        '',
+        '  /* scrollbars: every scrollable area; thin, hidden at rest, shown while hovered, focused or scrolling (app/SPEC.md section 11c) */',
+        '  --shell-scroll-width: %s; --shell-scroll-radius: %s;' % (sb['width']['value'], sb['radius']['value']),
+        '  --shell-scroll-thumb-light: %s; --shell-scroll-thumb-light-hover: %s;' % (sb['light']['thumb'], sb['light']['thumbHover']),
+        '  --shell-scroll-thumb-dark: %s; --shell-scroll-thumb-dark-hover: %s;' % (sb['dark']['thumb'], sb['dark']['thumbHover']),
+    ] if sb else []) + [
         '',
         "  /* navigation: its shape is the product's own; the current item and hover are shell */",
         '  --shell-nav-current-bg: var(--shell-subtle-tint); --shell-nav-current-ink: var(--shell-on-tint); --shell-nav-current-weight: %s;' % nav['current']['weight'],
