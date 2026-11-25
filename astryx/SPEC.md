@@ -101,6 +101,7 @@ Astryx's own themes (Butter, Chocolate, Matcha, Stone, Gothic, Y2K) are never us
 | AXLE layout | The sidebar, groups, bars and page patterns are the AXLE template's (axle/SPEC.md). Astryx builds what is on the page |
 | Charts | The brand kit's chart sets; Astryx's chart packages are not stable |
 | Numbers | Every figure in JetBrains Mono with tabular numbers (brand kit 13), whatever the component |
+| `Link` takes the accent colour | In AXLE the accent is REKA orange, but a link is AntaraX blue on the page (axle/SPEC.md §4, §14.2). Astryx 0.7.13 writes its own `.astryx-link[data-color="accent"]` rule after a theme's `link` override, so the theme cannot fix it: an AXLE adds, after the theme, `#<its root> .astryx-link[data-color="accent"] { color: var(--color-text-info) }` and `#002EB2` on hover |
 
 ## 6 Which Astryx piece for which kit rule
 

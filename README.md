@@ -2,7 +2,7 @@
 
 <p align="center">
 <img alt="status: reference" src="https://img.shields.io/badge/status-reference-4F46E5?style=flat-square">
-<img alt="version 1.16.0" src="https://img.shields.io/badge/version-1.16.0-4F46E5?style=flat-square">
+<img alt="version 1.17.0" src="https://img.shields.io/badge/version-1.17.0-4F46E5?style=flat-square">
 <img alt="covers: customer apps, AXLE, client projects" src="https://img.shields.io/badge/covers-customer%20apps%20%C2%B7%20AXLE%20%C2%B7%20client%20projects-0B1B4F?style=flat-square">
 <img alt="values from the AntaraX brand kit" src="https://img.shields.io/badge/values-from%20the%20brand%20kit-0B1B4F?style=flat-square">
 </p>
@@ -12,7 +12,7 @@
 <p align="center"><a href="BRIEF.md">Start here (AXLE)</a> · <a href="app/README.md">Customer apps</a> · <a href="axle/README.md">AXLE</a> · <a href="project/README.md">Client projects</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="https://github.com/haziqfaris/AntaraX-brand-kit">Brand kit</a></p>
 
 > [!NOTE]
-> **A reference, not an app.** Nothing here is deployed; products copy from it and check themselves against it. This is version **1.16.0** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)). Tickets and feedback through YaraOne are agreed but not built yet ([yaraone/EMBEDS.md](yaraone/EMBEDS.md)).
+> **A reference, not an app.** Nothing here is deployed; products copy from it and check themselves against it. This is version **1.17.0** ([CHANGELOG](CHANGELOG.md)). Products pin the version they built against in `antarax-kit.lock` ([how](app/README.md#pin-the-kit)). Tickets and feedback through YaraOne are agreed but not built yet ([yaraone/EMBEDS.md](yaraone/EMBEDS.md)).
 
 ## What it is
 
@@ -201,6 +201,15 @@ For the background, start with [inventory/README.md](inventory/README.md). It ha
 - **One kit version:** every change to a standard bumps `VERSION` and adds to [CHANGELOG.md](CHANGELOG.md), and needs an owner decision recorded in the brand kit.
 - **Before committing:** `python3 tools/sync-brand-kit.py --check`. CI also runs `node tools/render-mocks.mjs app/mock --check` and checks the capacity examples ([.github/workflows/brand-kit-sync.yml](.github/workflows/brand-kit-sync.yml)).
 - **Never edit** `axle/tokens.css`, `app/tokens.css` or `brand/` by hand.
+
+### Proving a product
+
+A product proves every page it serves, not a sample (owner, 25 Nov 2026; AGENTS.md "Proving a page"):
+
+1. **List the pages** in `kit-pages.json` at the product's root: `product`, `widths` (1280 and 390), `src` (for the actions scan), `parts` (its screen folders, for the parts scan) and `surfaces`, each with a `base` address, an optional signed-in Playwright `storage` file and its `pages`, every view of a page included. Add a test that fails when a page in the product's navigation is not listed (AwanGan's `test/kit-pages.test.ts`).
+2. **Run** `node tools/check-product.mjs kit-pages.json [--base URL] [--storage FILE]` against the running product (AwanGan serves itself with made-up data in `test/kit-check.test.ts`, as `npm run check:kit`). It runs `tools/check-shell.mjs`, axe-core at WCAG 2.2 AA (a script error on the page fails too), `tools/check-actions.mjs` and `tools/check-parts.mjs`, and writes `report.md` with the screenshots. It needs `playwright` and `axe-core` in the product (`npm i -D playwright axe-core`).
+3. **Wire it in:** in the product's own check and its pre-push hook, so nothing reaches a pull request unproved. A difference that must stay goes in `antarax-kit.lock` as an exception with its reason; nothing else passes.
+4. **Build from the templates** in `astryx/templates/`, and put before-and-after pictures of each changed page at both widths in the pull request for the owner to approve.
 
 ## Help and contact
 

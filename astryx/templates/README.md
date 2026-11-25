@@ -1,0 +1,22 @@
+# Page templates on Astryx
+
+The page patterns every AntaraX screen built on Astryx uses, so no product invents its own. They were first built in
+AwanGan's AXLE (its decision 0054, 25 Nov 2026) after its pages failed the kit; they meet axle/SPEC.md §6, §9, §14.2,
+§16 and §17 and pass `tools/check-product.mjs`. **A pattern that is not here is added here first, then used**
+(AGENTS.md): a product never draws a new kind of page on its own.
+
+| Pattern | Use it for | Parts | Rules it meets |
+|---|---|---|---|
+| **Page header** (`PageHead.tsx`) | The top of every page: one line on what the page is for, the state line, "How this page works" folded, the page's one main action | `Text`, `Collapsible`, a `Button` (primary) in `end` | axle/SPEC.md §6 page header; one primary action a page |
+| **Tabs that are links** (`PageTabs` in `PageHead.tsx`) | A page with several views (Models & keys: capabilities, models, keys, engines). Never one long page of sections | plain links with `aria-current="page"` | the view in the address (§19 Links) |
+| **List** (`KitList.tsx`) | Every list of records | `Table`, `TextInput`, `Selector`, `Button`, `EmptyState` | §9: stats strip that follows the filters, search, filter, sort, group in the address, CSV `axle-<product>-<list>-<date>.csv`; tables scroll inside their own container on a phone (§17) |
+| **Step form** (`.stepform`, `.formstep`, `.formactions`) | A form with more than one decision (add a key, bring a product online): numbered `fieldset`s, one column at most 760px, actions last | `RadioList` (choices with a description or a logo), `Selector`, `TextInput`, `Collapsible` for the rarely needed | one part per job (`tools/check-parts.mjs`); the primary button says why it waits ("Write a reason to continue") |
+| **Ordered editor** (AwanGan's chain editor) | An ordered list a person edits: rank, item, its detail, move up and down, Remove | `Selector`, `IconButton` (ghost, labelled "Move step 2 up"), `Button` secondary with `quietDestructive` for Remove | §14.2: Remove is destructive, never link text; 44px targets on touch |
+| **Wide and narrow** (`.split`) | An editor with its rules beside it; a list with the chosen record beside it | two columns from 1100px, stacked below | §17 |
+
+`kit-patterns.css` is their layout, from the theme's tokens only; put `data-kit-page` on the element that holds a
+page's content. Copy the files into a product (astryx/SPEC.md §6: a product meets the contract with Astryx); keep a
+change to one of them in step with this folder.
+
+Before a page ships, `node tools/check-product.mjs kit-pages.json` passes on it at 1280 and 390px, and its pictures are
+approved in the pull request (README, "Proving a product").
