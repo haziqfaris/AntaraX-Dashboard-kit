@@ -15,8 +15,8 @@
 
   It checks: the bar's height (64, 58 on phones); every control in it 44px, product-slot buttons at least
   40px drawn; Help second from the right and the account at the far right; whether the bar floats with its
-  radius, gutter and shadow; labels set in uppercase anywhere on the page; Help's and the account's menu
-  items. Scrollbars (SPEC §11c): every area that scrolls on the page has a thin scrollbar, hidden at rest (not the browser's default,
+  radius, gutter and shadow (in its column, so beside AXLE's sidebar too); labels set in uppercase anywhere on the page; Help's and the account's menu
+  items (on a bar with the AXLE tag, AXLE's staff menu, axle/SPEC.md §6). Scrollbars (SPEC §11c): every area that scrolls on the page has a thin scrollbar, hidden at rest (not the browser's default,
   not removed); where the system asks for forced colours it passes. Anywhere on the page, and in both menus (SPEC §11b): controls, tabs, menu items and placeholders
   whose label ends in "…" or "...", and <a> elements with nowhere to go (no href, href="#" or javascript:),
   which are actions dressed as links. A busy control (aria-busy, or disabled with "Saving…"-style words) and
@@ -74,6 +74,11 @@ async function measure(page, width) {
     if (!bar) bar = [...document.querySelectorAll('header, [role="banner"]')].find((el) => { const r = el.getBoundingClientRect(); return r.top < 40 && r.height >= 40 && r.height <= 100; });
     if (!bar) return null;
     const cs = getComputedStyle(bar);
+    // The column the bar floats in: the page's full width, or the page column beside a sidebar (AXLE, axle/SPEC.md §6).
+    let col = 0;
+    for (let el = bar.parentElement; el && el !== document.body; el = el.parentElement) col = Math.max(col, el.getBoundingClientRect().left);
+    // An AXLE bar carries the orange AXLE tag (axle/SPEC.md §6): its staff menu is AXLE's, not a customer app's.
+    const axle = [...bar.querySelectorAll('*')].some((el) => !el.children.length && el.textContent.trim() === 'AXLE');
     const controls = [...bar.querySelectorAll('a[href], button, [role="button"], input, select')]
       .filter((el) => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(el).visibility !== 'hidden'; })
       .map((el) => ({ el, name: name(el), tag: el.tagName.toLowerCase(), round: parseFloat(getComputedStyle(el).borderRadius) >= el.getBoundingClientRect().height / 2 - 1, ...box(el) }));
@@ -107,7 +112,7 @@ async function measure(page, width) {
       return shown(el) && (h == null || h.trim() === '' || h.trim() === '#' || /^javascript:/i.test(h.trim()));
     }).map((el) => `"${name(el).slice(0, 30) || '(no text)'}"${el.hasAttribute('href') ? ` href="${el.getAttribute('href')}"` : ' (no href)'}`);
     return {
-      bar: { ...box(bar), radius: cs.borderTopLeftRadius, shadow: cs.boxShadow, border: cs.borderTopWidth },
+      bar: { ...box(bar), radius: cs.borderTopLeftRadius, shadow: cs.boxShadow, border: cs.borderTopWidth, col }, axle,
       viewport: window.innerWidth,
       controls, pill, help: help ? { name: name(help), ...box(help) } : null, account: account ? { name: name(account), ...box(account) } : null, upper, ellipsis: [...new Set(ellipsis)], nowhere: [...new Set(nowhere)],
     };
@@ -115,6 +120,7 @@ async function measure(page, width) {
 
   if (!found) { report(false, width, 'Top bar', 'No <header> or [role=banner] at the top of the page. Pass --bar CSS.'); return; }
   const { bar } = found;
+  isAxle = found.axle;
   const h = phone ? px(want['bar-height-phone']) : px(want['bar-height']);
   report(Math.abs(bar.h - h) <= 1, width, 'Bar height', `${Math.round(bar.h)}px, the shell says ${h}px`);
 
@@ -125,7 +131,8 @@ async function measure(page, width) {
     const gutter = px((phone ? want['bar-outer-padding-phone'] : want['bar-outer-padding']).split(' ')[0]);
     const side = px((phone ? want['bar-outer-padding-phone'] : want['bar-outer-padding']).split(' ')[1]);
     report(Math.abs(px(bar.radius) - r) <= 1, width, 'Bar radius', `${bar.radius}, the shell says ${r}px${product ? ` for ${product}` : ''}`);
-    report(Math.abs(bar.y - gutter) <= 2 && Math.abs(bar.x - side) <= 2, width, 'Bar floats in the gutter', `top ${Math.round(bar.y)}px, left ${Math.round(bar.x)}px; the shell says ${gutter}px and ${side}px`);
+    const left = bar.x - bar.col;
+    report(Math.abs(bar.y - gutter) <= 2 && Math.abs(left - side) <= 2, width, 'Bar floats in the gutter', `top ${Math.round(bar.y)}px, left ${Math.round(left)}px${bar.col ? ` from its column (${Math.round(bar.col)}px in, beside a sidebar)` : ''}; the shell says ${gutter}px and ${side}px`);
     report(bar.shadow !== 'none', width, 'Bar shadow', bar.shadow === 'none' ? 'none' : 'present');
   }
 
@@ -184,6 +191,9 @@ async function scrollbars(page, width) {
   report(!found.bad.length, width, 'Scrollbars (thin, hidden at rest)', found.bad.length ? found.bad.join('; ') + ' (SPEC §11c)' : `${found.seen} scrollable area(s), all thin and hidden at rest`);
 }
 
+// AXLE's bar (axle/SPEC.md §6): the staff menu holds Your account, the AXLE guide and Sign out; Help, when it is there,
+// points to the AXLE guide. A customer app's menus are app/SPEC.md §3 and §10.
+let isAxle = false;
 async function menus(page, width) {
   const bar = page.locator(opt('bar') || 'header, [role="banner"]').first();
   const open = async (sel, name) => {
@@ -198,15 +208,15 @@ async function menus(page, width) {
   };
   const help = await open(opt('help'), /^help\b/i);
   if (help != null) {
-    const need = ['User guide', 'Help centre', 'Send feedback', 'Contact support', 'Your requests'];
+    const need = isAxle ? ['AXLE guide'] : ['User guide', 'Help centre', 'Send feedback', 'Contact support', 'Your requests'];
     const missing = need.filter((n) => !help.includes(n));
     report(!missing.length, width, "Help's menu", missing.length ? `missing ${missing.join(', ')}` : need.join(' · '));
   }
   const acc = await open(opt('account'), /^(account|your account|profile)\b/i);
   if (acc != null) {
-    const need = ['Your account', 'Settings', 'Sign out', 'by AntaraX', 'Privacy', 'Terms'];
+    const need = isAxle ? ['Your account', 'AXLE guide', 'Sign out'] : ['Your account', 'Settings', 'Sign out', 'by AntaraX', 'Privacy', 'Terms'];
     const missing = need.filter((n) => !acc.includes(n));
-    report(!missing.length, width, 'Account menu', missing.length ? `missing ${missing.join(', ')}` : need.join(' · '));
+    report(!missing.length, width, isAxle ? 'Staff menu (AXLE)' : 'Account menu', missing.length ? `missing ${missing.join(', ')}` : need.join(' · '));
     const words = ['Log out', 'Organization', 'Preferences', 'Admin panel'].filter((w) => acc.includes(w));
     report(!words.length, width, 'Account menu words', words.length ? `says ${words.join(', ')} (brand kit 13 §1)` : 'the shared words');
   }

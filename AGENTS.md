@@ -39,6 +39,15 @@ Every customer app, AXLE and client project (owner, 26 Oct 2026): **an action is
 
 Every scrollable area in every customer app and AXLE has a thin scrollbar that is hidden at rest and fits the surface (owner, 19 Nov 2026): app SPEC §11c, axle SPEC §6.3, tokens `--shell-scroll-*` and `--axle-scroll-*`, CSS in `app/reference/shell.css` and `axle/reference/scrollbars.css`. Never remove a scrollbar or leave the browser's default; `node tools/check-shell.mjs` measures it.
 
+## Proving a page (owner, 25 Nov 2026)
+
+Asked after AwanGan's AXLE shipped pages that failed the kit: "how to make sure the issue with the UI does not repeat and how this could be enforced to all". Every customer app and every AXLE:
+
+- **Lists every page it serves** under the shell in `kit-pages.json` at its root, each view of a page included (`?tab=`), and has a test that fails when a page is missing from the list.
+- **Runs `node tools/check-product.mjs kit-pages.json`** in its own check and before every push: the shell checker, axe at WCAG 2.2 AA, the actions scan and the parts scan (`tools/check-parts.mjs`: one part per job), on every listed page at 1280 and 390px. A difference stays only as an exception in `antarax-kit.lock`, with its reason and the owner's decision (an axe rule as `"axe: <rule id>"`).
+- **Builds pages from the templates** in `astryx/templates/` (page header, tabs that are links, list, step form, ordered editor). **Never invent a page pattern; raise it**, and it is added to the templates first.
+- **Shows before-and-after pictures** of every changed page at both widths in the pull request; UI work is done only when the checks pass and the owner has approved the pictures.
+
 ## Building with Astryx
 
 The practice beneath the look that every product shares (AntaraX email, legal text from REKA's legal repository, one part per job and one word per thing, who sees money, waiting, tours, the deploy check, AI usage, the kit lock) is `practice/SPEC.md`. Check a product's pin with `node tools/check-lock.mjs PRODUCT_PATH`: its version and commit must be on this kit's `main`.

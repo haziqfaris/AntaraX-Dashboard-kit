@@ -8,6 +8,22 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.17.0 · 25 Nov 2026
+
+Minor: something new to adopt (owner, haziqfaris, 25 Nov 2026: "how to make sure the issue with the UI does not repeat and how this could be enforced to all in the framework so that other projects can also properly follow?", after AwanGan's AXLE was found off the kit: no kit scrollbars, its own top bar, hand-made forms and one-page dumps; AwanGan decision 0054).
+
+- **The rule: AGENTS.md "Proving a page"** and README "Proving a product". Every product lists every page in `kit-pages.json`, runs the kit's checks on all of them in its own check and before every push, builds from the templates, and shows before-and-after pictures; UI work is done when the checks pass and the owner approves the pictures.
+- **New: `tools/check-product.mjs`**: every kit check on every listed page at 1280 and 390px in one command (the shell, axe-core at WCAG 2.2 AA with script errors, the actions scan, the parts scan), a `report.md` and the screenshots; lock exceptions pass and are listed, an axe rule recorded as `"axe: <rule id>"`.
+- **New: `tools/check-parts.mjs`**: one part per job in a product's screens (YaraOne's `lint-parts.mjs` for every product): no hand-made field, dialog, menu, tabs, fold or browser pop-up; `parts-ok: <why>` on the line for a real exception.
+- **New: `astryx/templates/`**: the page header, tabs that are links, the list (stats strip, search, filter, sort, group in the address, CSV `axle-<product>-<list>-<date>.csv`), the step form and the ordered editor, from AwanGan's AXLE, with `kit-patterns.css`.
+- **`tools/check-shell.mjs`:** the bar's gutter is measured in the column it floats in, so AXLE's bar beside its 240px sidebar (axle/SPEC.md §6, the mock's layout) passes; on a bar with the orange AXLE tag the staff menu is checked against AXLE's items (Your account, AXLE guide, Sign out) and Help's against the AXLE guide, not a customer app's.
+- **astryx/SPEC.md §5:** Astryx 0.7.13 draws `Link` in the accent, which is orange in AXLE; a link is blue there, set after the theme (Astryx writes its rule after a theme's override).
+- **Adopt (every customer app and AXLE):**
+  1. `npm i -D playwright axe-core`; write `kit-pages.json` with every page and view; add the test that fails on a page not listed.
+  2. Run `node tools/check-product.mjs kit-pages.json` against the running product until it passes; record what must stay in `antarax-kit.lock` with the owner's decision.
+  3. Add it to the product's own check and its pre-push hook; pin the lock to 1.17.0.
+  4. Move a screen to the templates when it is next changed; never invent a page pattern.
+
 ## 1.16.0 · 19 Nov 2026
 
 Minor: something new to adopt (owner, haziqfaris, 19 Nov 2026: "make the scrollbar hidden and make it look and fit the color scheme of the dashboard and make sure this applies to all scrollbars", seen on AXLE's dark sidebar; brand kit guide/10). Builds on 1.15.1 and the brand kit's tokens 1.16.0.
