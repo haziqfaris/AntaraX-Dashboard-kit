@@ -201,6 +201,50 @@
 }
 @keyframes chat-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
 
+/* 1.23.0: pictures, comparing models, rating answers, a conversation printed. A made picture keeps its own shape and
+   never passes the bubble; compared answers are columns from 768px and tabs below (.chat-compare-tabs shows only
+   there), the kept one marked by its border and its badge, never by colour alone. Helpful and Not helpful sit under
+   the receipt. The print sheet is the browser's print to PDF: A4, the actions hidden, a message never split if short. */
+.chat-image { margin: 4px 0 0; display: flex; flex-direction: column; gap: 8px; max-width: min(100%, 512px); }
+.chat-image img { display: block; width: 100%; height: auto; border-radius: var(--radius-element); border: 1px solid var(--color-border); background: var(--color-background-surface); }
+.chat-image-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.chat-offer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; min-height: 44px; }
+.chat-offer-actions { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.chat-feedback { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 6px; }
+.chat-feedback > * { min-width: 0; }
+.chat-compare { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.chat-compare-tabs { display: none; }
+.chat-compare-cols { display: grid; grid-template-columns: repeat(var(--chat-compare-cols, 2), minmax(0, 1fr)); gap: 12px; }
+.chat-compare[data-cols="3"] .chat-compare-cols { --chat-compare-cols: 3; }
+.chat-compare-col { min-width: 0; display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-element); background: var(--color-background-surface); }
+.chat-compare-col.is-kept { border-color: var(--color-accent); box-shadow: inset 0 0 0 1px var(--color-accent); }
+.chat-compare-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 14px; }
+.chat-compare-name { font-weight: 600; color: var(--color-text-primary); }
+.chat-compare-body { min-width: 0; overflow-wrap: anywhere; }
+.chat-compare-foot { display: flex; flex-direction: column; gap: 6px; margin-top: auto; border-top: 1px solid var(--color-border); padding-top: 8px; }
+
+.chat-print { max-width: 760px; margin: 0 auto; padding: 32px 16px 48px; color: var(--color-text-primary); }
+.chat-print-head { display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid var(--color-border); padding-bottom: 16px; margin-bottom: 16px; }
+.chat-print-brand { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--color-text-secondary); }
+.chat-print-title { margin: 4px 0 0; font-size: 24px; font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+.chat-print-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.chat-print-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+.chat-print-msg { display: flex; flex-direction: column; gap: 6px; }
+.chat-print-msg.is-user .chat-print-body { padding: 10px 12px; border-radius: var(--radius-element); background: var(--color-background-surface); white-space: pre-wrap; overflow-wrap: anywhere; }
+.chat-print-who { margin: 0; font-size: 13px; color: var(--color-text-secondary); font-variant-numeric: tabular-nums; }
+.chat-print-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chat-print-receipt { font-size: 12px; color: var(--color-text-secondary); font-variant-numeric: tabular-nums; }
+.chat-print .chat-image { max-width: 360px; }
+@page { size: A4; margin: 16mm 14mm; }
+@media print {
+  html, body { background: none !important; }
+  .chat-print { max-width: none; padding: 0; }
+  .chat-print-actions, .chat-skip, .chat-print button, .chat-print .chat-image-foot a { display: none !important; }
+  .chat-print-msg.is-user .chat-print-body { border: 1px solid var(--color-border); }
+  .chat-print-msg { break-inside: avoid-page; }
+  .chat-print-body pre { white-space: pre-wrap; }
+}
+
 /* The AntaraX sparkle, thinking: each piece wiggles on its own rotation, scale and timing (brand kit 04). */
 .chat-sparkle { display: block; flex: none; overflow: visible; }
 .chat-sparkle path { transform-box: fill-box; transform-origin: center; }
@@ -231,4 +275,7 @@
   .chatapp[data-list="open"] .chatapp-scrim { display: block; position: fixed; inset: 0; z-index: 30; border: 0; padding: 0; background: var(--color-overlay); }
   .chatapp-main { height: calc(100dvh - 72px); }
   .chat-suggestions { grid-template-columns: minmax(0, 1fr); }
+  .chat-compare-tabs { display: block; }
+  .chat-compare-cols { grid-template-columns: minmax(0, 1fr); }
+  .chat-compare-col[data-shown="no"] { display: none; }
 }

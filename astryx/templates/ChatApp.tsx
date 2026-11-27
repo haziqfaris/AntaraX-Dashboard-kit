@@ -1,4 +1,4 @@
-// The chat app (Dashboard kit astryx/templates/ChatApp.tsx, 1.22.0): a full-page AI chat in the AntaraX look, built on
+// The chat app (Dashboard kit astryx/templates/ChatApp.tsx, 1.23.0): a full-page AI chat in the AntaraX look, built on
 // Astryx's own chat parts. First built for AwanGan's Assist at /try (its decision 0068). The product brings the state,
 // the network and the bar (app/reference's AppBar); these are the parts every AntaraX chat shares:
 //   ChatApp           the page: the conversation list on the left, folding away into a drawer below 768px, the chat
@@ -18,6 +18,14 @@
 //   Recording           dictating: the time so far, Stop and Cancel; then "Transcribing on our server"
 //   useServerDictation  dictation recorded in the browser and sent to the product's own transcription, never to a
 //                       browser's cloud service; its state fits Astryx's ChatDictationButton
+// 1.23.0, pictures, comparing models, rating answers and a conversation printed (AwanGan's Assist, its decision 0070):
+//   ChatImage           a picture made from a description: the picture, what it was made from, Download
+//   ToolOffer           Auto offering a tool when the message clearly asks for one ("Make it as a picture?")
+//   ComparePicker       two or three models to answer one question side by side, with the most it could cost
+//   ComposerMode        the mode in use, waiting for the message (comparing three models), with Clear
+//   CompareAnswers      the answers side by side, each with its own receipt; tabs below 768px; one kept as the reply
+//   AnswerFeedback      Helpful and Not helpful on every answer (app/SPEC.md §9), with an optional reason from a list
+//   PrintSheet, PrintMessage  a conversation laid out for the browser's print to PDF, receipts included
 // Layout and motion: kit-patterns.css (.chatapp, .chat-*). Motion is CSS only, from the theme's durations, and none
 // under prefers-reduced-motion: the sparkle holds still.
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
@@ -26,7 +34,11 @@ import { Button } from '@astryxdesign/core/Button';
 import type { ChatComposerTrigger, UseSpeechRecognitionReturn } from '@astryxdesign/core/Chat';
 import { Dialog, DialogHeader } from '@astryxdesign/core/Dialog';
 import { DropdownMenu } from '@astryxdesign/core/DropdownMenu';
+import { CheckboxList, CheckboxListItem } from '@astryxdesign/core/CheckboxList';
 import { RadioList, RadioListItem } from '@astryxdesign/core/RadioList';
+import { Selector } from '@astryxdesign/core/Selector';
+import { Tab, TabList } from '@astryxdesign/core/TabList';
+import { ToggleButton, ToggleButtonGroup } from '@astryxdesign/core/ToggleButton';
 import { Text } from '@astryxdesign/core/Text';
 import { TextInput } from '@astryxdesign/core/TextInput';
 import { createStaticSource, type SearchableItem } from '@astryxdesign/core/Typeahead';
@@ -285,8 +297,16 @@ export interface ChatToolView {
   unavailable: string | null;
 }
 
-/** "+" in the message box: attach a file, then the product's tools. A tool that is not ready says why and cannot be chosen. */
-export function ToolMenu(p: { tools: ChatToolView[]; onAttach: () => void; onPick: (t: ChatToolView) => void; isDisabled?: boolean }) {
+/** Something else "+" offers beside the tools (1.23.0: Compare models), ready or saying why not. */
+export interface ChatMenuExtra {
+  label: string;
+  description: string;
+  unavailable: string | null;
+  onClick: () => void;
+}
+
+/** "+" in the message box: attach a file, anything else the product offers, then its tools. A tool that is not ready says why and cannot be chosen. */
+export function ToolMenu(p: { tools: ChatToolView[]; onAttach: () => void; onPick: (t: ChatToolView) => void; isDisabled?: boolean; more?: ChatMenuExtra[] }) {
   return (
     <DropdownMenu
       alignment="start"
@@ -294,6 +314,7 @@ export function ToolMenu(p: { tools: ChatToolView[]; onAttach: () => void; onPic
       renderTrigger={(t) => <Button {...t} label="Attach a file or use a tool" variant="ghost" size="sm" isIconOnly icon={<Glyph d={PLUS} />} isDisabled={p.isDisabled} />}
       items={[
         { label: 'Attach a file', description: 'A document, a scan, a picture or a recording', onClick: p.onAttach },
+        ...(p.more ?? []).map((m) => ({ label: m.label, description: m.unavailable ?? m.description, isDisabled: !!m.unavailable, onClick: m.onClick })),
         { type: 'section', title: 'Tools, on our server first (or type /)', items: p.tools.map((t) => ({ label: t.label, description: t.unavailable ?? t.description, isDisabled: !!t.unavailable, onClick: () => p.onPick(t) })) },
       ]}
     />
@@ -442,4 +463,212 @@ export function useServerDictation(o: { transcribe: (audio: Blob) => Promise<str
     toggle: () => (state === 'recording' ? end(false) : state === 'idle' ? void start() : undefined),
   };
   return { dictation, state, seconds, stop: () => end(false), cancel: () => end(true) };
+}
+
+// ---- 1.23.0: pictures, comparing models, rating answers, a conversation printed ------------------------------------
+
+const DOWNLOAD = 'M12 15V3M7 10l5 5 5-5M5 21h14';
+const UP = 'M7 10v12M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z';
+const DOWN = 'M17 14V2M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z';
+
+/**
+ * A picture made from a description, in the answer: the picture (its description is its text alternative), what it was
+ * made from, and Download. The product serves it only to the person whose conversation it is.
+ */
+export function ChatImage(p: { src: string; alt: string; width?: number | null; height?: number | null; downloadHref: string; detail?: string }) {
+  return (
+    <figure className="chat-image">
+      <img src={p.src} alt={p.alt} width={p.width ?? undefined} height={p.height ?? undefined} loading="lazy" decoding="async" />
+      <figcaption className="chat-image-foot">
+        {p.detail ? <Text type="supporting">{p.detail}</Text> : null}
+        <Button label="Download the picture" variant="secondary" size="sm" icon={<Glyph d={DOWNLOAD} size={16} />} href={p.downloadHref} />
+      </figcaption>
+    </figure>
+  );
+}
+
+/**
+ * Auto offering a tool when the message clearly asks for one (a picture: "draw a…", "buat gambar…"). An offer only:
+ * sending the message still sends it to the chat, and Not now hides the offer until the message changes.
+ */
+export function ToolOffer(p: { text: string; actionLabel: string; onUse: () => void; onDismiss: () => void }) {
+  return (
+    <div className="chat-offer" role="status">
+      <Sparkle size={18} />
+      <Text type="supporting">{p.text}</Text>
+      <span className="chat-offer-actions">
+        <Button label={p.actionLabel} size="sm" variant="primary" onClick={p.onUse} />
+        <Button label="Not now" size="sm" variant="ghost" onClick={p.onDismiss} />
+      </span>
+    </div>
+  );
+}
+
+/** A model a person may compare: as the picker lists it, with why it cannot be chosen now. */
+export interface CompareModelView {
+  id: string;
+  label: string;
+  /** Where it runs and its price, in a line. */
+  detail: string;
+  unavailable?: string | null;
+}
+
+/**
+ * Compare models: two or three to answer the same question side by side. Says before anything is sent what the paid ones
+ * could cost at most, and when an allowance cannot cover them all, says so and waits.
+ */
+export function ComparePicker(p: { isOpen: boolean; models: CompareModelView[]; value: string[]; onChange: (ids: string[]) => void; cost: string | null; problem: string | null; onCompare: () => void; onCancel: () => void; min?: number; max?: number }) {
+  const min = p.min ?? 2;
+  const max = p.max ?? 3;
+  const n = p.value.length;
+  return (
+    <Dialog isOpen={p.isOpen} onOpenChange={(o) => !o && p.onCancel()} purpose="form" width={520}>
+      <DialogHeader title="Compare models" onOpenChange={(o) => !o && p.onCancel()} />
+      <div className="chat-dialog">
+        <CheckboxList label="Models to compare" description={`Choose ${min === max ? min : `${min} or ${max}`}. Each answers your next message, side by side, with its own receipt.`} value={p.value} onChange={(v) => p.onChange(v.slice(0, max))}>
+          {p.models.map((m) => (
+            <CheckboxListItem key={m.id} value={m.id} label={m.label} description={m.unavailable ?? m.detail} isDisabled={!!m.unavailable || (n >= max && !p.value.includes(m.id))} />
+          ))}
+        </CheckboxList>
+        {p.cost ? (
+          <Text as="p" type="supporting" hasTabularNumbers>
+            {p.cost}
+          </Text>
+        ) : null}
+        {p.problem ? (
+          <Text as="p" className="chat-refused" role="alert">
+            {p.problem}
+          </Text>
+        ) : null}
+        <div className="chat-dialog-actions">
+          <Button label="Cancel" variant="secondary" onClick={p.onCancel} />
+          <Button label={n >= min ? `Compare ${n} models` : `Choose ${min - n} more to compare`} variant="primary" onClick={p.onCompare} isDisabled={n < min || n > max || !!p.problem} />
+        </div>
+      </div>
+    </Dialog>
+  );
+}
+
+/** The mode in use in the message box, waiting for the message (comparing three models), with Clear. */
+export function ComposerMode({ label, detail, onClear }: { label: string; detail: string; onClear: () => void }) {
+  return (
+    <span className="chat-tool-chip">
+      <Badge variant="info" label={label} />
+      <Text type="supporting">{detail}</Text>
+      <Button label={`Clear ${label}`} variant="ghost" size="sm" isIconOnly icon={<Glyph d={CLOSE} size={14} />} onClick={onClear} />
+    </span>
+  );
+}
+
+/** One answer of a comparison: its model, where it ran, the answer, and its foot (the receipt, Keep this answer, the rating). */
+export interface CompareColumnView {
+  key: string;
+  label: string;
+  /** The tab's name below 768px, when the label is long ("Claude" for Claude Haiku 5.5); the label otherwise. */
+  short?: string;
+  where: 'local' | 'paid';
+  body: ReactNode;
+  foot?: ReactNode;
+  isKept?: boolean;
+  isStreaming?: boolean;
+}
+
+/**
+ * The answers of one question side by side, each streaming on its own. From 768px they are columns; below, tabs (one
+ * answer at full width, the next a tap away: long answers stacked would push the second off the screen). One can be
+ * kept as the conversation's reply.
+ */
+export function CompareAnswers({ id, columns, label = 'The answers compared' }: { id: string; columns: CompareColumnView[]; label?: string }) {
+  const [shown, setShown] = useState(columns[0]?.key ?? '');
+  const now = columns.some((c) => c.key === shown) ? shown : (columns[0]?.key ?? '');
+  return (
+    <div className="chat-compare" data-cols={columns.length}>
+      <div className="chat-compare-tabs">
+        {/* parts-ok: Astryx's own TabList, given the tabs pattern because its tabs switch the panels below */}
+        <TabList value={now} onChange={setShown} aria-label={label} layout="fill" size="sm" role="tablist">
+          {columns.map((c, i) => (
+            <Tab key={c.key} value={c.key} label={c.short ?? c.label} panelId={`${id}-${i}`} />
+          ))}
+        </TabList>
+      </div>
+      <div className="chat-compare-cols">
+        {columns.map((c, i) => (
+          <section key={c.key} id={`${id}-${i}`} className={`chat-compare-col${c.isKept ? ' is-kept' : ''}`} data-shown={c.key === now ? 'yes' : 'no'} aria-label={c.label} aria-busy={c.isStreaming || undefined}>
+            <header className="chat-compare-head">
+              <span className="chat-compare-name">{c.label}</span>
+              <span className={`chat-where is-${c.where}`}>{c.where === 'local' ? 'On our server' : 'Paid'}</span>
+              {c.isKept ? <Badge variant="success" label="Kept as the reply" /> : null}
+            </header>
+            <div className="chat-compare-body">{c.body}</div>
+            {c.foot ? <div className="chat-compare-foot">{c.foot}</div> : null}
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export type ChatRating = 'helpful' | 'not_helpful';
+/** A reason a person may give with a rating: short, from the product's fixed list, never typed. */
+export interface FeedbackReason {
+  value: string;
+  label: string;
+}
+
+/**
+ * Helpful and Not helpful on every answer (app/SPEC.md §9), reaching AXLE, with an optional reason from a short fixed
+ * list: nothing a person types is kept with a rating. Pressing the chosen one again takes the rating back.
+ */
+export function AnswerFeedback(p: { rating: ChatRating | null; reason: string | null; reasons: Record<ChatRating, FeedbackReason[]>; onChange: (rating: ChatRating | null, reason: string | null) => void; isDisabled?: boolean; status?: string | null }) {
+  return (
+    <div className="chat-feedback">
+      <ToggleButtonGroup label="Was this answer helpful?" size="sm" value={p.rating} onChange={(v) => p.onChange((v as ChatRating | null) ?? null, null)} isDisabled={p.isDisabled}>
+        <ToggleButton value="helpful" label="Helpful" icon={<Glyph d={UP} size={16} />} />
+        <ToggleButton value="not_helpful" label="Not helpful" icon={<Glyph d={DOWN} size={16} />} />
+      </ToggleButtonGroup>
+      {p.rating ? <Selector label={p.rating === 'helpful' ? 'What helped (optional)' : 'What was wrong (optional)'} isLabelHidden size="sm" placeholder={p.rating === 'helpful' ? 'What helped (optional)' : 'What was wrong (optional)'} hasClear value={p.reason} options={p.reasons[p.rating].map((r) => ({ value: r.value, label: r.label }))} onChange={(v) => p.onChange(p.rating, v)} isDisabled={p.isDisabled} /> : null}
+      {p.status ? (
+        <Text type="supporting" role="status">
+          {p.status}
+        </Text>
+      ) : null}
+    </div>
+  );
+}
+
+/**
+ * A conversation laid out for the browser's own print to PDF (kit-patterns.css, .chat-print): the title, when it was
+ * exported, each message as the person saw it, and each answer's receipt. `actions` (Print, Back) is hidden on paper.
+ */
+export function PrintSheet({ title, meta, actions, children }: { title: string; meta: string; actions?: ReactNode; children: ReactNode }) {
+  return (
+    <main className="chat-print" id="main">
+      <header className="chat-print-head">
+        <div className="chat-print-brand">
+          <Sparkle size={24} />
+          <span>AwanGan · by AntaraX</span>
+        </div>
+        <h1 className="chat-print-title">{title}</h1>
+        <Text type="supporting" as="p">
+          {meta}
+        </Text>
+        {actions ? <div className="chat-print-actions">{actions}</div> : null}
+      </header>
+      <ol className="chat-print-list">{children}</ol>
+    </main>
+  );
+}
+
+/** One message on paper: who and when, its chips (masked, files), the words, and an answer's receipt. */
+export function PrintMessage({ who, when, kind, chips, receipt, children }: { who: string; when: string; kind: 'user' | 'assistant'; chips?: ReactNode; receipt?: ReactNode; children: ReactNode }) {
+  return (
+    <li className={`chat-print-msg is-${kind}`}>
+      <p className="chat-print-who">
+        <strong>{who}</strong> · {when}
+      </p>
+      {chips ? <div className="chat-print-chips">{chips}</div> : null}
+      <div className="chat-print-body">{children}</div>
+      {receipt ? <div className="chat-print-receipt">{receipt}</div> : null}
+    </li>
+  );
 }
