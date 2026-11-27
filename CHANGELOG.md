@@ -8,6 +8,14 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.21.0 · 27 Nov 2026
+
+Minor: something new to adopt where a product needs it (owner, haziqfaris, 27 Nov 2026, for AwanGan: "/try becomes AwanGan's own AI chat app, the same kind of app as Claude, ChatGPT or Grok", "drawn in AntaraX's own look from the kit, with the AI sparkle and the thinking motion", "every answer carries a receipt"; AwanGan decision 0068).
+
+- **New template: the chat app** (`astryx/templates/ChatApp.tsx`, `README.md`, `kit-patterns.css`). A full-page chat on Astryx's own chat parts (`ChatLayout`, `ChatMessageList`, `ChatMessage`, `ChatMessageBubble`, `ChatComposer`, `Markdown`), with the kit's conversation list (new chat, search, rename, export, delete), the empty state with suggestions, the AI sparkle and its thinking motion, the masked chip and the receipt under every answer. The list folds into a drawer below 768px. Motion is CSS only and none under `prefers-reduced-motion`. First built in AwanGan's Assist at `/try`, where it passes `tools/check-product.mjs` at 1280 and 390px, light and dark.
+- **The receipt** (model, on our server or paid, time, cost) is for a staff and developer chat only; app/SPEC.md §9's rule for a customer's Assist panel (no model, provider or cost) stands.
+- **Adopt (a product that offers a full-page chat):** build it from the chat app, its bar from app/reference's `AppBar`, list its pages in `kit-pages.json`, and pin the lock to 1.21.0.
+
 ## 1.20.0 · 27 Nov 2026
 
 Minor: something new to adopt where a product needs it (owner, haziqfaris, 27 Nov 2026, for AwanGan's AXLE: developers should "create a new key" through "a guide wizard that shows me what I want to do, what I want to create, then I can choose which model or what kind of AI capabilities… Then I can generate my keys and I can start using it. It should be that simple", "interactive, animated"; AwanGan decision 0067).
