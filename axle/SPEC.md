@@ -152,6 +152,7 @@ Rules:
 - **A page behind a right someone lacks** shows a gate card. It names the right, what it covers, and who can grant it (ISO Generator). Pages are never hidden from people who may read them.
 - **A hidden figure** shows "–" and "Needs the Finance right". Alerts follow the same rule, so a cost never leaks through a budget warning.
 - **The Staff page is separate from Members** and lists only REKA staff. It has no casual "create" button: staff are added deliberately, with a reason (std D1; Yara).
+- **An Operator may be limited to some organisations** (owner, 26 Nov 2026; AwanGan decision 0056): a developer who runs only their own projects. They read every page as every rung does; they act (keys, switches, routes, test calls) only on the organisations named on their staff record. An Operator with none named acts on every one. No other rung is limited this way, and a limit never widens a rung: secrets stay the Owner's, plans and settings an Admin's. The Staff page shows each Operator's organisations; changing them is a staff change, with a reason, in Audit.
 - **Nobody can lower their own role** or remove their own Security right.
 - **Two people** must approve anything irreversible: deletion, secret rotation (antarax-api docs/07).
 

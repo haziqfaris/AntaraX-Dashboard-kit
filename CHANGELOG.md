@@ -8,6 +8,13 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.18.0 · 27 Nov 2026
+
+Minor: something new to adopt where a product needs it (owner, haziqfaris, 26 Nov 2026: "a developer who manages only their projects is the kit's Operator rung scoped to those projects", for AwanGan's AXLE; AwanGan decision 0056).
+
+- **axle/SPEC.md §5.2:** an Operator may be limited to some organisations. They read every page; they act (keys, switches, routes, test calls) only on those named on their staff record; none named means every one. No other rung is limited, and a limit never widens a rung. The Staff page shows each Operator's organisations; a change is a staff change with a reason.
+- **Adopt (an AXLE whose developers run their own organisations):** add the organisations to the staff record, check them in every action that names an organisation, show "Needs Operator on this organisation" on a control they cannot use, and pin the lock to 1.18.0.
+
 ## 1.17.0 · 25 Nov 2026
 
 Minor: something new to adopt (owner, haziqfaris, 25 Nov 2026: "how to make sure the issue with the UI does not repeat and how this could be enforced to all in the framework so that other projects can also properly follow?", after AwanGan's AXLE was found off the kit: no kit scrollbars, its own top bar, hand-made forms and one-page dumps; AwanGan decision 0054).
