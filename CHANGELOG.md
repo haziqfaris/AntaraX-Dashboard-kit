@@ -8,6 +8,13 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.22.0 · 27 Nov 2026
+
+Minor: something new to adopt where a product needs it (owner, haziqfaris, 27 Nov 2026, for AwanGan's Assist: "attachments with a choice on each upload", "voice input: dictate a message", "AwanGan's tools in the message box, opened by + or by typing /"; AwanGan decision 0069).
+
+- **The chat app gains files, tools and voice in the message box** (`astryx/templates/ChatApp.tsx`, `README.md`, `kit-patterns.css`): `AttachChoiceDialog` (every upload asks "Read it on our server first" or "Send it as it is", a choice that cannot be made greyed out with its reason), `AttachmentChip`, `ToolMenu` ("+"), `toolTrigger` ("/", Astryx's trigger menu), `ToolChip`, `ToolHead`, `Recording` and `useServerDictation` (recorded in the browser, transcribed by the product's own server, fitting Astryx's `ChatDictationButton`). All on Astryx's own parts: `Dialog`, `RadioList`, `DropdownMenu`, `ChatComposerInput`'s triggers, `ChatComposerDrawer`, `ChatDictationButton`, `FileInput`. Motion CSS only, none under `prefers-reduced-motion`. First built in AwanGan's Assist at `/try`, where it passes `tools/check-product.mjs` at 1280 and 390px, light and dark.
+- **Adopt (a chat that takes files or tools):** build them from these parts, list a page that shows them in `kit-pages.json`, and pin the lock to 1.22.0.
+
 ## 1.21.0 · 27 Nov 2026
 
 Minor: something new to adopt where a product needs it (owner, haziqfaris, 27 Nov 2026, for AwanGan: "/try becomes AwanGan's own AI chat app, the same kind of app as Claude, ChatGPT or Grok", "drawn in AntaraX's own look from the kit, with the AI sparkle and the thinking motion", "every answer carries a receipt"; AwanGan decision 0068).

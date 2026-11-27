@@ -1,4 +1,4 @@
-// The chat app (Dashboard kit astryx/templates/ChatApp.tsx, 1.21.0): a full-page AI chat in the AntaraX look, built on
+// The chat app (Dashboard kit astryx/templates/ChatApp.tsx, 1.22.0): a full-page AI chat in the AntaraX look, built on
 // Astryx's own chat parts. First built for AwanGan's Assist at /try (its decision 0068). The product brings the state,
 // the network and the bar (app/reference's AppBar); these are the parts every AntaraX chat shares:
 //   ChatApp           the page: the conversation list on the left, folding away into a drawer below 768px, the chat
@@ -8,13 +8,28 @@
 //   Thinking          the thinking motion while the first words come, with Stop after 10 seconds
 //   MaskedChip        "3 items masked": what the privacy shield hid in a message before it left
 //   Receipt           under every answer: which model, on our server or paid, the time and the cost
+// 1.22.0, files, tools and voice in the message box (first built for AwanGan's Assist, its decision 0069):
+//   AttachChoiceDialog  the one question every upload asks: send it as it is, or read it on our server first
+//   AttachmentChip      a file on a message or waiting in the message box: its name, what it is, how it goes
+//   ToolMenu            "+" in the message box: attach a file, and the product's tools, each ready or saying why not
+//   toolTrigger         the same tools on "/" in the message box (Astryx's trigger menu)
+//   ToolChip            the tool chosen, waiting for its text or file, with Clear
+//   ToolHead            the line above a tool's answer: which tool, on what
+//   Recording           dictating: the time so far, Stop and Cancel; then "Transcribing on our server"
+//   useServerDictation  dictation recorded in the browser and sent to the product's own transcription, never to a
+//                       browser's cloud service; its state fits Astryx's ChatDictationButton
 // Layout and motion: kit-patterns.css (.chatapp, .chat-*). Motion is CSS only, from the theme's durations, and none
 // under prefers-reduced-motion: the sparkle holds still.
-import { useEffect, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { Badge } from '@astryxdesign/core/Badge';
 import { Button } from '@astryxdesign/core/Button';
+import type { ChatComposerTrigger, UseSpeechRecognitionReturn } from '@astryxdesign/core/Chat';
+import { Dialog, DialogHeader } from '@astryxdesign/core/Dialog';
+import { DropdownMenu } from '@astryxdesign/core/DropdownMenu';
+import { RadioList, RadioListItem } from '@astryxdesign/core/RadioList';
 import { Text } from '@astryxdesign/core/Text';
 import { TextInput } from '@astryxdesign/core/TextInput';
+import { createStaticSource, type SearchableItem } from '@astryxdesign/core/Typeahead';
 
 /** One conversation in the list. */
 export interface ChatListItem {
@@ -173,4 +188,258 @@ export function ChatApp({ bar, list, listOpen, onCloseList, children }: { bar: R
       </div>
     </div>
   );
+}
+
+// ---- 1.22.0: files, tools and voice in the message box ----------------------------------------------------------
+
+const Glyph = ({ d, size = 18 }: { d: string; size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+    <path d={d} />
+  </svg>
+);
+const PLUS = 'M12 5v14M5 12h14';
+const FILE = 'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5ZM14 3v5h5';
+const CLOSE = 'M6 6l12 12M18 6 6 18';
+
+/** A file on a message, or waiting in the message box, as words: never its contents. */
+export interface ChatAttachmentView {
+  id: string;
+  name: string;
+  /** What it is, as people say it: "PDF · 2 pages", "Picture · 240 KB", "Recording · 0:42". */
+  detail: string;
+  /** How it goes to the model: the file itself, or only the text our own server read from it. */
+  mode: 'as_is' | 'read';
+}
+
+/** A file's chip: its name, what it is and how it goes; with Remove while it waits in the message box. */
+export function AttachmentChip({ a, onRemove }: { a: ChatAttachmentView; onRemove?: () => void }) {
+  return (
+    <span className={`chat-attach is-${a.mode === 'as_is' ? 'as-is' : 'read'}`}>
+      <span className="chat-attach-icon">
+        <Glyph d={FILE} size={16} />
+      </span>
+      <span className="chat-attach-text">
+        <span className="chat-attach-name">{a.name}</span>
+        <span className="chat-attach-detail">
+          {a.detail} · {a.mode === 'as_is' ? 'Sent as it is' : 'Read on our server'}
+        </span>
+      </span>
+      {onRemove ? <Button label={`Remove ${a.name}`} variant="ghost" size="sm" isIconOnly icon={<Glyph d={CLOSE} size={14} />} onClick={onRemove} /> : null}
+    </span>
+  );
+}
+
+/** One way a file can go, for the choice every upload asks. */
+export interface AttachChoiceView {
+  value: 'as_is' | 'read';
+  label: string;
+  description: string;
+  /** Why it cannot be chosen now, in words; null when it can. */
+  unavailable: string | null;
+}
+
+/**
+ * The one question every upload asks (a file, a picture or a recording): send it as it is, or read it on our server
+ * first. A choice that cannot be made now stays on the screen, greyed out, with its reason; `extra` carries a way to ask
+ * for it (a link for staff), outside the choices so it can be followed.
+ */
+export function AttachChoiceDialog(p: { isOpen: boolean; file: { name: string; detail: string } | null; choices: AttachChoiceView[]; value: 'as_is' | 'read'; onChange: (v: 'as_is' | 'read') => void; extra?: ReactNode; onAttach: () => void; onCancel: () => void; isBusy?: boolean; status?: string | null }) {
+  const chosen = p.choices.find((c) => c.value === p.value);
+  return (
+    <Dialog isOpen={p.isOpen} onOpenChange={(o) => !o && p.onCancel()} purpose="form" width={520}>
+      <DialogHeader title="How should Assist use this file?" onOpenChange={(o) => !o && p.onCancel()} />
+      <div className="chat-dialog">
+        {p.file ? (
+          <Text as="p" type="supporting">
+            <span className="chat-attach-name">{p.file.name}</span> · {p.file.detail}
+          </Text>
+        ) : null}
+        <RadioList label="How it goes to the model" isLabelHidden value={p.value} onChange={(v) => p.onChange(v as 'as_is' | 'read')}>
+          {p.choices.map((c) => (
+            <RadioListItem key={c.value} value={c.value} label={c.label} isDisabled={!!c.unavailable} description={c.unavailable ? `${c.description} ${c.unavailable}` : c.description} />
+          ))}
+        </RadioList>
+        {p.extra ? <div className="chat-choice-extra">{p.extra}</div> : null}
+        {p.status ? (
+          <Text as="p" className="chat-refused" role="alert">
+            {p.status}
+          </Text>
+        ) : null}
+        <div className="chat-dialog-actions">
+          <Button label="Cancel" variant="secondary" onClick={p.onCancel} />
+          <Button label={p.value === 'read' ? 'Read it on our server' : 'Attach it as it is'} variant="primary" onClick={p.onAttach} isDisabled={!chosen || !!chosen.unavailable || p.isBusy} />
+        </div>
+      </div>
+    </Dialog>
+  );
+}
+
+/** A tool the message box offers: what it does, and whether it is ready now (worked out by the product, never by hand). */
+export interface ChatToolView {
+  id: string;
+  label: string;
+  description: string;
+  /** What it works on: a file it asks for, or the text in the box (or a file already read). */
+  takes: 'file' | 'text';
+  /** Why it cannot be chosen now, in words; null when it is ready. */
+  unavailable: string | null;
+}
+
+/** "+" in the message box: attach a file, then the product's tools. A tool that is not ready says why and cannot be chosen. */
+export function ToolMenu(p: { tools: ChatToolView[]; onAttach: () => void; onPick: (t: ChatToolView) => void; isDisabled?: boolean }) {
+  return (
+    <DropdownMenu
+      alignment="start"
+      menuWidth={340}
+      renderTrigger={(t) => <Button {...t} label="Attach a file or use a tool" variant="ghost" size="sm" isIconOnly icon={<Glyph d={PLUS} />} isDisabled={p.isDisabled} />}
+      items={[
+        { label: 'Attach a file', description: 'A document, a scan, a picture or a recording', onClick: p.onAttach },
+        { type: 'section', title: 'Tools, on our server first (or type /)', items: p.tools.map((t) => ({ label: t.label, description: t.unavailable ?? t.description, isDisabled: !!t.unavailable, onClick: () => p.onPick(t) })) },
+      ]}
+    />
+  );
+}
+
+/** The same tools on "/" in the message box. Picking one inserts nothing: the product makes it the tool in use. */
+export function toolTrigger(tools: ChatToolView[], onPick: (t: ChatToolView) => void, onUnavailable: (t: ChatToolView) => void): ChatComposerTrigger {
+  const items: SearchableItem[] = tools.map((t) => ({ id: t.id, label: t.label, auxiliaryData: t }));
+  return {
+    character: '/',
+    searchSource: createStaticSource(items, { keywords: (i) => [(i.auxiliaryData as ChatToolView).description] }),
+    menuLabel: 'Tools',
+    emptySearchText: 'No tool by that name. Press Escape to keep typing.',
+    renderItem: (i) => {
+      const t = i.auxiliaryData as ChatToolView;
+      return (
+        <span className={`chat-tool-item${t.unavailable ? ' is-off' : ''}`}>
+          <span className="chat-tool-item-label">{t.label}</span>
+          <span className="chat-tool-item-detail">{t.unavailable ?? t.description}</span>
+        </span>
+      );
+    },
+    onSelect: (i) => {
+      const t = i.auxiliaryData as ChatToolView;
+      if (t.unavailable) onUnavailable(t);
+      else onPick(t);
+      return '';
+    },
+  };
+}
+
+/** The tool in use, waiting for its text or its file, with Clear. */
+export function ToolChip({ tool, onClear }: { tool: ChatToolView; onClear: () => void }) {
+  return (
+    <span className="chat-tool-chip">
+      <Badge variant="info" label={tool.label} />
+      <Text type="supporting">{tool.takes === 'file' ? 'Choose the file it reads' : 'Write or paste the text, then send'}</Text>
+      <Button label={`Clear ${tool.label}`} variant="ghost" size="sm" isIconOnly icon={<Glyph d={CLOSE} size={14} />} onClick={onClear} />
+    </span>
+  );
+}
+
+/** The line above a tool's answer: which tool, and on what. */
+export function ToolHead({ label, on }: { label: string; on?: string | null }) {
+  return (
+    <Text type="supporting" as="p" className="chat-tool-head">
+      <span className="chat-tool-head-label">{label}</span>
+      {on ? ` · ${on}` : ''}
+    </Text>
+  );
+}
+
+/** Dictating: the time so far, with Stop and Cancel; then, while our own server transcribes it, says so. */
+export function Recording({ seconds, state, onStop, onCancel }: { seconds: number; state: 'recording' | 'transcribing'; onStop: () => void; onCancel: () => void }) {
+  const t = `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
+  return (
+    <div className={`chat-recording is-${state}`} role="status">
+      <span className="chat-recording-dot" aria-hidden="true" />
+      <Text hasTabularNumbers>{state === 'recording' ? `Recording ${t}` : 'Transcribing on our server'}</Text>
+      {state === 'recording' ? (
+        <>
+          <Button label="Stop and transcribe" size="sm" variant="primary" onClick={onStop} />
+          <Button label="Cancel" size="sm" variant="secondary" onClick={onCancel} />
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+/**
+ * Dictation through the product's own transcription: the browser records (MediaRecorder), and `transcribe` sends the
+ * recording to the product's server, never to a browser's cloud speech service. Its state fits Astryx's
+ * ChatDictationButton, so the button, its label and its bars are Astryx's. A refused microphone is said in words.
+ */
+export function useServerDictation(o: { transcribe: (audio: Blob) => Promise<string>; onText: (text: string) => void; onError: (message: string) => void; maxSeconds?: number }) {
+  const [state, setState] = useState<'idle' | 'recording' | 'transcribing'>('idle');
+  const [seconds, setSeconds] = useState(0);
+  const [supported, setSupported] = useState(false);
+  const rec = useRef<{ r: MediaRecorder; stream: MediaStream; chunks: Blob[]; cancel: boolean; timer: ReturnType<typeof setInterval> } | null>(null);
+  const opts = useRef(o);
+  opts.current = o;
+  useEffect(() => setSupported(typeof window !== 'undefined' && typeof MediaRecorder !== 'undefined' && !!navigator.mediaDevices?.getUserMedia), []);
+
+  const end = useCallback((cancel: boolean) => {
+    const x = rec.current;
+    if (!x) return;
+    x.cancel = cancel;
+    clearInterval(x.timer);
+    if (x.r.state !== 'inactive') x.r.stop();
+  }, []);
+
+  const start = useCallback(async () => {
+    if (rec.current) return;
+    let stream: MediaStream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (e) {
+      const name = (e as { name?: string }).name;
+      opts.current.onError(name === 'NotAllowedError' || name === 'SecurityError' ? 'The microphone was refused, so nothing was recorded. Allow the microphone for this site in your browser, or type your message.' : name === 'NotFoundError' ? 'No microphone was found on this device. Type your message instead.' : 'The microphone could not be started. Type your message instead.');
+      return;
+    }
+    const r = new MediaRecorder(stream);
+    const started = Date.now();
+    const x = { r, stream, chunks: [] as Blob[], cancel: false, timer: setInterval(() => {
+      const s = (Date.now() - started) / 1000;
+      setSeconds(s);
+      if (s >= (opts.current.maxSeconds ?? 300)) end(false);
+    }, 250) };
+    rec.current = x;
+    r.ondataavailable = (ev) => ev.data.size && x.chunks.push(ev.data);
+    r.onstop = async () => {
+      x.stream.getTracks().forEach((t) => t.stop());
+      rec.current = null;
+      if (x.cancel || !x.chunks.length) {
+        setState('idle');
+        return;
+      }
+      setState('transcribing');
+      try {
+        const text = await opts.current.transcribe(new Blob(x.chunks, { type: r.mimeType || 'audio/webm' }));
+        if (text.trim()) opts.current.onText(text.trim());
+      } catch (e) {
+        opts.current.onError((e as Error).message || 'The recording could not be transcribed. Try again, or type your message.');
+      }
+      setState('idle');
+    };
+    setSeconds(0);
+    setState('recording');
+    r.start(1000);
+  }, [end]);
+
+  useEffect(() => () => end(true), [end]);
+
+  const dictation: UseSpeechRecognitionReturn = {
+    isSupported: supported,
+    isListening: state === 'recording',
+    isSpeaking: state === 'recording',
+    volume: 0,
+    bands: [0.4, 0.7, 1, 0.7, 0.4],
+    rawBands: [],
+    interimTranscript: '',
+    start: () => void start(),
+    stop: () => end(false),
+    abort: () => end(true),
+    toggle: () => (state === 'recording' ? end(false) : state === 'idle' ? void start() : undefined),
+  };
+  return { dictation, state, seconds, stop: () => end(false), cancel: () => end(true) };
 }

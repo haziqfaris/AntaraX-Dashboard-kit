@@ -172,6 +172,35 @@
 .chat-dialog { display: flex; flex-direction: column; gap: 16px; padding: 0 24px 24px; }
 .chat-dialog-actions { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
 
+/* 1.22.0: files, tools and voice in the message box. A file's chip says how it goes (read on our server, or sent as it
+   is); a tool not ready is greyed out with its reason; dictating shows a still dot under reduced motion. The file
+   chooser is Astryx's FileInput, hidden (.chat-file), opened by "+" or a tool; a file can also be dropped or pasted. */
+.chat-file { display: none; }
+.chat-drawer { display: flex; flex-direction: column; gap: 8px; }
+.chat-attachments { display: flex; flex-wrap: wrap; gap: 6px; }
+.chat-sent-files { margin-top: 8px; }
+.chat-attach { display: inline-flex; align-items: center; gap: 8px; max-width: 100%; min-height: 44px; box-sizing: border-box; padding: 4px 4px 4px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-element); background: var(--color-background-surface); }
+.chat-attach-icon { display: flex; color: var(--color-text-secondary); }
+.chat-attach.is-read .chat-attach-icon { color: var(--color-text-success); }
+.chat-attach-text { display: flex; flex-direction: column; min-width: 0; }
+.chat-attach-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 600; color: var(--color-text-primary); overflow-wrap: anywhere; }
+.chat-attach-detail { font-size: 12px; color: var(--color-text-secondary); font-variant-numeric: tabular-nums; }
+.chat-choice-extra { font-size: 14px; }
+.chat-tool-chip { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.chat-tool-item { display: flex; flex-direction: column; gap: 2px; }
+.chat-tool-item-label { font-weight: 600; }
+.chat-tool-item-detail { font-size: 12px; color: var(--color-text-secondary); }
+.chat-tool-item.is-off { opacity: .6; }
+.chat-tool-head { margin: 0 0 4px; }
+.chat-tool-head-label { font-weight: 600; color: var(--color-text-primary); }
+.chat-recording { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; min-height: 44px; }
+.chat-recording-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--color-error); flex: none; }
+.chat-recording.is-transcribing .chat-recording-dot { background: var(--color-accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .chat-recording.is-recording .chat-recording-dot { animation: chat-pulse 1.2s var(--ease-in-out, ease-in-out) infinite; }
+}
+@keyframes chat-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
 /* The AntaraX sparkle, thinking: each piece wiggles on its own rotation, scale and timing (brand kit 04). */
 .chat-sparkle { display: block; flex: none; overflow: visible; }
 .chat-sparkle path { transform-box: fill-box; transform-origin: center; }
