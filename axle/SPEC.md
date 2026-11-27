@@ -504,11 +504,20 @@ The page opens on **what is missing**: a readiness checklist ("Before Acme Plast
 - **Lapisan** (`haziqfaris/antarax-api`, `api.antarax.ai`) gives the product an AntaraX key for product `ai` and records each call as a usage row.
 - **The product** keeps its prompts, gates, checks and decisions.
 
-A product moves in two steps, and nothing is forced on a live one. **Watch only** first: it keeps its own keys, and AwanGan records them with their owner and totals from the provider's own usage report. Then **through AwanGan**: its keys move into AwanGan's vault, and the product holds only its AntaraX key. A client's own system comes through only with the client's written agreement; otherwise it keeps its own keys under Heuristiks, or runs BumiNyata on its own servers. Nothing in AwanGan is built yet (25 Oct 2026).
+A product moves in two steps, and nothing is forced on a live one. **Watch only** first: it keeps its own keys, and AwanGan records them with their owner and totals from the provider's own usage report. Then **through AwanGan**: its keys move into AwanGan's vault, and the product holds only its AntaraX key. A client's own system comes through only with the client's written agreement; otherwise it keeps its own keys under Heuristiks, or runs BumiNyata on its own servers.
+
+**One standard for AI keys** (owner, 27 Nov 2026; Heuristiks' REKA profile decision 0015, AwanGan decision 0059). Every product is in one of four modes:
+
+1. **Platform keys:** REKA's keys in AwanGan's vault.
+2. **Project keys in AwanGan:** the product's own provider keys, held in AwanGan's vault.
+3. **Backup:** the product's own key, only when AwanGan gives no answer, never around a refusal.
+4. **Own keys, switched on:** switched on in AwanGan's AXLE for at most 7 days, then back by itself.
+
+The product's gateway uses Heuristiks' `controlPlaneAdapter`, which reports every call made with its own key to AwanGan. A backup is a critical alert; own keys switched on is a warning while it lasts.
 
 | Page | Must show |
 |---|---|
-| Models & keys | Read only. This product's keys as AwanGan holds them: provider, last four characters, owner, when rotated, health; never a whole key. The route for each feature: the key and model it tries first, then its fallbacks; automatic switches and route changes, with who and when. **Open Routing in AwanGan** for any change; it takes effect at the gateway without a redeploy. Before the product comes through AwanGan: the keys it still holds, masked, each marked watch only (F1, F2) |
+| Models & keys | Read only. This product's keys as AwanGan holds them: provider, last four characters, owner, when rotated, health; never a whole key. The route for each feature: the key and model it tries first, then its fallbacks; automatic switches and route changes, with who and when. **Open Routing in AwanGan** for any change; it takes effect at the gateway without a redeploy. Before the product comes through AwanGan: the keys it still holds, masked, each marked watch only (F1, F2). **Its key mode** (one of the four above) in one line at the top; while it is switched to its own keys, a warning banner with until when, who and why; and the calls it made with its own key in the last 30 days (when, feature, provider and model, backup or switched on, outcome, tokens; never content). The switch itself is in AwanGan's AXLE, on the project's Keys tab: an Admin, the Owner or an Operator on that project, for 1 hour to 7 days, with a reason in the audit log |
 | Per organisation | AI on or off; model override (F3) |
 | AI usage | From Lapisan's usage rows for product `ai`: calls, errors, latency, cost by organisation, feature and model; monthly budgets with alerts at 80% and 100% (F4). Only this product; AwanGan's own AXLE shows every product at once |
 | Live trace | One run, verdict first: verdict → what to fix, worst first → the five steps, Asked → Allowed → Answered → Checked → Decided (§10.6.1), each with status, model, time, cost and findings → raw events last. A prompt, an input or an answer appears only where the product's agreement keeps it, with personal data masked; opening one needs the AI right and is recorded in Audit. AXLE only (F5; ISO Generator) |

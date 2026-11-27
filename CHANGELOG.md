@@ -8,6 +8,19 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.19.0 · 27 Nov 2026
+
+Minor: something new to adopt (owner, haziqfaris, 27 Nov 2026: "for all projects or products, can we standardise how the AI keys are managed?… Where to note this? AI Heuristiks? AntaraX kit?"; Heuristiks' REKA profile decision 0015, AwanGan decision 0059).
+
+- **axle/SPEC.md §10.6:** one standard for AI keys, with four modes:
+  1. platform keys;
+  2. project keys in AwanGan;
+  3. a backup to the product's own key only when AwanGan gives no answer;
+  4. own keys switched on in AwanGan's AXLE for at most 7 days.
+
+  Models & keys shows the mode in one line, a warning banner while the product is on its own keys, and the calls it made with its own key in the last 30 days, never their content. The old line "Nothing in AwanGan is built yet" is gone.
+- **Adopt (every product's AXLE with AI):** read the mode and the direct calls from AwanGan, show them on Models & keys, and pin the lock to 1.19.0. AwanGan's own AXLE shows them on each project's Keys tab, with the switch.
+
 ## 1.18.0 · 27 Nov 2026
 
 Minor: something new to adopt where a product needs it (owner, haziqfaris, 26 Nov 2026: "a developer who manages only their projects is the kit's Operator rung scoped to those projects", for AwanGan's AXLE; AwanGan decision 0056).
