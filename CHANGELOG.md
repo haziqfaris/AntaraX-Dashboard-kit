@@ -8,6 +8,13 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.23.0 · 27 Nov 2026
+
+Minor: something new to adopt where a product needs it (owner, haziqfaris, 27 Nov 2026, for AwanGan's Assist, phase C: "make an image from a description", "compare models: one question to two or three models side by side", "Helpful / Not helpful on every answer", "export a conversation to PDF"; AwanGan decision 0070).
+
+- **The chat app gains pictures, comparing models, rating answers and a printed conversation** (`astryx/templates/ChatApp.tsx`, `README.md`, `kit-patterns.css`): `ChatImage` (a made picture with its description as its text alternative and Download), `ToolOffer` (Auto offers a tool when a message clearly asks for one), `ComparePicker` (two or three models, the most they could cost said before anything is sent), `ComposerMode`, `CompareAnswers` (side by side from 768px, tabs below, each with its own receipt, one kept as the reply), `AnswerFeedback` (Helpful and Not helpful, app/SPEC.md §9, with an optional reason from a fixed list) and `PrintSheet` with `PrintMessage` (the browser's print to PDF, A4, receipts included). `ToolMenu` takes `more` items beside the tools. All on Astryx's own parts: `Dialog`, `CheckboxList`, `TabList`, `ToggleButtonGroup`, `Selector`, `Button`, `Badge`. First built in AwanGan's Assist at `/try`, where it passes `tools/check-product.mjs` at 1280 and 390px, light and dark.
+- **Adopt (a chat that makes pictures, compares models or takes ratings):** build them from these parts, list a page that shows them in `kit-pages.json`, and pin the lock to 1.23.0. A customer's Assist panel (app/SPEC.md §9) takes `AnswerFeedback` as it is; it still shows no model, provider or cost.
+
 ## 1.22.0 · 27 Nov 2026
 
 Minor: something new to adopt where a product needs it (owner, haziqfaris, 27 Nov 2026, for AwanGan's Assist: "attachments with a choice on each upload", "voice input: dictate a message", "AwanGan's tools in the message box, opened by + or by typing /"; AwanGan decision 0069).
