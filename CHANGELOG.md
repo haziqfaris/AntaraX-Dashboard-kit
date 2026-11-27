@@ -8,6 +8,14 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.20.0 · 27 Nov 2026
+
+Minor: something new to adopt where a product needs it (owner, haziqfaris, 27 Nov 2026, for AwanGan's AXLE: developers should "create a new key" through "a guide wizard that shows me what I want to do, what I want to create, then I can choose which model or what kind of AI capabilities… Then I can generate my keys and I can start using it. It should be that simple", "interactive, animated"; AwanGan decision 0067).
+
+- **New template: the guided flow** (`astryx/templates/README.md`, `kit-patterns.css`). One decision a screen under Astryx's `Stepper`, choice cards from `SelectableCard`, a review in plain lines, and a secret shown once with a copy button. The step is in the address; the heading of each step takes the focus; a choice that cannot be had is a plain card that says why. Motion is CSS only, from the theme's durations, and none at all under `prefers-reduced-motion`. First built in AwanGan's AXLE (Projects → New project), where it passes `tools/check-product.mjs` at 1280 and 390px.
+- **The step form stays** for a form a person fills once and sends.
+- **Adopt (an AXLE or app that makes something in several decisions):** build it from the guided flow rather than a new pattern, list each step's address in `kit-pages.json`, and pin the lock to 1.20.0.
+
 ## 1.19.0 · 27 Nov 2026
 
 Minor: something new to adopt (owner, haziqfaris, 27 Nov 2026: "for all projects or products, can we standardise how the AI keys are managed?… Where to note this? AI Heuristiks? AntaraX kit?"; Heuristiks' REKA profile decision 0015, AwanGan decision 0059).

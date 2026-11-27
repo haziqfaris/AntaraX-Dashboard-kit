@@ -78,3 +78,48 @@
 /* A cap's use as the browser's meter, beside its words. */
 [data-kit-page] meter { width: 100px; height: 10px; }
 
+/* A guided flow (first built in AwanGan's AXLE, its decision 0067): one decision a screen, numbered, under a progress
+   line, with choice cards, a review and a secret shown once. Motion is CSS only, from the theme's durations, and none
+   at all under prefers-reduced-motion. */
+[data-kit-page] .guide { display: grid; gap: var(--spacing-4); }
+[data-kit-page] .guide-live { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+[data-kit-page] .guide-panel { display: grid; gap: var(--spacing-4); max-width: 880px; min-width: 0; padding: var(--spacing-4); border: 1px solid var(--color-border); border-radius: var(--radius-container); background: var(--color-background-card); animation: guide-in var(--duration-medium) cubic-bezier(.2, .8, .2, 1) both; }
+[data-kit-page] .guide-panel > *, [data-kit-page] .guide-panel .guide-key > *, [data-kit-page] .guide-panel .guide-test > * { min-width: 0; }
+[data-kit-page] .guide[data-dir="back"] .guide-panel { animation-name: guide-back; }
+@keyframes guide-in { from { opacity: 0; transform: translateX(24px); } }
+@keyframes guide-back { from { opacity: 0; transform: translateX(-24px); } }
+@keyframes guide-rise { from { opacity: 0; transform: translateY(8px); } }
+@keyframes guide-pop { 0% { transform: scale(0); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@keyframes guide-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes guide-sheen { to { transform: translateX(100%); } }
+[data-kit-page] .guide-head { display: flex; align-items: center; gap: var(--spacing-2); outline: none; }
+[data-kit-page] .guide-head:focus-visible { outline: 2px solid var(--focus-outline-color); outline-offset: 4px; border-radius: 6px; }
+[data-kit-page] .guide-n { display: inline-grid; place-items: center; width: 30px; height: 30px; flex: none; border-radius: 50%; background: var(--color-accent-muted); color: var(--color-text-primary); font-weight: 600; font-variant-numeric: tabular-nums; }
+[data-kit-page] .guide-client { display: grid; gap: var(--spacing-2); padding: var(--spacing-3); border: 1px solid var(--color-border-info); border-radius: var(--radius-element); background: var(--color-info-muted); animation: guide-rise var(--duration-medium) ease both; }
+/* Choice cards: a grid; a card lifts under the pointer, and its tick pops in when it is chosen. */
+[data-kit-page] .pickcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: var(--spacing-3); }
+[data-kit-page] .pickcard { transition: transform var(--duration-fast) ease, box-shadow var(--duration-fast) ease; }
+@media (hover: hover) { [data-kit-page] .pickcard:not(.is-off):hover { transform: translateY(-2px); box-shadow: var(--shadow-low); } }
+[data-kit-page] .pick-tick { display: inline-grid; place-items: center; width: 22px; height: 22px; flex: none; border: 1.5px solid var(--color-border-emphasized); border-radius: 50%; color: transparent; transition: background-color var(--duration-fast) ease, border-color var(--duration-fast) ease, color var(--duration-fast) ease, transform var(--duration-medium) cubic-bezier(.34, 1.56, .64, 1); }
+[data-kit-page] .pickcard.is-on .pick-tick { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-on-accent); transform: scale(1.08); }
+[data-kit-page] ul.pick-status { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+[data-kit-page] ul.pick-status > li { display: flex; align-items: baseline; gap: 6px; }
+[data-kit-page] .pick-flags { display: flex; flex-wrap: wrap; gap: 6px; }
+[data-kit-page] .pickcard.is-off { background: var(--color-background-muted); }
+/* A choice to tune, a part of the review, the estimate. */
+[data-kit-page] .guide-tune, [data-kit-page] .guide-review, [data-kit-page] .guide-sum, [data-kit-page] .guide-answer { display: grid; gap: var(--spacing-2); min-width: 0; padding: var(--spacing-3); border: 1px solid var(--color-border); border-radius: var(--radius-element); background: var(--color-background-muted); }
+[data-kit-page] .guide-sum { gap: 2px; }
+[data-kit-page] .guide-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-2) var(--spacing-3); min-width: 0; }
+[data-kit-page] .guide-row.between { justify-content: space-between; }
+[data-kit-page] .guide-test { display: grid; gap: var(--spacing-2); }
+[data-kit-page] .guide-answer { gap: var(--spacing-1); animation: guide-rise var(--duration-medium) ease both; }
+/* The secret, shown once: it wipes in from the left and a light passes across it, once. */
+[data-kit-page] .guide-key { display: grid; gap: var(--spacing-3); padding: var(--spacing-4); border: 1px solid var(--color-border-success); border-radius: var(--radius-container); background: var(--color-success-muted); animation: guide-rise var(--duration-medium) ease both; }
+[data-kit-page] .guide-made { display: inline-grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--color-success); color: var(--color-on-success); animation: guide-pop var(--duration-slow) cubic-bezier(.34, 1.56, .64, 1) both; }
+[data-kit-page] .guide-secret { position: relative; display: block; overflow: hidden; padding: var(--spacing-3); border-radius: var(--radius-element); background: #0C1B47; color: #EAF0FF; font-size: 15px; letter-spacing: .02em; overflow-wrap: anywhere; user-select: all; }
+[data-kit-page] .guide-secret-text { display: block; animation: guide-wipe 900ms cubic-bezier(.65, 0, .35, 1) 200ms both; }
+[data-kit-page] .guide-secret::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(234, 240, 255, .28) 50%, transparent 70%); transform: translateX(-100%); animation: guide-sheen 1200ms ease 900ms both; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-kit-page] .guide *, [data-kit-page] .guide *::before, [data-kit-page] .guide *::after { animation: none !important; transition: none !important; }
+  [data-kit-page] .pickcard:hover, [data-kit-page] .pickcard.is-on .pick-tick { transform: none !important; }
+}
