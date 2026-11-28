@@ -164,8 +164,8 @@ async function measure(page, width) {
 }
 
 // SPEC §11d (owner, 28 Nov 2026): the page fills its area. From 1280px, the content of <main> (or [role=main]) must reach
-// within 80px of the window's right edge: the page gutter (at most 32px) and 48px. A wrapper that is the only child is
-// looked through, so a capped page wrapper is caught; absolutely placed and fixed parts do not count; a page whose
+// within 80px of the window's right edge: the page gutter (at most 32px) and 48px. A bare wrapper that is the only child
+// is looked through, so a capped page wrapper is caught, but a card (its own background or border) is measured; absolutely placed and fixed parts do not count; a page whose
 // parts are all prose (paragraphs, headings, lists) passes, since prose keeps its reading measure.
 async function pagewidth(page, width) {
   if (width < 1280) return;
@@ -174,7 +174,9 @@ async function pagewidth(page, width) {
     if (!main) return null;
     const shown = (el) => { const b = el.getBoundingClientRect(); const cs = getComputedStyle(el); return b.width > 0 && b.height > 0 && cs.visibility !== 'hidden' && cs.position !== 'absolute' && cs.position !== 'fixed'; };
     let el = main;
-    for (let i = 0; i < 8; i++) { const kids = [...el.children].filter(shown); if (kids.length === 1) el = kids[0]; else break; }
+    // A part with its own ground (a card: a background or a border) is content: it is measured, not looked through.
+    const drawn = (e) => { const cs = getComputedStyle(e); return cs.backgroundColor !== 'rgba(0, 0, 0, 0)' && cs.backgroundColor !== 'transparent' || parseFloat(cs.borderTopWidth) > 0 || parseFloat(cs.borderLeftWidth) > 0; };
+    for (let i = 0; i < 8; i++) { const kids = [...el.children].filter(shown); if (kids.length === 1 && !drawn(kids[0])) el = kids[0]; else break; }
     const parts = [...el.children].filter(shown);
     const all = parts.length ? parts : [el];
     const right = (k) => k.getBoundingClientRect().right;
