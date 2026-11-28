@@ -17,7 +17,8 @@
   40px drawn; Help second from the right and the account at the far right; whether the bar floats with its
   radius, gutter and shadow (in its column, so beside AXLE's sidebar too); labels set in uppercase anywhere on the page; Help's and the account's menu
   items (on a bar with the AXLE tag, AXLE's staff menu, axle/SPEC.md §6). Scrollbars (SPEC §11c): every area that scrolls on the page has a thin scrollbar, hidden at rest (not the browser's default,
-  not removed); where the system asks for forced colours it passes. Anywhere on the page, and in both menus (SPEC §11b): controls, tabs, menu items and placeholders
+  not removed); where the system asks for forced colours it passes. Page width (SPEC §11d), at 1280px and wider: the page's
+  content reaches within 80px of the window's right edge (the gutter and 48px); a page of prose only passes. Anywhere on the page, and in both menus (SPEC §11b): controls, tabs, menu items and placeholders
   whose label ends in "…" or "...", and <a> elements with nowhere to go (no href, href="#" or javascript:),
   which are actions dressed as links. A busy control (aria-busy, or disabled with "Saving…"-style words) and
   text cut short by CSS are not counted. It saves each width's screenshot and, with --product, the matching reference PNG beside it in
@@ -162,6 +163,30 @@ async function measure(page, width) {
   report(!found.nowhere.length, width, 'Links go somewhere', found.nowhere.length ? found.nowhere.slice(0, 10).join(', ') + ': an action is a button, a link has a real href (SPEC §11b)' : 'every <a> has a real href');
 }
 
+// SPEC §11d (owner, 28 Nov 2026): the page fills its area. From 1280px, the content of <main> (or [role=main]) must reach
+// within 80px of the window's right edge: the page gutter (at most 32px) and 48px. A wrapper that is the only child is
+// looked through, so a capped page wrapper is caught; absolutely placed and fixed parts do not count; a page whose
+// parts are all prose (paragraphs, headings, lists) passes, since prose keeps its reading measure.
+async function pagewidth(page, width) {
+  if (width < 1280) return;
+  const r = await page.evaluate(() => {
+    const main = document.querySelector('main, [role="main"]');
+    if (!main) return null;
+    const shown = (el) => { const b = el.getBoundingClientRect(); const cs = getComputedStyle(el); return b.width > 0 && b.height > 0 && cs.visibility !== 'hidden' && cs.position !== 'absolute' && cs.position !== 'fixed'; };
+    let el = main;
+    for (let i = 0; i < 8; i++) { const kids = [...el.children].filter(shown); if (kids.length === 1) el = kids[0]; else break; }
+    const parts = [...el.children].filter(shown);
+    const all = parts.length ? parts : [el];
+    const right = (k) => k.getBoundingClientRect().right;
+    const widest = all.reduce((a, k) => (right(k) > right(a) ? k : a));
+    const cls = typeof widest.className === 'string' && widest.className.trim() ? '.' + widest.className.trim().split(/\s+/).slice(0, 2).join('.') : '';
+    return { gap: Math.round(document.documentElement.clientWidth - right(widest)), prose: all.every((k) => /^(P|H[1-6]|UL|OL|DL|BLOCKQUOTE)$/.test(k.tagName)), widest: widest.tagName.toLowerCase() + cls };
+  });
+  if (!r) { report(false, width, 'Page width', 'no <main> or [role=main] to measure (SPEC §11d)'); return; }
+  const ok = r.gap <= 80 || r.prose;
+  report(ok, width, 'Page width', ok ? (r.prose && r.gap > 80 ? 'prose only, kept to its measure' : `content reaches ${r.gap}px from the right edge`) : `the content stops ${r.gap}px short of the right edge (widest part: ${r.widest}); the page fills its area, no max-width on the page or a wrapper (SPEC §11d)`);
+}
+
 // SPEC §11c (owner, 19 Nov 2026): every scrollable area has a thin scrollbar that is hidden at rest. Measured on the areas that scroll
 // right now (a menu or dialog that is closed is not measured; open it and run again, or add --open CSS to click something first).
 async function scrollbars(page, width) {
@@ -235,6 +260,7 @@ for (const width of widths) {
   await page.evaluate(() => document.fonts.ready);
   await measure(page, width);
   await scrollbars(page, width);
+  await pagewidth(page, width);
   const shot = join(out, `shell-${width}.png`);
   await page.screenshot({ path: shot, clip: { x: 0, y: 0, width, height: width < 768 ? 120 : 110 } });
   await menus(page, width);

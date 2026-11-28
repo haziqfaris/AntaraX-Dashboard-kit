@@ -157,6 +157,10 @@ App SPEC §11b, in shadcn/ui's terms. Decided after a blue text link reading "Re
 
 App SPEC §11c, in the client's colours: every scrollable area has a thin (about 8px) scrollbar, hidden at rest and shown while hovered, focused or scrolling, with a transparent track, never removed, and the system's scrollbars in forced colours. The thumb is a neutral or the client's own ink at low opacity on light surfaces and a light thumb on dark ones, taken from the client's tokens; never an AntaraX colour (§3).
 
+## 8c Page width (owner, 28 Nov 2026)
+
+App SPEC §11d: every page fills the area beside its navigation, with no cap on the page or its main element; more room means more columns; prose keeps about 80 characters and a single field the width of what it holds, inside a layout that spans the page.
+
 ## 9 How to prove it
 
 | Check | Passes when |
@@ -168,6 +172,7 @@ App SPEC §11c, in the client's colours: every scrollable area has a thin (about
 | **Credit** | "Built by REKA" on the sign-in foot, the account menu foot and the footer, and nowhere else |
 | **Legal** | The legal pages name the client, not REKA or AntaraX |
 | **Buttons and links** | `node tools/check-shell.mjs` finds no label or placeholder ending in "…" or "..." and no `<a>` without a real `href`; a search of the code finds no `variant="link"` on an action; Remove and Delete are `destructive` (§8a) |
+| **Page width** | `node tools/check-shell.mjs` at 1280px and 1920px finds every page's content reaching the right gutter (app SPEC §11d) |
 | **Shell checks** | app SPEC §17's checks, except the ones about AntaraX's look |
 
 ## 10 Decisions

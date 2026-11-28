@@ -36,8 +36,8 @@
 [data-kit-page] .stepchip-t { display: grid; gap: 0; min-width: 0; }
 [data-kit-page] .stepchip-s { display: flex; align-items: center; gap: 6px; }
 
-/* A form in numbered steps (the kit's step form): one column, at most 760px, the actions last. */
-[data-kit-page] form.stepform { display: grid; gap: var(--spacing-4); max-width: 760px; }
+/* A form in numbered steps (the kit's step form): the width of the page (app/SPEC.md §11d), fields in rows that fill, the actions last. */
+[data-kit-page] form.stepform { display: grid; gap: var(--spacing-4); }
 [data-kit-page] fieldset.formstep { margin: 0; padding: var(--spacing-4) 0 0; border: 0; border-top: 1px solid var(--color-border); display: grid; gap: var(--spacing-3); min-width: 0; }
 [data-kit-page] fieldset.formstep > legend { display: flex; align-items: center; gap: var(--spacing-2); padding: 0; margin-bottom: var(--spacing-3); float: left; width: 100%; }
 [data-kit-page] fieldset.formstep > legend + * { clear: both; }
@@ -74,7 +74,7 @@
 [data-kit-page] dl.facts dd { margin: 0; color: var(--color-text-primary); overflow-wrap: anywhere; }
 @media (max-width: 600px) { [data-kit-page] dl.facts { grid-template-columns: 1fr; gap: 0; } [data-kit-page] dl.facts dd { margin-bottom: var(--spacing-2); } }
 /* Connections: a card per product. */
-[data-kit-page] .conncards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr)); gap: var(--spacing-3); }
+[data-kit-page] .conncards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: var(--spacing-3); }
 /* A cap's use as the browser's meter, beside its words. */
 [data-kit-page] meter { width: 100px; height: 10px; }
 
@@ -83,7 +83,7 @@
    at all under prefers-reduced-motion. */
 [data-kit-page] .guide { display: grid; gap: var(--spacing-4); }
 [data-kit-page] .guide-live { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-[data-kit-page] .guide-panel { display: grid; gap: var(--spacing-4); max-width: 880px; min-width: 0; padding: var(--spacing-4); border: 1px solid var(--color-border); border-radius: var(--radius-container); background: var(--color-background-card); animation: guide-in var(--duration-medium) cubic-bezier(.2, .8, .2, 1) both; }
+[data-kit-page] .guide-panel { display: grid; gap: var(--spacing-4); min-width: 0; padding: var(--spacing-4); border: 1px solid var(--color-border); border-radius: var(--radius-container); background: var(--color-background-card); animation: guide-in var(--duration-medium) cubic-bezier(.2, .8, .2, 1) both; }
 [data-kit-page] .guide-panel > *, [data-kit-page] .guide-panel .guide-key > *, [data-kit-page] .guide-panel .guide-test > * { min-width: 0; }
 [data-kit-page] .guide[data-dir="back"] .guide-panel { animation-name: guide-back; }
 @keyframes guide-in { from { opacity: 0; transform: translateX(24px); } }
@@ -97,7 +97,9 @@
 [data-kit-page] .guide-n { display: inline-grid; place-items: center; width: 30px; height: 30px; flex: none; border-radius: 50%; background: var(--color-accent-muted); color: var(--color-text-primary); font-weight: 600; font-variant-numeric: tabular-nums; }
 [data-kit-page] .guide-client { display: grid; gap: var(--spacing-2); padding: var(--spacing-3); border: 1px solid var(--color-border-info); border-radius: var(--radius-element); background: var(--color-info-muted); animation: guide-rise var(--duration-medium) ease both; }
 /* Choice cards: a grid; a card lifts under the pointer, and its tick pops in when it is chosen. */
-[data-kit-page] .pickcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: var(--spacing-3); }
+[data-kit-page] .pickcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: var(--spacing-3); }
+/* Balanced rows (app/SPEC.md §11d): set --cols to ceil(n / ceil(n / 4)) on the grid; six choices are two rows of three. */
+@media (min-width: 1100px) { [data-kit-page] .pickcards[style*="--cols"] { grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); } }
 [data-kit-page] .pickcard { transition: transform var(--duration-fast) ease, box-shadow var(--duration-fast) ease; }
 @media (hover: hover) { [data-kit-page] .pickcard:not(.is-off):hover { transform: translateY(-2px); box-shadow: var(--shadow-low); } }
 [data-kit-page] .pick-tick { display: inline-grid; place-items: center; width: 22px; height: 22px; flex: none; border: 1.5px solid var(--color-border-emphasized); border-radius: 50%; color: transparent; transition: background-color var(--duration-fast) ease, border-color var(--duration-fast) ease, color var(--duration-fast) ease, transform var(--duration-medium) cubic-bezier(.34, 1.56, .64, 1); }
