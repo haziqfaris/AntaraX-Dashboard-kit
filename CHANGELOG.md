@@ -8,6 +8,12 @@ The Dashboard kit has one version for all its standards (owner, 16 Oct 2026). Pr
 
 Every change needs an owner decision, recorded in the brand kit's `guide/10-decisions-log.md`.
 
+## 1.24.1 · 28 Nov 2026
+
+Patch: a tool only (owner, haziqfaris, 28 Nov 2026, the same decision as 1.24.0).
+
+- **`tools/check-shell.mjs` page width:** a lone child with its own ground (a card: a background or a border) is measured, not looked through. A short page whose one card spans the page, such as a page not found, passed the rule but failed the check, which measured the card's few lines of text inside it. A bare wrapper is still looked through, so a capped page wrapper is still caught.
+
 ## 1.24.0 · 28 Nov 2026
 
 Minor: a rule tightened, with a recorded way out (owner, haziqfaris, 28 Nov 2026: "why does the UI skewed to the left instead of using all the spaces properly? make sure all the other pages are standardized and update the antaraX kit to make sure there are no unnecessary spaces"; brand kit guide/10). Juru's Post a job, a guided flow, sat in the left 980px of a 1600px page; the kit's own mocks and templates had taught the cap.
