@@ -17,7 +17,7 @@ Minor: a rule tightened, with a recorded way out (owner, haziqfaris, 28 Nov 2026
 - **Balanced rows:** a short set shares its rows evenly, at most four across; six choices are two rows of three, never five and one (§11d).
 - **The mocks fill the page:** every AXLE mock and both project AXLE mocks drop the 1320px (980px on Create an organisation) cap on `main`.
 - **`tools/check-shell.mjs` measures it** at 1280px and wider: a page's content must reach within 80px of the window's right edge (the gutter and 48px), looking through a page wrapper that is the only child; a page of prose only passes. `tools/check-product.mjs` runs it on every page a product lists.
-- **Adopt:** remove every cap on a page and its wrappers, make card and choice grids `auto-fill`, put a second part beside the first, run `tools/check-product.mjs` at 1280 and 1920px (add 1920 to `widths` in `kit-pages.json`), and pin the lock to 1.24.0. A page that must stay narrow is recorded in the lock's `exceptions` as "Page width" with its reason.
+- **Adopt:** remove every cap on a page and its wrappers, make card and choice grids `auto-fit`, with balanced rows, put a second part beside the first, run `tools/check-product.mjs` at 1280 and 1920px (add 1920 to `widths` in `kit-pages.json`), and pin the lock to 1.24.0. A page that must stay narrow is recorded in the lock's `exceptions` as "Page width" with its reason.
 
 ## 1.23.0 · 27 Nov 2026
 
