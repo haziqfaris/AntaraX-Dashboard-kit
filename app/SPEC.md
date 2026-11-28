@@ -370,6 +370,16 @@ Every scrollable area in every AntaraX product (the page, the sidebar and AXLE b
 - **Keyboard:** a scrollable area that holds nothing focusable has `tabindex="0"` and a name (`aria-label`), so it can be scrolled with the keys and its scrollbar shows.
 - Checked by `node tools/check-shell.mjs` (every area that scrolls has a thin scrollbar, hidden at rest); in an area the check cannot open (a closed menu or dialog), by hand (§17).
 
+## 11d Page width
+
+Decided by the owner on 28 Nov 2026 (haziqfaris: "why does the UI skewed to the left instead of using all the spaces properly? make sure all the other pages are standardized and update the antaraX kit to make sure there are no unnecessary spaces"), after a guided flow sat in the left 980px of a 1600px page with the rest empty. **This is the one source of the rule**; AXLE (axle/SPEC.md §6.4) and client projects (project/SPEC.md §8c) point here.
+
+- **The page fills its area.** The area beside the sidebar, or under the bar where there is none, is the page. Its content spans it, from the left gutter to the right one (the bar's: 24 to 32px, 12px on phones). No `max-width` on the page, its `main`, a page wrapper, a panel, a guided flow or a step form, and nothing centred in a narrow column.
+- **More room means more columns, not wider things.** Cards, tiles and choices sit in grids that add a column as the page widens (`repeat(auto-fill, minmax(min(100%, 260px), 1fr))`). A page with two parts (a form and its review, a list and the chosen record, an editor and its rules) puts the second beside the first from 1100px (`.split`), never under a narrow first part.
+- **What keeps its own width:** running prose (a paragraph longer than a line) keeps a reading measure of about 80 characters; a single field keeps the width of what it holds (a time zone, a code: at most 360px), in a row of fields that fills (`.formrow`); a dialog, a menu, a toast, a sign-in card and a chat's message column keep theirs. None of these makes the page short: each sits in a layout that spans the page, with its explanation, its review or the next part beside it.
+- **The one exception** is a page with almost nothing on it (an empty state, a page not found): its few lines sit at the top left, in the gutter.
+- Checked by `node tools/check-shell.mjs` at 1280px and wider: the page's content reaches within 48px of the page's right edge. A page that holds only prose, or a difference recorded in the product's lock with its reason, passes.
+
 ## 12 Logo, loading and motion
 
 The brand kit decides the motion system (guide 04 animations, guide 12 signature moments, guide 14 loading). In the shell:
@@ -580,6 +590,7 @@ In every customer app, whatever its own design:
 | **Forms** | A failed submit keeps everything typed; a double click submits once; leaving with unsaved changes asks first |
 | **Buttons and links** | `node tools/check-shell.mjs` finds no control, menu item, tab or placeholder ending in "…" or "...", and no `<a>` without a real `href`. By hand, on the longest list and a record page: every action is a button, Remove and Delete are destructive buttons, and every link goes to another page or address (§11b) |
 | **Scrollbars** | `node tools/check-shell.mjs` finds every scrolling area thin and hidden at rest. By hand: open the longest menu, a dialog with a long body and a table wider than its card; each shows no scrollbar until hovered, focused or scrolled, the thumb fits the surface (light on dark, navy on light), and with forced colours on the system's scrollbars show (§11c) |
+| **Page width** | `node tools/check-shell.mjs` at 1280px and 1920px finds every page's content reaching the right gutter (§11d). By hand: at 1920px, no page has an empty band beside its content, and grids of cards add columns rather than stretch |
 | **Speed** | Lighthouse on a mid-range phone profile: LCP under 2.5 s, INP under 200 ms, CLS under 0.1; a reload shows data at once from cache |
 | **Security** | Security headers present (HSTS, CSP, frame-ancestors); sign-in slows after 5 failures; personal data absent from logs and analytics |
 | **Accessibility** | The brand kit 13 §10 baseline; every shell control has a name; the account menu traps focus and closes on Escape |

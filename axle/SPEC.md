@@ -225,6 +225,10 @@ Every scrollable area in AXLE has the shell's scrollbar, decided in [../app/SPEC
 - **Light surfaces** (the page, cards, tables, dialogs) use `--axle-scroll-thumb-light` and `-hover`: a neutral navy thumb.
 - Width and radius are `--axle-scroll-width` and `--axle-scroll-radius`. The CSS is `axle/reference/scrollbars.css`; `axle/mock/Phone.dc.html` draws the dark drawer with it.
 
+### 6.4 Page width (owner, 28 Nov 2026)
+
+Every AXLE page fills the area beside the sidebar, decided in [../app/SPEC.md](../app/SPEC.md) §11d (the one source of the rule): no `max-width` on `main`, a page wrapper, a guided flow or a step form; more room means more columns; prose keeps about 80 characters and a single field the width of what it holds, inside a layout that spans the page. The mocks in `axle/mock/` and the templates in `astryx/templates/` follow it.
+
 ### 6.1 Organisation scope
 
 One picker sets the organisation for every page that can be scoped. Its value is in the address (`?org=acme-plastics`), and "All organisations" is the default. Staff see no organisation's data on scoped pages until they pick one, or choose "All", which shows only platform-level rows (std QA "Separation"; ISO Generator).
@@ -866,6 +870,7 @@ The std QA checks, plus the ones this spec adds. Every product AXLE passes these
 | **R8 troubleshoot** | From a Dashboard alert, Troubleshoot opens R8 on that organisation and asset with outside evidence, a timeline and only safe actions; the reading and the conclusion are stored apart |
 | **R8 safety** | No Level 3 action exists; every R8 action appears in the audit log with a reason |
 | **Buttons and links** | `node tools/check-shell.mjs` on three AXLE pages finds no control, menu item, tab or placeholder ending in "…" or "...", and no `<a>` without a real `href`; by hand, every action is a button and Remove, Delete and Suspend are destructive buttons (§14.2) |
+| **Page width** | `node tools/check-shell.mjs` at 1280px and 1920px on every AXLE page finds its content reaching the right gutter (§6.4) |
 | **Backend exists** | No R8 page or Observe item is empty or "coming soon"; a Base product shows no Incidents or Observe |
 | **Look** | Dark sidebar and top bar, light page, the orange `AXLE` tag and accent, the AntaraX A, "AXLE · Product" in the page title; the focus ring is visible on every control in both; axe passes |
 
